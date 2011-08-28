@@ -1,0 +1,388 @@
+
+/*
+ * Copyright (C) 2011 Archie L. Cobbs. All rights reserved.
+ *
+ * $Id$
+ */
+
+package org.dellroad.stuff.io;
+
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import org.dellroad.stuff.java.CheckedExceptionWrapper;
+import org.dellroad.stuff.java.Predicate;
+import org.dellroad.stuff.java.TimedWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * An {@link OutputStream} that performs writes using a background thread, so that
+ * write, flush, and close operations never block.
+ * <p/>
+ * <p>
+ * If the underlying output stream throws an {@link IOException} during any operation,
+ * this instance will re-throw the exception for all subsequent operations.
+ * </p>
+ * <p/>
+ * <p>
+ * Instances use an internal buffer whose size is configured at construction time;
+ * if the buffer overflows, a {@link BufferOverflowException} is thrown.
+ * </p>
+ * <p/>
+ * <p>
+ * Instances of this class are thread safe, and moreover writes are atomic: if multiple threads are writing
+ * at the same time the bytes written in any single method invocation are written contiguously to the
+ * underlying output.
+ * </p>
+ */
+public class AsyncOutputStream extends FilterOutputStream {
+
+    protected final Logger log = LoggerFactory.getLogger(getClass());
+
+    private final String name;
+    private final byte[] buf;           // output buffer
+    private int count;                  // number of bytes in output buffer ready to be written
+    private int flushMark = -1;         // buffer byte at which a flush is requested, or -1 if none
+    private Thread thread;              // async writer thread
+    private IOException exception;      // exception caught by async thread
+    private boolean closed;             // this instance has been close()'d
+
+    /**
+     * Constructor.
+     *
+     * @param out     underlying output stream
+     * @param bufsize maximum number of bytes we can buffer
+     * @param name    name for this instance; used to create the name of the background thread
+     */
+    public AsyncOutputStream(OutputStream out, int bufsize, String name) {
+        super(out);
+        if (out == null)
+            throw new IllegalArgumentException("null output");
+        this.name = name;
+        this.buf = new byte[bufsize];
+
+        // Start worker thread
+        this.thread = new Thread(this.name) {
+            @Override
+            public void run() {
+                AsyncOutputStream.this.threadMain();
+            }
+        };
+        this.thread.setDaemon(true);
+        this.thread.start();
+    }
+
+    /**
+     * Write data.
+     *
+     * <p>
+     * This method will never block. To effect a normal blocking write, use {@link #waitForSpace} first.
+     * </p>
+     *
+     * @param b byte to write (lower 8 bits)
+     * @throws IOException             if an exception has been thrown by the underlying stream
+     * @throws IOException             if this instance has been closed
+     * @throws BufferOverflowException if the buffer does not have room for the new byte
+     */
+    @Override
+    public void write(int b) throws IOException {
+        this.write(new byte[] { (byte)b }, 0, 1);
+    }
+
+    /**
+     * Write data.
+     *
+     * <p>
+     * This method will never block. To effect a normal blocking write, invoke {@link #waitForSpace} first.
+     * </p>
+     *
+     * @param data bytes to write
+     * @param off  starting offset in buffer
+     * @param len  number of bytes to write
+     * @throws IOException              if an exception has been thrown by the underlying stream
+     * @throws IOException              if this instance has been closed
+     * @throws BufferOverflowException  if the buffer does not have room for the new data
+     * @throws IllegalArgumentException if {@code len} is negative
+     */
+    @Override
+    public synchronized void write(byte[] data, int off, int len) throws IOException {
+
+        // Check exception conditions
+        this.checkExceptions();
+        if (this.count + len > this.buf.length)
+            throw new BufferOverflowException(len + " more byte(s) would exceed the " + this.buf.length + " byte buffer");
+        if (len < 0)
+            throw new IllegalArgumentException("len = " + len);
+        if (len == 0)
+            return;
+
+        // Add data to buffer
+        System.arraycopy(data, off, this.buf, this.count, len);
+        this.count += len;
+
+        // Wakeup writer thread
+        this.notifyAll();
+    }
+
+    /**
+     * Flush output. This method will cause the underlying stream to be flushed once all of the data written to this
+     * instance at the time this method is invoked has been written to it.
+     *
+     * <p>
+     * If additional data is written and then a second flush is requested before the first flush has actually occurred,
+     * the first flush will be canceled and only the second flush will be applied. Normally this is not a problem because
+     * the act of writing more data and then flushing forces earlier data to be flushed as well.
+     * </p>
+     *
+     * <p>
+     * This method will never block. To block until the underlying flush operation completes, invoke {@link #waitForIdle}.
+     * </p>
+     *
+     * @throws IOException if this instance has been closed
+     * @throws IOException if an exception has been detected on the underlying stream
+     * @throws IOException if the current thread is interrupted; the nested exception will an {@link InterruptedException}
+     */
+    @Override
+    public synchronized void flush() throws IOException {
+        this.checkExceptions();
+        this.flushMark = this.count;
+        this.notifyAll();                               // wake up writer thread
+    }
+
+    /**
+     * Close this instance. This will (eventually) close the underlying output stream.
+     *
+     * <p>
+     * If this instance has already been closed, nothing happens.
+     * </p>
+     *
+     * <p>
+     * This method will never block. To block until the underlying close operation completes, invoke {@link #waitForIdle}.
+     * </p>
+     *
+     * @throws IOException if an exception has been detected on the underlying stream
+     */
+    @Override
+    public synchronized void close() throws IOException {
+        if (this.closed)
+            return;
+        this.closed = true;
+        this.notifyAll();                               // wake up writer thread
+    }
+
+    /**
+     * Get the exception thrown by the underlying output stream, if any.
+     *
+     * @return thrown exception, or {@code null} if none has been thrown by the underlying stream
+     */
+    public synchronized IOException getException() {
+        return this.exception;
+    }
+
+    /**
+     * Get the capacity of this instance's output buffer.
+     *
+     * @return output buffer capacity configured at construction time
+     */
+    public synchronized int getBufferSize() {
+        return this.buf.length;
+    }
+
+    /**
+     * Get the number of free bytes remaining in the output buffer.
+     *
+     * @return current number of available bytes in the output buffer
+     * @throws IOException              if this instance is or has been closed
+     * @throws IOException              if an exception has been detected on the underlying stream
+     * @see #waitForSpace
+     */
+    public synchronized int availableBufferSpace() throws IOException {
+        this.checkExceptions();
+        return this.buf.length - this.count;
+    }
+
+    /**
+     * Determine if there is outstanding work still to be performed (writes, flushes, and/or close operations)
+     * by the background thread.
+     *
+     * @throws IOException              if this instance is or has been closed
+     * @throws IOException              if an exception has been detected on the underlying stream
+     * @see #waitForIdle
+     */
+    public synchronized boolean isWorkOutstanding() throws IOException {
+        this.checkExceptions();
+        return this.threadHasWork();
+    }
+
+    /**
+     * Wait for buffer space availability.
+     *
+     * @param numBytes amount of buffer space required
+     * @param timeout  maximum time to wait in milliseconds, or zero for infinite
+     * @return true if space was found, false if time expired
+     * @throws IOException              if this instance is or has been closed
+     * @throws IOException              if an exception has been detected on the underlying stream
+     * @throws IllegalArgumentException if {@code numBytes} is greater than the configured buffer size
+     * @throws IllegalArgumentException if {@code timeout} is negative
+     * @throws InterruptedException     if the current thread is interrupted
+     * @see #availableBufferSpace
+     */
+    public boolean waitForSpace(final int numBytes, long timeout) throws IOException, InterruptedException {
+        if (numBytes > this.buf.length)
+            throw new IllegalArgumentException("numBytes (" + numBytes + ") > buffer size (" + this.buf.length + ")");
+        return this.waitForPredicate(timeout, new Predicate() {
+            @Override
+            public boolean test() {
+                return AsyncOutputStream.this.buf.length - AsyncOutputStream.this.count >= numBytes;
+            }
+        });
+    }
+
+    /**
+     * Wait for all outstanding work to complete.
+     *
+     * @param timeout maximum time to wait in milliseconds, or zero for infinite
+     * @return true for success, false if time expired
+     * @throws IOException              if this instance is or has been closed
+     * @throws IOException              if an exception has been detected on the underlying stream
+     * @throws IllegalArgumentException if {@code timeout} is negative
+     * @throws InterruptedException     if the current thread is interrupted
+     * @see #isWorkOutstanding
+     */
+    public synchronized boolean waitForIdle(long timeout) throws IOException, InterruptedException {
+        return this.waitForPredicate(timeout, new Predicate() {
+            @Override
+            public boolean test() {
+                return !AsyncOutputStream.this.threadHasWork();
+            }
+        });
+    }
+
+    /**
+     * Check for exceptions.
+     *
+     * @throws IOException if this instance has been closed
+     * @throws IOException if an exception has been detected on the underlying stream
+     */
+    private void checkExceptions() throws IOException {
+        if (this.closed)
+            throw new IOException("instance has been closed");
+        if (this.exception != null)
+            throw new IOException("exception from underlying output stream", this.exception);
+    }
+
+    /**
+     * Determine if there is outstanding work still to be performed (writes, flushes, and/or close operations)
+     * by the background thread.
+     */
+    private boolean threadHasWork() {
+        return this.count > 0 || this.flushMark != -1 || this.closed;
+    }
+
+    /**
+     * Writer thread main entry point.
+     */
+    private void threadMain() {
+        try {
+            this.runLoop();
+        } catch (Throwable t) {
+            synchronized (this) {
+                this.exception = t instanceof IOException ? (IOException)t : new IOException("caught unexpected exception", t);
+                this.notifyAll();                       // wake up sleepers in waitForSpace() and waitForIdle()
+            }
+        } finally {
+            synchronized (this) {
+                this.thread = null;
+                this.notifyAll();                       // wake up sleepers in waitForIdle()
+            }
+        }
+    }
+
+    /**
+     * Async writer thread main loop.
+     */
+    private void runLoop() throws IOException, InterruptedException {
+        while (true) {
+
+            // Wait for something to do
+            synchronized (this) {
+                while (!this.threadHasWork())
+                    this.wait();                        // will be woken up by write(), flush(), or close()
+            }
+
+            // Determine what needs to be done
+            int wlen;
+            boolean flush;
+            boolean close;
+            synchronized (this) {
+                wlen = this.count;
+                flush = this.flushMark == 0;
+                close = this.closed;
+            }
+
+            // First priority: any data to write?
+            if (wlen > 0) {
+
+                // Write data
+                this.out.write(this.buf, 0, wlen);
+
+                // Shift data in buffer
+                synchronized (this) {
+                    System.arraycopy(this.buf, wlen, this.buf, 0, this.count - wlen);
+                    this.count -= wlen;
+                    if (this.flushMark != -1)
+                        this.flushMark = Math.max(0, this.flushMark - wlen);
+                    this.notifyAll();                   // wake up sleepers in waitForSpace() and waitForIdle()
+                }
+                continue;
+            }
+
+            // Second priority: is a flush required?
+            if (flush) {
+
+                // Flush output
+                this.out.flush();
+
+                // Update flush mark
+                synchronized (this) {
+                    if (this.flushMark == 0) {
+                        this.flushMark = -1;
+                        this.notifyAll();               // wake up sleepers in waitForIdle()
+                    }
+                }
+                continue;
+            }
+
+            // Third priority:  is a close required?
+            if (close) {
+                this.out.close();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Wait for some condition to become true. Of course somebody has to wake us up when it becomes true.
+     */
+    private synchronized boolean waitForPredicate(long timeout, final Predicate predicate)
+      throws IOException, InterruptedException {
+        try {
+            return TimedWait.wait(this, timeout, new Predicate() {
+                @Override
+                public boolean test() {
+                    try {
+                        checkExceptions();
+                    } catch (IOException e) {
+                        throw new CheckedExceptionWrapper(e);
+                    }
+                    return predicate.test();
+                }
+            });
+        } catch (CheckedExceptionWrapper e) {
+            throw (IOException)e.getException();
+        }
+    }
+}
+

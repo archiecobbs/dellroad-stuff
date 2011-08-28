@@ -1,0 +1,65 @@
+
+Version 1.0.119 Released Aug 28, 2011
+
+    - Changed TimedWait to use nanoTime() instead of currentTimeMillis()
+    - Added ThreadParkingLot, ParseContext, DateEncoder, DoubleFormat, LinkedList
+
+Version 1.0.100 Released May 10, 2011
+
+    - Added parse() methods taking explicit target to SimpleObjectParser
+    - Fixed bug in SimpleObjectParser.parse() parsing regex like "..(({foo}.."
+    - Fixed bug in StringEncoder.enquote(): nested quotes were not being escaped
+    - Added StringEncoder.dequote() and StringEncoder.enquotedLength()
+
+Version 1.0.92 Released April 25, 2011
+
+    - Added SimpleObjectParser.parse() method taking a "named subgroup" regex
+    - Added BigFatLock.isLockHeld() and BigFatLockHeldAdvice
+    - Added NullModemOutputStream
+
+Version 1.0.74 Released April 19, 2011
+
+    - AsyncInputStream now reports ALL exceptions to handleException()
+    - Simplified and fixed bugs in AsyncOutputStream
+    - Added NullModemInputStream
+
+Version 1.0.68 Released April 11, 2011
+
+    - Added PrimitiveSwitchAdapter, ListableHashSet, NamedArgumentFormatter
+    - Avoid spin loop in AsyncOutputStream from unexpected exceptions
+
+Version 1.0.60 Released March 10, 2011
+
+    - Fix bug that caused libreadline-java native code to crash
+    - Added Vaadin LoggingApplication support superclass
+    - Added WebContextApplicationServlet as a replacement for
+      AutowiringApplicationServlet, which is now deprecated
+    - Update and fix extractSchemaUpdates.xsl
+    - Added ContextCleanupListener
+    - Javadoc fixes and improvements
+
+Version 1.0.43 Released Februrary 20, 2011
+
+    - Added AsyncInputStream
+    - Added extractSchemaUpdates.xsl to extract SQL for "schemacheck"
+    - Add suport for the <dellroad-stuff:sql-update> XML tag
+    - Fix bugs in the custom Spring tag XSD schema
+    - Fix bugs in MapEntry that made it not work for marshalling
+    - Javadoc fixes and improvements
+
+Version 1.0.33 Released Februrary 18, 2011
+
+    - Improvements and bug fixes to schema updates
+    - Add Spring XML custom tags for schema updates
+    - Make MainClass.run() public
+    - Added MainClass.parsePropertyFlags()
+    - Added ResourceReaderFactoryBean
+    - Improvements to MapEntry
+    - Added JiBXUtil
+    - Javadoc fixes and improvements
+
+Version 1.0.3 Released February 5, 2011
+
+    - Initial release
+
+$Id$
