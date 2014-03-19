@@ -1,0 +1,5 @@
+#summary Where to download dellroad-stuff
+
+You can download *dellroad-stuff* from [http://search.maven.org/#search|ga|1|dellroad-stuff Maven Central].
+
+Changes are noted [http://dellroad-stuff.googlecode.com/svn/trunk/CHANGES.txt here].
