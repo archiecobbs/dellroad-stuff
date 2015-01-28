@@ -1,5 +1,13 @@
 #summary Where to download dellroad-stuff
 
-You can download *dellroad-stuff* from [http://search.maven.org/#search|ga|1|dellroad-stuff Maven Central].
+You can download *dellroad-stuff* from [http://search.maven.org/#search|ga|1|dellroad-stuff Maven Central directly] or use this dependency in your build: 
+
+{{{
+<dependency>
+    <groupId>org.dellroad</groupId>
+    <artifactId>dellroad-stuff</artifactId>
+    <version>1.0.964</version>
+</dependency>
+}}}
 
 Changes are noted [http://dellroad-stuff.googlecode.com/svn/trunk/CHANGES.txt here].
