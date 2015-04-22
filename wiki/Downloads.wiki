@@ -6,7 +6,7 @@ You can download *dellroad-stuff* from [http://search.maven.org/#search|ga|1|del
 <dependency>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
-    <version>1.0.964</version>
+    <version>1.0.972</version>
 </dependency>
 }}}
 
