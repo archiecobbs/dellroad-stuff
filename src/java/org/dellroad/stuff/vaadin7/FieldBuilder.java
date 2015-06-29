@@ -55,7 +55,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * <p>
  * This class supports two types of annotations: first, the {@link ProvidesField &#64;ProvidesField} annotation annotates
  * a method that knows how to build an {@link AbstractField} suitable for editing the bean property specified by
- * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analgous to
+ * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analogous to
  * {@link ProvidesProperty &#64;ProvidesProperty}, except that it defines an editing field rather than a container property.
  * </p>
  *
@@ -191,13 +191,18 @@ public class FieldBuilder {
         // Scan getters for FieldBuilder.* annotations other than FieldBuidler.ProvidesField
         final HashMap<String, Field<?>> map = new HashMap<>();              // contains @FieldBuilder.* fields
         for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
-            final String propertyName = entry.getKey();
+            String propertyName = entry.getKey();
             final Method method = entry.getValue();
 
             // Get annotations, if any
             final List<AnnotationApplier<?, ?>> applierList = this.buildApplierList(method);
             if (applierList.isEmpty())
                 continue;
+
+            // If @FieldBuilder.FieldName is also provided, use the specified field name
+            final FieldName fieldName = method.getAnnotation(FieldName.class);
+            if (fieldName != null)
+                propertyName = fieldName.value();
 
             // Build field
             map.put(propertyName, this.buildField(applierList, "method " + method));
@@ -1428,6 +1433,35 @@ public class FieldBuilder {
          * Get the {@link PasswordField} type that will edit the property.
          */
         Class<? extends com.vaadin.ui.PasswordField> type() default com.vaadin.ui.PasswordField.class;
+    }
+
+    /**
+     * Used in conjunction with the other annotations such as {@link FieldBuilder.TextField &#64;FieldBuilder.TextField}, etc.,
+     * to specify a Vaadin field name different from the default Java bean property name.
+     *
+     * <p>
+     * An example showing a field named {@code "lastName"} instead of the default {@code "LName"}:
+     * <blockquote><pre>
+     * // Use a 10x40 TextArea to edit the "lastName" property
+     * &#64;FieldBuilder.AbstractField(caption = "Last Name:")
+     * &#64;FieldBuilder.TextArea(columns = 40, rows = 10)
+     * <b>&#64;FieldBuilder.FieldName("lastName")</b>
+     * public String getLName() {
+     *     return this.lName;
+     * }
+     * </pre></blockquote>
+     *
+     * @see FieldBuilder
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface FieldName {
+
+        /**
+         * The name of the Vaadin field used to edit Java bean property associated with the annotated getter method.
+         */
+        String value();
     }
 }
 
