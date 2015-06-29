@@ -191,21 +191,19 @@ public class FieldBuilder {
         // Scan getters for FieldBuilder.* annotations other than FieldBuidler.ProvidesField
         final HashMap<String, Field<?>> map = new HashMap<>();              // contains @FieldBuilder.* fields
         for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
-            String propertyName = entry.getKey();
+            final String propertyName = entry.getKey();
             final Method method = entry.getValue();
 
             // Get annotations, if any
-            final List<AnnotationApplier<?, ?>> applierList = this.buildApplierList(method);
+            final String[] fieldName = new String[] { null };
+            final List<AnnotationApplier<?, ?>> applierList = this.buildApplierList(method, fieldName);
             if (applierList.isEmpty())
                 continue;
-
-            // If @FieldBuilder.FieldName is also provided, use the specified field name
-            final FieldName fieldName = method.getAnnotation(FieldName.class);
-            if (fieldName != null)
-                propertyName = fieldName.value();
+            if (fieldName[0] == null)
+                fieldName[0] = propertyName;
 
             // Build field
-            map.put(propertyName, this.buildField(applierList, "method " + method));
+            map.put(fieldName[0], this.buildField(applierList, "method " + method));
         }
 
         // Scan all methods for @FieldBuilder.ProvidesField annotations
@@ -437,10 +435,12 @@ public class FieldBuilder {
      * The method must be a getter method taking no arguments. Annotations are ordered so that annotations
      * on a method in type X appear before annotations on an overridden method in type Y, a supertype of X.
      *
+     * @param method annotated method
+     * @param fieldName length one array containing field name
      * @throws IllegalArgumentException if {@code method} is null
      * @throws IllegalArgumentException if {@code method} has parameters
      */
-    protected List<AnnotationApplier<?, ?>> buildApplierList(Method method) {
+    protected List<AnnotationApplier<?, ?>> buildApplierList(Method method, String[] fieldName) {
 
         // Sanity check
         if (method == null)
@@ -450,11 +450,11 @@ public class FieldBuilder {
 
         // Recurse
         final ArrayList<AnnotationApplier<?, ?>> list = new ArrayList<>();
-        this.buildApplierList(method.getDeclaringClass(), method.getName(), list);
+        this.buildApplierList(method.getDeclaringClass(), method.getName(), list, fieldName);
         return list;
     }
 
-    private void buildApplierList(Class<?> type, String methodName, List<AnnotationApplier<?, ?>> list) {
+    private void buildApplierList(Class<?> type, String methodName, List<AnnotationApplier<?, ?>> list, String[] fieldName) {
 
         // Terminate recursion
         if (type == null)
@@ -468,27 +468,35 @@ public class FieldBuilder {
             method = null;
         }
         if (method != null)
-            list.addAll(this.buildDirectApplierList(method));
+            list.addAll(this.buildDirectApplierList(method, fieldName));
 
         // Recurse on interfaces
         for (Class<?> iface : type.getInterfaces())
-            this.buildApplierList(iface, methodName, list);
+            this.buildApplierList(iface, methodName, list, fieldName);
 
         // Recurse on superclass
-        this.buildApplierList(type.getSuperclass(), methodName, list);
+        this.buildApplierList(type.getSuperclass(), methodName, list, fieldName);
     }
 
     /**
      * Find all relevant annotations declared directly on the given {@link Method}.
      *
      * @param method method to inspect
+     * @param fieldName length one array containing field name
      * @throws IllegalArgumentException if {@code method} is null
      */
-    protected List<AnnotationApplier<?, ?>> buildDirectApplierList(Method method) {
+    protected List<AnnotationApplier<?, ?>> buildDirectApplierList(Method method, String[] fieldName) {
 
         // Sanity check
         if (method == null)
             throw new IllegalArgumentException("null method");
+
+        // If @FieldBuilder.FieldName is also provided, use the specified field name
+        if (fieldName[0] == null) {
+            final FieldName fieldNameAnnotation = method.getAnnotation(FieldName.class);
+            if (fieldNameAnnotation != null)
+                fieldName[0] = fieldNameAnnotation.value();
+        }
 
         // Build list
         final ArrayList<AnnotationApplier<?, ?>> list = new ArrayList<>();
