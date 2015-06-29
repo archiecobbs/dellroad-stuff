@@ -55,7 +55,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * <p>
  * This class supports two types of annotations: first, the {@link ProvidesField &#64;ProvidesField} annotation annotates
  * a method that knows how to build an {@link AbstractField} suitable for editing the bean property specified by
- * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analogous to
+ * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analgous to
  * {@link ProvidesProperty &#64;ProvidesProperty}, except that it defines an editing field rather than a container property.
  * </p>
  *
@@ -195,15 +195,12 @@ public class FieldBuilder {
             final Method method = entry.getValue();
 
             // Get annotations, if any
-            final String[] fieldName = new String[] { null };
-            final List<AnnotationApplier<?, ?>> applierList = this.buildApplierList(method, fieldName);
+            final List<AnnotationApplier<?, ?>> applierList = this.buildApplierList(method);
             if (applierList.isEmpty())
                 continue;
-            if (fieldName[0] == null)
-                fieldName[0] = propertyName;
 
             // Build field
-            map.put(fieldName[0], this.buildField(applierList, "method " + method));
+            map.put(propertyName, this.buildField(applierList, "method " + method));
         }
 
         // Scan all methods for @FieldBuilder.ProvidesField annotations
@@ -435,12 +432,10 @@ public class FieldBuilder {
      * The method must be a getter method taking no arguments. Annotations are ordered so that annotations
      * on a method in type X appear before annotations on an overridden method in type Y, a supertype of X.
      *
-     * @param method annotated method
-     * @param fieldName length one array containing field name
      * @throws IllegalArgumentException if {@code method} is null
      * @throws IllegalArgumentException if {@code method} has parameters
      */
-    protected List<AnnotationApplier<?, ?>> buildApplierList(Method method, String[] fieldName) {
+    protected List<AnnotationApplier<?, ?>> buildApplierList(Method method) {
 
         // Sanity check
         if (method == null)
@@ -450,11 +445,11 @@ public class FieldBuilder {
 
         // Recurse
         final ArrayList<AnnotationApplier<?, ?>> list = new ArrayList<>();
-        this.buildApplierList(method.getDeclaringClass(), method.getName(), list, fieldName);
+        this.buildApplierList(method.getDeclaringClass(), method.getName(), list);
         return list;
     }
 
-    private void buildApplierList(Class<?> type, String methodName, List<AnnotationApplier<?, ?>> list, String[] fieldName) {
+    private void buildApplierList(Class<?> type, String methodName, List<AnnotationApplier<?, ?>> list) {
 
         // Terminate recursion
         if (type == null)
@@ -468,35 +463,27 @@ public class FieldBuilder {
             method = null;
         }
         if (method != null)
-            list.addAll(this.buildDirectApplierList(method, fieldName));
+            list.addAll(this.buildDirectApplierList(method));
 
         // Recurse on interfaces
         for (Class<?> iface : type.getInterfaces())
-            this.buildApplierList(iface, methodName, list, fieldName);
+            this.buildApplierList(iface, methodName, list);
 
         // Recurse on superclass
-        this.buildApplierList(type.getSuperclass(), methodName, list, fieldName);
+        this.buildApplierList(type.getSuperclass(), methodName, list);
     }
 
     /**
      * Find all relevant annotations declared directly on the given {@link Method}.
      *
      * @param method method to inspect
-     * @param fieldName length one array containing field name
      * @throws IllegalArgumentException if {@code method} is null
      */
-    protected List<AnnotationApplier<?, ?>> buildDirectApplierList(Method method, String[] fieldName) {
+    protected List<AnnotationApplier<?, ?>> buildDirectApplierList(Method method) {
 
         // Sanity check
         if (method == null)
             throw new IllegalArgumentException("null method");
-
-        // If @FieldBuilder.FieldName is also provided, use the specified field name
-        if (fieldName[0] == null) {
-            final FieldName fieldNameAnnotation = method.getAnnotation(FieldName.class);
-            if (fieldNameAnnotation != null)
-                fieldName[0] = fieldNameAnnotation.value();
-        }
 
         // Build list
         final ArrayList<AnnotationApplier<?, ?>> list = new ArrayList<>();
@@ -1441,35 +1428,6 @@ public class FieldBuilder {
          * Get the {@link PasswordField} type that will edit the property.
          */
         Class<? extends com.vaadin.ui.PasswordField> type() default com.vaadin.ui.PasswordField.class;
-    }
-
-    /**
-     * Used in conjunction with the other annotations such as {@link FieldBuilder.TextField &#64;FieldBuilder.TextField}, etc.,
-     * to specify a Vaadin field name different from the default Java bean property name.
-     *
-     * <p>
-     * An example showing a field named {@code "lastName"} instead of the default {@code "LName"}:
-     * <blockquote><pre>
-     * // Use a 10x40 TextArea to edit the "lastName" property
-     * &#64;FieldBuilder.AbstractField(caption = "Last Name:")
-     * &#64;FieldBuilder.TextArea(columns = 40, rows = 10)
-     * <b>&#64;FieldBuilder.FieldName("lastName")</b>
-     * public String getLName() {
-     *     return this.lName;
-     * }
-     * </pre></blockquote>
-     *
-     * @see FieldBuilder
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    @Documented
-    public @interface FieldName {
-
-        /**
-         * The name of the Vaadin field used to edit Java bean property associated with the annotated getter method.
-         */
-        String value();
     }
 }
 
