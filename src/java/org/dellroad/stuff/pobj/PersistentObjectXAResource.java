@@ -212,7 +212,8 @@ class PersistentObjectXAResource<T> implements XAResource {
             this.log.trace("POBJ XA: commit(): normal (non-recovery) commit of current transaction");
         final TxInfo<T> info = this.verifyCurrent(xid);
         try {
-            this.manager.persistentObject.setRoot(info.getSnapshot().getRoot()/*, info.getSnapshot().getVersion()*/);
+            this.manager.persistentObject.setRootInternal(info.getSnapshot().getRoot(),
+              0/*info.getSnapshot().getVersion()*/, false, false, true);
         } catch (PersistentObjectException e) {
             throw this.buildException(XAException.XAER_RMERR, "persistent object error: " + e.getMessage(), e);
         } finally {

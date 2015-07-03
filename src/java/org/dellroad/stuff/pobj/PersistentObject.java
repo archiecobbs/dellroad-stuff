@@ -515,7 +515,7 @@ public class PersistentObject<T> {
             } else {
                 this.log.info(this + ": persistent file `" + this.getFile() + "' does not exist, applying default value");
                 try {
-                    this.setRootInternal(defaultValue, 0, false, true);
+                    this.setRootInternal(defaultValue, 0, false, true, false);
                 } catch (PersistentObjectException e) {                             // e.g., validation failure
                     if (!this.isAllowEmptyStart())
                         throw e;
@@ -701,10 +701,11 @@ public class PersistentObject<T> {
      * @throws PersistentObjectValidationException if the new root has validation errors
      */
     public final synchronized long setRoot(T newRoot, long expectedVersion) {
-        return this.setRootInternal(newRoot, expectedVersion, false, false);
+        return this.setRootInternal(newRoot, expectedVersion, false, false, false);
     }
 
-    private synchronized long setRootInternal(T newRoot, long expectedVersion, boolean readingFile, boolean allowNotStarted) {
+    synchronized long setRootInternal(T newRoot, long expectedVersion,
+      boolean readingFile, boolean allowNotStarted, boolean alreadyValidated) {
 
         // Sanity check
         if (newRoot == null && !this.isAllowEmptyStop())
@@ -725,7 +726,7 @@ public class PersistentObject<T> {
             return this.version;
 
         // Validate the new root
-        if (newRoot != null) {
+        if (newRoot != null && !alreadyValidated) {
             Set<ConstraintViolation<T>> violations = this.delegate.validate(newRoot);
             if (!violations.isEmpty())
                 throw new PersistentObjectValidationException(violations);
@@ -966,7 +967,7 @@ public class PersistentObject<T> {
     private synchronized void applyFile(long newTimestamp, boolean allowNotStarted) {
         this.cancelPendingWrite();
         this.timestamp = newTimestamp;                              // update timestamp even if update fails to avoid loops
-        this.setRootInternal(this.read(), 0, true, allowNotStarted);
+        this.setRootInternal(this.read(), 0, true, allowNotStarted, false);
     }
 
     // Handle a write-back timeout
