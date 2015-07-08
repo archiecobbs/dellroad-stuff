@@ -239,7 +239,7 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
         }
 
         // Apply filters
-        this.filterAll();
+        this.doFilterContainer(!this.getFilters().isEmpty());
 
         // Notify subclass
         this.afterReload();
