@@ -95,7 +95,7 @@ public class AsyncOutputStream extends FilterOutputStream {
         if (bufsize < 0)
             throw new IllegalArgumentException("invalid bufsize " + bufsize);
         this.expand = bufsize == 0;
-        this.buf = new byte[Math.min(bufsize, MIN_BUFFER_SIZE)];
+        this.buf = new byte[Math.min(Math.max(bufsize, MIN_BUFFER_SIZE), MAX_BUFFER_SIZE)];
 
         // Start worker thread
         this.thread = new Thread(name) {
