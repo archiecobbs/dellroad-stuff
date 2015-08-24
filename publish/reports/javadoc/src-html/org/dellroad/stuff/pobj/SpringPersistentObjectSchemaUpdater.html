@@ -9,191 +9,189 @@
 <pre><span class="sourceLineNo">001</span><a name="line.1"></a>
 <span class="sourceLineNo">002</span>/*<a name="line.2"></a>
 <span class="sourceLineNo">003</span> * Copyright (C) 2012 Archie L. Cobbs. All rights reserved.<a name="line.3"></a>
-<span class="sourceLineNo">004</span> *<a name="line.4"></a>
-<span class="sourceLineNo">005</span> * $Id$<a name="line.5"></a>
-<span class="sourceLineNo">006</span> */<a name="line.6"></a>
+<span class="sourceLineNo">004</span> */<a name="line.4"></a>
+<span class="sourceLineNo">005</span><a name="line.5"></a>
+<span class="sourceLineNo">006</span>package org.dellroad.stuff.pobj;<a name="line.6"></a>
 <span class="sourceLineNo">007</span><a name="line.7"></a>
-<span class="sourceLineNo">008</span>package org.dellroad.stuff.pobj;<a name="line.8"></a>
-<span class="sourceLineNo">009</span><a name="line.9"></a>
-<span class="sourceLineNo">010</span>import java.io.BufferedInputStream;<a name="line.10"></a>
-<span class="sourceLineNo">011</span>import java.io.IOException;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>import java.io.InputStream;<a name="line.12"></a>
-<span class="sourceLineNo">013</span>import java.util.Collection;<a name="line.13"></a>
-<span class="sourceLineNo">014</span>import java.util.Comparator;<a name="line.14"></a>
+<span class="sourceLineNo">008</span>import java.io.BufferedInputStream;<a name="line.8"></a>
+<span class="sourceLineNo">009</span>import java.io.IOException;<a name="line.9"></a>
+<span class="sourceLineNo">010</span>import java.io.InputStream;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import java.util.Collection;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import java.util.Comparator;<a name="line.12"></a>
+<span class="sourceLineNo">013</span><a name="line.13"></a>
+<span class="sourceLineNo">014</span>import javax.xml.transform.stream.StreamSource;<a name="line.14"></a>
 <span class="sourceLineNo">015</span><a name="line.15"></a>
-<span class="sourceLineNo">016</span>import javax.xml.transform.stream.StreamSource;<a name="line.16"></a>
-<span class="sourceLineNo">017</span><a name="line.17"></a>
-<span class="sourceLineNo">018</span>import org.dellroad.stuff.schema.SchemaUpdate;<a name="line.18"></a>
-<span class="sourceLineNo">019</span>import org.dellroad.stuff.spring.BeanNameComparator;<a name="line.19"></a>
-<span class="sourceLineNo">020</span>import org.springframework.beans.factory.BeanFactory;<a name="line.20"></a>
-<span class="sourceLineNo">021</span>import org.springframework.beans.factory.BeanFactoryAware;<a name="line.21"></a>
-<span class="sourceLineNo">022</span>import org.springframework.beans.factory.InitializingBean;<a name="line.22"></a>
-<span class="sourceLineNo">023</span>import org.springframework.beans.factory.ListableBeanFactory;<a name="line.23"></a>
-<span class="sourceLineNo">024</span>import org.springframework.core.io.Resource;<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
-<span class="sourceLineNo">026</span>/**<a name="line.26"></a>
-<span class="sourceLineNo">027</span> * {@link PersistentObjectSchemaUpdater} optimized for use with Spring:<a name="line.27"></a>
-<span class="sourceLineNo">028</span> * &lt;ul&gt;<a name="line.28"></a>
-<span class="sourceLineNo">029</span> * &lt;li&gt;{@link #getOrderingTieBreaker} is overridden to break ties by ordering updates in the same order<a name="line.29"></a>
-<span class="sourceLineNo">030</span> *  as they are defined in the bean factory.&lt;/li&gt;<a name="line.30"></a>
-<span class="sourceLineNo">031</span> * &lt;li&gt;This class implements {@link InitializingBean} and verifies all required properties are set.&lt;/li&gt;<a name="line.31"></a>
-<span class="sourceLineNo">032</span> * &lt;li&gt;If no updates are {@linkplain #setUpdates explicitly configured}, then all {@link SpringPersistentObjectSchemaUpdate}s<a name="line.32"></a>
-<span class="sourceLineNo">033</span> *  found in the containing bean factory are automatically configured; this requires that all of the schema updates<a name="line.33"></a>
-<span class="sourceLineNo">034</span> *  are defined in the same {@link ListableBeanFactory}.&lt;/li&gt;<a name="line.34"></a>
-<span class="sourceLineNo">035</span> * &lt;li&gt;The default value may be configured as an XML resource&lt;/li&gt;<a name="line.35"></a>
-<span class="sourceLineNo">036</span> * &lt;/ul&gt;<a name="line.36"></a>
-<span class="sourceLineNo">037</span> *<a name="line.37"></a>
-<span class="sourceLineNo">038</span> * &lt;p&gt;<a name="line.38"></a>
-<span class="sourceLineNo">039</span> * An example of how this class can be combined with custom XML to define an updater and all its updates:<a name="line.39"></a>
-<span class="sourceLineNo">040</span> * &lt;blockquote&gt;&lt;pre&gt;<a name="line.40"></a>
-<span class="sourceLineNo">041</span> *  &amp;lt;beans xmlns="http://www.springframework.org/schema/beans"<a name="line.41"></a>
-<span class="sourceLineNo">042</span> *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"<a name="line.42"></a>
-<span class="sourceLineNo">043</span> *    xmlns:p="http://www.springframework.org/schema/p"<a name="line.43"></a>
-<span class="sourceLineNo">044</span> *    xsi:schemaLocation="<a name="line.44"></a>
-<span class="sourceLineNo">045</span> *      http://www.springframework.org/schema/beans<a name="line.45"></a>
-<span class="sourceLineNo">046</span> *        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"&amp;gt;<a name="line.46"></a>
-<span class="sourceLineNo">047</span> *<a name="line.47"></a>
-<span class="sourceLineNo">048</span> *      &amp;lt;!-- Normal nested persistent object delegate. You supply the XML (un)marshaller (not shown). --&amp;gt;<a name="line.48"></a>
-<span class="sourceLineNo">049</span> *      &lt;b&gt;&amp;lt;bean id="normalDelegate" class="org.dellroad.stuff.pobj.SpringDelegate"<a name="line.49"></a>
-<span class="sourceLineNo">050</span> *        p:marshaller-ref="marshaller" p:unmarshaller-ref="unmarshaller"/&amp;gt;&lt;/b&gt;<a name="line.50"></a>
-<span class="sourceLineNo">051</span> *<a name="line.51"></a>
-<span class="sourceLineNo">052</span> *      &amp;lt;!-- Schema updating persistent object delegate; the updates below will be auto-detected. --&amp;gt;<a name="line.52"></a>
-<span class="sourceLineNo">053</span> *      &lt;b&gt;&amp;lt;bean id="updatingDelegate" class="org.dellroad.stuff.pobj.SpringPersistentObjectSchemaUpdater"<a name="line.53"></a>
-<span class="sourceLineNo">054</span> *        p:marshaller-ref="marshaller" p:unmarshaller-ref="unmarshaller" p:defaultXML="classpath:default.xml"&amp;gt;<a name="line.54"></a>
-<span class="sourceLineNo">055</span> *          &amp;lt;constructor-arg ref="normalDelegate"/&amp;gt;<a name="line.55"></a>
-<span class="sourceLineNo">056</span> *      &amp;lt;/bean&amp;gt;&lt;/b&gt;<a name="line.56"></a>
-<span class="sourceLineNo">057</span> *<a name="line.57"></a>
-<span class="sourceLineNo">058</span> *      &amp;lt;!-- Persistent object, configured to use our schema updating delegate --&amp;gt;<a name="line.58"></a>
-<span class="sourceLineNo">059</span> *      &lt;b&gt;&amp;lt;bean id="persistentObject" class="org.dellroad.stuff.pobj.PersistentObject"<a name="line.59"></a>
-<span class="sourceLineNo">060</span> *        init-method="start" destroy-method="stop" p:file="/var/lib/pobj.xml" p:allowEmptyStart="true"<a name="line.60"></a>
-<span class="sourceLineNo">061</span> *        p:numBackups="3" p:delegate-ref="updatingDelegate"/&amp;gt;&lt;/b&gt;<a name="line.61"></a>
-<span class="sourceLineNo">062</span> *<a name="line.62"></a>
-<span class="sourceLineNo">063</span> *      &amp;lt;!-- Define a default location for schema update XSL files --&amp;gt;<a name="line.63"></a>
-<span class="sourceLineNo">064</span> *      &lt;b&gt;&amp;lt;bean class="org.dellroad.stuff.pobj.SpringXSLUpdateTransformConfigurer"<a name="line.64"></a>
-<span class="sourceLineNo">065</span> *        p:prefix="classpath:updates/" p:suffix=".xsl"/&amp;gt;&lt;/b&gt;<a name="line.65"></a>
-<span class="sourceLineNo">066</span> *<a name="line.66"></a>
-<span class="sourceLineNo">067</span> *      &amp;lt;!-- Schema update #1 with an explicitly configured XSL resource --&amp;gt;<a name="line.67"></a>
-<span class="sourceLineNo">068</span> *      &lt;b&gt;&amp;lt;bean id="update1" class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"<a name="line.68"></a>
-<span class="sourceLineNo">069</span> *        transform="file:///usr/share/updates/update1.xsl"/&amp;gt;&lt;/b&gt;<a name="line.69"></a>
-<span class="sourceLineNo">070</span> *<a name="line.70"></a>
-<span class="sourceLineNo">071</span> *      &amp;lt;!-- Schema update #2: implicitly uses "classpath:updates/update2.xsl" --&amp;gt;<a name="line.71"></a>
-<span class="sourceLineNo">072</span> *      &lt;b&gt;&amp;lt;bean id="update2" class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"/&amp;gt;&lt;/b&gt;<a name="line.72"></a>
-<span class="sourceLineNo">073</span> *<a name="line.73"></a>
-<span class="sourceLineNo">074</span> *      &amp;lt;!-- Schema update #3: requires that update #1 be applied first --&amp;gt;<a name="line.74"></a>
-<span class="sourceLineNo">075</span> *      &lt;b&gt;&amp;lt;bean id="update3" depends-on="update1"<a name="line.75"></a>
-<span class="sourceLineNo">076</span> *        class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"/&amp;gt;&lt;/b&gt;<a name="line.76"></a>
+<span class="sourceLineNo">016</span>import org.dellroad.stuff.schema.SchemaUpdate;<a name="line.16"></a>
+<span class="sourceLineNo">017</span>import org.dellroad.stuff.spring.BeanNameComparator;<a name="line.17"></a>
+<span class="sourceLineNo">018</span>import org.springframework.beans.factory.BeanFactory;<a name="line.18"></a>
+<span class="sourceLineNo">019</span>import org.springframework.beans.factory.BeanFactoryAware;<a name="line.19"></a>
+<span class="sourceLineNo">020</span>import org.springframework.beans.factory.InitializingBean;<a name="line.20"></a>
+<span class="sourceLineNo">021</span>import org.springframework.beans.factory.ListableBeanFactory;<a name="line.21"></a>
+<span class="sourceLineNo">022</span>import org.springframework.core.io.Resource;<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
+<span class="sourceLineNo">024</span>/**<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * {@link PersistentObjectSchemaUpdater} optimized for use with Spring:<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * &lt;ul&gt;<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * &lt;li&gt;{@link #getOrderingTieBreaker} is overridden to break ties by ordering updates in the same order<a name="line.27"></a>
+<span class="sourceLineNo">028</span> *  as they are defined in the bean factory.&lt;/li&gt;<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * &lt;li&gt;This class implements {@link InitializingBean} and verifies all required properties are set.&lt;/li&gt;<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * &lt;li&gt;If no updates are {@linkplain #setUpdates explicitly configured}, then all {@link SpringPersistentObjectSchemaUpdate}s<a name="line.30"></a>
+<span class="sourceLineNo">031</span> *  found in the containing bean factory are automatically configured; this requires that all of the schema updates<a name="line.31"></a>
+<span class="sourceLineNo">032</span> *  are defined in the same {@link ListableBeanFactory}.&lt;/li&gt;<a name="line.32"></a>
+<span class="sourceLineNo">033</span> * &lt;li&gt;The default value may be configured as an XML resource&lt;/li&gt;<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * &lt;/ul&gt;<a name="line.34"></a>
+<span class="sourceLineNo">035</span> *<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * &lt;p&gt;<a name="line.36"></a>
+<span class="sourceLineNo">037</span> * An example of how this class can be combined with custom XML to define an updater and all its updates:<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * &lt;blockquote&gt;&lt;pre&gt;<a name="line.38"></a>
+<span class="sourceLineNo">039</span> *  &amp;lt;beans xmlns="http://www.springframework.org/schema/beans"<a name="line.39"></a>
+<span class="sourceLineNo">040</span> *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"<a name="line.40"></a>
+<span class="sourceLineNo">041</span> *    xmlns:p="http://www.springframework.org/schema/p"<a name="line.41"></a>
+<span class="sourceLineNo">042</span> *    xsi:schemaLocation="<a name="line.42"></a>
+<span class="sourceLineNo">043</span> *      http://www.springframework.org/schema/beans<a name="line.43"></a>
+<span class="sourceLineNo">044</span> *        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"&amp;gt;<a name="line.44"></a>
+<span class="sourceLineNo">045</span> *<a name="line.45"></a>
+<span class="sourceLineNo">046</span> *      &amp;lt;!-- Normal nested persistent object delegate. You supply the XML (un)marshaller (not shown). --&amp;gt;<a name="line.46"></a>
+<span class="sourceLineNo">047</span> *      &lt;b&gt;&amp;lt;bean id="normalDelegate" class="org.dellroad.stuff.pobj.SpringDelegate"<a name="line.47"></a>
+<span class="sourceLineNo">048</span> *        p:marshaller-ref="marshaller" p:unmarshaller-ref="unmarshaller"/&amp;gt;&lt;/b&gt;<a name="line.48"></a>
+<span class="sourceLineNo">049</span> *<a name="line.49"></a>
+<span class="sourceLineNo">050</span> *      &amp;lt;!-- Schema updating persistent object delegate; the updates below will be auto-detected. --&amp;gt;<a name="line.50"></a>
+<span class="sourceLineNo">051</span> *      &lt;b&gt;&amp;lt;bean id="updatingDelegate" class="org.dellroad.stuff.pobj.SpringPersistentObjectSchemaUpdater"<a name="line.51"></a>
+<span class="sourceLineNo">052</span> *        p:marshaller-ref="marshaller" p:unmarshaller-ref="unmarshaller" p:defaultXML="classpath:default.xml"&amp;gt;<a name="line.52"></a>
+<span class="sourceLineNo">053</span> *          &amp;lt;constructor-arg ref="normalDelegate"/&amp;gt;<a name="line.53"></a>
+<span class="sourceLineNo">054</span> *      &amp;lt;/bean&amp;gt;&lt;/b&gt;<a name="line.54"></a>
+<span class="sourceLineNo">055</span> *<a name="line.55"></a>
+<span class="sourceLineNo">056</span> *      &amp;lt;!-- Persistent object, configured to use our schema updating delegate --&amp;gt;<a name="line.56"></a>
+<span class="sourceLineNo">057</span> *      &lt;b&gt;&amp;lt;bean id="persistentObject" class="org.dellroad.stuff.pobj.PersistentObject"<a name="line.57"></a>
+<span class="sourceLineNo">058</span> *        init-method="start" destroy-method="stop" p:file="/var/lib/pobj.xml" p:allowEmptyStart="true"<a name="line.58"></a>
+<span class="sourceLineNo">059</span> *        p:numBackups="3" p:delegate-ref="updatingDelegate"/&amp;gt;&lt;/b&gt;<a name="line.59"></a>
+<span class="sourceLineNo">060</span> *<a name="line.60"></a>
+<span class="sourceLineNo">061</span> *      &amp;lt;!-- Define a default location for schema update XSL files --&amp;gt;<a name="line.61"></a>
+<span class="sourceLineNo">062</span> *      &lt;b&gt;&amp;lt;bean class="org.dellroad.stuff.pobj.SpringXSLUpdateTransformConfigurer"<a name="line.62"></a>
+<span class="sourceLineNo">063</span> *        p:prefix="classpath:updates/" p:suffix=".xsl"/&amp;gt;&lt;/b&gt;<a name="line.63"></a>
+<span class="sourceLineNo">064</span> *<a name="line.64"></a>
+<span class="sourceLineNo">065</span> *      &amp;lt;!-- Schema update #1 with an explicitly configured XSL resource --&amp;gt;<a name="line.65"></a>
+<span class="sourceLineNo">066</span> *      &lt;b&gt;&amp;lt;bean id="update1" class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"<a name="line.66"></a>
+<span class="sourceLineNo">067</span> *        transform="file:///usr/share/updates/update1.xsl"/&amp;gt;&lt;/b&gt;<a name="line.67"></a>
+<span class="sourceLineNo">068</span> *<a name="line.68"></a>
+<span class="sourceLineNo">069</span> *      &amp;lt;!-- Schema update #2: implicitly uses "classpath:updates/update2.xsl" --&amp;gt;<a name="line.69"></a>
+<span class="sourceLineNo">070</span> *      &lt;b&gt;&amp;lt;bean id="update2" class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"/&amp;gt;&lt;/b&gt;<a name="line.70"></a>
+<span class="sourceLineNo">071</span> *<a name="line.71"></a>
+<span class="sourceLineNo">072</span> *      &amp;lt;!-- Schema update #3: requires that update #1 be applied first --&amp;gt;<a name="line.72"></a>
+<span class="sourceLineNo">073</span> *      &lt;b&gt;&amp;lt;bean id="update3" depends-on="update1"<a name="line.73"></a>
+<span class="sourceLineNo">074</span> *        class="org.dellroad.stuff.pobj.SpringXSLPersistentObjectSchemaUpdate"/&amp;gt;&lt;/b&gt;<a name="line.74"></a>
+<span class="sourceLineNo">075</span> *<a name="line.75"></a>
+<span class="sourceLineNo">076</span> *      &amp;lt;!-- Add more schema updates over time as needed and everything just works... --&amp;gt;<a name="line.76"></a>
 <span class="sourceLineNo">077</span> *<a name="line.77"></a>
-<span class="sourceLineNo">078</span> *      &amp;lt;!-- Add more schema updates over time as needed and everything just works... --&amp;gt;<a name="line.78"></a>
-<span class="sourceLineNo">079</span> *<a name="line.79"></a>
-<span class="sourceLineNo">080</span> *  &amp;lt;/beans&amp;gt;<a name="line.80"></a>
-<span class="sourceLineNo">081</span> * &lt;/pre&gt;&lt;/blockquote&gt;<a name="line.81"></a>
-<span class="sourceLineNo">082</span> *<a name="line.82"></a>
-<span class="sourceLineNo">083</span> * @param &lt;T&gt; type of the root persistent object<a name="line.83"></a>
-<span class="sourceLineNo">084</span> */<a name="line.84"></a>
-<span class="sourceLineNo">085</span>public class SpringPersistentObjectSchemaUpdater&lt;T&gt; extends PersistentObjectSchemaUpdater&lt;T&gt;<a name="line.85"></a>
-<span class="sourceLineNo">086</span>  implements BeanFactoryAware, InitializingBean {<a name="line.86"></a>
-<span class="sourceLineNo">087</span><a name="line.87"></a>
-<span class="sourceLineNo">088</span>    private ListableBeanFactory beanFactory;<a name="line.88"></a>
-<span class="sourceLineNo">089</span>    private Resource defaultXML;<a name="line.89"></a>
-<span class="sourceLineNo">090</span><a name="line.90"></a>
-<span class="sourceLineNo">091</span>    /**<a name="line.91"></a>
-<span class="sourceLineNo">092</span>     * Constructor.<a name="line.92"></a>
-<span class="sourceLineNo">093</span>     *<a name="line.93"></a>
-<span class="sourceLineNo">094</span>     * @param delegate delegate that will be wrapped by this instance<a name="line.94"></a>
-<span class="sourceLineNo">095</span>     * @throws IllegalArgumentException if {@code delegate} is null<a name="line.95"></a>
-<span class="sourceLineNo">096</span>     * @see PersistentObjectSchemaUpdater#PersistentObjectSchemaUpdater<a name="line.96"></a>
-<span class="sourceLineNo">097</span>     */<a name="line.97"></a>
-<span class="sourceLineNo">098</span>    public SpringPersistentObjectSchemaUpdater(PersistentObjectDelegate&lt;T&gt; delegate) {<a name="line.98"></a>
-<span class="sourceLineNo">099</span>        super(delegate);<a name="line.99"></a>
-<span class="sourceLineNo">100</span>    }<a name="line.100"></a>
-<span class="sourceLineNo">101</span><a name="line.101"></a>
-<span class="sourceLineNo">102</span>    /**<a name="line.102"></a>
-<span class="sourceLineNo">103</span>     * Set the resource containing the default value, encoded as XML, to be used on an uninitialized persistent object.<a name="line.103"></a>
-<span class="sourceLineNo">104</span>     * This will override whatever default value is returned by the nested delegate.<a name="line.104"></a>
-<span class="sourceLineNo">105</span>     */<a name="line.105"></a>
-<span class="sourceLineNo">106</span>    public void setDefaultXML(Resource resource) {<a name="line.106"></a>
-<span class="sourceLineNo">107</span>        this.defaultXML = resource;<a name="line.107"></a>
-<span class="sourceLineNo">108</span>    }<a name="line.108"></a>
-<span class="sourceLineNo">109</span><a name="line.109"></a>
-<span class="sourceLineNo">110</span>    /**<a name="line.110"></a>
-<span class="sourceLineNo">111</span>     * Get the default value for the persistent object when no persistent file is found.<a name="line.111"></a>
-<span class="sourceLineNo">112</span>     *<a name="line.112"></a>
-<span class="sourceLineNo">113</span>     * &lt;p&gt;<a name="line.113"></a>
-<span class="sourceLineNo">114</span>     * The implementation in {@link SpringPersistentObjectSchemaUpdater} parses and returns the<a name="line.114"></a>
-<span class="sourceLineNo">115</span>     * {@linkplain #setDefaultXML default value resource}, if any; otherwise, the delegate provided<a name="line.115"></a>
-<span class="sourceLineNo">116</span>     * to the constructor is queried for a default value.<a name="line.116"></a>
-<span class="sourceLineNo">117</span>     */<a name="line.117"></a>
-<span class="sourceLineNo">118</span>    @Override<a name="line.118"></a>
-<span class="sourceLineNo">119</span>    public T getDefaultValue() {<a name="line.119"></a>
-<span class="sourceLineNo">120</span><a name="line.120"></a>
-<span class="sourceLineNo">121</span>        // If no XML configured, fall back to nested delegate<a name="line.121"></a>
-<span class="sourceLineNo">122</span>        if (this.defaultXML == null)<a name="line.122"></a>
-<span class="sourceLineNo">123</span>            return this.delegate.getDefaultValue();<a name="line.123"></a>
-<span class="sourceLineNo">124</span><a name="line.124"></a>
-<span class="sourceLineNo">125</span>        // Use configured XML<a name="line.125"></a>
-<span class="sourceLineNo">126</span>        try {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>            this.log.info("loading default content from " + this.defaultXML.getURI());<a name="line.127"></a>
-<span class="sourceLineNo">128</span>            InputStream input = this.defaultXML.getInputStream();<a name="line.128"></a>
-<span class="sourceLineNo">129</span>            try {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>                return this.delegate.deserialize(<a name="line.130"></a>
-<span class="sourceLineNo">131</span>                  new StreamSource(new BufferedInputStream(input), this.defaultXML.getURI().toString()));<a name="line.131"></a>
-<span class="sourceLineNo">132</span>            } finally {<a name="line.132"></a>
-<span class="sourceLineNo">133</span>                try {<a name="line.133"></a>
-<span class="sourceLineNo">134</span>                    input.close();<a name="line.134"></a>
-<span class="sourceLineNo">135</span>                } catch (IOException e) {<a name="line.135"></a>
-<span class="sourceLineNo">136</span>                    // ignore<a name="line.136"></a>
-<span class="sourceLineNo">137</span>                }<a name="line.137"></a>
-<span class="sourceLineNo">138</span>            }<a name="line.138"></a>
-<span class="sourceLineNo">139</span>        } catch (RuntimeException e) {<a name="line.139"></a>
-<span class="sourceLineNo">140</span>            throw e;<a name="line.140"></a>
-<span class="sourceLineNo">141</span>        } catch (Exception e) {<a name="line.141"></a>
-<span class="sourceLineNo">142</span>            throw new PersistentObjectException(e);<a name="line.142"></a>
-<span class="sourceLineNo">143</span>        }<a name="line.143"></a>
-<span class="sourceLineNo">144</span>    }<a name="line.144"></a>
-<span class="sourceLineNo">145</span><a name="line.145"></a>
-<span class="sourceLineNo">146</span>    @Override<a name="line.146"></a>
-<span class="sourceLineNo">147</span>    public void setBeanFactory(BeanFactory beanFactory) {<a name="line.147"></a>
-<span class="sourceLineNo">148</span>        if (this.beanFactory == null &amp;&amp; beanFactory instanceof ListableBeanFactory)<a name="line.148"></a>
-<span class="sourceLineNo">149</span>            this.beanFactory = (ListableBeanFactory)beanFactory;<a name="line.149"></a>
-<span class="sourceLineNo">150</span>    }<a name="line.150"></a>
-<span class="sourceLineNo">151</span><a name="line.151"></a>
-<span class="sourceLineNo">152</span>    @Override<a name="line.152"></a>
-<span class="sourceLineNo">153</span>    @SuppressWarnings("unchecked")<a name="line.153"></a>
-<span class="sourceLineNo">154</span>    public void afterPropertiesSet() throws Exception {<a name="line.154"></a>
-<span class="sourceLineNo">155</span>        if (this.getUpdates() == null) {<a name="line.155"></a>
-<span class="sourceLineNo">156</span>            if (this.beanFactory == null) {<a name="line.156"></a>
-<span class="sourceLineNo">157</span>                throw new IllegalArgumentException("no updates explicitly configured and the containing BeanFactory"<a name="line.157"></a>
-<span class="sourceLineNo">158</span>                  + " is not a ListableBeanFactory: " + this.beanFactory);<a name="line.158"></a>
-<span class="sourceLineNo">159</span>            }<a name="line.159"></a>
-<span class="sourceLineNo">160</span>            this.setUpdates((Collection&lt;SpringPersistentObjectSchemaUpdate&lt;T&gt;&gt;)(Object)this.beanFactory.getBeansOfType(<a name="line.160"></a>
-<span class="sourceLineNo">161</span>              SpringPersistentObjectSchemaUpdate.class).values());<a name="line.161"></a>
-<span class="sourceLineNo">162</span>        }<a name="line.162"></a>
-<span class="sourceLineNo">163</span>    }<a name="line.163"></a>
-<span class="sourceLineNo">164</span><a name="line.164"></a>
-<span class="sourceLineNo">165</span>    /**<a name="line.165"></a>
-<span class="sourceLineNo">166</span>     * Get the preferred ordering of two updates that do not have any predecessor constraints<a name="line.166"></a>
-<span class="sourceLineNo">167</span>     * (including implied indirect constraints) between them.<a name="line.167"></a>
-<span class="sourceLineNo">168</span>     *<a name="line.168"></a>
-<span class="sourceLineNo">169</span>     * &lt;p&gt;<a name="line.169"></a>
-<span class="sourceLineNo">170</span>     * In the case no schema updates are explicitly configured, the {@link Comparator} returned by the<a name="line.170"></a>
-<span class="sourceLineNo">171</span>     * implementation in {@link SpringPersistentObjectSchemaUpdater} sorts updates in the same order that they appear<a name="line.171"></a>
-<span class="sourceLineNo">172</span>     * in the containing {@link ListableBeanFactory}. Otherwise, the<a name="line.172"></a>
-<span class="sourceLineNo">173</span>     * {@linkplain org.dellroad.stuff.schema.AbstractSchemaUpdater#getOrderingTieBreaker superclass method} is used.<a name="line.173"></a>
-<span class="sourceLineNo">174</span>     */<a name="line.174"></a>
-<span class="sourceLineNo">175</span>    @Override<a name="line.175"></a>
-<span class="sourceLineNo">176</span>    protected Comparator&lt;SchemaUpdate&lt;PersistentFileTransaction&gt;&gt; getOrderingTieBreaker() {<a name="line.176"></a>
-<span class="sourceLineNo">177</span>        if (this.beanFactory == null)<a name="line.177"></a>
-<span class="sourceLineNo">178</span>            return super.getOrderingTieBreaker();<a name="line.178"></a>
-<span class="sourceLineNo">179</span>        final BeanNameComparator beanNameComparator = new BeanNameComparator(this.beanFactory);<a name="line.179"></a>
-<span class="sourceLineNo">180</span>        return new Comparator&lt;SchemaUpdate&lt;PersistentFileTransaction&gt;&gt;() {<a name="line.180"></a>
-<span class="sourceLineNo">181</span>            @Override<a name="line.181"></a>
-<span class="sourceLineNo">182</span>            public int compare(SchemaUpdate&lt;PersistentFileTransaction&gt; update1, SchemaUpdate&lt;PersistentFileTransaction&gt; update2) {<a name="line.182"></a>
-<span class="sourceLineNo">183</span>                return beanNameComparator.compare(update1.getName(), update2.getName());<a name="line.183"></a>
-<span class="sourceLineNo">184</span>            }<a name="line.184"></a>
-<span class="sourceLineNo">185</span>        };<a name="line.185"></a>
-<span class="sourceLineNo">186</span>    }<a name="line.186"></a>
-<span class="sourceLineNo">187</span>}<a name="line.187"></a>
-<span class="sourceLineNo">188</span><a name="line.188"></a>
+<span class="sourceLineNo">078</span> *  &amp;lt;/beans&amp;gt;<a name="line.78"></a>
+<span class="sourceLineNo">079</span> * &lt;/pre&gt;&lt;/blockquote&gt;<a name="line.79"></a>
+<span class="sourceLineNo">080</span> *<a name="line.80"></a>
+<span class="sourceLineNo">081</span> * @param &lt;T&gt; type of the root persistent object<a name="line.81"></a>
+<span class="sourceLineNo">082</span> */<a name="line.82"></a>
+<span class="sourceLineNo">083</span>public class SpringPersistentObjectSchemaUpdater&lt;T&gt; extends PersistentObjectSchemaUpdater&lt;T&gt;<a name="line.83"></a>
+<span class="sourceLineNo">084</span>  implements BeanFactoryAware, InitializingBean {<a name="line.84"></a>
+<span class="sourceLineNo">085</span><a name="line.85"></a>
+<span class="sourceLineNo">086</span>    private ListableBeanFactory beanFactory;<a name="line.86"></a>
+<span class="sourceLineNo">087</span>    private Resource defaultXML;<a name="line.87"></a>
+<span class="sourceLineNo">088</span><a name="line.88"></a>
+<span class="sourceLineNo">089</span>    /**<a name="line.89"></a>
+<span class="sourceLineNo">090</span>     * Constructor.<a name="line.90"></a>
+<span class="sourceLineNo">091</span>     *<a name="line.91"></a>
+<span class="sourceLineNo">092</span>     * @param delegate delegate that will be wrapped by this instance<a name="line.92"></a>
+<span class="sourceLineNo">093</span>     * @throws IllegalArgumentException if {@code delegate} is null<a name="line.93"></a>
+<span class="sourceLineNo">094</span>     * @see PersistentObjectSchemaUpdater#PersistentObjectSchemaUpdater<a name="line.94"></a>
+<span class="sourceLineNo">095</span>     */<a name="line.95"></a>
+<span class="sourceLineNo">096</span>    public SpringPersistentObjectSchemaUpdater(PersistentObjectDelegate&lt;T&gt; delegate) {<a name="line.96"></a>
+<span class="sourceLineNo">097</span>        super(delegate);<a name="line.97"></a>
+<span class="sourceLineNo">098</span>    }<a name="line.98"></a>
+<span class="sourceLineNo">099</span><a name="line.99"></a>
+<span class="sourceLineNo">100</span>    /**<a name="line.100"></a>
+<span class="sourceLineNo">101</span>     * Set the resource containing the default value, encoded as XML, to be used on an uninitialized persistent object.<a name="line.101"></a>
+<span class="sourceLineNo">102</span>     * This will override whatever default value is returned by the nested delegate.<a name="line.102"></a>
+<span class="sourceLineNo">103</span>     */<a name="line.103"></a>
+<span class="sourceLineNo">104</span>    public void setDefaultXML(Resource resource) {<a name="line.104"></a>
+<span class="sourceLineNo">105</span>        this.defaultXML = resource;<a name="line.105"></a>
+<span class="sourceLineNo">106</span>    }<a name="line.106"></a>
+<span class="sourceLineNo">107</span><a name="line.107"></a>
+<span class="sourceLineNo">108</span>    /**<a name="line.108"></a>
+<span class="sourceLineNo">109</span>     * Get the default value for the persistent object when no persistent file is found.<a name="line.109"></a>
+<span class="sourceLineNo">110</span>     *<a name="line.110"></a>
+<span class="sourceLineNo">111</span>     * &lt;p&gt;<a name="line.111"></a>
+<span class="sourceLineNo">112</span>     * The implementation in {@link SpringPersistentObjectSchemaUpdater} parses and returns the<a name="line.112"></a>
+<span class="sourceLineNo">113</span>     * {@linkplain #setDefaultXML default value resource}, if any; otherwise, the delegate provided<a name="line.113"></a>
+<span class="sourceLineNo">114</span>     * to the constructor is queried for a default value.<a name="line.114"></a>
+<span class="sourceLineNo">115</span>     */<a name="line.115"></a>
+<span class="sourceLineNo">116</span>    @Override<a name="line.116"></a>
+<span class="sourceLineNo">117</span>    public T getDefaultValue() {<a name="line.117"></a>
+<span class="sourceLineNo">118</span><a name="line.118"></a>
+<span class="sourceLineNo">119</span>        // If no XML configured, fall back to nested delegate<a name="line.119"></a>
+<span class="sourceLineNo">120</span>        if (this.defaultXML == null)<a name="line.120"></a>
+<span class="sourceLineNo">121</span>            return this.delegate.getDefaultValue();<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>        // Use configured XML<a name="line.123"></a>
+<span class="sourceLineNo">124</span>        try {<a name="line.124"></a>
+<span class="sourceLineNo">125</span>            this.log.info("loading default content from " + this.defaultXML.getURI());<a name="line.125"></a>
+<span class="sourceLineNo">126</span>            InputStream input = this.defaultXML.getInputStream();<a name="line.126"></a>
+<span class="sourceLineNo">127</span>            try {<a name="line.127"></a>
+<span class="sourceLineNo">128</span>                return this.delegate.deserialize(<a name="line.128"></a>
+<span class="sourceLineNo">129</span>                  new StreamSource(new BufferedInputStream(input), this.defaultXML.getURI().toString()));<a name="line.129"></a>
+<span class="sourceLineNo">130</span>            } finally {<a name="line.130"></a>
+<span class="sourceLineNo">131</span>                try {<a name="line.131"></a>
+<span class="sourceLineNo">132</span>                    input.close();<a name="line.132"></a>
+<span class="sourceLineNo">133</span>                } catch (IOException e) {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>                    // ignore<a name="line.134"></a>
+<span class="sourceLineNo">135</span>                }<a name="line.135"></a>
+<span class="sourceLineNo">136</span>            }<a name="line.136"></a>
+<span class="sourceLineNo">137</span>        } catch (RuntimeException e) {<a name="line.137"></a>
+<span class="sourceLineNo">138</span>            throw e;<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        } catch (Exception e) {<a name="line.139"></a>
+<span class="sourceLineNo">140</span>            throw new PersistentObjectException(e);<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        }<a name="line.141"></a>
+<span class="sourceLineNo">142</span>    }<a name="line.142"></a>
+<span class="sourceLineNo">143</span><a name="line.143"></a>
+<span class="sourceLineNo">144</span>    @Override<a name="line.144"></a>
+<span class="sourceLineNo">145</span>    public void setBeanFactory(BeanFactory beanFactory) {<a name="line.145"></a>
+<span class="sourceLineNo">146</span>        if (this.beanFactory == null &amp;&amp; beanFactory instanceof ListableBeanFactory)<a name="line.146"></a>
+<span class="sourceLineNo">147</span>            this.beanFactory = (ListableBeanFactory)beanFactory;<a name="line.147"></a>
+<span class="sourceLineNo">148</span>    }<a name="line.148"></a>
+<span class="sourceLineNo">149</span><a name="line.149"></a>
+<span class="sourceLineNo">150</span>    @Override<a name="line.150"></a>
+<span class="sourceLineNo">151</span>    @SuppressWarnings("unchecked")<a name="line.151"></a>
+<span class="sourceLineNo">152</span>    public void afterPropertiesSet() throws Exception {<a name="line.152"></a>
+<span class="sourceLineNo">153</span>        if (this.getUpdates() == null) {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>            if (this.beanFactory == null) {<a name="line.154"></a>
+<span class="sourceLineNo">155</span>                throw new IllegalArgumentException("no updates explicitly configured and the containing BeanFactory"<a name="line.155"></a>
+<span class="sourceLineNo">156</span>                  + " is not a ListableBeanFactory: " + this.beanFactory);<a name="line.156"></a>
+<span class="sourceLineNo">157</span>            }<a name="line.157"></a>
+<span class="sourceLineNo">158</span>            this.setUpdates((Collection&lt;SpringPersistentObjectSchemaUpdate&lt;T&gt;&gt;)(Object)this.beanFactory.getBeansOfType(<a name="line.158"></a>
+<span class="sourceLineNo">159</span>              SpringPersistentObjectSchemaUpdate.class).values());<a name="line.159"></a>
+<span class="sourceLineNo">160</span>        }<a name="line.160"></a>
+<span class="sourceLineNo">161</span>    }<a name="line.161"></a>
+<span class="sourceLineNo">162</span><a name="line.162"></a>
+<span class="sourceLineNo">163</span>    /**<a name="line.163"></a>
+<span class="sourceLineNo">164</span>     * Get the preferred ordering of two updates that do not have any predecessor constraints<a name="line.164"></a>
+<span class="sourceLineNo">165</span>     * (including implied indirect constraints) between them.<a name="line.165"></a>
+<span class="sourceLineNo">166</span>     *<a name="line.166"></a>
+<span class="sourceLineNo">167</span>     * &lt;p&gt;<a name="line.167"></a>
+<span class="sourceLineNo">168</span>     * In the case no schema updates are explicitly configured, the {@link Comparator} returned by the<a name="line.168"></a>
+<span class="sourceLineNo">169</span>     * implementation in {@link SpringPersistentObjectSchemaUpdater} sorts updates in the same order that they appear<a name="line.169"></a>
+<span class="sourceLineNo">170</span>     * in the containing {@link ListableBeanFactory}. Otherwise, the<a name="line.170"></a>
+<span class="sourceLineNo">171</span>     * {@linkplain org.dellroad.stuff.schema.AbstractSchemaUpdater#getOrderingTieBreaker superclass method} is used.<a name="line.171"></a>
+<span class="sourceLineNo">172</span>     */<a name="line.172"></a>
+<span class="sourceLineNo">173</span>    @Override<a name="line.173"></a>
+<span class="sourceLineNo">174</span>    protected Comparator&lt;SchemaUpdate&lt;PersistentFileTransaction&gt;&gt; getOrderingTieBreaker() {<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        if (this.beanFactory == null)<a name="line.175"></a>
+<span class="sourceLineNo">176</span>            return super.getOrderingTieBreaker();<a name="line.176"></a>
+<span class="sourceLineNo">177</span>        final BeanNameComparator beanNameComparator = new BeanNameComparator(this.beanFactory);<a name="line.177"></a>
+<span class="sourceLineNo">178</span>        return new Comparator&lt;SchemaUpdate&lt;PersistentFileTransaction&gt;&gt;() {<a name="line.178"></a>
+<span class="sourceLineNo">179</span>            @Override<a name="line.179"></a>
+<span class="sourceLineNo">180</span>            public int compare(SchemaUpdate&lt;PersistentFileTransaction&gt; update1, SchemaUpdate&lt;PersistentFileTransaction&gt; update2) {<a name="line.180"></a>
+<span class="sourceLineNo">181</span>                return beanNameComparator.compare(update1.getName(), update2.getName());<a name="line.181"></a>
+<span class="sourceLineNo">182</span>            }<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        };<a name="line.183"></a>
+<span class="sourceLineNo">184</span>    }<a name="line.184"></a>
+<span class="sourceLineNo">185</span>}<a name="line.185"></a>
+<span class="sourceLineNo">186</span><a name="line.186"></a>
 
 
 

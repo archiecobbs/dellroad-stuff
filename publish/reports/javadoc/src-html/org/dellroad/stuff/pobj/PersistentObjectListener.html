@@ -9,28 +9,26 @@
 <pre><span class="sourceLineNo">001</span><a name="line.1"></a>
 <span class="sourceLineNo">002</span>/*<a name="line.2"></a>
 <span class="sourceLineNo">003</span> * Copyright (C) 2012 Archie L. Cobbs. All rights reserved.<a name="line.3"></a>
-<span class="sourceLineNo">004</span> *<a name="line.4"></a>
-<span class="sourceLineNo">005</span> * $Id$<a name="line.5"></a>
-<span class="sourceLineNo">006</span> */<a name="line.6"></a>
+<span class="sourceLineNo">004</span> */<a name="line.4"></a>
+<span class="sourceLineNo">005</span><a name="line.5"></a>
+<span class="sourceLineNo">006</span>package org.dellroad.stuff.pobj;<a name="line.6"></a>
 <span class="sourceLineNo">007</span><a name="line.7"></a>
-<span class="sourceLineNo">008</span>package org.dellroad.stuff.pobj;<a name="line.8"></a>
-<span class="sourceLineNo">009</span><a name="line.9"></a>
-<span class="sourceLineNo">010</span>/**<a name="line.10"></a>
-<span class="sourceLineNo">011</span> * Listener interface for changes to a {@link PersistentObject}.<a name="line.11"></a>
-<span class="sourceLineNo">012</span> *<a name="line.12"></a>
-<span class="sourceLineNo">013</span> * &lt;p&gt;<a name="line.13"></a>
-<span class="sourceLineNo">014</span> * Listener notifications are delivered in a separate thread from the one that caused the root object to change.<a name="line.14"></a>
-<span class="sourceLineNo">015</span> *<a name="line.15"></a>
-<span class="sourceLineNo">016</span> * @param &lt;T&gt; type of the root persistent object<a name="line.16"></a>
-<span class="sourceLineNo">017</span> */<a name="line.17"></a>
-<span class="sourceLineNo">018</span>public interface PersistentObjectListener&lt;T&gt; {<a name="line.18"></a>
-<span class="sourceLineNo">019</span><a name="line.19"></a>
-<span class="sourceLineNo">020</span>    /**<a name="line.20"></a>
-<span class="sourceLineNo">021</span>     * Handle notification of an updated root object.<a name="line.21"></a>
-<span class="sourceLineNo">022</span>     */<a name="line.22"></a>
-<span class="sourceLineNo">023</span>    void handleEvent(PersistentObjectEvent&lt;T&gt; event);<a name="line.23"></a>
-<span class="sourceLineNo">024</span>}<a name="line.24"></a>
-<span class="sourceLineNo">025</span><a name="line.25"></a>
+<span class="sourceLineNo">008</span>/**<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * Listener interface for changes to a {@link PersistentObject}.<a name="line.9"></a>
+<span class="sourceLineNo">010</span> *<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * &lt;p&gt;<a name="line.11"></a>
+<span class="sourceLineNo">012</span> * Listener notifications are delivered in a separate thread from the one that caused the root object to change.<a name="line.12"></a>
+<span class="sourceLineNo">013</span> *<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * @param &lt;T&gt; type of the root persistent object<a name="line.14"></a>
+<span class="sourceLineNo">015</span> */<a name="line.15"></a>
+<span class="sourceLineNo">016</span>public interface PersistentObjectListener&lt;T&gt; {<a name="line.16"></a>
+<span class="sourceLineNo">017</span><a name="line.17"></a>
+<span class="sourceLineNo">018</span>    /**<a name="line.18"></a>
+<span class="sourceLineNo">019</span>     * Handle notification of an updated root object.<a name="line.19"></a>
+<span class="sourceLineNo">020</span>     */<a name="line.20"></a>
+<span class="sourceLineNo">021</span>    void handleEvent(PersistentObjectEvent&lt;T&gt; event);<a name="line.21"></a>
+<span class="sourceLineNo">022</span>}<a name="line.22"></a>
+<span class="sourceLineNo">023</span><a name="line.23"></a>
 
 
 
