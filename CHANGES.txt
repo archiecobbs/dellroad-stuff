@@ -1,7 +1,9 @@
-Version Next
+Version 1.1.0 Released August 24, 2015
 
     - Avoid duplicate validation in PersistentObject XA transactions
     - Make AtomicUpdateFileOutputStream.close() idempotent as required
+    - Fix backwards logic in setting initial buffer size in AsyncOutputStream
+    - Avoid redundant invocation of fireItemSetChange() in AbstractSimpleContainer
 
 Version 1.0.972 Released April 22, 2015
 
