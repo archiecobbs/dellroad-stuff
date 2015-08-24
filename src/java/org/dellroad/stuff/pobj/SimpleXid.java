@@ -74,7 +74,7 @@ final class SimpleXid implements Xid {
             return null;
         final int format = (int)Long.parseLong(matcher.group(1), 16);
         final byte[] global = ByteArrayEncoder.decode(matcher.group(2));
-        final byte[] branch = ByteArrayEncoder.decode(matcher.group(3));
+        final byte[] branch = ByteArrayEncoder.decode(matcher.group(4));
         return new SimpleXid(format, global, branch);
     }
 }
