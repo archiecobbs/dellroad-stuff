@@ -98,16 +98,16 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
      * Does nothing if {@link #close} or {@link #cancel} has already been invoked.
      */
     public synchronized void cancel() {
+
+        // Close output stream to release file descriptor
+        try {
+            super.close();
+        } catch (IOException e) {
+            // ignore
+        }
+
+        // Delete temporary file
         if (this.tempFile != null) {
-
-            // Close output stream to release file descriptor
-            try {
-                super.close();
-            } catch (IOException e) {
-                // ignore
-            }
-
-            // Delete temporary file
             this.tempFile.delete();
             this.tempFile = null;
         }
