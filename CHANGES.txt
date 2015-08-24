@@ -1,6 +1,7 @@
 Version Next
 
     - Avoid duplicate validation in PersistentObject XA transactions
+    - Make AtomicUpdateFileOutputStream.close() idempotent as required
 
 Version 1.0.972 Released April 22, 2015
 

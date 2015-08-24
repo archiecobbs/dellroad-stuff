@@ -126,12 +126,12 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
     @Override
     public synchronized void close() throws IOException {
 
-        // Sanity check
-        if (this.tempFile == null)
-            throw new IOException("already closed or canceled");
-
         // Close temporary file
         super.close();
+
+        // Be idempotent
+        if (this.tempFile == null)
+            return;
 
         // Read updated modification time
         final long newTimestamp = this.tempFile.lastModified();
