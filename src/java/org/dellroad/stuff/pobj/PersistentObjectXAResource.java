@@ -59,14 +59,14 @@ class PersistentObjectXAResource<T> implements XAResource {
 
             // Verify a transaction is associated with the current thread
             if (current == null)
-                throw this.buildException(XAException.XAER_OUTSIDE, "no transaction is associated with the current thread");
-            this.checkVersion(current);
+                throw this.buildException(XAException.XAER_OUTSIDE, xid, "no transaction is associated with the current thread");
+            this.checkVersion(xid, current);
             break;
         case TMRESUME:
 
             // Verify transaction is already registered
             if (info == null) {
-                throw this.buildException(XAException.XAER_NOTA, "no transaction with XID " + xid
+                throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + xid
                   + " is registered with the transaction manager");
             }
 
@@ -74,7 +74,7 @@ class PersistentObjectXAResource<T> implements XAResource {
             try {
                 this.manager.doResume(new TxWrapper<T>(info), info);
             } catch (Exception e) {
-                throw this.buildException(XAException.XAER_RMERR, "can't resume transaction: " + e.getMessage(), e);
+                throw this.buildException(XAException.XAER_RMERR, xid, "can't resume transaction: " + e.getMessage(), e);
             }
             break;
         case TMNOFLAGS:
@@ -84,7 +84,7 @@ class PersistentObjectXAResource<T> implements XAResource {
 
                 // Join existing transaction
                 if (this.manager.xaMap.putIfAbsent(xid, current) != null) {
-                    throw this.buildException(XAException.XAER_DUPID,
+                    throw this.buildException(XAException.XAER_DUPID, xid,
                       "a transaction with XID " + SimpleXid.toString(xid) + " is already registered with the transaction manager");
                 }
                 if (this.log.isTraceEnabled())
@@ -100,7 +100,7 @@ class PersistentObjectXAResource<T> implements XAResource {
                 try {
                     this.manager.doBegin(new TxWrapper<Object>(null), txDef);
                 } catch (Exception e) {
-                    throw this.buildException(XAException.XAER_RMERR, "can't begin transaction: " + e.getMessage(), e);
+                    throw this.buildException(XAException.XAER_RMERR, xid, "can't begin transaction: " + e.getMessage(), e);
                 }
                 final TxInfo<T> newInfo = this.manager.getCurrentTxInfo();
                 if (this.log.isTraceEnabled())
@@ -109,7 +109,7 @@ class PersistentObjectXAResource<T> implements XAResource {
             }
             break;
         default:
-            throw this.buildException(XAException.XAER_INVAL, "invalid flags 0x" + Integer.toHexString(flags));
+            throw this.buildException(XAException.XAER_INVAL, xid, "invalid flags 0x" + Integer.toHexString(flags));
         }
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: start(): new xaMap=" + this.showXAMap());
@@ -123,7 +123,7 @@ class PersistentObjectXAResource<T> implements XAResource {
               Integer.toHexString(flags)) + " xaMap=" + this.showXAMap());
         }
         final TxInfo<T> info = this.verifyCurrent(xid);
-        this.checkVersion(info);
+        this.checkVersion(xid, info);
         switch (flags) {
         case TMSUCCESS:
             break;
@@ -134,11 +134,11 @@ class PersistentObjectXAResource<T> implements XAResource {
             try {
                 this.manager.doSuspend(new TxWrapper<T>(info));
             } catch (Exception e) {
-                throw this.buildException(XAException.XAER_RMERR, "can't resume transaction: " + e.getMessage(), e);
+                throw this.buildException(XAException.XAER_RMERR, xid, "can't resume transaction: " + e.getMessage(), e);
             }
             break;
         default:
-            throw this.buildException(XAException.XAER_INVAL, "invalid flags 0x" + Integer.toHexString(flags));
+            throw this.buildException(XAException.XAER_INVAL, xid, "invalid flags 0x" + Integer.toHexString(flags));
         }
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: end(): new xaMap=" + this.showXAMap());
@@ -149,7 +149,7 @@ class PersistentObjectXAResource<T> implements XAResource {
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: prepare(): xid=" + SimpleXid.toString(xid) + " xaMap=" + this.showXAMap());
         final TxInfo<T> info = this.verifyCurrent(xid);
-        this.checkVersion(info);
+        this.checkVersion(xid, info);
         if (info.isReadOnly()) {
             this.manager.xaMap.remove(xid);
             this.manager.doCleanupAfterCompletion(new TxWrapper<T>(info));
@@ -157,15 +157,20 @@ class PersistentObjectXAResource<T> implements XAResource {
                 this.log.trace("POBJ XA: prepare(): " + SimpleXid.toString(xid) + " is read-only");
             return XA_RDONLY;
         }
+
+        // Serialize POBJ to a temporary file
         try {
             this.createXAFile(xid, info.getSnapshot());
         } catch (PersistentObjectVersionException e) {
-            throw this.buildException(XAException.XA_RBTRANSIENT, "persistent object version has changed: " + e.getMessage(), e);
+            throw this.buildException(XAException.XA_RBTRANSIENT,
+              xid, "persistent object version has changed: " + e.getMessage(), e);
         } catch (PersistentObjectValidationException e) {
-            throw this.buildException(XAException.XA_RBINTEGRITY, "invalid persistent object: " + e.getMessage(), e);
+            throw this.buildException(XAException.XA_RBINTEGRITY, xid, "invalid persistent object: " + e.getMessage(), e);
         } catch (PersistentObjectException e) {
-            throw this.buildException(XAException.XAER_RMERR, "persistent object error: " + e.getMessage(), e);
+            throw this.buildException(XAException.XAER_RMERR, xid, "persistent object error: " + e.getMessage(), e);
         }
+
+        // Done
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: prepare(): new xaMap=" + this.showXAMap());
         return XA_OK;
@@ -194,14 +199,14 @@ class PersistentObjectXAResource<T> implements XAResource {
         if (current == null) {
             this.log.info("POBJ XA: commit(): no current transaction, assuming recovery for xid=" + xid);
             if (!file.isFile())
-                throw this.buildException(XAException.XA_HEURRB, "XID temporary file `" + file + "' invalid or not found");
+                throw this.buildException(XAException.XA_HEURRB, xid, "XID temporary file `" + file + "' invalid or not found");
             try {
                 final T root = PersistentObject.read(this.manager.persistentObject.getDelegate(), file, false);
                 this.manager.persistentObject.setRoot(root);
             } catch (PersistentObjectValidationException e) {
-                throw this.buildException(XAException.XA_RBINTEGRITY, "invalid persistent object: " + e.getMessage(), e);
+                throw this.buildException(XAException.XA_RBINTEGRITY, xid, "invalid persistent object: " + e.getMessage(), e);
             } catch (PersistentObjectException e) {
-                throw this.buildException(XAException.XAER_RMERR, "persistent object error: " + e.getMessage(), e);
+                throw this.buildException(XAException.XAER_RMERR, xid, "persistent object error: " + e.getMessage(), e);
             }
             this.log.info("POBJ XA: commit(): recovery from `" + file + "' successful");
             return;
@@ -215,7 +220,7 @@ class PersistentObjectXAResource<T> implements XAResource {
             this.manager.persistentObject.setRootInternal(info.getSnapshot().getRoot(),
               0/*info.getSnapshot().getVersion()*/, false, false, true);
         } catch (PersistentObjectException e) {
-            throw this.buildException(XAException.XAER_RMERR, "persistent object error: " + e.getMessage(), e);
+            throw this.buildException(XAException.XAER_RMERR, xid, "persistent object error: " + e.getMessage(), e);
         } finally {
             file.delete();
             this.manager.xaMap.remove(xid);
@@ -255,14 +260,14 @@ class PersistentObjectXAResource<T> implements XAResource {
               + " xaMap=" + this.showXAMap());
         }
         if ((flag & ~(TMSTARTRSCAN | TMENDRSCAN)) != 0)
-            throw this.buildException(XAException.XAER_INVAL, "invalid flag 0x" + Integer.toHexString(flag));
+            throw this.buildException(XAException.XAER_INVAL, null, "invalid flag 0x" + Integer.toHexString(flag));
         if ((flag & TMSTARTRSCAN) == 0)
             return new Xid[0];
         final Xid[] xids;
         try {
             xids = this.getXAFiles();
         } catch (IOException e) {
-            throw this.buildException(XAException.XAER_RMERR, "error scanning for XA recovery files: " + e.getMessage(), e);
+            throw this.buildException(XAException.XAER_RMERR, null, "error scanning for XA recovery files: " + e.getMessage(), e);
         }
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: recover(): new xaMap=" + this.showXAMap());
@@ -300,18 +305,18 @@ class PersistentObjectXAResource<T> implements XAResource {
         // Get current transaction
         final TxInfo<T> current = this.manager.getCurrentTxInfo();
         if (current == null)
-            throw this.buildException(XAException.XAER_OUTSIDE, "no transaction is associated with the current thread");
+            throw this.buildException(XAException.XAER_OUTSIDE, xid, "no transaction is associated with the current thread");
 
         // Get transaction corresponding to xid
         final TxInfo<T> info = this.manager.xaMap.get(xid);
         if (info == null) {
-            throw this.buildException(XAException.XAER_NOTA, "no transaction with XID " + xid
+            throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + xid
               + " is registered with the transaction manager");
         }
 
         // Verify they are the same
         if (info != current) {
-            throw this.buildException(XAException.XAER_PROTO, "the transaction associated with XID " + xid
+            throw this.buildException(XAException.XAER_PROTO, xid, "the transaction associated with XID " + xid
               + " does not correspond to the transaction associated with the current thread");
         }
 
@@ -319,24 +324,27 @@ class PersistentObjectXAResource<T> implements XAResource {
         return info;
     }
 
-    private void checkVersion(TxInfo<T> info) throws XAException {
+    private void checkVersion(Xid xid, TxInfo<T> info) throws XAException {
         final long expected = info.getSnapshot().getVersion();
         final long actual = this.manager.persistentObject.getVersion();
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: check version: actual=" + actual + " expected=" + expected);
         if (actual != expected) {
-            throw this.buildException(XAException.XA_RBTRANSIENT,
+            throw this.buildException(XAException.XA_RBTRANSIENT, xid,
               "persistent object version has changed: " + new PersistentObjectVersionException(actual, expected).getMessage());
         }
     }
 
-    private XAException buildException(int errorCode, String message) {
-        return this.buildException(errorCode, message, null);
+    private XAException buildException(int errorCode, Xid xid, String message) {
+        return this.buildException(errorCode, xid, message, null);
     }
 
-    private XAException buildException(int errorCode, String message, Throwable cause) {
-        if (this.log.isTraceEnabled())
-            this.log.trace("POBJ XA: throwing exception: code=" + errorCode + " msg=\"" + message + "\" cause=" + cause);
+    private XAException buildException(int errorCode, Xid xid, String message, Throwable cause) {
+        final TxInfo<T> info = this.manager.getCurrentTxInfo();
+        if (this.log.isTraceEnabled()) {
+            this.log.trace("POBJ XA: throwing exception:\n  xid=" + xid + "\n  info=" + info
+              + "\n  code=" + errorCode + "\n  msg=\"" + message + "\"\n  cause=" + cause);
+        }
         final XAException e = new XAException(message);
         if (errorCode != 0)
             e.errorCode = errorCode;
