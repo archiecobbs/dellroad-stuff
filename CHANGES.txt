@@ -1,4 +1,4 @@
-Version Next
+Version 1.1.1 Released August 25, 2015
 
     - Fix failure to properly cleanup after errors in POBJ XA transactions
     - Fix bug in POBJ XA transaction crash recovery logic
