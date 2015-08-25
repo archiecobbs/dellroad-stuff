@@ -10,6 +10,7 @@ final class TxInfo<T> {
     private final boolean readOnly;
     private PersistentObject<T>.Snapshot snapshot;
     private boolean rollbackOnly;
+    private boolean xaCleanup;
 
     public TxInfo(PersistentObject<T>.Snapshot snapshot, boolean readOnly) {
         this.readOnly = readOnly;
@@ -36,10 +37,20 @@ final class TxInfo<T> {
         this.rollbackOnly = rollbackOnly;
     }
 
+    public boolean isXACleanup() {
+        return this.xaCleanup;
+    }
+    public void setXACleanup(boolean xaCleanup) {
+        this.xaCleanup = xaCleanup;
+    }
+
     @Override
     public String toString() {
         return "TxInfo[root=" + this.snapshot.getRoot() + ",version=" + this.snapshot.getVersion()
-          + (this.readOnly ? ",readOnly" : "") + (this.rollbackOnly ? ",rollbackOnly" : "") + "]";
+          + (this.readOnly ? ",readOnly" : "")
+          + (this.rollbackOnly ? ",rollbackOnly" : "")
+          + (this.xaCleanup ? ",xaCleanup" : "")
+          + "]";
     }
 }
 

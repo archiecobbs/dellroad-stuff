@@ -103,6 +103,7 @@ class PersistentObjectXAResource<T> implements XAResource {
                     throw this.buildException(XAException.XAER_RMERR, xid, "can't begin transaction: " + e.getMessage(), e);
                 }
                 final TxInfo<T> newInfo = this.manager.getCurrentTxInfo();
+                newInfo.setXACleanup(true);
                 if (this.log.isTraceEnabled())
                     this.log.trace("POBJ XA: start(): created new transaction " + newInfo);
                 this.manager.xaMap.put(xid, newInfo);
@@ -148,8 +149,15 @@ class PersistentObjectXAResource<T> implements XAResource {
     public int prepare(Xid xid) throws XAException {
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: prepare(): xid=" + SimpleXid.toString(xid) + " xaMap=" + this.showXAMap());
+
+        // Get tx info
         final TxInfo<T> info = this.verifyCurrent(xid);
         this.checkVersion(xid, info);
+
+        // From now on, clean up if any exception is thrown
+        info.setXACleanup(true);
+
+        // Handle the read-only case
         if (info.isReadOnly()) {
             this.manager.xaMap.remove(xid);
             this.manager.doCleanupAfterCompletion(new TxWrapper<T>(info));
@@ -350,6 +358,10 @@ class PersistentObjectXAResource<T> implements XAResource {
             e.errorCode = errorCode;
         if (cause != null)
             e.initCause(cause);
+        if (info != null && info.isXACleanup()) {
+            this.manager.xaMap.remove(xid);
+            this.manager.doCleanupAfterCompletion(new TxWrapper<T>(info));
+        }
         return e;
     }
 
