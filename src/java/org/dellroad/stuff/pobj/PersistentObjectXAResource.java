@@ -66,7 +66,7 @@ class PersistentObjectXAResource<T> implements XAResource {
 
             // Verify transaction is already registered
             if (info == null) {
-                throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + xid
+                throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + SimpleXid.toString(xid)
                   + " is registered with the transaction manager");
             }
 
@@ -205,7 +205,7 @@ class PersistentObjectXAResource<T> implements XAResource {
         final File file = this.getXAFile(xid);
         final TxInfo<T> current = this.manager.getCurrentTxInfo();
         if (current == null) {
-            this.log.info("POBJ XA: commit(): no current transaction, assuming recovery for xid=" + xid);
+            this.log.info("POBJ XA: commit(): no current transaction, assuming recovery for xid=" + SimpleXid.toString(xid));
             if (!file.isFile())
                 throw this.buildException(XAException.XA_HEURRB, xid, "XID temporary file `" + file + "' invalid or not found");
             try {
@@ -254,7 +254,7 @@ class PersistentObjectXAResource<T> implements XAResource {
     @Override
     public void forget(Xid xid) throws XAException {
         if (this.log.isTraceEnabled())
-            this.log.trace("POBJ XA: forget(): xid=" + xid);
+            this.log.trace("POBJ XA: forget(): xid=" + SimpleXid.toString(xid));
         this.manager.xaMap.remove(xid);
         this.removeXAFile(xid);
         if (this.log.isTraceEnabled())
@@ -308,7 +308,7 @@ class PersistentObjectXAResource<T> implements XAResource {
 
         // Logging
         if (this.log.isTraceEnabled())
-            this.log.trace("POBJ XA: verifying current tx for " + xid);
+            this.log.trace("POBJ XA: verifying current tx for " + SimpleXid.toString(xid));
 
         // Get current transaction
         final TxInfo<T> current = this.manager.getCurrentTxInfo();
@@ -318,13 +318,13 @@ class PersistentObjectXAResource<T> implements XAResource {
         // Get transaction corresponding to xid
         final TxInfo<T> info = this.manager.xaMap.get(xid);
         if (info == null) {
-            throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + xid
+            throw this.buildException(XAException.XAER_NOTA, xid, "no transaction with XID " + SimpleXid.toString(xid)
               + " is registered with the transaction manager");
         }
 
         // Verify they are the same
         if (info != current) {
-            throw this.buildException(XAException.XAER_PROTO, xid, "the transaction associated with XID " + xid
+            throw this.buildException(XAException.XAER_PROTO, xid, "the transaction associated with XID " + SimpleXid.toString(xid)
               + " does not correspond to the transaction associated with the current thread");
         }
 
@@ -350,7 +350,7 @@ class PersistentObjectXAResource<T> implements XAResource {
     private XAException buildException(int errorCode, Xid xid, String message, Throwable cause) {
         final TxInfo<T> info = this.manager.getCurrentTxInfo();
         if (this.log.isTraceEnabled()) {
-            this.log.trace("POBJ XA: throwing exception:\n  xid=" + xid + "\n  info=" + info
+            this.log.trace("POBJ XA: throwing exception:\n  xid=" + SimpleXid.toString(xid) + "\n  info=" + info
               + "\n  code=" + errorCode + "\n  msg=\"" + message + "\"\n  cause=" + cause);
         }
         final XAException e = new XAException(message);
