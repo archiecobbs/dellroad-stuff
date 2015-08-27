@@ -23,9 +23,13 @@ public final class ValidationUtil {
      * <p>
      * This method simply creates a {@link ValidationContext} with the given root and invokes {@link ValidationContext#validate()}.
      * </p>
+     *
+     * @param obj object to validate
+     * @param groups group(s) targeted for validation (if empty, defaults to {@link javax.validation.groups.Default})
+     * @throws IllegalArgumentException if either paramter is null
      */
-    public static <T> Set<ConstraintViolation<T>> validate(T obj) {
-        return new ValidationContext<T>(obj).validate();
+    public static <T> Set<ConstraintViolation<T>> validate(T obj, Class<?>... groups) {
+        return new ValidationContext<T>(obj, groups).validate();
     }
 
     /**

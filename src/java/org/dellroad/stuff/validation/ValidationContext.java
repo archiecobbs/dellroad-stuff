@@ -36,17 +36,22 @@ public class ValidationContext<T> {
 
     private final HashMap<String, Set<Object>> uniqueDomainMap = new HashMap<String, Set<Object>>();
     private final T root;
+    private final Class<?>[] groups;
 
     /**
-     * Construct a new validation context configured to validate the given root object.
+     * Construct a new validation context configured to validate the given root object, using the given validation group(s).
      *
      * @param root root object to be validated
-     * @throws IllegalArgumentException if {@code root} is null
+     * @param groups group(s) targeted for validation (if empty, defaults to {@link javax.validation.groups.Default})
+     * @throws IllegalArgumentException if either paramter is null
      */
-    public ValidationContext(T root) {
+    public ValidationContext(T root, Class<?>... groups) {
         if (root == null)
             throw new IllegalArgumentException("null root");
+        if (groups == null)
+            throw new IllegalArgumentException("null groups");
         this.root = root;
+        this.groups = groups;
     }
 
     /**
@@ -54,6 +59,15 @@ public class ValidationContext<T> {
      */
     public final T getRoot() {
         return this.root;
+    }
+
+    /**
+     * Get the validation groups associated with this instance.
+     *
+     * @return configured validation groups
+     */
+    public final Class<?>[] getGroups() {
+        return this.groups;
     }
 
     /**
@@ -85,7 +99,7 @@ public class ValidationContext<T> {
             return ValidationContext.CURRENT.invoke(this, new Callable<Set<ConstraintViolation<T>>>() {
                 @Override
                 public Set<ConstraintViolation<T>> call() {
-                    return validator.validate(ValidationContext.this.root);
+                    return validator.validate(ValidationContext.this.root, ValidationContext.this.groups);
                 }
             });
         } catch (RuntimeException e) {
