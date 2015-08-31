@@ -1,6 +1,6 @@
 Version 1.1.2
 
-    - Allow validation groups to be specified in a ValidationContext.
+    - Allow validation groups to be specified in a ValidationContext
 
 Version 1.1.1 Released August 25, 2015
 
