@@ -203,14 +203,30 @@
 <error line="177" column="26" severity="info" message="&apos;32&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 <error line="193" column="27" severity="info" message="&apos;32&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
+<file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/Network.java">
+</file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/PersistentConnection.java">
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/PersistentSocketConnection.java">
+</file>
+<file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/SelectorSupport.java">
+<error line="151" column="39" severity="info" message="&apos;1000L&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/SocketAcceptor.java">
 <error line="139" column="5" severity="info" message="Executable statement count is 40 (max allowed is 30)." source="com.puppycrawl.tools.checkstyle.checks.sizes.ExecutableStatementCountCheck"/>
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/SocketHandler.java">
+</file>
+<file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/TCPConnection.java">
+<error line="72" column="42" severity="info" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="94" column="60" severity="info" message="&apos;1000000L&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="115" column="40" severity="info" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="120" column="57" severity="info" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="215" column="50" severity="info" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="230" column="46" severity="info" message="&apos;4&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+</file>
+<file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/TCPNetwork.java">
+<error line="251" column="52" severity="info" message="&apos;1000&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/net/package-info.java">
 </file>
@@ -639,7 +655,7 @@
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/validation/ValidationContext.java">
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/validation/ValidationUtil.java">
-<error line="41" column="67" severity="info" message="&apos;32&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
+<error line="45" column="67" severity="info" message="&apos;32&apos; is a magic number." source="com.puppycrawl.tools.checkstyle.checks.coding.MagicNumberCheck"/>
 </file>
 <file name="/Users/archie/proj/dellroad-stuff/dellroad-stuff/src/java/org/dellroad/stuff/validation/package-info.java">
 </file>

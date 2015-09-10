@@ -78,6 +78,24 @@
 </tr>
 <tbody>
 <tr class="altColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></td>
+<td class="colLast">
+<div class="block">Abstraction layer representing "the network", over which we communicate with other nodes.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a></td>
+<td class="colLast">
+<div class="block">Callback interface used by <a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementations.</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/net/SelectorSupport.IOHandler.html" title="interface in org.dellroad.stuff.net">SelectorSupport.IOHandler</a></td>
+<td class="colLast">
+<div class="block">Callback interface used by <a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net"><code>SelectorSupport</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net">SocketHandler</a></td>
 <td class="colLast">
 <div class="block">Implemented by objects that handle individual connections accepted by a <a href="../../../../org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net"><code>SocketAcceptor</code></a>.</div>
@@ -113,9 +131,21 @@
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></td>
+<td class="colLast">
+<div class="block">Support superclass for classes that perform activity based on <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SelectableChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>SelectableChannel</code></a> asynchronous I/O notifications.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net">SocketAcceptor</a></td>
 <td class="colLast">
 <div class="block">Spring bean that listens for connections on a TCP socket and spawns a child thread to handle each new connection.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></td>
+<td class="colLast">
+<div class="block"><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementation based on TCP sockets.</div>
 </td>
 </tr>
 </tbody>

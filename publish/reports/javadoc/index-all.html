@@ -1112,6 +1112,10 @@
 <dd>
 <div class="block">Close the underlying output stream.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html#close(java.lang.Throwable)">close(Throwable)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html" title="interface in org.dellroad.stuff.net">SelectorSupport.IOHandler</a></dt>
+<dd>
+<div class="block">Invoked when an exception is thrown by <a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html#serviceIO(java.nio.channels.SelectionKey)"><code>serviceIO()</code></a>.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/sql/MergedResultSet.html#close()">close()</a></span> - Method in class org.dellroad.stuff.sql.<a href="./org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/vaadin/ContextApplication.html#close()">close()</a></span> - Method in class org.dellroad.stuff.vaadin.<a href="./org/dellroad/stuff/vaadin/ContextApplication.html" title="class in org.dellroad.stuff.vaadin">ContextApplication</a></dt>
@@ -1176,6 +1180,14 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/dao/CriteriaCallback.html#configureQuery(javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.CriteriaBuilder)">configureQuery(CriteriaQuery&lt;T&gt;, CriteriaBuilder)</a></span> - Method in class org.dellroad.stuff.dao.<a href="./org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao">CriteriaCallback</a></dt>
 <dd>
 <div class="block">Configure the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>CriteriaQuery</code></a>.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#configureServerSocketChannel(java.nio.channels.ServerSocketChannel)">configureServerSocketChannel(ServerSocketChannel)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Configure the <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/ServerSocketChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>ServerSocketChannel</code></a> to be used by this instance.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#configureSocketChannel(java.nio.channels.SocketChannel)">configureSocketChannel(SocketChannel)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Configure a new <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>SocketChannel</code></a> to be used by this instance.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#connect(org.dellroad.stuff.pobj.PersistentObject)">connect(PersistentObject&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.pobj.vaadin.<a href="./org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="class in org.dellroad.stuff.pobj.vaadin">PersistentObjectContainerLoader</a></dt>
 <dd>
@@ -1362,6 +1374,11 @@
 <dd>
 <div class="block">Create a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform"><code>Result</code></a> targeting the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#createSelectionKey(java.nio.channels.SelectableChannel, org.dellroad.stuff.net.SelectorSupport.IOHandler)">createSelectionKey(SelectableChannel, SelectorSupport.IOHandler)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Create a new <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SelectionKey.html?is-external=true" title="class or interface in java.nio.channels"><code>SelectionKey</code></a> by registering the given channel on the given <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/Selector.html?is-external=true" title="class or interface in java.nio.channels"><code>Selector</code></a>
+ and associating the specified <a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html" title="interface in org.dellroad.stuff.net"><code>SelectorSupport.IOHandler</code></a> to handle I/O ready conditions.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/SocketAcceptor.html#createServerSocket()">createServerSocket()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net">SocketAcceptor</a></dt>
 <dd>
 <div class="block">Create the server's socket via which connections will be accepted.</div>
@@ -1442,6 +1459,18 @@
 <dd>
 <div class="block">Encodes <code>Date</code> objects to and from strings.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#dbg(java.lang.Iterable)">dbg(Iterable&lt;? extends SelectionKey&gt;)</a></span> - Static method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Get a debug description of the given keys.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#dbg(java.nio.channels.SelectionKey)">dbg(SelectionKey)</a></span> - Static method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Get a debug description of the given key.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#dbgOps(int)">dbgOps(int)</a></span> - Static method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Get a debug description of the given I/O ops.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/string/ByteArrayEncoder.html#decode(java.lang.String)">decode(String)</a></span> - Static method in class org.dellroad.stuff.string.<a href="./org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string">ByteArrayEncoder</a></dt>
 <dd>
 <div class="block">Decode a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> back into a <code>byte[]</code> array.</div>
@@ -1462,6 +1491,10 @@
 <dd>
 <div class="block">Default value for the <code>git(1)</code> <a href="./org/dellroad/stuff/pobj/distrib/Synchronizer.html#setBranch(java.lang.String)">branch</a> name ("master").</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_CONNECT_TIMEOUT">DEFAULT_CONNECT_TIMEOUT</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Default connect timeout for outgoing connections (20000L milliseconds).</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/xml/IndentXMLStreamWriter.html#DEFAULT_ENCODING">DEFAULT_ENCODING</a></span> - Static variable in class org.dellroad.stuff.xml.<a href="./org/dellroad/stuff/xml/IndentXMLStreamWriter.html" title="class in org.dellroad.stuff.xml">IndentXMLStreamWriter</a></dt>
 <dd>
 <div class="block">Initial value for the <a href="./org/dellroad/stuff/xml/IndentXMLStreamWriter.html#setDefaultEncoding(java.lang.String)">default character encoding</a>.</div>
@@ -1469,6 +1502,10 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/distrib/Synchronizer.html#DEFAULT_FILENAME">DEFAULT_FILENAME</a></span> - Static variable in class org.dellroad.stuff.pobj.distrib.<a href="./org/dellroad/stuff/pobj/distrib/Synchronizer.html" title="class in org.dellroad.stuff.pobj.distrib">Synchronizer</a></dt>
 <dd>
 <div class="block">Default value for the XML file that is stored in the <code>git(1)</code> repository ("root.xml").</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#DEFAULT_HOUSEKEEPING_INTERVAL">DEFAULT_HOUSEKEEPING_INTERVAL</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Default housekeeping interval (1000ms).</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/xml/IndentXMLStreamWriter.html#DEFAULT_INDENT">DEFAULT_INDENT</a></span> - Static variable in class org.dellroad.stuff.xml.<a href="./org/dellroad/stuff/xml/IndentXMLStreamWriter.html" title="class in org.dellroad.stuff.xml">IndentXMLStreamWriter</a></dt>
 <dd>
@@ -1486,6 +1523,23 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/SpringXSLUpdateTransformConfigurer.html#DEFAULT_LOCATION_SUFFIX">DEFAULT_LOCATION_SUFFIX</a></span> - Static variable in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/SpringXSLUpdateTransformConfigurer.html" title="class in org.dellroad.stuff.pobj">SpringXSLUpdateTransformConfigurer</a></dt>
 <dd>
 <div class="block">Default location suffix: <code>".xsl"</code>.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_CONNECTIONS">DEFAULT_MAX_CONNECTIONS</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Default maximum number of simultaneous connections (1000).</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_IDLE_TIME">DEFAULT_MAX_IDLE_TIME</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Default idle connection timeout (30000L milliseconds).</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_MESSAGE_SIZE">DEFAULT_MAX_MESSAGE_SIZE</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Default maximum allowed size of an incoming message (33554432 bytes).</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_OUTPUT_QUEUE_SIZE">DEFAULT_MAX_OUTPUT_QUEUE_SIZE</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Default maximum allowed size of a connection's outgoing queue before we start dropping messages
+ (67108864L bytes).</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#DEFAULT_MAX_RESTART_DELAY">DEFAULT_MAX_RESTART_DELAY</a></span> - Static variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>
@@ -2565,6 +2619,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html#getConnection()">getConnection()</a></span> - Method in class org.dellroad.stuff.spring.<a href="./org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html" title="class in org.dellroad.stuff.spring">HibernateIsolationJpaDialect.TransactionDataWrapper</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getConnectTimeout()">getConnectTimeout()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the outgoing connection timeout.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerFilters()">getContainerFilters()</a></span> - Method in class org.dellroad.stuff.vaadin7.<a href="./org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractSimpleContainer</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/vaadin/AbstractQueryContainer.html#getContainerProperty(java.lang.Object, java.lang.Object)">getContainerProperty(Object, Object)</a></span> - Method in class org.dellroad.stuff.vaadin.<a href="./org/dellroad/stuff/vaadin/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin">AbstractQueryContainer</a></dt>
@@ -2793,6 +2851,10 @@
 <dd>
 <div class="block">Get the unique clone of a given value during a graph clone operation, creating it if necessary.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/validation/ValidationContext.html#getGroups()">getGroups()</a></span> - Method in class org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation">ValidationContext</a></dt>
+<dd>
+<div class="block">Get the validation groups associated with this instance.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/sql/MergedResultSet.html#getHoldability()">getHoldability()</a></span> - Method in class org.dellroad.stuff.sql.<a href="./org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/java/IdGenerator.html#getId(java.lang.Object)">getId(Object)</a></span> - Method in class org.dellroad.stuff.java.<a href="./org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java">IdGenerator</a></dt>
@@ -2961,6 +3023,10 @@
 <dd>
 <div class="block">Get the single character descriptor for this primitive type, e.g., "I".</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getListenAddress()">getListenAddress()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net"><code>InetSocketAddress</code></a> to which this instance is bound or will bind.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/util/ThreadLogger.html#getLogDestination()">getLogDestination()</a></span> - Static method in class org.dellroad.stuff.util.<a href="./org/dellroad/stuff/util/ThreadLogger.html" title="class in org.dellroad.stuff.util">ThreadLogger</a></dt>
 <dd>
 <div class="block">Get the currently configured logging output destination for the current thread.</div>
@@ -2987,9 +3053,25 @@
 <dd>
 <div class="block">Get maximum number of concurrent connections.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getMaxConnections()">getMaxConnections()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the maximum number of allowed connections.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getMaxIdleTime()">getMaxIdleTime()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the maximum idle time for connections before automatically closing them down.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/spring/RetryTransactionProvider.html#getMaximumDelayDefault()">getMaximumDelayDefault()</a></span> - Method in interface org.dellroad.stuff.spring.<a href="./org/dellroad/stuff/spring/RetryTransactionProvider.html" title="interface in org.dellroad.stuff.spring">RetryTransactionProvider</a></dt>
 <dd>
 <div class="block">Get the aspect-wide default for <a href="./org/dellroad/stuff/spring/RetryTransaction.html#maximumDelay()"><code>RetryTransaction.maximumDelay()</code></a>.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getMaxMessageSize()">getMaxMessageSize()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the maximum allowed length for incoming messages.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#getMaxOutputQueueSize()">getMaxOutputQueueSize()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Get the maximum allowed size of the queue for outgoing messages.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#getMaxRestartDelay()">getMaxRestartDelay()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>&nbsp;</dd>
@@ -3722,6 +3804,10 @@
 </a>
 <h2 class="title">H</h2>
 <dl>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/Network.Handler.html#handle(java.lang.String, java.nio.ByteBuffer)">handle(String, ByteBuffer)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a></dt>
+<dd>
+<div class="block">Handle an incoming message from a remote peer.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/main/MainClass.html#handleCommand(java.lang.String)">handleCommand(String)</a></span> - Method in class org.dellroad.stuff.main.<a href="./org/dellroad/stuff/main/MainClass.html" title="class in org.dellroad.stuff.main">MainClass</a></dt>
 <dd>
 <div class="block">Callback used by <a href="./org/dellroad/stuff/main/MainClass.html#commandLoop(java.lang.String, java.lang.String)"><code>MainClass.commandLoop(java.lang.String, java.lang.String)</code></a>.</div>
@@ -4224,6 +4310,10 @@
 <dd>
 <div class="block">Determine whether there is currently an outstanding scheduled action.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#isServiceThread()">isServiceThread()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Determine whether the current thread is this instance's service thread.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/schema/AbstractSchemaUpdate.html#isSingleAction()">isSingleAction()</a></span> - Method in class org.dellroad.stuff.schema.<a href="./org/dellroad/stuff/schema/AbstractSchemaUpdate.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdate</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/schema/SchemaUpdate.html#isSingleAction()">isSingleAction()</a></span> - Method in interface org.dellroad.stuff.schema.<a href="./org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a></dt>
@@ -4367,6 +4457,8 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/main/MainClass.html#log">log</a></span> - Variable in class org.dellroad.stuff.main.<a href="./org/dellroad/stuff/main/MainClass.html" title="class in org.dellroad.stuff.main">MainClass</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#log">log</a></span> - Variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#log">log</a></span> - Variable in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/AbstractDelegate.html#log">log</a></span> - Variable in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/AbstractDelegate.html" title="class in org.dellroad.stuff.pobj">AbstractDelegate</a></dt>
 <dd>&nbsp;</dd>
@@ -4546,6 +4638,14 @@
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/FilterDelegate.html#nested">nested</a></span> - Variable in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/FilterDelegate.html" title="class in org.dellroad.stuff.pobj">FilterDelegate</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><span class="strong">Network</span></a> - Interface in <a href="./org/dellroad/stuff/net/package-summary.html">org.dellroad.stuff.net</a></dt>
+<dd>
+<div class="block">Abstraction layer representing "the network", over which we communicate with other nodes.</div>
+</dd>
+<dt><a href="./org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net"><span class="strong">Network.Handler</span></a> - Interface in <a href="./org/dellroad/stuff/net/package-summary.html">org.dellroad.stuff.net</a></dt>
+<dd>
+<div class="block">Callback interface used by <a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementations.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/sql/MergedResultSet.html#next()">next()</a></span> - Method in class org.dellroad.stuff.sql.<a href="./org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/xml/AnnotatedXMLEventReader.html#next()">next()</a></span> - Method in class org.dellroad.stuff.xml.<a href="./org/dellroad/stuff/xml/AnnotatedXMLEventReader.html" title="class in org.dellroad.stuff.xml">AnnotatedXMLEventReader</a></dt>
@@ -4770,6 +4870,10 @@
 <dd>
 <div class="block">The original format string provided to the constructor.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/Network.Handler.html#outputQueueEmpty(java.lang.String)">outputQueueEmpty(String)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a></dt>
+<dd>
+<div class="block">Receive notification that a remote peer's output queue has transitioned from a non empty state to an empty state</div>
+</dd>
 <dt><a href="./org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io"><span class="strong">OutputStreamWriter</span></a> - Class in <a href="./org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
 <dd>
 <div class="block">Serializes zero or more <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>s inside a single underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
@@ -4810,6 +4914,10 @@
 <dd>
 <div class="block">Parse the given text using the provided pattern and mapping from pattern sub-group to Java bean property name.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#parseAddressPart(java.lang.String)">parseAddressPart(String)</a></span> - Static method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Parse out the address part of an address that has an optional colon plus TCP port number suffix.</div>
+</dd>
 <dt><a href="./org/dellroad/stuff/string/ParseContext.html" title="class in org.dellroad.stuff.string"><span class="strong">ParseContext</span></a> - Class in <a href="./org/dellroad/stuff/string/package-summary.html">org.dellroad.stuff.string</a></dt>
 <dd>
 <div class="block">Utility class supporting parsing of strings.</div>
@@ -4821,6 +4929,10 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/jibx/IdMapper.html#parseId(java.lang.String)">parseId(String)</a></span> - Static method in class org.dellroad.stuff.jibx.<a href="./org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx">IdMapper</a></dt>
 <dd>
 <div class="block">Parse the unique ID value assigned to the given object by <a href="./org/dellroad/stuff/jibx/IdMapper.html#getId(java.lang.Object)"><code>getId()</code></a>.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#parsePortPart(java.lang.String, int)">parsePortPart(String, int)</a></span> - Static method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Parse out the port part of an address that has an optional colon plus TCP port number suffix.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/main/MainClass.html#parsePropertyFlags(java.lang.String[])">parsePropertyFlags(String[])</a></span> - Method in class org.dellroad.stuff.main.<a href="./org/dellroad/stuff/main/MainClass.html" title="class in org.dellroad.stuff.main">MainClass</a></dt>
 <dd>
@@ -5622,6 +5734,20 @@
 <dd>
 <div class="block">The name of this scope (i.e., <code>"vaadinApplication"</code>).</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#selectFor(java.nio.channels.SelectionKey, int, boolean)">selectFor(SelectionKey, int, boolean)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Enable or disable listening for the specified I/O operation(s).</div>
+</dd>
+<dt><a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net"><span class="strong">SelectorSupport</span></a> - Class in <a href="./org/dellroad/stuff/net/package-summary.html">org.dellroad.stuff.net</a></dt>
+<dd>
+<div class="block">Support superclass for classes that perform activity based on <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SelectableChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>SelectableChannel</code></a> asynchronous I/O notifications.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#SelectorSupport()">SelectorSupport()</a></span> - Constructor for class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html" title="interface in org.dellroad.stuff.net"><span class="strong">SelectorSupport.IOHandler</span></a> - Interface in <a href="./org/dellroad/stuff/net/package-summary.html">org.dellroad.stuff.net</a></dt>
+<dd>
+<div class="block">Callback interface used by <a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net"><code>SelectorSupport</code></a>.</div>
+</dd>
 <dt><a href="./org/dellroad/stuff/vaadin/SelfKeyedContainer.html" title="class in org.dellroad.stuff.vaadin"><span class="strong">SelfKeyedContainer</span></a>&lt;<a href="./org/dellroad/stuff/vaadin/SelfKeyedContainer.html" title="type parameter in SelfKeyedContainer">T</a>&gt; - Class in <a href="./org/dellroad/stuff/vaadin/package-summary.html">org.dellroad.stuff.vaadin</a></dt>
 <dd>
 <div class="block">A <a href="./org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="class in org.dellroad.stuff.vaadin"><code>SimpleKeyedContainer</code></a> where the item IDs are the underlying container objects themselves.</div>
@@ -5697,6 +5823,12 @@
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/validation/SelfValidationException.html#SelfValidationException(java.lang.String, java.lang.Throwable)">SelfValidationException(String, Throwable)</a></span> - Constructor for exception org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/SelfValidationException.html" title="class in org.dellroad.stuff.validation">SelfValidationException</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/Network.html#send(java.lang.String, java.nio.ByteBuffer)">send(String, ByteBuffer)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></dt>
+<dd>
+<div class="block">Send (or enqueue for sending) a message to a remote peer.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#send(java.lang.String, java.nio.ByteBuffer)">send(String, ByteBuffer)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/string/VersionComparator.html#separateIntoParts(java.lang.String)">separateIntoParts(String)</a></span> - Method in class org.dellroad.stuff.string.<a href="./org/dellroad/stuff/string/VersionComparator.html" title="class in org.dellroad.stuff.string">VersionComparator</a></dt>
 <dd>
 <div class="block">Split a version string into parts.</div>
@@ -5764,6 +5896,22 @@
 <dt><span class="strong"><a href="./org/dellroad/stuff/jibx/ParseUtil.html#serializeXSDDateTime(java.util.Date)">serializeXSDDateTime(Date)</a></span> - Static method in class org.dellroad.stuff.jibx.<a href="./org/dellroad/stuff/jibx/ParseUtil.html" title="class in org.dellroad.stuff.jibx">ParseUtil</a></dt>
 <dd>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> to XSD dateTime format.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#serviceCleanup()">serviceCleanup()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Perform shutdown cleanups.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#serviceCleanup()">serviceCleanup()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#serviceHousekeeping()">serviceHousekeeping()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Perform housekeeping.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#serviceHousekeeping()">serviceHousekeeping()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html#serviceIO(java.nio.channels.SelectionKey)">serviceIO(SelectionKey)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.IOHandler.html" title="interface in org.dellroad.stuff.net">SelectorSupport.IOHandler</a></dt>
+<dd>
+<div class="block">Handle ready I/O.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#servletInitialized()">servletInitialized()</a></span> - Method in class org.dellroad.stuff.vaadin7.<a href="./org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7">SpringVaadinServlet</a></dt>
 <dd>&nbsp;</dd>
@@ -5837,6 +5985,8 @@
 <div class="block">Set whether to use the SQL column labels as the XML element names for the data columns
  instead of <code>&lt;column&gt;</code>.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setConnectTimeout(long)">setConnectTimeout(long)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/ant/JPASchemaGeneratorTask.html#setCreate(boolean)">setCreate(boolean)</a></span> - Method in class org.dellroad.stuff.ant.<a href="./org/dellroad/stuff/ant/JPASchemaGeneratorTask.html" title="class in org.dellroad.stuff.ant">JPASchemaGeneratorTask</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)">setDatabaseInitialization(SQLCommandList)</a></span> - Method in class org.dellroad.stuff.schema.<a href="./org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema">SQLSchemaUpdater</a></dt>
@@ -5927,6 +6077,10 @@
 <dd>
 <div class="block">Register the given clone as the unique instance associated with the object currently being cloned.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#setHousekeepingInterval(int)">setHousekeepingInterval(int)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Set the housekeeping interval.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/java/IdGenerator.html#setId(java.lang.Object, long)">setId(Object, long)</a></span> - Method in class org.dellroad.stuff.java.<a href="./org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java">IdGenerator</a></dt>
 <dd>
 <div class="block">Assign a unique ID to the given object.</div>
@@ -5965,6 +6119,10 @@
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/jibx/MapEntry.html#setKey(K)">setKey(K)</a></span> - Method in class org.dellroad.stuff.jibx.<a href="./org/dellroad/stuff/jibx/MapEntry.html" title="class in org.dellroad.stuff.jibx">MapEntry</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setListenAddress(java.net.InetSocketAddress)">setListenAddress(InetSocketAddress)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Configure the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net"><code>InetSocketAddress</code></a> to which this instance should bind.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/util/ThreadLogger.html#setLogDestination(java.io.Writer, boolean)">setLogDestination(Writer, boolean)</a></span> - Static method in class org.dellroad.stuff.util.<a href="./org/dellroad/stuff/util/ThreadLogger.html" title="class in org.dellroad.stuff.util">ThreadLogger</a></dt>
 <dd>
 <div class="block">Configure the logging output destination for the current thread.</div>
@@ -5982,6 +6140,14 @@
 <div class="block">Set the <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/oxm/Marshaller.html?is-external=true" title="class or interface in org.springframework.oxm"><code>Marshaller</code></a> used to convert instances to XML.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/SocketAcceptor.html#setMaxConnections(int)">setMaxConnections(int)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net">SocketAcceptor</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setMaxConnections(int)">setMaxConnections(int)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setMaxIdleTime(long)">setMaxIdleTime(long)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setMaxMessageSize(int)">setMaxMessageSize(int)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#setMaxOutputQueueSize(long)">setMaxOutputQueueSize(long)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#setMaxRestartDelay(long)">setMaxRestartDelay(long)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>
@@ -6657,16 +6823,26 @@
 <dd>
 <div class="block">Start a new <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/Network.html#start(org.dellroad.stuff.net.Network.Handler)">start(Network.Handler)</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></dt>
+<dd>
+<div class="block">Start this instance.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#start()">start()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>
 <div class="block">Start this instance.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentSocketConnection.html#start()">start()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentSocketConnection.html" title="class in org.dellroad.stuff.net">PersistentSocketConnection</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#start()">start()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Start this instance.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/SocketAcceptor.html#start()">start()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net">SocketAcceptor</a></dt>
 <dd>
 <div class="block">Start accepting incoming connections.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#start(org.dellroad.stuff.net.Network.Handler)">start(Network.Handler)</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/AbstractConfiguredBean.html#start(T)">start(T)</a></span> - Method in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="class in org.dellroad.stuff.pobj">AbstractConfiguredBean</a></dt>
 <dd>
 <div class="block">Start this bean.</div>
@@ -6683,9 +6859,17 @@
 <dd>
 <div class="block">End the current <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/Network.html#stop()">stop()</a></span> - Method in interface org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></dt>
+<dd>
+<div class="block">Stop this instance.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/PersistentConnection.html#stop()">stop()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>
 <div class="block">Stop this client.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#stop()">stop()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Stop this instance.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/net/SocketAcceptor.html#stop()">stop()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net">SocketAcceptor</a></dt>
 <dd>
@@ -6695,6 +6879,8 @@
 <dd>
 <div class="block">Receive notification that the server is shutting down.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#stop()">stop()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/AbstractConfiguredBean.html#stop()">stop()</a></span> - Method in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="class in org.dellroad.stuff.pobj">AbstractConfiguredBean</a></dt>
 <dd>
 <div class="block">Stop this bean.</div>
@@ -6769,6 +6955,14 @@
 </a>
 <h2 class="title">T</h2>
 <dl>
+<dt><a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><span class="strong">TCPNetwork</span></a> - Class in <a href="./org/dellroad/stuff/net/package-summary.html">org.dellroad.stuff.net</a></dt>
+<dd>
+<div class="block"><a href="./org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementation based on TCP sockets.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#TCPNetwork(int)">TCPNetwork(int)</a></span> - Constructor for class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/vaadin/ContextApplication.html#terminalError(com.vaadin.terminal.Terminal.ErrorEvent)">terminalError(Terminal.ErrorEvent)</a></span> - Method in class org.dellroad.stuff.vaadin.<a href="./org/dellroad/stuff/vaadin/ContextApplication.html" title="class in org.dellroad.stuff.vaadin">ContextApplication</a></dt>
 <dd>
 <div class="block">Handle an uncaugt exception thrown by a Vaadin HTTP request.</div>
@@ -6860,6 +7054,8 @@
 <dd>
 <div class="block">Convert a network address (IPv4 base address and netmask) to string representation.</div>
 </dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/TCPNetwork.html#toString()">toString()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/distrib/GitCommand.html#toString()">toString()</a></span> - Method in class org.dellroad.stuff.pobj.distrib.<a href="./org/dellroad/stuff/pobj/distrib/GitCommand.html" title="class in org.dellroad.stuff.pobj.distrib">GitCommand</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/pobj/PersistentFileTransaction.html#toString()">toString()</a></span> - Method in class org.dellroad.stuff.pobj.<a href="./org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a></dt>
@@ -7432,7 +7628,7 @@
 <div class="block">Validate this instance's root object using the given <a href="https://docs.oracle.com/javaee/7/api/javax/validation/Validator.html?is-external=true" title="class or interface in javax.validation"><code>Validator</code></a>, making the context
  available to the current thread during the validation process via <a href="./org/dellroad/stuff/validation/ValidationContext.html#getCurrentContext()"><code>ValidationContext.getCurrentContext()</code></a>.</div>
 </dd>
-<dt><span class="strong"><a href="./org/dellroad/stuff/validation/ValidationUtil.html#validate(T)">validate(T)</a></span> - Static method in class org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/ValidationUtil.html" title="class in org.dellroad.stuff.validation">ValidationUtil</a></dt>
+<dt><span class="strong"><a href="./org/dellroad/stuff/validation/ValidationUtil.html#validate(T, java.lang.Class...)">validate(T, Class&lt;?&gt;...)</a></span> - Static method in class org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/ValidationUtil.html" title="class in org.dellroad.stuff.validation">ValidationUtil</a></dt>
 <dd>
 <div class="block">Validate the given object.</div>
 </dd>
@@ -7440,9 +7636,9 @@
 <dd>
 <div class="block">Provides additional context for <a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintValidator.html?is-external=true" title="class or interface in javax.validation"><code>ConstraintValidator</code></a> implementations.</div>
 </dd>
-<dt><span class="strong"><a href="./org/dellroad/stuff/validation/ValidationContext.html#ValidationContext(T)">ValidationContext(T)</a></span> - Constructor for class org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation">ValidationContext</a></dt>
+<dt><span class="strong"><a href="./org/dellroad/stuff/validation/ValidationContext.html#ValidationContext(T, java.lang.Class...)">ValidationContext(T, Class&lt;?&gt;...)</a></span> - Constructor for class org.dellroad.stuff.validation.<a href="./org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation">ValidationContext</a></dt>
 <dd>
-<div class="block">Construct a new validation context configured to validate the given root object.</div>
+<div class="block">Construct a new validation context configured to validate the given root object, using the given validation group(s).</div>
 </dd>
 <dt><a href="./org/dellroad/stuff/validation/ValidationUtil.html" title="class in org.dellroad.stuff.validation"><span class="strong">ValidationUtil</span></a> - Class in <a href="./org/dellroad/stuff/validation/package-summary.html">org.dellroad.stuff.validation</a></dt>
 <dd>
@@ -7521,6 +7717,10 @@ the order they are declared.</div>
 <dt><span class="strong"><a href="./org/dellroad/stuff/io/AsyncOutputStream.html#waitForSpace(int, long)">waitForSpace(int, long)</a></span> - Method in class org.dellroad.stuff.io.<a href="./org/dellroad/stuff/io/AsyncOutputStream.html" title="class in org.dellroad.stuff.io">AsyncOutputStream</a></dt>
 <dd>
 <div class="block">Wait for buffer space availability.</div>
+</dd>
+<dt><span class="strong"><a href="./org/dellroad/stuff/net/SelectorSupport.html#wakeup()">wakeup()</a></span> - Method in class org.dellroad.stuff.net.<a href="./org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></dt>
+<dd>
+<div class="block">Wakeup the service thread.</div>
 </dd>
 <dt><span class="strong"><a href="./org/dellroad/stuff/xml/TransformErrorListener.html#warning(javax.xml.transform.TransformerException)">warning(TransformerException)</a></span> - Method in class org.dellroad.stuff.xml.<a href="./org/dellroad/stuff/xml/TransformErrorListener.html" title="class in org.dellroad.stuff.xml">TransformErrorListener</a></dt>
 <dd>&nbsp;</dd>
