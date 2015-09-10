@@ -1,6 +1,7 @@
 Version 1.1.2
 
     - Allow validation groups to be specified in a ValidationContext
+    - Added TCPNetwork and related classes (ported from JSimpleDB)
 
 Version 1.1.1 Released August 25, 2015
 
