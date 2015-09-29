@@ -1,4 +1,4 @@
-Version Next
+Version 1.1.3 Released September 29, 2015
 
     - Filter out bridge methods in MethodAnnotationScanner
 
