@@ -374,9 +374,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>overrides</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.177">overrides</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;override,
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.181">overrides</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;override,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;original)</pre>
-<div class="block">Determine if one method strictly overrides another.</div>
+<div class="block">Determine if one method strictly overrides another.
+
+ <p>
+ If both methods are in the same class, then <code>override</code> must have a narrower return type than <code>original</code>.
+ This would normally indicate that <code>original</code> is a bridge method.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>override</code> - possible overriding method (i.e., subclass method)</dd><dd><code>original</code> - possible overriding method (i.e., superclass method)</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if <code>override</code> overrides <code>original</code>, otherwise false;
   if <code>override</code> equals <code>original</code>, false is returned</dd></dl>
@@ -390,7 +394,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createMethodInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.210">createMethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.221">createMethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
                                                   <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;annotation)</pre>
 <div class="block">Create a new <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> instance corresponding to the given annotated method.
 
