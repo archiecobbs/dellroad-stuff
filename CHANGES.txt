@@ -1,3 +1,7 @@
+Version Next
+
+    - Filter out bridge methods in MethodAnnotationScanner
+
 Version 1.1.2 Released September 10, 2015
 
     - Allow validation groups to be specified in a ValidationContext

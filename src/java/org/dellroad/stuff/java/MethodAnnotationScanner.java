@@ -169,6 +169,10 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
     /**
      * Determine if one method strictly overrides another.
      *
+     * <p>
+     * If both methods are in the same class, then {@code override} must have a narrower return type than {@code original}.
+     * This would normally indicate that {@code original} is a bridge method.
+     *
      * @param override possible overriding method (i.e., subclass method)
      * @param original possible overriding method (i.e., superclass method)
      * @return true if {@code override} overrides {@code original}, otherwise false;
@@ -177,9 +181,16 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
     public static boolean overrides(Method override, Method original) {
 
         // Check class hierarchy
-        if (!original.getDeclaringClass().isAssignableFrom(override.getDeclaringClass())
-          || original.getDeclaringClass() == override.getDeclaringClass())
+        if (!original.getDeclaringClass().isAssignableFrom(override.getDeclaringClass()))
             return false;
+
+        // Handle same class case
+        if (original.getDeclaringClass() == override.getDeclaringClass()) {
+            final Class<?> originalReturnType = original.getReturnType();
+            final Class<?> overrideReturnType = override.getReturnType();
+            if (!originalReturnType.isAssignableFrom(overrideReturnType) || originalReturnType == overrideReturnType)
+                return false;
+        }
 
         // Compare names
         if (!original.getName().equals(override.getName()))
