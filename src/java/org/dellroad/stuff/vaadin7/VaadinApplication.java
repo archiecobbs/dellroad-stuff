@@ -22,7 +22,6 @@ import org.slf4j.LoggerFactory;
  * <p>
  * At most one instance is associated with each {@link VaadinSession} (attempting to create more than one will result in
  * an exception). This singleton instance is then always accessible from any Vaadin thread via {@link #get()}.
- * </p>
  *
  * <p>
  * Although this class does not require Spring, the singleton instance can be declared as a bean in the Spring XML
@@ -33,30 +32,25 @@ import org.slf4j.LoggerFactory;
  * </pre></blockquote>
  * If your {@link VaadinApplication} instance allocates any resources on startup, be sure to configure it so
  * that it cleans them up on application context shutdown, for example, by specifying {@code destroy-method="..."}.
- * </p>
  *
  * <p>
  * If you are in a clustered environment and are subclassing this class, {@code scope="session"} is recommended;
  * without it, there will be one instance per server+session rather than one unique instance per session. Of course,
  * whether that matters depends on the semantics of the subclass fields. In any case, be aware that no instance will
  * exist in session until the application context is refreshed.
- * </p>
  *
  * <p>
  * Note: using {@code scope="session"} requires adding a {@code <listener>} clause registering Spring's
  * {@link org.springframework.web.context.request.RequestContextListener} in your {@code web.xml}.
- * </p>
  *
  * <p>
  * If this class is subclassed, additional application-specific fields and methods can be supplied to the entire
  * application via the same mechanism. Subclasses can override {@link #init} for any application-specific initialization.
- * </p>
  *
  * <p>
  * Note: the singleton instance of this class is stored in the Vaadin session and is {@link Serializable}. Therefore,
  * in a clustered environment, subclasses must be prepared to handle (de)serialization. Also, avoid declaring fields
  * that reference this class in non-session-scope beans; instead, use {@link #get VaadinApplication.get()}.
- * </p>
  *
  * @see SpringVaadinServlet
  * @see SpringVaadinSessionListener
@@ -73,7 +67,7 @@ public class VaadinApplication implements Serializable {
 
     /**
      * Convenience constructor. Equivalent to:
-     * <blockquote></code>
+     * <blockquote><code>
      *  {@link #VaadinApplication(VaadinSession) VaadinApplication}({@link VaadinUtil#getCurrentSession})
      * </code></blockquote>
      *
@@ -118,7 +112,6 @@ public class VaadinApplication implements Serializable {
      *
      * <p>
      * The implementation in {@link VaadinApplication} does nothing. Subclasses may override as desired.
-     * </p>
      */
     protected void init() {
     }
@@ -225,7 +218,6 @@ public class VaadinApplication implements Serializable {
      * <p>
      * This is a convenience method that in turn invokes {@link VaadinUtil#invoke VaadinUtil.invoke()} using the
      * {@link VaadinSession} associated with this instance.
-     * </p>
      *
      * @param action action to perform
      * @throws IllegalArgumentException if {@code action} is null
@@ -241,7 +233,6 @@ public class VaadinApplication implements Serializable {
      * <p>
      * This is a convenience method that in turn invokes {@link VaadinUtil#invokeLater VaadinUtil.invokeLater()} using the
      * {@link VaadinSession} associated with this instance.
-     * </p>
      *
      * @param action action to perform
      * @throws IllegalArgumentException if {@code action} is null

@@ -27,16 +27,13 @@ import org.dellroad.stuff.spring.AbstractBean;
  * <p>
  * This class assumes the repository already has all branches and remotes already configured, and that no
  * other external process is accessing the {@code git(1)} repository without our knowledge.
- * </p>
  *
  * <p>
  * Instances are thread safe and guarantees exclusive access to the working directory
  * to each {@link Accessor} while it is in use.
- * </p>
  *
  * <p>
  * Requires git version at least 1.7.4.
- * </p>
  *
  * @see <a href="http://git-scm.com/">Git web site</a>
  */
@@ -195,7 +192,6 @@ public class GitRepository extends AbstractBean {
      * <p>
      * If after the {@code accessor} runs nothing has changed, then no commit is performed
      * and the previous commit ID is returned.
-     * </p>
      *
      * @param branch name of the branch we want to commit onto
      * @param accessor callback interface to update the working directory contents
@@ -317,7 +313,6 @@ public class GitRepository extends AbstractBean {
      * <p>
      * Trivial merges, i.e., when {@code other} is already an ancestor of {@code branch}, do not result in a new commit
      * and the {@code accessor} is not run.
-     * </p>
      *
      * @param branch name of the branch we want to commit onto
      * @param other name of the other commit or branch we want to merge into {@code branch}
@@ -476,7 +471,6 @@ public class GitRepository extends AbstractBean {
          * Access the working copy in the specified working directory.
          *
          * @param dir working directory root
-         * @throws IOException if an I/O error occurs
          */
         void accessWorkingCopy(File dir);
     }

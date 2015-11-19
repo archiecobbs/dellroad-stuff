@@ -22,15 +22,12 @@ import javax.xml.stream.util.EventReaderDelegate;
  * Each time a {@link StartElement} is read from the underlying {@link XMLEventReader}, it is pushed onto
  * the stack; each time a {@link javax.xml.stream.events.EndElement} is read from the underlying {@link XMLEventReader},
  * the previously push {@link StartElement} is popped off.
- * </p>
  *
  * <p>
  * Invocations of {@link #peek} do not affect the element stack.
- * </p>
  *
  * <p>
  * If an {@link XMLStreamException} is thrown at any point, the element stack is no longer guaranteed to track properly.
- * </p>
  */
 public class StackXMLEventReader extends EventReaderDelegate {
 
@@ -63,7 +60,6 @@ public class StackXMLEventReader extends EventReaderDelegate {
      *
      * <p>
      * A copy is returned; changes to the returned list do not affect this instance.
-     * </p>
      *
      * @return element stack; the first element in the list is the document element
      */

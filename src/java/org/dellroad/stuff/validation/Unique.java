@@ -21,20 +21,16 @@ import javax.validation.Payload;
  * <p>
  * By supplying a {@link #uniquifier} you can change the unique value associated with the constrained property;
  * by default, it is just the value of the property.
- * </p>
  *
  * <p>
  * For this constraint to be effective, validation must be performed via
  * {@link ValidationContext#validate ValidationContext.validate()}.
- * </p>
  *
  * <p>
  * This constraint will work on {@link java.util.Collection Collection} or {@link java.util.Map Map} properties as well.
- * </p>
  *
  * <p>
  * Note: {@code null} values are not considered, i.e., they are not required to be unique.
- * </p>
  */
 @Documented
 @Constraint(validatedBy = UniqueValidator.class)

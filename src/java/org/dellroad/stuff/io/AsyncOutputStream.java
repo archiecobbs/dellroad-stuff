@@ -19,26 +19,22 @@ import org.slf4j.LoggerFactory;
 /**
  * An {@link OutputStream} that performs writes using a background thread, so that
  * write, flush, and close operations never block.
- * <p/>
  *
  * <p>
  * If the underlying output stream throws an {@link IOException} during any operation,
  * this instance will re-throw the exception for all subsequent operations.
- * </p>
  *
  * <p>
  * Instances use an internal buffer whose size is configured at construction time;
  * if the buffer overflows, a {@link BufferOverflowException} is thrown. Alternately,
  * if a buffer size of zero is configured, the internal buffer will expand automatically as needed
- * (up to 2<super>31</super> bytes).
+ * (up to 2<sup>31</sup> bytes).
  * However, this creates a memory leak if the underlying {@link OutputStream} blocks indefinitely.
- * </p>
  *
  * <p>
  * Instances of this class are thread safe, and moreover writes are atomic: if multiple threads are writing
  * at the same time the bytes written in any single method invocation are written contiguously to the
  * underlying output.
- * </p>
  */
 public class AsyncOutputStream extends FilterOutputStream {
 
@@ -114,7 +110,6 @@ public class AsyncOutputStream extends FilterOutputStream {
      *
      * <p>
      * This method will never block. To effect a normal blocking write, use {@link #waitForSpace} first.
-     * </p>
      *
      * @param b byte to write (lower 8 bits)
      * @throws IOException             if an exception has been thrown by the underlying stream
@@ -131,7 +126,6 @@ public class AsyncOutputStream extends FilterOutputStream {
      *
      * <p>
      * This method will never block. To effect a normal blocking write, invoke {@link #waitForSpace} first.
-     * </p>
      *
      * @param data bytes to write
      * @param off  starting offset in buffer
@@ -178,11 +172,9 @@ public class AsyncOutputStream extends FilterOutputStream {
      * If additional data is written and then a second flush is requested before the first flush has actually occurred,
      * the first flush will be canceled and only the second flush will be applied. Normally this is not a problem because
      * the act of writing more data and then flushing forces earlier data to be flushed as well.
-     * </p>
      *
      * <p>
      * This method will never block. To block until the underlying flush operation completes, invoke {@link #waitForIdle}.
-     * </p>
      *
      * @throws IOException if this instance has been closed
      * @throws IOException if an exception has been detected on the underlying stream
@@ -200,11 +192,9 @@ public class AsyncOutputStream extends FilterOutputStream {
      *
      * <p>
      * If this instance has already been closed, nothing happens.
-     * </p>
      *
      * <p>
      * This method will never block. To block until the underlying close operation completes, invoke {@link #waitForIdle}.
-     * </p>
      *
      * @throws IOException if an exception has been detected on the underlying stream
      */
@@ -230,7 +220,6 @@ public class AsyncOutputStream extends FilterOutputStream {
      *
      * <p>
      * If a (fixed) non-zero value was given at construction time, this will return that value.
-     * </p>
      *
      * @return current output buffer capacity
      */
@@ -255,6 +244,7 @@ public class AsyncOutputStream extends FilterOutputStream {
      * Determine if there is outstanding work still to be performed (writes, flushes, and/or close operations)
      * by the background thread.
      *
+     * @return true if work remains to be done
      * @throws IOException              if this instance is or has been closed
      * @throws IOException              if an exception has been detected on the underlying stream
      * @see #waitForIdle
@@ -270,7 +260,6 @@ public class AsyncOutputStream extends FilterOutputStream {
      * <p>
      * If a zero buffer size was configured at construction time, indicating an auto-expanding buffer,
      * this will return immediately.
-     * </p>
      *
      * @param numBytes amount of buffer space required
      * @param timeout  maximum time to wait in milliseconds, or zero for infinite

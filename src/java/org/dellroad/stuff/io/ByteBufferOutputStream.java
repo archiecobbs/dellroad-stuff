@@ -16,7 +16,6 @@ import java.nio.ReadOnlyBufferException;
  *
  * <p>
  * Instances are thread safe.
- * </p>
  */
 public class ByteBufferOutputStream extends OutputStream {
 

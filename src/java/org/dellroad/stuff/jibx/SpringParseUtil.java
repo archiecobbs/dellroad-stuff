@@ -20,20 +20,29 @@ public final class SpringParseUtil {
     }
 
     /**
-     * Deserialize a Spring {@link Expression}.
+     * Deserialize a Spring {@link Expression}. Equivalent to:
+     *  <blockquote><code>
+     *  SpringParseUtil.deserializeExpression(string, null);
+     *  </code></blockquote>
      *
+     * @param string encoded Spring expression
+     * @return decoded expression
      * @see #serializeExpression
+     * @throws JiBXParseException if the parse fails
      */
     public static Expression deserializeExpression(String string) throws JiBXParseException {
         return SpringParseUtil.deserializeExpression(string, null);
     }
 
     /**
-     * Deserialize a Spring {@link Expression} as a template expression. Equivalent to
+     * Deserialize a Spring {@link Expression} as a template expression. Equivalent to:
      *  <blockquote><code>
-     *  deserializeExpression(string, ParserContext.TEMPLATE_EXPRESSION);
-     *  <code><blockquote>
+     *  SpringParseUtil.deserializeExpression(string, ParserContext.TEMPLATE_EXPRESSION);
+     *  </code></blockquote>
      *
+     * @param string expression string
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeExpression
      * @see #deserializeExpression(String, ParserContext)
      */
@@ -44,6 +53,10 @@ public final class SpringParseUtil {
     /**
      * Deserialize a Spring {@link Expression} using the supplied {@link ParserContext}.
      *
+     * @param string XML encoding created by {@link #serializeXSDDateTime}
+     * @param context parser context
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeExpression
      */
     public static Expression deserializeExpression(String string, ParserContext context) throws JiBXParseException {
@@ -58,6 +71,8 @@ public final class SpringParseUtil {
     /**
      * Serialize a Spring {@link Expression}.
      *
+     * @param expr Spring expression
+     * @return encoded value
      * @see #deserializeExpression
      */
     public static String serializeExpression(Expression expr) {

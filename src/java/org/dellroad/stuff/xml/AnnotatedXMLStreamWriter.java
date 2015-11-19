@@ -14,7 +14,6 @@ import javax.xml.stream.XMLStreamWriter;
  *
  * <p>
  * This class can be used in combination with {@link AnnotatedXMLStreamReader} to transparently annotate XML documents.
- * </p>
  *
  * @see AnnotatedXMLStreamReader
  */
@@ -179,7 +178,6 @@ public abstract class AnnotatedXMLStreamWriter extends StreamWriterDelegate {
      * <p>
      * This method should write the start element, followed by by any nested content, and then lastly the
      * end element for the annotation element.
-     * </p>
      *
      * @param writer output to which the annotation element should be written
      */

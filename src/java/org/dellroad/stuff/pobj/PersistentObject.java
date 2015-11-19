@@ -43,7 +43,6 @@ import org.slf4j.LoggerFactory;
  * represented by a regular Java object graph (i.e., a root Java object and all of the other objects that it (indirectly)
  * references). The object graph can be (de)serialized to/from XML, and this XML representation is used for persistence
  * in the file system. The backing XML file is read in at initialization time and updated after each change.
- * </p>
  *
  * <p>
  * All changes required copying the entire object graph, and are atomic and strictly serialized. In other words, the
@@ -52,20 +51,17 @@ import org.slf4j.LoggerFactory;
  * File.renameTo()} so that changes are also atomic from a filesystem perspective, i.e., it's not possible to open an
  * invalid or partial XML file (assuming filesystem renames are atomic, e.g., all UNIX variants). This class also
  * supports information flowing in the other direction, where we pick up "out of band" updates to the XML file (see below).
- * </p>
  *
  * <p>
  * This class is most appropriate for use with information that must be carefully controlled and validated,
  * but that doesn't change frequently. Configuration information for an application stored in a {@code config.xml}
  * file is a typical use case; beans whose behavior is determined by the configured information can subclass
  * {@link AbstractConfiguredBean} and have their lifecycles managed automatically.
- * </p>
  *
  * <p>
  * Because each change involves copying of the entire graph, an efficient graph copy operation is desirable.
  * The {@linkplain AbstractDelegate#copy default method} is to serialize and then deserialize the object graph
  * to/from XML in memory. See {@link org.dellroad.stuff.java.GraphCloneable} for a much more efficient approach.
- * </p>
  *
  * <h3>Validation</h3>
  *
@@ -74,7 +70,6 @@ import org.slf4j.LoggerFactory;
  * guarantees that only a valid root Java object can be read or written. Setting an invalid Java root object via
  * {@link #setRoot setRoot()} with throw an exception; reading an invalid XML file on disk will generate
  * an error (or be ignored; see "Empty Starts" below).
- * </p>
  *
  * <h3>Update Details</h3>
  *
@@ -83,14 +78,12 @@ import org.slf4j.LoggerFactory;
  * listener notifications are sent out. Listeners are always notified in a separate thread from the one that invoked
  * {@link #setRoot setRoot()}. Support for delayed write-back of the persistent XML file is included: this
  * allows modifications that occur in rapid succession to be consolidated into a single filesystem write operation.
- * </p>
  *
  * <p>
  * Support for optimistic locking is included. There is a "current version" number which is incremented each
  * time the object graph is updated; writes may optionally specify this number to ensure no intervening changes
  * have occurred. If concurrent updates are expected, applications may choose to implement a 3-way merge algorithm
  * of some kind to handle optimistic locking failures.
- * </p>
  *
  * <p>
  * To implement a truly atomic read-modify-write operation without the possibility of locking failure, simply
@@ -102,12 +95,10 @@ import org.slf4j.LoggerFactory;
  *      pobj.setRoot(root);
  *  }
  *  </pre></blockquote>
- * </p>
  *
  * <p>
  * Instances can also be configured to automatically preserve one or more backup copies of the persistent file on systems that
  * support hard links (see {@link FileStreamRepository}). Set the {@link #getNumBackups numBackups} property to enable.
- * </p>
  *
  * <h3>"Out-of-band" Writes</h3>
  *
@@ -121,13 +112,11 @@ import org.slf4j.LoggerFactory;
  * creating a temporary file and renaming it; however, this race window is small and in any case the problem is self-correcting
  * because a partially written XML file will not validate, and so it will be ignored and retried after another
  * {@linkplain #getCheckInterval check interval} milliseconds has passed.
- * </p>
  *
  * <p>
  * A special case of this is effected when {@link PersistentObject#setRoot setRoot()} is never explicitly invoked
  * by the application. Then some other process must be responsible for all database updates via XML file, and this class
  * will automatically pick them up, validate them, and send out notifications to listeners.
- * </p>
  *
  * <h3>Empty Starts and Stops</h3>
  *
@@ -137,13 +126,11 @@ import org.slf4j.LoggerFactory;
  * and {@link #getRoot} will return null. This situation will correct itself as soon as the object graph is written via
  * {@link #setRoot setRoot()} or the persistent file appears (effecting an "out-of-band" update). At that time, {@linkplain
  * #addListener listeners} will be notified for the first time, with {@link PersistentObjectEvent#getOldRoot} returning null.
- * </p>
  *
  * <p>
  * Whether empty starts are allowed is determined by the {@link #isAllowEmptyStart allowEmptyStart} property (default
  * {@code false}). When empty starts are disallowed and the persistent XML file cannot be successfully read,
  * then {@link #start} will instead throw an immediate {@link PersistentObjectException}.
- * </p>
  *
  * <p>
  * Similarly, "empty stops" are allowed when the {@link #isAllowEmptyStop allowEmptyStop} property is set to {@code true}
@@ -152,18 +139,15 @@ import org.slf4j.LoggerFactory;
  * Subsequent invocations of {@link #getRoot} will return {@code null}. The persistent file is <b>not</b>
  * modified when null is passed to {@link #setRoot}. When empty stops are disallowed, then invoking
  * {@link #setRoot} with a {@code null} object will result in an {@link IllegalArgumentException}.
- * </p>
  *
  * <p>
  * Allowing empty starts and/or stops essentially creates an "unconfigured" state represented by a null root object.
  * When empty starts and empty stops are both disallowed, there is no "unconfigured" state: once started, {@link #getRoot}
  * can be relied upon to always return a non-null, validated root object.
- * </p>
  *
  * <p>
  * See {@link AbstractConfiguredBean} for a useful superclass that automatically handles starting and stopping
  * based on the state of an associated {@link PersistentObject}.
- * </p>
  *
  * <h3>Shared Roots</h3>
  *
@@ -175,28 +159,24 @@ import org.slf4j.LoggerFactory;
  * root object each time it is invoked (this shared root is itself a deep copy of the "official" root). Therefore, only
  * the very first invocation pays the price of a copy. However, all invokers of {@link #getSharedRoot getSharedRoot()}
  * must treat the object graph as read-only to avoid each other seeing unexpected changes.
- * </p>
  *
  * <h3>Delegate Function</h3>
  *
  * <p>
  * Instances must be configured with a {@link PersistentObjectDelegate} that knows how to validate the object graph
  * and perform conversions to and from XML. See {@link PersistentObjectDelegate} and its implementations for details.
- * </p>
  *
  * <h3>Schema Changes</h3>
  *
  * <p>
  * Like any database, the XML schema may evolve over time. The {@link PersistentObjectSchemaUpdater} class provides a simple
  * way to apply and manage schema updates using XSLT transforms.
- * </p>
  *
  * <h3>Transaction Manager</h3>
  *
  * <p>
  * If using Spring, consider using a {@link PersistentObjectTransactionManager} for transactional access to a
  * {@link PersistentObject}.
- * </p>
  *
  * @param <T> type of the root object
  * @see PersistentObjectDelegate
@@ -665,29 +645,24 @@ public class PersistentObject<T> {
      * If there is no write delay configured, the new version is written to the underlying file immediately and
      * a successful return from this method indicates the new root has been persisted. Otherwise, the write will
      * occur at a later time in a separate thread.
-     * </p>
      *
      * <p>
      * If {@code expectedVersion} is non-zero, then if the current version is not equal to it,
      * a {@link PersistentObjectVersionException} exception is thrown. This mechanism
      * can be used for optimistic locking.
-     * </p>
      *
      * <p>
      * If empty stops are allowed, then {@code newRoot} may be null, in which case it replaces the
      * current root and subsequent calls to {@link #getRoot} will return null. When a null
      * {@code newRoot} is set, the persistent file is <b>not</b> modified.
-     * </p>
      *
      * <p>
      * If the given root object is {@linkplain PersistentObjectDelegate#isSameGraph the same as} the current
      * root object, then no action is taken and the current (unchanged) version number is returned.
-     * </p>
      *
      * <p>
      * After a successful change, any registered {@linkplain PersistentObjectListener listeners} are notified in a
      * separate thread from the one that invoked this method.
-     * </p>
      *
      * @param newRoot new persistent object
      * @param expectedVersion expected current version number, or zero to ignore the current version number
@@ -876,7 +851,6 @@ public class PersistentObject<T> {
      * <p>
      * A temporary file is created in the same directory and then renamed to provide for an atomic update
      * (on supporting operating systems).
-     * </p>
      *
      * @param obj root object to write
      * @throws IllegalArgumentException if {@code obj} is null
@@ -929,7 +903,6 @@ public class PersistentObject<T> {
      *
      * <p>
      * The implementation in {@link PersistentObject} creates and returns a {@link StreamResult}.
-     * </p>
      *
      * @param output XML output stream
      * @param systemId system ID
@@ -1056,7 +1029,6 @@ public class PersistentObject<T> {
      * <p>
      * This is a convenience method that can be used for a one-time deserialization from an XML {@link Source} without having
      * to go through the whole {@link PersistentObject} lifecycle.
-     * </p>
      *
      * @param delegate delegate supplying required operations
      * @param source source for serialized root object
@@ -1103,7 +1075,6 @@ public class PersistentObject<T> {
      * <p>
      * This is a wrapper around {@link #read(PersistentObjectDelegate, Source, boolean)} that handles
      * opening and closing the given {@link File}.
-     * </p>
      *
      * @param delegate delegate supplying required operations
      * @param file file to read from
@@ -1147,7 +1118,6 @@ public class PersistentObject<T> {
      *
      * <p>
      * This is a wrapper around {@link #read(PersistentObjectDelegate, Source, boolean)}.
-     * </p>
      *
      * @param delegate delegate supplying required operations
      * @param input input to read from
@@ -1174,7 +1144,6 @@ public class PersistentObject<T> {
      * <p>
      * This is a convenience method that can be used for one-time serialization to an XML {@link Result} without having
      * to go through the whole {@link PersistentObject} lifecycle.
-     * </p>
      *
      * @param root root object to serialize
      * @param delegate delegate supplying required operations
@@ -1206,7 +1175,6 @@ public class PersistentObject<T> {
      * <p>
      * This is a wrapper around {@link #write(Object, PersistentObjectDelegate, Result)} that handles
      * opening and closing the given {@link File}.
-     * </p>
      *
      * @param root root object to serialize
      * @param delegate delegate supplying required operations
@@ -1241,7 +1209,6 @@ public class PersistentObject<T> {
      *
      * <p>
      * This is a wrapper around {@link #write(Object, PersistentObjectDelegate, Result)}.
-     * </p>
      *
      * @param root root object to serialize
      * @param delegate delegate supplying required operations

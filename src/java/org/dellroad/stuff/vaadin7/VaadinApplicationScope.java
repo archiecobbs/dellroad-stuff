@@ -23,7 +23,6 @@ import org.springframework.beans.factory.config.Scope;
  * This scopes beans to the lifetime of the {@link VaadinSession} (formerly known as "Vaadin application").
  * Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy-methods}
  * will be invoked when the {@link VaadinSession} is closed.
- * </p>
  *
  * <p>
  * To enable this scope, simply add this bean to your application context as a singleton (it will register itself):
@@ -32,7 +31,6 @@ import org.springframework.beans.factory.config.Scope;
  *  &lt;bean class="org.dellroad.stuff.vaadin7.VaadinApplicationScope"/&gt;
  * </pre></blockquote>
  * Then declare scoped beans normally using the scope name {@code "vaadinApplication"}.
- * </p>
  */
 @SuppressWarnings("serial")
 public class VaadinApplicationScope implements Scope, BeanFactoryPostProcessor, SessionDestroyListener {

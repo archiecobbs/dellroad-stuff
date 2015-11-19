@@ -11,7 +11,6 @@ package org.dellroad.stuff.vaadin7;
  * <p>
  * The {@link com.vaadin.data.Property} is defined using a {@link PropertyDef} along with a {@link PropertyExtractor}
  * that is capable of reading the property's value from the underlying Java object.
- * </p>
  *
  * @param <T> the type of the underlying Java object
  * @param <V> the type of the property

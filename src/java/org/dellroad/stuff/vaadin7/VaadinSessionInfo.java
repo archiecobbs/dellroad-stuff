@@ -47,12 +47,10 @@ public class VaadinSessionInfo {
      * <p>
      * This method is invoked from {@link VaadinSessionContainer#doUpdate}; the implementation in
      * {@link VaadinSessionInfo} does nothing.
-     * </p>
      *
      * <p>
      * When this method and {@link #makeUpdatesVisible} are overridden, consider declaring them both {@code synchronized},
      * as they are invoked with different locks held yet will access the same information.
-     * </p>
      */
     protected void updateInformation() {
     }
@@ -65,12 +63,10 @@ public class VaadinSessionInfo {
      * <p>
      * This method is invoked from {@link VaadinSessionContainer#doUpdate}; the implementation in
      * {@link VaadinSessionInfo} does nothing.
-     * </p>
      *
      * <p>
      * When this method and {@link #updateInformation} are used, consider declaring them both {@code synchronized},
      * as they are invoked with different locks held yet will access the same information.
-     * </p>
      */
     protected void makeUpdatesVisible() {
     }

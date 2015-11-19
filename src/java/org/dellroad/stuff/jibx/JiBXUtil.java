@@ -45,8 +45,10 @@ public final class JiBXUtil {
      * <p>
      * The {@code input} is not closed by this method.
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param input source for the XML document
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading from {@code input}
      */
@@ -64,9 +66,11 @@ public final class JiBXUtil {
      * <p>
      * The {@code input} is not closed by this method.
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param bindingName binding name, or null to choose the only one
      * @param input source for the XML document
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading from {@code input}
      */
@@ -99,8 +103,10 @@ public final class JiBXUtil {
      * <p>
      * The {@code input} is not closed by this method.
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param input source for the XML document
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading from {@code input}
      */
@@ -118,9 +124,11 @@ public final class JiBXUtil {
      * <p>
      * The {@code input} is not closed by this method.
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param bindingName binding name, or null to choose the only one
      * @param input source for the XML document
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading from {@code input}
      */
@@ -150,8 +158,10 @@ public final class JiBXUtil {
      * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param url source for the XML document
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading the referenced document
      */
@@ -166,9 +176,11 @@ public final class JiBXUtil {
      * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
+     * @param <T> type of object to read
      * @param targetClass target class
      * @param url source for the XML document
      * @param bindingName binding name, or null to choose the only one
+     * @return decoded object
      * @throws JiBXException if there is a JiBX parse error
      * @throws IOException if an error occurs reading the referenced document
      */
@@ -193,6 +205,7 @@ public final class JiBXUtil {
      * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
+     * @param <T> object type
      * @param obj object to write
      * @param output output destination; will <b>not</b> be closed by this method
      * @throws JiBXException if there is a JiBX encoding error
@@ -209,6 +222,7 @@ public final class JiBXUtil {
      * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
+     * @param <T> object type
      * @param obj object to write
      * @param bindingName binding name, or null to choose the only one
      * @param output output destination; will <b>not</b> be closed by this method
@@ -227,8 +241,11 @@ public final class JiBXUtil {
      * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
+     * @param <T> object type
      * @param obj object to write
      * @param writer output destination; will <b>not</b> be closed by this method
+     * @throws JiBXException if there is a JiBX encoding error
+     * @throws IOException if an error occurs writing to {@code writer}
      */
     public static <T> void writeObject(T obj, Writer writer) throws JiBXException, IOException {
         JiBXUtil.writeObject(obj, null, writer);
@@ -244,6 +261,8 @@ public final class JiBXUtil {
      * @param obj object to write
      * @param bindingName binding name, or null to choose the only one
      * @param writer output destination; will <b>not</b> be closed by this method
+     * @throws JiBXException if there is a JiBX encoding error
+     * @throws IOException if an error occurs writing to {@code writer}
      */
     public static void writeObject(final Object obj, String bindingName, final Writer writer) throws JiBXException, IOException {
         IBindingFactory bindingFactory = bindingName != null ?
@@ -278,6 +297,7 @@ public final class JiBXUtil {
      * (see {@link IdMapper}).
      *
      * @param obj object to encode
+     * @return XML encoding of {@code obj}
      * @throws JiBXException if there is a JiBX encoding error
      */
     public static String toString(Object obj) throws JiBXException {
@@ -293,6 +313,7 @@ public final class JiBXUtil {
      *
      * @param obj object to encode
      * @param bindingName binding name, or null to choose the only one
+     * @return XML encoding of {@code obj}
      * @throws JiBXException if there is a JiBX encoding error
      */
     public static String toString(Object obj, String bindingName) throws JiBXException {

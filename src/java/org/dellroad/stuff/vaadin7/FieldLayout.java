@@ -20,7 +20,6 @@ import java.util.Collection;
  *
  * <p>
  * The layout is initially empty; use {@link #addComponent HorizontalLayout.addComponent()} to add content.
- * </p>
  *
  * @param <T> field type
  */

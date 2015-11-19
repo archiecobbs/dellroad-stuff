@@ -34,7 +34,6 @@ public class CSVOutput {
      *
      * <p>
      * The column headers will be written out automatically.
-     * </p>
      *
      * @param writer destination for the CSV output
      * @param columns CSV columns names in their desired order
@@ -51,7 +50,6 @@ public class CSVOutput {
      *
      * <p>
      * The column headers will be written out automatically.
-     * </p>
      *
      * @param writer destination for the CSV output
      * @param columns CSV columns names, iterated in their desired order
@@ -70,7 +68,6 @@ public class CSVOutput {
      *
      * <p>
      * The column headers will be written out automatically.
-     * </p>
      *
      * @param writer CSV output object
      * @param columns CSV columns names, iterated in their desired order
@@ -120,6 +117,8 @@ public class CSVOutput {
 
     /**
      * Flush output.
+     *
+     * @throws IOException if an I/O error occurs
      */
     public void flush() throws IOException {
         this.writer.flush();
@@ -127,6 +126,8 @@ public class CSVOutput {
 
     /**
      * Close this instance and the underlying output.
+     *
+     * @throws IOException if an I/O error occurs
      */
     public void close() throws IOException {
         this.writer.close();
@@ -143,14 +144,13 @@ public class CSVOutput {
      * <li>{@link Date} values are output by delegating to {@link #formatDate formatDate()}</li>
      * <li>All other objects are output using {@link String#valueOf}</li>
      * </ul>
-     * </p>
      *
      * <p>
      * Subclasses should override as needed.
-     * </p>
      *
      * @param columnName name of the column
      * @param value column value; will be null if no value was present in the {@link Map} parameter to {@link #writeRow}
+     * @return formatted string
      */
     protected String formatObject(String columnName, Object value) {
         if (value == null)
@@ -167,14 +167,13 @@ public class CSVOutput {
      *
      * <p>
      * The implementation in {@link CSVOutput} delegates to {@link DateEncoder#encode DateEncoder.encode()}.
-     * </p>
      *
      * <p>
      * Subclasses should override as needed.
-     * </p>
      *
      * @param columnName name of the column
      * @param date column value
+     * @return formatted date string
      * @throws IllegalArgumentException if {@code date} is null
      */
     protected String formatDate(String columnName, Date date) {

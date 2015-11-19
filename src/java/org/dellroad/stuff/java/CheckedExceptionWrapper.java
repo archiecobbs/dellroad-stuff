@@ -16,6 +16,7 @@ public class CheckedExceptionWrapper extends RuntimeException {
     /**
      * Constructor.
      *
+     * @param exception the checked exception to wrap
      * @throws IllegalArgumentException if {@code exception} is {@code null}
      */
     public CheckedExceptionWrapper(Exception exception) {
@@ -26,6 +27,8 @@ public class CheckedExceptionWrapper extends RuntimeException {
 
     /**
      * Get the wrapped exception.
+     *
+     * @return the wrapped checked exception
      */
     public Exception getException() {
         return this.exception;
@@ -33,6 +36,8 @@ public class CheckedExceptionWrapper extends RuntimeException {
 
     /**
      * Throw the wrapped exception.
+     *
+     * @throws Exception always
      */
     public void throwException() throws Exception {
         throw this.exception;

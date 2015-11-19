@@ -17,7 +17,6 @@ import java.lang.annotation.Target;
  * want to have transactions automatically retried when they fail due to a transient exception. A transient exception
  * is one that Spring would translate into a
  * {@link org.springframework.dao.TransientDataAccessException TransientDataAccessException}.
- * </p>
  *
  * <p>
  * This automatic retry logic is very handy for solving the problem of transient deadlocks that can occur in complex Java/ORM
@@ -25,13 +24,11 @@ import java.lang.annotation.Target;
  * to design Java/ORM applications such that transient deadlocks at the database layer can't occur. Since these
  * deadlocks can often be dealt with simply by retrying the transaction, having retry logic automatically applied can
  * eliminate this problem.
- * </p>
  *
  * <p>
  * Note, beans involved in transactions should either be stateless, or be prepared to rollback any state changes on transaction
  * failure; of course, this is true whether or not transactions are automatically being retried, but adding automatic retry
  * can magnify pre-existing bugs of that nature.
- * </p>
  *
  * <p>
  * The {@link RetryTransaction @RetryTransaction} annotation is ignored unless all of the following conditions are satisfied:
@@ -82,7 +79,6 @@ import java.lang.annotation.Target;
  * <p>
  * Logging behavior: Normal activity is logged at trace level, retries are logged at debug level, and errors are logged
  * at error level.
- * </p>
  *
  * <p>
  * Transactional code can determine the transaction attempt number using the {@link RetryTransactionProvider} interface
@@ -104,7 +100,6 @@ import java.lang.annotation.Target;
  *          ...
  *      }
  *   </pre></blockquote>
- * </p>
  *
  * @see org.springframework.transaction.annotation.Transactional
  */
@@ -142,12 +137,10 @@ public @interface RetryTransaction {
      * If the transaction fails, it will be retried at most this many times.
      * This limit applies to retries only; it does not apply to the very first attempt, which is always made.
      * So a value of zero means at most one attempt.
-     * </p>
      *
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_MAX_RETRIES} by default), should be used.
-     * </p>
      */
     int maxRetries() default -1;
 
@@ -159,7 +152,6 @@ public @interface RetryTransaction {
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_INITIAL_DELAY} milliseconds by default), should be used.
-     * </p>
      */
     long initialDelay() default -1;
 
@@ -171,7 +163,6 @@ public @interface RetryTransaction {
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_MAXIMUM_DELAY} milliseconds by default), should be used.
-     * </p>
      */
     long maximumDelay() default -1;
 }

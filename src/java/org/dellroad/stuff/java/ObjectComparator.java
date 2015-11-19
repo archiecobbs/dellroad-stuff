@@ -19,24 +19,19 @@ import java.util.concurrent.atomic.AtomicLong;
  * Instances are compared first using {@linkplain System#identityHashCode identity hash codes}, and then using
  * an internally generated unique identifier; identifiers are indexed using weak keys to avoid memory leaks.
  * Any two distict Java objects will always compare as non-equal.
- * </p>
  *
  * <p>
  * Note: this ordering is only <i>consistent with equals</i> (see {@link Comparable}) for classes whose
  * {@link #equals equals()} method is implemented in terms of object equality (e.g., not overridden at all).
- * </p>
  *
  * <p>
  * Note: while each instance creates a stable sort ordering, distinct instances of this class may sort objects differently.
- * </p>
  *
  * <p>
  * Null values are supported and always sort last. Instances of this class are thread safe.
- * </p>
  *
  * <p>
  * This class requires <a href="https://github.com/google/guava">Google Guava</a>.
- * </p>
  */
 public class ObjectComparator implements Comparator<Object> {
 

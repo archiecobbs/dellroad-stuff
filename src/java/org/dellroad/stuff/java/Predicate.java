@@ -12,6 +12,8 @@ public interface Predicate {
 
     /**
      * Determine if the predicate is true.
+     *
+     * @return true if predicate is true, otherwise false
      */
     boolean test();
 }

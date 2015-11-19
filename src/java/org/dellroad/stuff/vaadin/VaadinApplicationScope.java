@@ -19,7 +19,6 @@ import org.springframework.beans.factory.config.Scope;
  * This works for applications that subclass {@link ContextApplication}; objects will be scoped to each
  * {@link ContextApplication} instance. Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy-methods}
  * will be invoked when the {@link ContextApplication} is closed.
- * </p>
  *
  * <p>
  * To enable this scope, simply add this bean to your application context as a singleton (it will register itself):
@@ -28,7 +27,6 @@ import org.springframework.beans.factory.config.Scope;
  *  &lt;bean class="org.dellroad.stuff.vaadin.VaadinApplicationScope"/&gt;
  * </pre></blockquote>
  * Then declare scoped beans normally using the scope name {@code "vaadinApplication"}.
- * </p>
  */
 public class VaadinApplicationScope implements Scope, BeanFactoryPostProcessor, ContextApplication.CloseListener {
 

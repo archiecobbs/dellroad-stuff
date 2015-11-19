@@ -31,11 +31,9 @@ import java.util.Set;
  * {@link #getPropertyValue getPropertyValue()}). However, the easist way to configure the container {@link Property}s
  * is to pass a {@link ProvidesProperty &#64;ProvidesProperty}-annotated Java class to the {@link #AbstractSimpleContainer(Class)}
  * constructor.
- * </p>
  *
  * <p>
  * Use {@link #load load()} to load or reload the container.
- * </p>
  *
  * @param <I> the item ID type
  * @param <T> the type of the Java objects that back each {@link Item} in the container
@@ -59,7 +57,6 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * After using this constructor, subsequent invocations of {@link #setPropertyExtractor setPropertyExtractor()}
      * and {@link #setProperties setProperties()} are required to define the properties of this container
      * and how to extract them.
-     * </p>
      */
     protected AbstractSimpleContainer() {
         this((PropertyExtractor<? super T>)null);
@@ -71,7 +68,6 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * <p>
      * After using this constructor, a subsequent invocation of {@link #setProperties setProperties()} is required
      * to define the properties of this container.
-     * </p>
      *
      * @param propertyExtractor used to extract properties from the underlying Java objects;
      *  may be null but then container is not usable until one is configured via
@@ -88,7 +84,6 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()} is required
      * to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
@@ -117,7 +112,6 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param type class to introspect for annotated methods
      * @throws IllegalArgumentException if {@code type} is null
@@ -167,7 +161,6 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * <p>
      * The implementation in {@link AbstractSimpleContainer} just delegates to the {@linkplain #setPropertyExtractor configured}
      * {@link PropertyExtractor}; subclasses may override to customize property extraction.
-     * </p>
      *
      * @param obj Java object
      * @param propertyDef definition of which property to read
@@ -254,11 +247,9 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * <p>
      * The implementation in {@link AbstractSimpleContainer} requires a linear search of the container.
      * Some subclasses may provide a more efficient implementation.
-     * </p>
      *
      * <p>
      * This method is not used by this class but is defined as a convenience for subclasses.
-     * </p>
      *
      * <p>
      * Note: items that are filtered out will not be found.
@@ -286,11 +277,9 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * <p>
      * The implementation in {@link AbstractSimpleContainer} requires a linear search of the container.
      * Some subclasses may provide a more efficient implementation.
-     * </p>
      *
      * <p>
      * This method is not used by this class but is defined as a convenience for subclasses.
-     * </p>
      *
      * <p>
      * Note: items that are filtered out will not be found.
@@ -443,7 +432,7 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
 // ItemSorter class
 
     /**
-     * {@link ItemSorter} implementation used by {@link AbstractSimpleContainer}.
+     * {@link com.vaadin.data.util.ItemSorter} implementation used by {@link AbstractSimpleContainer}.
      */
     private class SimpleItemSorter extends DefaultItemSorter {
 

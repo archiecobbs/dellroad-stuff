@@ -34,6 +34,8 @@ public class IdMappingMarshaller implements Marshaller, Unmarshaller, Initializi
 
     /**
      * Configure the nested {@link JibxMarshaller}. Required property.
+     *
+     * @param jibxMarshaller nested marshaller
      */
     public void setJibxMarshaller(JibxMarshaller jibxMarshaller) {
         this.jibxMarshaller = jibxMarshaller;

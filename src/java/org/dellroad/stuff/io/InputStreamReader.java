@@ -14,7 +14,6 @@ import java.io.InputStream;
  *
  * <p>
  * Instances of this class are thread safe, as are the {@link InputStream}s returned by {@link #read}.
- * </p>
  *
  * @see OutputStreamWriter
  */
@@ -54,20 +53,17 @@ public class InputStreamReader {
      * The returned {@link InputStream} will remain valid as long as it has not been closed, the underlying input
      * has not been closed, and no subsequent invocation of this method has been made. As soon as any of those events occurs,
      * all subsequent accesses to the previously returned {@link InputStream} will throw an exception.
-     * </p>
      *
      * <p>
      * The returned {@link InputStream} may be closed prior to its EOF, in which case any remaining bytes will be skipped
      * over during the next invocation of this method.
-     * </p>
      *
      * <p>
      * Note: while any thread is blocked reading from the returned {@link InputStream}, this method will block as well.
-     * </p>
      *
+     * @return the next {@link InputStream}, or {@code null} if EOF has been reached on the underlying input
      * @throws IOException if this instance is closed
      * @throws IOException if the underlying {@link InputStream} has thrown an exception
-     * @throws return the next {@link InputStream}, or {@code null} if EOF has been reached on the underlying input
      */
     public synchronized InputStream read() throws IOException {
 
@@ -150,7 +146,6 @@ public class InputStreamReader {
      * <p>
      * This closes the underlying input; however, if the {@link InputStream} most recently returned from {@link #read}
      * is still open, the close of the underlying input will be postponed until it is no longer open.
-     * </p>
      *
      * @throws IOException if an there is an error closing the underlying {@link InputStream}
      */

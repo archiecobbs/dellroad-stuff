@@ -14,12 +14,10 @@ import java.util.Set;
  *
  * <p>
  * Item {@link com.vaadin.data.Property}s are defined by {@link PropertyDef}s and retrieved by a {@link PropertyExtractor}.
- * </p>
  *
  * <p>
  * Although the item properties are read-only from "above", they can be made mutable from "below" by modifying the
  * backing object and invoking {@link #fireValueChange fireValueChange()}.
- * </p>
  *
  * @param <T> the type of the underlying Java object
  * @see AbstractQueryContainer
@@ -122,7 +120,6 @@ public class SimpleItem<T> implements BackedItem<T> {
      *
      * <p>
      * Does nothing if {@code propertyName} is not one of this item's properties.
-     * </p>
      *
      * @param propertyName property ID
      */
@@ -161,7 +158,6 @@ public class SimpleItem<T> implements BackedItem<T> {
      *
      * <p>
      * The implementation in {@link SimpleItem} returns {@code new Property<V>(propertyDef)}.
-     * </p>
      *
      * @param propertyDef property definition
      * @throws IllegalArgumentException if {@code propertyDef} is null

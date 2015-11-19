@@ -17,11 +17,9 @@ import org.jibx.runtime.JiBXException;
  *
  * <p>
  * XML documents are created from Java objects via {@link JiBXUtil#writeObject(Object, OutputStream) JiBXUtil.writeObject()}.
- * </p>
  *
  * <p>
  * Instances of this class are thread-safe.
- * </p>
  *
  * @param <T> XML document type
  * @see XMLDocumentInputStream
@@ -44,6 +42,10 @@ public class XMLDocumentOutputStream<T> {
     /**
      * Write the object encoded as XML to the underlying output stream.
      * The underlying output stream is flushed.
+     *
+     * @param obje object to write
+     * @throws IOException if an I/O error occurs
+     * @throws JiBXException if JiBX encoding fails
      */
     public synchronized void write(T obj) throws IOException, JiBXException {
         this.output.start();
@@ -53,6 +55,8 @@ public class XMLDocumentOutputStream<T> {
 
     /**
      * Close the underlying output stream.
+     *
+     * @throws IOException if an I/O error occurs
      */
     public void close() throws IOException {
         this.output.close();

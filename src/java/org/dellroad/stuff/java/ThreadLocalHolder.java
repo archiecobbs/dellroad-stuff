@@ -20,7 +20,6 @@ import java.util.concurrent.Callable;
  *  <li>The thread local variable is removed (and optionally cleaned up) when the initial method call exits,
  *      whether successfully or not.</li>
  * </ul>
- * </p>
  *
  * <p>
  * Example:
@@ -48,7 +47,6 @@ import java.util.concurrent.Callable;
  *     }
  * }
  * </pre></blockquote>
- * </p>
  *
  * @param <T> the type of the thread local variable
  */
@@ -125,8 +123,10 @@ public class ThreadLocalHolder<T> {
      * an invocation of <code>ThreadLocalHolder.invoke()</code>), then if {@code value} is the exact same Java object
      * (using object equality, not <code>equals()</code>), execution proceeds normally, otherwise an exception is thrown.
      *
+     * @param <R> action return type
      * @param value value for the thread local variable
      * @param action action to invoke
+     * @return result of invoking {@code action}
      * @throws IllegalArgumentException if either {@code action} or {@code value} is null
      * @throws IllegalStateException if there is already a thread local variable <code>previous</code>
      *  associated with the current thread and <code>value != previous</code>
@@ -187,6 +187,8 @@ public class ThreadLocalHolder<T> {
      *
      * <p>
      * The implementation in {@link ThreadLocalHolder} does nothing. Subclasses may override if necessary.
+     *
+     * @param value previously used thread-local value
      */
     protected void destroy(T value) {
     }

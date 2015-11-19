@@ -112,6 +112,8 @@ public class MapEntry<K, V> {
 
     /**
      * Get this map entry's key.
+     *
+     * @return map entry key
      */
     public K getKey() {
         return this.key;
@@ -122,6 +124,8 @@ public class MapEntry<K, V> {
 
     /**
      * Get this map entry's value.
+     *
+     * @return map entry value
      */
     public V getValue() {
         return this.value;
@@ -136,6 +140,7 @@ public class MapEntry<K, V> {
      *
      * @param <K> type of map keys
      * @param <V> type of map values
+     * @param <E> map entry type
      * @param map map to iterate
      * @param entryClass the subclass of {@link MapEntry} used for iterated elements; must have a default constructor
      * @return map entry iterator
@@ -174,6 +179,8 @@ public class MapEntry<K, V> {
      * Helper method intended to be used by a custom JiBX "add-method".
      * If there is an existing entry with the same key, a {@link JiBXParseException} is thrown.
      *
+     * @param <K> type of map keys
+     * @param <V> type of map values
      * @param map map to which to add an new entry
      * @param entry new entry to add
      * @throws JiBXParseException if the map already contains an entry with the given key
@@ -185,6 +192,8 @@ public class MapEntry<K, V> {
     /**
      * Helper method intended to be used by a custom JiBX "add-method".
      *
+     * @param <K> type of map keys
+     * @param <V> type of map values
      * @param map map to which to add an new entry
      * @param entry new entry to add
      * @param allowDuplicate {@code true} to replace any existing entry having the same key,

@@ -27,7 +27,6 @@ public class NullModemInputStream extends FilterInputStream {
      * The {@code writer}'s {@link WriteCallback#writeTo writeTo()} method will be invoked (once)
      * asynchronously in a dedicated writer thread. The {@link java.io.OutputStream} provided to it will
      * relay the bytes that are then read from this instance.
-     * </p>
      *
      * @param writer    {@link java.io.OutputStream} writer callback
      * @param name      name for this instance; used to create the name of the background thread

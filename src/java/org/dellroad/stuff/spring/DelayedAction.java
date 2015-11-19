@@ -18,7 +18,6 @@ import org.springframework.scheduling.TaskScheduler;
  *
  * <p>
  * A "delayed action" is a some action that needs to get done by some time in the future.
- * </p>
  *
  * <p>
  * This class does two things:
@@ -27,30 +26,25 @@ import org.springframework.scheduling.TaskScheduler;
  *  i.e., at most one outstanding scheduled action can exist at a time.</li>
  *  <li>It provides a race-free and 100% reliable way to {@link #cancel} a future scheduled action, if any.</li>
  * </ul>
- * </p>
  *
  * <p>
  * The action itself is defined by the subclass' implementation of {@link #run run()}.
- * </p>
  *
  * <p>
  * To avoid races, this class requires the user to supply a <i>locking object</i>. This may either be a normal
  * Java object, in which case normal Java synchronization is used, or a {@link Lock} object. The locking object is
  * used to serialize scheduling activity and action invocation. In other words, the locking object is locked during
  * the execution of {@link #schedule schedule()}, {@link #cancel cancel()}, and {@link #run run()}.
- * </p>
  *
  * <p>
  * Therefore, any time the locking object is locked, the state of this {@link DelayedAction} instance is "frozen"
  * in one of three states: not scheduled, scheduled, or executing (in the latter case, of course the thread doing the
  * executing is the one holding the lock). Therefore, to completely avoid race conditions, user code must <i>itself</i>
  * lock the locking object itself prior to invoking any methods in this class.
- * </p>
  *
  * <p>
  * Typically the most convenient locking object to use is the user's own {@code this} object, which can be locked using a
  * {@code synchronized} method or block.
- * </p>
  *
  * <p>
  * Note: in the case that {@link #run run()} invokes {@link Object#wait Object.wait()} on the locking object, thereby
@@ -146,13 +140,11 @@ public abstract class DelayedAction implements Runnable {
      *  <li>If an action is already scheduled, and the given time is prior to the scheduled time,
      *  the action is rescheduled for the earlier time.</li>
      * </ul>
-     * </p>
      *
      * <p>
      * The net result is that, for any invocation, this method guarantees exactly one execution of the action will
      * occur approximately on or before the given date; however, multiple invocations of this method prior to action
      * execution can only ever result in a single "shared" action.
-     * </p>
      *
      * @param date scheduled execution time (at the latest)
      * @throws IllegalArgumentException if {@code date} is null
@@ -207,7 +199,6 @@ public abstract class DelayedAction implements Runnable {
      *  <li>If an action is scheduled but has not started yet, it is guaranteed not to run.</li>
      *  <li>If no action is scheduled or executing, nothing changes.</li>
      * </ul>
-     * </p>
      */
     public void cancel() {
         this.runLocked(new Runnable() {

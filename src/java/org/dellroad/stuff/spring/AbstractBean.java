@@ -22,7 +22,6 @@ public abstract class AbstractBean implements InitializingBean, DisposableBean {
      *
      * <p>
      * The implementation in {@link AbstractBean} does nothing.
-     * </p>
      */
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -33,7 +32,6 @@ public abstract class AbstractBean implements InitializingBean, DisposableBean {
      *
      * <p>
      * The implementation in {@link AbstractBean} does nothing.
-     * </p>
      */
     @Override
     public void destroy() throws Exception {

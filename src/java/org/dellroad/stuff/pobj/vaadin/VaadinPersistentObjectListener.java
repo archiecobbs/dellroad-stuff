@@ -40,7 +40,6 @@ public abstract class VaadinPersistentObjectListener<T> extends VaadinExternalLi
      *
      * <p>
      * The caller should not modify {@code oldRoot} or {@code newRoot}.
-     * </p>
      *
      * @param oldRoot previous root object; may be null if empty starts or stops are supported
      * @param newRoot new root object; may be null if empty starts or stops are supported

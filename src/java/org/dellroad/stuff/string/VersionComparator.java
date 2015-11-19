@@ -20,7 +20,6 @@ import java.util.regex.Pattern;
  * ('.') serves as a part separator. Then, parts are compared pair-wise until there is a difference, as
  * determined by the {@link Comparator} provided to the constructor, or one version string runs out of parts,
  * in which case it is less than the other.
- * </p>
  */
 public class VersionComparator implements Comparator<String> {
 
@@ -83,11 +82,9 @@ public class VersionComparator implements Comparator<String> {
      * The implementation in {@link VersionComparator} defines a <b>part</b> as a contiguous sequence
      * of one or more digits, or a contiguous sequence of one or more non-digits, and where the period character
      * ('.') serves as a part separator.
-     * </p>
      *
      * <p>
      * Subclasses may choose to override this method to define parts differently.
-     * </p>
      *
      * @param version the original version string
      * @return the parts of the version string

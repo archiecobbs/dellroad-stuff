@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
  * By subclassing this class and {@link VaadinSessionInfo}, additional session-related properties,
  * such as logged-in user, can be added to the container by annotating the {@link VaadinSessionInfo}
  * subclass with {@link ProvidesProperty &#64;ProvidesProperty} annotations.
- * </p>
  *
  * <p>
  * Note the following:
@@ -44,7 +43,6 @@ import org.slf4j.LoggerFactory;
  *      this container is used; typically these would be invoked in the {@link com.vaadin.ui.Component#attach}
  *      and {@link com.vaadin.ui.Component#detach} methods of a corresponding widget.
  * </ul>
- * </p>
  *
  * @param <T> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
  */
@@ -66,7 +64,6 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param type class to introspect for annotated methods
      * @throws IllegalArgumentException if {@code type} is null
@@ -128,7 +125,6 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
      * <p>
      * This method can be invoked from any thread. It creates a new thread to do the actual
      * reloading via {@link #doReload} to avoid potential deadlocks.
-     * </p>
      */
     public void reload() {
         new Thread("VaadinSessionContainer.reload()") {
@@ -151,7 +147,6 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
      * <p>
      * This method can be invoked from any thread. It creates a new thread to do the actual
      * updating via {@link #doUpdate} to avoid potential deadlocks.
-     * </p>
      */
     public void update() {
         new Thread("VaadinSessionContainer.update()") {
@@ -178,12 +173,10 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
      * corresponding to <i>that {@link VaadinSessionInfo} instance</i> is locked, so that information from that session
      * can be safely gathered; then, {@link VaadinSessionInfo#makeUpdatesVisible} is invoked while the {@link VaadinSession}
      * associated with <i>this container</i> is locked, so item properties can be safely updated, etc.
-     * </p>
      *
      * <p>
      * This method must <b>not</b> be invoked while any {@link VaadinSession} is locked.
      * For example, it may be invoked by a regular timer (only while this container is {@linkplain #connect connected}).
-     * </p>
      *
      * @throws IllegalStateException if there is a locked {@link VaadinSession} associated with the current thread
      */
@@ -229,7 +222,6 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
      *
      * <p>
      * This method must <b>not</b> be invoked while any {@link VaadinSession} is locked.
-     * </p>
      *
      * @throws IllegalStateException if there is a locked {@link VaadinSession} associated with the current thread
      */

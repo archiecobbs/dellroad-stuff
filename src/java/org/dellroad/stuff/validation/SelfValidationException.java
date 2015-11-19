@@ -11,7 +11,6 @@ package org.dellroad.stuff.validation;
  * <p>
  * Instances will be automatically caught and converted into a constraint violation using the exception's message
  * if any, otherwise the default message.
- * </p>
  *
  * @see SelfValidating
  */

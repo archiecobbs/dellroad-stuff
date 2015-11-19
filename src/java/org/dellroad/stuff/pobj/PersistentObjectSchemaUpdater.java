@@ -32,7 +32,6 @@ import org.dellroad.stuff.schema.UnrecognizedUpdateException;
  * To use this class, wrap your normal delegate in an instance of this class. This will augment
  * the serialization and deserialization process to keep track of which updates have been applied to the XML structure,
  * and automatically and transparently apply any needed updates during deserialization.
- * </p>
  *
  * <p>
  * Updates are tracked by inserting an <code>{@link #UPDATES_ELEMENT_NAME &lt;pobj:updates&gt;}</code> element
@@ -43,19 +42,17 @@ import org.dellroad.stuff.schema.UnrecognizedUpdateException;
  * <blockquote><pre>
  *  &lt;MyConfig&gt;
  *      <b>&lt;pobj:updates xmlns:pobj="http://dellroad-stuff.googlecode.com/ns/persistentObject"&gt;
- *          &lt;pobj:update>some-update-name-1&lt;/pobj:update&gt;
- *          &lt;pobj:update>some-update-name-2&lt;/pobj:update&gt;
+ *          &lt;pobj:update&gt;some-update-name-1&lt;/pobj:update&gt;
+ *          &lt;pobj:update&gt;some-update-name-2&lt;/pobj:update&gt;
  *      &lt;/pobj:updates&gt;</b>
  *      &lt;username&gt;admin&lt;/username&gt;
  *      &lt;password&gt;secret&lt;/password&gt;
  *  &lt;/MyConfig&gt;
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * For Spring applications, {@link SpringPersistentObjectSchemaUpdater} provides a convenient declarative way
  * to define your schema updates via XSLT files.
- * </p>
  *
  * @param <T> type of the root persistent object
  */
@@ -121,7 +118,6 @@ public class PersistentObjectSchemaUpdater<T> extends AbstractSchemaUpdater<Pers
      *
      * <p>
      * The implementation in {@link PersistentObjectSchemaUpdater} returns null.
-     * </p>
      *
      * @param transformerFactory {@link TransformerFactory} to use or null for the platform default
      */
@@ -233,7 +229,6 @@ public class PersistentObjectSchemaUpdater<T> extends AbstractSchemaUpdater<Pers
      * <p>
      * The implementation in {@link PersistentObjectSchemaUpdater} delegates to the delegate provided in the constructor
      * but also removes the update list as the first XML tag and applies any needed updates.
-     * </p>
      *
      * @throws PersistentObjectException {@inheritDoc}
      */

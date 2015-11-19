@@ -31,6 +31,7 @@ public interface StreamRepository {
      * Get an input stream reading the current value of the underlying store.
      *
      * @throws IOException if an error occurs
+     * @return input containing current repository contents
      */
     InputStream getInputStream() throws IOException;
 
@@ -42,8 +43,8 @@ public interface StreamRepository {
      * <p>
      * If the returned stream throws an {@link IOException} at any time, including during {@link OutputStream#close close()},
      * or if {@link OutputStream#close close()} is never invoked, then no update to the underlying storage occurs.
-     * </p>
      *
+     * @return output for overwriting the current repository contents
      * @throws IOException if an error occurs
      */
     OutputStream getOutputStream() throws IOException;

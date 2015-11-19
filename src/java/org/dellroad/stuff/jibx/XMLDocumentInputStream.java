@@ -17,11 +17,9 @@ import org.jibx.runtime.JiBXException;
  *
  * <p>
  * XML documents are converted into Java objects via {@link JiBXUtil#readObject(Class, InputStream) JiBXUtil.readObject()}.
- * </p>
  *
  * <p>
  * Instances of this class are thread-safe.
- * </p>
  *
  * @param <T> XML document type
  * @see XMLDocumentOutputStream
@@ -50,6 +48,8 @@ public class XMLDocumentInputStream<T> {
      * Read the next XML document, parsed and objectified.
      *
      * @return decoded object or {@code null} on EOF
+     * @throws IOException if an I/O error occurs
+     * @throws JiBXException if JiBX parse fails
      */
     public T read() throws IOException, JiBXException {
         InputStream xml = this.input.read();

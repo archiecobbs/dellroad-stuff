@@ -21,7 +21,6 @@ import org.dellroad.stuff.java.EnumUtil;
  *  <li>{@value #ORDINAL_PROPERTY} - {@link Integer} property derived from {@link Enum#ordinal Enum.ordinal()}</li>
  *  <li>{@value #TO_STRING_PROPERTY} - {@link String} property derived from {@link Enum#toString}</li>
  *  </ul>
- * </p>
  *
  * @param <T> enum type
  * @see EnumComboBox
@@ -66,7 +65,6 @@ public class EnumContainer<T extends Enum<T>> extends SelfKeyedContainer<T> {
      * <p>
      * The implementation in {@link EnumContainer} returns all values in their natural order.
      * Subclasses may override to filter and/or re-order.
-     * </p>
      */
     protected List<T> getExposedValues(Class<T> type) {
         return EnumUtil.getValues(type);

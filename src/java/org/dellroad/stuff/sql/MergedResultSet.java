@@ -41,13 +41,11 @@ import java.util.PriorityQueue;
  * The given {@link ResultSet}s must have the same column geometry. If the {@link ResultSet}s are sorted, then in order
  * to preserve that sorting the {@link ResultSet}s must be sorted on the same columns, and the sort columns and corresponding
  * sort orderings must be provided to the appropriate constructor.
- * </p>
  *
  * <p>
  * This class provides a {@link ResultSet} of type {@link #TYPE_FORWARD_ONLY} and concurrency mode {@link #CONCUR_READ_ONLY}.
  * Non-row specific information, such as is returned by {@link #getMetaData}, {@link #getStatement}, {@link #getFetchSize},
  * {@link #getHoldability}, and {@link #findColumn findColumn()} is derived from the first {@link ResultSet} provided.
- * </p>
  */
 @SuppressWarnings("deprecation")
 public class MergedResultSet implements ResultSet {

@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
  * <p>
  * Works just like {@link java.util.Formatter} but arguments are specified using names instead of numbers.
  * A mapping from argument name to argument value must be provided during the format operation.
- * </p>
  *
  * @since 1.0.64
  */
@@ -86,8 +85,8 @@ public class NamedArgumentFormatter {
      * Format the string using the given arguments.
      *
      * @param argMap mapping from argument name to argument value
-     * @throws IllegalFormatException if the format provided to the constructor contained illegal syntax
-     * @throws IllegalFormatException if an argument value is incompatible or missing (and null would be invalid)
+     * @throws java.util.IllegalFormatException if the format provided to the constructor contained illegal syntax
+     * @throws java.util.IllegalFormatException if an argument value is incompatible or missing (and null would be invalid)
      */
     public String format(Map<String, Object> argMap) {
 

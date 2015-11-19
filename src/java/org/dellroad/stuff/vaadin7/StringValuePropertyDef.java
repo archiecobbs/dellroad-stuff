@@ -10,7 +10,6 @@ package org.dellroad.stuff.vaadin7;
  *
  * <p>
  * Instances also serve as a {@link SortingPropertyExtractor} that can actually extract the property from any object.
- * </p>
  */
 public class StringValuePropertyDef extends PropertyDef<String> implements SortingPropertyExtractor<Object> {
 

@@ -17,7 +17,6 @@ import org.springframework.util.ClassUtils;
  * <p>
  * This implementation is derived from Spring's {@code AnnotationBeanWiringInfoResolver}
  * implementation and therefore shares its license (also Apache).
- * </p>
  *
  * @see VaadinConfigurable
  */

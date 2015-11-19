@@ -36,8 +36,8 @@ public final class StringEncoder {
      * Encode a string, escaping control and XML-invalid characters.
      * Whether tab, newline, and carriage return are escaped is optional;
      * these are the three control characters that are valid inside XML documents.
-     * <p/>
-     * <p/>
+     *
+     * <p>
      * Characters are escaped using <code>&#92;uNNNN</code> notation like Java unicode characters,
      * e.g., <code>0x001f</code> would appear in the encoded string as <code>&#92;u001f</code>.
      * Normal Java backslash escapes are used for tab, newline, carriage return, backspace, and formfeed.
@@ -107,8 +107,8 @@ public final class StringEncoder {
 
     /**
      * Decode a string encoded by {@link #encode}.
-     * <p/>
-     * <p/>
+     *
+     * <p>
      * The parsing is strict; any ill-formed backslash escape sequence (i.e., not of the form
      * <code>&#92;uNNNN</code>, <code>\b</code>, <code>\t</code>, <code>\n</code>, <code>\f</code>, <code>\r</code>
      * or <code>\\</code>) will cause an exception to be thrown.
@@ -190,11 +190,10 @@ public final class StringEncoder {
     /**
      * Enquote a string. Functions like {@link #encode encode(string, true)} but in addition the resulting
      * string is surrounded by double quotes and double quotes in the string are backslash-escaped.
-     * <p/>
+     *
      * <p>
      * Note: the strings returned by this method are not suitable for decoding by {@link #decode}.
      * Use {@link #dequote} instead.
-     * </p>
      */
     public static String enquote(String string) {
         return '"' + encode(string, true).replaceAll(Pattern.quote("\""), Matcher.quoteReplacement("\\\"")) + '"';
@@ -251,11 +250,10 @@ public final class StringEncoder {
 
     /**
      * Determine if the given character is a valid XML character according to the XML 1.0 specification.
-     * <p/>
+     *
      * <p>
      * Valid characters are tab, newline, carriage return, and characters in the ranges
      * <code>&#92;u0020 - &#92;ud7ff</code> and <code>&#92;ue000 - &#92;fffdf</code> (inclusive).
-     * </p>
      *
      * @see <a href="http://www.w3.org/TR/REC-xml/#charsets">The XML 1.0 Specification</a>
      */

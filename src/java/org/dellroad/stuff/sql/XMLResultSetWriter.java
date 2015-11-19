@@ -53,7 +53,6 @@ import javax.xml.stream.XMLStreamWriter;
  *      &lt;/data&gt;
  *  &lt;/result-set&gt;
  * </pre>
- * </p>
  *
  * <p>
  * If you turn on column name tags via {@link #setColumnNameTags setColumnNameTags()}, the output would look like this:
@@ -80,7 +79,6 @@ import javax.xml.stream.XMLStreamWriter;
  *      &lt;/data&gt;
  *  &lt;/result-set&gt;
  * </pre>
- * </p>
  */
 public class XMLResultSetWriter {
 
@@ -172,7 +170,6 @@ public class XMLResultSetWriter {
      *  xmlResultSetWriter.write(query, resultSet);
      *  writer.writeEndDocument();
      * </pre>
-     * </p>
      *
      * <p>
      * The result set is iterated in a forward direction only.

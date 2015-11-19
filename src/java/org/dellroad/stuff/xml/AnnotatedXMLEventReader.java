@@ -20,7 +20,6 @@ import javax.xml.stream.util.EventReaderDelegate;
  *
  * <p>
  * This class can be used in combination with {@link AnnotatedXMLEventWriter} to transparently annotate XML documents.
- * </p>
  *
  * @see AnnotatedXMLEventWriter
  */
@@ -82,7 +81,6 @@ public abstract class AnnotatedXMLEventReader extends EventReaderDelegate {
      * {@link javax.xml.stream.events.StartElement}; if it's not, this method should not read any events and immediately
      * return false. Otherwise, it should read the annotation {@link javax.xml.stream.events.StartElement} and all
      * subsequent events up <i>through</i> the matching {@link javax.xml.stream.events.EndElement} and return true.
-     * </p>
      *
      * @param reader source from which the rest of the annotation element is to be read
      * @return false if the annotation element is not seen, true if seen and fully read

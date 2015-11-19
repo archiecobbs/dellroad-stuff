@@ -52,6 +52,7 @@ public class IdGenerator {
      * New IDs are assigned sequentially starting at {@code 1}. No conflict avoidance with IDs assigned
      * via {@link #setId setId()} is performed; if there is a conflict, an exception is thrown.
      *
+     * @param obj object to ID; must not be null
      * @throws IllegalArgumentException if {@code obj} is null
      * @throws IllegalStateException if the next sequential ID has already been assigned to a different object
      *  via {@link #setId setId()}
@@ -77,6 +78,7 @@ public class IdGenerator {
     /**
      * Test whether the given object is already registered with this instance.
      *
+     * @param obj object to test; must not be null
      * @throws IllegalArgumentException if {@code obj} is null
      * @return a non-zero, unique identifier for {@code obj} if already registered, otherwise zero
      */
@@ -165,8 +167,10 @@ public class IdGenerator {
      * This method is re-entrant: nested invocations of this method in the same thread re-use the same {@link IdGenerator}
      * instance.
      *
+     * @param <R> action return type
      * @param action action to perform, and which may successfully invoke {@link #get}
      * @return result of invoking {@code action}
+     * @throws Exception if {@code action} throws an exception
      * @throws NullPointerException if {@code action} is null
      */
     public static <R> R run(final Callable<R> action) throws Exception {

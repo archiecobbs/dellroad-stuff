@@ -44,6 +44,9 @@ public final class ParseUtil {
      * Deserialize a {@link String}, allowing arbitrary characters via backslash escapes.
      * The string will be decoded by {@link StringEncoder#decode}.
      *
+     * @param string XML encoding created by {@link #serializeString}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see StringEncoder#decode
      */
     public static String deserializeString(String string) throws JiBXParseException {
@@ -58,6 +61,8 @@ public final class ParseUtil {
      * Serialize a {@link String}.
      * The string will be encoded by {@link StringEncoder#encode}.
      *
+     * @param string value to encode for XML
+     * @return encoded value
      * @see StringEncoder#encode
      */
     public static String serializeString(String string) {
@@ -67,6 +72,9 @@ public final class ParseUtil {
     /**
      * Deserialize a {@link TimeZone}.
      *
+     * @param string XML encoding created by {@link #serializeTimeZone}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeTimeZone
      */
     public static TimeZone deserializeTimeZone(String string) throws JiBXParseException {
@@ -78,6 +86,8 @@ public final class ParseUtil {
     /**
      * Serialize a {@link TimeZone}.
      *
+     * @param timeZone value to encode for XML
+     * @return encoded value
      * @see #deserializeTimeZone
      */
     public static String serializeTimeZone(TimeZone timeZone) {
@@ -89,6 +99,10 @@ public final class ParseUtil {
      *
      * <p>
      * Note: there is no need for a custom serializer, as {@link URI#toString} already does the right thing.
+     *
+     * @param string XML encoding created by {@link URI#toString}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      */
     public static URI deserializeURI(String string) throws JiBXParseException {
         try {
@@ -107,6 +121,9 @@ public final class ParseUtil {
      * <p>
      * The object must have been unmarshalled already and had its ID registered via {@link IdMapper#setId}.
      *
+     * @param string XML encoding created by {@link #serializeReference}
+     * @param type expected type
+     * @return decoded value
      * @throws IllegalArgumentException if {@code string} cannot be parsed
      * @throws JiBXParseException if the reference has not been registered to any object yet (e.g., forward reference)
      * @throws JiBXParseException if the referenced object is not an instance of {@code type}
@@ -139,6 +156,8 @@ public final class ParseUtil {
      * <p>
      * The object must have been marshalled already and had its ID assigned via {@link IdMapper#getId}.
      *
+     * @param obj object to encode by reference for XML
+     * @return encoded reference
      * @throws IllegalArgumentException if the object has not been registered yet (e.g., forward reference)
      * @see #deserializeReference
      * @see IdMapper
@@ -157,6 +176,10 @@ public final class ParseUtil {
      *
      * <p>
      * Note: there is no need for a custom serializer, as {@link UUID#toString} already does the right thing.
+     *
+     * @param string XML encoding created by {@link UUID#toString}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      */
     public static UUID deserializeUUID(String string) throws JiBXParseException {
         try {
@@ -169,6 +192,9 @@ public final class ParseUtil {
     /**
      * Derialize a millisecond-granularity time interval, e.g., "30s", "1d12h", "0.250s", etc.
      *
+     * @param string XML encoding created by {@link #serializeTimeInterval}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeTimeInterval
      */
     public static long deserializeTimeInterval(String string) throws JiBXParseException {
@@ -208,6 +234,8 @@ public final class ParseUtil {
     /**
      * Serialize a millisecond-granularity time interval, e.g., "30s", "1d12h", "0.250s", etc.
      *
+     * @param value millisecond value to encode
+     * @return encoded value
      * @see #deserializeTimeInterval
      */
     public static String serializeTimeInterval(long value) {
@@ -239,6 +267,9 @@ public final class ParseUtil {
     /**
      * Deserialize a byte array using {@link ByteArrayEncoder}.
      *
+     * @param string XML encoding created by {@link #serializeByteArray}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see ByteArrayEncoder
      */
     public static byte[] deserializeByteArray(String string) throws JiBXParseException {
@@ -252,6 +283,8 @@ public final class ParseUtil {
     /**
      * Serialize a byte array using {@link ByteArrayEncoder}.
      *
+     * @param array array to encode
+     * @return encoded array
      * @see ByteArrayEncoder
      */
     public static String serializeByteArray(byte[] array) {
@@ -261,6 +294,9 @@ public final class ParseUtil {
     /**
      * Deserialize a byte array using MAC address notation (colon-separated). Each byte must have two digits.
      *
+     * @param string XML encoding created by {@link #serializeByteArrayWithColons}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeByteArrayWithColons
      */
     public static byte[] deserializeByteArrayWithColons(String string) throws JiBXParseException {
@@ -288,6 +324,8 @@ public final class ParseUtil {
     /**
      * Serialize a byte array using MAC address notation (colon-separated). Each byte will have two digits.
      *
+     * @param array array to encode
+     * @return encoded array
      * @see #deserializeByteArrayWithColons
      */
     public static String serializeByteArrayWithColons(byte[] array) {
@@ -306,6 +344,9 @@ public final class ParseUtil {
     /**
      * Deserialize an {@link Inet4Address}. No DNS name resolution of any kind is performed.
      *
+     * @param string XML encoding created by {@link #serializeInet4Address}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeInet4Address
      */
     public static Inet4Address deserializeInet4Address(String string) throws JiBXParseException {
@@ -319,6 +360,8 @@ public final class ParseUtil {
     /**
      * Serialize an {@link Inet4Address}.
      *
+     * @param addr address to encode
+     * @return encoded address
      * @see #deserializeInet4Address
      */
     public static String serializeInet4Address(Inet4Address addr) {
@@ -328,6 +371,9 @@ public final class ParseUtil {
     /**
      * Deserialize a {@link SimpleDateFormat}.
      *
+     * @param string XML encoding created by {@link #serializeSimpleDateFormat}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeSimpleDateFormat
      */
     public static SimpleDateFormat deserializeSimpleDateFormat(String string) throws JiBXParseException {
@@ -341,24 +387,28 @@ public final class ParseUtil {
     /**
      * Serialize a {@link SimpleDateFormat}.
      *
+     * @param format date format to encode
+     * @return encoded format
      * @see #deserializeSimpleDateFormat
      */
-    public static String serializeSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
-        return simpleDateFormat.toPattern();
+    public static String serializeSimpleDateFormat(SimpleDateFormat format) {
+        return format.toPattern();
     }
 
     /**
      * Deserialize a {@link Date}. This method can be used as a deserialize support method.
      *
-     * @param date date string to parse
-     * @param format format for {@link SimpleDateFormat}.
+     * @param string XML encoding created by {@link #serializeDate(Date, String)}
+     * @param format format for {@link SimpleDateFormat}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeDate
      */
-    public static Date deserializeDate(String date, String format) throws JiBXParseException {
+    public static Date deserializeDate(String string, String format) throws JiBXParseException {
         try {
-            return deserializeSimpleDateFormat(format).parse(date);
+            return deserializeSimpleDateFormat(format).parse(string);
         } catch (java.text.ParseException e) {
-            throw new JiBXParseException("invalid date", date, e);
+            throw new JiBXParseException("invalid date", string, e);
         }
     }
 
@@ -368,6 +418,7 @@ public final class ParseUtil {
      * @param date date to serialize
      * @param format format for {@link SimpleDateFormat}.
      * @see #deserializeDate
+     * @throws JiBXParseException if {@code format} is invalid
      */
     public static String serializeDate(Date date, String format) throws JiBXParseException {
         return deserializeSimpleDateFormat(format).format(date);
@@ -376,6 +427,9 @@ public final class ParseUtil {
     /**
      * Deserialize a {@link Date} in the format supported by {@link DateEncoder}.
      *
+     * @param date XML encoding created by {@link #serializeDate(Date)}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see DateEncoder
      */
     public static Date deserializeDate(String date) throws JiBXParseException {
@@ -389,15 +443,20 @@ public final class ParseUtil {
     /**
      * Serialize a {@link Date} in the format supported by {@link DateEncoder}.
      *
+     * @param date date to encode
+     * @return encoded date
      * @see DateEncoder
      */
-    public static String serializeDate(Date date) throws JiBXParseException {
+    public static String serializeDate(Date date) {
         return DateEncoder.encode(date);
     }
 
     /**
      * Deserialize a {@link Date} in XSD dateTime format.
      *
+     * @param date XML encoding created by {@link #serializeXSDDateTime}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #serializeXSDDateTime
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">XSD dateTime datatype</a>
      */
@@ -412,11 +471,13 @@ public final class ParseUtil {
     /**
      * Serialize a {@link Date} to XSD dateTime format.
      *
+     * @param date date to encode
+     * @return encoded date
      * @see #deserializeXSDDateTime
      * @see <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">XSD dateTime datatype</a>
      */
-    public static String serializeXSDDateTime(Date date) throws JiBXParseException {
-        return deserializeSimpleDateFormat(XSD_DATE_FORMAT).format(date);
+    public static String serializeXSDDateTime(Date date) {
+        return new SimpleDateFormat(XSD_DATE_FORMAT).format(date);
     }
 
     /**
@@ -424,6 +485,10 @@ public final class ParseUtil {
      *
      * <p>
      * Note: there is no need for a custom serializer, as {@link Pattern#toString} already does the right thing.
+     *
+     * @param string XML encoding created by {@link Pattern#toString}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      */
     public static Pattern deserializePattern(String string) throws JiBXParseException {
         try {
@@ -438,6 +503,8 @@ public final class ParseUtil {
      * This removes leading and trailing whitespace, and collapses all interior whitespace
      * down to a single space character.
      *
+     * @param string string to normalize
+     * @return normalized string
      * @throws NullPointerException if {@code string} is null
      */
     public static String normalize(String string) {
@@ -449,6 +516,9 @@ public final class ParseUtil {
      * given regular expression. This method can be invoked by custom deserializers that supply the
      * regular expression to it.
      *
+     * @param regex regular expression pattern which input must match
+     * @param string input string
+     * @return decoded value
      * @throws NullPointerException if {@code string} of {@code regex} is null
      * @throws JiBXParseException   if {@code string} does not match {@code regex}
      * @throws java.util.regex.PatternSyntaxException
@@ -464,8 +534,9 @@ public final class ParseUtil {
      * Boolean parser that allows "yes" and "no" as well as the usual "true", "false", "0", "1".
      * Comparisons are case-insensitive.
      *
+     * @param string XML encoding of boolean value
+     * @return decoded value
      * @throws JiBXParseException if the value is not recognizable as a boolean
-     *
      * @see #deserializeBooleanStrictly
      */
     public static boolean deserializeBoolean(String string) throws JiBXParseException {
@@ -483,6 +554,9 @@ public final class ParseUtil {
     /**
      * Deserialize a boolean strictly, only allowing the values {@code true} or {@code false}.
      *
+     * @param string XML encoding created by {@link Boolean#toString}
+     * @return decoded value
+     * @throws JiBXParseException if the parse fails
      * @see #deserializeBoolean
      */
     public static boolean deserializeBooleanStrictly(String string) throws JiBXParseException {
@@ -496,6 +570,9 @@ public final class ParseUtil {
     /**
      * Deserialize an array of integers separated by commas and/or whitespace.
      *
+     * @param string XML encoding created by {@link #serializeIntArray}
+     * @return decoded integer array
+     * @throws JiBXParseException if the parse fails
      * @see #serializeIntArray
      */
     public static int[] deserializeIntArray(String string) throws JiBXParseException {
@@ -515,9 +592,12 @@ public final class ParseUtil {
     /**
      * Serialize an array of integers. Example: "1, 2, 3".
      *
+     * @param array integer array
+     * @return string encoding of {@code array}
+     * @throws JiBXParseException if the parse fails
      * @see #deserializeIntArray
      */
-    public static String serializeIntArray(int[] array) throws JiBXParseException {
+    public static String serializeIntArray(int[] array) {
         StringBuilder buf = new StringBuilder(array.length * 2);
         for (int i = 0; i < array.length; i++) {
             if (i > 0)

@@ -64,7 +64,6 @@ public class ExceptionLoggingFilter extends OncePerRequestFilter {
      * The implementation in {@link ExceptionLoggingFilter} returns {@code true} except for
      * {@link SocketException} (typically caused by the client disconnecting) and {@link ThreadDeath}
      * (typically caused by virtual machine shutdown). Subclasses should override if necessary.
-     * </p>
      *
      * @param request HTTP request
      * @param response HTTP response
@@ -88,7 +87,6 @@ public class ExceptionLoggingFilter extends OncePerRequestFilter {
      * <p>
      * The implementation in {@link ExceptionLoggingFilter} logs the exception as an error via the logger
      * returned by {@link #getLogger getLogger()}. Subclasses should override if necessary.
-     * </p>
      *
      * @param request HTTP request
      * @param response HTTP response
@@ -105,7 +103,6 @@ public class ExceptionLoggingFilter extends OncePerRequestFilter {
      * The implementation in {@link ExceptionLoggingFilter} uses the {@link Logger} returned by
      * {@link LoggerFactory#getLogger} when passed this instance's class as the parameter.
      * Subclasses should override if necessary.
-     * </p>
      *
      * @param request HTTP request
      * @param response HTTP response

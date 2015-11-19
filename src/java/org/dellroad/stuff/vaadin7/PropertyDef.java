@@ -59,7 +59,6 @@ public class PropertyDef<T> {
      *  <blockquote><pre>
      *  PropertyDef(name, type, null);
      *  </pre></blockquote>
-     * </p>
      */
     public PropertyDef(String name, Class<T> type) {
         this(name, type, null);
@@ -137,7 +136,6 @@ public class PropertyDef<T> {
      *  <blockquote><pre>
      *  {@link #createProperty(Object, boolean) createProperty()}(value, false);
      *  </pre></blockquote>
-     * </p>
      *
      * @param value property value
      * @return new property
@@ -154,7 +152,6 @@ public class PropertyDef<T> {
      *  <blockquote><pre>
      *  {@link #createProperty(Object) createProperty()}(def.getDefaultValue());
      *  </pre></blockquote>
-     * </p>
      *
      * @return new property
      */

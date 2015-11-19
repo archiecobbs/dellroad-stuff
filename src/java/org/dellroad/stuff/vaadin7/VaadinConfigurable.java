@@ -23,12 +23,10 @@ import org.springframework.beans.factory.annotation.Autowire;
  * but causes beans to be autowired into the Spring application context associated with the current
  * {@link com.vaadin.server.VaadinSession} (aka "Vaadin application") by {@link SpringVaadinSessionListener} instead of
  * the Spring application context associated with the servlet context.
- * </p>
  *
  * <p>
  * For an extra safety check, consider setting {@link org.dellroad.stuff.vaadin7.VaadinConfigurable#ifSessionNotLocked}
  * where appropriate.
- * </p>
  *
  * <p>
  * For the this annotation to function properly, {@link VaadinConfigurable @VaadinConfigurable} classes must be woven
@@ -36,7 +34,6 @@ import org.springframework.beans.factory.annotation.Autowire;
  * <a href="http://www.eclipse.org/aspectj/doc/released/faq.php#compiler">AspectJ compiler</a> with the
  * {@code VaadinConfigurableAspect} aspect (included in the <code>dellroad-stuff</code> JAR file), and the
  * {@link SpringVaadinServlet} must be used.
- * </p>
  *
  * @see org.dellroad.stuff.vaadin7
  * @see SpringVaadinServlet

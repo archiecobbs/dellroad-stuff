@@ -14,7 +14,6 @@ import java.util.HashMap;
  *
  * <p>
  * Restriction: instances can never contain two objects whose keys are equal (in the sense of {@link Object#equals}).
- * </p>
  *
  * @param <I> the item ID type
  * @param <T> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
@@ -58,7 +57,6 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()} is required
      * to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
@@ -84,7 +82,6 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param type class to introspect for annotated methods
      * @throws IllegalArgumentException if {@code type} is null
@@ -115,11 +112,9 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      * <p>
      * This method uses an internal hash map for efficiency, and assumes that two underlying container objects that
      * are {@linkplain Object#equals equal} will have the same {@linkplain #getKeyFor key}.
-     * </p>
      *
      * <p>
      * This method is not used by this class but is defined as a convenience for subclasses.
-     * </p>
      *
      * @param obj underlying container object
      * @return item ID corresponding to {@code object}, or null if {@code object} is not found in this container
@@ -142,11 +137,9 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      *
      * <p>
      * This method uses an internal hash map for efficiency.
-     * </p>
      *
      * <p>
      * This method is not used by this class but is defined as a convenience for subclasses.
-     * </p>
      *
      * @param obj underlying container object
      * @return item ID corresponding to {@code object}, or null if {@code object} is not found in this container

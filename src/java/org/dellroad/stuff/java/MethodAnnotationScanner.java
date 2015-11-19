@@ -23,12 +23,10 @@ import java.util.Set;
  * Instances find all methods annotated with a specific annotation in a given Java class or any of its superclasses
  * and superinterfaces, while also being override-aware, i.e., filtering out annotations on overridden supertype methods
  * when the overriding method also has the annotation. This operation is performed by {@link #findAnnotatedMethods}.
- * </p>
  *
  * <p>
  * Subclasses may validate the annotations, and control which annotated methods to include and/or reject, by overriding
  * {@link #getAnnotation getAnnotation()} and/or {@link #includeMethod includeMethod()}.
- * </p>
  *
  * @param <T> Java type to be introspected
  * @param <A> Java annotation type
@@ -136,7 +134,6 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
      * <p>
      * The implementation in {@link MethodAnnotationScanner} just invokes {@code method.getAnnotation()}.
      * Subclasses may override to automatically synthesize annotations, etc.
-     * </p>
      *
      * @param method method in question
      * @return annotation for {@code method}, or null if there is none
@@ -151,11 +148,9 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
      * <p>
      * The implementation in {@link MethodAnnotationScanner} returns true if {@code method} takes zero parameters
      * and returns anything other than void, otherwise false.
-     * </p>
      *
      * <p>
      * Subclasses may apply different tests and optionally throw an exception if a method is improperly annotated.
-     * </p>
      *
      * @param method method to check
      * @param annotation method's annotation
@@ -213,10 +208,10 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
      *
      * <p>
      * The implementation in {@link MethodAnnotationScanner} just instantiates a {@link MethodInfo} directly.
-     * </p>
      *
      * @param method the method
      * @param annotation the annotation annotating the method
+     * @return new {@link MethodInfo} instance
      */
     protected MethodInfo createMethodInfo(Method method, A annotation) {
         return new MethodInfo(method, annotation);
@@ -256,7 +251,9 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         }
 
         /**
-         * Get the method annotattion.
+         * Get the method annotation.
+         *
+         * @return annotation found on the method
          */
         public A getAnnotation() {
             return this.annotation;
@@ -265,6 +262,7 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         /**
          * Get the Java bean property name implied by this method's name, if any.
          *
+         * @return the name of the bean property implied by the method
          * @throws IllegalArgumentException if the method's name does not follow Java bean conventions
          */
         public String getMethodPropertyName() {
@@ -280,6 +278,8 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
          * Invoke the method and return the result. Any checked exception thrown is rethrown after being wrapped
          * in a {@link RuntimeException}.
          *
+         * @param obj instance on which to invoke the method; may be null for static methods
+         * @param params method parameters
          * @return result of invoking method
          * @throws RuntimeException if invocation fails
          */

@@ -20,17 +20,14 @@ import org.dellroad.stuff.java.TimedWait;
  * <p>
  * As a side effect of its design, this class may also be used to artificially inject data, EOF, or exceptions into the
  * {@code InputStream}, using the {@link AsyncInputStream.Listener} interface methods.
- * </p>
  *
  * <p>
  * This class may also be used to allow testing the real-time state of an {@link InputStream} without actually reading
  * from it, via {@link #checkConnection}, which guarantees an immediate exception will be thrown if the underlying
  * {@link InputStream} has been closed, reached EOF, or itself thrown an exception.
- * </p>
  *
  * <p>
  * All methods in this class are thread safe.
- * </p>
  */
 public class IdleTimeoutInputStream extends InputStream implements AsyncInputStream.Listener {
 
@@ -205,7 +202,6 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
      * <p>
      * This method guarantees that if the underlying {@link InputStream} has been closed,
      * reached EOF, or thrown an exception, then this method will throw an immediate exception.
-     * </p>
      *
      * @throws EOFException if the underlying {@link InputStream} has reached EOF
      * @throws IOException if the underlying {@link InputStream} threw an {@link IOException}

@@ -18,16 +18,13 @@ import java.io.OutputStream;
  * To use this class, invoke {@link #start} to start a new {@link OutputStream}, write to it by writing to this
  * class normally, and then use {@link #stop} to close the current {@link OutputStream}. A new, subsequent {@link OutputStream}
  * is created by invoking {@link #start} again.
- * </p>
  *
  * <p>
  * Each {@link OutputStream} written in this way will be read as distinct {@link java.io.InputStream} by the
  * {@link InputStreamReader} at the other end.
- * </p>
  *
  * <p>
  * Instances of this class are thread safe.
- * </p>
  *
  * @see InputStreamReader
  */
@@ -88,7 +85,6 @@ public class OutputStreamWriter extends FilterOutputStream {
      *
      * <p>
      * This ends the current {@link OutputStream} and closes the underlying output.
-     * </p>
      *
      * @throws IOException if an there is an error closing the underlying {@link OutputStream}
      */

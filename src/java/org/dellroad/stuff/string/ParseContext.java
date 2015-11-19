@@ -13,7 +13,6 @@ import java.util.regex.Pattern;
  *
  * <p>
  * Instances of this class are not thread safe.
- * </p>
  */
 public class ParseContext implements Cloneable {
 

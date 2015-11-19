@@ -182,7 +182,6 @@ public class ProvidesPropertyScanner<T> {
      * <p>
      * All of the properties in the returned list can be extracted from instances of this reader's configured
      * class by the {@link PropertyExtractor} returned by {@link #getPropertyExtractor}.
-     * </p>
      *
      * @return unmodifiable list of properties
      * @see #getPropertyExtractor

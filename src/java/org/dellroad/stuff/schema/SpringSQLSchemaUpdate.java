@@ -42,7 +42,6 @@ import java.util.List;
  *
  *  &lt;/beans&gt;
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * A multi-statement SQL script is normally treated as a set of individual updates. For example:
@@ -58,12 +57,10 @@ import java.util.List;
  * in which case all three of the statements will be executed together in the same transaction and recorded under the name
  * <code>renameColumn</code>; this means that they must all complete successfully or you could end up with a partially
  * completed update.
- * </p>
  *
  * <p>
  * Note that if the nested SQL script only contains one SQL statement, any <code>single-action</code> attribute is
  * ignored and the bean's given name (e.g., <code>renameColumn</code>) is always used as the name of the single update.
- * </p>
  *
  * @see SQLCommandList
  */

@@ -57,7 +57,6 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * a method that knows how to build an {@link AbstractField} suitable for editing the bean property specified by
  * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analgous to
  * {@link ProvidesProperty &#64;ProvidesProperty}, except that it defines an editing field rather than a container property.
- * </p>
  *
  * <p>
  * The {@link FieldBuilder.AbstractField &#64;FieldBuilder.AbstractField} hierarchy annotations are the other type of annotation.
@@ -69,7 +68,6 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * More specific annotations correspond to the various {@link AbstractField} subclasses,
  * for example {@link ComboBox &#64;FieldBuilder.ComboBox} corresponds to {@link ComboBox}.
  * When using more specific annotations, the "superclass" annotations configure the corresponding superclass' properties.
- * </p>
  *
  * <p>
  * A simple example shows how these annotations are used:
@@ -87,7 +85,6 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  *     ...
  * }
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * A {@link FieldBuilder} instance will read these annotations and build the fields automatically. For example:
@@ -101,12 +98,10 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * for (Field&lt;?&gt; field : fieldGroup.getFields())
  *     layout.addComponent(field);
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * For all annotations in the {@link FieldBuilder.AbstractField &#64;FieldBuilder.AbstractField} hierarchy, leaving properties
  * set to their default values results in the default behavior.
- * </p>
  *
  * @see AbstractSelect
  * @see AbstractTextField
@@ -870,7 +865,6 @@ public class FieldBuilder {
      *
      * <p>
      * Annotated methods must take zero arguments and return a type compatible with {@link com.vaadin.ui.AbstractField}.
-     * </p>
      *
      * @see FieldBuilder
      */
@@ -901,7 +895,6 @@ public class FieldBuilder {
          * <p>
          * Although this property has a default value, it must be overridden either in this annotation, or
          * by also including a more specific annotation such as {@link TextField}.
-         * </p>
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.ui.AbstractField> type() default com.vaadin.ui.AbstractField.class;
@@ -969,7 +962,6 @@ public class FieldBuilder {
          * <p>
          * The default value of this property is {@link Converter}, which means do not set a specific
          * {@link Converter} on the field.
-         * </p>
          *
          * @see AbstractField#setConverter(Converter)
          */
@@ -1057,7 +1049,6 @@ public class FieldBuilder {
          * <p>
          * Although this property has a default value, it must be overridden either in this annotation, or
          * by also including a more specific annotation such as {@link ComboBox}.
-         * </p>
          */
         Class<? extends com.vaadin.ui.AbstractSelect> type() default com.vaadin.ui.AbstractSelect.class;
 

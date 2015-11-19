@@ -19,12 +19,10 @@ import org.slf4j.LoggerFactory;
  * The background thread runs until this instance is {@linkplain #close closed}, EOF or an exception is detected
  * on the input, or a listener callback method throws an exception. A null listener may be supplied; in which case
  * this class will just sink the {@link InputStream}.
- * </p>
  *
  * <p>
  * Instances of this class are thread-safe. The {@link #close} method may be safely invoked re-entrantly from the
  * listener callback methods.
- * </p>
  */
 public class AsyncInputStream {
 
@@ -43,7 +41,6 @@ public class AsyncInputStream {
      *
      * <p>
      * If {@code listener} is null, this instance effectively reads and discards all of the input in a background thread.
-     * </p>
      *
      * @param input     underlying input stream
      * @param name      name for this instance; used to create the name of the background thread

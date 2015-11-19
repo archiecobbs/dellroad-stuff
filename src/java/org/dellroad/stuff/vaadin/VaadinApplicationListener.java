@@ -17,7 +17,6 @@ import org.springframework.context.event.SmartApplicationListener;
  * Listeners that are part of a Vaadin application should use this superclass if they are going to be registered
  * with non-Vaadin event multicasters. This will ensure that events are delivered {@linkplain ContextApplication#invoke
  * in the proper Vaadin application context} and memory leaks are avoided.
- * </p>
  *
  * @param <E> The type of the event
  * @see VaadinExternalListener

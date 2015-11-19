@@ -15,7 +15,6 @@ import java.nio.InvalidMarkException;
  *
  * <p>
  * Instances are thread safe.
- * </p>
  */
 public class ByteBufferInputStream extends InputStream {
 

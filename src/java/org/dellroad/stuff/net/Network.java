@@ -14,15 +14,12 @@ import java.nio.ByteBuffer;
  * <p>
  * In general, messages may be delayed, dropped or delivered out of order. Specific implementations
  * may provide more strict guarantees.
- * </p>
  *
  * <p>
  * Remote peers are identified by {@link String}s; the interpretation of these {@link String}s is up to the implementation.
- * </p>
  *
  * <p>
  * Notifications are delivered to the specified {@link Handler}.
- * </p>
  */
 public interface Network {
 
@@ -40,7 +37,6 @@ public interface Network {
      *
      * <p>
      * Does nothing if already stopped.
-     * </p>
      */
     void stop();
 

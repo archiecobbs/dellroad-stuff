@@ -22,7 +22,6 @@ public abstract class TypedQueryCallback<T, R> extends QueryCallback<R> {
      *
      * <p>
      * The implementation in {@link TypedQueryCallback} delegates to {@link #executeQuery(TypedQuery)}.
-     * </p>
      */
     @SuppressWarnings("unchecked")
     protected final R executeQuery(Query query) {
@@ -38,9 +37,12 @@ public abstract class TypedQueryCallback<T, R> extends QueryCallback<R> {
     /**
      * Execute the query. Typically this is implemented in one of these two ways:
      * <blockquote><code>
-     *   return query.getSingleResult();<br />
+     *   return query.getSingleResult();
      *   return query.getResultList();
      * </code></blockquote>
+     *
+     * @param query query to execute
+     * @return result of query
      */
     protected abstract R executeQuery(TypedQuery<T> query);
 }

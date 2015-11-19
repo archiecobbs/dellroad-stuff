@@ -34,6 +34,8 @@ public abstract class ContextMainClass extends MainClass {
      * <p>
      * The implementation in {@link ContextMainClass} returns {@code getClass().getSimpleName() + ".xml"},
      * which will locate an XML file in the same package and with the same name.
+     *
+     * @return application context XML file location
      */
     protected String getContextLocation() {
         return getClass().getSimpleName() + ".xml";
@@ -71,6 +73,10 @@ public abstract class ContextMainClass extends MainClass {
 
     /**
      * Execute the main method. The application context will be open when this method is invoked.
+     *
+     * @param args command line arguments
+     * @return process exit value
+     * @throws Exception if an error occurs; will result in the process exiting with an exit value of one
      */
     protected abstract int runInContext(String[] args) throws Exception;
 }

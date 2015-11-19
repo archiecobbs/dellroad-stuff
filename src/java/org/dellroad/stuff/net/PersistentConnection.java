@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
  * it would be used to maintain a persistent connection to a remote server over the network. This class
  * mainly serves to implement the connection state machine, including an exponential back-off retry timer,
  * subclass notifications for state transitions, and guaranteed thread safety.
- * </p>
  *
  * <p>
  * Each instance has a dedicated thread that manages the connection and performs any required work while connected.
@@ -29,14 +28,12 @@ import org.slf4j.LoggerFactory;
  * {@link #createConnection createConnection()} and {@link #cleanupConnection cleanupConnection()}.
  * The actual per-connection work is performed by {@link #handleConnection handleConnection()}.
  * Each connection has an associated connection context (defined by the subclass) and passed to these methods.
- * </p>
  *
  * <p>
  * The subclass is also notified of state machine transitions via the state transition methods
  * {@link #started started()}, {@link #stopped stopped()}, {@link #connectionSuccessful connectionSuccessful()},
  * {@link #connectionFailed connectionFailed()}, and {@link #connectionEnded connectionEnded()};
  * all of these methods are invoked by the background thread.
- * </p>
  *
  * @param <C> connection context type
  */
@@ -96,7 +93,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} returns {@code this.toString() + " thread"}.
-     * </p>
      */
     protected String getThreadName() {
         return this + " thread";
@@ -109,7 +105,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * If this instance is already started, nothing happens.
-     * </p>
      */
     @PostConstruct
     public synchronized void start() {
@@ -124,7 +119,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * This method simply {@linkplain Thread#interrupt interrupts} the background thread, if any.
-     * </p>
      */
     @PreDestroy
     public synchronized void stop() {
@@ -219,7 +213,6 @@ public abstract class PersistentConnection<C> {
      * <p>
      * If this method throws an unchecked exception, {@link #stopped stopped()} will be invoked with the exception
      * and this instance will be automatically stopped.
-     * </p>
      *
      * @throws InterruptedException if interrupted
      * @throws IOException if there is a problem establishing the connection
@@ -234,17 +227,14 @@ public abstract class PersistentConnection<C> {
      * <p>
      * This method may either throw an exception or return normally; the only difference is whether
      * {@link #connectionEnded connectionEnded()} is invoked with a non-null parameter or not.
-     * </p>
      *
      * <p>
      * Ideally this method should never return normally. However, in practice there are legitimate reasons to do so,
      * for example, if there is an application-level error that indicates the particular connection is no longer usable.
-     * </p>
      *
      * <p>
      * If this method throws an unchecked exception, {@link #stopped stopped()} will be invoked with the exception
      * and this instance will be automatically stopped.
-     * </p>
      *
      * @param connectionContext connection context returned from {@link #createConnection} when this connection was created
      * @throws InterruptedException if interrupted
@@ -258,22 +248,18 @@ public abstract class PersistentConnection<C> {
      * <p>
      * For each successful invocation of {@link #createConnection} there is guaranteed be exactly
      * one invocation of this method.
-     * </p>
      *
      * <p>
      * The {@code exception} parameter indicates either a normal return (if null) or thrown exception (if not null) from
      * {@link #handleConnection handleConnection()}. In any case, this instance will automatically begin attempting to reconnect
      * when this method returns.
-     * </p>
      *
      * <p>
      * If this method throws an unchecked exception, {@link #stopped stopped()} will be invoked with the exception
      * and this instance will be automatically stopped.
-     * </p>
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing. Subclasses should override if necessary.
-     * </p>
      *
      * @param connectionContext connection context returned from {@link #createConnection} when this connection was created
      */
@@ -287,7 +273,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
-     * </p>
      */
     protected void started() {
     }
@@ -298,7 +283,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
-     * </p>
      *
      * @param t unexpected exception, or null if this instance was stopped via {@link #stop stop()}.
      */
@@ -311,7 +295,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
-     * </p>
      */
     protected void connectionSuccessful() {
     }
@@ -322,7 +305,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
-     * </p>
      *
      * @param e Exception thrown by {@link #createConnection}.
      */
@@ -336,7 +318,6 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
-     * </p>
      *
      * @param e Exception thrown by {@link #handleConnection handleConnection()},
      *  or null if {@link #handleConnection handleConnection()} returned normally

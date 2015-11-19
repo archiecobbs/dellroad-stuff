@@ -66,7 +66,6 @@ public abstract class ContextApplication extends Application implements Executor
      *
      * <p>
      * The implementation in {@link ContextApplication} delegates to {@link #initApplication}.
-     * </p>
      */
     @Override
     public final synchronized void init() {             // synchronized to work around http://dev.vaadin.com/ticket/9946
@@ -169,11 +168,9 @@ public abstract class ContextApplication extends Application implements Executor
      * <p>
      * This method is useful for situations in which non-Vaadin threads need to call into Vaadin code
      * that expects to successfully retrieve the current application via {@link #currentApplication}.
-     * </p>
      *
      * <p>
      * This method also synchronizes on this {@link ContextApplication} instance as required by Vaadin for thread safety.
-     * </p>
      *
      * @param action action to perform
      * @throws IllegalStateException if a different {@link ContextApplication} is already set as the current application
@@ -202,12 +199,10 @@ public abstract class ContextApplication extends Application implements Executor
      * a separate thread dedicated to this application instance. This is useful to reduce Vaadin application lock
      * contention, by performing Vaadin-related actions in a separate, dedicated thread. Actions are executed
      * in the order they are given to this method.
-     * </p>
      *
      * <p>
      * The returned {@link Future}'s {@link Future#get get()} method will return null upon successful completion.
      * This method itself always returns immediately.
-     * </p>
      *
      * @param action action to perform
      * @return a {@link Future} representing the pending results of {@code action}
@@ -235,7 +230,6 @@ public abstract class ContextApplication extends Application implements Executor
      *
      * <p>
      * The implementation in {@link ContextApplication} delegates to {@link #doOnRequestStart}.
-     * </p>
      */
     @Override
     public final void onRequestStart(HttpServletRequest request, HttpServletResponse response) {
@@ -250,7 +244,6 @@ public abstract class ContextApplication extends Application implements Executor
      *
      * <p>
      * The implementation in {@link ContextApplication} delegates to {@link #doOnRequestEnd}.
-     * </p>
      */
     @Override
     public final void onRequestEnd(HttpServletRequest request, HttpServletResponse response) {
@@ -268,7 +261,6 @@ public abstract class ContextApplication extends Application implements Executor
      *
      * <p>
      * The implementation in {@link ContextApplication} does nothing. Subclasses should override as necessary.
-     * </p>
      */
     protected void doOnRequestStart(HttpServletRequest request, HttpServletResponse response) {
     }
@@ -278,7 +270,6 @@ public abstract class ContextApplication extends Application implements Executor
      *
      * <p>
      * The implementation in {@link ContextApplication} does nothing. Subclasses should override as necessary.
-     * </p>
      */
     protected void doOnRequestEnd(HttpServletRequest request, HttpServletResponse response) {
     }
@@ -289,7 +280,6 @@ public abstract class ContextApplication extends Application implements Executor
      * <p>
      * If the current thread is handling a Vaadin HTTP request that is executing within an {@link ContextApplication} instance,
      * or is executing within {@link #invoke}, then this method will return the associated {@link ContextApplication}.
-     * </p>
      *
      * @return the {@link ContextApplication} associated with the current thread, or {@code null} if the current thread
      *  is not servicing a Vaadin web request or the current Vaadin {@link Application} is not an {@link ContextApplication}
@@ -319,7 +309,6 @@ public abstract class ContextApplication extends Application implements Executor
      * If the current thread is handling a Vaadin web request that is executing within an {@link ContextApplication} instance,
      * or is executing within {@link #invoke}, then this method will return the associated {@link ContextApplication}.
      * Otherwise, an exception is thrown.
-     * </p>
      *
      * @return the {@link ContextApplication} associated with the current thread
      * @throws IllegalStateException if the current thread is not servicing a Vaadin web request
@@ -355,7 +344,6 @@ public abstract class ContextApplication extends Application implements Executor
      * <p>
      * If the current thread is handling a Vaadin web request for an instance of this class,
      * this method will return the associated {@link HttpServletRequest}.
-     * </p>
      *
      * @return the {@link HttpServletRequest} associated with the current thread, or {@code null} if the current thread
      *  is not servicing a Vaadin web request or the current Vaadin {@link Application} is not an instance of this class
@@ -370,7 +358,6 @@ public abstract class ContextApplication extends Application implements Executor
      * <p>
      * If the current thread is handling a Vaadin web request for an instance of this class,
      * this method will return the associated {@link HttpServletResponse}.
-     * </p>
      *
      * @return the {@link HttpServletResponse} associated with the current thread, or {@code null} if the current thread
      *  is not servicing a Vaadin web request or the current Vaadin {@link Application} is not an instance of this class
@@ -387,7 +374,6 @@ public abstract class ContextApplication extends Application implements Executor
      * <p>
      * The implementation in {@link ContextApplication} first delegates to the superclass and then
      * notifies any registered {@link CloseListener}s.
-     * </p>
      */
     @Override
     public void close() {

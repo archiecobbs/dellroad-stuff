@@ -43,24 +43,21 @@ import javax.servlet.ServletException;
  *     &lt;/init-param&gt;
  * &lt;/servlet&gt;
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * The main function of this servlet is to create and register a {@link SpringVaadinSessionListener} as a listener on the
  * {@link com.vaadin.server.VaadinService} associated with this servlet. The {@link SpringVaadinSessionListener} in turn detects
  * the creation and destruction of Vaadin application instances (represented by {@link com.vaadin.server.VaadinSession}
  * instances) and does the work of managing the associated Spring application contexts.
- * </p>
  *
  * <p>
  * Use of this servlet in place of the standard Vaadin servlet is required for the {@link VaadinConfigurable @VaadinConfigurable}
  * annotation to work.
- * </p>
  *
  * <p>
  * Supported URL parameters:
  * <div style="margin-left: 20px;">
- * <table border="1" cellpadding="3" cellspacing="0">
+ * <table border="1" cellpadding="3" cellspacing="0" summary="Servlet URL Parameters">
  * <tr bgcolor="#ccffcc">
  *  <th align="left">Parameter Name</th>
  *  <th align="left">Required?</th>
@@ -113,13 +110,11 @@ import javax.servlet.ServletException;
  * </tr>
  * </table>
  * </div>
- * </p>
  *
  * <p>
  * Note: if any beans are declared {@code scope="session"} in your application context, you must register Spring's
  * {@link org.springframework.web.context.request.RequestContextListener} as a listener in your {@code web.xml}
  * (normally, Spring's {@link org.springframework.web.servlet.DispatcherServlet} would handle this task).
- * </p>
  *
  * @see SpringVaadinSessionListener
  * @see VaadinConfigurable

@@ -27,7 +27,6 @@ public abstract class ReadOnlyProperty<V> implements
      *
      * <p>
      * The implementation in {@link ReadOnlyProperty} always throws {@link com.vaadin.data.Property.ReadOnlyException}.
-     * </p>
      */
     @Override
     public void setValue(V value) {
@@ -39,7 +38,6 @@ public abstract class ReadOnlyProperty<V> implements
      *
      * <p>
      * The implementation in {@link ReadOnlyProperty} always returns true.
-     * </p>
      */
     @Override
     public boolean isReadOnly() {
@@ -52,7 +50,6 @@ public abstract class ReadOnlyProperty<V> implements
      * <p>
      * The implementation in {@link ReadOnlyProperty} throws {@link UnsupportedOperationException}
      * if {@code readOnly} is false.
-     * </p>
      */
     @Override
     public void setReadOnly(boolean readOnly) {
@@ -81,7 +78,6 @@ public abstract class ReadOnlyProperty<V> implements
      *
      * <p>
      * The implementation in {@link ReadOnlyProperty} does nothing.
-     * </p>
      */
     protected void firstListenerAdded() {
     }
@@ -91,7 +87,6 @@ public abstract class ReadOnlyProperty<V> implements
      *
      * <p>
      * The implementation in {@link ReadOnlyProperty} does nothing.
-     * </p>
      */
     protected void lastListenerRemoved() {
     }

@@ -22,14 +22,12 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * Atomic updates are implemented using an {@link AtomicUpdateFileOutputStream}.
- * </p>
  *
  * <p>
  * When backups are configured, the base file must be copied, not moved, to the first backup on update to avoid
  * a small window where the base file doesn't exist. This class uses {@linkplain Files#createLink hard links} to perform
  * this "copy" efficiently. This behavior can be altered by overriding {@link #copy copy()} on systems not supporting
  * hard links.
- * </p>
  */
 public class FileStreamRepository implements StreamRepository {
 
@@ -65,6 +63,8 @@ public class FileStreamRepository implements StreamRepository {
      * <blockquote><code>
      *  FileStreamRepository(file, 0);
      * </code></blockquote>
+     *
+     * @param file the file that will store the stream content
      */
     public FileStreamRepository(File file) {
         this(file, 0);
@@ -156,6 +156,7 @@ public class FileStreamRepository implements StreamRepository {
      *
      * @param file the file that stores the current stream content (i.e., from {@link #getFile})
      * @param index backup index, always greater than or equal to 1
+     * @return the {@code index}'th backup file for {@code file}
      */
     protected File getBackupFile(File file, int index) {
         return new File(file.toString() + "." + index);
@@ -167,7 +168,6 @@ public class FileStreamRepository implements StreamRepository {
      * <p>
      * The implementation in {@link FileStreamRepository} uses {@linkplain Files#createLink hard links}.
      * Subclasses must override this method if the platform does not support hard links.
-     * </p>
      *
      * @param src source file
      * @param dst destination file

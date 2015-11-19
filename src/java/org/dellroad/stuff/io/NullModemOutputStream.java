@@ -16,7 +16,6 @@ import java.io.PipedOutputStream;
  *
  * <p>
  * If data is written beyond what the reader is willing to consume, an {@link IOException} is thrown.
- * </p>
  *
  * @since 1.0.82
  */
@@ -29,7 +28,6 @@ public class NullModemOutputStream extends FilterOutputStream {
      * The {@code reader}'s {@link ReadCallback#readFrom readFrom()} method will be invoked (once)
      * asynchronously in a dedicated reader thread. The {@link java.io.InputStream} provided to it will
      * relay the bytes that are written to this instance.
-     * </p>
      *
      * @param reader    {@link java.io.InputStream} reader callback
      * @param name      name for this instance; used to create the name of the background thread
@@ -57,6 +55,8 @@ public class NullModemOutputStream extends FilterOutputStream {
 
     /**
      * Get the wrapped stream cast as a {@link PipedOutputStream}.
+     *
+     * @return the underlying {@link PipedOutputStream}
      */
     protected PipedOutputStream getPipedOutputStream() {
         return (PipedOutputStream)this.out;

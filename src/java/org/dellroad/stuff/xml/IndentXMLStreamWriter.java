@@ -17,7 +17,6 @@ import javax.xml.stream.XMLStreamWriter;
  *
  * <p>
  * This class will also fixup a missing/incomplete initial XML declaration.
- * </p>
  */
 public class IndentXMLStreamWriter extends StreamWriterDelegate {
 
@@ -86,7 +85,6 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is true.
-     * </p>
      */
     public void setAddMissingXmlDeclaration(boolean addMissingXmlDeclaration) {
         this.addMissingXmlDeclaration = addMissingXmlDeclaration;
@@ -99,7 +97,6 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is true.
-     * </p>
      */
     public void setIndentAfterXmlDeclaration(boolean indentAfterXmlDeclaration) {
         this.indentAfterXmlDeclaration = indentAfterXmlDeclaration;
@@ -110,7 +107,6 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is {@link #DEFAULT_VERSION} ({@value #DEFAULT_VERSION}).
-     * </p>
      *
      * @param defaultVersion XML version
      */
@@ -123,7 +119,6 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is {@link #DEFAULT_ENCODING} ({@value #DEFAULT_ENCODING}).
-     * </p>
      *
      * @param defaultEncoding character encoding name
      */

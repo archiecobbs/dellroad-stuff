@@ -52,6 +52,8 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
 
     /**
      * Get the configured {@link EntityManager}.
+     *
+     * @return this DAO's {@link EntityManager}
      */
     protected EntityManager getEntityManager() {
         return this.entityManager;
@@ -63,6 +65,8 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
      * <p>
      * This method has a {@link PersistenceContext @PersistenceContext} annotation and normally
      * would be invoked automatically by Spring.
+     *
+     * @param entityManager this DAO's {@link EntityManager}
      */
     @PersistenceContext
     public void setEntityManager(EntityManager entityManager) {
@@ -107,6 +111,10 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
 
     /**
      * Find instances using a query string and query parameters.
+     *
+     * @param queryString JPQL query string
+     * @param params query string parameters
+     * @return zero or more matching objects
      */
     protected List<T> find(final String queryString, final Object... params) {
         return this.getBy(new DAOQueryListCallback() {
@@ -120,6 +128,8 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
     /**
      * Find a unique instance using a query string and query parameters.
      *
+     * @param queryString JPQL query string
+     * @param params query string parameters
      * @return unique instance found, or null if none was found
      */
     protected T findUnique(final String queryString, final Object... params) {
@@ -133,6 +143,10 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
 
     /**
      * Search using a {@link QueryCallback}.
+     *
+     * @param <R> return type
+     * @param callback query callback
+     * @return result of query
      */
     protected <R> R getBy(QueryCallback<R> callback) {
         return callback.query(this.getEntityManager());
@@ -140,6 +154,9 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
 
     /**
      * Perform a bulk update.
+     *
+     * @param callback query callback
+     * @return number of rows affected
      */
     protected int bulkUpdate(UpdateCallback callback) {
         return callback.query(this.getEntityManager());
@@ -203,6 +220,9 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
 
     /**
      * Cast the given object to this instance's persistent instance type.
+     *
+     * @param obj
+     * @return {@code obj} cast to type {@code T}
      */
     protected T cast(Object obj) {
         return this.type.cast(obj);
@@ -211,6 +231,9 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
     /**
      * Cast the given list to a list of this instance's persistent instance type.
      * Does not actually inspect the contents of the list.
+     *
+     * @param list list of objects
+     * @return {@code list} cast to a list of {@code T}
      */
     @SuppressWarnings("unchecked")
     protected List<T> castList(List<?> list) {

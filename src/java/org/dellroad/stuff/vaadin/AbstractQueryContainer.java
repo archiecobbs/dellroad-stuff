@@ -28,7 +28,6 @@ import java.util.Set;
  * {@link #getPropertyValue getPropertyValue()}). However, the easist way to configure the container {@link Property}s
  * is to pass a {@link ProvidesProperty &#64;ProvidesProperty}-annotated Java class to the {@link #AbstractQueryContainer(Class)}
  * constructor.
- * </p>
  *
  * <p>
  * This {@link Container}'s item ID's are simply the indexes of the corresponding objects in the overall list. The {@link QueryList}
@@ -41,7 +40,6 @@ import java.util.Set;
  * list is discarded and {@link #query} is invoked again to regenerate it. In this way, the {@link QueryList} is
  * allowed to decide, on demand, when it is invalid or incapable of providing a specific list member. For example,
  * when using JPA, a list may be considered invalid if the current EntityManager session has changed.
- * </p>
  *
  * <p>
  * Note that the {@link QueryList} being invalid is an orthogonal concept from the contents of the list having changed.
@@ -49,19 +47,16 @@ import java.util.Set;
  * Normally, the latter implies the former (but not vice-versa). The list becoming invalid does not in itself not cause
  * any notifications to be sent, so no new query will be performed until e.g. the user interface explicitly requests
  * more information.
- * </p>
  *
  * <p>
  * Therefore, if the list size or content changes, first invoke {@link #invalidate} to discard the cached {@link QueryList},
  * and then {@link #fireItemSetChange} to notify listeners; for convenience, {@link #reload} will perform these two steps for
  * you. The new size and content will be provided by the {@link QueryList} returned by the next invocation of {@link #query}.
- * </p>
  *
  * <p>
  * The subclass may forcibly invalidate the current {@link QueryList} via {@link #invalidate}; this merely discards it
  * and will force a new invocation of {@link #query} on the next container access. In many situations, however,
  * the use of {@link #invalidate} is never required.
- * </p>
  *
  * <p>
  * For scalability reasons the {@link QueryList} may actually only contain a portion of the list, throwing
@@ -70,7 +65,6 @@ import java.util.Set;
  * is required to provide exception-free access only to the indicated member, so in the extreme case only a single
  * list member could be kept. In practice, normally range of members near to the index hint would be kept;
  * see for example {@link WindowQueryList}.
- * </p>
  *
  * @param <T> the type of the Java objects that back each {@link Item} in the container
  * @see QueryList
@@ -97,7 +91,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * After using this constructor, subsequent invocations of {@link #setPropertyExtractor setPropertyExtractor()}
      * and {@link #setProperties setProperties()} are required to define the properties of this container
      * and how to extract them.
-     * </p>
      */
     protected AbstractQueryContainer() {
         this((PropertyExtractor<T>)null);
@@ -109,7 +102,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * <p>
      * After using this constructor, a subsequent invocation of {@link #setProperties setProperties()} is required
      * to define the properties of this container.
-     * </p>
      *
      * @param propertyExtractor used to extract properties from the underlying Java objects;
      *  may be null but then container is not usable until one is configured via
@@ -126,7 +118,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()}
      * is required to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
@@ -154,7 +145,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param type class to introspect for annotated methods
      * @throws IllegalArgumentException if {@code type} is null
@@ -203,7 +193,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * <p>
      * The implementation in {@link AbstractQueryContainer} just delegates to the {@linkplain #setPropertyExtractor configured}
      * {@link PropertyExtractor}; subclasses may override to customize property extraction.
-     * </p>
      *
      * @param obj Java object
      * @param propertyDef definition of which property to read
@@ -254,7 +243,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * The particular position in the list we are interested in is given as a hint by the {@code hint} parameter.
      * That is, an invocation of {@link QueryList#get}{@code (hint)} is likely immediately after this method
      * returns and if so it must complete without throwing an exception, unless {@code hint} is out of range.
-     * </p>
      *
      * <p>
      * The {@code hint} can be used to implement a highly scalable query list containing external objects
@@ -262,7 +250,6 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * Of course, implementations are also free to ignore {@code hint}. However, the returned {@link QueryList}
      * must at least tolerate one invocation of {@link QueryList#get get}{@code (hint)} without throwing an exception
      * when {@code hint} is less that the {@link QueryList#size size()} of the returned {@link QueryList}.
-     * </p>
      *
      * @param hint index of the list element we are interested in
      * @return list of Java objects backing this container
@@ -336,17 +323,14 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * no additional action needs to be taken by this method. However, some implementations may
      * lack such a mechanism, for example, when the container's size is only ever calculated when
      * {@link #query} is invoked. In such cases, this method may trigger a notification.
-     * </p>
      *
      * <p>
      * Note: to avoid re-entrancy problems, this method should not send out any notifications itself;
      * instead, it should schedule notifications to be delivered later.
-     * </p>
      *
      * <p>
      * The implementation in {@link AbstractQueryContainer} does nothing, assuming the notification is handled
      * elsewhere. Subclasses may override if needed.
-     * </p>
      */
     protected void handleSizeChange() {
     }

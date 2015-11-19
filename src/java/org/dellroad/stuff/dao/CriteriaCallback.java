@@ -28,6 +28,9 @@ public abstract class CriteriaCallback<T, R> extends TypedQueryCallback<T, R> {
 
     /**
      * Build the query by delegating to {@link #configureQuery configureQuery()} for configuration.
+     *
+     * @param entityManager entity manager to use for queries
+     * @return query for instaces of tyep {@code T}
      */
     @Override
     protected TypedQuery<T> buildQuery(EntityManager entityManager) {
@@ -39,6 +42,9 @@ public abstract class CriteriaCallback<T, R> extends TypedQueryCallback<T, R> {
 
     /**
      * Configure the {@link CriteriaQuery}.
+     *
+     * @param criteriaQuery the query to configure
+     * @param criteriaBuilder builder instance
      */
     protected abstract void configureQuery(CriteriaQuery<T> criteriaQuery, CriteriaBuilder criteriaBuilder);
 }

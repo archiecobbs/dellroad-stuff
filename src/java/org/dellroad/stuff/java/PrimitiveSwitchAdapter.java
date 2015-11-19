@@ -97,6 +97,8 @@ public class PrimitiveSwitchAdapter<R> implements PrimitiveSwitch<R> {
     /**
      * Internal roll-up method.
      * The implementation in {@link PrimitiveSwitchAdapter} delegates to {@link #caseDefault}.
+     *
+     * @return default result for sub-types of {@link Number}
      */
     protected R caseNumber() {
         return this.caseDefault();
@@ -105,6 +107,8 @@ public class PrimitiveSwitchAdapter<R> implements PrimitiveSwitch<R> {
     /**
      * Internal roll-up method.
      * The implementation in {@link PrimitiveSwitchAdapter} returns {@code null}.
+     *
+     * @return default result
      */
     protected R caseDefault() {
         return null;

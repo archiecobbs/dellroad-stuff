@@ -19,7 +19,6 @@ import org.springframework.context.event.ApplicationEventMulticaster;
  * Listeners that are part of a Vaadin application should use this superclass if they are going to be registered
  * with non-Vaadin event sources. This will ensure that events are delivered in the proper Vaadin application context
  * and memory leaks are avoided when the session closes.
- * </p>
  *
  * @param <E> The type of the event
  * @see VaadinExternalListener

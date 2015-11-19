@@ -101,7 +101,7 @@ public class JPASchemaGeneratorTask extends Task {
     }
 
     /**
-     * @throws BuildException
+     * @throws BuildException if task fails
      */
     @Override
     public void execute() {

@@ -16,7 +16,6 @@ import javax.xml.stream.util.StreamReaderDelegate;
  *
  * <p>
  * This class can be used in combination with {@link AnnotatedXMLStreamWriter} to transparently annotate XML documents.
- * </p>
  *
  * @see AnnotatedXMLStreamWriter
  */
@@ -74,7 +73,6 @@ public abstract class AnnotatedXMLStreamReader extends StreamReaderDelegate {
      * the start of the annotation element. If it doesn't, this method should not read any events and immediately return false.
      * Otherwise, this method should read subsequent events up <i>through</i> the corresponding {@link #END_ELEMENT}
      * event and return true. Upon return, the {@code reader}'s current event will have type {@link #END_ELEMENT}.
-     * </p>
      *
      * @param reader source from which the the annotation element is to be read, if found
      * @return true if the current event is the start of the annotation element and has been read, false otherwise

@@ -21,7 +21,6 @@ import java.lang.annotation.Target;
  * can be used to automatically generate a list of {@link PropertyDef}s and a {@link PropertyExtractor} using a
  * {@link ProvidesPropertyScanner}. This happens automatically when using the appropriate constructors of the various
  * {@link com.vaadin.data.Container} classes in this package.
- * </p>
  *
  * <p>
  * This annotation is used in conjunction with the {@link ProvidesProperty &#64;ProvidesProperty}
@@ -29,21 +28,18 @@ import java.lang.annotation.Target;
  * {@link Comparable} or does not naturally sort as desired. By declaring a
  * {@link ProvidesPropertySort &#64;ProvidesPropertySort}-annotated method for a property, any arbitrary sorting
  * function can be supplied.
- * </p>
  *
  * <p>
  * If the annotated method returns a {@link java.util.Comparator}, then the return value will be used to sort property values;
  * otherwise, the annotated method must return a sub-type of {@link Comparable}, in which case the returned value determines how
  * that instance's property value sorts (with {@code null} values sorting first). If the method returns neither a
  * {@link java.util.Comparator} nor a {@link Comparable}, an exception is thrown during scanning.
- * </p>
  *
  * <p>
  * Here is a typical situation where {@link ProvidesPropertySort &#64;ProvidesPropertySort} is needed: you have
  * a {@link String} property containing a formatted {@link java.util.Date}, but the way the {@link java.util.Date}
  * strings are formatted does not sort in chronological order. This will usually be the case unless your
  * {@link java.util.Date} strings are formatted like {@code 2013-03-12}, etc.
- * </p>
  *
  * <p>
  * To address this problem, define a {@link ProvidesPropertySort &#64;ProvidesPropertySort}-annotated method that
@@ -67,7 +63,6 @@ import java.lang.annotation.Target;
  *         return new Label(new SimpleDateFormat("MM/dd/yyyy").format(this.birthday));
  *     }
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * Alternately, have the {@link ProvidesPropertySort &#64;ProvidesPropertySort}-annotated method return
@@ -91,7 +86,6 @@ import java.lang.annotation.Target;
  * Note that the returned {@link java.util.Comparator} compares <i>backing instances</i>, not property values,
  * and that methods returning {@link java.util.Comparator} may be declared {@code static}. The returned
  * {@link java.util.Comparator} may be cached by the implementation.
- * </p>
  *
  * <p>
  * Some details regarding {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotations on methods:
@@ -107,7 +101,6 @@ import java.lang.annotation.Target;
  *      wins (if the two methods are delcared in the same class, an exception is thrown). This allows subclasses
  *      to "override" which method supplies the sort value for a given property.</li>
  *  </ul>
- * </p>
  *
  *
  * @see ProvidesProperty

@@ -22,14 +22,12 @@ import javax.sql.DataSource;
  * <p>
  * Required properties are the {@linkplain #setDatabaseInitialization database initialization},
  * {@linkplain #setUpdateTableInitialization update table initialization}, and the {@linkplain #setUpdates updates} themselves.
- * </p>
  *
  * <p>
  * Applied updates are recorded in a special <i>update table</i>, which contains two columns: one for the unique
  * {@linkplain SchemaUpdate#getName update name} and one for a timestamp. The update table and column names
  * are configurable via {@link #setUpdateTableName setUpdateTableName()},
  * {@link #setUpdateTableNameColumn setUpdateTableNameColumn()}, and {@link #setUpdateTableTimeColumn setUpdateTableTimeColumn()}.
- * </p>
  *
  * <p>
  * By default, this class detects a completely uninitialized database by the absence of the update table itself
@@ -37,7 +35,6 @@ import javax.sql.DataSource;
  * When an uninitialized database is encountered, the configured {@linkplain #setDatabaseInitialization database initialization}
  * and {@linkplain #setUpdateTableInitialization update table initialization} actions are applied first to initialize
  * the database schema.
- * </p>
  */
 public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connection> {
 
@@ -148,15 +145,22 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * <p>
      * For convenience, pre-defined initialization scripts using the default table and column names are available
      * at the following resource locations. These can be used to configure a {@link SQLCommandList}:
-     * <table border="1" cellspacing="0" cellpadding="4">
+     * <table border="1" cellspacing="0" cellpadding="4" summary="Pre-Defined Initialization Scripts">
      * <tr>
      * <th>Database</th>
      * <th>Resource</th>
      * </tr>
      * <tr>
-     * </tr>
      * <td>MySQL (InnoDB)</td>
      * <td><code>classpath:org/dellroad/stuff/schema/updateTable-mysql.sql</code></td>
+     * </tr>
+     * <tr>
+     * <td>Oracle</td>
+     * <td><code>classpath:org/dellroad/stuff/schema/updateTable-oracle.sql</code></td>
+     * </tr>
+     * <tr>
+     * <td>HSQLDB</td>
+     * <td><code>classpath:org/dellroad/stuff/schema/updateTable-hsqldb.sql</code></td>
      * </tr>
      * </table>
      *
@@ -217,7 +221,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     }
 
     /**
-     * @throws Exception {@inheritDoc}
+     * @throws SQLException if an update fails
      * @throws IllegalStateException if the database needs initialization and either the
      *  {@linkplain #setDatabaseInitialization database initialization} or
      *  the {@linkplain #setUpdateTableInitialization update table initialization} has not been configured
@@ -357,7 +361,6 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * <p>
      * The implementation in {@link SQLSchemaUpdater} does the standard JDBC thing using an INSERT statement
      * into the update table.
-     * </p>
      *
      * @param c SQL connection
      * @param updateName update name

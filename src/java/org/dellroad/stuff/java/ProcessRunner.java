@@ -20,7 +20,6 @@ import org.dellroad.stuff.io.WriteCallback;
  * <p>
  * This class makes it convenient to execute an external process and gather it's output without having to deal
  * directly with the inherent issues relating to threads, race conditions, and deadlocks.
- * </p>
  */
 public class ProcessRunner {
 
@@ -38,7 +37,6 @@ public class ProcessRunner {
      *
      * <p>
      * Use this constructor when the process requires no input on {@code stdin}.
-     * </p>
      *
      * @param process a newly-created process
      * @throws IllegalArgumentException if {@code process} is null
@@ -52,7 +50,6 @@ public class ProcessRunner {
      *
      * <p>
      * Use this constructor when the process input can be expressed as a {@code byte[]} array.
-     * </p>
      *
      * @param process newly-created process
      * @param input process input
@@ -73,7 +70,6 @@ public class ProcessRunner {
      *
      * <p>
      * Use this constructor when the process input is computed in an online manner.
-     * </p>
      *
      * @param process newly-created process
      * @param inputWriter object capable of writing input to the process, which will be invoked
@@ -89,6 +85,8 @@ public class ProcessRunner {
 
     /**
      * Get the {@link Process} associated with this instance.
+     *
+     * @return associated process
      */
     public Process getProcess() {
         return this.process;
@@ -128,7 +126,6 @@ public class ProcessRunner {
      * If the current thread is interrupted, the standard input, output, and error connections to
      * the process are closed and an {@link InterruptedException} is thrown. However, the process
      * itself is not explicitly killed; you can override {@link #handleInterruption} in order to do that.
-     * </p>
      *
      * @return exit value
      * @throws IllegalStateException if this method has already been invoked
@@ -217,7 +214,6 @@ public class ProcessRunner {
      * <p>
      * The implementation in {@link ProcessRunner} does nothing. Subclasses that want to
      * {@linkplain Process#destroy kill the process} may do so here.
-     * </p>
      */
     protected void handleInterruption() {
     }
@@ -229,11 +225,9 @@ public class ProcessRunner {
      * The implementation in {@link ProcessRunner} simply discards the data if this instance is configured to do so,
      * otherwise it adds the data to an in-memory buffer, which is made available when the process completes via
      * {@link #getStandardOutput}. Subclasses may override if necessary, e.g., to send/mirror the data elsewhere.
-     * </p>
      *
      * <p>
      * This method will be invoked by a separate thread from the one that invoked {@link #run}.
-     * </p>
      *
      * @param buf data buffer
      * @param off offset of the first data byte
@@ -252,11 +246,9 @@ public class ProcessRunner {
      * The implementation in {@link ProcessRunner} simply discards the data if this instance is configured to do so,
      * otherwise it adds the data to an in-memory buffer, which is made available when the process completes via
      * {@link #getStandardError}. Subclasses may override if necessary, e.g., to send/mirror the data elsewhere.
-     * </p>
      *
      * <p>
      * This method will be invoked by a separate thread from the one that invoked {@link #run}.
-     * </p>
      *
      * @param buf data buffer
      * @param off offset of the first data byte
@@ -271,6 +263,7 @@ public class ProcessRunner {
     /**
      * Get the standard output of the process.
      *
+     * @return process standard output
      * @throws IllegalStateException if {@link #run} has not been invoked yet or is still executing
      * @throws IllegalStateException if this instance was configured to
      *  {@linkplain #setDiscardStandardOutput discard standard output}
@@ -290,6 +283,7 @@ public class ProcessRunner {
     /**
      * Get the standard error of the process.
      *
+     * @return process standard error output
      * @throws IllegalStateException if {@link #run} has not been invoked yet or is still executing
      * @throws IllegalStateException if this instance was configured to
      *  {@linkplain #setDiscardStandardError discard standard error}

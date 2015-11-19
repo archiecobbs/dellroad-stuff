@@ -21,7 +21,6 @@ public interface Uniquifier<T> {
      * <p>
      * This method may return a value of {@code null} to indicate that {@code value} does not in fact
      * need to be unique.
-     * </p>
      *
      * @param value the value to be uniquified
      * @return unique representative, or {@code null} to except {@code value} from the uniqueness requirement

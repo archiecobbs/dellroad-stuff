@@ -41,6 +41,7 @@ public class ListableHashSet<E> extends LinkedHashSet<E> {
     /**
      * Add an item to a set while verifying that the item is not already in the set.
      *
+     * @param item item to add
      * @throws JiBXException if item is already in the set
      */
     public void addUnique(E item) throws JiBXException {

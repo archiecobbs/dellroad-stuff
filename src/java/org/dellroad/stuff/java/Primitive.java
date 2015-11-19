@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
  *
  * <p>
  * Instances of this class represent the eight Java primitive types plus {@code void}.
- * <p/>
  *
  * @param <T> Primitive wrapper type
  */
@@ -246,15 +245,26 @@ public abstract class Primitive<T> implements Comparator<T> {
         Primitive.classMap.put(wrapType, this);
     }
 
+    /**
+     * Apply visitor pattern.
+     *
+     * @param <R> return type
+     * @param pswitch visit target
+     * @return result of visit
+     */
     public abstract <R> R visit(PrimitiveSwitch<R> pswitch);
 
     /**
      * Get this primitive's default value.
+     *
+     * @return default value for this primitive type
      */
     public abstract T getDefaultValue();
 
     /**
      * Get the short name for this primitive type, e.g., "int".
+     *
+     * @return short form name of this primitive type
      */
     public String getName() {
         return this.primType.getName();
@@ -263,6 +273,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Get the long name for this primitive type, e.g., "Integer".
      * Also the simple name of the wrapper type.
+     *
+     * @return long form name of this primitive type
      */
     public String getLongName() {
         return this.wrapType.getSimpleName();
@@ -270,6 +282,8 @@ public abstract class Primitive<T> implements Comparator<T> {
 
     /**
      * Get the single character descriptor for this primitive type, e.g., "I".
+     *
+     * @return letter associated with this primitive type
      */
     public char getLetter() {
         return this.letter;
@@ -277,6 +291,8 @@ public abstract class Primitive<T> implements Comparator<T> {
 
     /**
      * Get the {@link Class} object representing this primitive type, e.g., {@code Integer.TYPE}.
+     *
+     * @return primitive type associated with this primitive type
      */
     public Class<T> getType() {
         return this.primType;
@@ -284,6 +300,8 @@ public abstract class Primitive<T> implements Comparator<T> {
 
     /**
      * Get the wrapper {@link Class} object for this primitive type, e.g., {@code Integer.class}.
+     *
+     * @return wrapper type associated with this primitive type
      */
     public Class<T> getWrapperType() {
         return this.wrapType;
@@ -293,6 +311,8 @@ public abstract class Primitive<T> implements Comparator<T> {
      * Get a regular expression that matches all allowed inputs to {@link #parseValue parseValue()}.
      * The returned pattern may also accept some values that {@link #parseValue parseValue()} rejects,
      * such as {@code 32768} for a {@code short}.
+     *
+     * @return pattern matching valid string encodings
      */
     public Pattern getParsePattern() {
         if (this.parsePattern == null)
@@ -302,6 +322,8 @@ public abstract class Primitive<T> implements Comparator<T> {
 
     /**
      * Get the wrapper class' "unwrap" method for this primitive type, e.g., {@code Integer.intValue()}.
+     *
+     * @return the unwrap method associated with this primitive type
      */
     public Method getUnwrapMethod() {
         try {
@@ -325,6 +347,7 @@ public abstract class Primitive<T> implements Comparator<T> {
      * and possibly other reasonable inputs (e.g., hex and octal values for integral types).
      *
      * @param string string representation of a value
+     * @return parsed value
      * @throws IllegalArgumentException if {@code string} is null
      * @throws IllegalArgumentException if {@code string} does not match the {@linkplain #getParsePattern parse pattern}
      */
@@ -365,6 +388,7 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Get the value corresponding to the given Java primitive or primitive wrapper type.
      *
+     * @param c Java type class object
      * @return the {@link Primitive} corresponding to {@code c}, or {@code null}
      *         if {@code c} is not a primitive or primitive wrapper type
      */

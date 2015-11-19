@@ -14,7 +14,6 @@ import java.util.IdentityHashMap;
  *
  * <p>
  * See {@link GraphCloneable} for a complete description.
- * </p>
  *
  * @see GraphCloneable
  */
@@ -31,12 +30,12 @@ public class GraphCloneRegistry {
      * If the {@code value} has already been cloned and registered with this instance, it is returned.
      * Otherwise, a new clone of {@code value} is created and registered with this instance by invoking
      * {@link GraphCloneable#createGraphClone value.createGraphClone()}, and then returned.
-     * </p>
      *
      * <p>
      * If the {@code value} is null, null is returned.
      * <p>
      *
+     * @param <T> object type
      * @param value original value
      * @return unique clone of {@code value}, or null if {@code value} is null
      * @throws IllegalStateException if {@link GraphCloneable#createGraphClone value.createGraphClone()}
@@ -90,12 +89,10 @@ public class GraphCloneRegistry {
      * <p>
      * The "object currently being cloned" is the {@link GraphCloneable} object associated with the top-most invocation
      * of {@link GraphCloneable#createGraphClone GraphCloneable.createGraphClone()} on the Java execution stack.
-     * </p>
      *
      * <p>
      * This method should only be invoked within implementations of
      * {@link GraphCloneable#createGraphClone GraphCloneable.createGraphClone()}.
-     * </p>
      *
      * @param clone the clone associated with the current object being graph cloned; may be null (but that would be weird)
      * @throws IllegalStateException if the current thread is not executing within

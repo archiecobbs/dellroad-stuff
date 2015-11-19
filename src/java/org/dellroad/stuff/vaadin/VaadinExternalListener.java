@@ -22,18 +22,15 @@ package org.dellroad.stuff.vaadin;
  *  <li>The listener is automatically unregistered from the external event source when the Vaadin application is closed;
  *      this avoids a memory leak</li>
  * </ul>
- * </p>
  *
  * <p>
  * <b>Important:</b> subclass listener methods must use {@link #handleEvent handleEvent()} when handling events.
  * This will ensure proper locking to avoid race conditions.
- * </p>
  *
  * <p>
  * Note: when listening to event sources that are scoped to specific Vaadin application instances and already originate events
  * within the proper Vaadin application context (i.e., event sources that are not external to the Vaadin application),
  * then the use of this superclass is not necessary (however, it also doesn't hurt to use it anyway).
- * </p>
  *
  * @param <S> The type of the event source
  * @see ContextApplication#invoke

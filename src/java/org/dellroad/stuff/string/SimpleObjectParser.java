@@ -25,8 +25,8 @@ import org.dellroad.stuff.java.Primitive;
  * Primitive and String values are handled automatically. Other property types can be handled by
  * overriding {@link #setProperty}.
  *
- * <a name="namedgroup"/>
  * <p>
+ * <a name="namedgroup"></a>
  * This class supports parsing using a <i>named group regular expression</i>, which is pattern string
  * using normal {@link Pattern} regular expression syntax with one additional grouping construct of the
  * form <code>({property}...)</code>, allowing the Java bean property name to be specified inside the
@@ -218,11 +218,10 @@ public class SimpleObjectParser<T> {
 
     /**
      * Set a property value.
-     * <p/>
+     *
      * <p>
      * The implementation in {@link SimpleObjectParser} simply invokes {@link #setSimpleProperty}.
      * Other property types can be handled by overriding this method.
-     * </p>
      *
      * @param obj       newly created instance
      * @param property  descriptor for the property being set
@@ -236,11 +235,10 @@ public class SimpleObjectParser<T> {
 
     /**
      * Set a primitive or string property value.
-     * <p/>
+     *
      * <p>
      * The implementation in {@link SimpleObjectParser} handles primitives using the corresponding
      * {@code valueOf} method; String values are handled by setting the value directly.
-     * </p>
      *
      * @throws IllegalArgumentException if property is not a primitive or String property.
      * @throws IllegalArgumentException if substring cannot be successfully parsed (if primitive)
@@ -272,10 +270,9 @@ public class SimpleObjectParser<T> {
     /**
      * Post-process newly created instances. The instance's properties will have already been
      * set by a successful parse.
-     * <p/>
+     *
      * <p>
      * The implementation in {@link SimpleObjectParser} does nothing. Subclasses may override if needed.
-     * </p>
      */
     protected void postProcess(T obj) {
     }

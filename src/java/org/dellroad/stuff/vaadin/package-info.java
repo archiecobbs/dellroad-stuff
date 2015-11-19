@@ -10,7 +10,6 @@
  * This package contains classes that add some missing "glue" between Vaadin and Spring. In addition, these classes
  * help address the "scope mismatch" between Vaadin application scope and Spring web application context scope
  * that leads to memory leaks when a Vaadin application closes.
- * </p>
  *
  * <p>
  * The key features included are:
@@ -26,7 +25,6 @@
  * <li>A custom Spring scope that truly matches Vaadin application scope</li>
  * <li>Support for Vaadin application beans as listeners on non-Vaadin application event multicasters</li>
  * </ul>
- * </p>
  *
  * <p>
  * Key classes include:
@@ -57,16 +55,13 @@
  *      that register to receive Spring {@linkplain org.springframework.context.ApplicationEvent application events}
  *      multicasted in a (non-application scoped) parent context.</li>
  * </ul>
- * </p>
  *
  * <p>
  * The classes in this package are also <a href="https://vaadin.com/directory#addon/spring-stuff">available as a Vaadin Add-on</a>
  * and <a href="https://github.com/archiecobbs/dellroad-stuff-vaadin-spring-demo3">sample code is available on GitHub</a>.
- * </p>
  *
  * <p>
  * This package is for Vaadin 6.x. For Vaadin 7.x, see the {@link org.dellroad.stuff.vaadin7} package.
- * </p>
  *
  * @see <a href="http://vaadin.com/">Vaadin</a>
  * @see <a href="https://vaadin.com/directory#addon/spring-stuff">Spring Stuff Vaadin Add-on</a>

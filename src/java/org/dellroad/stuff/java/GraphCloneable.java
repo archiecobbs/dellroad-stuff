@@ -15,7 +15,6 @@ package org.dellroad.stuff.java;
  * As a result the copy graph has the same reference topology as the original graph (with respect to all the
  * {@link GraphCloneable}s). In particular, reference cycles among {@link GraphCloneable}s are preserved and do not
  * cause infinite loops.
- * </p>
  *
  * <p>
  * Graph cloning operates similar to a deep copy operation, except that graph cloning uses a {@link GraphCloneRegistry} to keep
@@ -23,12 +22,10 @@ package org.dellroad.stuff.java;
  * {@link GraphCloneRegistry} is used to check whether the referred-to objects have already been copied, and if so, the existing
  * copy is used. This requires that implementations {@linkplain GraphCloneRegistry#setGraphClone register} their clones
  * prior to {@linkplain GraphCloneRegistry#getGraphClone recursing} on any {@link GraphCloneable} fields.
- * </p>
  *
  * <p>
  * The net effect is equivalent to serializing and then deserializing the entire object graph, but without the overhead,
  * losing {@code transient} values, and other issues.
- * </p>
  *
  * <p>
  * Here is an example of a class properly implementing this interface:
@@ -67,14 +64,12 @@ package org.dellroad.stuff.java;
  *      }
  *  }
  *  </pre>
- * </p>
  *
  * <p>
  * To graph clone any object graph rooted at {@code root}, you would do this:
  *  <pre>
  *      new GraphCloneRegistry().getGraphClone(root);
  *  </pre>
- * </p>
  *
  * @see GraphCloneRegistry
  */
@@ -98,7 +93,6 @@ public interface GraphCloneable {
      *      All {@link GraphCloneable} fields must be copied via {@link GraphCloneRegistry#getGraphClone}.
      *  </li>
      * </ul>
-     * </p>
      *
      * <p>
      * The most efficient implementation of this method often involves declaring the class to implement {@link Cloneable}
@@ -106,12 +100,11 @@ public interface GraphCloneable {
      * {@link Object#clone}). For that reason, this method is declared to throw {@link CloneNotSupportedException}
      * as a coding convenience; if a {@link CloneNotSupportedException} is actually thrown, it will trigger a
      * {@link RuntimeException}.
-     * </p>
      *
      * <p>
      * This method will only be invoked once for any instance during a graph cloning operation.
-     * </p>
      *
+     * @param registry registry for clones
      * @throws NullPointerException if {@code registry} is null
      * @throws CloneNotSupportedException declared so implementors can invoke {@link Object#clone super.clone()}
      *  directly; if thrown, it will trigger a {@link RuntimeException}

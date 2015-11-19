@@ -55,7 +55,6 @@ public abstract class WritableResource extends StreamResource implements WriteCa
      * <p>
      * Note that the {@link com.vaadin.server.VaadinSession} associated with this resource will <b>not</b> be locked
      * when this method is invoked.
-     * </p>
      *
      * @param output resource output stream
      * @throws IOException if an I/O error occurs

@@ -20,19 +20,16 @@ import java.util.List;
  * the size of the underlying data. Each time that size estimate changes, {@link #handleSizeChange} is invoked
  * to schedule a (non-reentrant) property set change notification. Once the end of the underlying data is reached,
  * the size is known.
- * </p>
  *
  * <p>
  * If the actual size of the underlying data is constant, this class will eventually find it. If the
  * actual size of the underlying data can change (either up or down), this class will adapt accordingly,
  * but only when it learns of the new size through an invocation of {@link #queryWindow queryWindow()};
  * as this depends on how the container is used, this may not occur for a long time.
- * </p>
  *
  * <p>
  * When used to back a Vaadin table, the user will see a table that automatically grows as the user scrolls
  * downward, until the actual end of the data is detected.
- * </p>
  *
  * @param <T> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
  * @see AbstractQueryContainer
@@ -59,7 +56,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * After using this constructor, subsequent invocations of {@link #setPropertyExtractor setPropertyExtractor()}
      * and {@link #setProperties setProperties()} are required to define the properties of this container
      * and how to extract them.
-     * </p>
      */
     protected AbstractUnsizedContainer() {
         this(DEFAULT_WINDOW_SIZE);
@@ -75,7 +71,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * <p>
      * After using this constructor, a subsequent invocation of {@link #setProperties setProperties()} is required
      * to define the properties of this container.
-     * </p>
      *
      * @param propertyExtractor used to extract properties from the underlying Java objects;
      *  may be null but then container is not usable until one is configured via
@@ -96,7 +91,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()}
      * is required to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
@@ -128,7 +122,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * After using this constructor, subsequent invocations of {@link #setPropertyExtractor setPropertyExtractor()}
      * and {@link #setProperties setProperties()} are required to define the properties of this container
      * and how to extract them.
-     * </p>
      *
      * @param windowSize size of the query window
      * @throws IllegalArgumentException if {@code windowSize} is less than 1
@@ -143,7 +136,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * <p>
      * After using this constructor, a subsequent invocation of {@link #setProperties setProperties()} is required
      * to define the properties of this container.
-     * </p>
      *
      * @param windowSize size of the query window
      * @param propertyExtractor used to extract properties from the underlying Java objects;
@@ -162,7 +154,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()}
      * is required to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param windowSize size of the query window
      * @param propertyDefs container property definitions; null is treated like the empty set
@@ -218,7 +209,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param windowSize size of the query window
      * @param type class to introspect for annotated methods
@@ -325,11 +315,9 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      *
      * <p>
      * Note: this situation will not occur if the underlying data's size never decreases.
-     * </p>
      *
      * <p>
      * The implementation in {@link AbstractUnsizedContainer} returns {@code upperBound * 0.75}.
-     * </p>
      *
      * @param upperBound an upper bound on the size of the underlying data
      * @return estimate of the actual size of the underlying data
@@ -344,7 +332,6 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      *
      * <p>
      * The implementation in {@link AbstractUnsizedContainer} returns {@code lowerBound * 1.25}.
-     * </p>
      *
      * @param lowerBound a lower bound on the size of the underlying data
      * @return estimate of the actual size of the underlying data
@@ -376,12 +363,10 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
      *
      * <p>
      * Subclasses are required to implement this so that size changes are detected.
-     * </p>
      *
      * <p>
      * Note: to avoid re-entrancy problems, this method should not send out any notifications itself;
      * instead, it must schedule notifications to be delivered later (perhaps in a different thread).
-     * </p>
      */
     @Override
     protected abstract void handleSizeChange();

@@ -13,7 +13,6 @@ import java.util.Collection;
  *
  * <p>
  * Use {@link #load} to (re)load the container.
- * </p>
  *
  * @param <T> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
  * @see AbstractSimpleContainer
@@ -56,7 +55,6 @@ public class SimpleContainer<T> extends AbstractSimpleContainer<Integer, T> {
      * After using this constructor, a subsequent invocation of {@link #setPropertyExtractor setPropertyExtractor()} is required
      * to define how to extract the properties of this container; alternately, subclasses can override
      * {@link #getPropertyValue getPropertyValue()}.
-     * </p>
      *
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
@@ -82,7 +80,6 @@ public class SimpleContainer<T> extends AbstractSimpleContainer<Integer, T> {
      * <p>
      * Properties will be determined by the {@link ProvidesProperty &#64;ProvidesProperty} and
      * {@link ProvidesPropertySort &#64;ProvidesPropertySort} annotated methods in the given class.
-     * </p>
      *
      * @param type class to introspect for annotated methods
      * @throws IllegalArgumentException if {@code type} is null

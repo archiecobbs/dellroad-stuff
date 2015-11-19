@@ -91,18 +91,15 @@ public final class VaadinUtil {
      * <p>
      * This method now just invokes {@link VaadinSession#accessSynchronously}, a method which didn't exist in earlier
      * versions of Vaadin.
-     * </p>
      *
      * <p>
      * All back-end threads that interact with Vaadin components must use this method (or {@link #invokeLater invokeLater()})
      * to avoid race conditions. Since session locks are re-entrant, it will not cause problems if this method is also
      * used by a "front-end" (i.e., Vaadin HTTP request) thread.
-     * </p>
      *
      * <p>
      * Note: when executing within a Vaadin HTTP request, the current thread's {@link VaadinSession} is available
      * via {@link VaadinSession#getCurrent}; consider also using {@link VaadinApplication#invoke} instead of this method.
-     * </p>
      *
      * <p>
      * <b>Warning:</b> background threads should be careful when invoking this method to ensure they
@@ -110,7 +107,6 @@ public final class VaadinUtil {
      * attempt to acquire during its normal processing: because the HTTP request thread will probably
      * already be holding the session lock when it attempts to acquire the application-specific lock,
      * this creates the potential for a lock-ordering reversal deadlock.
-     * </p>
      *
      * @throws IllegalArgumentException if either parameter is null
      * @see VaadinApplication#invoke
@@ -134,17 +130,14 @@ public final class VaadinUtil {
      *  <li>If no thread holds the session lock, the session will be locked and the action performed
      *      synchronously by the current thread.</li>
      * </ul>
-     * </p>
      *
      * <p>
      * This method now just invokes {@link VaadinSession#access}, a method which didn't exist in earlier
      * versions of Vaadin.
-     * </p>
      *
      * <p>
      * Note: when executing within a Vaadin HTTP request, the current thread's {@link VaadinSession} is available
      * via {@link VaadinSession#getCurrent}; consider also using {@link VaadinApplication#invokeLater} instead of this method.
-     * </p>
      *
      * @return a corresponding {@link Future}
      * @throws IllegalArgumentException if either parameter is null

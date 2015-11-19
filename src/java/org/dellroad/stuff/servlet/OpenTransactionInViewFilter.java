@@ -31,7 +31,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * <p>
  * Transaction properties are configurable via filter <code>&lt;init-param&gt;</code>'s {@code isolation},
  * {@code propagation}, and {@code readOnly}.
- * </p>
  */
 public class OpenTransactionInViewFilter extends OncePerRequestFilter {
 

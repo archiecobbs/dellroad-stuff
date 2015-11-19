@@ -18,7 +18,6 @@ import org.apache.log4j.WriterAppender;
  * Normally this appender does nothing. However, if a thread invokes {@link #setLogDestination setLogDestination()}
  * with a non-null {@link Writer}, then any messages logged by <i>that particular thread</i> will go to that {@link Writer}.
  * This allows individual threads to copy and/or redirect their own log messages as they see fit.
- * </p>
  *
  * <p>
  * Configure this appender just as you would any other. For example:
@@ -39,7 +38,6 @@ import org.apache.log4j.WriterAppender;
  *      &lt;appender-ref ref="threadlog"&gt;
  *  &lt;/root&gt;
  *  </pre></blockquote>
- * </p>
  */
 public class ThreadLogger extends WriterAppender {
 

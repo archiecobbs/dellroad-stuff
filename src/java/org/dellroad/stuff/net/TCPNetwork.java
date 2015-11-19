@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Remote peers have the {@link String} form <code>IP-Address[:port]</code>. If the port is omitted,
  * the default port provided to the constructor is assumed.
- * </p>
  */
 public class TCPNetwork extends SelectorSupport implements Network {
 
@@ -116,11 +115,9 @@ public class TCPNetwork extends SelectorSupport implements Network {
      * <p>
      * If this instance is already started, invoking this method will have no effect until it is
      * {@linkplain #stop stopped} and restarted.
-     * </p>
      *
      * <p>
      * By default, instances listen on all interfaces on the defaul port configured in the constructor.
-     * </p>
      *
      * @param address listen address, or null to listen on all interfaces on the default port provided to the constructor
      * @throws IllegalArgumentException if {@code address} is null
@@ -332,7 +329,6 @@ public class TCPNetwork extends SelectorSupport implements Network {
      *
      * <p>
      * The implementation in {@link TCPNetwork} does nothing. Subclasses may override to configure socket options, etc.
-     * </p>
      *
      * @param serverSocketChannel channel to configure
      */
@@ -345,7 +341,6 @@ public class TCPNetwork extends SelectorSupport implements Network {
      *
      * <p>
      * The implementation in {@link TCPNetwork} does nothing. Subclasses may override to configure socket options, etc.
-     * </p>
      *
      * @param socketChannel channel to configure
      */

@@ -22,7 +22,6 @@ public final class ValidationUtil {
      *
      * <p>
      * This method simply creates a {@link ValidationContext} with the given root and invokes {@link ValidationContext#validate()}.
-     * </p>
      *
      * @param obj object to validate
      * @param groups group(s) targeted for validation (if empty, defaults to {@link javax.validation.groups.Default})

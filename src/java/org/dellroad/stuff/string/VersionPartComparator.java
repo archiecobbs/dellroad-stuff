@@ -14,7 +14,6 @@ import java.util.Comparator;
  * <p>
  * This comparator puts numerical parts before non-numerical parts.
  * Then, numerical parts are compared numerically, and non-numerical parts are compared lexically.
- * </p>
  *
  * @see VersionComparator
  */

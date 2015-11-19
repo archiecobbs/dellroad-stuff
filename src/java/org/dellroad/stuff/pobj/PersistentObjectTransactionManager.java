@@ -37,24 +37,20 @@ import org.springframework.transaction.support.ResourceTransactionManager;
  * (unless the transaction was read-only). During commit, the {@link PersistentObject} version number is verified, and
  * if another update has occurred since the transaction was opened, a {@link PersistentObjectVersionException} is thrown
  * (consider using {@link org.dellroad.stuff.spring.RetryTransaction &#64;RetryTransaction} for automatic retry in this case).
- * </p>
  *
  * <p>
  * Transactions are associated with threads; the {@link PersistentObjectTransactionManager} associated with the current thread's
  * transaction is available via {@link #getCurrent()} (or {@link #getCurrent(String)} if there is more than one).
- * </p>
  *
  * <p>
  * The {@code persistentObject} property is required. The {@code readOnlySharedRoot} property is optional and configures whether,
  * during read-only transactions only, {@link #getRoot} returns the {@linkplain PersistentObject#getSharedRoot shared root} object.
  * In this mode, root object graph copies are avoided entirely for read-only transactions, but the application code must be
  * careful to not modify the object graph returned by {@link #getRoot} at any time, either during or after the transaction.
- * </p>
  *
  * <p>
  * This class also provides an {@link XAResource} for use with JTA/XA tranasactions. Once elisted in a JTA transaction,
  * the usage described above using {@link #getRoot} and {@link #setRoot setRoot()} is identical.
- * </p>
  *
  * @param <T> type of the root object
  * @see PersistentObject
@@ -116,7 +112,6 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * Required property.
-     * </p>
      */
     public void setPersistentObject(PersistentObject<T> persistentObject) {
         this.persistentObject = persistentObject;
@@ -136,7 +131,6 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * Default value is false.
-     * </p>
      */
     public void setReadOnlySharedRoot(boolean readOnlySharedRoot) {
         this.readOnlySharedRoot = readOnlySharedRoot;
@@ -180,7 +174,6 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * This is a convenience method for the common case where there is only one instance associated with the current thread.
-     * </p>
      *
      * @throws IllegalStateException if the current thread is not running within a
      *  {@link PersistentObjectTransactionManager} transaction
@@ -262,7 +255,6 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * This method may be invoked during read-only transactions (as before, the root will not actually be committed).
-     * </p>
      *
      * @param root new root object
      * @throws IllegalStateException if there is no transaction associated with the current thread

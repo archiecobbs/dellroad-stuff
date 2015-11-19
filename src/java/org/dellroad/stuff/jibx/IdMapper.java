@@ -56,7 +56,6 @@ import org.jibx.runtime.impl.MarshallingContext;
  * </pre></blockquote>
  * Note: if you subclass {@code Person.java} from a different sub-package, you may need
  * to change the access privileges of those methods from {@code private} to {@code protected}.
- * </p>
  *
  * <p>
  * Next, define a concrete mapping for {@code Person.java} and add the {@code id} attribute:
@@ -67,7 +66,6 @@ import org.jibx.runtime.impl.MarshallingContext;
  *      &lt;value name="name" field="name"/&gt;
  *  &lt;/mapping&gt;
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * Finally, use {@link IdMapper} as the custom marshaller and unmarshaller wherever a {@code Person} appears, e.g.:
@@ -87,14 +85,12 @@ import org.jibx.runtime.impl.MarshallingContext;
  * </pre></blockquote>
  * Note the {@code EmployeeOfTheWeek} "wrapper" element for the {@code employeeOfTheWeek} field; this is required
  * in order to use an XML name for this field other than {@code Person} (see limitations below).
- * </p>
  *
  * <p>
  * Now the first appearance of any {@code Person} will contain the full XML structure with an additional <code>id="..."</code>
  * attribute, while all subsequent appearances will contain just a reference of the form <code>&lt;Person idref="..."/&gt;</code>.
  * Conversely, when unmarshalled all {@code Person} XML elements that refer to the same original {@code Person} will
  * re-use the same unmarshalled {@code Person} object.
- * </p>
  *
  * <p>
  * So the resulting XML might look like:
@@ -114,7 +110,6 @@ import org.jibx.runtime.impl.MarshallingContext;
  *      &lt;/EmployeeOfTheWeek&gt;
  *  &lt;/Company&gt;
  * </pre></blockquote>
- * </p>
  *
  * <h3>Limitations</h3>
  *
@@ -151,14 +146,12 @@ import org.jibx.runtime.impl.MarshallingContext;
  *          return ParseUtil.deserializeReference(string, Employee.class);
  *      }
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * Then, map the first occurrence of an object exactly as in the concrete mapping above, exposing the <code>JiBXId</code> property.
  * In all subsequent occurrences of the object, expose the reference to the object as a simple property using the custom
  * serializer/deserializer pair {@link ParseUtil#serializeReference ParseUtil.serializeReference()} and
  * {@code Employee.deserializeEmployeeReference()}.
- * </p>
  *
  * <p>
  * For example, the following binding would yeild the same XML encoding as before:
@@ -181,7 +174,6 @@ import org.jibx.runtime.impl.MarshallingContext;
  *      &lt;/structure&gt;
  *  &lt;/mapping&gt;
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * If you want the reference to be optionally <code>null</code>, then you'll also need to add a <code>test-method</code>:
@@ -202,7 +194,6 @@ import org.jibx.runtime.impl.MarshallingContext;
  * such employee. Alternately, you can avoid the need for the <code>test-method</code> if you want to allow
  * just the attribute to disappear, or you could even change from <code>style="attribute"</code> to <code>style="element"</code>;
  * in both cases you would be making the reference itself optional instead of the containing element.
- * </p>
  *
  * @see IdMappingMarshaller
  */

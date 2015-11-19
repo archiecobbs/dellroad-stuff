@@ -35,12 +35,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * application contexts share the same parent context, which is the one associated with the overal servlet web context
  * (i.e., the one created by Spring's {@link org.springframework.web.context.ContextLoaderListener ContextLoaderListener}).
  * A context is created when a new Vaadin application instance is initialized, and destroyed when it is closed.
- * </p>
  *
  * <p>
  * This setup is analogous to how Spring's {@link org.springframework.web.servlet.DispatcherServlet DispatcherServlet}
  * creates per-servlet application contexts that are children of the overall servlet web context.
- * </p>
  *
  * <h3>Application Context XML File Location</h3>
  *
@@ -49,7 +47,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * file named {@code FooApplication.xml} in the {@code WEB-INF/} directory that defines the per-Vaadin application Spring
  * application context. This naming scheme {@linkplain #getApplicationName can be overriden}, or explicit config file
  * location(s) can be specified by setting the {@link #VAADIN_CONTEXT_LOCATION_PARAMETER} servlet parameter.
- * </p>
  *
  * <h3>Vaadin Application as BeanFactory singleton</h3>
  *
@@ -86,7 +83,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  *      ...
  *  }
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * Even if you don't explicitly define the {@link SpringContextApplication} bean in your Spring application context,
@@ -94,7 +90,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * {@link ConfigurableListableBeanFactory#registerResolvableDependency
  * ConfigurableListableBeanFactory.registerResolvableDependency()}). Of course, in this case the
  * {@link SpringContextApplication} bean won't itself be autowired or configured.
- * </p>
  *
  * <h3><code>@VaadinConfigurable</code> Beans</h3>
  *
@@ -105,7 +100,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * the {@linkplain ContextApplication#get() currently running application instance}. In effect, this does for
  * Vaadin application beans what Spring's {@link org.springframework.beans.factory.annotation.Configurable @Configurable}
  * does for regular beans.
- * </p>
  *
  * <p>
  * Note however that Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy methods}
@@ -113,14 +107,12 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * Spring application context (this is also the case with
  * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} beans). Instead, these beans
  * can register as a {@link ContextApplication.CloseListener} for shutdown notification.
- * </p>
  *
  * <p>
  * For the this annotation to do anything, {@link VaadinConfigurable @VaadinConfigurable} classes must be woven
  * (either at build time or runtime) using the
  * <a href="http://www.eclipse.org/aspectj/doc/released/faq.php#compiler">AspectJ compiler</a> with the
  * {@code VaadinConfigurableAspect} aspect (included in the <code>dellroad-stuff</code> JAR file).
- * </p>
  *
  * @see ContextApplication#get
  * @see <a href="https://github.com/archiecobbs/dellroad-stuff-vaadin-spring-demo3">Example Code on GitHub</a>
@@ -152,7 +144,6 @@ public abstract class SpringContextApplication extends ContextApplication {
      *
      * <p>
      * Works just like {@link ContextApplication#get()} but returns this narrower type.
-     * </p>
      *
      * @return the {@link SpringContextApplication} associated with the current thread
      * @throws IllegalStateException if the current thread is not servicing a Vaadin web request
@@ -192,13 +183,11 @@ public abstract class SpringContextApplication extends ContextApplication {
      *
      * <p>
      * The implementation in {@link SpringContextApplication} does nothing. Subclasses may override as necessary.
-     * </p>
      *
      * <p>
      * Note that if a {@link SpringContextApplication} instance is exposed in the application context and configured
      * with a Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy method}, then that
      * method will also be invoked when the application is closed. In such cases overriding this method is not necessary.
-     * </p>
      *
      * @see #initSpringApplication
      */
@@ -211,7 +200,6 @@ public abstract class SpringContextApplication extends ContextApplication {
      *
      * <p>
      * The implementation in {@link SpringContextApplication} does nothing. Subclasses may override as necessary.
-     * </p>
      *
      * @param context the associated {@link WebApplicationContext} just refreshed
      * @see #onRefresh
@@ -225,7 +213,6 @@ public abstract class SpringContextApplication extends ContextApplication {
      *
      * <p>
      * The implementation in {@link SpringContextApplication} does nothing. Subclasses may override as necessary.
-     * </p>
      *
      * @param context the associated {@link WebApplicationContext} just refreshed
      * @see #postProcessWebApplicationContext
@@ -242,7 +229,6 @@ public abstract class SpringContextApplication extends ContextApplication {
      * <p>
      * The implementation in {@link SpringContextApplication} returns this instance's class'
      * {@linkplain Class#getSimpleName simple name}.
-     * </p>
      */
     protected String getApplicationName() {
         return this.getClass().getSimpleName();

@@ -37,7 +37,6 @@ public abstract class StreamWriterAction {
      *
      * <p>
      * This method does not advance or modify {@code reader}.
-     * </p>
      *
      * @param reader XML input
      * @throws XMLStreamException if an error occurs

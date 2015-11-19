@@ -22,7 +22,6 @@ public class EnumComboBox extends ComboBox {
      *
      * <p>
      * Caller must separately invoke {@link #setEnumDataSource}.
-     * </p>
      */
     public EnumComboBox() {
         this(null);
@@ -36,7 +35,6 @@ public class EnumComboBox extends ComboBox {
      *  <blockquote><code>
      *  EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY.getName(), false);
      *  </code></blockquote>
-     * </p>
      *
      * @param enumClass enum type, or null to leave data source unset
      */
@@ -52,7 +50,6 @@ public class EnumComboBox extends ComboBox {
      *  <blockquote><code>
      *  EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY, allowNull);
      *  </code></blockquote>
-     * </p>
      *
      * @param enumClass enum type, or null to leave data source unset
      * @param allowNull true to allow a null selection, false otherwise
@@ -69,7 +66,6 @@ public class EnumComboBox extends ComboBox {
      *  <blockquote><code>
      *  EnumComboBox(enumClass, displayPropertyName, false);
      *  </code></blockquote>
-     * </p>
      *
      * @param enumClass enum type
      * @param displayPropertyName container property to display in the combo box
@@ -86,7 +82,6 @@ public class EnumComboBox extends ComboBox {
      *  <blockquote><code>
      *  EnumComboBox(enumClass != null ? new EnumContainer&lt;T&gt;(enumClass) : null, displayPropertyName, allowNull);
      *  </code></blockquote>
-     * </p>
      *
      * @param enumClass enum type, or null to leave data source unset
      * @param displayPropertyName container property to display in the combo box
@@ -102,7 +97,6 @@ public class EnumComboBox extends ComboBox {
      * <p>
      * This instance is configured for item caption {@link ItemCaptionMode#PROPERTY} mode, with
      * {@code displayPropertyName} as the {@linkplain #setItemCaptionPropertyId item caption property}.
-     * </p>
      *
      * @param container container data source, or null to leave data source unset
      * @param displayPropertyName container property to display in the combo box

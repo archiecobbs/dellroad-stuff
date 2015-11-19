@@ -41,7 +41,6 @@ import org.slf4j.LoggerFactory;
  *      their {@linkplain SchemaUpdate#getRequiredPredecessors predecessor constraints}; and</li>
  * <li>Keep track of which {@link SchemaUpdate}s have already been applied across restarts.</li>
  * </ul>
- * </p>
  *
  * @param <D> database type
  * @param <T> database transaction type

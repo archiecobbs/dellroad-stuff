@@ -14,7 +14,6 @@ import java.net.SocketAddress;
  *
  * <p>
  * Subclasses need only override {@link #handleConnection handleConnection()}.
- * </p>
  */
 public abstract class PersistentSocketConnection extends PersistentConnection<Socket> {
 
@@ -34,7 +33,6 @@ public abstract class PersistentSocketConnection extends PersistentConnection<So
      *
      * <p>
      * Required property.
-     * </p>
      */
     public void setServerAddress(SocketAddress serverAddress) {
         this.serverAddress = serverAddress;
@@ -55,7 +53,6 @@ public abstract class PersistentSocketConnection extends PersistentConnection<So
      * <p>
      * The implementation in {@link PersistentSocketConnection} creates a socket via {@link #createSocket}
      * and connects the socket to the configured server.
-     * </p>
      */
     @Override
     protected Socket createConnection() throws InterruptedException, IOException {
@@ -69,7 +66,6 @@ public abstract class PersistentSocketConnection extends PersistentConnection<So
      *
      * <p>
      * The implementation in {@link PersistentSocketConnection} ensures the socket is closed.
-     * </p>
      *
      * @param socket socket returned from {@link #createConnection} when this connection was created
      */
@@ -88,7 +84,6 @@ public abstract class PersistentSocketConnection extends PersistentConnection<So
      * <p>
      * The implementation in {@link PersistentSocketConnection} creates a normal {@link Socket} and sets the keep-alive flag
      * to ensure connection failures are detected promptly. Subclasses may override to configure the socket differently.
-     * </p>
      */
     protected Socket createSocket() throws IOException {
         final Socket socket = new Socket();

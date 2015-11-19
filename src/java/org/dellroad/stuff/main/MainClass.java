@@ -28,13 +28,19 @@ public abstract class MainClass {
      * Subclass main implementation. This method is free to throw exceptions; these will
      * be displayed on standard error and converted into non-zero exit values.
      *
-     * @return exit value
+     * @param args command line arguments
+     * @return process exit value
+     * @throws Exception if an error occurs; will result in the process exiting with an exit value of one
      */
     public abstract int run(String[] args) throws Exception;
 
     /**
      * Enter command loop. Commands are read using GNU libreadline and handed off
      * to {@link #handleCommand} for processing.
+     *
+     * @param appName application name
+     * @param prompt command prompt
+     * @throws Exception if an error occurs
      */
     protected void commandLoop(String appName, String prompt) throws Exception {
 
@@ -116,7 +122,9 @@ public abstract class MainClass {
      * <p>
      * The implementation in {@link MainClass} just returns {@code false}.
      *
+     * @param line command line input
      * @return true to continue reading the next command, false to exit
+     * @throws Exception if an error occurs
      */
     protected boolean handleCommand(String line) throws Exception {
         return false;
@@ -137,6 +145,8 @@ public abstract class MainClass {
 
     /**
      * Emit an error message an exit with exit value 1.
+     *
+     * @param message error message
      */
     protected final void errout(String message) {
         System.err.println(getClass().getSimpleName() + ": " + message);
@@ -147,7 +157,8 @@ public abstract class MainClass {
      * Parse command line flags of the form {@code -Dname=value} and set the corresponding system properties.
      * Parsing stops at the first argument not starting with a dash (or {@code --}).
      *
-     * @return command line with all the property-setting flags removed
+     * @param args command line arguments
+     * @return {@code args} with the {@code -Dname=value} flags removed
      */
     protected String[] parsePropertyFlags(String[] args) {
         ArrayList<String> list = new ArrayList<String>(args.length);
@@ -177,10 +188,11 @@ public abstract class MainClass {
     /**
      * Invokes {@link #run}, catching any exceptions thrown and exiting with a non-zero
      * value if and only if an exception was caught.
-     * <p/>
+     *
      * <p>
      * The concrete class' {@code main()} method should invoke this method.
-     * </p>
+     *
+     * @param args command line arguments
      */
     protected void doMain(String[] args) {
         int exitValue = 1;

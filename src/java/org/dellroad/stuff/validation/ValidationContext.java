@@ -74,7 +74,7 @@ public class ValidationContext<T> {
      * Validate this instance's root object. This is a convenience method, equivalent to:
      *  <blockquote>
      *  <code>{@link #validate(Validator) validate}(Validation.buildDefaultValidatorFactory().getValidator())</code>
-     *  <blockquote>
+     *  </blockquote>
      *
      * @throws IllegalStateException if this method is invoked re-entrantly
      */

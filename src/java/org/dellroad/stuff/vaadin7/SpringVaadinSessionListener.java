@@ -45,14 +45,12 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * (i.e., the one created by Spring's {@link org.springframework.web.context.ContextLoaderListener ContextLoaderListener}).
  * This setup is analogous to how Spring's {@link org.springframework.web.servlet.DispatcherServlet DispatcherServlet}
  * creates per-servlet application contexts that are children of the overall servlet web context.
- * </p>
  *
  * <p>
  * This class is implemented as a {@link SessionInitListener} and {@link SessionDestroyListener} on the servlet's
  * {@link com.vaadin.server.VaadinService} object. In turn, the Spring context is created when a new Vaadin application
  * instance is initialized, and destroyed when it is closed. To use this class, use the {@link SpringVaadinServlet}
  * in place of the usual {@link com.vaadin.server.VaadinServlet} in {@code web.xml}.
- * </p>
  *
  * <h3>Accessing the Spring Context</h3>
  *
@@ -61,7 +59,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * Alternately, use {@link VaadinConfigurable @VaadinConfigurable} (see below) and implement
  * {@link org.springframework.context.ApplicationContextAware}, etc.
  * Invoking {@link #configureBean configureBean()} at any time will configure a bean manually.
- * </p>
  *
  * <h3>Exposing the Vaadin Session</h3>
  *
@@ -84,7 +81,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * will automagically cause the new {@code FooBar} object to be configured by the application context associated with
  * the currently running Vaadin application. In effect, this does for Vaadin application beans what Spring's
  * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} does for regular servlet context-wide beans.
- * </p>
  *
  * <p>
  * Note however that Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy methods}
@@ -94,7 +90,6 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * can themselves register as a {@link SessionDestroyListener} for shutdown notification; but see
  * {@link VaadinUtil#addSessionDestroyListener VaadinUtil.addSessionDestroyListener()} for a memory-leak free
  * method for doing this.
- * </p>
  *
  * <h3>Serialization and Clustering</h3>
  *
@@ -103,19 +98,16 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * {@link VaadinSession} is {@linkplain ConfigurableWebApplicationContext#refresh refreshed}; therefore, the
  * {@link ConfigurableWebApplicationContext} is not itself stored in the HTTP session by this class. This is consistent
  * with the way normal Spring application contexts ususally work across clustered servers.
- * </p>
  *
  * <p>
  * However, any session-scope beans should work as expected.
  * So while this class associates an application context with each {@link VaadinSession}, when sessions are shared across
  * multiple servers in a clustered environment, there will actually be a separate application contexts per server.
  * Beans that must truly be "session wide" should be declared {@code scope="session"} as you normally would.
- * </p>
  *
  * <p>
  * Note: using {@code scope="session"} requires adding a {@code <listener>} clause registering Spring's
  * {@link org.springframework.web.context.request.RequestContextListener} in your {@code web.xml}.
- * </p>
  *
  * @see VaadinConfigurable
  * @see SpringVaadinServlet

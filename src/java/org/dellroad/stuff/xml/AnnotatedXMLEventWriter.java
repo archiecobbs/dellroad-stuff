@@ -17,7 +17,6 @@ import javax.xml.stream.events.XMLEvent;
  *
  * <p>
  * This class can be used in combination with {@link AnnotatedXMLEventReader} to transparently annotate XML documents.
- * </p>
  *
  * @see AnnotatedXMLEventReader
  */
@@ -90,7 +89,6 @@ public abstract class AnnotatedXMLEventWriter extends EventWriterDelegate {
      * <p>
      * This method should {@link #add add()} the {@link javax.xml.stream.events.StartElement} for the annotation element, followed
      * by any nested content, and then lastly the {@link javax.xml.stream.events.EndElement} for the annotation element.
-     * </p>
      *
      * @param writer output to which the annotation element should be written
      */

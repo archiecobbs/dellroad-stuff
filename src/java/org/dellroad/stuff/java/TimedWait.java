@@ -26,12 +26,10 @@ public final class TimedWait {
      * is already synchronized on {@code obj}. It also guarantees that upon return, {@code obj} will have remained
      * continuously locked since the most recent invocation of {@link Predicate#test predicate.test()}, so that any
      * derived state computed therein will still be valid.
-     * </p>
      *
      * <p>
      * This method uses {@link System#nanoTime} instead of {@link System#currentTimeMillis} and so is immune to
      * adjustments in clock time.
-     * </p>
      *
      * @param obj       object to sleep on; must already be locked
      * @param timeout   wait timeout in milliseconds, or zero for an infinite wait

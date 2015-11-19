@@ -17,7 +17,6 @@ import org.dellroad.stuff.vaadin7.AbstractSimpleContainer;
  * <p>
  * The constructor requires a {@link Generator} to generate, from the {@link PersistentObject}
  * root object, the Java objects that populate the {@link AbstractSimpleContainer}.
- * </p>
  *
  * <p>
  * <b>Note:</b> Instances of this class start out in a non-listening state. You must invoke {@link #connect connect()}
@@ -26,7 +25,6 @@ import org.dellroad.stuff.vaadin7.AbstractSimpleContainer;
  * Typically, {@link #connect connect()} and {@link #disconnect} are invoked from the
  * {@link com.vaadin.ui.Component#attach attach()} and {@link com.vaadin.ui.Component#detach detach()} methods (respectively)
  * of the GUI widget that is using the container.
- * </p>
  *
  * @param <T> type of the persistent object
  * @param <K> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
@@ -146,11 +144,9 @@ public class PersistentObjectContainerLoader<T, K> {
          *
          * <p>
          * This method should not modify {@code root}.
-         * </p>
          *
          * <p>
          * If the associated {@link PersistentObject} allows empty starts or stops, then {@code root} might be null.
-         * </p>
          *
          * @param root updated persistent object root, or null in the case of an empty start or stop
          * @return container backing objects

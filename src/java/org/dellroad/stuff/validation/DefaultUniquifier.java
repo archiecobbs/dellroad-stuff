@@ -10,7 +10,6 @@ package org.dellroad.stuff.validation;
  *
  * <p>
  * This class assumes all non-null values are already uniquified and so just returns its argument from {@link #getUniqued}.
- * </p>
  */
 public class DefaultUniquifier implements Uniquifier<Object> {
 

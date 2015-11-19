@@ -15,7 +15,6 @@ import java.util.Set;
  * <p>
  * Each {@link SchemaUpdate} has a unique name among all updates ever applied to a single database, and zero
  * or more required predecessors, which are other dependent updates that must be applied first.
- * </p>
  *
  * <p>
  * Once an update has been applied to a database, it must not be changed; otherwise, inconsistencies
@@ -23,13 +22,11 @@ import java.util.Set;
  * updated using the new version. If an update has been applied but had the wrong behavior, instead of
  * changing the update, it's better to create a new update that depends on the first as a predecessor
  * and corrects the mistake.
- * </p>
  *
  * <p>
  * If you do have to change an update after it has been applied, then those databases that have
  * already seen the previous version of the update must be manually corrected so they are in the
  * same state that the new version of the update would have left them.
- * </p>
  *
  * @param <T> database transaction type
  */

@@ -20,6 +20,8 @@ public final class EnumUtil {
     /**
      * Get all instances of the given {@link Enum} class in a list in their natural ordering.
      *
+     * @param <T> enum type
+     * @param enumClass enum type class object
      * @return unmodifiable list of enum values
      */
     @SuppressWarnings("unchecked")

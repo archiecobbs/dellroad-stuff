@@ -20,13 +20,11 @@ import java.lang.annotation.Target;
  * can be used to automatically generate a list of {@link PropertyDef}s and a {@link PropertyExtractor} using a
  * {@link ProvidesPropertyScanner}. This happens automatically when using the appropriate constructors of the various
  * {@link com.vaadin.data.Container} classes in this package.
- * </p>
  *
  * <p>
  * This annotation indicates that a read-only Vaadin {@link com.vaadin.data.Property} having the {@linkplain #value specified name}
  * and type derived from the method's return value is accessible by reading that method.
  * Annotated methods must have zero parameters.
- * </p>
  *
  * <p>
  * For example:
@@ -88,7 +86,6 @@ import java.lang.annotation.Target;
  * table.setValue("jsmith");
  * ...
  * </pre></blockquote>
- * </p>
  *
  * <p>
  * Some details regarding {@link ProvidesProperty &#64;ProvidesProperty} annotations on methods:
@@ -104,11 +101,9 @@ import java.lang.annotation.Target;
  *      wins (if the two methods are delcared in the same class, an exception is thrown). This allows subclasses
  *      to "override" which method supplies a given property.</li>
  *  </ul>
- * </p>
  *
  * <p>
  * To control how properties are sorted (e.g., in tables), see {@link ProvidesPropertySort &#64;ProvidesPropertySort}.
- * </p>
  *
  * @see ProvidesPropertySort
  * @see ProvidesPropertyScanner

@@ -49,7 +49,9 @@ public class TopologicalSorter<E> {
      *  <blockquote>
      *  {@code TopologicalSorter(nodes, edgeLister, null);}
      *  </blockquote>
-     * </p>
+     *
+     * @param nodes set of nodes to sort
+     * @param edgeLister defines the edges between nodes
      */
     public TopologicalSorter(Collection<E> nodes, EdgeLister<E> edgeLister) {
         this(nodes, edgeLister, null);
@@ -63,7 +65,6 @@ public class TopologicalSorter<E> {
      * The returned list will have the property that if there is an edge from X to Y,
      * then X will appear before Y in the list. If there is no edge (or sequence of edges) from X to Y
      * in either direction, then X will appear before Y if the tie breaker sorts X before Y.
-     * </p>
      *
      * @return sorted, mutable list of nodes
      * @throws IllegalArgumentException if the partial ordering relation contains a cycle
@@ -92,7 +93,6 @@ public class TopologicalSorter<E> {
      * The returned list will have the property that if there is an edge from X to Y,
      * then Y will appear before X in the list. If there is no edge (or sequence of edges) from X to Y
      * in either direction, then X will appear before Y if the tie breaker sorts X before Y.
-     * </p>
      *
      * @return sorted, mutable list of nodes
      * @throws IllegalArgumentException if the partial ordering relation contains a cycle
@@ -162,6 +162,9 @@ public class TopologicalSorter<E> {
 
         /**
          * Get the set of all nodes X for which there is an edge from {@code node} to X.
+         *
+         * @param node node in question
+         * @return set of outgoing edges from {@code node}
          */
         Set<E> getOutEdges(E node);
     }

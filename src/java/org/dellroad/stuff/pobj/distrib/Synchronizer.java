@@ -29,7 +29,6 @@ import org.dellroad.stuff.spring.AbstractBean;
  * data element applied at virtually same time -- must one node's change "win" and the other's "lose".
  * No global communication or two-phase commit protocol is required, and recovery from arbitrary
  * network problems is automatic.
- * </p>
  *
  * <p>
  * This class works by registering as a {@linkplain PersistentObjectListener listener} on a {@link PersistentObject}
@@ -42,7 +41,6 @@ import org.dellroad.stuff.spring.AbstractBean;
  * If synchronization results in a non-trivial merge (i.e., any changes), the local {@link PersistentObject} is updated
  * with the result and therefore made aware of the other nodes' changes. In this way, all nodes have their
  * {@link PersistentObject} databases automatically synchronized and merged as they evolve.
- * </p>
  *
  * <p>
  * The user of this class must separately initialize each node's {@code git(1)} repository, configure the
@@ -51,7 +49,6 @@ import org.dellroad.stuff.spring.AbstractBean;
  * but for remote changes either some external notification process must trigger a call to {@link #synchronize},
  * or {@link #synchronize} must be invoked at regular intervals, or (for robustness in the face of transient
  * network issues) both.
- * </p>
  *
  * <p>
  * Merges are handled by {@link #merge merge()} (which subclasses may override if desired). The {@link #merge merge}
@@ -62,7 +59,6 @@ import org.dellroad.stuff.spring.AbstractBean;
  *  <li>Same as previous, but resolving all conflicts one way or the other</li>
  *  <li>Simply choosing one file or the other</li>
  *  </ul>
- * </p>
  *
  * <p>
  * If conflicts occur in attempt #1, but attempt #2 or #3 succeeds and the other node is the "winner", then
@@ -71,7 +67,6 @@ import org.dellroad.stuff.spring.AbstractBean;
  * {@link #handleImpossibleMerge handleImpossibleMerge()} is invoked and we stay with whatever version we are on;
  * this latter case can only occur when another node is running a different version of the software
  * (with different validation criteria).
- * </p>
  *
  * <p>
  * For attempts #2 and #3, the "winner" is chosen by {@link #chooseConflictWinner chooseConflictWinner()} as follows:
@@ -80,16 +75,13 @@ import org.dellroad.stuff.spring.AbstractBean;
  *  <li>If the two commits were simultaneous, then the commit with the lexicographically higher SHA-1 checksum wins</li>
  *  <li>If the two commits have the same timestamp and SHA-1 checksum, then there won't be any conflicts :)</li>
  *  </ul>
- * </p>
  *
  * <p>
  * Subclasses may {@linkplain #chooseConflictWinner override how the winner is chosen}.
- * </p>
  *
  * <p>
  * Because all nodes follow this same algorithm for merging, they will all end up with the same result
  * (note however that the {@link PersistentObject} object graph must serialize in a deterministic way for this to be true).
- * </p>
  *
  * <p>
  * Note that merge conflicts can only happen when two nodes make changes at virtually the same time (or, when
@@ -98,11 +90,9 @@ import org.dellroad.stuff.spring.AbstractBean;
  * real-time notification process, this window can be kept small, especially relative to the frequent-read,
  * infrequent-write access pattern that the {@link PersistentObject} class is designed for. When a conflict override
  * does occur, subclasses can override {@link #handleConflictOverride handleConflictOverride()} to take appropriate action.
- * </p>
  *
  * <p>
  * Instances of this class are thread safe.
- * </p>
  *
  * @param <T> type of the root object
  */
@@ -148,7 +138,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * Required property.
-     * </p>
      */
     public void setPersistentObject(PersistentObject<T> persistentObject) {
         this.persistentObject = persistentObject;
@@ -160,11 +149,9 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * <p>
      * Note that multiple instances of this class can share the same {@link GitRepository} as long as they
      * are configured with different {@linkplain #setBranch branches}.
-     * </p>
      *
      * <p>
      * Required property.
-     * </p>
      *
      * @param git {@code git(1)} repository
      */
@@ -177,7 +164,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * Default value is {@value #DEFAULT_FILENAME}.
-     * </p>
      *
      * @param filename XML file name
      */
@@ -192,15 +178,12 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * The same branch name is used for all nodes in the cluster, local and remote, so
      * this name identifes both the local branch representing this node's root and each
      * remote's branch that we track and merge from.
-     * </p>
      *
      * <p>
      * Value must match {@link GitRepository#BRANCH_NAME_PATTERN}.
-     * </p>
      *
      * <p>
      * Default value is {@value #DEFAULT_BRANCH}.
-     * </p>
      *
      * @param branch branch name
      */
@@ -212,15 +195,12 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * Configure the names of the {@code git(1)} remotes we will synchronize with.
      * Note: these are {@code git(1)} remote names, not {@code git(1)} branch names; the same
      * {@linkplain #setBranch branch} is used for all nodes in the cluster, local and remote.
-     * </p>
      *
      * <p>
      * Each value must match {@link GitRepository#REMOTE_NAME_PATTERN}.
-     * </p>
      *
      * <p>
      * Required property.
-     * </p>
      */
     public synchronized void setRemotes(List<String> remotes) {
         this.remotes = remotes;
@@ -268,7 +248,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * The implementation in {@link Synchronizer} delegates to {@link #applyLocalUpdate}.
-     * </p>
      */
     @Override
     public void handleEvent(PersistentObjectEvent<T> event) {
@@ -288,7 +267,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * This method does nothing if the root is null.
-     * </p>
      *
      * @param snapshot snapshot containing new root (possibly null) and its version
      * @param commitMessage message for the commit
@@ -374,7 +352,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * If the local branch does not already exist, it will be created.
-     * </p>
      *
      * @param root persistent object root
      * @param commitMessage message for the commit
@@ -417,20 +394,16 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * This method fetches the configured remotes and then merges them into our local branch,
      * ensuring that the merge always yeilds a root that validates. If the fetch fails for
      * one or more remotes, an error is logged and synchronization proceeds anyway.
-     * </p>
      *
      * <p>
      * If the local branch does not already exist, it will be created.
-     * </p>
      *
      * <p>
      * This method does not affect the {@link PersistentObject} associated with this instance;
      * the caller is responsible for doing that if necessary (i.e., when true is returned).
-     * </p>
      *
      * <p>
      * This method delegates to {@link #merge merge} to do the actual merging.
-     * </p>
      *
      * @return true if one or more non-trivial merges ocurred, false if we were already up-to-date
      */
@@ -497,13 +470,11 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * <p>
      * The implementation in {@link Synchronizer} attempts to merge the files in an automated way
      * using git's patience merge algorithm.
-     * </p>
      *
      * <p>
      * In case of conflicts, {@link #chooseConflictWinner chooseConflictWinner()},
      * {@link #handleConflictOverride handleConflictOverride()} and/or
      * {@link #handleImpossibleMerge handleImpossibleMerge()} is invoked as appropriate.
-     * </p>
      *
      * @param remote name of the remote being merged
      * @param localCommit local commit name (SHA-1 hash)
@@ -582,12 +553,10 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * It is imperative that this method <b>only</b> depend on information associated with the given commits.
      * In particular, it must not depend on which node it is running on. This ensures that all nodes come
      * to the same conclusion and therefore produce the same outcome when merging.
-     * </p>
      *
      * <p>
      * The implementation in {@link Synchronizer} chooses the commit with the later timestamp, or if both commits
      * have the same timestamp, then the commit with the lexicographically higher SHA-1 checksum.
-     * </p>
      *
      * @param commit1 first commit ID
      * @param commit2 second commit ID
@@ -605,7 +574,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * The implementation in {@link Synchronizer} just logs a warning message.
-     * </p>
      *
      * @param remote name of the remote that overrode us
      * @param localCommit our commit in the merge
@@ -624,7 +592,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * The implementation in {@link Synchronizer} just logs a warning message.
-     * </p>
      *
      * @param remote name of the remote that we are conflicting with
      * @param localCommit our commit in the merge
@@ -640,7 +607,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * To avoid race conditions, the file should only be accessed from within a {@link GitRepository.Accessor} callback.
-     * </p>
      *
      * @param dir {@code git(1)} working directory root
      */
@@ -653,7 +619,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * To avoid race conditions, this method should only be invoked from within a {@link GitRepository.Accessor} callback.
-     * </p>
      *
      * @param dir {@code git(1)} working directory root
      * @param validate whether to also validate the file
