@@ -221,7 +221,7 @@ public abstract class AbstractDAO<T> extends AbstractBean implements DAO<T> {
     /**
      * Cast the given object to this instance's persistent instance type.
      *
-     * @param obj
+     * @param obj object to cast
      * @return {@code obj} cast to type {@code T}
      */
     protected T cast(Object obj) {

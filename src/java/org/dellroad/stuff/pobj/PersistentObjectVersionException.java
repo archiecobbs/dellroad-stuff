@@ -23,6 +23,8 @@ public class PersistentObjectVersionException extends PersistentObjectException 
 
     /**
      * Get the actual, unexpected version number.
+     *
+     * @return actual version number
      */
     public long getActualVersion() {
         return this.actualVersion;
@@ -30,6 +32,8 @@ public class PersistentObjectVersionException extends PersistentObjectException 
 
     /**
      * Get the version number that was expected.
+     *
+     * @return expected version number
      */
     public long getExpectedVersion() {
         return this.expectedVersion;

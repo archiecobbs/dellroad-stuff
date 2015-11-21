@@ -138,6 +138,8 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * Required property.
+     *
+     * @param persistentObject the persistent object to sync
      */
     public void setPersistentObject(PersistentObject<T> persistentObject) {
         this.persistentObject = persistentObject;
@@ -201,6 +203,8 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * <p>
      * Required property.
+     *
+     * @param remotes names of git remotes
      */
     public synchronized void setRemotes(List<String> remotes) {
         this.remotes = remotes;
@@ -263,7 +267,6 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * <p>
      * This method is invoked at {@linkplain #afterPropertiesSet startup} and after {@linkplain #handleEvent notification}
      * of each local change.
-     * <p>
      *
      * <p>
      * This method does nothing if the root is null.
@@ -609,6 +612,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * To avoid race conditions, the file should only be accessed from within a {@link GitRepository.Accessor} callback.
      *
      * @param dir {@code git(1)} working directory root
+     * @return persistent object XML file
      */
     protected File getXMLFile(File dir) {
         return new File(dir, this.filename);
@@ -622,6 +626,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * @param dir {@code git(1)} working directory root
      * @param validate whether to also validate the file
+     * @return decoded root object
      */
     protected T readXMLFile(File dir, boolean validate) {
         return PersistentObject.read(this.persistentObject.getDelegate(), this.getXMLFile(dir), validate);

@@ -48,6 +48,8 @@ public class PersistentObjectEvent<T> extends EventObject {
      * <p>
      * The {@link PersistentObject} class always delivers notifications in order, so this
      * number should always increase over time.
+     *
+     * @return new root version number
      */
     public long getVersion() {
         return this.version;

@@ -42,6 +42,8 @@ public class SpringXSLUpdateTransformConfigurer implements BeanPostProcessor, Re
 
     /**
      * Set the location prefix.
+     *
+     * @param prefix prefix to apply to bean names
      */
     public void setPrefix(String prefix) {
         if (prefix == null)
@@ -51,6 +53,8 @@ public class SpringXSLUpdateTransformConfigurer implements BeanPostProcessor, Re
 
     /**
      * Set the location suffix.
+     *
+     * @param suffix suffix to apply to bean names
      */
     public void setSuffix(String suffix) {
         if (suffix == null)
@@ -63,6 +67,8 @@ public class SpringXSLUpdateTransformConfigurer implements BeanPostProcessor, Re
      *
      * <p>
      * This property is optional.
+     *
+     * @param transformerFactory custom factory for XSL transformers, or null for none
      */
     public void setTransformerFactory(TransformerFactory transformerFactory) {
         this.transformerFactory = transformerFactory;
@@ -96,6 +102,9 @@ public class SpringXSLUpdateTransformConfigurer implements BeanPostProcessor, Re
      * <p>
      * The implementation in {@link SpringXSLUpdateTransformConfigurer} simply prepends the configured
      * prefix and appends the configured suffix to {@code beanName}.
+     *
+     * @param beanName schema update bean name
+     * @return schema update resource location
      */
     protected String getImpliedTransformResourceLocation(String beanName) {
         return this.prefix + beanName + this.suffix;

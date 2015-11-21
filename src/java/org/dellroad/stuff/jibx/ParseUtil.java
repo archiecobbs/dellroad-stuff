@@ -121,6 +121,7 @@ public final class ParseUtil {
      * <p>
      * The object must have been unmarshalled already and had its ID registered via {@link IdMapper#setId}.
      *
+     * @param <T> expected type
      * @param string XML encoding created by {@link #serializeReference}
      * @param type expected type
      * @return decoded value
@@ -417,6 +418,7 @@ public final class ParseUtil {
      *
      * @param date date to serialize
      * @param format format for {@link SimpleDateFormat}.
+     * @return encoded date
      * @see #deserializeDate
      * @throws JiBXParseException if {@code format} is invalid
      */
@@ -594,7 +596,6 @@ public final class ParseUtil {
      *
      * @param array integer array
      * @return string encoding of {@code array}
-     * @throws JiBXParseException if the parse fails
      * @see #deserializeIntArray
      */
     public static String serializeIntArray(int[] array) {

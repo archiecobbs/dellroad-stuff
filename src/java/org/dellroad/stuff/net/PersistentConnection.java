@@ -93,6 +93,8 @@ public abstract class PersistentConnection<C> {
      *
      * <p>
      * The implementation in {@link PersistentConnection} returns {@code this.toString() + " thread"}.
+     *
+     * @return network client thread name
      */
     protected String getThreadName() {
         return this + " thread";
@@ -131,6 +133,8 @@ public abstract class PersistentConnection<C> {
 
     /**
      * Determine if this instance is started.
+     *
+     * @return true if this instance is currently running
      */
     public final synchronized boolean isRunning() {
         return this.thread != null;

@@ -53,6 +53,8 @@ public class NullModemInputStream extends FilterInputStream {
 
     /**
      * Get the wrapped stream cast as a {@link PipedInputStream}.
+     *
+     * @return the underlying {@link PipedInputStream}
      */
     protected PipedInputStream getPipedInputStream() {
         return (PipedInputStream)this.in;

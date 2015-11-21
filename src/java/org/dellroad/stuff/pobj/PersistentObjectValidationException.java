@@ -20,6 +20,7 @@ public class PersistentObjectValidationException extends PersistentObjectExcepti
     /**
      * Constructor.
      *
+     * @param <T> root object type
      * @param violations set of violations
      * @throws IllegalArgumentException if {@code violations} is null
      */
@@ -31,6 +32,8 @@ public class PersistentObjectValidationException extends PersistentObjectExcepti
 
     /**
      * Get the set of constraint violations.
+     *
+     * @return the constraint violations that triggered this exception
      */
     public Set<ConstraintViolation<?>> getViolations() {
         return this.violations;

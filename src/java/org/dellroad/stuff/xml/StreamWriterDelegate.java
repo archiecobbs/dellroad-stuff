@@ -34,6 +34,8 @@ public class StreamWriterDelegate implements XMLStreamWriter {
 
     /**
      * Get parent instance.
+     *
+     * @return * underlying writer wrapped by this instance
      */
     public XMLStreamWriter getParent() {
         return this.parent;
@@ -41,6 +43,8 @@ public class StreamWriterDelegate implements XMLStreamWriter {
 
     /**
      * Set parent instance.
+     *
+     * @param parent underlying writer wrapped by this instance
      */
     public void setParent(XMLStreamWriter parent) {
         this.parent = parent;

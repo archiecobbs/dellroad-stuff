@@ -41,6 +41,8 @@ public class PersistentFileTransaction {
      * @param source XML input
      * @throws PersistentObjectException if no updates are found
      * @throws IllegalArgumentException if {@code source} is null
+     * @throws XMLStreamException if XML parsing fails
+     * @throws IOException if an I/O error occurs
      */
     public PersistentFileTransaction(Source source) throws IOException, XMLStreamException {
         this(source, null);
@@ -53,6 +55,8 @@ public class PersistentFileTransaction {
      * @param transformerFactory transformer factory, or null for platform default
      * @throws PersistentObjectException if no updates are found
      * @throws IllegalArgumentException if {@code source} is null
+     * @throws XMLStreamException if XML parsing fails
+     * @throws IOException if an I/O error occurs
      */
     public PersistentFileTransaction(Source source, TransformerFactory transformerFactory) throws IOException, XMLStreamException {
         if (source == null)
@@ -65,6 +69,8 @@ public class PersistentFileTransaction {
 
     /**
      * Get the current XML data. Does not include the XML update list.
+     *
+     * @return XML data
      */
     public Document getData() {
         return this.current;
@@ -72,6 +78,8 @@ public class PersistentFileTransaction {
 
     /**
      * Get the system ID of the original source input.
+     *
+     * @return XML system ID
      */
     public String getSystemId() {
         return this.systemId;
@@ -79,6 +87,8 @@ public class PersistentFileTransaction {
 
     /**
      * Get the updates list associated with this transaction.
+     *
+     * @return list of updates
      */
     public List<String> getUpdates() {
         return this.updates;
@@ -87,6 +97,7 @@ public class PersistentFileTransaction {
     /**
      * Apply an XSLT transform to the current XML object in this transaction.
      *
+     * @param transformer XSLT transformer
      * @throws IllegalStateException if the current root object is null
      * @throws PersistentObjectException if an error occurs
      * @throws TransformerException if the transformation fails

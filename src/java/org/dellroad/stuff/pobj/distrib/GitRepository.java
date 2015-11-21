@@ -84,6 +84,8 @@ public class GitRepository extends AbstractBean {
 
     /**
      * Get the git working directory associated with this instance.
+     *
+     * @return repository working directory location
      */
     public File getDirectory() {
         return this.dir;
@@ -425,6 +427,7 @@ public class GitRepository extends AbstractBean {
     /**
      * Get the commit ID of what we have currently checked out (i.e., our HEAD).
      *
+     * @return HEAD commit ID
      * @throws GitException if we can't figure it out
      */
     protected String getCurrentCommit() {
@@ -433,6 +436,10 @@ public class GitRepository extends AbstractBean {
 
     /**
      * Read the first line of a file (trimmed) as a {@link String}.
+     *
+     * @param file file to read
+     * @return first line of {@code file}
+     * @throws IOException if an I/O error occurs
      */
     protected String readFirstLine(File file) throws IOException {
         final FileInputStream inputStream = new FileInputStream(file);
@@ -455,6 +462,7 @@ public class GitRepository extends AbstractBean {
      * Get the {@link File} corresponding to the given relative path under the {@code .git} directory.
      *
      * @param path relative path, e.g., {@code HEAD} or {@code refs/heads/foo}
+     * @return corresponding file
      */
     public File getRepoFile(String path) {
         return new File(new File(this.dir, ".git"), path);

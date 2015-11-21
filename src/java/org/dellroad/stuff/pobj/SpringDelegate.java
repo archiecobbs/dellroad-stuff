@@ -27,6 +27,8 @@ public class SpringDelegate<T> extends AbstractDelegate<T> implements Initializi
 
     /**
      * Set the {@link Marshaller} used to convert instances to XML. Required property.
+     *
+     * @param marshaller XML marshaller
      */
     public void setMarshaller(Marshaller marshaller) {
         this.marshaller = marshaller;
@@ -34,6 +36,8 @@ public class SpringDelegate<T> extends AbstractDelegate<T> implements Initializi
 
     /**
      * Set the {@link Marshaller} used to convert instances to XML. Required property.
+     *
+     * @param unmarshaller XML unmarshaller
      */
     public void setUnmarshaller(Unmarshaller unmarshaller) {
         this.unmarshaller = unmarshaller;

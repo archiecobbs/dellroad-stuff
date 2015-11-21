@@ -76,6 +76,7 @@ public abstract class AnnotatedXMLStreamReader extends StreamReaderDelegate {
      *
      * @param reader source from which the the annotation element is to be read, if found
      * @return true if the current event is the start of the annotation element and has been read, false otherwise
+     * @throws XMLStreamException if an XML parse error occurs
      */
     protected abstract boolean readAnnotationElement(XMLStreamReader reader) throws XMLStreamException;
 

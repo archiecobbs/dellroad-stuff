@@ -75,6 +75,8 @@ public abstract class SocketAcceptor extends AbstractBean {
 
     /**
      * Get maximum connect backlog.
+     *
+     * @return maximum backlogged connections
      */
     public int getBacklog() {
         return this.backlog;
@@ -97,6 +99,8 @@ public abstract class SocketAcceptor extends AbstractBean {
 
     /**
      * Get TCP port to listen on.
+     *
+     * @return TCP listening port
      */
     public int getPort() {
         return this.port;
@@ -107,6 +111,8 @@ public abstract class SocketAcceptor extends AbstractBean {
 
     /**
      * Start accepting incoming connections. Does nothing if already started.
+     *
+     * @throws IOException if an I/O error occurs setting up the server socket
      */
     public void start() throws IOException {
         synchronized (this) {
@@ -335,6 +341,9 @@ public abstract class SocketAcceptor extends AbstractBean {
      * <p>
      * The implementation in {@link SocketAcceptor} creates the socket and sets the "reuse address" flag.
      * Subclasses may override.
+     *
+     * @return server socket
+     * @throws IOException if an I/O error occurs
      */
     protected ServerSocket createServerSocket() throws IOException {
         ServerSocket socket = new ServerSocket(this.port, this.backlog, this.address);
@@ -345,7 +354,9 @@ public abstract class SocketAcceptor extends AbstractBean {
     /**
      * Get the {@link SocketHandler} that will handle a new connection using the given socket.
      *
+     * @param socket connection socket
      * @return new handler, or <code>null</code> to disconnect the socket immediately
+     * @throws IOException if an I/O error occurs
      */
     protected abstract SocketHandler getSocketHandler(Socket socket) throws IOException;
 

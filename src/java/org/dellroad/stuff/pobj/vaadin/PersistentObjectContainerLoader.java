@@ -60,6 +60,7 @@ public class PersistentObjectContainerLoader<T, K> {
      * If this method is invoked twice with no intervening {@link #disconnect}, this instance will
      * automatically disconnect from the old {@link PersistentObject} before connecting to the new one.
      *
+     * @param persistentObject persistent object database
      * @throws IllegalArgumentException if {@code persistentObject} is null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
@@ -110,6 +111,7 @@ public class PersistentObjectContainerLoader<T, K> {
     /**
      * Reload the container associated with this instance using the given {@link PersistentObject} root.
      *
+     * @param root root object from which to derive container content
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
     protected void reload(T root) {

@@ -63,6 +63,8 @@ public interface SchemaUpdate<T> {
      * Determine whether, if this instance contains multiple individual actions, should they be applied in a single
      * transaction and recorded as a single update. Normally this is false. If true, partially completed updates
      * can result if one of the action fails.
+     *
+     * @return whether to execute this update atomically
      */
     boolean isSingleAction();
 }

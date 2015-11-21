@@ -45,6 +45,8 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
 
     /**
      * Configure the XSLT transform as a resource.
+     *
+     * @param transform transform for this schema update
      */
     public void setTransform(Resource transform) {
         this.transform = transform;
@@ -56,6 +58,8 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
 
     /**
      * Configure XSLT parameters. This is an optional property.
+     *
+     * @param parameters transform parameters
      */
     public void setParameters(Properties parameters) {
         this.parameters = parameters;
@@ -67,6 +71,8 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
      *
      * <p>
      * This property is optional; if not specified, {@link TransformerFactory#newInstance} is used.
+     *
+     * @return custom factory for XSL transformers, or null if none configured
      */
     public TransformerFactory getTransformerFactory() {
         return this.transformerFactory;
@@ -78,6 +84,7 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
      * <p>
      * This property is optional; if not specified, {@link TransformerFactory#newInstance} is used.
      *
+     * @param transformerFactory custom factory for XSL transformers, or null for none
      * @see #getTransformerFactory
      */
     public void setTransformerFactory(TransformerFactory transformerFactory) {

@@ -115,6 +115,8 @@ public abstract class AbstractConfiguredBean<ROOT, T> extends AbstractBean
     /**
      * Is this bean configured? "Configured" means that either {@link #start start()} or {@link #reconfigure reconfigure()} has
      * been invoked successfully since the most recent {@link #stop stop()}.
+     *
+     * @return true if this instance is configured
      */
     public synchronized boolean isConfigured() {
         return this.configured;

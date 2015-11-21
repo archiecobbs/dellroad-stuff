@@ -100,6 +100,8 @@ public abstract class VaadinExternalListener<S> {
 
     /**
      * Determine whether this instance is configured for asynchronous notification. Default false.
+     *
+     * @return true if this instance will notify asynchronously
      */
     public boolean isAsynchronous() {
         return this.asynchronous;
@@ -109,6 +111,7 @@ public abstract class VaadinExternalListener<S> {
      * Set whether to notify asynchronously. If set, {@link VaadinUtil#invokeLater VaadinUtil.invokeLater()} will
      * be used for notifications, so that these occur on a different thread from the original notifying thread.
      *
+     * @param asynchronous true to notify asynchronously, false for synchronous notifications
      * @see #handleEvent(Runnable) handleEvent()
      */
     public void setAsynchronous(boolean asynchronous) {
@@ -140,6 +143,8 @@ public abstract class VaadinExternalListener<S> {
 
     /**
      * Get the {@link VaadinSession} (aka Vaadin application) with which this instance is associated.
+     *
+     * @return associated session
      */
     public final VaadinSession getSession() {
         return this.session;
@@ -147,6 +152,8 @@ public abstract class VaadinExternalListener<S> {
 
     /**
      * Get the event source with which this instance is (or was) registered as a listener.
+     *
+     * @return associated event source
      */
     public final S getEventSource() {
         return this.eventSource;

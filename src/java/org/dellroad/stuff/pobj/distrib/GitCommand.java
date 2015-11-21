@@ -56,6 +56,8 @@ public class GitCommand {
 
     /**
      * Get command line arguments.
+     *
+     * @return command parameters
      */
     public List<String> getArgs() {
         return this.args;
@@ -63,6 +65,8 @@ public class GitCommand {
 
     /**
      * Run command. Equivalent to {@code run(false)}.
+     *
+     * @return {@code git(1)} exit value
      */
     public int run() {
         return this.run(false);
@@ -143,6 +147,7 @@ public class GitCommand {
     /**
      * Run command and return standard output, interpreted as a UTF-8 string, with leading and trailing whitespace trimmed.
      *
+     * @return command standard output
      * @throws IllegalStateException if this command has already been run
      * @throws RuntimeException if the current thread is interrupted
      * @throws GitException if any {@code GIT_*} environment variables are set
@@ -156,6 +161,7 @@ public class GitCommand {
     /**
      * Get the standard output from {@code git(1)}.
      *
+     * @return command standard output
      * @throws IllegalStateException if command has not yet completed
      * @return command standard output interpreted as UTF-8
      */
@@ -168,6 +174,7 @@ public class GitCommand {
     /**
      * Get the standard error from {@code git(1)}.
      *
+     * @return command standard error
      * @throws IllegalStateException if command has not yet completed
      * @return command standard error interpreted as UTF-8
      */

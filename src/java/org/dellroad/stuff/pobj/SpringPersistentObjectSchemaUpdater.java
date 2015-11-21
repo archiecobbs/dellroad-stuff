@@ -100,6 +100,8 @@ public class SpringPersistentObjectSchemaUpdater<T> extends PersistentObjectSche
     /**
      * Set the resource containing the default value, encoded as XML, to be used on an uninitialized persistent object.
      * This will override whatever default value is returned by the nested delegate.
+     *
+     * @param resource default database content
      */
     public void setDefaultXML(Resource resource) {
         this.defaultXML = resource;

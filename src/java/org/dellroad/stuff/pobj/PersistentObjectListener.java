@@ -17,6 +17,8 @@ public interface PersistentObjectListener<T> {
 
     /**
      * Handle notification of an updated root object.
+     *
+     * @param event notification event
      */
     void handleEvent(PersistentObjectEvent<T> event);
 }

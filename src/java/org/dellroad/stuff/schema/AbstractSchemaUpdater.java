@@ -175,6 +175,9 @@ public abstract class AbstractSchemaUpdater<D, T> {
     /**
      * Determine if the given schema update name is valid. Valid names are non-empty and
      * have no leading or trailing whitespace.
+     *
+     * @param updateName schema update name
+     * @return true if {@code updateName} is valid
      */
     public static boolean isValidUpdateName(String updateName) {
         return updateName.length() > 0 && updateName.trim().length() == updateName.length();
@@ -187,6 +190,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
      * If so, {@link #initializeDatabase} will eventually be invoked.
      *
      * @param transaction open transaction
+     * @return true if the database needs initialization
      * @throws Exception if an error occurs while accessing the database
      */
     protected abstract boolean databaseNeedsInitialization(T transaction) throws Exception;
@@ -232,6 +236,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
      * Determine which updates have already been applied to the database.
      *
      * @param transaction open transaction
+     * @return set of already-applied updates
      * @throws Exception if an error occurs while accessing the database
      */
     protected abstract Set<String> getAppliedUpdateNames(T transaction) throws Exception;
@@ -269,6 +274,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
      *
      * @param update the schema update
      * @param index the index of the action (zero based)
+     * @return update name
      * @see SchemaUpdate#isSingleAction
      */
     protected String generateMultiUpdateName(SchemaUpdate<T> update, int index) {
@@ -277,6 +283,9 @@ public abstract class AbstractSchemaUpdater<D, T> {
 
     /**
      * Get the names of all updates including multi-action updates.
+     *
+     * @return list of update names
+     * @throws Exception if an error occurs
      */
     protected List<String> getAllUpdateNames() throws Exception {
         ArrayList<SchemaUpdate<T>> updateList = new ArrayList<SchemaUpdate<T>>(this.getUpdates());
@@ -298,6 +307,8 @@ public abstract class AbstractSchemaUpdater<D, T> {
      * The implementation in {@link AbstractSchemaUpdater} simply invokes {@link DatabaseAction#apply action.apply()};
      * subclasses may override if desired.
      *
+     * @param transaction transaction within which to apply {@code action}
+     * @param action operation to perform
      * @throws Exception if an error occurs while accessing the database
      */
     protected void apply(T transaction, DatabaseAction<T> action) throws Exception {
@@ -312,6 +323,8 @@ public abstract class AbstractSchemaUpdater<D, T> {
      * If the action or {@link #commitTransaction commitTransaction()} fails, the transaction
      * is {@linkplain #rollbackTransaction rolled back}.
      *
+     * @param database database to apply {@code action} to
+     * @param action operation to perform
      * @throws Exception if an error occurs while accessing the database
      */
     protected void applyInTransaction(D database, DatabaseAction<T> action) throws Exception {

@@ -238,6 +238,10 @@ public class PersistentObject<T> {
      * <blockquote><code>
      *  PersistentObject(delegate, file, 0L, 0L);
      * </code></blockquote>
+     *
+     * @param delegate delegate supplying required operations
+     * @param file the file used to persist
+     * @throws IllegalArgumentException if {@code delegate} or {@code file} is null
      */
     public PersistentObject(PersistentObjectDelegate<T> delegate, File file) {
         this(delegate, file, 0, 0);
@@ -373,6 +377,8 @@ public class PersistentObject<T> {
      *
      * <p>
      * The default is zero, which disables backups.
+     *
+     * @return number of backing file backup copies
      */
     public int getNumBackups() {
         return this.streamRepository != null ? this.streamRepository.getNumBackups() : 0;
@@ -381,6 +387,7 @@ public class PersistentObject<T> {
     /**
      * Set the number of backup copies to preserve.
      *
+     * @param numBackups number of backing file backup copies
      * @throws IllegalArgumentException if {@code numBackups} is negative
      * @throws IllegalStateException if no persistent file has been configured yet
      * @see #getNumBackups
@@ -396,6 +403,8 @@ public class PersistentObject<T> {
      *
      * <p>
      * The default for this property is false.
+     *
+     * @return if empty starts are allowed
      */
     public boolean isAllowEmptyStart() {
         return this.allowEmptyStart;
@@ -407,6 +416,7 @@ public class PersistentObject<T> {
      * <p>
      * The default for this property is false.
      *
+     * @param allowEmptyStart true to allow empty starts
      * @throws IllegalStateException if this instance is started
      */
     public synchronized void setAllowEmptyStart(boolean allowEmptyStart) {
@@ -420,6 +430,8 @@ public class PersistentObject<T> {
      *
      * <p>
      * The default for this property is false.
+     *
+     * @return true if empty stops are allowed
      */
     public boolean isAllowEmptyStop() {
         return this.allowEmptyStop;
@@ -431,6 +443,7 @@ public class PersistentObject<T> {
      * <p>
      * The default for this property is false.
      *
+     * @param allowEmptyStop true to allow empty stops
      * @throws IllegalStateException if this instance is started
      */
     public synchronized void setAllowEmptyStop(boolean allowEmptyStop) {
@@ -441,6 +454,8 @@ public class PersistentObject<T> {
 
     /**
      * Determine whether this instance is started.
+     *
+     * @return true if this instance currently started
      */
     public synchronized boolean isStarted() {
         return this.started;
@@ -746,6 +761,10 @@ public class PersistentObject<T> {
      *
      * <p>
      * This method cannot throw {@link PersistentObjectVersionException}.
+     *
+     * @param newRoot new persistent root object
+     * @return the new current version number (unchanged if {@code newRoot} is
+     *  {@linkplain PersistentObjectDelegate#isSameGraph the same as} the current root)
      */
     public final synchronized long setRoot(T newRoot) {
         return this.setRoot(newRoot, 0);
@@ -787,6 +806,7 @@ public class PersistentObject<T> {
      * <p>
      * Listeners are notified in a separate thread from the one that caused the root object to change.
      *
+     * @param listener listener to add
      * @throws IllegalArgumentException if {@code listener} is null
      */
     public void addListener(PersistentObjectListener<T> listener) {
@@ -799,6 +819,8 @@ public class PersistentObject<T> {
 
     /**
      * Remove a listener added via {@link #addListener addListener()}.
+     *
+     * @param listener listener to remove
      */
     public void removeListener(PersistentObjectListener<T> listener) {
         synchronized (this.listeners) {
@@ -817,6 +839,7 @@ public class PersistentObject<T> {
     /**
      * Read the persistent file. Does not validate it.
      *
+     * @return root object decoded from backing file
      * @throws PersistentObjectException if the file does not exist or cannot be read
      * @throws PersistentObjectException if an error occurs
      */
@@ -906,6 +929,7 @@ public class PersistentObject<T> {
      *
      * @param output XML output stream
      * @param systemId system ID
+     * @return XML result output
      */
     protected Result createResult(OutputStream output, File systemId) {
         StreamResult result = new StreamResult(output);
@@ -917,6 +941,8 @@ public class PersistentObject<T> {
      * Notify listeners of a change in value.
      *
      * @param newVersion the version number associated with the new root
+     * @param oldRoot previous root object
+     * @param newRoot new root object
      */
     protected void notifyListeners(long newVersion, T oldRoot, T newRoot) {
 
@@ -1030,6 +1056,7 @@ public class PersistentObject<T> {
      * This is a convenience method that can be used for a one-time deserialization from an XML {@link Source} without having
      * to go through the whole {@link PersistentObject} lifecycle.
      *
+     * @param <T> root object type
      * @param delegate delegate supplying required operations
      * @param source source for serialized root object
      * @param validate whether to also validate the root object
@@ -1076,6 +1103,7 @@ public class PersistentObject<T> {
      * This is a wrapper around {@link #read(PersistentObjectDelegate, Source, boolean)} that handles
      * opening and closing the given {@link File}.
      *
+     * @param <T> root object type
      * @param delegate delegate supplying required operations
      * @param file file to read from
      * @param validate whether to also validate the root object
@@ -1119,6 +1147,7 @@ public class PersistentObject<T> {
      * <p>
      * This is a wrapper around {@link #read(PersistentObjectDelegate, Source, boolean)}.
      *
+     * @param <T> root object type
      * @param delegate delegate supplying required operations
      * @param input input to read from
      * @param validate whether to also validate the root object
@@ -1145,6 +1174,7 @@ public class PersistentObject<T> {
      * This is a convenience method that can be used for one-time serialization to an XML {@link Result} without having
      * to go through the whole {@link PersistentObject} lifecycle.
      *
+     * @param <T> root object type
      * @param root root object to serialize
      * @param delegate delegate supplying required operations
      * @param result destination
@@ -1176,6 +1206,7 @@ public class PersistentObject<T> {
      * This is a wrapper around {@link #write(Object, PersistentObjectDelegate, Result)} that handles
      * opening and closing the given {@link File}.
      *
+     * @param <T> root object type
      * @param root root object to serialize
      * @param delegate delegate supplying required operations
      * @param file destination file
@@ -1210,6 +1241,7 @@ public class PersistentObject<T> {
      * <p>
      * This is a wrapper around {@link #write(Object, PersistentObjectDelegate, Result)}.
      *
+     * @param <T> root object type
      * @param root root object to serialize
      * @param delegate delegate supplying required operations
      * @param output XML destination
@@ -1250,6 +1282,8 @@ public class PersistentObject<T> {
 
         /**
          * Get the persistent root associated with this instance.
+         *
+         * @return persistent object associated with this snapshot
          */
         public T getRoot() {
             return this.root;
@@ -1257,6 +1291,8 @@ public class PersistentObject<T> {
 
         /**
          * Get the version number of the persistent root associated with this instance.
+         *
+         * @return version number associated with this snapshot
          */
         public long getVersion() {
             return this.version;

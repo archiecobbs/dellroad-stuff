@@ -43,7 +43,7 @@ public class XMLDocumentOutputStream<T> {
      * Write the object encoded as XML to the underlying output stream.
      * The underlying output stream is flushed.
      *
-     * @param obje object to write
+     * @param obj object to write
      * @throws IOException if an I/O error occurs
      * @throws JiBXException if JiBX encoding fails
      */

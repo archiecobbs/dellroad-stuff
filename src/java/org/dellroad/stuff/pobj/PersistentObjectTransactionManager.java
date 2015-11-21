@@ -78,6 +78,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
 
     /**
      * Get this instance's assigned bean name.
+     *
+     * @return bean name
      */
     public String getBeanName() {
         return this.beanName;
@@ -102,6 +104,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
 
     /**
      * Get the {@link PersistentObject} that this instance will operate on.
+     *
+     * @return the associated persistent object database
      */
     public PersistentObject<T> getPersistentObject() {
         return this.persistentObject;
@@ -112,6 +116,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * Required property.
+     *
+     * @param persistentObject associated persistent object database
      */
     public void setPersistentObject(PersistentObject<T> persistentObject) {
         this.persistentObject = persistentObject;
@@ -120,6 +126,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
     /**
      * Get whether, during read-only transactions, {@link #getRoot} returns a new copy of the
      * {@link PersistentObject} object graph or the {@linkplain PersistentObject#getSharedRoot shared root}.
+     *
+     * @return true if the root is shared within read-only transactions
      */
     public boolean isReadOnlySharedRoot() {
         return this.readOnlySharedRoot;
@@ -131,6 +139,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      *
      * <p>
      * Default value is false.
+     *
+     * @param readOnlySharedRoot true to share the root within read-only transactions, false to copy it each time
      */
     public void setReadOnlySharedRoot(boolean readOnlySharedRoot) {
         this.readOnlySharedRoot = readOnlySharedRoot;
@@ -138,6 +148,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
 
     /**
      * Get the {@link XAResource} corresponding to this instance.
+     *
+     * @return associated {@link XAResource}
      */
     public XAResource getXAResource() {
         return new PersistentObjectXAResource<T>(this);
@@ -148,7 +160,9 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
     /**
      * Get the instance associated with an open transaction in the current thread and having the given bean name.
      *
+     * @param <T> root object type
      * @param beanName bean name assigned to the desired instance
+     * @return current thread's transaction manager with the given name
      * @throws IllegalArgumentException if {@code name} is null
      * @throws IllegalStateException if the current thread is not running within a transaction managed by
      *  a {@link PersistentObjectTransactionManager} assigned the given name
@@ -175,6 +189,8 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      * <p>
      * This is a convenience method for the common case where there is only one instance associated with the current thread.
      *
+     * @param <T> root object type
+     * @return current thread's transaction manager
      * @throws IllegalStateException if the current thread is not running within a
      *  {@link PersistentObjectTransactionManager} transaction
      * @throws IllegalStateException there is more than one {@link PersistentObjectTransactionManager} transaction

@@ -53,7 +53,7 @@ public final class SpringParseUtil {
     /**
      * Deserialize a Spring {@link Expression} using the supplied {@link ParserContext}.
      *
-     * @param string XML encoding created by {@link #serializeXSDDateTime}
+     * @param string XML encoding created by {@link #serializeExpression}
      * @param context parser context
      * @return decoded value
      * @throws JiBXParseException if the parse fails
@@ -70,6 +70,9 @@ public final class SpringParseUtil {
 
     /**
      * Serialize a Spring {@link Expression}.
+     *
+     * <p>
+     * Returns {@code expr.getExpressionString()}.
      *
      * @param expr Spring expression
      * @return encoded value

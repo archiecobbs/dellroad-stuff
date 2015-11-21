@@ -33,6 +33,7 @@ public interface PersistentObjectDelegate<T> {
      *
      * @param obj object to serialize; must not be modified
      * @param result XML destination
+     * @throws IOException if an I/O error occurs
      * @throws PersistentObjectException if an error occurs
      */
     void serialize(T obj, Result result) throws IOException;
@@ -46,6 +47,7 @@ public interface PersistentObjectDelegate<T> {
      *
      * @param source XML source
      * @return deserialized object
+     * @throws IOException if an I/O error occurs
      * @throws PersistentObjectException if an error occurs
      */
     T deserialize(Source source) throws IOException;
@@ -60,6 +62,8 @@ public interface PersistentObjectDelegate<T> {
      * <p>
      * This method must not modify {@code original} or any other object in its object graph.
      *
+     * @param original original object
+     * @return deep copy of the object graph rooted at {@code original}
      * @throws IllegalArgumentException if {@code original} is null
      * @throws PersistentObjectException if an error occurs
      */
@@ -82,6 +86,7 @@ public interface PersistentObjectDelegate<T> {
      *
      * @param root1 root of first object graph
      * @param root2 root of second object graph
+     * @return true if {@code root1} and {@code root2} represent equal object graphs
      * @throws IllegalArgumentException if {@code oldRoot} or {@code newRoot} is null
      * @throws PersistentObjectException if an error occurs
      */
@@ -93,6 +98,7 @@ public interface PersistentObjectDelegate<T> {
      * <p>
      * This method must not modify {@code obj} or any other object in its object graph.
      *
+     * @param obj root object
      * @throws IllegalArgumentException if {@code obj} is null
      * @return set of zero or more constraint violations
      */

@@ -167,6 +167,8 @@ public abstract class AnnotatedXMLStreamWriter extends StreamWriterDelegate {
 
     /**
      * Get the whitespace found between the opening document tag and the first non-space child.
+     *
+     * @return whitespace after document tag
      */
     protected String getTrailingSpace() {
         return this.trailingSpace.toString();
@@ -180,6 +182,7 @@ public abstract class AnnotatedXMLStreamWriter extends StreamWriterDelegate {
      * end element for the annotation element.
      *
      * @param writer output to which the annotation element should be written
+     * @throws XMLStreamException if an XML error occurs
      */
     protected abstract void addAnnotationElement(XMLStreamWriter writer) throws XMLStreamException;
 }
