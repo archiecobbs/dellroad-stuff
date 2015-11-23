@@ -1,6 +1,7 @@
 Version Next
 
-    - Refactor TCPNetwork to create ChannelNetwork superclass
+    - Added support for normalized peer names in TCPNetwork
+    - Refactored TCPNetwork to create ChannelNetwork superclass
 
 Version 1.1.3 Released September 29, 2015
 

@@ -163,9 +163,10 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
         // Sanity check
         if (peer == null)
             throw new IllegalArgumentException("null peer");
+        final String normalizedPeer = this.normalizePeerName(peer);
 
         // Get/create connection
-        ChannelConnection connection = this.connectionMap.get(peer);
+        ChannelConnection connection = this.connectionMap.get(normalizedPeer);
         if (connection == null) {
 
             // Create connection
@@ -177,7 +178,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
             }
 
             // Record connection
-            this.connectionMap.put(peer, connection);
+            this.connectionMap.put(normalizedPeer, connection);
         }
 
         // Send message
@@ -224,12 +225,30 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
         assert this.isServiceThread();
         if (this.log.isDebugEnabled())
             this.log.debug(this + " handling closed connection " + connection);
-        this.connectionMap.remove(connection.getPeer());
+        final String normalizedPeer = this.normalizePeerName(connection.getPeer());
+        this.connectionMap.remove(normalizedPeer);
         this.handleOutputQueueEmpty(connection);
         this.wakeup();
     }
 
-// Internal API
+// Subclass API
+
+    /**
+     * Normalize the given peer.
+     *
+     * <p>
+     * The implementation in {@link ChannelNetwork} just returns {@code peer}.
+     * Subclasses should override this method as needed to ensure that two different strings that refer
+     * to the same destination have the same normalized form.
+     *
+     * @param peer remote peer
+     * @return normalized form for {@code peer}
+     * @throws IllegalArgumentException if {@code peer} is an invalid peer name
+     * @throws IllegalArgumentException if {@code peer} is null
+     */
+    protected String normalizePeerName(String peer) {
+        return peer;
+    }
 
     /**
      * Create a new connection to the specified peer.

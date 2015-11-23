@@ -291,7 +291,26 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         }
     }
 
-// Internal API
+// ChannelNetwork
+
+    /**
+     * Normalize the given peer.
+     *
+     * <p>
+     * The implementation in {@link TCPNetwork} converts {@code peer} to lower case and appends the
+     * (default) port if not specified in the string.
+     *
+     * @throws IllegalArgumentException {@code inheritDoc}
+     */
+    @Override
+    protected String normalizePeerName(String peer) {
+        if (peer == null)
+            throw new IllegalArgumentException("null peer");
+        final int colon = peer.lastIndexOf(':');
+        if (colon == -1)
+            peer += ":" + this.defaultPort;
+        return peer;
+    }
 
     @Override
     protected synchronized TCPConnection createConnection(String peer) throws IOException {
