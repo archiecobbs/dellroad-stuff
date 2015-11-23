@@ -9,41 +9,18 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.StandardSocketOptions;
-import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * {@link Network} implementation based on TCP sockets.
+ * {@link Network} implementation based on TCP connections.
  *
  * <p>
  * Remote peers have the {@link String} form <code>IP-Address[:port]</code>. If the port is omitted,
  * the default port provided to the constructor is assumed.
  */
-public class TCPNetwork extends SelectorSupport implements Network {
-
-    /**
-     * Default maximum number of simultaneous connections ({@value #DEFAULT_MAX_CONNECTIONS}).
-     *
-     * @see #getMaxConnections
-     */
-    public static final int DEFAULT_MAX_CONNECTIONS = 1000;
-
-    /**
-     * Default idle connection timeout ({@value #DEFAULT_MAX_IDLE_TIME} milliseconds).
-     *
-     * @see #getMaxIdleTime
-     */
-    public static final long DEFAULT_MAX_IDLE_TIME = 30 * 1000L;                // 30 sec
+public class TCPNetwork extends ChannelNetwork implements Network {
 
     /**
      * Default connect timeout for outgoing connections ({@value #DEFAULT_CONNECT_TIMEOUT} milliseconds).
@@ -52,36 +29,13 @@ public class TCPNetwork extends SelectorSupport implements Network {
      */
     public static final long DEFAULT_CONNECT_TIMEOUT = 20 * 1000L;              // 20 sec
 
-    /**
-     * Default maximum allowed size of an incoming message ({@value #DEFAULT_MAX_MESSAGE_SIZE} bytes).
-     *
-     * @see #getMaxMessageSize
-     */
-    public static final int DEFAULT_MAX_MESSAGE_SIZE = 32 * 1024 * 1024;        // 32 MB
-
-    /**
-     * Default maximum allowed size of a connection's outgoing queue before we start dropping messages
-     * ({@value #DEFAULT_MAX_OUTPUT_QUEUE_SIZE} bytes).
-     *
-     * @see #getMaxOutputQueueSize
-     */
-    public static final long DEFAULT_MAX_OUTPUT_QUEUE_SIZE = 64 * 1024 * 1024;   // 64 MB
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final HashMap<String, TCPConnection> connectionMap = new HashMap<>();
     private final int defaultPort;
 
     private InetSocketAddress listenAddress;
-    private int maxConnections = DEFAULT_MAX_CONNECTIONS;
-    private long maxIdleTime = DEFAULT_MAX_IDLE_TIME;
     private long connectTimeout = DEFAULT_CONNECT_TIMEOUT;
-    private int maxMessageSize = DEFAULT_MAX_MESSAGE_SIZE;
-    private long maxOutputQueueSize = DEFAULT_MAX_OUTPUT_QUEUE_SIZE;
 
-    private Network.Handler handler;
     private ServerSocketChannel serverSocketChannel;
     private SelectionKey selectionKey;
-    private ExecutorService executor;
 
 // Constructors
 
@@ -129,31 +83,6 @@ public class TCPNetwork extends SelectorSupport implements Network {
     }
 
     /**
-     * Get the maximum number of allowed connections. Default is {@value #DEFAULT_MAX_CONNECTIONS}.
-     *
-     * @return max allowed connections
-     */
-    public synchronized int getMaxConnections() {
-        return this.maxConnections;
-    }
-    public synchronized void setMaxConnections(int maxConnections) {
-        this.maxConnections = maxConnections;
-    }
-
-    /**
-     * Get the maximum idle time for connections before automatically closing them down.
-     * Default is {@value #DEFAULT_MAX_IDLE_TIME}ms.
-     *
-     * @return max connection idle time in milliseconds
-     */
-    public synchronized long getMaxIdleTime() {
-        return this.maxIdleTime;
-    }
-    public synchronized void setMaxIdleTime(long maxIdleTime) {
-        this.maxIdleTime = maxIdleTime;
-    }
-
-    /**
      * Get the outgoing connection timeout. Default is {@value #DEFAULT_CONNECT_TIMEOUT}ms.
      *
      * @return outgoing connection timeout in milliseconds
@@ -165,42 +94,15 @@ public class TCPNetwork extends SelectorSupport implements Network {
         this.connectTimeout = connectTimeout;
     }
 
-    /**
-     * Get the maximum allowed length for incoming messages. Default is {@value #DEFAULT_MAX_MESSAGE_SIZE} bytes.
-     *
-     * @return max allowed incoming message length in bytes
-     */
-    public synchronized int getMaxMessageSize() {
-        return this.maxMessageSize;
-    }
-    public synchronized void setMaxMessageSize(int maxMessageSize) {
-        this.maxMessageSize = maxMessageSize;
-    }
-
-    /**
-     * Get the maximum allowed size of the queue for outgoing messages.
-     * Default is {@value #DEFAULT_MAX_OUTPUT_QUEUE_SIZE} bytes.
-     *
-     * @return max allowed outgoing message queue length in bytes
-     */
-    public synchronized long getMaxOutputQueueSize() {
-        return this.maxOutputQueueSize;
-    }
-    public synchronized void setMaxOutputQueueSize(long maxOutputQueueSize) {
-        this.maxOutputQueueSize = maxOutputQueueSize;
-    }
-
 // Lifecycle
 
     @Override
     public synchronized void start(Handler handler) throws IOException {
-        super.start();
+        super.start(handler);
         boolean successful = false;
         try {
-            if (this.handler != null)
+            if (this.serverSocketChannel != null)
                 return;
-            if (this.log.isDebugEnabled())
-                this.log.debug("starting " + this + " listening on " + this.listenAddress);
             this.serverSocketChannel = ServerSocketChannel.open();
             this.configureServerSocketChannel(this.serverSocketChannel);
             this.serverSocketChannel.bind(this.listenAddress);
@@ -217,8 +119,6 @@ public class TCPNetwork extends SelectorSupport implements Network {
                 }
             });
             this.selectForAccept(true);
-            this.executor = Executors.newSingleThreadExecutor();
-            this.handler = handler;
             successful = true;
         } finally {
             if (!successful)
@@ -230,10 +130,6 @@ public class TCPNetwork extends SelectorSupport implements Network {
     public void stop() {
         super.stop();
         synchronized (this) {
-            if (this.handler == null)
-                return;
-            if (this.log.isDebugEnabled())
-                this.log.debug("stopping " + this);
             if (this.serverSocketChannel != null) {
                 try {
                     this.serverSocketChannel.close();
@@ -242,47 +138,8 @@ public class TCPNetwork extends SelectorSupport implements Network {
                 }
                 this.serverSocketChannel = null;
             }
-            if (this.executor != null) {
-                this.executor.shutdownNow();
-                try {
-                    this.executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                this.executor = null;
-            }
             this.selectionKey = null;
-            this.handler = null;
         }
-    }
-
-// Network
-
-    @Override
-    public synchronized boolean send(String peer, ByteBuffer msg) {
-
-        // Sanity check
-        if (peer == null)
-            throw new IllegalArgumentException("null peer");
-
-        // Get/create connection
-        TCPConnection connection = this.connectionMap.get(peer);
-        if (connection == null) {
-
-            // Create connection
-            try {
-                connection = this.createConnection(peer);
-            } catch (IOException e) {
-                this.log.info(this + " unable to send message to `" + peer + "': " + e.getMessage());
-                return false;
-            }
-
-            // Record connection
-            this.connectionMap.put(peer, connection);
-        }
-
-        // Send message
-        return connection.output(msg);
     }
 
 // Utility methods
@@ -363,9 +220,9 @@ public class TCPNetwork extends SelectorSupport implements Network {
         assert this.isServiceThread();
 
         // Check connection size limit
-        if (this.connectionMap.size() >= this.maxConnections) {
+        if (this.connectionMap.size() >= this.getMaxConnections()) {
             this.log.warn("too many network connections (" + this.connectionMap.size() + " >= "
-              + this.maxConnections + "), not accepting any more (for now)");
+              + this.getMaxConnections() + "), not accepting any more (for now)");
             this.selectForAccept(false);
             return;
         }
@@ -385,7 +242,7 @@ public class TCPNetwork extends SelectorSupport implements Network {
         final String peer = remote.getHostString() + (remote.getPort() != this.defaultPort ? ":" + remote.getPort() : "");
 
         // Are we already connected to this peer? If so (deterministically) choose which connection wins
-        TCPConnection connection = this.connectionMap.get(peer);
+        TCPConnection connection = (TCPConnection)this.connectionMap.get(peer);
         if (connection != null) {
 
             // Compare the socket addresses of the initiator side of each connection
@@ -434,66 +291,21 @@ public class TCPNetwork extends SelectorSupport implements Network {
         }
     }
 
-// Connection API
-
-    // Invoked when a message arrives on a connection
-    void handleMessage(final TCPConnection connection, final ByteBuffer msg) {
-        assert Thread.holdsLock(this);
-        assert this.isServiceThread();
-        this.executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TCPNetwork.this.handler.handle(connection.getPeer(), msg);
-                } catch (Throwable t) {
-                    TCPNetwork.this.log.error("exception in callback", t);
-                }
-            }
-        });
-    }
-
-    // Invoked a connection's output queue goes empty
-    void handleOutputQueueEmpty(final TCPConnection connection) {
-        assert Thread.holdsLock(this);
-        assert this.isServiceThread();
-        this.executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    TCPNetwork.this.handler.outputQueueEmpty(connection.getPeer());
-                } catch (Throwable t) {
-                    TCPNetwork.this.log.error("exception in callback", t);
-                }
-            }
-        });
-    }
-
-    // Invoked when a connection closes
-    void handleConnectionClosed(TCPConnection connection) {
-        assert Thread.holdsLock(this);
-        assert this.isServiceThread();
-        if (this.log.isDebugEnabled())
-            this.log.debug(this + " handling closed connection " + connection);
-        this.connectionMap.remove(connection.getPeer());
-        this.handleOutputQueueEmpty(connection);
-        this.wakeup();
-    }
-
 // Internal API
 
-    // Create a new connection to the specified peer
-    private synchronized TCPConnection createConnection(String peer) throws IOException {
+    @Override
+    protected synchronized TCPConnection createConnection(String peer) throws IOException {
 
-        // Create new one
+        // Create new socket
         final SocketChannel socketChannel = SocketChannel.open()
           .setOption(StandardSocketOptions.SO_KEEPALIVE, true)
           .setOption(StandardSocketOptions.TCP_NODELAY, true);
         this.configureSocketChannel(socketChannel);
         socketChannel.configureBlocking(false);
-        if (this.log.isDebugEnabled())
-            this.log.debug(this + " looking up peer address `" + peer + "'");
 
         // Resolve peer name into a socket address
+        if (this.log.isDebugEnabled())
+            this.log.debug(this + " looking up peer address `" + peer + "'");
         InetSocketAddress socketAddress = null;
         try {
             socketAddress = new InetSocketAddress(
@@ -520,33 +332,12 @@ public class TCPNetwork extends SelectorSupport implements Network {
 
     @Override
     protected void serviceHousekeeping() {
-
-        // Perform connection housekeeping
-        for (TCPConnection connection : new ArrayList<TCPConnection>(this.connectionMap.values())) {
-            try {
-                connection.performHousekeeping();
-            } catch (IOException e) {
-                if (this.log.isDebugEnabled())
-                    this.log.debug("I/O error from " + connection, e);
-                connection.close(e);
-            } catch (Throwable t) {
-                this.log.error("error performing housekeeping for " + connection, t);
-                connection.close(t);
-            }
-        }
-
-        // Perform my own housekeeping
+        super.serviceHousekeeping();
         try {
-            this.selectForAccept(this.connectionMap.size() < this.maxConnections);
+            this.selectForAccept(this.connectionMap.size() < this.getMaxConnections());
         } catch (IOException e) {
             throw new RuntimeException("unexpected exception", e);
         }
-    }
-
-    @Override
-    protected void serviceCleanup() {
-        for (TCPConnection connection : new ArrayList<TCPConnection>(this.connectionMap.values()))
-            connection.close(null);
     }
 }
 
