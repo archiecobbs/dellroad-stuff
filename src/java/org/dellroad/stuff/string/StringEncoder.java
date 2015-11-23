@@ -194,9 +194,15 @@ public final class StringEncoder {
      * <p>
      * Note: the strings returned by this method are not suitable for decoding by {@link #decode}.
      * Use {@link #dequote} instead.
+     *
+     * @param string string to enquote
+     * @return enquoted string, or the string {@code null} (not quoted) if {@code string} is null
+     * @throws IllegalArgumentException if {@code string} is null
      */
     public static String enquote(String string) {
-        return '"' + encode(string, true).replaceAll(Pattern.quote("\""), Matcher.quoteReplacement("\\\"")) + '"';
+        if (string == null)
+            return "null";
+        return '"' + StringEncoder.encode(string, true).replaceAll(Pattern.quote("\""), Matcher.quoteReplacement("\\\"")) + '"';
     }
 
     /**
