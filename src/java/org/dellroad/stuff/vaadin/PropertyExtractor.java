@@ -15,8 +15,10 @@ public interface PropertyExtractor<T> {
     /**
      * Read the value of the property defined by {@code propertyDef} from the given object.
      *
+     * @param <V> property value type
      * @param obj Java object
      * @param propertyDef definition of which property to read
+     * @return property value
      * @throws NullPointerException if either parameter is null
      */
     <V> V getPropertyValue(T obj, PropertyDef<V> propertyDef);

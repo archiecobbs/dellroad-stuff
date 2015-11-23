@@ -137,6 +137,8 @@ public class XMLResultSetWriter {
      * Set whether to use the SQL column labels as the XML element names for the data columns
      * instead of <code>&lt;column&gt;</code>.
      * Default is false.
+     *
+     * @param columnNameTags true to name XML elements using the corresponding SQL column names
      */
     public void setColumnNameTags(boolean columnNameTags) {
         this.columnNameTags = columnNameTags;
@@ -151,6 +153,10 @@ public class XMLResultSetWriter {
      *      write(null, resultSet)
      *  </code></blockquote>
      * element is included.
+     *
+     * @param resultSet query result set
+     * @throws SQLException if accessing {@code resultSet} throws an exception
+     * @throws XMLStreamException if XML output fails
      */
     public void write(ResultSet resultSet) throws SQLException, XMLStreamException {
         this.write(null, resultSet);

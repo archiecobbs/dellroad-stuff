@@ -91,6 +91,7 @@ public class SQLCommandList implements DatabaseAction<Connection> {
      * the script is assumed to contain a single SQL statement. SQL statements are whitespace-trimmed and any
      * "statements" that consist entirely of whitespace are ignored.
      *
+     * @param splitPattern regular expression pattern used to split multiple SQL statements
      * @throws java.util.regex.PatternSyntaxException if the pattern is not a valid Java regular expression
      */
     public void setSplitPattern(String splitPattern) {
@@ -111,6 +112,8 @@ public class SQLCommandList implements DatabaseAction<Connection> {
 
     /**
      * Split the SQL script into individual statements and return them as {@link DatabaseAction}s.
+     *
+     * @return list of individual SQL statements
      */
     public List<SQLCommand> split() {
         ArrayList<SQLCommand> list = new ArrayList<SQLCommand>();

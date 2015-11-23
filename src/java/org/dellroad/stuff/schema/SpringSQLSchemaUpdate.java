@@ -78,6 +78,7 @@ public class SpringSQLSchemaUpdate extends AbstractSpringSchemaUpdate<Connection
     /**
      * Configure the {@link SQLCommandList}. This is a required property.
      *
+     * @param sqlCommandList list of SQL statements that perform this update
      * @see DatabaseAction
      */
     public void setSQLCommandList(SQLCommandList sqlCommandList) {

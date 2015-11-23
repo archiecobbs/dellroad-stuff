@@ -36,6 +36,7 @@ public final class DateEncoder {
      * If the fractional seconds portion is zero, it will be omitted.
      *
      * @param date date to encode
+     * @return endoded date
      * @throws NullPointerException if {@code date} is {@code null}
      */
     public static String encode(Date date) {
@@ -47,6 +48,7 @@ public final class DateEncoder {
      * Decode the given date.
      *
      * @param string encoded date
+     * @return decoded date
      * @throws IllegalArgumentException if {@code string} is malformed
      * @throws NullPointerException if {@code string} is {@code null}
      */
@@ -68,6 +70,7 @@ public final class DateEncoder {
      * Get a {@link SimpleDateFormat} configured with the given format and for the UTC time zone and strict parsing.
      *
      * @param format date format string
+     * @return date formatter
      */
     public static SimpleDateFormat getDateFormat(String format) {
         final SimpleDateFormat dateFormat = new SimpleDateFormat(format);

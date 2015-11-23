@@ -19,6 +19,8 @@ public interface QueryList<T> {
      * <p>
      * For any given {@link QueryList} instance, this method is expected to return a the same value if invoked multiple times.
      * Therefore, callers may safely choose to invoke it only once on a given instance and cache the result.
+     *
+     * @return the size of this list
      */
     long size();
 
@@ -27,6 +29,7 @@ public interface QueryList<T> {
      * or cannot provide the item.
      *
      * @param index index of the item (zero-based)
+     * @return the item at {@code index}
      * @throws IndexOutOfBoundsException if {@code index} is less than zero or greater than or equal to {@link #size}
      * @throws InvalidQueryListException if this list has become invalid or cannot provide the item
      */

@@ -231,6 +231,7 @@ public final class StringEncoder {
      * Dequote a string previously enquoted by {@link #enquote}.
      *
      * @param quotedString a string returned by {@link #enquote}
+     * @return original unquoted string
      * @throws IllegalArgumentException if {@code quotedString} has an invalid format (i.e., it could not have
      *  ever been returned by {@link #enquote})
      */
@@ -251,6 +252,7 @@ public final class StringEncoder {
      * string; use {@link #dequote} to verify.
      *
      * @param string a string containing a prefix returned by {@link #enquote}
+     * @return length of {@code string} when enquoted
      * @throws IllegalArgumentException if a starting or terminating quote character is not found
      */
     public static int enquotedLength(String string) {
@@ -271,6 +273,8 @@ public final class StringEncoder {
      * Valid characters are tab, newline, carriage return, and characters in the ranges
      * <code>&#92;u0020 - &#92;ud7ff</code> and <code>&#92;ue000 - &#92;fffdf</code> (inclusive).
      *
+     * @param ch character to test
+     * @return true if {@code ch} is valid within XML
      * @see <a href="http://www.w3.org/TR/REC-xml/#charsets">The XML 1.0 Specification</a>
      */
     public static boolean isValidXMLChar(char ch) {

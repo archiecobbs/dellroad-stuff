@@ -20,7 +20,7 @@ import org.springframework.transaction.TransactionDefinition;
 
 /**
  * Hibernate JPA adapter that adds supports for setting a non-default transaction isolation level
- * and adds a workaround for <a href="https://jira.springsource.org/browse/SPR-10815">SPR-10815</a>.
+ * and adds a workaround for <a href="https://jira.springsource.org/browse/SPR-3812">SPR-3812</a>.
  *
  * <p>
  * The JPA specification, which is database technology agnostic, does not define a way to set SQL database isolation levels.
@@ -63,6 +63,12 @@ public class HibernateIsolationJpaDialect extends HibernateJpaDialect {
 
     /**
      * Prepare transaction.
+     *
+     * @param entityManager entity manager
+     * @param definition transaction definition
+     * @param connection SQL connection
+     * @param oldIsolation original isolation
+     * @return wrapped transaction data
      */
     protected TransactionDataWrapper prepareTransaction(EntityManager entityManager, TransactionDefinition definition,
       Connection connection, Integer oldIsolation) {

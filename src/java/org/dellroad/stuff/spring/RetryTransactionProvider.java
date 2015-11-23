@@ -16,21 +16,29 @@ public interface RetryTransactionProvider {
 
     /**
      * Get the configured exception translator.
+     *
+     * @return exception translator used to determine which transactions are retryable
      */
     PersistenceExceptionTranslator getPersistenceExceptionTranslator();
 
     /**
      * Get the aspect-wide default for {@link RetryTransaction#maxRetries}.
+     *
+     * @return defatul maximum number of transaction retry attempts
      */
     int getMaxRetriesDefault();
 
     /**
      * Get the aspect-wide default for {@link RetryTransaction#initialDelay}.
+     *
+     * @return default initial delay between retry attempts in milliseconds
      */
     long getInitialDelayDefault();
 
     /**
      * Get the aspect-wide default for {@link RetryTransaction#maximumDelay}.
+     *
+     * @return default maximum delay between retry attempts in milliseconds
      */
     long getMaximumDelayDefault();
 

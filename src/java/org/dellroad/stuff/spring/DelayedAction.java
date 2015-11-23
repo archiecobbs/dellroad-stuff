@@ -222,6 +222,8 @@ public abstract class DelayedAction implements Runnable {
 
     /**
      * Determine whether there is currently an outstanding scheduled action.
+     *
+     * @return true if an action is pending
      */
     public boolean isScheduled() {
         final boolean[] result = new boolean[1];
@@ -256,6 +258,7 @@ public abstract class DelayedAction implements Runnable {
      *
      * @param action action to perform
      * @param date when to perform it
+     * @return future for completion of {@code action}
      * @throws IllegalArgumentException if either parameter is null
      * @throws java.util.concurrent.RejectedExecutionException
      *   if the given task was not accepted for internal reasons (e.g. a pool overload handling

@@ -91,6 +91,7 @@ public class ParseContext implements Cloneable {
      * Match the current input against the given regular expression and advance past it.
      *
      * @param regex regular expression to match against the current input
+     * @return {@link Matcher} for the successfully matched input
      * @throws IllegalArgumentException if the current input does not match
      */
     public Matcher matchPrefix(String regex) {
@@ -101,6 +102,7 @@ public class ParseContext implements Cloneable {
      * Match the current input against the given regular expression and advance past it.
      *
      * @param regex regular expression to match against the current input
+     * @return {@link Matcher} for the successfully matched input
      * @throws IllegalArgumentException if the current input does not match
      */
     public Matcher matchPrefix(Pattern regex) {
@@ -152,6 +154,8 @@ public class ParseContext implements Cloneable {
 
     /**
      * Determine if we are at the end of the input.
+     *
+     * @return true if end of input has been reached
      */
     public boolean isEOF() {
         return this.index >= this.input.length();
@@ -220,6 +224,8 @@ public class ParseContext implements Cloneable {
 
     /**
      * Clone this instance.
+     *
+     * @return cloned instance
      */
     public ParseContext clone() {
         try {
@@ -231,6 +237,8 @@ public class ParseContext implements Cloneable {
 
     /**
      * Create a generic exception for rejecting the current input.
+     *
+     * @return rejection exception object
      */
     public IllegalArgumentException buildException() {
         return this.buildException(null);
@@ -240,6 +248,7 @@ public class ParseContext implements Cloneable {
      * Create an exception for rejecting the current input.
      *
      * @param message problem description, or {@code null} for none
+     * @return corresponding exception object
      */
     public IllegalArgumentException buildException(String message) {
         String text = "parse error ";

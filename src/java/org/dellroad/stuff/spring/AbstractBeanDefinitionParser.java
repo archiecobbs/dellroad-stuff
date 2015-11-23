@@ -22,6 +22,7 @@ public abstract class AbstractBeanDefinitionParser extends org.springframework.b
      * @param beanClass bean type
      * @param element the element that the new bean definition is associated with
      * @param parserContext parser context
+     * @return new bean definition
      */
     protected AbstractBeanDefinition createBeanDefinition(Class<?> beanClass, Element element, ParserContext parserContext) {
         BeanDefinitionBuilder builder = BeanDefinitionBuilder.genericBeanDefinition();
@@ -48,6 +49,10 @@ public abstract class AbstractBeanDefinitionParser extends org.springframework.b
 
     /**
      * Report an error and throw an exception.
+     *
+     * @param element XML element
+     * @param parserContext parser context
+     * @param message error message
      */
     protected void error(Element element, ParserContext parserContext, String message) {
         parserContext.getReaderContext().fatal(message, parserContext.extractSource(element));

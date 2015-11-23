@@ -27,6 +27,8 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
 
     /**
      * Configure the underlying {@link DataSource}. Required property.
+     *
+     * @param dataSource underlying {@link DataSource} to update
      */
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -37,11 +39,16 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      *
      * <p>
      * This method will be invoked at most once.
+     *
+     * @param dataSource the {@link DataSource} to update
+     * @throws SQLException if the update attempt fails
      */
     protected abstract void updateDataSource(DataSource dataSource) throws SQLException;
 
     /**
      * Get the underlying {@link DataSource}.
+     *
+     * @return the underlying {@link DataSource}
      */
     protected DataSource getInnerDataSource() {
         return this.dataSource;
@@ -53,6 +60,8 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      * <p>
      * If the update is currently happening in another thread, the current thread will
      * block until the update operation finishes.
+     *
+     * @return true if the underlying {@link DataSource} has already been updated
      */
     protected synchronized boolean isUpdated() {
         return this.updated;

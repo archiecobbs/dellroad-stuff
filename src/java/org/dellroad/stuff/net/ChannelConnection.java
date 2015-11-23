@@ -87,6 +87,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     /**
      * Get remote peer's identity.
+     *
+     * @return remote peer for this connection
      */
     public String getPeer() {
         return this.peer;
@@ -94,6 +96,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     /**
      * Get the associated input channel.
+     *
+     * @return input channel for this connection; could be same as the {@linkplain #getOutputChannel output channel}
      */
     public SelectableChannel getInputChannel() {
         return this.inputChannel;
@@ -101,6 +105,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     /**
      * Get the associated output channel.
+     *
+     * @return input channel for this connection; could be same as the {@linkplain #getInputChannel input channel}
      */
     public SelectableChannel getOutputChannel() {
         return this.outputChannel;
@@ -108,6 +114,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     /**
      * Get time in milliseconds since last activity.
+     *
+     * @return idle time in milliseconds
      */
     public long getIdleTime() {
         return (System.nanoTime() - this.lastActiveTime) / 1000000L;
@@ -293,6 +301,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
      * Perform housekeeping.
      *
      * The implementation in {@link ChannelConnection} checks the max idle time.
+     *
+     * @throws IOException if an I/O error occurs (this connection will be closed)
      */
     protected void performHousekeeping() throws IOException {
         assert Thread.holdsLock(this.network);

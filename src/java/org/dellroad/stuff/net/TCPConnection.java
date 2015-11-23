@@ -27,6 +27,8 @@ public class TCPConnection extends ChannelConnection {
 
     /**
      * Get the associated {@link SocketChannel}.
+     *
+     * @return the socket channel for this connection
      */
     public SocketChannel getSocketChannel() {
         return (SocketChannel)this.getInputChannel();

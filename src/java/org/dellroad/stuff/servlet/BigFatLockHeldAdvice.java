@@ -18,6 +18,10 @@ public class BigFatLockHeldAdvice extends AspectJMethodBeforeAdvice {
 
     /**
      * Constructor.
+     *
+     * @param aspectJBeforeAdviceMethod method to advise
+     * @param pointcut pointcut
+     * @param aif factory for aspect instance
      */
     public BigFatLockHeldAdvice(Method aspectJBeforeAdviceMethod, AspectJExpressionPointcut pointcut, AspectInstanceFactory aif) {
         super(aspectJBeforeAdviceMethod, pointcut, aif);

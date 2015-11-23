@@ -63,6 +63,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     /**
      * Get the name of the table that keeps track of applied updates.
      *
+     * @return the name of the update table
      * @see #setUpdateTableName setUpdateTableName()
      */
     public String getUpdateTableName() {
@@ -75,6 +76,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      *
      * <p>
      * This name must be consistent with the {@linkplain #setUpdateTableInitialization update table initialization}.
+     *
+     * @param updateTableName the name of the update table
      */
     public void setUpdateTableName(String updateTableName) {
         this.updateTableName = updateTableName;
@@ -83,6 +86,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     /**
      * Get the name of the update name column in the table that keeps track of applied updates.
      *
+     * @return the name of the name column in the update table
      * @see #setUpdateTableNameColumn setUpdateTableNameColumn()
      */
     public String getUpdateTableNameColumn() {
@@ -95,6 +99,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      *
      * <p>
      * This name must be consistent with the {@linkplain #setUpdateTableInitialization update table initialization}.
+     *
+     * @param updateTableNameColumn the name of the name column in the update table
      */
     public void setUpdateTableNameColumn(String updateTableNameColumn) {
         this.updateTableNameColumn = updateTableNameColumn;
@@ -103,6 +109,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     /**
      * Get the name of the update timestamp column in the table that keeps track of applied updates.
      *
+     * @return the name of the timestamp column in the update table
      * @see #setUpdateTableTimeColumn setUpdateTableTimeColumn()
      */
     public String getUpdateTableTimeColumn() {
@@ -115,6 +122,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      *
      * <p>
      * This name must be consistent with the {@linkplain #setUpdateTableInitialization update table initialization}.
+     *
+     * @param updateTableTimeColumn the name of the timestamp column in the update table
      */
     public void setUpdateTableTimeColumn(String updateTableTimeColumn) {
         this.updateTableTimeColumn = updateTableTimeColumn;
@@ -123,6 +132,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     /**
      * Get the update table initialization.
      *
+     * @return SQL commands to create the update table
      * @see #setUpdateTableInitialization setUpdateTableInitialization()
      */
     public SQLCommandList getUpdateTableInitialization() {
@@ -176,6 +186,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     /**
      * Get the empty database initialization.
      *
+     * @return SQL commands to initialize an empty database
      * @see #setDatabaseInitialization setDatabaseInitialization()
      */
     public SQLCommandList getDatabaseInitialization() {
@@ -348,8 +359,9 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      *
      * @param c connection on which the exception occurred
      * @param e exception thrown during database access in {@link #databaseNeedsInitialization}
-     * @see #databaseNeedsInitialization
+     * @return true if {@code e} indicates an uninitialized database
      * @throws SQLException if an error occurs
+     * @see #databaseNeedsInitialization
      */
     protected boolean indicatesUninitializedDatabase(Connection c, SQLException e) throws SQLException {
         return true;

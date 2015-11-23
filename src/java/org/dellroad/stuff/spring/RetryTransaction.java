@@ -141,6 +141,8 @@ public @interface RetryTransaction {
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_MAX_RETRIES} by default), should be used.
+     *
+     * @return maximum number of transaction retry attempts
      */
     int maxRetries() default -1;
 
@@ -152,6 +154,8 @@ public @interface RetryTransaction {
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_INITIAL_DELAY} milliseconds by default), should be used.
+     *
+     * @return initial delay between retry attempts in milliseconds
      */
     long initialDelay() default -1;
 
@@ -163,6 +167,8 @@ public @interface RetryTransaction {
      * <p>
      * If this property is not set explicitly, the default value of {@code -1} indicates that the aspect-wide default value
      * ({@value #DEFAULT_MAXIMUM_DELAY} milliseconds by default), should be used.
+     *
+     * @return maximum delay between retry attempts in milliseconds
      */
     long maximumDelay() default -1;
 }

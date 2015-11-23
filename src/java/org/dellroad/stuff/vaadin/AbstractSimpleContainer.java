@@ -139,6 +139,8 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
 
     /**
      * Get the configured {@link PropertyExtractor} for this container.
+     *
+     * @return configured {@link PropertyExtractor}
      */
     public PropertyExtractor<? super T> getPropertyExtractor() {
         return this.propertyExtractor;

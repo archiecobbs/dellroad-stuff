@@ -21,6 +21,8 @@ public class SchemaUpdatingDataSource extends AbstractUpdatingDataSource {
 
     /**
      * Configure the {@link SQLSchemaUpdater} that will initialize and update the database. Required property.
+     *
+     * @param schemaUpdater schema updater
      */
     public void setSchemaUpdater(SQLSchemaUpdater schemaUpdater) {
         this.schemaUpdater = schemaUpdater;

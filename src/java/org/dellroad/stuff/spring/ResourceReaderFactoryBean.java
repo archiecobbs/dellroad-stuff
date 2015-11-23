@@ -23,6 +23,8 @@ public class ResourceReaderFactoryBean extends AbstractFactoryBean<String> {
 
     /**
      * Configure the resource containing the {@link String value}.
+     *
+     * @param resource resource to read
      */
     public void setResource(Resource resource) {
         this.resource = resource;
@@ -30,6 +32,8 @@ public class ResourceReaderFactoryBean extends AbstractFactoryBean<String> {
 
     /**
      * Configure the character encoding for the resource. Default is {@code UTF-8}.
+     *
+     * @param charset resource charset
      */
     public void setCharacterEncoding(String charset) {
         this.charset = charset;

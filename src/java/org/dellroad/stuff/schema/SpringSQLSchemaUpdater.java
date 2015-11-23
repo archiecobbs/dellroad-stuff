@@ -147,6 +147,12 @@ public class SpringSQLSchemaUpdater extends SQLSchemaUpdater implements BeanFact
 
     /**
      * Converts {@link SQLException}s into Spring {@link DataAccessException}s.
+     *
+     * @param e original exception
+     * @param c the connection on which the exception coccurred
+     * @param sql the SQL statement that generated the exception
+     * @return the corresponding Spring {@link DataAccessException}
+     * @throws SQLException if exception translation fails
      */
     protected DataAccessException translate(SQLException e, Connection c, String sql) throws SQLException {
         return new SQLErrorCodeSQLExceptionTranslator(c.getMetaData().getDatabaseProductName())

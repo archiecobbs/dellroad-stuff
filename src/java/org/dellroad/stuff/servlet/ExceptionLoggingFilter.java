@@ -68,6 +68,7 @@ public class ExceptionLoggingFilter extends OncePerRequestFilter {
      * @param request HTTP request
      * @param response HTTP response
      * @param t exception caught by this instance
+     * @return true if exception is loggable
      */
     protected boolean shouldLogException(HttpServletRequest request, HttpServletResponse response, Throwable t) {
         for (Throwable e = t; e != null; e = e.getCause()) {
@@ -107,6 +108,7 @@ public class ExceptionLoggingFilter extends OncePerRequestFilter {
      * @param request HTTP request
      * @param response HTTP response
      * @param t the exception about to be logged
+     * @return log destination
      */
     protected Logger getLogger(HttpServletRequest request, HttpServletResponse response, Throwable t) {
         return this.defaultLogger;

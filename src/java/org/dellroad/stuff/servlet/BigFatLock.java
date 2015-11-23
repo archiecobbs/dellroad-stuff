@@ -53,6 +53,8 @@ public final class BigFatLock extends OncePerRequestFilter {
 
     /**
      * Invoke the given action after acquiring the big fat lock.
+     *
+     * @param action action to perform while locked
      */
     public static void runWithLock(Runnable action) {
         if (LOG.isTraceEnabled()) {
@@ -74,6 +76,11 @@ public final class BigFatLock extends OncePerRequestFilter {
 
     /**
      * Invoke the given action after acquiring the big fat lock.
+     *
+     * @param <V> action return type
+     * @param action action to perform while locked
+     * @return result from {@code action}
+     * @throws Exception if {@code action} throws an exception
      */
     public static <V> V runWithLock(Callable<V> action) throws Exception {
         if (LOG.isTraceEnabled()) {
@@ -95,6 +102,8 @@ public final class BigFatLock extends OncePerRequestFilter {
 
     /**
      * Verify that the current thread is holding the big fat lock.
+     *
+     * @return true if lock is held
      */
     public static boolean isLockHeld() {
         return Thread.holdsLock(BIG_FAT_LOCK);

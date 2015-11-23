@@ -85,6 +85,7 @@ public class NamedArgumentFormatter {
      * Format the string using the given arguments.
      *
      * @param argMap mapping from argument name to argument value
+     * @return formatted string
      * @throws java.util.IllegalFormatException if the format provided to the constructor contained illegal syntax
      * @throws java.util.IllegalFormatException if an argument value is incompatible or missing (and null would be invalid)
      */
@@ -101,6 +102,8 @@ public class NamedArgumentFormatter {
 
     /**
      * Get the original format string provided to the constructor.
+     *
+     * @return original format string
      */
     public String getFormat() {
         return this.originalFormat;

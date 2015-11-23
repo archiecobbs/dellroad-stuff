@@ -23,6 +23,8 @@ public class UpdatingDataSource extends AbstractUpdatingDataSource {
 
     /**
      * Configure the {@link SQLCommandList} to be applied to the database on first access. Required property.
+     *
+     * @param action SQL command(s) to apply exactly once to the underlying {@link DataSource}
      */
     public void setSQLCommandList(SQLCommandList action) {
         this.action = action;
@@ -31,6 +33,8 @@ public class UpdatingDataSource extends AbstractUpdatingDataSource {
     /**
      * Configure whether the {@link SQLCommandList} is applied transactionally or not.
      * Default is {@code true}.
+     *
+     * @param transactional true for transactional application of SQL command(s)
      */
     public void setTransactional(boolean transactional) {
         this.transactional = transactional;

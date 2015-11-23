@@ -252,6 +252,10 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
 
     /**
      * Create a new connection to the specified peer.
+     *
+     * @param peer remote peer
+     * @return new connection to {@code peer}
+     * @throws IOException if an I/O error occurs
      */
     protected abstract ChannelConnection createConnection(String peer) throws IOException;
 

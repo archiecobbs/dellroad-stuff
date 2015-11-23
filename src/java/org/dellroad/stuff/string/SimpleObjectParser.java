@@ -52,6 +52,8 @@ public class SimpleObjectParser<T> {
 
     /**
      * Get the target class.
+     *
+     * @return target class for parse
      */
     public Class<T> getTargetClass() {
         return this.targetClass;
@@ -61,6 +63,10 @@ public class SimpleObjectParser<T> {
      * Same as {@link #parse(Object, String, String, boolean)} but this method creates the target instance using
      * the target type's default constructor.
      *
+     * @param text                string to parse
+     * @param regex               named group regular expression containing object property names
+     * @param allowSubstringMatch if false, entire text must match, otherwise only a (the first) substring need match
+     * @return parsed object or null if parse fails
      * @throws RuntimeException if a new target instance cannot be created using the default constructor
      * @since 1.0.85
      */
@@ -137,6 +143,11 @@ public class SimpleObjectParser<T> {
      * Same as {@link #parse(Object, String, Pattern, Map, boolean)} but this method creates the target instance using
      * the target type's default constructor.
      *
+     * @param text                string to parse
+     * @param pattern             pattern with substring matching groups that match object properties
+     * @param patternMap          mapping from pattern substring group index to object property name
+     * @param allowSubstringMatch if false, entire text must match, otherwise only a (the first) substring need match
+     * @return parsed object or null if parse fails
      * @throws RuntimeException if a new target instance cannot be created using the default constructor
      * @since 1.0.85
      */
@@ -210,7 +221,9 @@ public class SimpleObjectParser<T> {
     }
 
     /**
-     * Get the mapping from property name to setter method.
+     * Get the mapping from property name to property descriptor.
+     *
+     * @return property descriptor map with property setters
      */
     public Map<String, PropertyDescriptor> getPropertyMap() {
         return Collections.unmodifiableMap(this.propertyMap);
@@ -240,6 +253,9 @@ public class SimpleObjectParser<T> {
      * The implementation in {@link SimpleObjectParser} handles primitives using the corresponding
      * {@code valueOf} method; String values are handled by setting the value directly.
      *
+     * @param obj object being parsed
+     * @param property property being decoded
+     * @param substring property value as a string
      * @throws IllegalArgumentException if property is not a primitive or String property.
      * @throws IllegalArgumentException if substring cannot be successfully parsed (if primitive)
      * @throws IllegalArgumentException if an exception is thrown attempting to set the property
@@ -273,6 +289,8 @@ public class SimpleObjectParser<T> {
      *
      * <p>
      * The implementation in {@link SimpleObjectParser} does nothing. Subclasses may override if needed.
+     *
+     * @param obj newly created instance
      */
     protected void postProcess(T obj) {
     }
