@@ -208,9 +208,19 @@ public final class StringEncoder {
     /**
      * Enquote bytes, treating them as an ASCII string.
      *
+     * @param data ascii character buffer
+     * @param off starting offset in {@code data}
+     * @param len number of characters in {@code data}
+     * @return enquoted string
+     * @throws IllegalArgumentException if {@code data} is null
+     * @throws IndexOutOfBoundsException if {@code off} and/or {@code len} is invalid
      * @see #enquote(String)
      */
     public static String enquote(byte[] data, int off, int len) {
+        if (data == null)
+            throw new IllegalArgumentException("null data");
+        if (off < 0 || len < 0 || off + len < 0 || off + len > data.length)
+            throw new IndexOutOfBoundsException("invalid off/len");
         char[] chars = new char[len];
         for (int i = 0; i < len; i++)
             chars[i] = (char)(data[off + i] & 0xff);
