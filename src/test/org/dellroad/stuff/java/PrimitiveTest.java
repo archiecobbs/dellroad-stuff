@@ -43,6 +43,16 @@ public class PrimitiveTest extends TestSupport {
         }
     }
 
+    @Test(dataProvider = "parse")
+    public <T> void testPrimitiveParse(Primitive<T> primitive, String string) throws Exception {
+        Assert.assertTrue(primitive.getParsePattern().matcher(string).matches(),
+          primitive + " parse pattern " + primitive.getParsePattern() + " does not match \"" + string + "\"");
+        final T value = primitive.parseValue(string);
+        final T value2 = primitive.parseValue("" + value);
+        Assert.assertEquals(value2, value,
+          primitive + " parsed value " + value2 + " for \"" + value + "\" does not equal " + value + " for \"" + string + "\"");
+    }
+
     @DataProvider(name = "names")
     public Object[][] getNameData() {
         return new Object[][] {
@@ -116,6 +126,22 @@ public class PrimitiveTest extends TestSupport {
             }
         }});
         return list.toArray(new Object[8][]);
+    }
+
+    @DataProvider(name = "parse")
+    public Object[][] getParseData() {
+        return new Object[][] {
+
+            { Primitive.INTEGER, "0xffff" },
+            { Primitive.INTEGER, "0x8000" },
+            { Primitive.INTEGER, "0x7fff" },
+            { Primitive.INTEGER, "0x0000" },
+
+            { Primitive.LONG, "0xffffffff" },
+            { Primitive.LONG, "0x80000000" },
+            { Primitive.LONG, "0x7fffffff" },
+            { Primitive.LONG, "0x00000000" },
+        };
     }
 
     private abstract class RandomIterator<T> implements Iterator<T> {

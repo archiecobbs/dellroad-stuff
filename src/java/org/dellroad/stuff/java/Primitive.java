@@ -26,7 +26,7 @@ public abstract class Primitive<T> implements Comparator<T> {
      * Void type. The {@link #getDefaultValue}, {@link #compare compare()}, and {@link #parseValue parseValue()}
      * methods always throw exceptions.
      */
-    public static final Primitive<Void> VOID = new Primitive<Void>(Void.TYPE, Void.class, 'V', "") {
+    public static final Primitive<Void> VOID = new Primitive<Void>(Void.TYPE, Void.class, 'V', 0, "") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseVoid();
@@ -48,7 +48,7 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Boolean type. String values must equal {@code "true"} or {@code "false"}.
      */
-    public static final Primitive<Boolean> BOOLEAN = new Primitive<Boolean>(Boolean.TYPE, Boolean.class, 'Z', "true|false") {
+    public static final Primitive<Boolean> BOOLEAN = new Primitive<Boolean>(Boolean.TYPE, Boolean.class, 'Z', 1, "true|false") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseBoolean();
@@ -70,8 +70,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Byte type. String values are parsed using {@link Byte#decode Byte.decode()}.
      */
-    public static final Primitive<Byte> BYTE = new Primitive<Byte>(Byte.TYPE, Byte.class, 'B',
-      "(?i)(\\+|-)?(((0x|#)0*([A-F0-9]{1,2}))|(0+[0-7]{0,3})|([1-9][0-9]{0,2}))") {
+    public static final Primitive<Byte> BYTE = new Primitive<Byte>(Byte.TYPE, Byte.class, 'B', 1,
+      "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,2}))|(0+[0-7]{0,3})|([1-9][0-9]{0,2}))") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseByte();
@@ -93,7 +93,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Character type. String values must be exactly one character long.
      */
-    public static final Primitive<Character> CHARACTER = new Primitive<Character>(Character.TYPE, Character.class, 'C', "(?s).") {
+    public static final Primitive<Character> CHARACTER = new Primitive<Character>(
+      Character.TYPE, Character.class, 'C', 2, "(?s).") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseCharacter();
@@ -117,8 +118,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Short type. String values are parsed using {@link Short#decode Short.decode()}.
      */
-    public static final Primitive<Short> SHORT = new Primitive<Short>(Short.TYPE, Short.class, 'S',
-      "(?i)(\\+|-)?(((0x|#)0*([A-F0-9]{1,4}))|(0+[0-7]{0,6})|([1-9][0-9]{0,4}))") {
+    public static final Primitive<Short> SHORT = new Primitive<Short>(Short.TYPE, Short.class, 'S', 2,
+      "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,4}))|(0+[0-7]{0,6})|([1-9][0-9]{0,4}))") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseShort();
@@ -140,8 +141,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Integer type. String values are parsed using {@link Integer#decode Integer.decode()}.
      */
-    public static final Primitive<Integer> INTEGER = new Primitive<Integer>(Integer.TYPE, Integer.class, 'I',
-      "(?i)(\\+|-)?(((0x|#)0*([A-F0-9]{1,8}))|(0+[0-7]{0,11})|([1-9][0-9]{0,9}))") {
+    public static final Primitive<Integer> INTEGER = new Primitive<Integer>(Integer.TYPE, Integer.class, 'I', 4,
+      "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,8}))|(0+[0-7]{0,11})|([1-9][0-9]{0,9}))") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseInteger();
@@ -163,7 +164,7 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Float type. String values are parsed using {@link Float#parseFloat Float.parseFloat()}.
      */
-    public static final Primitive<Float> FLOAT = new Primitive<Float>(Float.TYPE, Float.class, 'F', DoubleFormat.REGEX) {
+    public static final Primitive<Float> FLOAT = new Primitive<Float>(Float.TYPE, Float.class, 'F', 4, DoubleFormat.REGEX) {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseFloat();
@@ -185,8 +186,8 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Long type. String values are parsed using {@link Long#decode Long.decode()}.
      */
-    public static final Primitive<Long> LONG = new Primitive<Long>(Long.TYPE, Long.class, 'J',
-      "(?i)(\\+|-)?(((0x|#)0*([A-F0-9]{1,16}))|(0+[0-7]{0,22})|([1-9][0-9]{0,18}))") {
+    public static final Primitive<Long> LONG = new Primitive<Long>(Long.TYPE, Long.class, 'J', 8,
+      "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,16}))|(0+[0-7]{0,22})|([1-9][0-9]{0,18}))") {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseLong();
@@ -208,7 +209,7 @@ public abstract class Primitive<T> implements Comparator<T> {
     /**
      * Double type. String values are parsed using {@link Double#parseDouble Double.parseDouble()}.
      */
-    public static final Primitive<Double> DOUBLE = new Primitive<Double>(Double.TYPE, Double.class, 'D', DoubleFormat.REGEX) {
+    public static final Primitive<Double> DOUBLE = new Primitive<Double>(Double.TYPE, Double.class, 'D', 8, DoubleFormat.REGEX) {
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseDouble();
@@ -232,12 +233,14 @@ public abstract class Primitive<T> implements Comparator<T> {
     private final Class<T> primType;
     private final Class<T> wrapType;
     private final char letter;
+    private final byte size;
     private final Pattern parsePattern;
 
-    Primitive(Class<T> primType, Class<T> wrapType, char letter, String parsePattern) {
+    Primitive(Class<T> primType, Class<T> wrapType, char letter, int size, String parsePattern) {
         this.primType = primType;
         this.wrapType = wrapType;
         this.letter = letter;
+        this.size = (byte)size;
         this.parsePattern = parsePattern != null ? Pattern.compile(parsePattern) : null;
         if (Primitive.classMap == null)
             Primitive.classMap = new HashMap<Class<?>, Primitive<?>>();
@@ -287,6 +290,15 @@ public abstract class Primitive<T> implements Comparator<T> {
      */
     public char getLetter() {
         return this.letter;
+    }
+
+    /**
+     * Get the size of one value of this primitive type in bytes.
+     *
+     * @return primitive size in bytes
+     */
+    public int getSize() {
+        return this.size;
     }
 
     /**
