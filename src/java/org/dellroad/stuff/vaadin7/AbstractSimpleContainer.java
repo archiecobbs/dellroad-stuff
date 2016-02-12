@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -212,6 +213,16 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * @throws IllegalArgumentException if {@code contents} or any item in {@code contents} is null
      */
     public void load(Iterable<? extends T> contents) {
+        this.load(contents.iterator());
+    }
+
+    /**
+     * Change this container's contents.
+     *
+     * @param contents new container contents
+     * @throws IllegalArgumentException if {@code contents} or any item in {@code contents} is null
+     */
+    public void load(Iterator<? extends T> contents) {
 
         // Sanity check
         if (contents == null)
@@ -223,7 +234,8 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
 
         // Bulk load and register items with id's 0, 1, 2, ...
         int index = 0;
-        for (T obj : contents) {
+        while (contents.hasNext()) {
+            final T obj = contents.next();
             if (obj == null)
                 throw new IllegalArgumentException("null item in contents at index " + index);
             final BackedItem<T> item = this.createBackedItem(obj, this.propertyMap.values(), this);

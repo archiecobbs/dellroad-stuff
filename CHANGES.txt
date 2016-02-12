@@ -3,6 +3,7 @@ Version Next
     - Added support for normalized peer names in TCPNetwork
     - Refactored TCPNetwork to create ChannelNetwork superclass
     - Allow lowercase hex digits in Primitive parse patterns
+    - Added new method AbstractSimpleContainer.load(Iterator)
     - Added new method Primitive.getSize()
 
 Version 1.1.3 Released September 29, 2015
