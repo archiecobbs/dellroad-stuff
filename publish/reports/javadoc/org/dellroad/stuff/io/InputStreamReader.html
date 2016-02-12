@@ -94,13 +94,12 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.21">InputStreamReader</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.20">InputStreamReader</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Reads zero or more <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s serialized inside an underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> by an <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io"><code>OutputStreamWriter</code></a>.
 
  <p>
- Instances of this class are thread safe, as are the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s returned by <a href="../../../../org/dellroad/stuff/io/InputStreamReader.html#read()"><code>read()</code></a>.
- </p></div>
+ Instances of this class are thread safe, as are the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s returned by <a href="../../../../org/dellroad/stuff/io/InputStreamReader.html#read()"><code>read()</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io"><code>OutputStreamWriter</code></a></dd></dl>
 </li>
 </ul>
@@ -179,7 +178,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>InputStreamReader</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.45">InputStreamReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.44">InputStreamReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>input</code> - the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> that will carry nested <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s within it</dd></dl>
 </li>
@@ -198,7 +197,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.72">read</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.68">read</a>()
                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Read the next <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.
 
@@ -206,20 +205,17 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  The returned <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> will remain valid as long as it has not been closed, the underlying input
  has not been closed, and no subsequent invocation of this method has been made. As soon as any of those events occurs,
  all subsequent accesses to the previously returned <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> will throw an exception.
- </p>
 
  <p>
  The returned <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> may be closed prior to its EOF, in which case any remaining bytes will be skipped
  over during the next invocation of this method.
- </p>
 
  <p>
- Note: while any thread is blocked reading from the returned <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, this method will block as well.
- </p></div>
-<dl><dt><span class="strong">Throws:</span></dt>
+ Note: while any thread is blocked reading from the returned <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, this method will block as well.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the next <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, or <code>null</code> if EOF has been reached on the underlying input</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if this instance is closed</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> has thrown an exception</dd>
-<dd><code>return</code> - the next <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, or <code>null</code> if EOF has been reached on the underlying input</dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> has thrown an exception</dd></dl>
 </li>
 </ul>
 <a name="close()">
@@ -228,14 +224,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.157">close</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/InputStreamReader.html#line.152">close</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Close this instance. Does nothing if already closed.
 
  <p>
  This closes the underlying input; however, if the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> most recently returned from <a href="../../../../org/dellroad/stuff/io/InputStreamReader.html#read()"><code>read()</code></a>
- is still open, the close of the underlying input will be postponed until it is no longer open.
- </p></div>
+ is still open, the close of the underlying input will be postponed until it is no longer open.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an there is an error closing the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a></dd></dl>
 </li>

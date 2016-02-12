@@ -100,8 +100,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  Primitive and String values are handled automatically. Other property types can be handled by
  overriding <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html#setProperty(T, java.beans.PropertyDescriptor, java.lang.String)"><code>setProperty(T, java.beans.PropertyDescriptor, java.lang.String)</code></a>.
 
- <a name="namedgroup"/>
  <p>
+ <a name="namedgroup"></a>
  This class supports parsing using a <i>named group regular expression</i>, which is pattern string
  using normal <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex"><code>Pattern</code></a> regular expression syntax with one additional grouping construct of the
  form <code>({property}...)</code>, allowing the Java bean property name to be specified inside the
@@ -149,7 +149,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <tr class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyDescriptor.html?is-external=true" title="class or interface in java.beans">PropertyDescriptor</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html#getPropertyMap()">getPropertyMap</a></strong>()</code>
-<div class="block">Get the mapping from property name to setter method.</div>
+<div class="block">Get the mapping from property name to property descriptor.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -265,8 +265,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getTargetClass</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.56">getTargetClass</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.58">getTargetClass</a>()</pre>
 <div class="block">Get the target class.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>target class for parse</dd></dl>
 </li>
 </ul>
 <a name="parse(java.lang.String, java.lang.String, boolean)">
@@ -275,12 +276,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>parse</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.67">parse</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.73">parse</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
       boolean&nbsp;allowSubstringMatch)</pre>
 <div class="block">Same as <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html#parse(T, java.lang.String, java.lang.String, boolean)"><code>parse(Object, String, String, boolean)</code></a> but this method creates the target instance using
  the target type's default constructor.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>text</code> - string to parse</dd><dd><code>regex</code> - named group regular expression containing object property names</dd><dd><code>allowSubstringMatch</code> - if false, entire text must match, otherwise only a (the first) substring need match</dd>
+<dt><span class="strong">Returns:</span></dt><dd>parsed object or null if parse fails</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a></code> - if a new target instance cannot be created using the default constructor</dd><dt><span class="strong">Since:</span></dt>
   <dd>1.0.85</dd></dl>
 </li>
@@ -293,7 +296,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>parse</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.98">parse</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;target,
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.104">parse</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;target,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
       boolean&nbsp;allowSubstringMatch)</pre>
@@ -321,13 +324,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>parse</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.143">parse</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.154">parse</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;pattern,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;patternMap,
       boolean&nbsp;allowSubstringMatch)</pre>
 <div class="block">Same as <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html#parse(T, java.lang.String, java.util.regex.Pattern, java.util.Map, boolean)"><code>parse(Object, String, Pattern, Map, boolean)</code></a> but this method creates the target instance using
  the target type's default constructor.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>text</code> - string to parse</dd><dd><code>pattern</code> - pattern with substring matching groups that match object properties</dd><dd><code>patternMap</code> - mapping from pattern substring group index to object property name</dd><dd><code>allowSubstringMatch</code> - if false, entire text must match, otherwise only a (the first) substring need match</dd>
+<dt><span class="strong">Returns:</span></dt><dd>parsed object or null if parse fails</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a></code> - if a new target instance cannot be created using the default constructor</dd><dt><span class="strong">Since:</span></dt>
   <dd>1.0.85</dd></dl>
 </li>
@@ -340,7 +345,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>parse</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.167">parse</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;target,
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.178">parse</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;target,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;pattern,
       <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;patternMap,
@@ -361,8 +366,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getPropertyMap</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyDescriptor.html?is-external=true" title="class or interface in java.beans">PropertyDescriptor</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.215">getPropertyMap</a>()</pre>
-<div class="block">Get the mapping from property name to setter method.</div>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyDescriptor.html?is-external=true" title="class or interface in java.beans">PropertyDescriptor</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.228">getPropertyMap</a>()</pre>
+<div class="block">Get the mapping from property name to property descriptor.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>property descriptor map with property setters</dd></dl>
 </li>
 </ul>
 <a name="setProperty(java.lang.Object,java.beans.PropertyDescriptor,java.lang.String)">
@@ -373,15 +379,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setProperty</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.233">setProperty</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.245">setProperty</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyDescriptor.html?is-external=true" title="class or interface in java.beans">PropertyDescriptor</a>&nbsp;property,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;substring)</pre>
 <div class="block">Set a property value.
- <p/>
+
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="class in org.dellroad.stuff.string"><code>SimpleObjectParser</code></a> simply invokes <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html#setSimpleProperty(T, java.beans.PropertyDescriptor, java.lang.String)"><code>setSimpleProperty(T, java.beans.PropertyDescriptor, java.lang.String)</code></a>.
- Other property types can be handled by overriding this method.
- </p></div>
+ Other property types can be handled by overriding this method.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - newly created instance</dd><dd><code>property</code> - descriptor for the property being set</dd><dd><code>substring</code> - matched substring</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if substring cannot be successfully parsed</dd>
@@ -396,16 +401,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setSimpleProperty</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.249">setSimpleProperty</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.263">setSimpleProperty</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/beans/PropertyDescriptor.html?is-external=true" title="class or interface in java.beans">PropertyDescriptor</a>&nbsp;property,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;substring)</pre>
 <div class="block">Set a primitive or string property value.
- <p/>
+
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="class in org.dellroad.stuff.string"><code>SimpleObjectParser</code></a> handles primitives using the corresponding
- <code>valueOf</code> method; String values are handled by setting the value directly.
- </p></div>
-<dl><dt><span class="strong">Throws:</span></dt>
+ <code>valueOf</code> method; String values are handled by setting the value directly.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object being parsed</dd><dd><code>property</code> - property being decoded</dd><dd><code>substring</code> - property value as a string</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if property is not a primitive or String property.</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if substring cannot be successfully parsed (if primitive)</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if an exception is thrown attempting to set the property</dd></dl>
@@ -419,13 +424,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>postProcess</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.280">postProcess</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/SimpleObjectParser.html#line.295">postProcess</a>(<a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="type parameter in SimpleObjectParser">T</a>&nbsp;obj)</pre>
 <div class="block">Post-process newly created instances. The instance's properties will have already been
  set by a successful parse.
- <p/>
+
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="class in org.dellroad.stuff.string"><code>SimpleObjectParser</code></a> does nothing. Subclasses may override if needed.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/string/SimpleObjectParser.html" title="class in org.dellroad.stuff.string"><code>SimpleObjectParser</code></a> does nothing. Subclasses may override if needed.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - newly created instance</dd></dl>
 </li>
 </ul>
 </li>

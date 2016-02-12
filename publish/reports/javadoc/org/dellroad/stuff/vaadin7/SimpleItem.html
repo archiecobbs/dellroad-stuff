@@ -99,19 +99,17 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.29">SimpleItem</a>&lt;T&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.27">SimpleItem</a>&lt;T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;T&gt;</pre>
 <div class="block">Simple read-only <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data"><code>Item</code></a> implementation backed by a Java object.
 
  <p>
  Item <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property</code></a>s are defined by <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7"><code>PropertyDef</code></a>s and retrieved by a <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a>.
- </p>
 
  <p>
  Although the item properties are read-only from "above", they can be made mutable from "below" by modifying the
- backing object and invoking <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html#fireValueChange(java.lang.String)"><code>fireValueChange()</code></a>.
- </p></div>
+ backing object and invoking <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html#fireValueChange(java.lang.String)"><code>fireValueChange()</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractQueryContainer</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a>, 
 <a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin7.SimpleItem">Serialized Form</a></dd></dl>
@@ -276,7 +274,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>object</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.31">object</a></pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.29">object</a></pre>
 </li>
 </ul>
 <a name="propertyExtractor">
@@ -285,7 +283,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockListLast">
 <li class="blockList">
 <h4>propertyExtractor</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.32">propertyExtractor</a></pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.30">propertyExtractor</a></pre>
 </li>
 </ul>
 </li>
@@ -304,7 +302,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SimpleItem</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.44">SimpleItem</a>(<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&nbsp;object,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.42">SimpleItem</a>(<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&nbsp;object,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs,
           <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Constructor.</div>
@@ -327,7 +325,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>getObject</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.57">getObject</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="type parameter in SimpleItem">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.55">getObject</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html#getObject()">BackedItem</a></code></strong></div>
 <div class="block">Retrieve the underlying Java object.</div>
 <dl>
@@ -342,7 +340,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemProperty</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.Property.html" title="class in org.dellroad.stuff.vaadin7">SimpleItem.Property</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.63">getItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.Property.html" title="class in org.dellroad.stuff.vaadin7">SimpleItem.Property</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.61">getItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true#getItemProperty(java.lang.Object)" title="class or interface in com.vaadin.data">getItemProperty</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data">Item</a></code></dd>
@@ -355,7 +353,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemPropertyIds</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.86">getItemPropertyIds</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.84">getItemPropertyIds</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true#getItemPropertyIds()" title="class or interface in com.vaadin.data">getItemPropertyIds</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data">Item</a></code></dd>
@@ -368,7 +366,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>addItemProperty</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.107">addItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id,
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.105">addItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id,
                       <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data">Property</a>&nbsp;property)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -383,7 +381,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>removeItemProperty</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.115">removeItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id)</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.113">removeItemProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;id)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true#removeItemProperty(java.lang.Object)" title="class or interface in com.vaadin.data">removeItemProperty</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data">Item</a></code></dd>
@@ -397,13 +395,12 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>fireValueChange</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.130">fireValueChange</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propertyName)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.127">fireValueChange</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propertyName)</pre>
 <div class="block">Issue <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property.ValueChangeEvent</code></a>s to all
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.ValueChangeListener.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property.ValueChangeListener</code></a>s registered on the specified property of this item.
 
  <p>
- Does nothing if <code>propertyName</code> is not one of this item's properties.
- </p></div>
+ Does nothing if <code>propertyName</code> is not one of this item's properties.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyName</code> - property ID</dd></dl>
 </li>
 </ul>
@@ -413,7 +410,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockList">
 <li class="blockList">
 <h4>fireValueChange</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.148">fireValueChange</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.145">fireValueChange</a>()</pre>
 <div class="block">Issue <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property.ValueChangeEvent</code></a>s to all
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.ValueChangeListener.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property.ValueChangeListener</code></a>s registered on any property of this item.</div>
 </li>
@@ -424,13 +421,12 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" titl
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createProperty</h4>
-<pre>protected&nbsp;&lt;V&gt;&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.Property.html" title="class in org.dellroad.stuff.vaadin7">SimpleItem.Property</a>&lt;V&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.169">createProperty</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;V&gt;&nbsp;propertyDef)</pre>
+<pre>protected&nbsp;&lt;V&gt;&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.Property.html" title="class in org.dellroad.stuff.vaadin7">SimpleItem.Property</a>&lt;V&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SimpleItem.html#line.165">createProperty</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;V&gt;&nbsp;propertyDef)</pre>
 <div class="block">Create a <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.Property.html" title="class in org.dellroad.stuff.vaadin7"><code>SimpleItem.Property</code></a> to be used for the given property definition.
  This method will be invoked at most once for any property; the returned value is cached.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="class in org.dellroad.stuff.vaadin7"><code>SimpleItem</code></a> returns <code>new Property&lt;V&gt;(propertyDef)</code>.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="class in org.dellroad.stuff.vaadin7"><code>SimpleItem</code></a> returns <code>new Property&lt;V&gt;(propertyDef)</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDef</code> - property definition</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>propertyDef</code> is null</dd></dl>

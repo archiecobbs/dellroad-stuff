@@ -91,14 +91,13 @@
 </dl>
 <hr>
 <br>
-<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.36">SchemaUpdate</a>&lt;T&gt;</pre>
+<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.33">SchemaUpdate</a>&lt;T&gt;</pre>
 <div class="block">A one-time database schema update. Instances typically perform changes to the database schema, though non-schema updates
  that just manipulate the data in the database are perfectly valid as well.
 
  <p>
  Each <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema"><code>SchemaUpdate</code></a> has a unique name among all updates ever applied to a single database, and zero
  or more required predecessors, which are other dependent updates that must be applied first.
- </p>
 
  <p>
  Once an update has been applied to a database, it must not be changed; otherwise, inconsistencies
@@ -106,13 +105,11 @@
  updated using the new version. If an update has been applied but had the wrong behavior, instead of
  changing the update, it's better to create a new update that depends on the first as a predecessor
  and corrects the mistake.
- </p>
 
  <p>
  If you do have to change an update after it has been applied, then those databases that have
  already seen the previous version of the update must be manually corrected so they are in the
- same state that the new version of the update would have left them.
- </p></div>
+ same state that the new version of the update would have left them.</div>
 </li>
 </ul>
 </div>
@@ -177,7 +174,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getName</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.44">getName</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.41">getName</a>()</pre>
 <div class="block">Get the unique name of this update. This name must be unique among all updates ever applied to the database
  and must never change once this update has been applied to any database.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>the name of this update; must not be the empty string</dd></dl>
@@ -189,7 +186,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getRequiredPredecessors</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="type parameter in SchemaUpdate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.52">getRequiredPredecessors</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="type parameter in SchemaUpdate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.49">getRequiredPredecessors</a>()</pre>
 <div class="block">Get the the other updates (if any) that must be applied <b>before</b> this update may be applied.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>set of zero or more other updates</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#getName()"><code>getName()</code></a></dd></dl>
 </li>
@@ -200,7 +197,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getDatabaseActions</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="type parameter in SchemaUpdate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.63">getDatabaseActions</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="type parameter in SchemaUpdate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.60">getDatabaseActions</a>()</pre>
 <div class="block">Get the action(s) that comprise this update. Ideally, individual actions should be atomic database operations, i.e.,
  each one should either finish completely, or else leave the database in a state where it can be tried again.
  In any case, each action will be applied within its own transaction when transactions are supported by the database
@@ -214,10 +211,11 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>isSingleAction</h4>
-<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.70">isSingleAction</a>()</pre>
+<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdate.html#line.69">isSingleAction</a>()</pre>
 <div class="block">Determine whether, if this instance contains multiple individual actions, should they be applied in a single
  transaction and recorded as a single update. Normally this is false. If true, partially completed updates
  can result if one of the action fails.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>whether to execute this update atomically</dd></dl>
 </li>
 </ul>
 </li>

@@ -95,17 +95,15 @@
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - XML document type</dd></dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/jibx/XMLDocumentInputStream.html#line.29">XMLDocumentInputStream</a>&lt;T&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/jibx/XMLDocumentInputStream.html#line.27">XMLDocumentInputStream</a>&lt;T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block"><a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> over which XML documents are passed. This class is a companion to <a href="../../../../org/dellroad/stuff/jibx/XMLDocumentOutputStream.html" title="class in org.dellroad.stuff.jibx"><code>XMLDocumentOutputStream</code></a>.
 
  <p>
  XML documents are converted into Java objects via <a href="../../../../org/dellroad/stuff/jibx/JiBXUtil.html#readObject(java.lang.Class, java.io.InputStream)"><code>JiBXUtil.readObject()</code></a>.
- </p>
 
  <p>
- Instances of this class are thread-safe.
- </p></div>
+ Instances of this class are thread-safe.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/XMLDocumentOutputStream.html" title="class in org.dellroad.stuff.jibx"><code>XMLDocumentOutputStream</code></a></dd></dl>
 </li>
 </ul>
@@ -183,7 +181,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>XMLDocumentInputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/XMLDocumentInputStream.html#line.40">XMLDocumentInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/jibx/XMLDocumentInputStream.html" title="type parameter in XMLDocumentInputStream">T</a>&gt;&nbsp;type,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/XMLDocumentInputStream.html#line.38">XMLDocumentInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/jibx/XMLDocumentInputStream.html" title="type parameter in XMLDocumentInputStream">T</a>&gt;&nbsp;type,
                       <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>type</code> - Java type for XML documents</dd><dd><code>input</code> - data source</dd></dl>
@@ -209,8 +207,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <div class="block">Read the next XML document, parsed and objectified.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>decoded object or <code>null</code> on EOF</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if JiBX parse fails</dd></dl>
 </li>
 </ul>
 <a name="close()">

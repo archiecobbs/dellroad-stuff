@@ -251,8 +251,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>setDataSource</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.31">setDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.33">setDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)</pre>
 <div class="block">Configure the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>. Required property.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>dataSource</code> - underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> to update</dd></dl>
 </li>
 </ul>
 <a name="updateDataSource(javax.sql.DataSource)">
@@ -261,14 +262,15 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>updateDataSource</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.41">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.46">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
                                   throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Update the inner <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>.
 
  <p>
  This method will be invoked at most once.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>dataSource</code> - the <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> to update</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if the update attempt fails</dd></dl>
 </li>
 </ul>
 <a name="getInnerDataSource()">
@@ -277,8 +279,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>getInnerDataSource</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.46">getInnerDataSource</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.53">getInnerDataSource</a>()</pre>
 <div class="block">Get the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a></dd></dl>
 </li>
 </ul>
 <a name="isUpdated()">
@@ -287,12 +290,13 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>isUpdated</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.57">isUpdated</a>()</pre>
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.66">isUpdated</a>()</pre>
 <div class="block">Determine if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> has been updated.
 
  <p>
  If the update is currently happening in another thread, the current thread will
  block until the update operation finishes.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> has already been updated</dd></dl>
 </li>
 </ul>
 <a name="getConnection()">
@@ -301,7 +305,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>getConnection</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.64">getConnection</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.73">getConnection</a>()
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -316,7 +320,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>getConnection</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.69">getConnection</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;username,
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.78">getConnection</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;username,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;password)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
@@ -332,7 +336,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>getLogWriter</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html?is-external=true" title="class or interface in java.io">PrintWriter</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.74">getLogWriter</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html?is-external=true" title="class or interface in java.io">PrintWriter</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.83">getLogWriter</a>()
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -347,7 +351,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>setLogWriter</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.79">setLogWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html?is-external=true" title="class or interface in java.io">PrintWriter</a>&nbsp;pw)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.88">setLogWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PrintWriter.html?is-external=true" title="class or interface in java.io">PrintWriter</a>&nbsp;pw)
                   throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -362,7 +366,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>setLoginTimeout</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.84">setLoginTimeout</a>(int&nbsp;timeout)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.93">setLoginTimeout</a>(int&nbsp;timeout)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -377,7 +381,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>getLoginTimeout</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.89">getLoginTimeout</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.98">getLoginTimeout</a>()
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -392,7 +396,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>unwrap</h4>
-<pre>public&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.94">unwrap</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;cl)
+<pre>public&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.103">unwrap</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;cl)
          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -407,7 +411,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockList">
 <li class="blockList">
 <h4>isWrapperFor</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.99">isWrapperFor</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.108">isWrapperFor</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -422,7 +426,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSour
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getParentLogger</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging">Logger</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.104">getParentLogger</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/logging/Logger.html?is-external=true" title="class or interface in java.util.logging">Logger</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#line.113">getParentLogger</a>()
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLFeatureNotSupportedException.html?is-external=true" title="class or interface in java.sql">SQLFeatureNotSupportedException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>

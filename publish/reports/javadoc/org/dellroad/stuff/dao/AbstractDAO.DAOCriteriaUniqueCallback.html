@@ -113,7 +113,7 @@
 </dl>
 <hr>
 <br>
-<pre>protected abstract class <a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.285">AbstractDAO.DAOCriteriaUniqueCallback</a>
+<pre>protected abstract class <a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.308">AbstractDAO.DAOCriteriaUniqueCallback</a>
 extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao">CriteriaCallback</a>&lt;T,T&gt;</pre>
 <div class="block">Convenience subclass of <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao"><code>CriteriaCallback</code></a> for use by DAO subclasses when returning a single persistent instance.
 
@@ -226,7 +226,7 @@ extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractDAO.DAOCriteriaUniqueCallback</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaUniqueCallback.html#line.287">AbstractDAO.DAOCriteriaUniqueCallback</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaUniqueCallback.html#line.310">AbstractDAO.DAOCriteriaUniqueCallback</a>()</pre>
 </li>
 </ul>
 </li>
@@ -243,17 +243,18 @@ extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title
 <ul class="blockListLast">
 <li class="blockList">
 <h4>executeQuery</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaUniqueCallback.html#line.292">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;query)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaUniqueCallback.html#line.315">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;query)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)">TypedQueryCallback</a></code></strong></div>
 <div class="block">Execute the query. Typically this is implemented in one of these two ways:
  <blockquote><code>
-   return query.getSingleResult();<br />
+   return query.getSingleResult();
    return query.getResultList();
  </code></blockquote></div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)">executeQuery</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao">TypedQueryCallback</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>,<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>query</code> - query to execute</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of query</dd></dl>
 </li>
 </ul>
 </li>

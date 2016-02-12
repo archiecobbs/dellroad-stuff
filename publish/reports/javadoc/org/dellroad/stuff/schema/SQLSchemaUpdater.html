@@ -103,29 +103,26 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.42">SQLSchemaUpdater</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.39">SQLSchemaUpdater</a>
 extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</pre>
 <div class="block">Concrete extension of <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>AbstractSchemaUpdater</code></a> for SQL databases.
 
  <p>
  Required properties are the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)">database initialization</a>,
  <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a>, and the <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#setUpdates(java.util.Collection)">updates</a> themselves.
- </p>
 
  <p>
  Applied updates are recorded in a special <i>update table</i>, which contains two columns: one for the unique
  <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#getName()">update name</a> and one for a timestamp. The update table and column names
  are configurable via <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableName(java.lang.String)"><code>setUpdateTableName()</code></a>,
  <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableNameColumn(java.lang.String)"><code>setUpdateTableNameColumn()</code></a>, and <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableTimeColumn(java.lang.String)"><code>setUpdateTableTimeColumn()</code></a>.
- </p>
 
  <p>
  By default, this class detects a completely uninitialized database by the absence of the update table itself
  in the schema (see <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#databaseNeedsInitialization(java.sql.Connection)"><code>databaseNeedsInitialization()</code></a>).
  When an uninitialized database is encountered, the configured <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)">database initialization</a>
  and <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a> actions are applied first to initialize
- the database schema.
- </p></div>
+ the database schema.</div>
 </li>
 </ul>
 </div>
@@ -360,7 +357,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>DEFAULT_UPDATE_TABLE_NAME</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.47">DEFAULT_UPDATE_TABLE_NAME</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.44">DEFAULT_UPDATE_TABLE_NAME</a></pre>
 <div class="block">Default name of the table that tracks schema updates, <code>"SchemaUpdate"</code>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.schema.SQLSchemaUpdater.DEFAULT_UPDATE_TABLE_NAME">Constant Field Values</a></dd></dl>
 </li>
@@ -371,7 +368,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>DEFAULT_UPDATE_TABLE_NAME_COLUMN</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.52">DEFAULT_UPDATE_TABLE_NAME_COLUMN</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.49">DEFAULT_UPDATE_TABLE_NAME_COLUMN</a></pre>
 <div class="block">Default name of the column in the updates table holding the unique update name, <code>"updateName"</code>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.schema.SQLSchemaUpdater.DEFAULT_UPDATE_TABLE_NAME_COLUMN">Constant Field Values</a></dd></dl>
 </li>
@@ -382,7 +379,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DEFAULT_UPDATE_TABLE_TIME_COLUMN</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.57">DEFAULT_UPDATE_TABLE_TIME_COLUMN</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.54">DEFAULT_UPDATE_TABLE_TIME_COLUMN</a></pre>
 <div class="block">Default name of the column in the updates table holding the update's time applied, <code>"updateTime"</code>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.schema.SQLSchemaUpdater.DEFAULT_UPDATE_TABLE_TIME_COLUMN">Constant Field Values</a></dd></dl>
 </li>
@@ -401,7 +398,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SQLSchemaUpdater</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.42">SQLSchemaUpdater</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.39">SQLSchemaUpdater</a>()</pre>
 </li>
 </ul>
 </li>
@@ -418,9 +415,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdateTableName</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.71">getUpdateTableName</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.69">getUpdateTableName</a>()</pre>
 <div class="block">Get the name of the table that keeps track of applied updates.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableName(java.lang.String)"><code>setUpdateTableName()</code></a></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the name of the update table</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableName(java.lang.String)"><code>setUpdateTableName()</code></a></dd></dl>
 </li>
 </ul>
 <a name="setUpdateTableName(java.lang.String)">
@@ -435,6 +432,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 
  <p>
  This name must be consistent with the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>updateTableName</code> - the name of the update table</dd></dl>
 </li>
 </ul>
 <a name="getUpdateTableNameColumn()">
@@ -443,9 +441,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdateTableNameColumn</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.91">getUpdateTableNameColumn</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.92">getUpdateTableNameColumn</a>()</pre>
 <div class="block">Get the name of the update name column in the table that keeps track of applied updates.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableNameColumn(java.lang.String)"><code>setUpdateTableNameColumn()</code></a></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the name of the name column in the update table</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableNameColumn(java.lang.String)"><code>setUpdateTableNameColumn()</code></a></dd></dl>
 </li>
 </ul>
 <a name="setUpdateTableNameColumn(java.lang.String)">
@@ -454,12 +452,13 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setUpdateTableNameColumn</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.102">setUpdateTableNameColumn</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateTableNameColumn)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.105">setUpdateTableNameColumn</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateTableNameColumn)</pre>
 <div class="block">Set the name of the update name column in the table that keeps track of applied updates.
  Default value is <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#DEFAULT_UPDATE_TABLE_NAME_COLUMN"><code>DEFAULT_UPDATE_TABLE_NAME_COLUMN</code></a>.
 
  <p>
  This name must be consistent with the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>updateTableNameColumn</code> - the name of the name column in the update table</dd></dl>
 </li>
 </ul>
 <a name="getUpdateTableTimeColumn()">
@@ -468,9 +467,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdateTableTimeColumn</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.111">getUpdateTableTimeColumn</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.115">getUpdateTableTimeColumn</a>()</pre>
 <div class="block">Get the name of the update timestamp column in the table that keeps track of applied updates.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableTimeColumn(java.lang.String)"><code>setUpdateTableTimeColumn()</code></a></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the name of the timestamp column in the update table</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableTimeColumn(java.lang.String)"><code>setUpdateTableTimeColumn()</code></a></dd></dl>
 </li>
 </ul>
 <a name="setUpdateTableTimeColumn(java.lang.String)">
@@ -479,12 +478,13 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setUpdateTableTimeColumn</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.122">setUpdateTableTimeColumn</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateTableTimeColumn)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.128">setUpdateTableTimeColumn</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateTableTimeColumn)</pre>
 <div class="block">Set the name of the update timestamp column in the table that keeps track of applied updates.
  Default value is <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#DEFAULT_UPDATE_TABLE_TIME_COLUMN"><code>DEFAULT_UPDATE_TABLE_TIME_COLUMN</code></a>.
 
  <p>
  This name must be consistent with the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>updateTableTimeColumn</code> - the name of the timestamp column in the update table</dd></dl>
 </li>
 </ul>
 <a name="getUpdateTableInitialization()">
@@ -493,9 +493,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdateTableInitialization</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.131">getUpdateTableInitialization</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.138">getUpdateTableInitialization</a>()</pre>
 <div class="block">Get the update table initialization.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)"><code>setUpdateTableInitialization()</code></a></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>SQL commands to create the update table</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)"><code>setUpdateTableInitialization()</code></a></dd></dl>
 </li>
 </ul>
 <a name="setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">
@@ -504,7 +504,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setUpdateTableInitialization</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.168">setUpdateTableInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;updateTableInitialization)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.182">setUpdateTableInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;updateTableInitialization)</pre>
 <div class="block">Configure how the update table itself gets initialized. This update is run when no update table found,
  which (we assume) implies an empty database with no tables or content. This is a required property.
 
@@ -520,15 +520,22 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
  <p>
  For convenience, pre-defined initialization scripts using the default table and column names are available
  at the following resource locations. These can be used to configure a <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema"><code>SQLCommandList</code></a>:
- <table border="1" cellspacing="0" cellpadding="4">
+ <table border="1" cellspacing="0" cellpadding="4" summary="Pre-Defined Initialization Scripts">
  <tr>
  <th>Database</th>
  <th>Resource</th>
  </tr>
  <tr>
- </tr>
  <td>MySQL (InnoDB)</td>
  <td><code>classpath:org/dellroad/stuff/schema/updateTable-mysql.sql</code></td>
+ </tr>
+ <tr>
+ <td>Oracle</td>
+ <td><code>classpath:org/dellroad/stuff/schema/updateTable-oracle.sql</code></td>
+ </tr>
+ <tr>
+ <td>HSQLDB</td>
+ <td><code>classpath:org/dellroad/stuff/schema/updateTable-hsqldb.sql</code></td>
  </tr>
  </table></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>updateTableInitialization</code> - update table schema initialization</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableName(java.lang.String)"><code>setUpdateTableName()</code></a>, 
@@ -542,9 +549,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getDatabaseInitialization</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.177">getDatabaseInitialization</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.192">getDatabaseInitialization</a>()</pre>
 <div class="block">Get the empty database initialization.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)"><code>setDatabaseInitialization()</code></a></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>SQL commands to initialize an empty database</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)"><code>setDatabaseInitialization()</code></a></dd></dl>
 </li>
 </ul>
 <a name="setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)">
@@ -553,7 +560,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setDatabaseInitialization</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.200">setDatabaseInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;databaseInitialization)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.215">setDatabaseInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;databaseInitialization)</pre>
 <div class="block">Configure how an empty database gets initialized. This is a required property.
 
  <p>
@@ -578,7 +585,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>apply</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.205">apply</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.220">apply</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
          <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;&nbsp;action)
               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#apply(T, org.dellroad.stuff.schema.DatabaseAction)">AbstractSchemaUpdater</a></code></strong></div>
@@ -594,6 +601,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#apply(T, org.dellroad.stuff.schema.DatabaseAction)">apply</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - transaction within which to apply <code>action</code></dd><dd><code>action</code> - operation to perform</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd></dl>
 </li>
@@ -604,7 +612,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>initializeAndUpdateDatabase</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.228">initializeAndUpdateDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.243">initializeAndUpdateDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
                                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#initializeAndUpdateDatabase(D)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Perform database schema initialization and updates.
@@ -627,14 +635,13 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#initializeAndUpdateDatabase(D)">initializeAndUpdateDatabase</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>dataSource</code> - the database to initialize (if necessary) and update</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an update fails</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if an update fails</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the database needs initialization and either the
   <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setDatabaseInitialization(org.dellroad.stuff.schema.SQLCommandList)">database initialization</a> or
   the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#setUpdateTableInitialization(org.dellroad.stuff.schema.SQLCommandList)">update table initialization</a> has not been configured</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code></dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any configured update has a required predecessor which is not also a configured update
-  (i.e., if the updates are not transitively closed under predecessors)</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd></dl>
+  (i.e., if the updates are not transitively closed under predecessors)</dd></dl>
 </li>
 </ul>
 <a name="openTransaction(javax.sql.DataSource)">
@@ -643,7 +650,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>openTransaction</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.253">openTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.268">openTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
                               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Begin a transaction on the given connection.
 
@@ -664,7 +671,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>commitTransaction</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.270">commitTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.285">commitTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Commit a previously opened transaction.
 
@@ -684,7 +691,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>rollbackTransaction</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.286">rollbackTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.301">rollbackTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
                             throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Roll back a previously opened transaction.
  This method will also be invoked if <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#commitTransaction(java.sql.Connection)"><code>commitTransaction()</code></a> throws an exception.
@@ -705,7 +712,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>databaseNeedsInitialization</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.303">databaseNeedsInitialization</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.318">databaseNeedsInitialization</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
                                        throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Determine if the database needs initialization.
 
@@ -717,6 +724,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#databaseNeedsInitialization(T)">databaseNeedsInitialization</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - connection to the database</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the database needs initialization</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if an unexpected error occurs while accessing the database</dd></dl>
 </li>
@@ -727,7 +735,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>indicatesUninitializedDatabase</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.350">indicatesUninitializedDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.366">indicatesUninitializedDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
                                      <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a>&nbsp;e)
                                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Determine if an exception thrown during <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#databaseNeedsInitialization(java.sql.Connection)"><code>databaseNeedsInitialization(java.sql.Connection)</code></a> is consistent with
@@ -741,6 +749,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
  The implementation in <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>SQLSchemaUpdater</code></a> always returns true. Subclasses are encouraged to override
  with a more precise implementation.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - connection on which the exception occurred</dd><dd><code>e</code> - exception thrown during database access in <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#databaseNeedsInitialization(java.sql.Connection)"><code>databaseNeedsInitialization(java.sql.Connection)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>e</code> indicates an uninitialized database</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if an error occurs</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html#databaseNeedsInitialization(java.sql.Connection)"><code>databaseNeedsInitialization(java.sql.Connection)</code></a></dd></dl>
 </li>
@@ -751,15 +760,14 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>recordUpdateApplied</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.368">recordUpdateApplied</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.383">recordUpdateApplied</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateName)
                             throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Record an update as having been applied.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>SQLSchemaUpdater</code></a> does the standard JDBC thing using an INSERT statement
- into the update table.
- </p></div>
+ into the update table.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#recordUpdateApplied(T, java.lang.String)">recordUpdateApplied</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</code></dd>
@@ -775,7 +783,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getAppliedUpdateNames</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.397">getAppliedUpdateNames</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.412">getAppliedUpdateNames</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
                                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Determine which updates have already been applied.
 
@@ -786,6 +794,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#getAppliedUpdateNames(T)">getAppliedUpdateNames</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - open transaction</dd>
+<dt><span class="strong">Returns:</span></dt><dd>set of already-applied updates</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
@@ -796,7 +805,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>initializeDatabase</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.416">initializeDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLSchemaUpdater.html#line.431">initializeDatabase</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#initializeDatabase(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Initialize an uninitialized database. This should create and initialize the database schema and content,

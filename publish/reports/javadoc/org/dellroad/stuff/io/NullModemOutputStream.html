@@ -108,14 +108,13 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/NullModemOutputStream.html#line.23">NullModemOutputStream</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/NullModemOutputStream.html#line.22">NullModemOutputStream</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io">FilterOutputStream</a></pre>
 <div class="block">Presents an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> interface given a <a href="../../../../org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io"><code>ReadCallback</code></a> that can read from an
  <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>. A separate thread is created to perform the actual reading.
 
  <p>
- If data is written beyond what the reader is willing to consume, an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a> is thrown.
- </p></div>
+ If data is written beyond what the reader is willing to consume, an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a> is thrown.</div>
 <dl><dt><span class="strong">Since:</span></dt>
   <dd>1.0.82</dd></dl>
 </li>
@@ -218,15 +217,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>NullModemOutputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemOutputStream.html#line.37">NullModemOutputStream</a>(<a href="../../../../org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io">ReadCallback</a>&nbsp;reader,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemOutputStream.html#line.35">NullModemOutputStream</a>(<a href="../../../../org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io">ReadCallback</a>&nbsp;reader,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <div class="block">Constructor.
 
  <p>
  The <code>reader</code>'s <a href="../../../../org/dellroad/stuff/io/ReadCallback.html#readFrom(java.io.InputStream)"><code>readFrom()</code></a> method will be invoked (once)
  asynchronously in a dedicated reader thread. The <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> provided to it will
- relay the bytes that are written to this instance.
- </p></div>
+ relay the bytes that are written to this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>reader</code> - <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> reader callback</dd><dd><code>name</code> - name for this instance; used to create the name of the background thread</dd></dl>
 </li>
 </ul>
@@ -246,6 +244,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <h4>getPipedOutputStream</h4>
 <pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedOutputStream.html?is-external=true" title="class or interface in java.io">PipedOutputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemOutputStream.html#line.61">getPipedOutputStream</a>()</pre>
 <div class="block">Get the wrapped stream cast as a <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedOutputStream.html?is-external=true" title="class or interface in java.io"><code>PipedOutputStream</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedOutputStream.html?is-external=true" title="class or interface in java.io"><code>PipedOutputStream</code></a></dd></dl>
 </li>
 </ul>
 <a name="finalize()">

@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.65">VaadinApplication</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.59">VaadinApplication</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></pre>
 <div class="block">A globally accessible "Vaadin application" singleton.
@@ -106,7 +106,6 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
  <p>
  At most one instance is associated with each <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> (attempting to create more than one will result in
  an exception). This singleton instance is then always accessible from any Vaadin thread via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#get()"><code>get()</code></a>.
- </p>
 
  <p>
  Although this class does not require Spring, the singleton instance can be declared as a bean in the Spring XML
@@ -117,30 +116,25 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
  </pre></blockquote>
  If your <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a> instance allocates any resources on startup, be sure to configure it so
  that it cleans them up on application context shutdown, for example, by specifying <code>destroy-method="..."</code>.
- </p>
 
  <p>
  If you are in a clustered environment and are subclassing this class, <code>scope="session"</code> is recommended;
  without it, there will be one instance per server+session rather than one unique instance per session. Of course,
  whether that matters depends on the semantics of the subclass fields. In any case, be aware that no instance will
  exist in session until the application context is refreshed.
- </p>
 
  <p>
  Note: using <code>scope="session"</code> requires adding a <code>&lt;listener&gt;</code> clause registering Spring's
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/request/RequestContextListener.html?is-external=true" title="class or interface in org.springframework.web.context.request"><code>RequestContextListener</code></a> in your <code>web.xml</code>.
- </p>
 
  <p>
  If this class is subclassed, additional application-specific fields and methods can be supplied to the entire
  application via the same mechanism. Subclasses can override <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#init()"><code>init()</code></a> for any application-specific initialization.
- </p>
 
  <p>
  Note: the singleton instance of this class is stored in the Vaadin session and is <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io"><code>Serializable</code></a>. Therefore,
  in a clustered environment, subclasses must be prepared to handle (de)serialization. Also, avoid declaring fields
- that reference this class in non-session-scope beans; instead, use <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#get()"><code>VaadinApplication.get()</code></a>.
- </p></div>
+ that reference this class in non-session-scope beans; instead, use <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#get()"><code>VaadinApplication.get()</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a>, 
 <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinService</code></a>, 
@@ -295,7 +289,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.70">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.64">log</a></pre>
 </li>
 </ul>
 </li>
@@ -312,9 +306,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>VaadinApplication</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.83">VaadinApplication</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.77">VaadinApplication</a>()</pre>
 <div class="block">Convenience constructor. Equivalent to:
- <blockquote></code>
+ <blockquote><code>
   <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#VaadinApplication(com.vaadin.server.VaadinSession)"><code>VaadinApplication</code></a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#getCurrentSession()"><code>VaadinUtil.getCurrentSession()</code></a>)
  </code></blockquote></div>
 <dl><dt><span class="strong">Throws:</span></dt>
@@ -328,7 +322,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VaadinApplication</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.94">VaadinApplication</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.88">VaadinApplication</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
 <div class="block">Primary Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>session</code> - the session with which this instance should be associated</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -350,12 +344,11 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>init</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.123">init</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.116">init</a>()</pre>
 <div class="block">Perform any further initialization at construction time.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a> does nothing. Subclasses may override as desired.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a> does nothing. Subclasses may override as desired.</div>
 </li>
 </ul>
 <a name="getSession()">
@@ -364,7 +357,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>getSession</h4>
-<pre>public&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.131">getSession</a>()</pre>
+<pre>public&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.124">getSession</a>()</pre>
 <div class="block">Get the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>associated VaadinSession, never null</dd></dl>
 </li>
@@ -375,7 +368,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.143">close</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.136">close</a>()</pre>
 <div class="block">Close the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.
  After invoking this method, the caller would normally ensure that no further references to this
  instance remain so that it and the associated <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> can be freed.
@@ -390,7 +383,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.160">get</a>()</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.153">get</a>()</pre>
 <div class="block">Get the singleton <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a> instance associated with the current <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.
 
  <p>
@@ -410,7 +403,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.182">get</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</pre>
+<pre>public static&nbsp;&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.175">get</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</pre>
 <div class="block">Get the singleton instance of the specified class associated with the current <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.
 
  <p>
@@ -435,7 +428,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.196">get</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session,
+<pre>public static&nbsp;&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.189">get</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session,
                                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;clazz)</pre>
 <div class="block">Get the singleton instance of the specified class associated with the given session.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>session</code> - Vaadin session</dd><dd><code>clazz</code> - singleton instance type</dd>
@@ -452,13 +445,12 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>invoke</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.234">invoke</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.226">invoke</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Peform some action while holding the lock of the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.
 
  <p>
  This is a convenience method that in turn invokes <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invoke()</code></a> using the
- <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.
- </p></div>
+ <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>action</code> is null</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)</code></a></dd></dl>
@@ -470,13 +462,12 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>invokeLater</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Void.html?is-external=true" title="class or interface in java.lang">Void</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.250">invokeLater</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Void.html?is-external=true" title="class or interface in java.lang">Void</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.241">invokeLater</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Peform some action asynchronously while holding the lock of the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.
 
  <p>
  This is a convenience method that in turn invokes <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invokeLater(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invokeLater()</code></a> using the
- <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.
- </p></div>
+ <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>action</code> is null</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invokeLater(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invokeLater(com.vaadin.server.VaadinSession, java.lang.Runnable)</code></a></dd></dl>
@@ -488,7 +479,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>addSessionDestroyListener</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.265">addSessionDestroyListener</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a>&nbsp;listener)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.256">addSessionDestroyListener</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a>&nbsp;listener)</pre>
 <div class="block">Register for a notification when the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is closed, without creating a memory leak.
 
  <p>
@@ -505,7 +496,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Serializab
 <ul class="blockListLast">
 <li class="blockList">
 <h4>removeSessionDestroyListener</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.280">removeSessionDestroyListener</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a>&nbsp;listener)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinApplication.html#line.271">removeSessionDestroyListener</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a>&nbsp;listener)</pre>
 <div class="block">Remove a listener added via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html#addSessionDestroyListener(com.vaadin.server.SessionDestroyListener)"><code>addSessionDestroyListener()</code></a>.
 
  <p>

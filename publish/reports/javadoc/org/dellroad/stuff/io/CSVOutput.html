@@ -209,13 +209,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>CSVOutput</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.45">CSVOutput</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.44">CSVOutput</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>...&nbsp;columns)</pre>
 <div class="block">Constructor.
 
  <p>
- The column headers will be written out automatically.
- </p></div>
+ The column headers will be written out automatically.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writer</code> - destination for the CSV output</dd><dd><code>columns</code> - CSV columns names in their desired order</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>writer</code> is null</dd>
@@ -229,13 +228,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>CSVOutput</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.62">CSVOutput</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.60">CSVOutput</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;columns)</pre>
 <div class="block">Constructor.
 
  <p>
- The column headers will be written out automatically.
- </p></div>
+ The column headers will be written out automatically.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writer</code> - destination for the CSV output</dd><dd><code>columns</code> - CSV columns names, iterated in their desired order</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>writer</code> is null</dd>
@@ -249,13 +247,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>CSVOutput</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.81">CSVOutput</a>(au.com.bytecode.opencsv.CSVWriter&nbsp;writer,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.78">CSVOutput</a>(au.com.bytecode.opencsv.CSVWriter&nbsp;writer,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;columns)</pre>
 <div class="block">Constructor.
 
  <p>
- The column headers will be written out automatically.
- </p></div>
+ The column headers will be written out automatically.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writer</code> - CSV output object</dd><dd><code>columns</code> - CSV columns names, iterated in their desired order</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>writer</code> is null</dd>
@@ -277,7 +274,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>writeRow</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.104">writeRow</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,?&gt;&nbsp;row)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.101">writeRow</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,?&gt;&nbsp;row)</pre>
 <div class="block">Output a CSV row.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>row</code> - mapping from column name to value; missing or values are treated as null</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -290,11 +287,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.124">flush</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.123">flush</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Flush output.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="close()">
@@ -303,11 +300,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.131">close</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.132">close</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Close this instance and the underlying output.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="formatObject(java.lang.String, java.lang.Object)">
@@ -328,12 +325,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <li><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> values are output by delegating to <a href="../../../../org/dellroad/stuff/io/CSVOutput.html#formatDate(java.lang.String, java.util.Date)"><code>formatDate()</code></a></li>
  <li>All other objects are output using <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true#valueOf(java.lang.Object)" title="class or interface in java.lang"><code>String.valueOf(java.lang.Object)</code></a></li>
  </ul>
- </p>
 
  <p>
- Subclasses should override as needed.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>columnName</code> - name of the column</dd><dd><code>value</code> - column value; will be null if no value was present in the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util"><code>Map</code></a> parameter to <a href="../../../../org/dellroad/stuff/io/CSVOutput.html#writeRow(java.util.Map)"><code>writeRow(java.util.Map&lt;java.lang.String, ?&gt;)</code></a></dd></dl>
+ Subclasses should override as needed.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>columnName</code> - name of the column</dd><dd><code>value</code> - column value; will be null if no value was present in the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util"><code>Map</code></a> parameter to <a href="../../../../org/dellroad/stuff/io/CSVOutput.html#writeRow(java.util.Map)"><code>writeRow(java.util.Map&lt;java.lang.String, ?&gt;)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>formatted string</dd></dl>
 </li>
 </ul>
 <a name="formatDate(java.lang.String, java.util.Date)">
@@ -342,18 +338,17 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>formatDate</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.180">formatDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;columnName,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/CSVOutput.html#line.179">formatDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;columnName,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Format a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> value.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/io/CSVOutput.html" title="class in org.dellroad.stuff.io"><code>CSVOutput</code></a> delegates to <a href="../../../../org/dellroad/stuff/string/DateEncoder.html#encode(java.util.Date)"><code>DateEncoder.encode()</code></a>.
- </p>
 
  <p>
- Subclasses should override as needed.
- </p></div>
+ Subclasses should override as needed.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>columnName</code> - name of the column</dd><dd><code>date</code> - column value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>formatted date string</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>date</code> is null</dd></dl>
 </li>

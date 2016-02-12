@@ -103,7 +103,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.35">IdleTimeoutInputStream</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.32">IdleTimeoutInputStream</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>
 implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html" title="interface in org.dellroad.stuff.io">AsyncInputStream.Listener</a></pre>
 <div class="block">Wraps an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> and enforces a maximum time limit on how long any <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true#read()" title="class or interface in java.io"><code>read()</code></a>
@@ -112,17 +112,14 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
  <p>
  As a side effect of its design, this class may also be used to artificially inject data, EOF, or exceptions into the
  <code>InputStream</code>, using the <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html" title="interface in org.dellroad.stuff.io"><code>AsyncInputStream.Listener</code></a> interface methods.
- </p>
 
  <p>
  This class may also be used to allow testing the real-time state of an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> without actually reading
  from it, via <a href="../../../../org/dellroad/stuff/io/IdleTimeoutInputStream.html#checkConnection()"><code>checkConnection()</code></a>, which guarantees an immediate exception will be thrown if the underlying
  <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> has been closed, reached EOF, or itself thrown an exception.
- </p>
 
  <p>
- All methods in this class are thread safe.
- </p></div>
+ All methods in this class are thread safe.</div>
 </li>
 </ul>
 </div>
@@ -247,7 +244,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>IdleTimeoutInputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.60">IdleTimeoutInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;in,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.57">IdleTimeoutInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;in,
                       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;threadName,
                       long&nbsp;timeout)</pre>
 <div class="block">Constructor.</div>
@@ -262,7 +259,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockListLast">
 <li class="blockList">
 <h4>IdleTimeoutInputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.79">IdleTimeoutInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;in,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.76">IdleTimeoutInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;in,
                       long&nbsp;timeout)</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote><code>
@@ -287,7 +284,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.86">read</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.83">read</a>()
          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -302,7 +299,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.103">read</a>(byte[]&nbsp;buf,
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.100">read</a>(byte[]&nbsp;buf,
        int&nbsp;off,
        int&nbsp;len)
          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -319,7 +316,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.181">close</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.178">close</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true#close()" title="class or interface in java.io">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></code></dd>
@@ -336,7 +333,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>available</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.198">available</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.195">available</a>()
               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
@@ -351,14 +348,13 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>checkConnection</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.214">checkConnection</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.210">checkConnection</a>()
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Check the status of the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.
 
  <p>
  This method guarantees that if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> has been closed,
- reached EOF, or thrown an exception, then this method will throw an immediate exception.
- </p></div>
+ reached EOF, or thrown an exception, then this method will throw an immediate exception.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/EOFException.html?is-external=true" title="class or interface in java.io">EOFException</a></code> - if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> has reached EOF</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> threw an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a></dd>
@@ -371,7 +367,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>handleInput</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.221">handleInput</a>(byte[]&nbsp;buf,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.217">handleInput</a>(byte[]&nbsp;buf,
                int&nbsp;off,
                int&nbsp;len)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html#handleInput(byte[], int, int)">AsyncInputStream.Listener</a></code></strong></div>
@@ -389,7 +385,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockList">
 <li class="blockList">
 <h4>handleEOF</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.268">handleEOF</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.264">handleEOF</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html#handleEOF()">AsyncInputStream.Listener</a></code></strong></div>
 <div class="block">Handle end-of-file detected on the underlying input.
  No further events will be delivered.
@@ -408,7 +404,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
 <ul class="blockListLast">
 <li class="blockList">
 <h4>handleException</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.284">handleException</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;e)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/IdleTimeoutInputStream.html#line.280">handleException</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;e)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html#handleException(java.lang.Throwable)">AsyncInputStream.Listener</a></code></strong></div>
 <div class="block">Handle an exception detected on the underlying input.
  No further events will be delivered.

@@ -99,7 +99,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.50">VaadinExternalListener</a>&lt;S&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.47">VaadinExternalListener</a>&lt;S&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Support superclass customized for use by listeners that are part of a Vaadin application when listening
  to non-Vaadin ("external") event sources.
@@ -117,18 +117,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
   <li>The listener is automatically unregistered from the external event source when the Vaadin application is closed,
       avoiding a memory leak</li>
  </ul>
- </p>
 
  <p>
  <b>Important:</b> subclass listener methods must use <a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#handleEvent(java.lang.Runnable)"><code>handleEvent()</code></a> when handling events.
  This will ensure proper locking to avoid race conditions.
- </p>
 
  <p>
  Note: when listening to event sources that are scoped to specific Vaadin application instances and already originate events
  within the proper Vaadin application context (i.e., event sources that are not external to the Vaadin application),
- then the use of this superclass is not necessary (however, it also doesn't hurt to use it anyway).
- </p></div>
+ then the use of this superclass is not necessary (however, it also doesn't hurt to use it anyway).</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplicationScope.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplicationScope</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplicationListener.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplicationListener</code></a>, 
@@ -270,7 +267,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>VaadinExternalListener</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.69">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.66">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource)</pre>
 <div class="block">Convenience constructor. Equivalent to:
  <blockquote>
   <a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#VaadinExternalListener(S, com.vaadin.server.VaadinSession)"><code>VaadinExternalListener(eventSource, VaadinUtil.getCurrentSession())</code></a>
@@ -289,7 +286,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>VaadinExternalListener</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.84">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.81">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource,
                       <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7">VaadinApplication</a>&nbsp;application)</pre>
 <div class="block">Convenience constructor. Equivalent to:
  <blockquote>
@@ -309,7 +306,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VaadinExternalListener</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.95">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.92">VaadinExternalListener</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource,
                       <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
 <div class="block">Primary constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>eventSource</code> - the event source on which this listener will register when <a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#register()"><code>register()</code></a> is invoked</dd><dd><code>session</code> - the associated Vaadin application's session</dd>
@@ -331,8 +328,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isAsynchronous</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.107">isAsynchronous</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.106">isAsynchronous</a>()</pre>
 <div class="block">Determine whether this instance is configured for asynchronous notification. Default false.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if this instance will notify asynchronously</dd></dl>
 </li>
 </ul>
 <a name="setAsynchronous(boolean)">
@@ -344,7 +342,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.117">setAsynchronous</a>(boolean&nbsp;asynchronous)</pre>
 <div class="block">Set whether to notify asynchronously. If set, <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invokeLater(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invokeLater()</code></a> will
  be used for notifications, so that these occur on a different thread from the original notifying thread.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#handleEvent(java.lang.Runnable)"><code>handleEvent()</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>asynchronous</code> - true to notify asynchronously, false for synchronous notifications</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#handleEvent(java.lang.Runnable)"><code>handleEvent()</code></a></dd></dl>
 </li>
 </ul>
 <a name="register()">
@@ -380,8 +378,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getSession</h4>
-<pre>public final&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.147">getSession</a>()</pre>
+<pre>public final&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.149">getSession</a>()</pre>
 <div class="block">Get the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> (aka Vaadin application) with which this instance is associated.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>associated session</dd></dl>
 </li>
 </ul>
 <a name="getEventSource()">
@@ -390,8 +389,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getEventSource</h4>
-<pre>public final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.154">getEventSource</a>()</pre>
+<pre>public final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.158">getEventSource</a>()</pre>
 <div class="block">Get the event source with which this instance is (or was) registered as a listener.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>associated event source</dd></dl>
 </li>
 </ul>
 <a name="handleEvent(java.lang.Runnable)">
@@ -400,18 +400,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>handleEvent</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.174">handleEvent</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.176">handleEvent</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Execute the given listener action using the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> with which this instance is associated.
 
  <p>
  Subclass listener methods should handle events by invoking this method to ensure proper locking to avoid race conditions.
- </p>
 
  <p>
  This method delegates to <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invoke()</code></a>, or
  <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invokeLater(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invokeLater()</code></a> if this instance is configured to be
- <a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#setAsynchronous(boolean)">asynchronous</a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#setAsynchronous(boolean)">asynchronous</a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)"><code>VaadinUtil.invoke(com.vaadin.server.VaadinSession, java.lang.Runnable)</code></a></dd></dl>
 </li>
 </ul>
@@ -423,12 +421,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>register</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.201">register</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource)</pre>
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinExternalListener.html#line.202">register</a>(<a href="../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="type parameter in VaadinExternalListener">S</a>&nbsp;eventSource)</pre>
 <div class="block">Register as a listener on the given event source.
 
  <p>
- Subclass must implement this to perform the actual listener registration.
- </p></div>
+ Subclass must implement this to perform the actual listener registration.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>eventSource</code> - event source, never null; will be same as provided to the constructor</dd></dl>
 </li>
 </ul>
@@ -444,8 +441,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <div class="block">Register as a listener from the given event source.
 
  <p>
- Subclass must implement this to perform the actual listener registration.
- </p></div>
+ Subclass must implement this to perform the actual listener registration.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>eventSource</code> - event source, never null; will be same as provided to the constructor</dd></dl>
 </li>
 </ul>

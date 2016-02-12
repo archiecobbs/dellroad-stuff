@@ -109,7 +109,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.41">AbstractUnsizedContainer</a>&lt;T&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.38">AbstractUnsizedContainer</a>&lt;T&gt;
 extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractQueryContainer</a>&lt;T&gt;</pre>
 <div class="block">A specialization of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractQueryContainer</code></a> that doesn't require up-front knowledge of the underlying data's size.
 
@@ -120,19 +120,16 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
  the size of the underlying data. Each time that size estimate changes, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#handleSizeChange()"><code>handleSizeChange()</code></a> is invoked
  to schedule a (non-reentrant) property set change notification. Once the end of the underlying data is reached,
  the size is known.
- </p>
 
  <p>
  If the actual size of the underlying data is constant, this class will eventually find it. If the
  actual size of the underlying data can change (either up or down), this class will adapt accordingly,
  but only when it learns of the new size through an invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#queryWindow(long, int)"><code>queryWindow()</code></a>;
  as this depends on how the container is used, this may not occur for a long time.
- </p>
 
  <p>
  When used to back a Vaadin table, the user will see a table that automatically grows as the user scrolls
- downward, until the actual end of the data is detected.
- </p></div>
+ downward, until the actual end of the data is detected.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractQueryContainer</code></a>, 
 <a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin7.AbstractUnsizedContainer">Serialized Form</a></dd></dl>
 </li>
@@ -364,7 +361,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DEFAULT_WINDOW_SIZE</h4>
-<pre>public static final&nbsp;int <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.43">DEFAULT_WINDOW_SIZE</a></pre>
+<pre>public static final&nbsp;int <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.40">DEFAULT_WINDOW_SIZE</a></pre>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.vaadin7.AbstractUnsizedContainer.DEFAULT_WINDOW_SIZE">Constant Field Values</a></dd></dl>
 </li>
 </ul>
@@ -382,7 +379,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.64">AbstractUnsizedContainer</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.60">AbstractUnsizedContainer</a>()</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote>
       <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#AbstractUnsizedContainer(int)"><code>AbstractUnsizedContainer</code></a><code>(</code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#DEFAULT_WINDOW_SIZE"><code>DEFAULT_WINDOW_SIZE</code></a><code>)</code>
@@ -391,8 +388,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
  <p>
  After using this constructor, subsequent invocations of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a>
  and <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> are required to define the properties of this container
- and how to extract them.
- </p></div>
+ and how to extract them.</div>
 </li>
 </ul>
 <a name="AbstractUnsizedContainer(org.dellroad.stuff.vaadin7.PropertyExtractor)">
@@ -401,7 +397,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.84">AbstractUnsizedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.79">AbstractUnsizedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote>
       <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#AbstractUnsizedContainer(int, org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>AbstractUnsizedContainer</code></a><code>(</code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#DEFAULT_WINDOW_SIZE"><code>DEFAULT_WINDOW_SIZE</code></a><code>, propertyExtractor)</code>
@@ -409,8 +405,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> is required
- to define the properties of this container.
- </p></div>
+ to define the properties of this container.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
   may be null but then container is not usable until one is configured via
  <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a></dd></dl>
@@ -422,7 +417,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.103">AbstractUnsizedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.97">AbstractUnsizedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote>
       <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#AbstractUnsizedContainer(int, org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>AbstractUnsizedContainer</code></a><code>(</code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#DEFAULT_WINDOW_SIZE"><code>DEFAULT_WINDOW_SIZE</code></a><code>, propertyDefs)</code>
@@ -431,8 +426,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a>
  is required to define how to extract the properties of this container; alternately, subclasses can override
- <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDefs</code> - container property definitions; null is treated like the empty set</dd></dl>
 </li>
 </ul>
@@ -442,7 +436,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.119">AbstractUnsizedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.113">AbstractUnsizedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor,
                         <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote>
@@ -459,14 +453,13 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.136">AbstractUnsizedContainer</a>(int&nbsp;windowSize)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.129">AbstractUnsizedContainer</a>(int&nbsp;windowSize)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, subsequent invocations of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a>
  and <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> are required to define the properties of this container
- and how to extract them.
- </p></div>
+ and how to extract them.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>windowSize</code> - size of the query window</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>windowSize</code> is less than 1</dd></dl>
@@ -478,14 +471,13 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.154">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.146">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
                         <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> is required
- to define the properties of this container.
- </p></div>
+ to define the properties of this container.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>windowSize</code> - size of the query window</dd><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
   may be null but then container is not usable until one is configured via
  <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a></dd>
@@ -499,15 +491,14 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.171">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.162">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
                         <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a>
  is required to define how to extract the properties of this container; alternately, subclasses can override
- <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>windowSize</code> - size of the query window</dd><dd><code>propertyDefs</code> - container property definitions; null is treated like the empty set</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>windowSize</code> is less than 1</dd></dl>
@@ -519,7 +510,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.185">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.176">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
                         <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;propertyExtractor,
                         <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.</div>
@@ -536,7 +527,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.211">AbstractUnsizedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;type)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.202">AbstractUnsizedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;type)</pre>
 <div class="block">Convenience constructor. Equivalent to:
   <blockquote>
       <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#AbstractUnsizedContainer(int, java.lang.Class)"><code>AbstractUnsizedContainer</code></a><code>(</code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#DEFAULT_WINDOW_SIZE"><code>DEFAULT_WINDOW_SIZE</code></a><code>, type)</code>
@@ -559,14 +550,13 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractUnsizedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.235">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.225">AbstractUnsizedContainer</a>(int&nbsp;windowSize,
                         <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;type)</pre>
 <div class="block">Constructor.
 
  <p>
  Properties will be determined by the <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a> and
- <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>windowSize</code> - size of the query window</dd><dd><code>type</code> - class to introspect for annotated methods</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>type</code> is null</dd>
@@ -593,7 +583,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>query</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html" title="interface in org.dellroad.stuff.vaadin7">QueryList</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.243">query</a>(long&nbsp;hint)</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html" title="interface in org.dellroad.stuff.vaadin7">QueryList</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.233">query</a>(long&nbsp;hint)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#query(long)">AbstractQueryContainer</a></code></strong></div>
 <div class="block">Perform a query to (re)generate the list of Java objects backing this container.
 
@@ -601,15 +591,13 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
  The particular position in the list we are interested in is given as a hint by the <code>hint</code> parameter.
  That is, an invocation of <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html#get(long)"><code>QueryList.get(long)</code></a><code>(hint)</code> is likely immediately after this method
  returns and if so it must complete without throwing an exception, unless <code>hint</code> is out of range.
- </p>
 
  <p>
  The <code>hint</code> can be used to implement a highly scalable query list containing external objects
  (such as from a database) where only a small "window" of objects is actually kept in memory at any one time.
  Of course, implementations are also free to ignore <code>hint</code>. However, the returned <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html" title="interface in org.dellroad.stuff.vaadin7"><code>QueryList</code></a>
  must at least tolerate one invocation of <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html#get(long)"><code>get</code></a><code>(hint)</code> without throwing an exception
- when <code>hint</code> is less that the <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html#size()"><code>size()</code></a> of the returned <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html" title="interface in org.dellroad.stuff.vaadin7"><code>QueryList</code></a>.
- </p></div>
+ when <code>hint</code> is less that the <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html#size()"><code>size()</code></a> of the returned <a href="../../../../org/dellroad/stuff/vaadin7/QueryList.html" title="interface in org.dellroad.stuff.vaadin7"><code>QueryList</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#query(long)">query</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractQueryContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;</code></dd>
@@ -623,7 +611,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getWindowSize</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.310">getWindowSize</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.300">getWindowSize</a>()</pre>
 <div class="block">Get the window size configured at construction time.</div>
 </li>
 </ul>
@@ -633,7 +621,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getCurrentSizeEstimate</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.317">getCurrentSizeEstimate</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.307">getCurrentSizeEstimate</a>()</pre>
 <div class="block">Get the current size estimate for the underlying data.</div>
 </li>
 </ul>
@@ -643,18 +631,16 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getSmallerEstimate</h4>
-<pre>protected&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.337">getSmallerEstimate</a>(long&nbsp;upperBound)</pre>
+<pre>protected&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.325">getSmallerEstimate</a>(long&nbsp;upperBound)</pre>
 <div class="block">Handle the case where the underlying data's size has suddenly shrunk, so we need to estimate the new size.
  All we know is that the actual new size is <code>upperBound</code> or less.
  This method should guess at the new value and, when called repeatedly, should converge rapidly to zero.
 
  <p>
  Note: this situation will not occur if the underlying data's size never decreases.
- </p>
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractUnsizedContainer</code></a> returns <code>upperBound * 0.75</code>.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractUnsizedContainer</code></a> returns <code>upperBound * 0.75</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>upperBound</code> - an upper bound on the size of the underlying data</dd>
 <dt><span class="strong">Returns:</span></dt><dd>estimate of the actual size of the underlying data</dd></dl>
 </li>
@@ -665,13 +651,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getLargerEstimate</h4>
-<pre>protected&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.352">getLargerEstimate</a>(long&nbsp;lowerBound)</pre>
+<pre>protected&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.339">getLargerEstimate</a>(long&nbsp;lowerBound)</pre>
 <div class="block">Estimate the size of the underlying data given that <code>lowerBound</code> is a lower bound.
  This effectively determines how much data will appear to be "beyond" the current window.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractUnsizedContainer</code></a> returns <code>lowerBound * 1.25</code>.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractUnsizedContainer</code></a> returns <code>lowerBound * 1.25</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>lowerBound</code> - a lower bound on the size of the underlying data</dd>
 <dt><span class="strong">Returns:</span></dt><dd>estimate of the actual size of the underlying data</dd></dl>
 </li>
@@ -682,7 +667,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>fireItemSetChange</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.357">fireItemSetChange</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.ItemSetChangeEvent.html?is-external=true" title="class or interface in com.vaadin.data">Container.ItemSetChangeEvent</a>&nbsp;event)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.344">fireItemSetChange</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.ItemSetChangeEvent.html?is-external=true" title="class or interface in com.vaadin.data">Container.ItemSetChangeEvent</a>&nbsp;event)</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractContainer.html?is-external=true#fireItemSetChange(com.vaadin.data.Container.ItemSetChangeEvent)" title="class or interface in com.vaadin.data.util">fireItemSetChange</a></code>&nbsp;in class&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractContainer.html?is-external=true" title="class or interface in com.vaadin.data.util">AbstractContainer</a></code></dd>
@@ -695,7 +680,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>queryWindow</h4>
-<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.372">queryWindow</a>(long&nbsp;offset,
+<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.359">queryWindow</a>(long&nbsp;offset,
                             int&nbsp;length)</pre>
 <div class="block">Query the underlying data for a window of items in the given range. This should return the "window" of underlying
  data items starting at offset <code>offset</code> and having at least length <code>length</code>, or else however many remain.
@@ -711,17 +696,15 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>handleSizeChange</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.387">handleSizeChange</a>()</pre>
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html#line.372">handleSizeChange</a>()</pre>
 <div class="block">Emit a property set change notification.
 
  <p>
  Subclasses are required to implement this so that size changes are detected.
- </p>
 
  <p>
  Note: to avoid re-entrancy problems, this method should not send out any notifications itself;
- instead, it must schedule notifications to be delivered later (perhaps in a different thread).
- </p></div>
+ instead, it must schedule notifications to be delivered later (perhaps in a different thread).</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html#handleSizeChange()">handleSizeChange</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractQueryContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractQueryContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractUnsizedContainer.html" title="type parameter in AbstractUnsizedContainer">T</a>&gt;</code></dd>

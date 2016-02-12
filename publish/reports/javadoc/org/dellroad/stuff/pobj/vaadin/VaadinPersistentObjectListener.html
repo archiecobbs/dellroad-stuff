@@ -227,7 +227,7 @@ implements <a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListe
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html#handleEvent(org.dellroad.stuff.pobj.PersistentObjectEvent)">handleEvent</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>event</code> - notification event</dd></dl>
 </li>
 </ul>
 <a name="handlePersistentObjectChange(java.lang.Object,java.lang.Object,long)">
@@ -238,7 +238,7 @@ implements <a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListe
 <ul class="blockList">
 <li class="blockList">
 <h4>handlePersistentObjectChange</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.49">handlePersistentObjectChange</a>(<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&nbsp;oldRoot,
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.48">handlePersistentObjectChange</a>(<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&nbsp;oldRoot,
                                 <a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&nbsp;newRoot,
                                 long&nbsp;version)</pre>
 <div class="block">Handle an update of the <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> root object.
@@ -246,8 +246,7 @@ implements <a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListe
  <i>should not invoke <a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#handleEvent(org.dellroad.stuff.pobj.PersistentObjectEvent)"><code>handleEvent()</code></a></i> to handle the event.
 
  <p>
- The caller should not modify <code>oldRoot</code> or <code>newRoot</code>.
- </p></div>
+ The caller should not modify <code>oldRoot</code> or <code>newRoot</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>oldRoot</code> - previous root object; may be null if empty starts or stops are supported</dd><dd><code>newRoot</code> - new root object; may be null if empty starts or stops are supported</dd><dd><code>version</code> - version corresponding to <code>newRoot</code></dd></dl>
 </li>
 </ul>
@@ -257,13 +256,12 @@ implements <a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListe
 <ul class="blockList">
 <li class="blockList">
 <h4>register</h4>
-<pre>protected final&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.52">register</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&nbsp;pobj)</pre>
+<pre>protected final&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.51">register</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&nbsp;pobj)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#register(S)">VaadinExternalListener</a></code></strong></div>
 <div class="block">Register as a listener on the given event source.
 
  <p>
- Subclass must implement this to perform the actual listener registration.
- </p></div>
+ Subclass must implement this to perform the actual listener registration.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#register(S)">register</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="class in org.dellroad.stuff.vaadin7">VaadinExternalListener</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&gt;</code></dd>
@@ -276,13 +274,12 @@ implements <a href="../../../../../org/dellroad/stuff/pobj/PersistentObjectListe
 <ul class="blockListLast">
 <li class="blockList">
 <h4>unregister</h4>
-<pre>protected final&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.57">unregister</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&nbsp;pobj)</pre>
+<pre>protected final&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html#line.56">unregister</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&nbsp;pobj)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#unregister(S)">VaadinExternalListener</a></code></strong></div>
 <div class="block">Register as a listener from the given event source.
 
  <p>
- Subclass must implement this to perform the actual listener registration.
- </p></div>
+ Subclass must implement this to perform the actual listener registration.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html#unregister(S)">unregister</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../org/dellroad/stuff/vaadin7/VaadinExternalListener.html" title="class in org.dellroad.stuff.vaadin7">VaadinExternalListener</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/VaadinPersistentObjectListener.html" title="type parameter in VaadinPersistentObjectListener">T</a>&gt;&gt;</code></dd>

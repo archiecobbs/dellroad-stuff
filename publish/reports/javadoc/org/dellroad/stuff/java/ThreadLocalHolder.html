@@ -95,7 +95,7 @@
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - the type of the thread local variable</dd></dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.55">ThreadLocalHolder</a>&lt;T&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.53">ThreadLocalHolder</a>&lt;T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Manages a thread local whose lifetime matches the duration of some method call.
 
@@ -109,7 +109,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
   <li>The thread local variable is removed (and optionally cleaned up) when the initial method call exits,
       whether successfully or not.</li>
  </ul>
- </p>
 
  <p>
  Example:
@@ -136,8 +135,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
          return CURRENT_ACTIVITY.require();
      }
  }
- </pre></blockquote>
- </p></div>
+ </pre></blockquote></div>
 </li>
 </ul>
 </div>
@@ -240,7 +238,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ThreadLocalHolder</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.66">ThreadLocalHolder</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.64">ThreadLocalHolder</a>()</pre>
 <div class="block">Conveninece constructor.
 
  <p>
@@ -254,7 +252,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ThreadLocalHolder</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.76">ThreadLocalHolder</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html?is-external=true" title="class or interface in java.lang">ThreadLocal</a>&lt;<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&gt;&nbsp;threadLocal)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.74">ThreadLocalHolder</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadLocal.html?is-external=true" title="class or interface in java.lang">ThreadLocal</a>&lt;<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&gt;&nbsp;threadLocal)</pre>
 <div class="block">Primary constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>threadLocal</code> - the thread local to use</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -277,7 +275,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>invoke</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.96">invoke</a>(<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&nbsp;value,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.94">invoke</a>(<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&nbsp;value,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Invoke the given action while making the given thread local variable available via <a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html#get()"><code>get()</code></a> and <a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html#require()"><code>require()</code></a>.
 
@@ -309,7 +307,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  If there is already a thread local variable set for the current thread (i.e., we are already executing within
  an invocation of <code>ThreadLocalHolder.invoke()</code>), then if <code>value</code> is the exact same Java object
  (using object equality, not <code>equals()</code>), execution proceeds normally, otherwise an exception is thrown.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>value</code> - value for the thread local variable</dd><dd><code>action</code> - action to invoke</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>R</code> - action return type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>value</code> - value for the thread local variable</dd><dd><code>action</code> - action to invoke</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of invoking <code>action</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either <code>action</code> or <code>value</code> is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is already a thread local variable <code>previous</code>
@@ -351,11 +350,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>destroy</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.191">destroy</a>(<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&nbsp;value)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ThreadLocalHolder.html#line.193">destroy</a>(<a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="type parameter in ThreadLocalHolder">T</a>&nbsp;value)</pre>
 <div class="block">Clean up the thread local value when no longer needed.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/java/ThreadLocalHolder.html" title="class in org.dellroad.stuff.java"><code>ThreadLocalHolder</code></a> does nothing. Subclasses may override if necessary.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>value</code> - previously used thread-local value</dd></dl>
 </li>
 </ul>
 </li>

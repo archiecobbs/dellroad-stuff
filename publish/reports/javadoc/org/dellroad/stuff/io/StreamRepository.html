@@ -156,10 +156,11 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getInputStream</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/StreamRepository.html#line.35">getInputStream</a>()
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/StreamRepository.html#line.36">getInputStream</a>()
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Get an input stream reading the current value of the underlying store.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>input containing current repository contents</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs</dd></dl>
 </li>
 </ul>
@@ -169,7 +170,7 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getOutputStream</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/StreamRepository.html#line.49">getOutputStream</a>()
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/StreamRepository.html#line.50">getOutputStream</a>()
                              throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Get an output stream writing to the underlying store. The underlying store is not affected until the
  returned output stream is successfully <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io">closed</a>, at which time it is
@@ -177,9 +178,9 @@
 
  <p>
  If the returned stream throws an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a> at any time, including during <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a>,
- or if <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a> is never invoked, then no update to the underlying storage occurs.
- </p></div>
-<dl><dt><span class="strong">Throws:</span></dt>
+ or if <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a> is never invoked, then no update to the underlying storage occurs.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>output for overwriting the current repository contents</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs</dd></dl>
 </li>
 </ul>

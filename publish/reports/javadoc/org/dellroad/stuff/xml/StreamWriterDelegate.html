@@ -364,8 +364,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>getParent</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.38">getParent</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.40">getParent</a>()</pre>
 <div class="block">Get parent instance.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>* underlying writer wrapped by this instance</dd></dl>
 </li>
 </ul>
 <a name="setParent(javax.xml.stream.XMLStreamWriter)">
@@ -374,8 +375,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>setParent</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.45">setParent</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;parent)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.49">setParent</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;parent)</pre>
 <div class="block">Set parent instance.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>parent</code> - underlying writer wrapped by this instance</dd></dl>
 </li>
 </ul>
 <a name="writeStartElement(java.lang.String)">
@@ -384,7 +386,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.50">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.54">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -399,7 +401,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.55">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.59">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -415,7 +417,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.60">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.64">writeStartElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -432,7 +434,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEmptyElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.65">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.69">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -448,7 +450,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEmptyElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.70">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.74">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -465,7 +467,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEmptyElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.75">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.79">writeEmptyElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName)
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -480,7 +482,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEndElement</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.80">writeEndElement</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.84">writeEndElement</a>()
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -495,7 +497,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEndDocument</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.85">writeEndDocument</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.89">writeEndDocument</a>()
                       throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -510,7 +512,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.90">close</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.94">close</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -525,7 +527,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.95">flush</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.99">flush</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -540,7 +542,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeAttribute</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.100">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.104">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;value)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -556,7 +558,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeAttribute</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.105">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.109">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;value)
@@ -574,7 +576,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeAttribute</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.110">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.114">writeAttribute</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;localName,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;value)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -591,7 +593,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeNamespace</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.115">writeNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.119">writeNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -607,7 +609,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeDefaultNamespace</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.120">writeDefaultNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.124">writeDefaultNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;namespaceURI)
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -622,7 +624,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeComment</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.125">writeComment</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.129">writeComment</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data)
                   throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -637,7 +639,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeProcessingInstruction</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.130">writeProcessingInstruction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;target)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.134">writeProcessingInstruction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;target)
                                 throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -652,7 +654,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeProcessingInstruction</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.135">writeProcessingInstruction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;target,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.139">writeProcessingInstruction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;target,
                               <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data)
                                 throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -668,7 +670,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeCData</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.140">writeCData</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.144">writeCData</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;data)
                 throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -683,7 +685,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeDTD</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.145">writeDTD</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;dtd)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.149">writeDTD</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;dtd)
               throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -698,7 +700,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeEntityRef</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.150">writeEntityRef</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.154">writeEntityRef</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -713,7 +715,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartDocument</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.155">writeStartDocument</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.159">writeStartDocument</a>()
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -728,7 +730,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartDocument</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.160">writeStartDocument</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;version)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.164">writeStartDocument</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;version)
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -743,7 +745,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeStartDocument</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.165">writeStartDocument</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;encoding,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.169">writeStartDocument</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;encoding,
                       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;version)
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -759,7 +761,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeCharacters</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.170">writeCharacters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.174">writeCharacters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -774,7 +776,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>writeCharacters</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.175">writeCharacters</a>(char[]&nbsp;text,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.179">writeCharacters</a>(char[]&nbsp;text,
                    int&nbsp;start,
                    int&nbsp;len)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -791,7 +793,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>getPrefix</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.180">getPrefix</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.184">getPrefix</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)
                  throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -806,7 +808,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>setPrefix</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.185">setPrefix</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.189">setPrefix</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prefix,
              <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)
                throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
@@ -822,7 +824,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>setDefaultNamespace</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.190">setDefaultNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.194">setDefaultNamespace</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;uri)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -837,7 +839,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>setNamespaceContext</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.195">setNamespaceContext</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html?is-external=true" title="class or interface in javax.xml.namespace">NamespaceContext</a>&nbsp;context)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.199">setNamespaceContext</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html?is-external=true" title="class or interface in javax.xml.namespace">NamespaceContext</a>&nbsp;context)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -852,7 +854,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockList">
 <li class="blockList">
 <h4>getNamespaceContext</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html?is-external=true" title="class or interface in javax.xml.namespace">NamespaceContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.200">getNamespaceContext</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/NamespaceContext.html?is-external=true" title="class or interface in javax.xml.namespace">NamespaceContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.204">getNamespaceContext</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true#getNamespaceContext()" title="class or interface in javax.xml.stream">getNamespaceContext</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a></code></dd>
@@ -865,7 +867,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/X
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getProperty</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.205">getProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StreamWriterDelegate.html#line.209">getProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true#getProperty(java.lang.String)" title="class or interface in javax.xml.stream">getProperty</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a></code></dd>

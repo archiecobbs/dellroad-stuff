@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.41">ObjectComparator</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.36">ObjectComparator</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;</pre>
 <div class="block">A <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util"><code>Comparator</code></a> that creates a stable, total ordering of all Java objects.
@@ -107,24 +107,19 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
  Instances are compared first using <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html?is-external=true#identityHashCode(java.lang.Object)" title="class or interface in java.lang">identity hash codes</a>, and then using
  an internally generated unique identifier; identifiers are indexed using weak keys to avoid memory leaks.
  Any two distict Java objects will always compare as non-equal.
- </p>
 
  <p>
  Note: this ordering is only <i>consistent with equals</i> (see <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Comparable.html?is-external=true" title="class or interface in java.lang"><code>Comparable</code></a>) for classes whose
  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>equals()</code></a> method is implemented in terms of object equality (e.g., not overridden at all).
- </p>
 
  <p>
  Note: while each instance creates a stable sort ordering, distinct instances of this class may sort objects differently.
- </p>
 
  <p>
  Null values are supported and always sort last. Instances of this class are thread safe.
- </p>
 
  <p>
- This class requires <a href="https://github.com/google/guava">Google Guava</a>.
- </p></div>
+ This class requires <a href="https://github.com/google/guava">Google Guava</a>.</div>
 </li>
 </ul>
 </div>
@@ -216,7 +211,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>ObjectComparator</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.49">ObjectComparator</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.44">ObjectComparator</a>()</pre>
 <div class="block">Default constructor.</div>
 </li>
 </ul>
@@ -226,7 +221,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>ObjectComparator</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.60">ObjectComparator</a>(int&nbsp;concurrencyLevel)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.55">ObjectComparator</a>(int&nbsp;concurrencyLevel)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>concurrencyLevel</code> - guides the allowed concurrency among update operations; used as a hint for internal sizing</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -239,7 +234,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ObjectComparator</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.70">ObjectComparator</a>(<a href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/cache/CacheBuilder.html?is-external=true" title="class or interface in com.google.common.cache">CacheBuilder</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;&nbsp;cacheBuilder)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.65">ObjectComparator</a>(<a href="http://docs.guava-libraries.googlecode.com/git/javadoc/com/google/common/cache/CacheBuilder.html?is-external=true" title="class or interface in com.google.common.cache">CacheBuilder</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;&nbsp;cacheBuilder)</pre>
 <div class="block">Internal constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>cacheBuilder</code> - object unique ID cache builder</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -260,7 +255,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>compare</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.80">compare</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj1,
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ObjectComparator.html#line.75">compare</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj1,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj2)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>

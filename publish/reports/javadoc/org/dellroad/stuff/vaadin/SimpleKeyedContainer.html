@@ -118,14 +118,13 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.24">SimpleKeyedContainer</a>&lt;I,T&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.23">SimpleKeyedContainer</a>&lt;I,T&gt;
 extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin">AbstractSimpleContainer</a>&lt;I,T&gt;</pre>
 <div class="block">An <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin"><code>AbstractSimpleContainer</code></a> where the item IDs are generated from the items themselves
  by the subclass-provided method <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#getKeyFor(T)"><code>getKeyFor(T)</code></a>.
 
  <p>
- Restriction: instances can never contain two objects whose keys are equal (in the sense of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals(java.lang.Object)</code></a>).
- </p></div>
+ Restriction: instances can never contain two objects whose keys are equal (in the sense of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals(java.lang.Object)</code></a>).</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin"><code>AbstractSimpleContainer</code></a>, 
 <a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin.SimpleKeyedContainer">Serialized Form</a></dd></dl>
 </li>
@@ -320,7 +319,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>SimpleKeyedContainer</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.36">SimpleKeyedContainer</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.35">SimpleKeyedContainer</a>()</pre>
 <div class="block">Constructor.
 
  <p>
@@ -335,7 +334,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>SimpleKeyedContainer</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.50">SimpleKeyedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.49">SimpleKeyedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Constructor.
 
  <p>
@@ -352,14 +351,13 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>SimpleKeyedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.65">SimpleKeyedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin/PropertyDef.html" title="class in org.dellroad.stuff.vaadin">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.63">SimpleKeyedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin/PropertyDef.html" title="class in org.dellroad.stuff.vaadin">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin.PropertyExtractor)"><code>setPropertyExtractor()</code></a> is required
  to define how to extract the properties of this container; alternately, subclasses can override
- <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin.PropertyDef)"><code>getPropertyValue()</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin.PropertyDef)"><code>getPropertyValue()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDefs</code> - container property definitions; null is treated like the empty set</dd></dl>
 </li>
 </ul>
@@ -369,7 +367,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>SimpleKeyedContainer</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.77">SimpleKeyedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;propertyExtractor,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.75">SimpleKeyedContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;propertyExtractor,
                     <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin/PropertyDef.html" title="class in org.dellroad.stuff.vaadin">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
@@ -383,13 +381,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SimpleKeyedContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.100">SimpleKeyedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;type)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.97">SimpleKeyedContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;&nbsp;type)</pre>
 <div class="block">Constructor.
 
  <p>
  Properties will be determined by the <a href="../../../../org/dellroad/stuff/vaadin/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin"><code>&#64;ProvidesProperty</code></a> and
- <a href="../../../../org/dellroad/stuff/vaadin/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>type</code> - class to introspect for annotated methods</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>type</code> is null</dd>
@@ -416,7 +413,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getJavaObject</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.105">getJavaObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.102">getJavaObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#getJavaObject(java.lang.Object)">AbstractSimpleContainer</a></code></strong></div>
 <div class="block">Get the underlying Java object corresponding to the given item ID.
  This method ignores any filtering (i.e., filtered-out objects are still accessible).</div>
@@ -435,18 +432,16 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemIdFor</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.129">getItemIdFor</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.124">getItemIdFor</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Get the container item ID corresponding to the given underlying Java object which is wrapped by this container.
  Objects are tested for equality using <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals()</code></a>.
 
  <p>
  This method uses an internal hash map for efficiency, and assumes that two underlying container objects that
  are <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equal</a> will have the same <a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#getKeyFor(T)">key</a>.
- </p>
 
  <p>
- This method is not used by this class but is defined as a convenience for subclasses.
- </p></div>
+ This method is not used by this class but is defined as a convenience for subclasses.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#getItemIdFor(T)">getItemIdFor</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin">AbstractSimpleContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>,<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;</code></dd>
@@ -464,17 +459,15 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemIdForSame</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.156">getItemIdForSame</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.149">getItemIdForSame</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Get the container item ID corresponding to the given underlying Java object which is wrapped by this container.
  Objects are tested for equality using object equality, not <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals()</code></a>.
 
  <p>
  This method uses an internal hash map for efficiency.
- </p>
 
  <p>
- This method is not used by this class but is defined as a convenience for subclasses.
- </p></div>
+ This method is not used by this class but is defined as a convenience for subclasses.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#getItemIdForSame(T)">getItemIdForSame</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin">AbstractSimpleContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>,<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&gt;</code></dd>
@@ -490,7 +483,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>resetItemIds</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.167">resetItemIds</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.160">resetItemIds</a>()</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#resetItemIds()">AbstractSimpleContainer</a></code></strong></div>
 <div class="block">Subclass hook invoked prior to each reload. The subclass should reset its state (e.g., issued item IDs) as required.</div>
 <dl>
@@ -507,7 +500,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockList">
 <li class="blockList">
 <h4>generateItemId</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.172">generateItemId</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.165">generateItemId</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#generateItemId(T)">AbstractSimpleContainer</a></code></strong></div>
 <div class="block">Create a new, unique item ID for the given object. This method is invoked during a <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.html#load(java.lang.Iterable)">reload operation</a>,
  once for each container object. Both visible and filtered objects will be passed to this method.
@@ -530,7 +523,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/AbstractSimpleContainer.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getKeyFor</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.190">getKeyFor</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SimpleKeyedContainer.html#line.183">getKeyFor</a>(<a href="../../../../org/dellroad/stuff/vaadin/SimpleKeyedContainer.html" title="type parameter in SimpleKeyedContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Get the key to be used as item ID for the given object.
  All objects in the container must have unique keys.
  This method must return the same key for the same object even if invoked multiple times.</div>

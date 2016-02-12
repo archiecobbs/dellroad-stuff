@@ -102,14 +102,13 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.60">DelayedAction</a>
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.54">DelayedAction</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a></pre>
 <div class="block">Manages a delayed action without race conditions.
 
  <p>
  A "delayed action" is a some action that needs to get done by some time in the future.
- </p>
 
  <p>
  This class does two things:
@@ -118,30 +117,25 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
   i.e., at most one outstanding scheduled action can exist at a time.</li>
   <li>It provides a race-free and 100% reliable way to <a href="../../../../org/dellroad/stuff/spring/DelayedAction.html#cancel()"><code>cancel()</code></a> a future scheduled action, if any.</li>
  </ul>
- </p>
 
  <p>
  The action itself is defined by the subclass' implementation of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true#run()" title="class or interface in java.lang"><code>run()</code></a>.
- </p>
 
  <p>
  To avoid races, this class requires the user to supply a <i>locking object</i>. This may either be a normal
  Java object, in which case normal Java synchronization is used, or a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks"><code>Lock</code></a> object. The locking object is
  used to serialize scheduling activity and action invocation. In other words, the locking object is locked during
  the execution of <a href="../../../../org/dellroad/stuff/spring/DelayedAction.html#schedule(java.util.Date)"><code>schedule()</code></a>, <a href="../../../../org/dellroad/stuff/spring/DelayedAction.html#cancel()"><code>cancel()</code></a>, and <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true#run()" title="class or interface in java.lang"><code>run()</code></a>.
- </p>
 
  <p>
  Therefore, any time the locking object is locked, the state of this <a href="../../../../org/dellroad/stuff/spring/DelayedAction.html" title="class in org.dellroad.stuff.spring"><code>DelayedAction</code></a> instance is "frozen"
  in one of three states: not scheduled, scheduled, or executing (in the latter case, of course the thread doing the
  executing is the one holding the lock). Therefore, to completely avoid race conditions, user code must <i>itself</i>
  lock the locking object itself prior to invoking any methods in this class.
- </p>
 
  <p>
  Typically the most convenient locking object to use is the user's own <code>this</code> object, which can be locked using a
  <code>synchronized</code> method or block.
- </p>
 
  <p>
  Note: in the case that <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true#run()" title="class or interface in java.lang"><code>run()</code></a> invokes <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang"><code>Object.wait()</code></a> on the locking object, thereby
@@ -274,7 +268,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>DelayedAction</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.77">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;lock,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.71">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;lock,
              <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/scheduling/TaskScheduler.html?is-external=true" title="class or interface in org.springframework.scheduling">TaskScheduler</a>&nbsp;taskScheduler)</pre>
 <div class="block">Constructor utitilizing a <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/scheduling/TaskScheduler.html?is-external=true" title="class or interface in org.springframework.scheduling"><code>TaskScheduler</code></a> and normal Java object locking.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>lock</code> - locking object used to serialize activity, or null for <code>this</code></dd><dd><code>taskScheduler</code> - scheduler object</dd>
@@ -288,7 +282,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>DelayedAction</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.90">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;lock,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.84">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;lock,
              <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html?is-external=true" title="class or interface in java.util.concurrent">ScheduledExecutorService</a>&nbsp;executorService)</pre>
 <div class="block">Constructor utitilizing a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html?is-external=true" title="class or interface in java.util.concurrent"><code>ScheduledExecutorService</code></a> and normal Java object locking.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>lock</code> - locking object used to serialize activity, or null for <code>this</code></dd><dd><code>executorService</code> - scheduler object</dd>
@@ -302,7 +296,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>DelayedAction</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.104">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks">Lock</a>&nbsp;lock,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.98">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks">Lock</a>&nbsp;lock,
              <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/scheduling/TaskScheduler.html?is-external=true" title="class or interface in org.springframework.scheduling">TaskScheduler</a>&nbsp;taskScheduler)</pre>
 <div class="block">Constructor utitilizing a <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/scheduling/TaskScheduler.html?is-external=true" title="class or interface in org.springframework.scheduling"><code>TaskScheduler</code></a> and a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks"><code>Lock</code></a> for locking.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>lock</code> - locking object used to serialize activity</dd><dd><code>taskScheduler</code> - scheduler object</dd>
@@ -317,7 +311,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockListLast">
 <li class="blockList">
 <h4>DelayedAction</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.120">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks">Lock</a>&nbsp;lock,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.114">DelayedAction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks">Lock</a>&nbsp;lock,
              <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html?is-external=true" title="class or interface in java.util.concurrent">ScheduledExecutorService</a>&nbsp;executorService)</pre>
 <div class="block">Constructor utitilizing a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html?is-external=true" title="class or interface in java.util.concurrent"><code>ScheduledExecutorService</code></a> and a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html?is-external=true" title="class or interface in java.util.concurrent.locks"><code>Lock</code></a> for locking.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>lock</code> - locking object used to serialize activity</dd><dd><code>executorService</code> - scheduler object</dd>
@@ -340,7 +334,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>schedule</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.163">schedule</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.155">schedule</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Schedule the delayed action for the given time.
 
  <p>
@@ -354,13 +348,11 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
   <li>If an action is already scheduled, and the given time is prior to the scheduled time,
   the action is rescheduled for the earlier time.</li>
  </ul>
- </p>
 
  <p>
  The net result is that, for any invocation, this method guarantees exactly one execution of the action will
  occur approximately on or before the given date; however, multiple invocations of this method prior to action
- execution can only ever result in a single "shared" action.
- </p></div>
+ execution can only ever result in a single "shared" action.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - scheduled execution time (at the latest)</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>date</code> is null</dd>
@@ -374,7 +366,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>cancel</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.212">cancel</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.203">cancel</a>()</pre>
 <div class="block">Cancel the future scheduled action, if any.
 
  <p>
@@ -385,8 +377,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
   prior to invoking this method.</li>
   <li>If an action is scheduled but has not started yet, it is guaranteed not to run.</li>
   <li>If no action is scheduled or executing, nothing changes.</li>
- </ul>
- </p></div>
+ </ul></div>
 </li>
 </ul>
 <a name="isScheduled()">
@@ -395,8 +386,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>isScheduled</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.235">isScheduled</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.228">isScheduled</a>()</pre>
 <div class="block">Determine whether there is currently an outstanding scheduled action.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if an action is pending</dd></dl>
 </li>
 </ul>
 <a name="getScheduledTime()">
@@ -405,7 +397,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockList">
 <li class="blockList">
 <h4>getScheduledTime</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.251">getScheduledTime</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.244">getScheduledTime</a>()</pre>
 <div class="block">Get the scheduled time for the outstanding scheduled action, if any.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>oustanding action scheduled time, or null if there is no scheduled action</dd></dl>
 </li>
@@ -416,11 +408,12 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable
 <ul class="blockListLast">
 <li class="blockList">
 <h4>schedule</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledFuture.html?is-external=true" title="class or interface in java.util.concurrent">ScheduledFuture</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.273">schedule</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledFuture.html?is-external=true" title="class or interface in java.util.concurrent">ScheduledFuture</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/DelayedAction.html#line.267">schedule</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action,
                           <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Schedule the given action using the task scheduler passed to the constructor.
  Use of this method does not change the state of this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform</dd><dd><code>date</code> - when to perform it</dd>
+<dt><span class="strong">Returns:</span></dt><dd>future for completion of <code>action</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/RejectedExecutionException.html?is-external=true" title="class or interface in java.util.concurrent">RejectedExecutionException</a></code> - if the given task was not accepted for internal reasons (e.g. a pool overload handling

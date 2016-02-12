@@ -94,14 +94,13 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.25">ProcessRunner</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.24">ProcessRunner</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Handles external process I/O and async execution.
 
  <p>
  This class makes it convenient to execute an external process and gather it's output without having to deal
- directly with the inherent issues relating to threads, race conditions, and deadlocks.
- </p></div>
+ directly with the inherent issues relating to threads, race conditions, and deadlocks.</div>
 </li>
 </ul>
 </div>
@@ -238,12 +237,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ProcessRunner</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.46">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.44">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process)</pre>
 <div class="block">No-input constructor.
 
  <p>
- Use this constructor when the process requires no input on <code>stdin</code>.
- </p></div>
+ Use this constructor when the process requires no input on <code>stdin</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>process</code> - a newly-created process</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>process</code> is null</dd></dl>
@@ -255,13 +253,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>ProcessRunner</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.62">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.59">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process,
              byte[]&nbsp;input)</pre>
 <div class="block">Fixed input constructor.
 
  <p>
- Use this constructor when the process input can be expressed as a <code>byte[]</code> array.
- </p></div>
+ Use this constructor when the process input can be expressed as a <code>byte[]</code> array.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>process</code> - newly-created process</dd><dd><code>input</code> - process input</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>process</code> is null</dd>
@@ -274,13 +271,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ProcessRunner</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.83">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.79">ProcessRunner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;process,
              <a href="../../../../org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io">WriteCallback</a>&nbsp;inputWriter)</pre>
 <div class="block">Dynamic input constructor.
 
  <p>
- Use this constructor when the process input is computed in an online manner.
- </p></div>
+ Use this constructor when the process input is computed in an online manner.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>process</code> - newly-created process</dd><dd><code>inputWriter</code> - object capable of writing input to the process, which will be invoked
   from a separate thread, or null if the process does not get any input</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -301,8 +297,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getProcess</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.93">getProcess</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang">Process</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.91">getProcess</a>()</pre>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true" title="class or interface in java.lang"><code>Process</code></a> associated with this instance.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>associated process</dd></dl>
 </li>
 </ul>
 <a name="setDiscardStandardOutput(boolean)">
@@ -311,7 +308,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setDiscardStandardOutput</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.104">setDiscardStandardOutput</a>(boolean&nbsp;discardStandardOutput)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.102">setDiscardStandardOutput</a>(boolean&nbsp;discardStandardOutput)</pre>
 <div class="block">Set whether to standard output should be discarded. Default is false.
  If configured to discard, then <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#getStandardOutput()"><code>getStandardOutput()</code></a> will throw <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang"><code>IllegalStateException</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>discardStandardOutput</code> - true to discard standard output, otherwise false</dd>
@@ -325,7 +322,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setDiscardStandardError</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.117">setDiscardStandardError</a>(boolean&nbsp;discardStandardError)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.115">setDiscardStandardError</a>(boolean&nbsp;discardStandardError)</pre>
 <div class="block">Set whether to standard error should be discarded. Default is false.
  If configured to discard, then <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#getStandardError()"><code>getStandardError()</code></a> will throw <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang"><code>IllegalStateException</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>discardStandardError</code> - true to discard standard error, otherwise false</dd>
@@ -339,7 +336,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.137">run</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.134">run</a>()
         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></pre>
 <div class="block">Send the process its standard input, read its standard output and standard error,
  and wait for it to exit.
@@ -347,8 +344,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  If the current thread is interrupted, the standard input, output, and error connections to
  the process are closed and an <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang"><code>InterruptedException</code></a> is thrown. However, the process
- itself is not explicitly killed; you can override <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#handleInterruption()"><code>handleInterruption()</code></a> in order to do that.
- </p></div>
+ itself is not explicitly killed; you can override <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#handleInterruption()"><code>handleInterruption()</code></a> in order to do that.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>exit value</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this method has already been invoked</dd>
@@ -361,13 +357,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>handleInterruption</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.222">handleInterruption</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.218">handleInterruption</a>()</pre>
 <div class="block">Handle notification that the thread invoking <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a> has been interrupted.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html" title="class in org.dellroad.stuff.java"><code>ProcessRunner</code></a> does nothing. Subclasses that want to
- <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true#destroy()" title="class or interface in java.lang">kill the process</a> may do so here.
- </p></div>
+ <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Process.html?is-external=true#destroy()" title="class or interface in java.lang">kill the process</a> may do so here.</div>
 </li>
 </ul>
 <a name="handleStandardOutput(byte[], int, int)">
@@ -376,7 +371,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>handleStandardOutput</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.242">handleStandardOutput</a>(byte[]&nbsp;buf,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.236">handleStandardOutput</a>(byte[]&nbsp;buf,
                         int&nbsp;off,
                         int&nbsp;len)</pre>
 <div class="block">Handle data received from the standard output of the process.
@@ -385,11 +380,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  The implementation in <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html" title="class in org.dellroad.stuff.java"><code>ProcessRunner</code></a> simply discards the data if this instance is configured to do so,
  otherwise it adds the data to an in-memory buffer, which is made available when the process completes via
  <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#getStandardOutput()"><code>getStandardOutput()</code></a>. Subclasses may override if necessary, e.g., to send/mirror the data elsewhere.
- </p>
 
  <p>
- This method will be invoked by a separate thread from the one that invoked <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a>.
- </p></div>
+ This method will be invoked by a separate thread from the one that invoked <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>buf</code> - data buffer</dd><dd><code>off</code> - offset of the first data byte</dd><dd><code>len</code> - length of the data</dd></dl>
 </li>
 </ul>
@@ -399,7 +392,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>handleStandardError</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.265">handleStandardError</a>(byte[]&nbsp;buf,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.257">handleStandardError</a>(byte[]&nbsp;buf,
                        int&nbsp;off,
                        int&nbsp;len)</pre>
 <div class="block">Handle data received from the error output of the process.
@@ -408,11 +401,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  The implementation in <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html" title="class in org.dellroad.stuff.java"><code>ProcessRunner</code></a> simply discards the data if this instance is configured to do so,
  otherwise it adds the data to an in-memory buffer, which is made available when the process completes via
  <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#getStandardError()"><code>getStandardError()</code></a>. Subclasses may override if necessary, e.g., to send/mirror the data elsewhere.
- </p>
 
  <p>
- This method will be invoked by a separate thread from the one that invoked <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a>.
- </p></div>
+ This method will be invoked by a separate thread from the one that invoked <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>buf</code> - data buffer</dd><dd><code>off</code> - offset of the first data byte</dd><dd><code>len</code> - length of the data in <code>buf</code></dd></dl>
 </li>
 </ul>
@@ -422,9 +413,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getStandardOutput</h4>
-<pre>public&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.278">getStandardOutput</a>()</pre>
+<pre>public&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.271">getStandardOutput</a>()</pre>
 <div class="block">Get the standard output of the process.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>process standard output</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a> has not been invoked yet or is still executing</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance was configured to
   <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#setDiscardStandardOutput(boolean)">discard standard output</a></dd></dl>
@@ -436,9 +428,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getStandardError</h4>
-<pre>public&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.297">getStandardError</a>()</pre>
+<pre>public&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/ProcessRunner.html#line.291">getStandardError</a>()</pre>
 <div class="block">Get the standard error of the process.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>process standard error output</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#run()"><code>run()</code></a> has not been invoked yet or is still executing</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance was configured to
   <a href="../../../../org/dellroad/stuff/java/ProcessRunner.html#setDiscardStandardError(boolean)">discard standard error</a></dd></dl>

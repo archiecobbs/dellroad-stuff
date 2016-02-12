@@ -287,9 +287,9 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html" title="class in org.dellroad.stuff.servlet"><code>ExceptionLoggingFilter</code></a> returns <code>true</code> except for
  <a href="https://docs.oracle.com/javase/7/docs/api/java/net/SocketException.html?is-external=true" title="class or interface in java.net"><code>SocketException</code></a> (typically caused by the client disconnecting) and <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadDeath.html?is-external=true" title="class or interface in java.lang"><code>ThreadDeath</code></a>
- (typically caused by virtual machine shutdown). Subclasses should override if necessary.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP request</dd><dd><code>response</code> - HTTP response</dd><dd><code>t</code> - exception caught by this instance</dd></dl>
+ (typically caused by virtual machine shutdown). Subclasses should override if necessary.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP request</dd><dd><code>response</code> - HTTP response</dd><dd><code>t</code> - exception caught by this instance</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if exception is loggable</dd></dl>
 </li>
 </ul>
 <a name="logException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Throwable)">
@@ -298,15 +298,14 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>logException</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#line.97">logException</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletRequest</a>&nbsp;request,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#line.96">logException</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletRequest</a>&nbsp;request,
                 <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletResponse</a>&nbsp;response,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
 <div class="block">Log an exception caught by this instance and determined to be loggable by <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#shouldLogException(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Throwable)"><code>shouldLogException()</code></a>.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html" title="class in org.dellroad.stuff.servlet"><code>ExceptionLoggingFilter</code></a> logs the exception as an error via the logger
- returned by <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#getLogger(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Throwable)"><code>getLogger()</code></a>. Subclasses should override if necessary.
- </p></div>
+ returned by <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#getLogger(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.Throwable)"><code>getLogger()</code></a>. Subclasses should override if necessary.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP request</dd><dd><code>response</code> - HTTP response</dd><dd><code>t</code> - exception caught by this instance</dd></dl>
 </li>
 </ul>
@@ -316,7 +315,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getLogger</h4>
-<pre>protected&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#line.114">getLogger</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletRequest</a>&nbsp;request,
+<pre>protected&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/ExceptionLoggingFilter.html#line.113">getLogger</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletRequest</a>&nbsp;request,
                <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html?is-external=true" title="class or interface in javax.servlet.http">HttpServletResponse</a>&nbsp;response,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
 <div class="block">Get the logging destination.
@@ -324,9 +323,9 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/servlet/ExceptionLoggingFilter.html" title="class in org.dellroad.stuff.servlet"><code>ExceptionLoggingFilter</code></a> uses the <a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j"><code>Logger</code></a> returned by
  <a href="http://www.slf4j.org/api/org/slf4j/LoggerFactory.html?is-external=true#getLogger(java.lang.String)" title="class or interface in org.slf4j"><code>LoggerFactory.getLogger(java.lang.String)</code></a> when passed this instance's class as the parameter.
- Subclasses should override if necessary.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP request</dd><dd><code>response</code> - HTTP response</dd><dd><code>t</code> - the exception about to be logged</dd></dl>
+ Subclasses should override if necessary.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>request</code> - HTTP request</dd><dd><code>response</code> - HTTP response</dd><dd><code>t</code> - the exception about to be logged</dd>
+<dt><span class="strong">Returns:</span></dt><dd>log destination</dd></dl>
 </li>
 </ul>
 </li>

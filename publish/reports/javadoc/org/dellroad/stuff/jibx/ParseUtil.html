@@ -147,7 +147,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeDate(java.lang.String, java.lang.String)">deserializeDate</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date,
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeDate(java.lang.String, java.lang.String)">deserializeDate</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                               <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)</code>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a>.</div>
 </td>
@@ -278,7 +278,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeSimpleDateFormat(java.text.SimpleDateFormat)">serializeSimpleDateFormat</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;simpleDateFormat)</code>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeSimpleDateFormat(java.text.SimpleDateFormat)">serializeSimpleDateFormat</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;format)</code>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a>.</div>
 </td>
 </tr>
@@ -334,12 +334,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.49">deserializeString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.52">deserializeString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                 throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>, allowing arbitrary characters via backslash escapes.
  The string will be decoded by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#decode(java.lang.String)"><code>StringEncoder.decode(java.lang.String)</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#decode(java.lang.String)"><code>StringEncoder.decode(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeString(java.lang.String)"><code>serializeString(java.lang.String)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#decode(java.lang.String)"><code>StringEncoder.decode(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeString(java.lang.String)">
@@ -348,10 +350,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.63">serializeString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.68">serializeString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>.
  The string will be encoded by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#encode(java.lang.String, boolean)"><code>StringEncoder.encode(java.lang.String, boolean)</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#encode(java.lang.String, boolean)"><code>StringEncoder.encode(java.lang.String, boolean)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - value to encode for XML</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded value</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#encode(java.lang.String, boolean)"><code>StringEncoder.encode(java.lang.String, boolean)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeTimeZone(java.lang.String)">
@@ -360,11 +363,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeTimeZone</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util">TimeZone</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.72">deserializeTimeZone</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util">TimeZone</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.80">deserializeTimeZone</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util"><code>TimeZone</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeZone(java.util.TimeZone)"><code>serializeTimeZone(java.util.TimeZone)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeZone(java.util.TimeZone)"><code>serializeTimeZone(java.util.TimeZone)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeZone(java.util.TimeZone)"><code>serializeTimeZone(java.util.TimeZone)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeTimeZone(java.util.TimeZone)">
@@ -373,9 +378,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeTimeZone</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.83">serializeTimeZone</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util">TimeZone</a>&nbsp;timeZone)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.93">serializeTimeZone</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util">TimeZone</a>&nbsp;timeZone)</pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/TimeZone.html?is-external=true" title="class or interface in java.util"><code>TimeZone</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeTimeZone(java.lang.String)"><code>deserializeTimeZone(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>timeZone</code> - value to encode for XML</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded value</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeTimeZone(java.lang.String)"><code>deserializeTimeZone(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeURI(java.lang.String)">
@@ -384,14 +390,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeURI</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/URI.html?is-external=true" title="class or interface in java.net">URI</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.93">deserializeURI</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/URI.html?is-external=true" title="class or interface in java.net">URI</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.107">deserializeURI</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                           throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize an <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URI.html?is-external=true" title="class or interface in java.net"><code>URI</code></a>.
 
  <p>
  Note: there is no need for a custom serializer, as <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URI.html?is-external=true#toString()" title="class or interface in java.net"><code>URI.toString()</code></a> already does the right thing.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URI.html?is-external=true#toString()" title="class or interface in java.net"><code>URI.toString()</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd></dl>
 </li>
 </ul>
 <a name="deserializeReference(java.lang.String, java.lang.Class)">
@@ -400,7 +408,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeReference</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.116">deserializeReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.134">deserializeReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                          <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;type)
                               throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize an object by reference.
@@ -410,7 +418,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The object must have been unmarshalled already and had its ID registered via <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html#setId(java.lang.Object, java.lang.String)"><code>IdMapper.setId(java.lang.Object, java.lang.String)</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - expected type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeReference(java.lang.Object)"><code>serializeReference(java.lang.Object)</code></a></dd><dd><code>type</code> - expected type</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>string</code> cannot be parsed</dd>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the reference has not been registered to any object yet (e.g., forward reference)</dd>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the referenced object is not an instance of <code>type</code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeReference(java.lang.Object)"><code>serializeReference(java.lang.Object)</code></a>, 
@@ -423,12 +433,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeReference</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.146">serializeReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.166">serializeReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <div class="block">Serialize an object by reference.
 
  <p>
  The object must have been marshalled already and had its ID assigned via <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html#getId(java.lang.Object)"><code>IdMapper.getId(java.lang.Object)</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to encode by reference for XML</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded reference</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the object has not been registered yet (e.g., forward reference)</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeReference(java.lang.String, java.lang.Class)"><code>deserializeReference(java.lang.String, java.lang.Class&lt;T&gt;)</code></a>, 
 <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a></dd></dl>
 </li>
@@ -439,14 +451,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeUUID</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true" title="class or interface in java.util">UUID</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.161">deserializeUUID</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true" title="class or interface in java.util">UUID</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.185">deserializeUUID</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                             throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true" title="class or interface in java.util"><code>UUID</code></a>.
 
  <p>
  Note: there is no need for a custom serializer, as <a href="https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true#toString()" title="class or interface in java.util"><code>UUID.toString()</code></a> already does the right thing.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="https://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true#toString()" title="class or interface in java.util"><code>UUID.toString()</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd></dl>
 </li>
 </ul>
 <a name="deserializeTimeInterval(java.lang.String)">
@@ -455,11 +469,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeTimeInterval</h4>
-<pre>public static&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.174">deserializeTimeInterval</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.201">deserializeTimeInterval</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Derialize a millisecond-granularity time interval, e.g., "30s", "1d12h", "0.250s", etc.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeInterval(long)"><code>serializeTimeInterval(long)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeInterval(long)"><code>serializeTimeInterval(long)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeTimeInterval(long)"><code>serializeTimeInterval(long)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeTimeInterval(long)">
@@ -468,9 +484,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeTimeInterval</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.213">serializeTimeInterval</a>(long&nbsp;value)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.242">serializeTimeInterval</a>(long&nbsp;value)</pre>
 <div class="block">Serialize a millisecond-granularity time interval, e.g., "30s", "1d12h", "0.250s", etc.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeTimeInterval(java.lang.String)"><code>deserializeTimeInterval(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>value</code> - millisecond value to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded value</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeTimeInterval(java.lang.String)"><code>deserializeTimeInterval(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeByteArray(java.lang.String)">
@@ -479,11 +496,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeByteArray</h4>
-<pre>public static&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.244">deserializeByteArray</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.276">deserializeByteArray</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                    throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a byte array using <a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeByteArray(byte[])"><code>serializeByteArray(byte[])</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeByteArray(byte[])">
@@ -492,9 +511,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeByteArray</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.257">serializeByteArray</a>(byte[]&nbsp;array)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.291">serializeByteArray</a>(byte[]&nbsp;array)</pre>
 <div class="block">Serialize a byte array using <a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>array</code> - array to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded array</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string"><code>ByteArrayEncoder</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeByteArrayWithColons(java.lang.String)">
@@ -503,11 +523,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeByteArrayWithColons</h4>
-<pre>public static&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.266">deserializeByteArrayWithColons</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;byte[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.303">deserializeByteArrayWithColons</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                              throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a byte array using MAC address notation (colon-separated). Each byte must have two digits.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeByteArrayWithColons(byte[])"><code>serializeByteArrayWithColons(byte[])</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeByteArrayWithColons(byte[])"><code>serializeByteArrayWithColons(byte[])</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeByteArrayWithColons(byte[])"><code>serializeByteArrayWithColons(byte[])</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeByteArrayWithColons(byte[])">
@@ -516,9 +538,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeByteArrayWithColons</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.293">serializeByteArrayWithColons</a>(byte[]&nbsp;array)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.332">serializeByteArrayWithColons</a>(byte[]&nbsp;array)</pre>
 <div class="block">Serialize a byte array using MAC address notation (colon-separated). Each byte will have two digits.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeByteArrayWithColons(java.lang.String)"><code>deserializeByteArrayWithColons(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>array</code> - array to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded array</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeByteArrayWithColons(java.lang.String)"><code>deserializeByteArrayWithColons(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeInet4Address(java.lang.String)">
@@ -527,11 +550,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeInet4Address</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.311">deserializeInet4Address</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.353">deserializeInet4Address</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                             throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize an <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net"><code>Inet4Address</code></a>. No DNS name resolution of any kind is performed.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeInet4Address(java.net.Inet4Address)"><code>serializeInet4Address(java.net.Inet4Address)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeInet4Address(java.net.Inet4Address)"><code>serializeInet4Address(java.net.Inet4Address)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeInet4Address(java.net.Inet4Address)"><code>serializeInet4Address(java.net.Inet4Address)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeInet4Address(java.net.Inet4Address)">
@@ -540,9 +565,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeInet4Address</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.324">serializeInet4Address</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;addr)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.368">serializeInet4Address</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;addr)</pre>
 <div class="block">Serialize an <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net"><code>Inet4Address</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeInet4Address(java.lang.String)"><code>deserializeInet4Address(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>addr</code> - address to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded address</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeInet4Address(java.lang.String)"><code>deserializeInet4Address(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeSimpleDateFormat(java.lang.String)">
@@ -551,11 +577,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeSimpleDateFormat</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.333">deserializeSimpleDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.380">deserializeSimpleDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeSimpleDateFormat(java.text.SimpleDateFormat)"><code>serializeSimpleDateFormat(java.text.SimpleDateFormat)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeSimpleDateFormat(java.text.SimpleDateFormat)"><code>serializeSimpleDateFormat(java.text.SimpleDateFormat)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeSimpleDateFormat(java.text.SimpleDateFormat)"><code>serializeSimpleDateFormat(java.text.SimpleDateFormat)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeSimpleDateFormat(java.text.SimpleDateFormat)">
@@ -564,9 +592,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeSimpleDateFormat</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.346">serializeSimpleDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;simpleDateFormat)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.395">serializeSimpleDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;format)</pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeSimpleDateFormat(java.lang.String)"><code>deserializeSimpleDateFormat(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>format</code> - date format to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded format</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeSimpleDateFormat(java.lang.String)"><code>deserializeSimpleDateFormat(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeDate(java.lang.String, java.lang.String)">
@@ -575,13 +604,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeDate</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.357">deserializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.408">deserializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)
                             throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a>. This method can be used as a deserialize support method.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - date string to parse</dd><dd><code>format</code> - format for <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a>.</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeDate(java.util.Date, java.lang.String)"><code>serializeDate(Date, String)</code></a></dd><dd><code>format</code> - format for <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeDate(java.util.Date, java.lang.String)"><code>serializeDate(java.util.Date, java.lang.String)</code></a></dd></dl>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeDate(java.util.Date, java.lang.String)"><code>serializeDate(java.util.Date, java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeDate(java.util.Date, java.lang.String)">
@@ -590,13 +620,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeDate</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.372">serializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.425">serializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)
                             throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a>. This method can be used as a serialize support method.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - date to serialize</dd><dd><code>format</code> - format for <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a>.</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded date</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeDate(java.lang.String, java.lang.String)"><code>deserializeDate(java.lang.String, java.lang.String)</code></a></dd></dl>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if <code>format</code> is invalid</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeDate(java.lang.String, java.lang.String)"><code>deserializeDate(java.lang.String, java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeDate(java.lang.String)">
@@ -605,11 +636,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeDate</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.381">deserializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.437">deserializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date)
                             throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> in the format supported by <a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeDate(java.util.Date)"><code>serializeDate(Date)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeDate(java.util.Date)">
@@ -618,11 +651,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeDate</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.394">serializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)
-                            throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.452">serializeDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> in the format supported by <a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - date to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded date</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/DateEncoder.html" title="class in org.dellroad.stuff.string"><code>DateEncoder</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeXSDDateTime(java.lang.String)">
@@ -631,11 +663,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeXSDDateTime</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.404">deserializeXSDDateTime</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.465">deserializeXSDDateTime</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;date)
                                    throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> in XSD dateTime format.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeXSDDateTime(java.util.Date)"><code>serializeXSDDateTime(java.util.Date)</code></a>, 
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeXSDDateTime(java.util.Date)"><code>serializeXSDDateTime(java.util.Date)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeXSDDateTime(java.util.Date)"><code>serializeXSDDateTime(java.util.Date)</code></a>, 
 <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">XSD dateTime datatype</a></dd></dl>
 </li>
 </ul>
@@ -645,11 +679,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>serializeXSDDateTime</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.418">serializeXSDDateTime</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)
-                                   throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.481">serializeXSDDateTime</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Serialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util"><code>Date</code></a> to XSD dateTime format.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeXSDDateTime(java.lang.String)"><code>deserializeXSDDateTime(java.lang.String)</code></a>, 
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - date to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded date</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeXSDDateTime(java.lang.String)"><code>deserializeXSDDateTime(java.lang.String)</code></a>, 
 <a href="http://www.w3.org/TR/xmlschema-2/#dateTime">XSD dateTime datatype</a></dd></dl>
 </li>
 </ul>
@@ -659,14 +692,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializePattern</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.428">deserializePattern</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.495">deserializePattern</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                   throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex"><code>Pattern</code></a>.
 
  <p>
  Note: there is no need for a custom serializer, as <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true#toString()" title="class or interface in java.util.regex"><code>Pattern.toString()</code></a> already does the right thing.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true#toString()" title="class or interface in java.util.regex"><code>Pattern.toString()</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd></dl>
 </li>
 </ul>
 <a name="normalize(java.lang.String)">
@@ -675,11 +710,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>normalize</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.443">normalize</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.512">normalize</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">JiBX <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> deserializer that normalizes a string as is required by the <code>xsd:token</code> XSD type.
  This removes leading and trailing whitespace, and collapses all interior whitespace
  down to a single space character.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - string to normalize</dd>
+<dt><span class="strong">Returns:</span></dt><dd>normalized string</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>string</code> is null</dd></dl>
 </li>
 </ul>
@@ -689,13 +726,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeMatching</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.457">deserializeMatching</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.529">deserializeMatching</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;regex,
                          <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                   throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">JiBX <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> deserializer support method that verifies that the input string matches the
  given regular expression. This method can be invoked by custom deserializers that supply the
  regular expression to it.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>regex</code> - regular expression pattern which input must match</dd><dd><code>string</code> - input string</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>string</code> of <code>regex</code> is null</dd>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if <code>string</code> does not match <code>regex</code></dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/PatternSyntaxException.html?is-external=true" title="class or interface in java.util.regex">PatternSyntaxException</a></code> - if <code>regex</code> is not a valid regular expression</dd></dl>
@@ -707,11 +746,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeBoolean</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.471">deserializeBoolean</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.544">deserializeBoolean</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                   throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Boolean parser that allows "yes" and "no" as well as the usual "true", "false", "0", "1".
  Comparisons are case-insensitive.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding of boolean value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the value is not recognizable as a boolean</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeBooleanStrictly(java.lang.String)"><code>deserializeBooleanStrictly(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
@@ -721,11 +762,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeBooleanStrictly</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.488">deserializeBooleanStrictly</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.564">deserializeBooleanStrictly</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                           throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a boolean strictly, only allowing the values <code>true</code> or <code>false</code>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeBoolean(java.lang.String)"><code>deserializeBoolean(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html?is-external=true#toString(boolean)" title="class or interface in java.lang"><code>Boolean.toString(boolean)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeBoolean(java.lang.String)"><code>deserializeBoolean(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeIntArray(java.lang.String)">
@@ -734,11 +777,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeIntArray</h4>
-<pre>public static&nbsp;int[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.501">deserializeIntArray</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;int[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.580">deserializeIntArray</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                  throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize an array of integers separated by commas and/or whitespace.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeIntArray(int[])"><code>serializeIntArray(int[])</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeIntArray(int[])"><code>serializeIntArray(int[])</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded integer array</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#serializeIntArray(int[])"><code>serializeIntArray(int[])</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeIntArray(int[])">
@@ -747,11 +792,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>serializeIntArray</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.520">serializeIntArray</a>(int[]&nbsp;array)
-                                throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/ParseUtil.html#line.601">serializeIntArray</a>(int[]&nbsp;array)</pre>
 <div class="block">Serialize an array of integers. Example: "1, 2, 3".</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeIntArray(java.lang.String)"><code>deserializeIntArray(java.lang.String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>array</code> - integer array</dd>
+<dt><span class="strong">Returns:</span></dt><dd>string encoding of <code>array</code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeIntArray(java.lang.String)"><code>deserializeIntArray(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 </li>

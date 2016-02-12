@@ -95,7 +95,7 @@
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of the persistent object</dd><dd><code>K</code> - the type of the Java objects that back each <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data"><code>Item</code></a> in the container</dd></dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.35">PersistentObjectContainerLoader</a>&lt;T,K&gt;
+<pre>public class <a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.33">PersistentObjectContainerLoader</a>&lt;T,K&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Facilitates populating a <a href="../../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> with data from <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a>
  and automatically updating it when that <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> changes.
@@ -103,7 +103,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  The constructor requires a <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.Generator.html" title="interface in org.dellroad.stuff.pobj.vaadin"><code>PersistentObjectContainerLoader.Generator</code></a> to generate, from the <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a>
  root object, the Java objects that populate the <a href="../../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a>.
- </p>
 
  <p>
  <b>Note:</b> Instances of this class start out in a non-listening state. You must invoke <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#connect(org.dellroad.stuff.pobj.PersistentObject)"><code>connect()</code></a>
@@ -111,8 +110,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  You should invoke <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#disconnect()"><code>disconnect()</code></a> whenever the container is no longer used to avoid a memory leak.
  Typically, <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#connect(org.dellroad.stuff.pobj.PersistentObject)"><code>connect()</code></a> and <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#disconnect()"><code>disconnect()</code></a> are invoked from the
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/Component.html?is-external=true#attach()" title="class or interface in com.vaadin.ui"><code>attach()</code></a> and <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/ClientConnector.html?is-external=true#detach()" title="class or interface in com.vaadin.server"><code>detach()</code></a> methods (respectively)
- of the GUI widget that is using the container.
- </p></div>
+ of the GUI widget that is using the container.</div>
 </li>
 </ul>
 </div>
@@ -225,7 +223,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentObjectContainerLoader</h4>
-<pre>public&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.50">PersistentObjectContainerLoader</a>(<a href="../../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractSimpleContainer</a>&lt;?,<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">K</a>&gt;&nbsp;container,
+<pre>public&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.48">PersistentObjectContainerLoader</a>(<a href="../../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractSimpleContainer</a>&lt;?,<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">K</a>&gt;&nbsp;container,
                                <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.Generator.html" title="interface in org.dellroad.stuff.pobj.vaadin">PersistentObjectContainerLoader.Generator</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">T</a>,<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">K</a>&gt;&nbsp;generator)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>container</code> - container to populate</dd><dd><code>generator</code> - object that generates the Java objects that back the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Item.html?is-external=true" title="class or interface in com.vaadin.data"><code>Item</code></a>s in the container</dd>
@@ -248,12 +246,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>connect</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.68">connect</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">T</a>&gt;&nbsp;persistentObject)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.67">connect</a>(<a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">T</a>&gt;&nbsp;persistentObject)</pre>
 <div class="block">Register this container as a listener on the persistent object and load the container.
  This method may only be invoked while the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is locked by the current thread.
  If this method is invoked twice with no intervening <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#disconnect()"><code>disconnect()</code></a>, this instance will
  automatically disconnect from the old <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> before connecting to the new one.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>persistentObject</code> - persistent object database</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>persistentObject</code> is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is no <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with the current thread</dd></dl>
 </li>
@@ -264,7 +263,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>disconnect</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.104">disconnect</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.103">disconnect</a>()</pre>
 <div class="block">Shutdown this container. This unregisters the container from the <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> it was previously
  <a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#connect(org.dellroad.stuff.pobj.PersistentObject)">connected</a> to. This method may be invoked from any thread and is idempotent.
  The associated container is not notified about any change.</div>
@@ -282,7 +281,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <h4>reload</h4>
 <pre>protected&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html#line.117">reload</a>(<a href="../../../../../org/dellroad/stuff/pobj/vaadin/PersistentObjectContainerLoader.html" title="type parameter in PersistentObjectContainerLoader">T</a>&nbsp;root)</pre>
 <div class="block">Reload the container associated with this instance using the given <a href="../../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> root.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object from which to derive container content</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is no <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with the current thread</dd></dl>
 </li>
 </ul>

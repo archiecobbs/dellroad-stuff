@@ -201,9 +201,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeExce
 <ul class="blockListLast">
 <li class="blockList">
 <h4>CheckedExceptionWrapper</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.21">CheckedExceptionWrapper</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;exception)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.22">CheckedExceptionWrapper</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;exception)</pre>
 <div class="block">Constructor.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>exception</code> - the checked exception to wrap</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>exception</code> is <code>null</code></dd></dl>
 </li>
 </ul>
@@ -221,8 +222,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeExce
 <ul class="blockList">
 <li class="blockList">
 <h4>getException</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.30">getException</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.33">getException</a>()</pre>
 <div class="block">Get the wrapped exception.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the wrapped checked exception</dd></dl>
 </li>
 </ul>
 <a name="throwException()">
@@ -231,11 +233,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeExce
 <ul class="blockListLast">
 <li class="blockList">
 <h4>throwException</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.37">throwException</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/CheckedExceptionWrapper.html#line.42">throwException</a>()
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Throw the wrapped exception.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - always</dd></dl>
 </li>
 </ul>
 </li>

@@ -113,7 +113,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.46">AbstractSimpleContainer</a>&lt;I,T&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.45">AbstractSimpleContainer</a>&lt;I,T&gt;
 extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractInMemoryContainer.html?is-external=true" title="class or interface in com.vaadin.data.util">AbstractInMemoryContainer</a>&lt;I,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;T&gt;&gt;
 implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;T&gt;, <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filterable</a>, <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.SimpleFilterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.SimpleFilterable</a>, <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Sortable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Sortable</a>, <a href="../../../../org/dellroad/stuff/vaadin7/Connectable.html" title="interface in org.dellroad.stuff.vaadin7">Connectable</a></pre>
 <div class="block">Support superclass for simple read-only, in-memory <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data"><code>Container</code></a> implementations where each
@@ -125,11 +125,9 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
  <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>). However, the easist way to configure the container <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property</code></a>s
  is to pass a <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a>-annotated Java class to the <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#AbstractSimpleContainer(java.lang.Class)"><code>AbstractSimpleContainer(Class)</code></a>
  constructor.
- </p>
 
  <p>
- Use <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.lang.Iterable)"><code>load()</code></a> to load or reload the container.
- </p></div>
+ Use <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.lang.Iterable)"><code>load()</code></a> to load or reload the container.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/SimpleItem.html" title="class in org.dellroad.stuff.vaadin7"><code>SimpleItem</code></a>, 
 <a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin7.AbstractSimpleContainer">Serialized Form</a></dd></dl>
 </li>
@@ -333,41 +331,47 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeAllContainerFilters()">removeAllContainerFilters</a></strong>()</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.util.Iterator)">load</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;contents)</code>
+<div class="block">Change this container's contents.</div>
+</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilter(com.vaadin.data.Container.Filter)">removeContainerFilter</a></strong>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeAllContainerFilters()">removeAllContainerFilters</a></strong>()</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilters(java.lang.Object)">removeContainerFilters</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilter(com.vaadin.data.Container.Filter)">removeContainerFilter</a></strong>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</code>&nbsp;</td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilters(java.lang.Object)">removeContainerFilters</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>protected abstract void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#resetItemIds()">resetItemIds</a></strong>()</code>
 <div class="block">Subclass hook invoked prior to each reload.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperties(java.util.Collection)">setProperties</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</code>
 <div class="block">Change the configured properties of this container.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperty(org.dellroad.stuff.vaadin7.PropertyDef)">setProperty</a></strong>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&nbsp;propertyDef)</code>
 <div class="block">Add or replace a configured property of this container.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)">setPropertyExtractor</a></strong>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</code>
 <div class="block">Change the configured <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> for this container.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#sort(java.lang.Object[], boolean[])">sort</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;propertyId,
         boolean[]&nbsp;ascending)</code>&nbsp;</td>
@@ -428,14 +432,13 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractSimpleContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.65">AbstractSimpleContainer</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.63">AbstractSimpleContainer</a>()</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, subsequent invocations of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a>
  and <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> are required to define the properties of this container
- and how to extract them.
- </p></div>
+ and how to extract them.</div>
 </li>
 </ul>
 <a name="AbstractSimpleContainer(org.dellroad.stuff.vaadin7.PropertyExtractor)">
@@ -444,13 +447,12 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractSimpleContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.81">AbstractSimpleContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.78">AbstractSimpleContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperties(java.util.Collection)"><code>setProperties()</code></a> is required
- to define the properties of this container.
- </p></div>
+ to define the properties of this container.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
   may be null but then container is not usable until one is configured via
  <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a></dd></dl>
@@ -462,14 +464,13 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractSimpleContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.96">AbstractSimpleContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.92">AbstractSimpleContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.
 
  <p>
  After using this constructor, a subsequent invocation of <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)"><code>setPropertyExtractor()</code></a> is required
  to define how to extract the properties of this container; alternately, subclasses can override
- <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)"><code>getPropertyValue()</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDefs</code> - container property definitions; null is treated like the empty set</dd></dl>
 </li>
 </ul>
@@ -479,7 +480,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>AbstractSimpleContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.108">AbstractSimpleContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.104">AbstractSimpleContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
@@ -493,13 +494,12 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractSimpleContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.135">AbstractSimpleContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;type)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.130">AbstractSimpleContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;type)</pre>
 <div class="block">Constructor.
 
  <p>
  Properties will be determined by the <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a> and
- <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>type</code> - class to introspect for annotated methods</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>type</code> is null</dd>
@@ -526,7 +526,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getPropertyExtractor</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.150">getPropertyExtractor</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.145">getPropertyExtractor</a>()</pre>
 <div class="block">Get the configured <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> for this container.</div>
 </li>
 </ul>
@@ -536,7 +536,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setPropertyExtractor</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.161">setPropertyExtractor</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.156">setPropertyExtractor</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Change the configured <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> for this container.
  Invoking this method does not result in any container notifications.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
@@ -551,14 +551,13 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getPropertyValue</h4>
-<pre>public&nbsp;&lt;V&gt;&nbsp;V&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.179">getPropertyValue</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj,
+<pre>public&nbsp;&lt;V&gt;&nbsp;V&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.173">getPropertyValue</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj,
                      <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;V&gt;&nbsp;propertyDef)</pre>
 <div class="block">Read the value of the property defined by <code>propertyDef</code> from the given object.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> just delegates to the <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)">configured</a>
- <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a>; subclasses may override to customize property extraction.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a>; subclasses may override to customize property extraction.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)">getPropertyValue</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;</code></dd>
@@ -574,7 +573,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setProperties</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.191">setProperties</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.185">setProperties</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Change the configured properties of this container.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDefs</code> - container property definitions; null is treated like the empty set</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -587,7 +586,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>setProperty</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.208">setProperty</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&nbsp;propertyDef)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.202">setProperty</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&nbsp;propertyDef)</pre>
 <div class="block">Add or replace a configured property of this container.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyDef</code> - new container property definitions</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -600,7 +599,20 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>load</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.221">load</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;contents)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.215">load</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Iterable.html?is-external=true" title="class or interface in java.lang">Iterable</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;contents)</pre>
+<div class="block">Change this container's contents.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>contents</code> - new container contents</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>contents</code> or any item in <code>contents</code> is null</dd></dl>
+</li>
+</ul>
+<a name="load(java.util.Iterator)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>load</h4>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.225">load</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;contents)</pre>
 <div class="block">Change this container's contents.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>contents</code> - new container contents</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -613,7 +625,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>internalRemoveAllItems</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.252">internalRemoveAllItems</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.257">internalRemoveAllItems</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractInMemoryContainer.html?is-external=true#internalRemoveAllItems()" title="class or interface in com.vaadin.data.util">internalRemoveAllItems</a></code>&nbsp;in class&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractInMemoryContainer.html?is-external=true" title="class or interface in com.vaadin.data.util">AbstractInMemoryContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&gt;</code></dd>
@@ -628,18 +640,16 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemIdFor</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.278">getItemIdFor</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.281">getItemIdFor</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Get the container item ID corresponding to the given underlying Java object which is wrapped by this container.
  Objects are tested for equality using <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals()</code></a>.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> requires a linear search of the container.
  Some subclasses may provide a more efficient implementation.
- </p>
 
  <p>
  This method is not used by this class but is defined as a convenience for subclasses.
- </p>
 
  <p>
  Note: items that are filtered out will not be found.</div>
@@ -657,18 +667,16 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemIdForSame</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.310">getItemIdForSame</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.311">getItemIdForSame</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Get the container item ID corresponding to the given underlying Java object which is wrapped by this container.
  Objects are tested for equality using object equality, not <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>Object.equals()</code></a>.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> requires a linear search of the container.
  Some subclasses may provide a more efficient implementation.
- </p>
 
  <p>
  This method is not used by this class but is defined as a convenience for subclasses.
- </p>
 
  <p>
  Note: items that are filtered out will not be found.</div>
@@ -688,8 +696,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <div class="block">Connect this instance to non-Vaadin resources.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin7/Connectable.html#connect()">connect</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/Connectable.html" title="interface in org.dellroad.stuff.vaadin7">Connectable</a></code></dd>
@@ -703,12 +710,11 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>disconnect</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.346">disconnect</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.345">disconnect</a>()</pre>
 <div class="block">Disconnect this instance from non-Vaadin resources.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin7/Connectable.html#disconnect()">disconnect</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin7/Connectable.html" title="interface in org.dellroad.stuff.vaadin7">Connectable</a></code></dd>
@@ -722,7 +728,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getItemIds</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.354">getItemIds</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.353">getItemIds</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true#getItemIds()" title="class or interface in com.vaadin.data">getItemIds</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data">Container</a></code></dd>
@@ -737,7 +743,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getContainerPropertyIds</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.359">getContainerPropertyIds</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.358">getContainerPropertyIds</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true#getContainerPropertyIds()" title="class or interface in com.vaadin.data">getContainerPropertyIds</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data">Container</a></code></dd>
@@ -750,7 +756,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getContainerProperty</h4>
-<pre>public&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data">Property</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.364">getContainerProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId,
+<pre>public&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data">Property</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.363">getContainerProperty</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId,
                                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -764,7 +770,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getType</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.372">getType</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.371">getType</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true#getType(java.lang.Object)" title="class or interface in com.vaadin.data">getType</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data">Container</a></code></dd>
@@ -777,7 +783,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getUnfilteredItem</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.378">getUnfilteredItem</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.377">getUnfilteredItem</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractInMemoryContainer.html?is-external=true#getUnfilteredItem(java.lang.Object)" title="class or interface in com.vaadin.data.util">getUnfilteredItem</a></code>&nbsp;in class&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractInMemoryContainer.html?is-external=true" title="class or interface in com.vaadin.data.util">AbstractInMemoryContainer</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&gt;</code></dd>
@@ -790,7 +796,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getJavaObject</h4>
-<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.399">getJavaObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
+<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.398">getJavaObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;itemId)</pre>
 <div class="block">Get the underlying Java object corresponding to the given item ID.
  This method ignores any filtering (i.e., filtered-out objects are still accessible).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>itemId</code> - item ID</dd>
@@ -803,7 +809,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>resetItemIds</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.404">resetItemIds</a>()</pre>
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.403">resetItemIds</a>()</pre>
 <div class="block">Subclass hook invoked prior to each reload. The subclass should reset its state (e.g., issued item IDs) as required.</div>
 </li>
 </ul>
@@ -815,7 +821,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>generateItemId</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.417">generateItemId</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">I</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.416">generateItemId</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;obj)</pre>
 <div class="block">Create a new, unique item ID for the given object. This method is invoked during a <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.lang.Iterable)">reload operation</a>,
  once for each container object. Both visible and filtered objects will be passed to this method.
 
@@ -832,12 +838,11 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>afterReload</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.426">afterReload</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.424">afterReload</a>()</pre>
 <div class="block">Subclass hook invoked after each reload but prior to invoking <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/AbstractContainer.html?is-external=true#fireItemSetChange()" title="class or interface in com.vaadin.data.util"><code>AbstractContainer.fireItemSetChange()</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> does nothing.</div>
 </li>
 </ul>
 <a name="createBackedItem(java.lang.Object,java.util.Collection,org.dellroad.stuff.vaadin7.PropertyExtractor)">
@@ -848,15 +853,14 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>createBackedItem</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.442">createBackedItem</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;object,
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7">BackedItem</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.439">createBackedItem</a>(<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&nbsp;object,
                              <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs,
                              <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="type parameter in AbstractSimpleContainer">T</a>&gt;&nbsp;propertyExtractor)</pre>
 <div class="block">Create a <a href="../../../../org/dellroad/stuff/vaadin7/BackedItem.html" title="interface in org.dellroad.stuff.vaadin7"><code>BackedItem</code></a> for the given backing Java object.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>AbstractSimpleContainer</code></a> returns
- <code>new SimpleItem&lt;T&gt;(object, propertyDefs, propertyExtractor)</code>.
- </p></div>
+ <code>new SimpleItem&lt;T&gt;(object, propertyDefs, propertyExtractor)</code>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>object</code> - underlying Java object</dd><dd><code>propertyDefs</code> - property definitions</dd><dd><code>propertyExtractor</code> - extracts the property value from <code>object</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd></dl>
@@ -868,7 +872,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>sort</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.450">sort</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;propertyId,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.447">sort</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;propertyId,
         boolean[]&nbsp;ascending)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -882,7 +886,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>addContainerFilter</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.455">addContainerFilter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.452">addContainerFilter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId,
                       <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filterString,
                       boolean&nbsp;ignoreCase,
                       boolean&nbsp;onlyMatchPrefix)</pre>
@@ -898,7 +902,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>getContainerFilters</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.465">getContainerFilters</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.462">getContainerFilters</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true#getContainerFilters()" title="class or interface in com.vaadin.data">getContainerFilters</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filterable</a></code></dd>
@@ -913,7 +917,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>removeAllContainerFilters</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.470">removeAllContainerFilters</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.467">removeAllContainerFilters</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true#removeAllContainerFilters()" title="class or interface in com.vaadin.data">removeAllContainerFilters</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filterable</a></code></dd>
@@ -928,7 +932,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>removeContainerFilters</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.475">removeContainerFilters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.472">removeContainerFilters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;propertyId)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.SimpleFilterable.html?is-external=true#removeContainerFilters(java.lang.Object)" title="class or interface in com.vaadin.data">removeContainerFilters</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.SimpleFilterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.SimpleFilterable</a></code></dd>
@@ -941,7 +945,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>addContainerFilter</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.480">addContainerFilter</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.477">addContainerFilter</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true#addContainerFilter(com.vaadin.data.Container.Filter)" title="class or interface in com.vaadin.data">addContainerFilter</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filterable</a></code></dd>
@@ -954,7 +958,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockList">
 <li class="blockList">
 <h4>removeContainerFilter</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.485">removeContainerFilter</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.482">removeContainerFilter</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filter.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filter</a>&nbsp;filter)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true#removeContainerFilter(com.vaadin.data.Container.Filter)" title="class or interface in com.vaadin.data">removeContainerFilter</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Filterable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Filterable</a></code></dd>
@@ -967,7 +971,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.htm
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getSortableContainerPropertyIds</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.490">getSortableContainerPropertyIds</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#line.487">getSortableContainerPropertyIds</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Sortable.html?is-external=true#getSortableContainerPropertyIds()" title="class or interface in com.vaadin.data">getSortableContainerPropertyIds</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.Sortable.html?is-external=true" title="class or interface in com.vaadin.data">Container.Sortable</a></code></dd>

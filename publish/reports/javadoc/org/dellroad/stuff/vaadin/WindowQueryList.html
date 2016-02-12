@@ -239,12 +239,11 @@ implements <a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title=
 
  <p>
  For any given <a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="interface in org.dellroad.stuff.vaadin"><code>QueryList</code></a> instance, this method is expected to return a the same value if invoked multiple times.
- Therefore, callers may safely choose to invoke it only once on a given instance and cache the result.
- </p></div>
+ Therefore, callers may safely choose to invoke it only once on a given instance and cache the result.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html#size()">size</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="interface in org.dellroad.stuff.vaadin">QueryList</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin/WindowQueryList.html" title="type parameter in WindowQueryList">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Returns:</span></dt><dd>the size of this list</dd></dl>
 </li>
 </ul>
 <a name="get(long)">
@@ -262,6 +261,7 @@ implements <a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title=
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html#get(long)">get</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="interface in org.dellroad.stuff.vaadin">QueryList</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin/WindowQueryList.html" title="type parameter in WindowQueryList">T</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>index</code> - index of the item (zero-based)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the item at <code>index</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/InvalidQueryListException.html" title="class in org.dellroad.stuff.vaadin">InvalidQueryListException</a></code> - if this list has become invalid or cannot provide the item</dd></dl>
 </li>

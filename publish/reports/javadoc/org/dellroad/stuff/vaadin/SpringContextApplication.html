@@ -108,7 +108,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.129">SpringContextApplication</a>
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.121">SpringContextApplication</a>
 extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" title="class in org.dellroad.stuff.vaadin">ContextApplication</a></pre>
 <div class="block">Vaadin application implementation that manages an associated Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a>.
 
@@ -119,12 +119,10 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
  application contexts share the same parent context, which is the one associated with the overal servlet web context
  (i.e., the one created by Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ContextLoaderListener.html?is-external=true" title="class or interface in org.springframework.web.context"><code>ContextLoaderListener</code></a>).
  A context is created when a new Vaadin application instance is initialized, and destroyed when it is closed.
- </p>
 
  <p>
  This setup is analogous to how Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html?is-external=true" title="class or interface in org.springframework.web.servlet"><code>DispatcherServlet</code></a>
  creates per-servlet application contexts that are children of the overall servlet web context.
- </p>
 
  <h3>Application Context XML File Location</h3>
 
@@ -133,7 +131,6 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
  file named <code>FooApplication.xml</code> in the <code>WEB-INF/</code> directory that defines the per-Vaadin application Spring
  application context. This naming scheme <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#getApplicationName()">can be overriden</a>, or explicit config file
  location(s) can be specified by setting the <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#VAADIN_CONTEXT_LOCATION_PARAMETER"><code>VAADIN_CONTEXT_LOCATION_PARAMETER</code></a> servlet parameter.
- </p>
 
  <h3>Vaadin Application as BeanFactory singleton</h3>
 
@@ -170,14 +167,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
       ...
   }
  </pre></blockquote>
- </p>
 
  <p>
  Even if you don't explicitly define the <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> bean in your Spring application context,
  it will still be available as a dependency for autowiring into other beans (this is accomplished using
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/config/ConfigurableListableBeanFactory.html?is-external=true#registerResolvableDependency(java.lang.Class, java.lang.Object)" title="class or interface in org.springframework.beans.factory.config"><code>ConfigurableListableBeanFactory.registerResolvableDependency()</code></a>). Of course, in this case the
  <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> bean won't itself be autowired or configured.
- </p>
 
  <h3><code>@VaadinConfigurable</code> Beans</h3>
 
@@ -188,7 +183,6 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
  the <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html#get()">currently running application instance</a>. In effect, this does for
  Vaadin application beans what Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/annotation/Configurable.html?is-external=true" title="class or interface in org.springframework.beans.factory.annotation"><code>@Configurable</code></a>
  does for regular beans.
- </p>
 
  <p>
  Note however that Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/DisposableBean.html?is-external=true#destroy()" title="class or interface in org.springframework.beans.factory">destroy methods</a>
@@ -196,14 +190,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
  Spring application context (this is also the case with
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/annotation/Configurable.html?is-external=true" title="class or interface in org.springframework.beans.factory.annotation"><code>@Configurable</code></a> beans). Instead, these beans
  can register as a <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.CloseListener.html" title="interface in org.dellroad.stuff.vaadin"><code>ContextApplication.CloseListener</code></a> for shutdown notification.
- </p>
 
  <p>
  For the this annotation to do anything, <a href="../../../../org/dellroad/stuff/vaadin/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin"><code>@VaadinConfigurable</code></a> classes must be woven
  (either at build time or runtime) using the
  <a href="http://www.eclipse.org/aspectj/doc/released/faq.php#compiler">AspectJ compiler</a> with the
- <code>VaadinConfigurableAspect</code> aspect (included in the <code>dellroad-stuff</code> JAR file).
- </p></div>
+ <code>VaadinConfigurableAspect</code> aspect (included in the <code>dellroad-stuff</code> JAR file).</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html#get()"><code>ContextApplication.get()</code></a>, 
 <a href="https://github.com/archiecobbs/dellroad-stuff-vaadin-spring-demo3">Example Code on GitHub</a>, 
 <a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin.SpringContextApplication">Serialized Form</a></dd></dl>
@@ -391,7 +383,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VAADIN_CONTEXT_LOCATION_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.137">VAADIN_CONTEXT_LOCATION_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.129">VAADIN_CONTEXT_LOCATION_PARAMETER</a></pre>
 <div class="block">Optional servlet initialization parameter (<code>"vaadinContextConfigLocation"</code>) used to specify
  the location(s) of the application context XML file(s). Multiple XML files may be separated by whitespace.
  If this parameter is not defined, then the XML file location is built using <code>/WEB-INF/</code> as a prefix,
@@ -413,7 +405,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SpringContextApplication</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.129">SpringContextApplication</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.121">SpringContextApplication</a>()</pre>
 </li>
 </ul>
 </li>
@@ -430,7 +422,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>getApplicationContext</h4>
-<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.146">getApplicationContext</a>()</pre>
+<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.138">getApplicationContext</a>()</pre>
 <div class="block">Get this instance's associated Spring application context.</div>
 </li>
 </ul>
@@ -440,12 +432,11 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin">SpringContextApplication</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.161">get</a>()</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin">SpringContextApplication</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.152">get</a>()</pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> instance associated with the current thread or throw an exception if there is none.
 
  <p>
- Works just like <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html#get()"><code>ContextApplication.get()</code></a> but returns this narrower type.
- </p></div>
+ Works just like <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html#get()"><code>ContextApplication.get()</code></a> but returns this narrower type.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>the <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> associated with the current thread</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the current thread is not servicing a Vaadin web request
@@ -458,7 +449,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>initApplication</h4>
-<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.172">initApplication</a>()</pre>
+<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.163">initApplication</a>()</pre>
 <div class="block">Initializes the associated <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>ConfigurableWebApplicationContext</code></a>.
 
  <p>
@@ -475,7 +466,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>initSpringApplication</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.187">initSpringApplication</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;context)</pre>
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.178">initSpringApplication</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;context)</pre>
 <div class="block">Initialize the application. Sub-classes of <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> must implement this method.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>context</code> - the associated <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> just created and refreshed</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#destroySpringApplication()"><code>destroySpringApplication()</code></a></dd></dl>
 </li>
@@ -486,19 +477,17 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>destroySpringApplication</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.205">destroySpringApplication</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.194">destroySpringApplication</a>()</pre>
 <div class="block">Perform any application-specific shutdown work. This will be invoked at shutdown after this Vaadin application and the
  associated <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> have both been closed.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> does nothing. Subclasses may override as necessary.
- </p>
 
  <p>
  Note that if a <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> instance is exposed in the application context and configured
  with a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/DisposableBean.html?is-external=true#destroy()" title="class or interface in org.springframework.beans.factory">destroy method</a>, then that
- method will also be invoked when the application is closed. In such cases overriding this method is not necessary.
- </p></div>
+ method will also be invoked when the application is closed. In such cases overriding this method is not necessary.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#initSpringApplication(org.springframework.web.context.ConfigurableWebApplicationContext)"><code>initSpringApplication(org.springframework.web.context.ConfigurableWebApplicationContext)</code></a></dd></dl>
 </li>
 </ul>
@@ -508,13 +497,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>postProcessWebApplicationContext</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.220">postProcessWebApplicationContext</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;context)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.208">postProcessWebApplicationContext</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;context)</pre>
 <div class="block">Post-process the given <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> after initial creation but before the initial
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ConfigurableApplicationContext.html?is-external=true#refresh()" title="class or interface in org.springframework.context"><code>refresh()</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> does nothing. Subclasses may override as necessary.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> does nothing. Subclasses may override as necessary.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>context</code> - the associated <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> just refreshed</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#onRefresh(org.springframework.context.ApplicationContext)"><code>onRefresh(org.springframework.context.ApplicationContext)</code></a>, 
 <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ConfigurableApplicationContext.html?is-external=true#refresh()" title="class or interface in org.springframework.context"><code>ConfigurableApplicationContext.refresh()</code></a></dd></dl>
 </li>
@@ -525,12 +513,11 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockList">
 <li class="blockList">
 <h4>onRefresh</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.234">onRefresh</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ApplicationContext.html?is-external=true" title="class or interface in org.springframework.context">ApplicationContext</a>&nbsp;context)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.221">onRefresh</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ApplicationContext.html?is-external=true" title="class or interface in org.springframework.context">ApplicationContext</a>&nbsp;context)</pre>
 <div class="block">Perform any application-specific work after a successful application context refresh.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> does nothing. Subclasses may override as necessary.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> does nothing. Subclasses may override as necessary.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>context</code> - the associated <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> just refreshed</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#postProcessWebApplicationContext(org.springframework.web.context.ConfigurableWebApplicationContext)"><code>postProcessWebApplicationContext(org.springframework.web.context.ConfigurableWebApplicationContext)</code></a>, 
 <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ConfigurableApplicationContext.html?is-external=true#refresh()" title="class or interface in org.springframework.context"><code>ConfigurableApplicationContext.refresh()</code></a></dd></dl>
 </li>
@@ -541,15 +528,14 @@ extends <a href="../../../../org/dellroad/stuff/vaadin/ContextApplication.html" 
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getApplicationName</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.247">getApplicationName</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/SpringContextApplication.html#line.233">getApplicationName</a>()</pre>
 <div class="block">Get the name for this application. This is used as the name of the XML file in <code>WEB-INF/</code> that
  defines the Spring application context associated with this instance, unless the
  <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html#VAADIN_CONTEXT_LOCATION_PARAMETER"><code>VAADIN_CONTEXT_LOCATION_PARAMETER</code></a> servlet parameter is set.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/vaadin/SpringContextApplication.html" title="class in org.dellroad.stuff.vaadin"><code>SpringContextApplication</code></a> returns this instance's class'
- <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true#getSimpleName()" title="class or interface in java.lang">simple name</a>.
- </p></div>
+ <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true#getSimpleName()" title="class or interface in java.lang">simple name</a>.</div>
 </li>
 </ul>
 </li>

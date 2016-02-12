@@ -94,14 +94,13 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.26">NamedArgumentFormatter</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.25">NamedArgumentFormatter</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Interpreter for printf-style formatting strings that identifies arguments using names rather than indicies.
 
  <p>
  Works just like <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html?is-external=true" title="class or interface in java.util"><code>Formatter</code></a> but arguments are specified using names instead of numbers.
- A mapping from argument name to argument value must be provided during the format operation.
- </p></div>
+ A mapping from argument name to argument value must be provided during the format operation.</div>
 <dl><dt><span class="strong">Since:</span></dt>
   <dd>1.0.64</dd></dl>
 </li>
@@ -226,7 +225,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>fieldList</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.33">fieldList</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html?is-external=true" title="class or interface in java.util">ArrayList</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.32">fieldList</a></pre>
 <div class="block">The list of argument names in the order they are used. This is the inverse mapping of <a href="../../../../org/dellroad/stuff/string/NamedArgumentFormatter.html#fieldMap"><code>fieldMap</code></a>.</div>
 </li>
 </ul>
@@ -236,7 +235,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>fieldMap</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.38">fieldMap</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.37">fieldMap</a></pre>
 <div class="block">Mapping from argument name to argument list index. This is the inverse mapping of <a href="../../../../org/dellroad/stuff/string/NamedArgumentFormatter.html#fieldList"><code>fieldList</code></a>.</div>
 </li>
 </ul>
@@ -246,7 +245,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>originalFormat</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.43">originalFormat</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.42">originalFormat</a></pre>
 <div class="block">The original format string provided to the constructor.</div>
 </li>
 </ul>
@@ -256,7 +255,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>indexedFormat</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.48">indexedFormat</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.47">indexedFormat</a></pre>
 <div class="block">The modified format string containing indexes instead of argument names.</div>
 </li>
 </ul>
@@ -274,7 +273,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>NamedArgumentFormatter</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.55">NamedArgumentFormatter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.54">NamedArgumentFormatter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>format</code> - format string containing argument names instead of indicies</dd></dl>
 </li>
@@ -296,9 +295,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.92">format</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&gt;&nbsp;argMap)</pre>
 <div class="block">Format the string using the given arguments.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>argMap</code> - mapping from argument name to argument value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>formatted string</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code>IllegalFormatException</code> - if the format provided to the constructor contained illegal syntax</dd>
-<dd><code>IllegalFormatException</code> - if an argument value is incompatible or missing (and null would be invalid)</dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/IllegalFormatException.html?is-external=true" title="class or interface in java.util">IllegalFormatException</a></code> - if the format provided to the constructor contained illegal syntax</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/IllegalFormatException.html?is-external=true" title="class or interface in java.util">IllegalFormatException</a></code> - if an argument value is incompatible or missing (and null would be invalid)</dd></dl>
 </li>
 </ul>
 <a name="getFormat()">
@@ -307,8 +307,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getFormat</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.106">getFormat</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.108">getFormat</a>()</pre>
 <div class="block">Get the original format string provided to the constructor.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>original format string</dd></dl>
 </li>
 </ul>
 <a name="getArgumentNames()">
@@ -317,7 +318,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getArgumentNames</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.115">getArgumentNames</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/NamedArgumentFormatter.html#line.117">getArgumentNames</a>()</pre>
 <div class="block">Get the argument names found in the configured format string.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>argument names as a unmodifiable set</dd></dl>
 </li>

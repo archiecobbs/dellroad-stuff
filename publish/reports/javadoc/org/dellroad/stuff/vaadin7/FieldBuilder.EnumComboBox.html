@@ -85,7 +85,7 @@
 <pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</a>
-public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.html#line.1196">FieldBuilder.EnumComboBox</a></pre>
+public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.html#line.1187">FieldBuilder.EnumComboBox</a></pre>
 <div class="block">Specifies how a Java property should be edited in Vaadin using an <a href="../../../../org/dellroad/stuff/vaadin7/EnumComboBox.html" title="class in org.dellroad.stuff.vaadin7"><code>EnumComboBox</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html" title="annotation in org.dellroad.stuff.vaadin7"><code>FieldBuilder.AbstractField</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/FieldBuilder.AbstractSelect.html" title="annotation in org.dellroad.stuff.vaadin7"><code>FieldBuilder.AbstractSelect</code></a>, 
@@ -142,7 +142,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>type</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/EnumComboBox.html" title="class in org.dellroad.stuff.vaadin7">EnumComboBox</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.EnumComboBox.html#line.1202">type</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/EnumComboBox.html" title="class in org.dellroad.stuff.vaadin7">EnumComboBox</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.EnumComboBox.html#line.1193">type</a></pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/vaadin7/EnumComboBox.html" title="class in org.dellroad.stuff.vaadin7"><code>EnumComboBox</code></a> type that will edit the property.
  Type must have a no-arg constructor.</div>
 <dl>
@@ -157,7 +157,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockListLast">
 <li class="blockList">
 <h4>enumClass</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang">Enum</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.EnumComboBox.html#line.1211">enumClass</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang">Enum</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.EnumComboBox.html#line.1202">enumClass</a></pre>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang"><code>Enum</code></a> type to choose from. If left as default, the type will be inferred from
  the getter method return type, which must be an <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang"><code>Enum</code></a> type.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/EnumComboBox.html#setEnumDataSource(java.lang.Class)"><code>EnumComboBox.setEnumDataSource(java.lang.Class&lt;T&gt;)</code></a></dd></dl>

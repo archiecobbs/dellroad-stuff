@@ -290,7 +290,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#serialize(T, javax.xml.transform.Result)">serialize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/FilterDelegate.html" title="type parameter in FilterDelegate">T</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to serialize; must not be modified</dd><dd><code>result</code> - XML destination</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="deserialize(javax.xml.transform.Source)">
@@ -313,7 +313,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dt><span class="strong">Parameters:</span></dt><dd><code>source</code> - XML source</dd>
 <dt><span class="strong">Returns:</span></dt><dd>deserialized object</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="copy(java.lang.Object)">
@@ -337,7 +337,8 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#copy(T)">copy</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/FilterDelegate.html" title="type parameter in FilterDelegate">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>original</code> - original object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>deep copy of the object graph rooted at <code>original</code></dd></dl>
 </li>
 </ul>
 <a name="isSameGraph(java.lang.Object,java.lang.Object)">
@@ -367,7 +368,8 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">isSameGraph</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/FilterDelegate.html" title="type parameter in FilterDelegate">T</a>&gt;</code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - root of first object graph</dd><dd><code>root2</code> - root of second object graph</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - root of first object graph</dd><dd><code>root2</code> - root of second object graph</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>root1</code> and <code>root2</code> represent equal object graphs</dd></dl>
 </li>
 </ul>
 <a name="validate(java.lang.Object)">
@@ -387,6 +389,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#validate(T)">validate</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/FilterDelegate.html" title="type parameter in FilterDelegate">T</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>set of zero or more constraint violations</dd></dl>
 </li>
 </ul>

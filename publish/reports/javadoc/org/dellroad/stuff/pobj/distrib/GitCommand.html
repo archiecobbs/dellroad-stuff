@@ -243,8 +243,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getArgs</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.60">getArgs</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.62">getArgs</a>()</pre>
 <div class="block">Get command line arguments.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>command parameters</dd></dl>
 </li>
 </ul>
 <a name="run()">
@@ -253,8 +254,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.67">run</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.71">run</a>()</pre>
 <div class="block">Run command. Equivalent to <code>run(false)</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd><code>git(1)</code> exit value</dd></dl>
 </li>
 </ul>
 <a name="run(boolean)">
@@ -263,7 +265,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.81">run</a>(boolean&nbsp;errorOk)</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.85">run</a>(boolean&nbsp;errorOk)</pre>
 <div class="block">Run command.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>errorOk</code> - true if a non-zero exit value may be expected</dd>
 <dt><span class="strong">Returns:</span></dt><dd><code>git(1)</code> exit value; if <code>errorOk</code> is false this will always be zero</dd>
@@ -280,9 +282,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>runAndGetOutput</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.151">runAndGetOutput</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.156">runAndGetOutput</a>()</pre>
 <div class="block">Run command and return standard output, interpreted as a UTF-8 string, with leading and trailing whitespace trimmed.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>command standard output</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this command has already been run</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a></code> - if the current thread is interrupted</dd>
 <dd><code><a href="../../../../../org/dellroad/stuff/pobj/distrib/GitException.html" title="class in org.dellroad.stuff.pobj.distrib">GitException</a></code> - if any <code>GIT_*</code> environment variables are set</dd>
@@ -295,9 +298,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getStandardOutput</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.162">getStandardOutput</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.168">getStandardOutput</a>()</pre>
 <div class="block">Get the standard output from <code>git(1)</code>.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>command standard output interpreted as UTF-8</dd>
+<dl><dt><span class="strong">Returns:</span></dt><dd>command standard output</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if command has not yet completed</dd></dl>
 </li>
@@ -308,9 +311,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getStandardError</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.174">getStandardError</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.181">getStandardError</a>()</pre>
 <div class="block">Get the standard error from <code>git(1)</code>.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>command standard error interpreted as UTF-8</dd>
+<dl><dt><span class="strong">Returns:</span></dt><dd>command standard error</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if command has not yet completed</dd></dl>
 </li>
@@ -321,7 +324,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.181">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitCommand.html#line.188">toString</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>

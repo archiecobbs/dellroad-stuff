@@ -95,7 +95,7 @@
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of the root object</dd></dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.207">PersistentObject</a>&lt;T&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.187">PersistentObject</a>&lt;T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Main class for Simple XML Persistence Objects (POBJ).
 
@@ -106,7 +106,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  represented by a regular Java object graph (i.e., a root Java object and all of the other objects that it (indirectly)
  references). The object graph can be (de)serialized to/from XML, and this XML representation is used for persistence
  in the file system. The backing XML file is read in at initialization time and updated after each change.
- </p>
 
  <p>
  All changes required copying the entire object graph, and are atomic and strictly serialized. In other words, the
@@ -114,20 +113,17 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  is updated by writing out a new, temporary copy and renaming the copy onto the original, using <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true#renameTo(java.io.File)" title="class or interface in java.io"><code>File.renameTo()</code></a> so that changes are also atomic from a filesystem perspective, i.e., it's not possible to open an
  invalid or partial XML file (assuming filesystem renames are atomic, e.g., all UNIX variants). This class also
  supports information flowing in the other direction, where we pick up "out of band" updates to the XML file (see below).
- </p>
 
  <p>
  This class is most appropriate for use with information that must be carefully controlled and validated,
  but that doesn't change frequently. Configuration information for an application stored in a <code>config.xml</code>
  file is a typical use case; beans whose behavior is determined by the configured information can subclass
  <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="class in org.dellroad.stuff.pobj"><code>AbstractConfiguredBean</code></a> and have their lifecycles managed automatically.
- </p>
 
  <p>
  Because each change involves copying of the entire graph, an efficient graph copy operation is desirable.
  The <a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html#copy(T)">default method</a> is to serialize and then deserialize the object graph
  to/from XML in memory. See <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a> for a much more efficient approach.
- </p>
 
  <h3>Validation</h3>
 
@@ -136,7 +132,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  guarantees that only a valid root Java object can be read or written. Setting an invalid Java root object via
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot()</code></a> with throw an exception; reading an invalid XML file on disk will generate
  an error (or be ignored; see "Empty Starts" below).
- </p>
 
  <h3>Update Details</h3>
 
@@ -145,14 +140,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  listener notifications are sent out. Listeners are always notified in a separate thread from the one that invoked
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot()</code></a>. Support for delayed write-back of the persistent XML file is included: this
  allows modifications that occur in rapid succession to be consolidated into a single filesystem write operation.
- </p>
 
  <p>
  Support for optimistic locking is included. There is a "current version" number which is incremented each
  time the object graph is updated; writes may optionally specify this number to ensure no intervening changes
  have occurred. If concurrent updates are expected, applications may choose to implement a 3-way merge algorithm
  of some kind to handle optimistic locking failures.
- </p>
 
  <p>
  To implement a truly atomic read-modify-write operation without the possibility of locking failure, simply
@@ -164,12 +157,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
       pobj.setRoot(root);
   }
   </pre></blockquote>
- </p>
 
  <p>
  Instances can also be configured to automatically preserve one or more backup copies of the persistent file on systems that
  support hard links (see <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io"><code>FileStreamRepository</code></a>). Set the <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getNumBackups()"><code>numBackups</code></a> property to enable.
- </p>
 
  <h3>"Out-of-band" Writes</h3>
 
@@ -183,13 +174,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  creating a temporary file and renaming it; however, this race window is small and in any case the problem is self-correcting
  because a partially written XML file will not validate, and so it will be ignored and retried after another
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getCheckInterval()">check interval</a> milliseconds has passed.
- </p>
 
  <p>
  A special case of this is effected when <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot()</code></a> is never explicitly invoked
  by the application. Then some other process must be responsible for all database updates via XML file, and this class
  will automatically pick them up, validate them, and send out notifications to listeners.
- </p>
 
  <h3>Empty Starts and Stops</h3>
 
@@ -198,13 +187,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  does not validate, or cannot be read for some other reason. In such cases, the instance will start with no object graph,
  and <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getRoot()"><code>getRoot()</code></a> will return null. This situation will correct itself as soon as the object graph is written via
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot()</code></a> or the persistent file appears (effecting an "out-of-band" update). At that time, <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#addListener(org.dellroad.stuff.pobj.PersistentObjectListener)">listeners</a> will be notified for the first time, with <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html#getOldRoot()"><code>PersistentObjectEvent.getOldRoot()</code></a> returning null.
- </p>
 
  <p>
  Whether empty starts are allowed is determined by the <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#isAllowEmptyStart()"><code>allowEmptyStart</code></a> property (default
  <code>false</code>). When empty starts are disallowed and the persistent XML file cannot be successfully read,
  then <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#start()"><code>start()</code></a> will instead throw an immediate <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectException</code></a>.
- </p>
 
  <p>
  Similarly, "empty stops" are allowed when the <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#isAllowEmptyStop()"><code>allowEmptyStop</code></a> property is set to <code>true</code>
@@ -213,18 +200,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  Subsequent invocations of <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getRoot()"><code>getRoot()</code></a> will return <code>null</code>. The persistent file is <b>not</b>
  modified when null is passed to <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot(T, long)</code></a>. When empty stops are disallowed, then invoking
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#setRoot(T, long)"><code>setRoot(T, long)</code></a> with a <code>null</code> object will result in an <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang"><code>IllegalArgumentException</code></a>.
- </p>
 
  <p>
  Allowing empty starts and/or stops essentially creates an "unconfigured" state represented by a null root object.
  When empty starts and empty stops are both disallowed, there is no "unconfigured" state: once started, <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getRoot()"><code>getRoot()</code></a>
  can be relied upon to always return a non-null, validated root object.
- </p>
 
  <p>
  See <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="class in org.dellroad.stuff.pobj"><code>AbstractConfiguredBean</code></a> for a useful superclass that automatically handles starting and stopping
  based on the state of an associated <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a>.
- </p>
 
  <h3>Shared Roots</h3>
 
@@ -236,28 +220,24 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  root object each time it is invoked (this shared root is itself a deep copy of the "official" root). Therefore, only
  the very first invocation pays the price of a copy. However, all invokers of <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getSharedRoot()"><code>getSharedRoot()</code></a>
  must treat the object graph as read-only to avoid each other seeing unexpected changes.
- </p>
 
  <h3>Delegate Function</h3>
 
  <p>
  Instances must be configured with a <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a> that knows how to validate the object graph
  and perform conversions to and from XML. See <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a> and its implementations for details.
- </p>
 
  <h3>Schema Changes</h3>
 
  <p>
  Like any database, the XML schema may evolve over time. The <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> class provides a simple
  way to apply and manage schema updates using XSLT transforms.
- </p>
 
  <h3>Transaction Manager</h3>
 
  <p>
  If using Spring, consider using a <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectTransactionManager.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectTransactionManager</code></a> for transactional access to a
- <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a>, 
 <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a>, 
 <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectTransactionManager.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectTransactionManager</code></a>, 
@@ -635,7 +615,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.211">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.191">log</a></pre>
 </li>
 </ul>
 </li>
@@ -652,7 +632,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>PersistentObject</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.246">PersistentObject</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.226">PersistentObject</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
                 long&nbsp;writeDelay,
                 long&nbsp;checkInterval)</pre>
@@ -673,7 +653,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>PersistentObject</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.262">PersistentObject</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.246">PersistentObject</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</pre>
 <div class="block">Simplified constructor configuring for immediate write-back and no persistent file checks.
 
@@ -682,6 +662,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <blockquote><code>
   PersistentObject(delegate, file, 0L, 0L);
  </code></blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>file</code> - the file used to persist</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>delegate</code> or <code>file</code> is null</dd></dl>
 </li>
 </ul>
 <a name="PersistentObject()">
@@ -690,7 +673,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentObject</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.269">PersistentObject</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.253">PersistentObject</a>()</pre>
 <div class="block">Default constructor. Caller must still configure the delegate and persistent file prior to start.</div>
 </li>
 </ul>
@@ -708,7 +691,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getDelegate</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.277">getDelegate</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.261">getDelegate</a>()</pre>
 <div class="block">Get the configured <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a>.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>the delegate supplying required operations</dd></dl>
 </li>
@@ -719,7 +702,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setDelegate</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.288">setDelegate</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.272">setDelegate</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;delegate)</pre>
 <div class="block">Configure the <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -733,7 +716,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getFile</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.301">getFile</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.285">getFile</a>()</pre>
 <div class="block">Get the persistent file containing the XML form of the persisted object.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>file used to persist the root object</dd></dl>
 </li>
@@ -744,7 +727,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setFile</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.312">setFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.296">setFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</pre>
 <div class="block">Set the persistent file containing the XML form of the persisted object.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - the file used to persist the root object</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -758,7 +741,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getWriteDelay</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.326">getWriteDelay</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.310">getWriteDelay</a>()</pre>
 <div class="block">Get the maximum delay after an update operation before a write-back to the persistent file
  must be initiated.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>write delay in milliseconds, or zero for immediate write-back</dd></dl>
@@ -770,7 +753,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setWriteDelay</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.338">setWriteDelay</a>(long&nbsp;writeDelay)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.322">setWriteDelay</a>(long&nbsp;writeDelay)</pre>
 <div class="block">Set the maximum delay after an update operation before a write-back to the persistent file
  must be initiated.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writeDelay</code> - write delay in milliseconds, or zero for immediate write-back</dd>
@@ -785,7 +768,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getCheckInterval</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.351">getCheckInterval</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.335">getCheckInterval</a>()</pre>
 <div class="block">Get the delay time between periodic checks for changes in the underlying persistent file.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>check interval in milliseconds, or zero if periodic checks are disabled</dd></dl>
 </li>
@@ -796,7 +779,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setCheckInterval</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.362">setCheckInterval</a>(long&nbsp;checkInterval)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.346">setCheckInterval</a>(long&nbsp;checkInterval)</pre>
 <div class="block">Set the delay time between periodic checks for changes in the underlying persistent file.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>checkInterval</code> - check interval in milliseconds, or zero if periodic checks are disabled</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -810,7 +793,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getVersion</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.380">getVersion</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.364">getVersion</a>()</pre>
 <div class="block">Get the version of the current root.
 
  <p>
@@ -826,7 +809,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getNumBackups</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.397">getNumBackups</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.383">getNumBackups</a>()</pre>
 <div class="block">Get the number of backup copies to preserve.
 
  <p>
@@ -838,6 +821,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The default is zero, which disables backups.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>number of backing file backup copies</dd></dl>
 </li>
 </ul>
 <a name="setNumBackups(int)">
@@ -846,9 +830,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setNumBackups</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.408">setNumBackups</a>(int&nbsp;numBackups)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.395">setNumBackups</a>(int&nbsp;numBackups)</pre>
 <div class="block">Set the number of backup copies to preserve.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>numBackups</code> - number of backing file backup copies</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>numBackups</code> is negative</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if no persistent file has been configured yet</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getNumBackups()"><code>getNumBackups()</code></a></dd></dl>
 </li>
@@ -859,11 +844,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isAllowEmptyStart</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.420">isAllowEmptyStart</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.409">isAllowEmptyStart</a>()</pre>
 <div class="block">Determine whether this instance should allow an "empty start".
 
  <p>
  The default for this property is false.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>if empty starts are allowed</dd></dl>
 </li>
 </ul>
 <a name="setAllowEmptyStart(boolean)">
@@ -872,12 +858,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setAllowEmptyStart</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.432">setAllowEmptyStart</a>(boolean&nbsp;allowEmptyStart)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.422">setAllowEmptyStart</a>(boolean&nbsp;allowEmptyStart)</pre>
 <div class="block">Configure whether an "empty start" is allowed.
 
  <p>
  The default for this property is false.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>allowEmptyStart</code> - true to allow empty starts</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance is started</dd></dl>
 </li>
 </ul>
@@ -887,11 +874,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isAllowEmptyStop</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.444">isAllowEmptyStop</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.436">isAllowEmptyStop</a>()</pre>
 <div class="block">Determine whether this instance should allow an "empty stop".
 
  <p>
  The default for this property is false.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if empty stops are allowed</dd></dl>
 </li>
 </ul>
 <a name="setAllowEmptyStop(boolean)">
@@ -900,12 +888,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setAllowEmptyStop</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.456">setAllowEmptyStop</a>(boolean&nbsp;allowEmptyStop)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.449">setAllowEmptyStop</a>(boolean&nbsp;allowEmptyStop)</pre>
 <div class="block">Configure whether an "empty stop" is allowed.
 
  <p>
  The default for this property is false.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>allowEmptyStop</code> - true to allow empty stops</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance is started</dd></dl>
 </li>
 </ul>
@@ -915,8 +904,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isStarted</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.465">isStarted</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.460">isStarted</a>()</pre>
 <div class="block">Determine whether this instance is started.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if this instance currently started</dd></dl>
 </li>
 </ul>
 <a name="start()">
@@ -925,7 +915,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.474">start</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.469">start</a>()</pre>
 <div class="block">Start this instance. Does nothing if already started.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
@@ -937,7 +927,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.546">stop</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.541">stop</a>()</pre>
 <div class="block">Stop this instance. Does nothing if already stopped.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if a delayed write back is pending and error occurs while performing the write</dd></dl>
@@ -949,7 +939,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>hasRoot</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.579">hasRoot</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.574">hasRoot</a>()</pre>
 <div class="block">Determine whether this instance has a non-null root object.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>true if this instance has a non-null root object, false if this instance is not started
   or is in an empty start or empty stop state</dd></dl>
@@ -961,7 +951,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getRoot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.600">getRoot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.595">getRoot</a>()</pre>
 <div class="block">Atomically read the root object.
 
  <p>
@@ -984,7 +974,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getSharedRoot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.621">getSharedRoot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.616">getSharedRoot</a>()</pre>
 <div class="block">Get a shared copy of the root object.
 
  <p>
@@ -1002,7 +992,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getRootSnapshot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.Snapshot.html" title="class in org.dellroad.stuff.pobj">PersistentObject.Snapshot</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.636">getRootSnapshot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.Snapshot.html" title="class in org.dellroad.stuff.pobj">PersistentObject.Snapshot</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.631">getRootSnapshot</a>()</pre>
 <div class="block">Read the root object (as with <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getRoot()"><code>getRoot()</code></a>) and its version (as with <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getVersion()"><code>getVersion()</code></a>) in one atomic operation.
  This avoids the race condition inherent in trying to perform these operations separately.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>snapshot of the current root, or null during an empty start or empty stop</dd>
@@ -1017,7 +1007,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getSharedRootSnapshot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.Snapshot.html" title="class in org.dellroad.stuff.pobj">PersistentObject.Snapshot</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.653">getSharedRootSnapshot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.Snapshot.html" title="class in org.dellroad.stuff.pobj">PersistentObject.Snapshot</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.648">getSharedRootSnapshot</a>()</pre>
 <div class="block">Read the shared root object (as with <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getSharedRoot()"><code>getSharedRoot()</code></a>) and its version (as with <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getVersion()"><code>getVersion()</code></a>)
  in one atomic operation.
  This avoids the race condition inherent in trying to perform these operations separately.</div>
@@ -1035,7 +1025,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setRoot</h4>
-<pre>public final&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.703">setRoot</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;newRoot,
+<pre>public final&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.693">setRoot</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;newRoot,
            long&nbsp;expectedVersion)</pre>
 <div class="block">Atomically update the root object.
 
@@ -1044,29 +1034,24 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  If there is no write delay configured, the new version is written to the underlying file immediately and
  a successful return from this method indicates the new root has been persisted. Otherwise, the write will
  occur at a later time in a separate thread.
- </p>
 
  <p>
  If <code>expectedVersion</code> is non-zero, then if the current version is not equal to it,
  a <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectVersionException.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectVersionException</code></a> exception is thrown. This mechanism
  can be used for optimistic locking.
- </p>
 
  <p>
  If empty stops are allowed, then <code>newRoot</code> may be null, in which case it replaces the
  current root and subsequent calls to <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#getRoot()"><code>getRoot()</code></a> will return null. When a null
  <code>newRoot</code> is set, the persistent file is <b>not</b> modified.
- </p>
 
  <p>
  If the given root object is <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">the same as</a> the current
  root object, then no action is taken and the current (unchanged) version number is returned.
- </p>
 
  <p>
  After a successful change, any registered <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">listeners</a> are notified in a
- separate thread from the one that invoked this method.
- </p></div>
+ separate thread from the one that invoked this method.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>newRoot</code> - new persistent object</dd><dd><code>expectedVersion</code> - expected current version number, or zero to ignore the current version number</dd>
 <dt><span class="strong">Returns:</span></dt><dd>the new current version number (unchanged if <code>newRoot</code> is
   <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">the same as</a> the current root)</dd>
@@ -1087,7 +1072,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setRoot</h4>
-<pre>public final&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.775">setRoot</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;newRoot)</pre>
+<pre>public final&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.769">setRoot</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;newRoot)</pre>
 <div class="block">Atomically update the root object.
 
  <p>
@@ -1098,6 +1083,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  This method cannot throw <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectVersionException.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectVersionException</code></a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>newRoot</code> - new persistent root object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the new current version number (unchanged if <code>newRoot</code> is
+  <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">the same as</a> the current root)</dd></dl>
 </li>
 </ul>
 <a name="checkFile()">
@@ -1106,7 +1094,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>checkFile</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.789">checkFile</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.783">checkFile</a>()</pre>
 <div class="block">Check the persistent file for an "out-of-band" update.
 
  <p>
@@ -1123,12 +1111,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>addListener</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.817">addListener</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;listener)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.812">addListener</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;listener)</pre>
 <div class="block">Add a listener to be notified each time the object graph changes.
 
  <p>
  Listeners are notified in a separate thread from the one that caused the root object to change.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>listener</code> - listener to add</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>listener</code> is null</dd></dl>
 </li>
 </ul>
@@ -1138,8 +1127,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>removeListener</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.828">removeListener</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;listener)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.825">removeListener</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&gt;&nbsp;listener)</pre>
 <div class="block">Remove a listener added via <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#addListener(org.dellroad.stuff.pobj.PersistentObjectListener)"><code>addListener()</code></a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>listener</code> - listener to remove</dd></dl>
 </li>
 </ul>
 <a name="toString()">
@@ -1148,7 +1138,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.838">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.835">toString</a>()</pre>
 <div class="block">Get a simple string description of this instance. This description appears in all log messages.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
@@ -1162,9 +1152,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.848">read</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.846">read</a>()</pre>
 <div class="block">Read the persistent file. Does not validate it.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>root object decoded from backing file</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if the file does not exist or cannot be read</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
 </li>
@@ -1177,13 +1168,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.885">write</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;obj)</pre>
+<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.882">write</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;obj)</pre>
 <div class="block">Write the persistent file and rotate any backups.
 
  <p>
  A temporary file is created in the same directory and then renamed to provide for an atomic update
- (on supporting operating systems).
- </p></div>
+ (on supporting operating systems).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - root object to write</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>obj</code> is null</dd>
@@ -1196,14 +1186,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>createResult</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform">Result</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.937">createResult</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform">Result</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.934">createResult</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;systemId)</pre>
 <div class="block">Create a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform"><code>Result</code></a> targeting the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> creates and returns a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/stream/StreamResult.html?is-external=true" title="class or interface in javax.xml.transform.stream"><code>StreamResult</code></a>.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>output</code> - XML output stream</dd><dd><code>systemId</code> - system ID</dd></dl>
+ The implementation in <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> creates and returns a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/stream/StreamResult.html?is-external=true" title="class or interface in javax.xml.transform.stream"><code>StreamResult</code></a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>output</code> - XML output stream</dd><dd><code>systemId</code> - system ID</dd>
+<dt><span class="strong">Returns:</span></dt><dd>XML result output</dd></dl>
 </li>
 </ul>
 <a name="notifyListeners(long,java.lang.Object,java.lang.Object)">
@@ -1214,11 +1204,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>notifyListeners</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.948">notifyListeners</a>(long&nbsp;newVersion,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.947">notifyListeners</a>(long&nbsp;newVersion,
                    <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;oldRoot,
                    <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="type parameter in PersistentObject">T</a>&nbsp;newRoot)</pre>
 <div class="block">Notify listeners of a change in value.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>newVersion</code> - the version number associated with the new root</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>newVersion</code> - the version number associated with the new root</dd><dd><code>oldRoot</code> - previous root object</dd><dd><code>newRoot</code> - new root object</dd></dl>
 </li>
 </ul>
 <a name="read(org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Source, boolean)">
@@ -1227,16 +1217,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1069">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1068">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
          <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source,
          boolean&nbsp;validate)</pre>
 <div class="block">Read in a persistent object using the given delegate.
 
  <p>
  This is a convenience method that can be used for a one-time deserialization from an XML <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform"><code>Source</code></a> without having
- to go through the whole <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> lifecycle.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>source</code> - source for serialized root object</dd><dd><code>validate</code> - whether to also validate the root object</dd>
+ to go through the whole <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> lifecycle.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>source</code> - source for serialized root object</dd><dd><code>validate</code> - whether to also validate the root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>deserialized root object, never null</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
@@ -1250,16 +1239,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1117">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1116">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
          boolean&nbsp;validate)</pre>
 <div class="block">Read in a persistent object from the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a> using the given delegate.
 
  <p>
  This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#read(org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Source, boolean)"><code>read(PersistentObjectDelegate, Source, boolean)</code></a> that handles
- opening and closing the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a>.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>file</code> - file to read from</dd><dd><code>validate</code> - whether to also validate the root object</dd>
+ opening and closing the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a>.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>file</code> - file to read from</dd><dd><code>validate</code> - whether to also validate the root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>deserialized root object, never null</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
@@ -1274,15 +1262,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>read</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1161">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1160">read</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input,
          boolean&nbsp;validate)</pre>
 <div class="block">Read in a persistent object from the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> using the given delegate.
 
  <p>
- This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#read(org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Source, boolean)"><code>read(PersistentObjectDelegate, Source, boolean)</code></a>.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>input</code> - input to read from</dd><dd><code>validate</code> - whether to also validate the root object</dd>
+ This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#read(org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Source, boolean)"><code>read(PersistentObjectDelegate, Source, boolean)</code></a>.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>input</code> - input to read from</dd><dd><code>validate</code> - whether to also validate the root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>deserialized root object, never null</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
@@ -1299,16 +1286,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1185">write</a>(T&nbsp;root,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1184">write</a>(T&nbsp;root,
              <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
              <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform">Result</a>&nbsp;result)</pre>
 <div class="block">Write a persistent object using the given delegate.
 
  <p>
  This is a convenience method that can be used for one-time serialization to an XML <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform"><code>Result</code></a> without having
- to go through the whole <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> lifecycle.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>result</code> - destination</dd>
+ to go through the whole <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> lifecycle.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>result</code> - destination</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
@@ -1322,16 +1308,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1217">write</a>(T&nbsp;root,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1216">write</a>(T&nbsp;root,
              <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
              <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)</pre>
 <div class="block">Write a persistent object using the given delegate.
 
  <p>
  This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#write(T, org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Result)"><code>write(Object, PersistentObjectDelegate, Result)</code></a> that handles
- opening and closing the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a>.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>file</code> - destination file</dd>
+ opening and closing the given <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a>.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>file</code> - destination file</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
@@ -1345,15 +1330,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>write</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1252">write</a>(T&nbsp;root,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObject.html#line.1251">write</a>(T&nbsp;root,
              <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;&nbsp;delegate,
              <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)</pre>
 <div class="block">Write a persistent object using the given delegate.
 
  <p>
- This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#write(T, org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Result)"><code>write(Object, PersistentObjectDelegate, Result)</code></a>.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>output</code> - XML destination</dd>
+ This is a wrapper around <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#write(T, org.dellroad.stuff.pobj.PersistentObjectDelegate, javax.xml.transform.Result)"><code>write(Object, PersistentObjectDelegate, Result)</code></a>.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>root</code> - root object to serialize</dd><dd><code>delegate</code> - delegate supplying required operations</dd><dd><code>output</code> - XML destination</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>

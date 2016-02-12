@@ -86,27 +86,23 @@
 <a href="https://docs.oracle.com/javaee/7/api/javax/validation/Constraint.html?is-external=true" title="class or interface in javax.validation">@Constraint</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/validation/Constraint.html?is-external=true#validatedBy()" title="class or interface in javax.validation">validatedBy</a>=<a href="../../../../org/dellroad/stuff/validation/UniqueValidator.html" title="class in org.dellroad.stuff.validation">UniqueValidator.class</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>={<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#FIELD" title="class or interface in java.lang.annotation">FIELD</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#ANNOTATION_TYPE" title="class or interface in java.lang.annotation">ANNOTATION_TYPE</a>})
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</a>)
-public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.43">Unique</a></pre>
+public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.39">Unique</a></pre>
 <div class="block">Validation constraint that checks for the uniqueness of the constrained property's value over some uniqueness domain.
  Uniqueness domains are identified by an arbitrary name; each domain is independent of the others.
 
  <p>
  By supplying a <a href="../../../../org/dellroad/stuff/validation/Unique.html#uniquifier()"><code>uniquifier()</code></a> you can change the unique value associated with the constrained property;
  by default, it is just the value of the property.
- </p>
 
  <p>
  For this constraint to be effective, validation must be performed via
  <a href="../../../../org/dellroad/stuff/validation/ValidationContext.html#validate()"><code>ValidationContext.validate()</code></a>.
- </p>
 
  <p>
  This constraint will work on <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util"><code>Collection</code></a> or <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util"><code>Map</code></a> properties as well.
- </p>
 
  <p>
- Note: <code>null</code> values are not considered, i.e., they are not required to be unique.
- </p></div>
+ Note: <code>null</code> values are not considered, i.e., they are not required to be unique.</div>
 </li>
 </ul>
 </div>
@@ -185,7 +181,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Un
 <ul class="blockListLast">
 <li class="blockList">
 <h4>domain</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.54">domain</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.50">domain</a></pre>
 <div class="block">Name of the uniqueness domain. Domains are identified by name. Different domains do not interact.</div>
 </li>
 </ul>
@@ -195,7 +191,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Un
 <ul class="blockList">
 <li class="blockList">
 <h4>message</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.45">message</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.41">message</a></pre>
 <dl>
 <dt>Default:</dt>
 <dd>"Value is not unique"</dd>
@@ -208,7 +204,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Un
 <ul class="blockList">
 <li class="blockList">
 <h4>groups</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.47">groups</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.43">groups</a></pre>
 <dl>
 <dt>Default:</dt>
 <dd>{}</dd>
@@ -221,7 +217,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Un
 <ul class="blockList">
 <li class="blockList">
 <h4>payload</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/validation/Payload.html?is-external=true" title="class or interface in javax.validation">Payload</a>&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.49">payload</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="https://docs.oracle.com/javaee/7/api/javax/validation/Payload.html?is-external=true" title="class or interface in javax.validation">Payload</a>&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.45">payload</a></pre>
 <dl>
 <dt>Default:</dt>
 <dd>{}</dd>
@@ -234,7 +230,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/validation/Un
 <ul class="blockListLast">
 <li class="blockList">
 <h4>uniquifier</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../org/dellroad/stuff/validation/Uniquifier.html" title="interface in org.dellroad.stuff.validation">Uniquifier</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.63">uniquifier</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="../../../../org/dellroad/stuff/validation/Uniquifier.html" title="interface in org.dellroad.stuff.validation">Uniquifier</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Unique.html#line.59">uniquifier</a></pre>
 <div class="block">Class that converts values into unique objects (in the sense of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang.annotation"><code>equals()</code></a> and <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true#hashCode()" title="class or interface in java.lang.annotation"><code>hashCode()</code></a>).
  Leave unset if the values themselves are sufficient for uniqueness (e.g., the objects themselves are
  unique under <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang.annotation"><code>equals()</code></a> comparison).</div>

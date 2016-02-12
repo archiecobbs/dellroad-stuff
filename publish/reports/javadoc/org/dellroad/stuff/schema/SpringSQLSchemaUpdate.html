@@ -108,7 +108,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.70">SpringSQLSchemaUpdate</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.67">SpringSQLSchemaUpdate</a>
 extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdate.html" title="class in org.dellroad.stuff.schema">AbstractSpringSchemaUpdate</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</pre>
 <div class="block">Spring-enabled SQL <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema"><code>SchemaUpdate</code></a>.
 
@@ -142,7 +142,6 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 
   &lt;/beans&gt;
  </pre></blockquote>
- </p>
 
  <p>
  A multi-statement SQL script is normally treated as a set of individual updates. For example:
@@ -158,12 +157,10 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
  in which case all three of the statements will be executed together in the same transaction and recorded under the name
  <code>renameColumn</code>; this means that they must all complete successfully or you could end up with a partially
  completed update.
- </p>
 
  <p>
  Note that if the nested SQL script only contains one SQL statement, any <code>single-action</code> attribute is
- ignored and the bean's given name (e.g., <code>renameColumn</code>) is always used as the name of the single update.
- </p></div>
+ ignored and the bean's given name (e.g., <code>renameColumn</code>) is always used as the name of the single update.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema"><code>SQLCommandList</code></a></dd></dl>
 </li>
 </ul>
@@ -280,7 +277,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SpringSQLSchemaUpdate</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.70">SpringSQLSchemaUpdate</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.67">SpringSQLSchemaUpdate</a>()</pre>
 </li>
 </ul>
 </li>
@@ -297,7 +294,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 <ul class="blockList">
 <li class="blockList">
 <h4>afterPropertiesSet</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.75">afterPropertiesSet</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.72">afterPropertiesSet</a>()
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdate.html#afterPropertiesSet()">AbstractSpringSchemaUpdate</a></code></strong></div>
 <div class="block">Configures the update name and required predecessors based on the Spring bean's name and
@@ -317,9 +314,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 <ul class="blockList">
 <li class="blockList">
 <h4>setSQLCommandList</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.86">setSQLCommandList</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;sqlCommandList)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.84">setSQLCommandList</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;sqlCommandList)</pre>
 <div class="block">Configure the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema"><code>SQLCommandList</code></a>. This is a required property.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema"><code>DatabaseAction</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>sqlCommandList</code> - list of SQL statements that perform this update</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema"><code>DatabaseAction</code></a></dd></dl>
 </li>
 </ul>
 <a name="getSQLCommandList()">
@@ -328,7 +325,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 <ul class="blockList">
 <li class="blockList">
 <h4>getSQLCommandList</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.90">getSQLCommandList</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.88">getSQLCommandList</a>()</pre>
 </li>
 </ul>
 <a name="getDatabaseActions()">
@@ -337,7 +334,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractSpringSchemaUpdat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getDatabaseActions</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.95">getDatabaseActions</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SpringSQLSchemaUpdate.html#line.93">getDatabaseActions</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#getDatabaseActions()">SchemaUpdate</a></code></strong></div>
 <div class="block">Get the action(s) that comprise this update. Ideally, individual actions should be atomic database operations, i.e.,
  each one should either finish completely, or else leave the database in a state where it can be tried again.

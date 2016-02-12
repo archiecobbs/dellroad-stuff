@@ -266,18 +266,19 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>copy</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.47">copy</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;original)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.46">copy</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;original)</pre>
 <div class="block">Make a deep copy of the given object.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="class in org.dellroad.stuff.pobj"><code>AbstractDelegate</code></a> does this by <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#serialize(T, javax.xml.transform.Result)">serializing</a>
  and then <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#deserialize(javax.xml.transform.Source)">deserializing</a> the object graph.
  Subclasses are encouraged to provide a more efficient implementation, for example, by implementing
- <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#copy(T)">copy</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>original</code> - original object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>deep copy of the object graph rooted at <code>original</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>original</code> is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
@@ -291,7 +292,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>isSameGraph</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.80">isSameGraph</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;root1,
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.79">isSameGraph</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;root1,
                   <a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;root2)</pre>
 <div class="block">Compare two object graphs.
 
@@ -302,7 +303,8 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">isSameGraph</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;</code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - first object graph (never null)</dd><dd><code>root2</code> - second object graph (never null)</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - first object graph (never null)</dd><dd><code>root2</code> - second object graph (never null)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>root1</code> and <code>root2</code> represent equal object graphs</dd></dl>
 </li>
 </ul>
 <a name="validate(java.lang.Object)">
@@ -313,7 +315,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>validate</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.94">validate</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.93">validate</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;obj)</pre>
 <div class="block">Validate the given instance.
 
  <p>
@@ -321,6 +323,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#validate(T)">validate</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>set of zero or more constraint violations</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>obj</code> is null</dd></dl>
@@ -332,7 +335,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>handleWritebackException</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.109">handleWritebackException</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;&nbsp;pobj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.108">handleWritebackException</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&gt;&nbsp;pobj,
                             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
 <div class="block">Handle an exception thrown during a delayed write-back attempt. <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/ThreadDeath.html?is-external=true" title="class or interface in java.lang"><code>ThreadDeath</code></a> exceptions are not
  passed to this method, but all others are.
@@ -351,7 +354,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getDefaultValue</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.124">getDefaultValue</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractDelegate.html" title="type parameter in AbstractDelegate">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractDelegate.html#line.123">getDefaultValue</a>()</pre>
 <div class="block">Get the default value for the root object graph. This method is invoked at startup when the persistent file does not exist.
  If this method returns null, then an <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html#isAllowEmptyStart()">empty start</a> occurs unless the
  <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> object is configured to disallow them, in which case an exception is thrown.

@@ -257,13 +257,14 @@ extends <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="clas
 <ul class="blockList">
 <li class="blockList">
 <h4>getContextLocation</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.38">getContextLocation</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.40">getContextLocation</a>()</pre>
 <div class="block">Get the classpath location of this instance's associated XML application context.
  The returned string will resolved on the classpath relative to this instance's class.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/main/ContextMainClass.html" title="class in org.dellroad.stuff.main"><code>ContextMainClass</code></a> returns <code>getClass().getSimpleName() + ".xml"</code>,
  which will locate an XML file in the same package and with the same name.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>application context XML file location</dd></dl>
 </li>
 </ul>
 <a name="autowire()">
@@ -272,7 +273,7 @@ extends <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="clas
 <ul class="blockList">
 <li class="blockList">
 <h4>autowire</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.50">autowire</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.52">autowire</a>()</pre>
 <div class="block">Autowire this instance using its associated application context.
  This may be invoked by <a href="../../../../org/dellroad/stuff/main/ContextMainClass.html#runInContext(java.lang.String[])"><code>runInContext(java.lang.String[])</code></a> to autowire this bean using its associated context.
 
@@ -287,7 +288,7 @@ extends <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="clas
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.56">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.58">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/main/MainClass.html#run(java.lang.String[])">MainClass</a></code></strong></div>
 <div class="block">Subclass main implementation. This method is free to throw exceptions; these will
@@ -295,9 +296,10 @@ extends <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="clas
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/main/MainClass.html#run(java.lang.String[])">run</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/main/MainClass.html" title="class in org.dellroad.stuff.main">MainClass</a></code></dd>
-<dt><span class="strong">Returns:</span></dt><dd>exit value</dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - command line arguments</dd>
+<dt><span class="strong">Returns:</span></dt><dd>process exit value</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs; will result in the process exiting with an exit value of one</dd></dl>
 </li>
 </ul>
 <a name="runInContext(java.lang.String[])">
@@ -306,11 +308,13 @@ extends <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="clas
 <ul class="blockListLast">
 <li class="blockList">
 <h4>runInContext</h4>
-<pre>protected abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.75">runInContext</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
+<pre>protected abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/ContextMainClass.html#line.81">runInContext</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
                              throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Execute the main method. The application context will be open when this method is invoked.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - command line arguments</dd>
+<dt><span class="strong">Returns:</span></dt><dd>process exit value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs; will result in the process exiting with an exit value of one</dd></dl>
 </li>
 </ul>
 </li>

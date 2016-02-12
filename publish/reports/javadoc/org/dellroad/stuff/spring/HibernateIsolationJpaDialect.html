@@ -111,7 +111,7 @@
 <pre>public class <a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.35">HibernateIsolationJpaDialect</a>
 extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/orm/jpa/vendor/HibernateJpaDialect.html?is-external=true" title="class or interface in org.springframework.orm.jpa.vendor">HibernateJpaDialect</a></pre>
 <div class="block">Hibernate JPA adapter that adds supports for setting a non-default transaction isolation level
- and adds a workaround for <a href="https://jira.springsource.org/browse/SPR-10815">SPR-10815</a>.
+ and adds a workaround for <a href="https://jira.springsource.org/browse/SPR-3812">SPR-3812</a>.
 
  <p>
  The JPA specification, which is database technology agnostic, does not define a way to set SQL database isolation levels.
@@ -278,11 +278,13 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>prepareTransaction</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html" title="class in org.dellroad.stuff.spring">HibernateIsolationJpaDialect.TransactionDataWrapper</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.67">prepareTransaction</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager,
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html" title="class in org.dellroad.stuff.spring">HibernateIsolationJpaDialect.TransactionDataWrapper</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.73">prepareTransaction</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager,
                                                                      <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/transaction/TransactionDefinition.html?is-external=true" title="class or interface in org.springframework.transaction">TransactionDefinition</a>&nbsp;definition,
                                                                      <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;connection,
                                                                      <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>&nbsp;oldIsolation)</pre>
 <div class="block">Prepare transaction.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>entityManager</code> - entity manager</dd><dd><code>definition</code> - transaction definition</dd><dd><code>connection</code> - SQL connection</dd><dd><code>oldIsolation</code> - original isolation</dd>
+<dt><span class="strong">Returns:</span></dt><dd>wrapped transaction data</dd></dl>
 </li>
 </ul>
 <a name="cleanupTransaction(java.lang.Object)">
@@ -291,7 +293,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>cleanupTransaction</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.78">cleanupTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.84">cleanupTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/orm/jpa/JpaDialect.html?is-external=true#cleanupTransaction(java.lang.Object)" title="class or interface in org.springframework.orm.jpa">cleanupTransaction</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/orm/jpa/JpaDialect.html?is-external=true" title="class or interface in org.springframework.orm.jpa">JpaDialect</a></code></dd>
@@ -306,7 +308,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>translateExceptionIfPossible</h4>
-<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/dao/DataAccessException.html?is-external=true" title="class or interface in org.springframework.dao">DataAccessException</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.99">translateExceptionIfPossible</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a>&nbsp;ex)</pre>
+<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/dao/DataAccessException.html?is-external=true" title="class or interface in org.springframework.dao">DataAccessException</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/HibernateIsolationJpaDialect.html#line.105">translateExceptionIfPossible</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a>&nbsp;ex)</pre>
 <div class="block">Adds fix for SPR-10815.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>

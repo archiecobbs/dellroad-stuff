@@ -86,7 +86,7 @@
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#TYPE" title="class or interface in java.lang.annotation">TYPE</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</a>
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Inherited.html?is-external=true" title="class or interface in java.lang.annotation">@Inherited</a>
-public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.50">VaadinConfigurable</a></pre>
+public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.47">VaadinConfigurable</a></pre>
 <div class="block">Indicates that the class is a candidate for configuration using the <code>VaadinConfigurableAspect</code> aspect.
 
  <p>
@@ -94,20 +94,17 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
  but causes beans to be autowired into the Spring application context associated with the current
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> (aka "Vaadin application") by <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a> instead of
  the Spring application context associated with the servlet context.
- </p>
 
  <p>
  For an extra safety check, consider setting <a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html#ifSessionNotLocked()"><code>ifSessionNotLocked()</code></a>
  where appropriate.
- </p>
 
  <p>
  For the this annotation to function properly, <a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin7"><code>@VaadinConfigurable</code></a> classes must be woven
  (either at build time or runtime) using the
  <a href="http://www.eclipse.org/aspectj/doc/released/faq.php#compiler">AspectJ compiler</a> with the
  <code>VaadinConfigurableAspect</code> aspect (included in the <code>dellroad-stuff</code> JAR file), and the
- <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a> must be used.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a> must be used.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/package-summary.html"><code>org.dellroad.stuff.vaadin7</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a>, 
@@ -182,7 +179,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>value</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.55">value</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.52">value</a></pre>
 <div class="block">Configuration bean definition template name, if any.</div>
 <dl>
 <dt>Default:</dt>
@@ -196,7 +193,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>autowire</h4>
-<pre>public abstract&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/annotation/Autowire.html?is-external=true" title="class or interface in org.springframework.beans.factory.annotation">Autowire</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.60">autowire</a></pre>
+<pre>public abstract&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/annotation/Autowire.html?is-external=true" title="class or interface in org.springframework.beans.factory.annotation">Autowire</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.57">autowire</a></pre>
 <div class="block">Whether and how to automatically autowire dependencies.</div>
 <dl>
 <dt>Default:</dt>
@@ -210,7 +207,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>dependencyCheck</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.65">dependencyCheck</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.62">dependencyCheck</a></pre>
 <div class="block">Whether to enable dependency checking.</div>
 <dl>
 <dt>Default:</dt>
@@ -224,7 +221,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>preConstruction</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.70">preConstruction</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.67">preConstruction</a></pre>
 <div class="block">Whether to inject dependencies prior to constructor execution.</div>
 <dl>
 <dt>Default:</dt>
@@ -238,7 +235,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ifSessionNotLocked</h4>
-<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/java/ErrorAction.html" title="enum in org.dellroad.stuff.java">ErrorAction</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.80">ifSessionNotLocked</a></pre>
+<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/java/ErrorAction.html" title="enum in org.dellroad.stuff.java">ErrorAction</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinConfigurable.html#line.77">ifSessionNotLocked</a></pre>
 <div class="block">What to do when we discover that the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is not
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true#getLockInstance()" title="class or interface in com.vaadin.server">locked</a> when the annotated bean is constructed.
  For beans that are (or will interact with) Vaadin widgets, containers, etc., this typically

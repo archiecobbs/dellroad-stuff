@@ -34,7 +34,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li>Prev Class</li>
+<li><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -285,8 +285,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toAddress</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.28">toAddress</a>(int&nbsp;address)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.31">toAddress</a>(int&nbsp;address)</pre>
 <div class="block">Convert from 32-bit integer representation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address as a 32-bit integer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the corresponding IP address</dd></dl>
 </li>
 </ul>
 <a name="toInt32(java.net.Inet4Address)">
@@ -295,8 +297,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toInt32</h4>
-<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.40">toInt32</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
+<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.46">toInt32</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
 <div class="block">Convert to 32-bit integer representation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the corresponding 32-bit integer</dd></dl>
 </li>
 </ul>
 <a name="toUInt32(java.net.Inet4Address)">
@@ -305,8 +309,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toUInt32</h4>
-<pre>public static&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.51">toUInt32</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
+<pre>public static&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.60">toUInt32</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
 <div class="block">Convert to an unsigned 32-bit integer representation within a 64-bit long.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the corresponding unsigned 32-bit integer</dd></dl>
 </li>
 </ul>
 <a name="toAddress(byte[])">
@@ -315,9 +321,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toAddress</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.60">toAddress</a>(byte[]&nbsp;bytes)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.71">toAddress</a>(byte[]&nbsp;bytes)</pre>
 <div class="block">Convert raw bytes to an <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net"><code>Inet4Address</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>bytes</code> - IP address bytes (big endian)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>corresponding IP address</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if array does not have length four</dd></dl>
 </li>
 </ul>
@@ -327,9 +335,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.75">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.88">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address)</pre>
 <div class="block">Convert an IPv4 address to string representation.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address</dd>
+<dt><span class="strong">Returns:</span></dt><dd><code>address</code> in <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> form</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if array does not have length four</dd></dl>
 </li>
 </ul>
@@ -339,10 +349,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.84">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.101">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
               <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
-<div class="block">Convert a network address (IPv4 base address and netmask) to string representation.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<div class="block">Convert a network address (IPv4 base address and netmask) to string representation.
+ Example: <code>192.168.1.39/24</code></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address</dd><dd><code>netmask</code> - netmask for network</dd>
+<dt><span class="strong">Returns:</span></dt><dd>address plus netmask width</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if array does not have length four</dd></dl>
 </li>
 </ul>
@@ -352,9 +365,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>fromString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.98">fromString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.117">fromString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Convert from string representation.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - IP address in string form</dd>
+<dt><span class="strong">Returns:</span></dt><dd>parsed IP address</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if string is not an IP address</dd></dl>
 </li>
 </ul>
@@ -364,9 +379,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getWidth</h4>
-<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.118">getWidth</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
+<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.138">getWidth</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Get netmask width.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>a value between zero and 32 (inclusive)</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>netmask</code> - netmask</dd>
+<dt><span class="strong">Returns:</span></dt><dd>netmask width in bits, a value between zero and 32 (inclusive)</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the value is not a valid CIDR netmask</dd></dl>
 </li>
@@ -377,9 +393,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isValidNetmask</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.133">isValidNetmask</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.156">isValidNetmask</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Determine if the given address is a valid CIDR netmask.
  The netmask must have a width between 8 and 30 (inclusive).</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>netmask</code> - netmask</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>netmask</code> is a valid netmask</dd></dl>
 </li>
 </ul>
 <a name="getNetmaskForWidth(int)">
@@ -388,9 +406,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getNetmaskForWidth</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.147">getNetmaskForWidth</a>(int&nbsp;width)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.172">getNetmaskForWidth</a>(int&nbsp;width)</pre>
 <div class="block">Get netmask with the given width.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>width</code> - netmask width in bits</dd>
+<dt><span class="strong">Returns:</span></dt><dd>netmask with the given width</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if width is less than zero or greater than 32</dd></dl>
 </li>
 </ul>
@@ -400,10 +420,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getBaseAddress</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.160">getBaseAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.186">getBaseAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
                           <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Get the base address (all host bits zero) of the given IP network.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - any IP address on the network</dd><dd><code>netmask</code> - the netmask of the network</dd>
+<dt><span class="strong">Returns:</span></dt><dd>base address for the specified network</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>netmask</code> is not a valid netmask</dd></dl>
 </li>
@@ -414,10 +435,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getBroadcastAddress</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.174">getBroadcastAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.201">getBroadcastAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
                                <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Get the broadcast address (all host bits one) of the given IP network.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - any IP address on the network</dd><dd><code>netmask</code> - the netmask of the network</dd>
+<dt><span class="strong">Returns:</span></dt><dd>broadcast address for the specified network</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>netmask</code> is not a valid netmask</dd></dl>
 </li>
@@ -428,11 +450,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isOnNetwork</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.189">isOnNetwork</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.217">isOnNetwork</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;network,
                   <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Determine if the given address lives on the given network.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address in question</dd><dd><code>network</code> - network address</dd><dd><code>netmask</code> - network netmask</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>address</code> is on the specified network</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>netmask</code> is not a valid netmask</dd></dl>
 </li>
@@ -443,12 +466,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>isValidHostOnNetwork</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.206">isValidHostOnNetwork</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/IPv4Util.html#line.235">isValidHostOnNetwork</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;address,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;network,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Inet4Address.html?is-external=true" title="class or interface in java.net">Inet4Address</a>&nbsp;netmask)</pre>
 <div class="block">Determine if the given address is a valid host address on the given network.
  The address must lie on the given network and not equal either the base or broadcast addresses.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - IP address in question</dd><dd><code>network</code> - network address</dd><dd><code>netmask</code> - network netmask</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>address</code> is valid on the specified network</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>netmask</code> is not a valid netmask</dd></dl>
 </li>
@@ -479,7 +503,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 </div>
 <div class="subNav">
 <ul class="navList">
-<li>Prev Class</li>
+<li><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
 <li><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><span class="strong">Next Class</span></a></li>
 </ul>
 <ul class="navList">

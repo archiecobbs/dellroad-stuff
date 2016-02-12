@@ -53,287 +53,279 @@
 <span class="sourceLineNo">045</span> * (i.e., the one created by Spring's {@link org.springframework.web.context.ContextLoaderListener ContextLoaderListener}).<a name="line.45"></a>
 <span class="sourceLineNo">046</span> * This setup is analogous to how Spring's {@link org.springframework.web.servlet.DispatcherServlet DispatcherServlet}<a name="line.46"></a>
 <span class="sourceLineNo">047</span> * creates per-servlet application contexts that are children of the overall servlet web context.<a name="line.47"></a>
-<span class="sourceLineNo">048</span> * &lt;/p&gt;<a name="line.48"></a>
-<span class="sourceLineNo">049</span> *<a name="line.49"></a>
-<span class="sourceLineNo">050</span> * &lt;p&gt;<a name="line.50"></a>
-<span class="sourceLineNo">051</span> * This class is implemented as a {@link SessionInitListener} and {@link SessionDestroyListener} on the servlet's<a name="line.51"></a>
-<span class="sourceLineNo">052</span> * {@link com.vaadin.server.VaadinService} object. In turn, the Spring context is created when a new Vaadin application<a name="line.52"></a>
-<span class="sourceLineNo">053</span> * instance is initialized, and destroyed when it is closed. To use this class, use the {@link SpringVaadinServlet}<a name="line.53"></a>
-<span class="sourceLineNo">054</span> * in place of the usual {@link com.vaadin.server.VaadinServlet} in {@code web.xml}.<a name="line.54"></a>
-<span class="sourceLineNo">055</span> * &lt;/p&gt;<a name="line.55"></a>
+<span class="sourceLineNo">048</span> *<a name="line.48"></a>
+<span class="sourceLineNo">049</span> * &lt;p&gt;<a name="line.49"></a>
+<span class="sourceLineNo">050</span> * This class is implemented as a {@link SessionInitListener} and {@link SessionDestroyListener} on the servlet's<a name="line.50"></a>
+<span class="sourceLineNo">051</span> * {@link com.vaadin.server.VaadinService} object. In turn, the Spring context is created when a new Vaadin application<a name="line.51"></a>
+<span class="sourceLineNo">052</span> * instance is initialized, and destroyed when it is closed. To use this class, use the {@link SpringVaadinServlet}<a name="line.52"></a>
+<span class="sourceLineNo">053</span> * in place of the usual {@link com.vaadin.server.VaadinServlet} in {@code web.xml}.<a name="line.53"></a>
+<span class="sourceLineNo">054</span> *<a name="line.54"></a>
+<span class="sourceLineNo">055</span> * &lt;h3&gt;Accessing the Spring Context&lt;/h3&gt;<a name="line.55"></a>
 <span class="sourceLineNo">056</span> *<a name="line.56"></a>
-<span class="sourceLineNo">057</span> * &lt;h3&gt;Accessing the Spring Context&lt;/h3&gt;<a name="line.57"></a>
-<span class="sourceLineNo">058</span> *<a name="line.58"></a>
-<span class="sourceLineNo">059</span> * &lt;p&gt;<a name="line.59"></a>
-<span class="sourceLineNo">060</span> * The {@link #getApplicationContext() getApplicationContext()} method provides access to the application context.<a name="line.60"></a>
-<span class="sourceLineNo">061</span> * Alternately, use {@link VaadinConfigurable @VaadinConfigurable} (see below) and implement<a name="line.61"></a>
-<span class="sourceLineNo">062</span> * {@link org.springframework.context.ApplicationContextAware}, etc.<a name="line.62"></a>
-<span class="sourceLineNo">063</span> * Invoking {@link #configureBean configureBean()} at any time will configure a bean manually.<a name="line.63"></a>
-<span class="sourceLineNo">064</span> * &lt;/p&gt;<a name="line.64"></a>
-<span class="sourceLineNo">065</span> *<a name="line.65"></a>
-<span class="sourceLineNo">066</span> * &lt;h3&gt;Exposing the Vaadin Session&lt;/h3&gt;<a name="line.66"></a>
-<span class="sourceLineNo">067</span> *<a name="line.67"></a>
-<span class="sourceLineNo">068</span> * &lt;p&gt;<a name="line.68"></a>
-<span class="sourceLineNo">069</span> * The {@link VaadinSession} instance representing the "Vaadin application" can be exposed in the associated Spring<a name="line.69"></a>
-<span class="sourceLineNo">070</span> * application context and therefore made available for autowiring, etc. Simply add a bean definition that invokes<a name="line.70"></a>
-<span class="sourceLineNo">071</span> * {@link VaadinUtil#getCurrentSession}:<a name="line.71"></a>
-<span class="sourceLineNo">072</span> * &lt;blockquote&gt;&lt;pre&gt;<a name="line.72"></a>
-<span class="sourceLineNo">073</span> *  &amp;lt;bean id="vaadinSession" class="org.dellroad.stuff.vaadin7.VaadinUtil" factory-method="getCurrentSession"/&amp;gt;<a name="line.73"></a>
-<span class="sourceLineNo">074</span> * &lt;/pre&gt;&lt;/blockquote&gt;<a name="line.74"></a>
-<span class="sourceLineNo">075</span> * This bean can then be autowired into application-specific "backend" beans, allowing them to use e.g.<a name="line.75"></a>
-<span class="sourceLineNo">076</span> * {@link VaadinUtil#invoke VaadinUtil.invoke()}, which performs the locking necessary to avoid race conditions.<a name="line.76"></a>
-<span class="sourceLineNo">077</span> * But see also {@link VaadinApplication} for a convenience class that makes this process a little cleaner.<a name="line.77"></a>
-<span class="sourceLineNo">078</span> *<a name="line.78"></a>
-<span class="sourceLineNo">079</span> * &lt;h3&gt;&lt;code&gt;@VaadinConfigurable&lt;/code&gt; Beans&lt;/h3&gt;<a name="line.79"></a>
-<span class="sourceLineNo">080</span> *<a name="line.80"></a>
-<span class="sourceLineNo">081</span> * &lt;p&gt;<a name="line.81"></a>
-<span class="sourceLineNo">082</span> * It is also possible to configure beans outside of this application context using AOP, so that any invocation of<a name="line.82"></a>
-<span class="sourceLineNo">083</span> * {@code new FooBar()}, where the class {@code FooBar} is marked {@link VaadinConfigurable @VaadinConfigurable},<a name="line.83"></a>
-<span class="sourceLineNo">084</span> * will automagically cause the new {@code FooBar} object to be configured by the application context associated with<a name="line.84"></a>
-<span class="sourceLineNo">085</span> * the currently running Vaadin application. In effect, this does for Vaadin application beans what Spring's<a name="line.85"></a>
-<span class="sourceLineNo">086</span> * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} does for regular servlet context-wide beans.<a name="line.86"></a>
-<span class="sourceLineNo">087</span> * &lt;/p&gt;<a name="line.87"></a>
-<span class="sourceLineNo">088</span> *<a name="line.88"></a>
-<span class="sourceLineNo">089</span> * &lt;p&gt;<a name="line.89"></a>
-<span class="sourceLineNo">090</span> * Note however that Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy methods}<a name="line.90"></a>
-<span class="sourceLineNo">091</span> * will not be invoked on application close for these beans, since their lifecycle is controlled outside of the<a name="line.91"></a>
-<span class="sourceLineNo">092</span> * Spring application context (this is also the case with<a name="line.92"></a>
-<span class="sourceLineNo">093</span> * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} beans). Instead, these beans<a name="line.93"></a>
-<span class="sourceLineNo">094</span> * can themselves register as a {@link SessionDestroyListener} for shutdown notification; but see<a name="line.94"></a>
-<span class="sourceLineNo">095</span> * {@link VaadinUtil#addSessionDestroyListener VaadinUtil.addSessionDestroyListener()} for a memory-leak free<a name="line.95"></a>
-<span class="sourceLineNo">096</span> * method for doing this.<a name="line.96"></a>
-<span class="sourceLineNo">097</span> * &lt;/p&gt;<a name="line.97"></a>
-<span class="sourceLineNo">098</span> *<a name="line.98"></a>
-<span class="sourceLineNo">099</span> * &lt;h3&gt;Serialization and Clustering&lt;/h3&gt;<a name="line.99"></a>
-<span class="sourceLineNo">100</span> *<a name="line.100"></a>
-<span class="sourceLineNo">101</span> * &lt;p&gt;<a name="line.101"></a>
-<span class="sourceLineNo">102</span> * Instances are serializable; on deserialization the {@link ConfigurableWebApplicationContext} associated with the<a name="line.102"></a>
-<span class="sourceLineNo">103</span> * {@link VaadinSession} is {@linkplain ConfigurableWebApplicationContext#refresh refreshed}; therefore, the<a name="line.103"></a>
-<span class="sourceLineNo">104</span> * {@link ConfigurableWebApplicationContext} is not itself stored in the HTTP session by this class. This is consistent<a name="line.104"></a>
-<span class="sourceLineNo">105</span> * with the way normal Spring application contexts ususally work across clustered servers.<a name="line.105"></a>
-<span class="sourceLineNo">106</span> * &lt;/p&gt;<a name="line.106"></a>
+<span class="sourceLineNo">057</span> * &lt;p&gt;<a name="line.57"></a>
+<span class="sourceLineNo">058</span> * The {@link #getApplicationContext() getApplicationContext()} method provides access to the application context.<a name="line.58"></a>
+<span class="sourceLineNo">059</span> * Alternately, use {@link VaadinConfigurable @VaadinConfigurable} (see below) and implement<a name="line.59"></a>
+<span class="sourceLineNo">060</span> * {@link org.springframework.context.ApplicationContextAware}, etc.<a name="line.60"></a>
+<span class="sourceLineNo">061</span> * Invoking {@link #configureBean configureBean()} at any time will configure a bean manually.<a name="line.61"></a>
+<span class="sourceLineNo">062</span> *<a name="line.62"></a>
+<span class="sourceLineNo">063</span> * &lt;h3&gt;Exposing the Vaadin Session&lt;/h3&gt;<a name="line.63"></a>
+<span class="sourceLineNo">064</span> *<a name="line.64"></a>
+<span class="sourceLineNo">065</span> * &lt;p&gt;<a name="line.65"></a>
+<span class="sourceLineNo">066</span> * The {@link VaadinSession} instance representing the "Vaadin application" can be exposed in the associated Spring<a name="line.66"></a>
+<span class="sourceLineNo">067</span> * application context and therefore made available for autowiring, etc. Simply add a bean definition that invokes<a name="line.67"></a>
+<span class="sourceLineNo">068</span> * {@link VaadinUtil#getCurrentSession}:<a name="line.68"></a>
+<span class="sourceLineNo">069</span> * &lt;blockquote&gt;&lt;pre&gt;<a name="line.69"></a>
+<span class="sourceLineNo">070</span> *  &amp;lt;bean id="vaadinSession" class="org.dellroad.stuff.vaadin7.VaadinUtil" factory-method="getCurrentSession"/&amp;gt;<a name="line.70"></a>
+<span class="sourceLineNo">071</span> * &lt;/pre&gt;&lt;/blockquote&gt;<a name="line.71"></a>
+<span class="sourceLineNo">072</span> * This bean can then be autowired into application-specific "backend" beans, allowing them to use e.g.<a name="line.72"></a>
+<span class="sourceLineNo">073</span> * {@link VaadinUtil#invoke VaadinUtil.invoke()}, which performs the locking necessary to avoid race conditions.<a name="line.73"></a>
+<span class="sourceLineNo">074</span> * But see also {@link VaadinApplication} for a convenience class that makes this process a little cleaner.<a name="line.74"></a>
+<span class="sourceLineNo">075</span> *<a name="line.75"></a>
+<span class="sourceLineNo">076</span> * &lt;h3&gt;&lt;code&gt;@VaadinConfigurable&lt;/code&gt; Beans&lt;/h3&gt;<a name="line.76"></a>
+<span class="sourceLineNo">077</span> *<a name="line.77"></a>
+<span class="sourceLineNo">078</span> * &lt;p&gt;<a name="line.78"></a>
+<span class="sourceLineNo">079</span> * It is also possible to configure beans outside of this application context using AOP, so that any invocation of<a name="line.79"></a>
+<span class="sourceLineNo">080</span> * {@code new FooBar()}, where the class {@code FooBar} is marked {@link VaadinConfigurable @VaadinConfigurable},<a name="line.80"></a>
+<span class="sourceLineNo">081</span> * will automagically cause the new {@code FooBar} object to be configured by the application context associated with<a name="line.81"></a>
+<span class="sourceLineNo">082</span> * the currently running Vaadin application. In effect, this does for Vaadin application beans what Spring's<a name="line.82"></a>
+<span class="sourceLineNo">083</span> * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} does for regular servlet context-wide beans.<a name="line.83"></a>
+<span class="sourceLineNo">084</span> *<a name="line.84"></a>
+<span class="sourceLineNo">085</span> * &lt;p&gt;<a name="line.85"></a>
+<span class="sourceLineNo">086</span> * Note however that Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy methods}<a name="line.86"></a>
+<span class="sourceLineNo">087</span> * will not be invoked on application close for these beans, since their lifecycle is controlled outside of the<a name="line.87"></a>
+<span class="sourceLineNo">088</span> * Spring application context (this is also the case with<a name="line.88"></a>
+<span class="sourceLineNo">089</span> * {@link org.springframework.beans.factory.annotation.Configurable @Configurable} beans). Instead, these beans<a name="line.89"></a>
+<span class="sourceLineNo">090</span> * can themselves register as a {@link SessionDestroyListener} for shutdown notification; but see<a name="line.90"></a>
+<span class="sourceLineNo">091</span> * {@link VaadinUtil#addSessionDestroyListener VaadinUtil.addSessionDestroyListener()} for a memory-leak free<a name="line.91"></a>
+<span class="sourceLineNo">092</span> * method for doing this.<a name="line.92"></a>
+<span class="sourceLineNo">093</span> *<a name="line.93"></a>
+<span class="sourceLineNo">094</span> * &lt;h3&gt;Serialization and Clustering&lt;/h3&gt;<a name="line.94"></a>
+<span class="sourceLineNo">095</span> *<a name="line.95"></a>
+<span class="sourceLineNo">096</span> * &lt;p&gt;<a name="line.96"></a>
+<span class="sourceLineNo">097</span> * Instances are serializable; on deserialization the {@link ConfigurableWebApplicationContext} associated with the<a name="line.97"></a>
+<span class="sourceLineNo">098</span> * {@link VaadinSession} is {@linkplain ConfigurableWebApplicationContext#refresh refreshed}; therefore, the<a name="line.98"></a>
+<span class="sourceLineNo">099</span> * {@link ConfigurableWebApplicationContext} is not itself stored in the HTTP session by this class. This is consistent<a name="line.99"></a>
+<span class="sourceLineNo">100</span> * with the way normal Spring application contexts ususally work across clustered servers.<a name="line.100"></a>
+<span class="sourceLineNo">101</span> *<a name="line.101"></a>
+<span class="sourceLineNo">102</span> * &lt;p&gt;<a name="line.102"></a>
+<span class="sourceLineNo">103</span> * However, any session-scope beans should work as expected.<a name="line.103"></a>
+<span class="sourceLineNo">104</span> * So while this class associates an application context with each {@link VaadinSession}, when sessions are shared across<a name="line.104"></a>
+<span class="sourceLineNo">105</span> * multiple servers in a clustered environment, there will actually be a separate application contexts per server.<a name="line.105"></a>
+<span class="sourceLineNo">106</span> * Beans that must truly be "session wide" should be declared {@code scope="session"} as you normally would.<a name="line.106"></a>
 <span class="sourceLineNo">107</span> *<a name="line.107"></a>
 <span class="sourceLineNo">108</span> * &lt;p&gt;<a name="line.108"></a>
-<span class="sourceLineNo">109</span> * However, any session-scope beans should work as expected.<a name="line.109"></a>
-<span class="sourceLineNo">110</span> * So while this class associates an application context with each {@link VaadinSession}, when sessions are shared across<a name="line.110"></a>
-<span class="sourceLineNo">111</span> * multiple servers in a clustered environment, there will actually be a separate application contexts per server.<a name="line.111"></a>
-<span class="sourceLineNo">112</span> * Beans that must truly be "session wide" should be declared {@code scope="session"} as you normally would.<a name="line.112"></a>
-<span class="sourceLineNo">113</span> * &lt;/p&gt;<a name="line.113"></a>
-<span class="sourceLineNo">114</span> *<a name="line.114"></a>
-<span class="sourceLineNo">115</span> * &lt;p&gt;<a name="line.115"></a>
-<span class="sourceLineNo">116</span> * Note: using {@code scope="session"} requires adding a {@code &lt;listener&gt;} clause registering Spring's<a name="line.116"></a>
-<span class="sourceLineNo">117</span> * {@link org.springframework.web.context.request.RequestContextListener} in your {@code web.xml}.<a name="line.117"></a>
-<span class="sourceLineNo">118</span> * &lt;/p&gt;<a name="line.118"></a>
-<span class="sourceLineNo">119</span> *<a name="line.119"></a>
-<span class="sourceLineNo">120</span> * @see VaadinConfigurable<a name="line.120"></a>
-<span class="sourceLineNo">121</span> * @see SpringVaadinServlet<a name="line.121"></a>
-<span class="sourceLineNo">122</span> * @see VaadinApplication<a name="line.122"></a>
-<span class="sourceLineNo">123</span> * @see com.vaadin.server.VaadinService<a name="line.123"></a>
-<span class="sourceLineNo">124</span> * @see com.vaadin.server.VaadinSession<a name="line.124"></a>
-<span class="sourceLineNo">125</span> */<a name="line.125"></a>
-<span class="sourceLineNo">126</span>public class SpringVaadinSessionListener implements SessionInitListener, SessionDestroyListener {<a name="line.126"></a>
+<span class="sourceLineNo">109</span> * Note: using {@code scope="session"} requires adding a {@code &lt;listener&gt;} clause registering Spring's<a name="line.109"></a>
+<span class="sourceLineNo">110</span> * {@link org.springframework.web.context.request.RequestContextListener} in your {@code web.xml}.<a name="line.110"></a>
+<span class="sourceLineNo">111</span> *<a name="line.111"></a>
+<span class="sourceLineNo">112</span> * @see VaadinConfigurable<a name="line.112"></a>
+<span class="sourceLineNo">113</span> * @see SpringVaadinServlet<a name="line.113"></a>
+<span class="sourceLineNo">114</span> * @see VaadinApplication<a name="line.114"></a>
+<span class="sourceLineNo">115</span> * @see com.vaadin.server.VaadinService<a name="line.115"></a>
+<span class="sourceLineNo">116</span> * @see com.vaadin.server.VaadinSession<a name="line.116"></a>
+<span class="sourceLineNo">117</span> */<a name="line.117"></a>
+<span class="sourceLineNo">118</span>public class SpringVaadinSessionListener implements SessionInitListener, SessionDestroyListener {<a name="line.118"></a>
+<span class="sourceLineNo">119</span><a name="line.119"></a>
+<span class="sourceLineNo">120</span>    private static final long serialVersionUID = -2107311484324869198L;<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    private static final WeakHashMap&lt;VaadinSession, ConfigurableWebApplicationContext&gt; CONTEXT_MAP = new WeakHashMap&lt;&gt;();<a name="line.121"></a>
+<span class="sourceLineNo">122</span><a name="line.122"></a>
+<span class="sourceLineNo">123</span>    private final Logger log = LoggerFactory.getLogger(this.getClass());<a name="line.123"></a>
+<span class="sourceLineNo">124</span>    private final UUID uuid = UUID.randomUUID();            // ensures a unique ID for the associated context across a cluster<a name="line.124"></a>
+<span class="sourceLineNo">125</span>    private final String applicationName;<a name="line.125"></a>
+<span class="sourceLineNo">126</span>    private final String configLocation;<a name="line.126"></a>
 <span class="sourceLineNo">127</span><a name="line.127"></a>
-<span class="sourceLineNo">128</span>    private static final long serialVersionUID = -2107311484324869198L;<a name="line.128"></a>
-<span class="sourceLineNo">129</span>    private static final WeakHashMap&lt;VaadinSession, ConfigurableWebApplicationContext&gt; CONTEXT_MAP = new WeakHashMap&lt;&gt;();<a name="line.129"></a>
-<span class="sourceLineNo">130</span><a name="line.130"></a>
-<span class="sourceLineNo">131</span>    private final Logger log = LoggerFactory.getLogger(this.getClass());<a name="line.131"></a>
-<span class="sourceLineNo">132</span>    private final UUID uuid = UUID.randomUUID();            // ensures a unique ID for the associated context across a cluster<a name="line.132"></a>
-<span class="sourceLineNo">133</span>    private final String applicationName;<a name="line.133"></a>
-<span class="sourceLineNo">134</span>    private final String configLocation;<a name="line.134"></a>
-<span class="sourceLineNo">135</span><a name="line.135"></a>
-<span class="sourceLineNo">136</span>// Constructor<a name="line.136"></a>
-<span class="sourceLineNo">137</span><a name="line.137"></a>
-<span class="sourceLineNo">138</span>    /**<a name="line.138"></a>
-<span class="sourceLineNo">139</span>     * Constructor.<a name="line.139"></a>
-<span class="sourceLineNo">140</span>     *<a name="line.140"></a>
-<span class="sourceLineNo">141</span>     * @param applicationName Vaadin application name<a name="line.141"></a>
-<span class="sourceLineNo">142</span>     * @param configLocation XML application context config file location(s), or null for the default<a name="line.142"></a>
-<span class="sourceLineNo">143</span>     *  {@code /WEB-INF/ServletName.xml}, where {@code ServletName} is the value of {@code applicationName}<a name="line.143"></a>
-<span class="sourceLineNo">144</span>     * @throws IllegalArgumentException if {@code applicationName} is null<a name="line.144"></a>
-<span class="sourceLineNo">145</span>     */<a name="line.145"></a>
-<span class="sourceLineNo">146</span>    public SpringVaadinSessionListener(String applicationName, String configLocation) {<a name="line.146"></a>
-<span class="sourceLineNo">147</span>        if (applicationName == null)<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            throw new IllegalArgumentException("null applicationName");<a name="line.148"></a>
-<span class="sourceLineNo">149</span>        this.applicationName = applicationName;<a name="line.149"></a>
-<span class="sourceLineNo">150</span>        this.configLocation = configLocation;<a name="line.150"></a>
-<span class="sourceLineNo">151</span>    }<a name="line.151"></a>
-<span class="sourceLineNo">152</span><a name="line.152"></a>
-<span class="sourceLineNo">153</span>// Public API<a name="line.153"></a>
-<span class="sourceLineNo">154</span><a name="line.154"></a>
-<span class="sourceLineNo">155</span>    /**<a name="line.155"></a>
-<span class="sourceLineNo">156</span>     * Get the name of this Vaadin application.<a name="line.156"></a>
-<span class="sourceLineNo">157</span>     */<a name="line.157"></a>
-<span class="sourceLineNo">158</span>    public String getApplicationName() {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>        return this.applicationName;<a name="line.159"></a>
-<span class="sourceLineNo">160</span>    }<a name="line.160"></a>
-<span class="sourceLineNo">161</span><a name="line.161"></a>
-<span class="sourceLineNo">162</span>    /**<a name="line.162"></a>
-<span class="sourceLineNo">163</span>     * Get the Spring application context associated with the given {@link VaadinSession}.<a name="line.163"></a>
-<span class="sourceLineNo">164</span>     *<a name="line.164"></a>
-<span class="sourceLineNo">165</span>     * @return Spring application context, or null if none is found<a name="line.165"></a>
-<span class="sourceLineNo">166</span>     * @throws IllegalArgumentException if {@code session} is null<a name="line.166"></a>
-<span class="sourceLineNo">167</span>     */<a name="line.167"></a>
-<span class="sourceLineNo">168</span>    public static ConfigurableWebApplicationContext getApplicationContext(VaadinSession session) {<a name="line.168"></a>
-<span class="sourceLineNo">169</span>        if (session == null)<a name="line.169"></a>
-<span class="sourceLineNo">170</span>            throw new IllegalArgumentException("null session");<a name="line.170"></a>
-<span class="sourceLineNo">171</span>        return CONTEXT_MAP.get(session);<a name="line.171"></a>
-<span class="sourceLineNo">172</span>    }<a name="line.172"></a>
-<span class="sourceLineNo">173</span><a name="line.173"></a>
-<span class="sourceLineNo">174</span>    /**<a name="line.174"></a>
-<span class="sourceLineNo">175</span>     * Get the Spring application context associated with the current thread's {@link VaadinSession}.<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     *<a name="line.176"></a>
-<span class="sourceLineNo">177</span>     * @return Spring application context, never null<a name="line.177"></a>
-<span class="sourceLineNo">178</span>     * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread<a name="line.178"></a>
-<span class="sourceLineNo">179</span>     * @throws IllegalStateException if there is no Spring application context associated with the {@link VaadinSession}<a name="line.179"></a>
-<span class="sourceLineNo">180</span>     */<a name="line.180"></a>
-<span class="sourceLineNo">181</span>    public static ConfigurableWebApplicationContext getApplicationContext() {<a name="line.181"></a>
-<span class="sourceLineNo">182</span><a name="line.182"></a>
-<span class="sourceLineNo">183</span>        // Get current session<a name="line.183"></a>
-<span class="sourceLineNo">184</span>        VaadinSession session = VaadinUtil.getCurrentSession();<a name="line.184"></a>
-<span class="sourceLineNo">185</span><a name="line.185"></a>
-<span class="sourceLineNo">186</span>        // Get the associated application context<a name="line.186"></a>
-<span class="sourceLineNo">187</span>        ConfigurableWebApplicationContext context = SpringVaadinSessionListener.getApplicationContext(session);<a name="line.187"></a>
-<span class="sourceLineNo">188</span>        if (context == null) {<a name="line.188"></a>
-<span class="sourceLineNo">189</span>            throw new IllegalStateException("there is no Spring application context associated with the current"<a name="line.189"></a>
-<span class="sourceLineNo">190</span>              + " VaadinSession; are you using SpringVaadinServlet instead of VaadinServlet?");<a name="line.190"></a>
-<span class="sourceLineNo">191</span>        }<a name="line.191"></a>
-<span class="sourceLineNo">192</span><a name="line.192"></a>
-<span class="sourceLineNo">193</span>        // Done<a name="line.193"></a>
-<span class="sourceLineNo">194</span>        return context;<a name="line.194"></a>
-<span class="sourceLineNo">195</span>    }<a name="line.195"></a>
-<span class="sourceLineNo">196</span><a name="line.196"></a>
-<span class="sourceLineNo">197</span>    /**<a name="line.197"></a>
-<span class="sourceLineNo">198</span>     * Configure the given bean using the Spring application context associated with the current thread's {@link VaadinSession}.<a name="line.198"></a>
-<span class="sourceLineNo">199</span>     *<a name="line.199"></a>
-<span class="sourceLineNo">200</span>     * @param bean Java bean to configure<a name="line.200"></a>
-<span class="sourceLineNo">201</span>     * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread<a name="line.201"></a>
-<span class="sourceLineNo">202</span>     * @throws IllegalStateException if there is no Spring application context associated with the {@link VaadinSession}<a name="line.202"></a>
-<span class="sourceLineNo">203</span>     */<a name="line.203"></a>
-<span class="sourceLineNo">204</span>    public static void configureBean(Object bean) {<a name="line.204"></a>
-<span class="sourceLineNo">205</span>        final BeanConfigurerSupport beanConfigurerSupport = new BeanConfigurerSupport();<a name="line.205"></a>
-<span class="sourceLineNo">206</span>        beanConfigurerSupport.setBeanFactory(SpringVaadinSessionListener.getApplicationContext().getBeanFactory());<a name="line.206"></a>
-<span class="sourceLineNo">207</span>        beanConfigurerSupport.afterPropertiesSet();<a name="line.207"></a>
-<span class="sourceLineNo">208</span>        beanConfigurerSupport.configureBean(bean);<a name="line.208"></a>
-<span class="sourceLineNo">209</span>        beanConfigurerSupport.destroy();<a name="line.209"></a>
-<span class="sourceLineNo">210</span>    }<a name="line.210"></a>
-<span class="sourceLineNo">211</span><a name="line.211"></a>
-<span class="sourceLineNo">212</span>// SessionInitListener<a name="line.212"></a>
-<span class="sourceLineNo">213</span><a name="line.213"></a>
-<span class="sourceLineNo">214</span>    @Override<a name="line.214"></a>
-<span class="sourceLineNo">215</span>    public void sessionInit(final SessionInitEvent event) throws ServiceException {<a name="line.215"></a>
-<span class="sourceLineNo">216</span>        VaadinUtil.invoke(event.getSession(), new Runnable() {<a name="line.216"></a>
-<span class="sourceLineNo">217</span>            @Override<a name="line.217"></a>
-<span class="sourceLineNo">218</span>            public void run() {<a name="line.218"></a>
-<span class="sourceLineNo">219</span>                SpringVaadinSessionListener.this.loadContext(event.getSession(), event.getRequest());<a name="line.219"></a>
-<span class="sourceLineNo">220</span>            }<a name="line.220"></a>
-<span class="sourceLineNo">221</span>        });<a name="line.221"></a>
-<span class="sourceLineNo">222</span>    }<a name="line.222"></a>
-<span class="sourceLineNo">223</span><a name="line.223"></a>
-<span class="sourceLineNo">224</span>// Context loading<a name="line.224"></a>
-<span class="sourceLineNo">225</span><a name="line.225"></a>
-<span class="sourceLineNo">226</span>    /**<a name="line.226"></a>
-<span class="sourceLineNo">227</span>     * Load the Spring application context.<a name="line.227"></a>
-<span class="sourceLineNo">228</span>     *<a name="line.228"></a>
-<span class="sourceLineNo">229</span>     * &lt;p&gt;<a name="line.229"></a>
-<span class="sourceLineNo">230</span>     * This method expects that {@code session} is already {@linkplain VaadinSession#getLockInstance locked}.<a name="line.230"></a>
-<span class="sourceLineNo">231</span>     *<a name="line.231"></a>
-<span class="sourceLineNo">232</span>     * @param session the Vaadin application session<a name="line.232"></a>
-<span class="sourceLineNo">233</span>     * @param request the triggering request<a name="line.233"></a>
-<span class="sourceLineNo">234</span>     */<a name="line.234"></a>
-<span class="sourceLineNo">235</span>    protected void loadContext(VaadinSession session, VaadinRequest request) {<a name="line.235"></a>
-<span class="sourceLineNo">236</span><a name="line.236"></a>
-<span class="sourceLineNo">237</span>        // Sanity check<a name="line.237"></a>
-<span class="sourceLineNo">238</span>        if (session == null)<a name="line.238"></a>
-<span class="sourceLineNo">239</span>            throw new IllegalStateException("null session");<a name="line.239"></a>
-<span class="sourceLineNo">240</span>        VaadinUtil.assertSession(session);<a name="line.240"></a>
-<span class="sourceLineNo">241</span>        if (request == null)<a name="line.241"></a>
-<span class="sourceLineNo">242</span>            throw new IllegalStateException("null request");<a name="line.242"></a>
-<span class="sourceLineNo">243</span>        if (SpringVaadinSessionListener.getApplicationContext(session) != null)<a name="line.243"></a>
-<span class="sourceLineNo">244</span>            throw new IllegalStateException("context already loaded for session " + session);<a name="line.244"></a>
-<span class="sourceLineNo">245</span><a name="line.245"></a>
-<span class="sourceLineNo">246</span>        // Logging<a name="line.246"></a>
-<span class="sourceLineNo">247</span>        this.log.info("creating new application context for Vaadin application [" + this.getApplicationName()<a name="line.247"></a>
-<span class="sourceLineNo">248</span>          + "] in session " + session);<a name="line.248"></a>
-<span class="sourceLineNo">249</span><a name="line.249"></a>
-<span class="sourceLineNo">250</span>        // Find the servlet context parent application context<a name="line.250"></a>
-<span class="sourceLineNo">251</span>        String contextPath = "/";<a name="line.251"></a>
-<span class="sourceLineNo">252</span>        ServletContext servletContext = null;<a name="line.252"></a>
-<span class="sourceLineNo">253</span>        WebApplicationContext parent = null;<a name="line.253"></a>
-<span class="sourceLineNo">254</span>        if (request instanceof VaadinServletRequest) {<a name="line.254"></a>
-<span class="sourceLineNo">255</span>            contextPath = ((VaadinServletRequest)request).getHttpServletRequest().getContextPath() + "/";<a name="line.255"></a>
-<span class="sourceLineNo">256</span>            servletContext = ((WrappedHttpSession)session.getSession()).getHttpSession().getServletContext();<a name="line.256"></a>
-<span class="sourceLineNo">257</span>            parent = WebApplicationContextUtils.getWebApplicationContext(servletContext);<a name="line.257"></a>
-<span class="sourceLineNo">258</span>        } else if (request instanceof VaadinPortletRequest)<a name="line.258"></a>
-<span class="sourceLineNo">259</span>            this.log.warn("portlets are not supported yet");<a name="line.259"></a>
-<span class="sourceLineNo">260</span>        else<a name="line.260"></a>
-<span class="sourceLineNo">261</span>            this.log.warn("unsupported VaadinRequest instance: " + request);<a name="line.261"></a>
-<span class="sourceLineNo">262</span><a name="line.262"></a>
-<span class="sourceLineNo">263</span>        // Create and configure a new application context for this Application instance<a name="line.263"></a>
-<span class="sourceLineNo">264</span>        final XmlWebApplicationContext context = new XmlWebApplicationContext();<a name="line.264"></a>
-<span class="sourceLineNo">265</span>        context.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX<a name="line.265"></a>
-<span class="sourceLineNo">266</span>          + contextPath + this.getApplicationName() + "-" + this.uuid);<a name="line.266"></a>
-<span class="sourceLineNo">267</span>        if (parent != null)<a name="line.267"></a>
-<span class="sourceLineNo">268</span>            context.setParent(parent);<a name="line.268"></a>
-<span class="sourceLineNo">269</span>        if (servletContext != null)<a name="line.269"></a>
-<span class="sourceLineNo">270</span>            context.setServletContext(servletContext);<a name="line.270"></a>
-<span class="sourceLineNo">271</span>        //context.setServletConfig(??);<a name="line.271"></a>
-<span class="sourceLineNo">272</span>        context.setNamespace(this.getApplicationName());<a name="line.272"></a>
+<span class="sourceLineNo">128</span>// Constructor<a name="line.128"></a>
+<span class="sourceLineNo">129</span><a name="line.129"></a>
+<span class="sourceLineNo">130</span>    /**<a name="line.130"></a>
+<span class="sourceLineNo">131</span>     * Constructor.<a name="line.131"></a>
+<span class="sourceLineNo">132</span>     *<a name="line.132"></a>
+<span class="sourceLineNo">133</span>     * @param applicationName Vaadin application name<a name="line.133"></a>
+<span class="sourceLineNo">134</span>     * @param configLocation XML application context config file location(s), or null for the default<a name="line.134"></a>
+<span class="sourceLineNo">135</span>     *  {@code /WEB-INF/ServletName.xml}, where {@code ServletName} is the value of {@code applicationName}<a name="line.135"></a>
+<span class="sourceLineNo">136</span>     * @throws IllegalArgumentException if {@code applicationName} is null<a name="line.136"></a>
+<span class="sourceLineNo">137</span>     */<a name="line.137"></a>
+<span class="sourceLineNo">138</span>    public SpringVaadinSessionListener(String applicationName, String configLocation) {<a name="line.138"></a>
+<span class="sourceLineNo">139</span>        if (applicationName == null)<a name="line.139"></a>
+<span class="sourceLineNo">140</span>            throw new IllegalArgumentException("null applicationName");<a name="line.140"></a>
+<span class="sourceLineNo">141</span>        this.applicationName = applicationName;<a name="line.141"></a>
+<span class="sourceLineNo">142</span>        this.configLocation = configLocation;<a name="line.142"></a>
+<span class="sourceLineNo">143</span>    }<a name="line.143"></a>
+<span class="sourceLineNo">144</span><a name="line.144"></a>
+<span class="sourceLineNo">145</span>// Public API<a name="line.145"></a>
+<span class="sourceLineNo">146</span><a name="line.146"></a>
+<span class="sourceLineNo">147</span>    /**<a name="line.147"></a>
+<span class="sourceLineNo">148</span>     * Get the name of this Vaadin application.<a name="line.148"></a>
+<span class="sourceLineNo">149</span>     */<a name="line.149"></a>
+<span class="sourceLineNo">150</span>    public String getApplicationName() {<a name="line.150"></a>
+<span class="sourceLineNo">151</span>        return this.applicationName;<a name="line.151"></a>
+<span class="sourceLineNo">152</span>    }<a name="line.152"></a>
+<span class="sourceLineNo">153</span><a name="line.153"></a>
+<span class="sourceLineNo">154</span>    /**<a name="line.154"></a>
+<span class="sourceLineNo">155</span>     * Get the Spring application context associated with the given {@link VaadinSession}.<a name="line.155"></a>
+<span class="sourceLineNo">156</span>     *<a name="line.156"></a>
+<span class="sourceLineNo">157</span>     * @return Spring application context, or null if none is found<a name="line.157"></a>
+<span class="sourceLineNo">158</span>     * @throws IllegalArgumentException if {@code session} is null<a name="line.158"></a>
+<span class="sourceLineNo">159</span>     */<a name="line.159"></a>
+<span class="sourceLineNo">160</span>    public static ConfigurableWebApplicationContext getApplicationContext(VaadinSession session) {<a name="line.160"></a>
+<span class="sourceLineNo">161</span>        if (session == null)<a name="line.161"></a>
+<span class="sourceLineNo">162</span>            throw new IllegalArgumentException("null session");<a name="line.162"></a>
+<span class="sourceLineNo">163</span>        return CONTEXT_MAP.get(session);<a name="line.163"></a>
+<span class="sourceLineNo">164</span>    }<a name="line.164"></a>
+<span class="sourceLineNo">165</span><a name="line.165"></a>
+<span class="sourceLineNo">166</span>    /**<a name="line.166"></a>
+<span class="sourceLineNo">167</span>     * Get the Spring application context associated with the current thread's {@link VaadinSession}.<a name="line.167"></a>
+<span class="sourceLineNo">168</span>     *<a name="line.168"></a>
+<span class="sourceLineNo">169</span>     * @return Spring application context, never null<a name="line.169"></a>
+<span class="sourceLineNo">170</span>     * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread<a name="line.170"></a>
+<span class="sourceLineNo">171</span>     * @throws IllegalStateException if there is no Spring application context associated with the {@link VaadinSession}<a name="line.171"></a>
+<span class="sourceLineNo">172</span>     */<a name="line.172"></a>
+<span class="sourceLineNo">173</span>    public static ConfigurableWebApplicationContext getApplicationContext() {<a name="line.173"></a>
+<span class="sourceLineNo">174</span><a name="line.174"></a>
+<span class="sourceLineNo">175</span>        // Get current session<a name="line.175"></a>
+<span class="sourceLineNo">176</span>        VaadinSession session = VaadinUtil.getCurrentSession();<a name="line.176"></a>
+<span class="sourceLineNo">177</span><a name="line.177"></a>
+<span class="sourceLineNo">178</span>        // Get the associated application context<a name="line.178"></a>
+<span class="sourceLineNo">179</span>        ConfigurableWebApplicationContext context = SpringVaadinSessionListener.getApplicationContext(session);<a name="line.179"></a>
+<span class="sourceLineNo">180</span>        if (context == null) {<a name="line.180"></a>
+<span class="sourceLineNo">181</span>            throw new IllegalStateException("there is no Spring application context associated with the current"<a name="line.181"></a>
+<span class="sourceLineNo">182</span>              + " VaadinSession; are you using SpringVaadinServlet instead of VaadinServlet?");<a name="line.182"></a>
+<span class="sourceLineNo">183</span>        }<a name="line.183"></a>
+<span class="sourceLineNo">184</span><a name="line.184"></a>
+<span class="sourceLineNo">185</span>        // Done<a name="line.185"></a>
+<span class="sourceLineNo">186</span>        return context;<a name="line.186"></a>
+<span class="sourceLineNo">187</span>    }<a name="line.187"></a>
+<span class="sourceLineNo">188</span><a name="line.188"></a>
+<span class="sourceLineNo">189</span>    /**<a name="line.189"></a>
+<span class="sourceLineNo">190</span>     * Configure the given bean using the Spring application context associated with the current thread's {@link VaadinSession}.<a name="line.190"></a>
+<span class="sourceLineNo">191</span>     *<a name="line.191"></a>
+<span class="sourceLineNo">192</span>     * @param bean Java bean to configure<a name="line.192"></a>
+<span class="sourceLineNo">193</span>     * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread<a name="line.193"></a>
+<span class="sourceLineNo">194</span>     * @throws IllegalStateException if there is no Spring application context associated with the {@link VaadinSession}<a name="line.194"></a>
+<span class="sourceLineNo">195</span>     */<a name="line.195"></a>
+<span class="sourceLineNo">196</span>    public static void configureBean(Object bean) {<a name="line.196"></a>
+<span class="sourceLineNo">197</span>        final BeanConfigurerSupport beanConfigurerSupport = new BeanConfigurerSupport();<a name="line.197"></a>
+<span class="sourceLineNo">198</span>        beanConfigurerSupport.setBeanFactory(SpringVaadinSessionListener.getApplicationContext().getBeanFactory());<a name="line.198"></a>
+<span class="sourceLineNo">199</span>        beanConfigurerSupport.afterPropertiesSet();<a name="line.199"></a>
+<span class="sourceLineNo">200</span>        beanConfigurerSupport.configureBean(bean);<a name="line.200"></a>
+<span class="sourceLineNo">201</span>        beanConfigurerSupport.destroy();<a name="line.201"></a>
+<span class="sourceLineNo">202</span>    }<a name="line.202"></a>
+<span class="sourceLineNo">203</span><a name="line.203"></a>
+<span class="sourceLineNo">204</span>// SessionInitListener<a name="line.204"></a>
+<span class="sourceLineNo">205</span><a name="line.205"></a>
+<span class="sourceLineNo">206</span>    @Override<a name="line.206"></a>
+<span class="sourceLineNo">207</span>    public void sessionInit(final SessionInitEvent event) throws ServiceException {<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        VaadinUtil.invoke(event.getSession(), new Runnable() {<a name="line.208"></a>
+<span class="sourceLineNo">209</span>            @Override<a name="line.209"></a>
+<span class="sourceLineNo">210</span>            public void run() {<a name="line.210"></a>
+<span class="sourceLineNo">211</span>                SpringVaadinSessionListener.this.loadContext(event.getSession(), event.getRequest());<a name="line.211"></a>
+<span class="sourceLineNo">212</span>            }<a name="line.212"></a>
+<span class="sourceLineNo">213</span>        });<a name="line.213"></a>
+<span class="sourceLineNo">214</span>    }<a name="line.214"></a>
+<span class="sourceLineNo">215</span><a name="line.215"></a>
+<span class="sourceLineNo">216</span>// Context loading<a name="line.216"></a>
+<span class="sourceLineNo">217</span><a name="line.217"></a>
+<span class="sourceLineNo">218</span>    /**<a name="line.218"></a>
+<span class="sourceLineNo">219</span>     * Load the Spring application context.<a name="line.219"></a>
+<span class="sourceLineNo">220</span>     *<a name="line.220"></a>
+<span class="sourceLineNo">221</span>     * &lt;p&gt;<a name="line.221"></a>
+<span class="sourceLineNo">222</span>     * This method expects that {@code session} is already {@linkplain VaadinSession#getLockInstance locked}.<a name="line.222"></a>
+<span class="sourceLineNo">223</span>     *<a name="line.223"></a>
+<span class="sourceLineNo">224</span>     * @param session the Vaadin application session<a name="line.224"></a>
+<span class="sourceLineNo">225</span>     * @param request the triggering request<a name="line.225"></a>
+<span class="sourceLineNo">226</span>     */<a name="line.226"></a>
+<span class="sourceLineNo">227</span>    protected void loadContext(VaadinSession session, VaadinRequest request) {<a name="line.227"></a>
+<span class="sourceLineNo">228</span><a name="line.228"></a>
+<span class="sourceLineNo">229</span>        // Sanity check<a name="line.229"></a>
+<span class="sourceLineNo">230</span>        if (session == null)<a name="line.230"></a>
+<span class="sourceLineNo">231</span>            throw new IllegalStateException("null session");<a name="line.231"></a>
+<span class="sourceLineNo">232</span>        VaadinUtil.assertSession(session);<a name="line.232"></a>
+<span class="sourceLineNo">233</span>        if (request == null)<a name="line.233"></a>
+<span class="sourceLineNo">234</span>            throw new IllegalStateException("null request");<a name="line.234"></a>
+<span class="sourceLineNo">235</span>        if (SpringVaadinSessionListener.getApplicationContext(session) != null)<a name="line.235"></a>
+<span class="sourceLineNo">236</span>            throw new IllegalStateException("context already loaded for session " + session);<a name="line.236"></a>
+<span class="sourceLineNo">237</span><a name="line.237"></a>
+<span class="sourceLineNo">238</span>        // Logging<a name="line.238"></a>
+<span class="sourceLineNo">239</span>        this.log.info("creating new application context for Vaadin application [" + this.getApplicationName()<a name="line.239"></a>
+<span class="sourceLineNo">240</span>          + "] in session " + session);<a name="line.240"></a>
+<span class="sourceLineNo">241</span><a name="line.241"></a>
+<span class="sourceLineNo">242</span>        // Find the servlet context parent application context<a name="line.242"></a>
+<span class="sourceLineNo">243</span>        String contextPath = "/";<a name="line.243"></a>
+<span class="sourceLineNo">244</span>        ServletContext servletContext = null;<a name="line.244"></a>
+<span class="sourceLineNo">245</span>        WebApplicationContext parent = null;<a name="line.245"></a>
+<span class="sourceLineNo">246</span>        if (request instanceof VaadinServletRequest) {<a name="line.246"></a>
+<span class="sourceLineNo">247</span>            contextPath = ((VaadinServletRequest)request).getHttpServletRequest().getContextPath() + "/";<a name="line.247"></a>
+<span class="sourceLineNo">248</span>            servletContext = ((WrappedHttpSession)session.getSession()).getHttpSession().getServletContext();<a name="line.248"></a>
+<span class="sourceLineNo">249</span>            parent = WebApplicationContextUtils.getWebApplicationContext(servletContext);<a name="line.249"></a>
+<span class="sourceLineNo">250</span>        } else if (request instanceof VaadinPortletRequest)<a name="line.250"></a>
+<span class="sourceLineNo">251</span>            this.log.warn("portlets are not supported yet");<a name="line.251"></a>
+<span class="sourceLineNo">252</span>        else<a name="line.252"></a>
+<span class="sourceLineNo">253</span>            this.log.warn("unsupported VaadinRequest instance: " + request);<a name="line.253"></a>
+<span class="sourceLineNo">254</span><a name="line.254"></a>
+<span class="sourceLineNo">255</span>        // Create and configure a new application context for this Application instance<a name="line.255"></a>
+<span class="sourceLineNo">256</span>        final XmlWebApplicationContext context = new XmlWebApplicationContext();<a name="line.256"></a>
+<span class="sourceLineNo">257</span>        context.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX<a name="line.257"></a>
+<span class="sourceLineNo">258</span>          + contextPath + this.getApplicationName() + "-" + this.uuid);<a name="line.258"></a>
+<span class="sourceLineNo">259</span>        if (parent != null)<a name="line.259"></a>
+<span class="sourceLineNo">260</span>            context.setParent(parent);<a name="line.260"></a>
+<span class="sourceLineNo">261</span>        if (servletContext != null)<a name="line.261"></a>
+<span class="sourceLineNo">262</span>            context.setServletContext(servletContext);<a name="line.262"></a>
+<span class="sourceLineNo">263</span>        //context.setServletConfig(??);<a name="line.263"></a>
+<span class="sourceLineNo">264</span>        context.setNamespace(this.getApplicationName());<a name="line.264"></a>
+<span class="sourceLineNo">265</span><a name="line.265"></a>
+<span class="sourceLineNo">266</span>        // Set explicit config location(s), if any<a name="line.266"></a>
+<span class="sourceLineNo">267</span>        if (this.configLocation != null)<a name="line.267"></a>
+<span class="sourceLineNo">268</span>            context.setConfigLocation(this.configLocation);<a name="line.268"></a>
+<span class="sourceLineNo">269</span><a name="line.269"></a>
+<span class="sourceLineNo">270</span>        // Associate context with the current session<a name="line.270"></a>
+<span class="sourceLineNo">271</span>        boolean success = false;<a name="line.271"></a>
+<span class="sourceLineNo">272</span>        CONTEXT_MAP.put(session, context);<a name="line.272"></a>
 <span class="sourceLineNo">273</span><a name="line.273"></a>
-<span class="sourceLineNo">274</span>        // Set explicit config location(s), if any<a name="line.274"></a>
-<span class="sourceLineNo">275</span>        if (this.configLocation != null)<a name="line.275"></a>
-<span class="sourceLineNo">276</span>            context.setConfigLocation(this.configLocation);<a name="line.276"></a>
-<span class="sourceLineNo">277</span><a name="line.277"></a>
-<span class="sourceLineNo">278</span>        // Associate context with the current session<a name="line.278"></a>
-<span class="sourceLineNo">279</span>        boolean success = false;<a name="line.279"></a>
-<span class="sourceLineNo">280</span>        CONTEXT_MAP.put(session, context);<a name="line.280"></a>
-<span class="sourceLineNo">281</span><a name="line.281"></a>
-<span class="sourceLineNo">282</span>        // Refresh context<a name="line.282"></a>
-<span class="sourceLineNo">283</span>        try {<a name="line.283"></a>
-<span class="sourceLineNo">284</span>            context.refresh();<a name="line.284"></a>
-<span class="sourceLineNo">285</span>            success = true;<a name="line.285"></a>
-<span class="sourceLineNo">286</span>        } finally {<a name="line.286"></a>
-<span class="sourceLineNo">287</span>            if (!success)<a name="line.287"></a>
-<span class="sourceLineNo">288</span>                CONTEXT_MAP.remove(session);<a name="line.288"></a>
-<span class="sourceLineNo">289</span>        }<a name="line.289"></a>
-<span class="sourceLineNo">290</span>    }<a name="line.290"></a>
-<span class="sourceLineNo">291</span><a name="line.291"></a>
-<span class="sourceLineNo">292</span>// SessionDestroyListener<a name="line.292"></a>
-<span class="sourceLineNo">293</span><a name="line.293"></a>
-<span class="sourceLineNo">294</span>    @Override<a name="line.294"></a>
-<span class="sourceLineNo">295</span>    public void sessionDestroy(SessionDestroyEvent event) {<a name="line.295"></a>
-<span class="sourceLineNo">296</span>        final VaadinSession session = event.getSession();<a name="line.296"></a>
-<span class="sourceLineNo">297</span>        final ConfigurableWebApplicationContext context = SpringVaadinSessionListener.getApplicationContext(session);<a name="line.297"></a>
-<span class="sourceLineNo">298</span>        if (context == null) {<a name="line.298"></a>
-<span class="sourceLineNo">299</span>            this.log.info(this.getClass().getSimpleName() + ".sessionDestroy() invoked but no application context found"<a name="line.299"></a>
-<span class="sourceLineNo">300</span>              + " for Vaadin application [" + SpringVaadinSessionListener.this.getApplicationName() + "]");<a name="line.300"></a>
-<span class="sourceLineNo">301</span>            return;<a name="line.301"></a>
-<span class="sourceLineNo">302</span>        }<a name="line.302"></a>
-<span class="sourceLineNo">303</span>        CONTEXT_MAP.remove(session);<a name="line.303"></a>
-<span class="sourceLineNo">304</span>        VaadinUtil.invoke(session, new Runnable() {<a name="line.304"></a>
-<span class="sourceLineNo">305</span>            @Override<a name="line.305"></a>
-<span class="sourceLineNo">306</span>            public void run() {<a name="line.306"></a>
-<span class="sourceLineNo">307</span>                SpringVaadinSessionListener.this.log.info("closing Vaadin application ["<a name="line.307"></a>
-<span class="sourceLineNo">308</span>                  + SpringVaadinSessionListener.this.getApplicationName() + "] application context: " + context);<a name="line.308"></a>
-<span class="sourceLineNo">309</span>                context.close();<a name="line.309"></a>
-<span class="sourceLineNo">310</span>            }<a name="line.310"></a>
-<span class="sourceLineNo">311</span>        });<a name="line.311"></a>
-<span class="sourceLineNo">312</span>    }<a name="line.312"></a>
-<span class="sourceLineNo">313</span><a name="line.313"></a>
-<span class="sourceLineNo">314</span>// Serialization<a name="line.314"></a>
-<span class="sourceLineNo">315</span><a name="line.315"></a>
-<span class="sourceLineNo">316</span>    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {<a name="line.316"></a>
-<span class="sourceLineNo">317</span>        input.defaultReadObject();<a name="line.317"></a>
-<span class="sourceLineNo">318</span>        final VaadinSession session = VaadinUtil.getCurrentSession();<a name="line.318"></a>
-<span class="sourceLineNo">319</span>        final VaadinRequest request = VaadinUtil.getCurrentRequest();<a name="line.319"></a>
-<span class="sourceLineNo">320</span>        VaadinUtil.invoke(session, new Runnable() {<a name="line.320"></a>
-<span class="sourceLineNo">321</span>            @Override<a name="line.321"></a>
-<span class="sourceLineNo">322</span>            public void run() {<a name="line.322"></a>
-<span class="sourceLineNo">323</span>                SpringVaadinSessionListener.this.loadContext(session, request);<a name="line.323"></a>
-<span class="sourceLineNo">324</span>            }<a name="line.324"></a>
-<span class="sourceLineNo">325</span>        });<a name="line.325"></a>
-<span class="sourceLineNo">326</span>    }<a name="line.326"></a>
-<span class="sourceLineNo">327</span>}<a name="line.327"></a>
-<span class="sourceLineNo">328</span><a name="line.328"></a>
+<span class="sourceLineNo">274</span>        // Refresh context<a name="line.274"></a>
+<span class="sourceLineNo">275</span>        try {<a name="line.275"></a>
+<span class="sourceLineNo">276</span>            context.refresh();<a name="line.276"></a>
+<span class="sourceLineNo">277</span>            success = true;<a name="line.277"></a>
+<span class="sourceLineNo">278</span>        } finally {<a name="line.278"></a>
+<span class="sourceLineNo">279</span>            if (!success)<a name="line.279"></a>
+<span class="sourceLineNo">280</span>                CONTEXT_MAP.remove(session);<a name="line.280"></a>
+<span class="sourceLineNo">281</span>        }<a name="line.281"></a>
+<span class="sourceLineNo">282</span>    }<a name="line.282"></a>
+<span class="sourceLineNo">283</span><a name="line.283"></a>
+<span class="sourceLineNo">284</span>// SessionDestroyListener<a name="line.284"></a>
+<span class="sourceLineNo">285</span><a name="line.285"></a>
+<span class="sourceLineNo">286</span>    @Override<a name="line.286"></a>
+<span class="sourceLineNo">287</span>    public void sessionDestroy(SessionDestroyEvent event) {<a name="line.287"></a>
+<span class="sourceLineNo">288</span>        final VaadinSession session = event.getSession();<a name="line.288"></a>
+<span class="sourceLineNo">289</span>        final ConfigurableWebApplicationContext context = SpringVaadinSessionListener.getApplicationContext(session);<a name="line.289"></a>
+<span class="sourceLineNo">290</span>        if (context == null) {<a name="line.290"></a>
+<span class="sourceLineNo">291</span>            this.log.info(this.getClass().getSimpleName() + ".sessionDestroy() invoked but no application context found"<a name="line.291"></a>
+<span class="sourceLineNo">292</span>              + " for Vaadin application [" + SpringVaadinSessionListener.this.getApplicationName() + "]");<a name="line.292"></a>
+<span class="sourceLineNo">293</span>            return;<a name="line.293"></a>
+<span class="sourceLineNo">294</span>        }<a name="line.294"></a>
+<span class="sourceLineNo">295</span>        CONTEXT_MAP.remove(session);<a name="line.295"></a>
+<span class="sourceLineNo">296</span>        VaadinUtil.invoke(session, new Runnable() {<a name="line.296"></a>
+<span class="sourceLineNo">297</span>            @Override<a name="line.297"></a>
+<span class="sourceLineNo">298</span>            public void run() {<a name="line.298"></a>
+<span class="sourceLineNo">299</span>                SpringVaadinSessionListener.this.log.info("closing Vaadin application ["<a name="line.299"></a>
+<span class="sourceLineNo">300</span>                  + SpringVaadinSessionListener.this.getApplicationName() + "] application context: " + context);<a name="line.300"></a>
+<span class="sourceLineNo">301</span>                context.close();<a name="line.301"></a>
+<span class="sourceLineNo">302</span>            }<a name="line.302"></a>
+<span class="sourceLineNo">303</span>        });<a name="line.303"></a>
+<span class="sourceLineNo">304</span>    }<a name="line.304"></a>
+<span class="sourceLineNo">305</span><a name="line.305"></a>
+<span class="sourceLineNo">306</span>// Serialization<a name="line.306"></a>
+<span class="sourceLineNo">307</span><a name="line.307"></a>
+<span class="sourceLineNo">308</span>    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {<a name="line.308"></a>
+<span class="sourceLineNo">309</span>        input.defaultReadObject();<a name="line.309"></a>
+<span class="sourceLineNo">310</span>        final VaadinSession session = VaadinUtil.getCurrentSession();<a name="line.310"></a>
+<span class="sourceLineNo">311</span>        final VaadinRequest request = VaadinUtil.getCurrentRequest();<a name="line.311"></a>
+<span class="sourceLineNo">312</span>        VaadinUtil.invoke(session, new Runnable() {<a name="line.312"></a>
+<span class="sourceLineNo">313</span>            @Override<a name="line.313"></a>
+<span class="sourceLineNo">314</span>            public void run() {<a name="line.314"></a>
+<span class="sourceLineNo">315</span>                SpringVaadinSessionListener.this.loadContext(session, request);<a name="line.315"></a>
+<span class="sourceLineNo">316</span>            }<a name="line.316"></a>
+<span class="sourceLineNo">317</span>        });<a name="line.317"></a>
+<span class="sourceLineNo">318</span>    }<a name="line.318"></a>
+<span class="sourceLineNo">319</span>}<a name="line.319"></a>
+<span class="sourceLineNo">320</span><a name="line.320"></a>
 
 
 

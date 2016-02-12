@@ -257,13 +257,13 @@ extends <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>buildQuery</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/CriteriaCallback.html#line.33">buildQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/CriteriaCallback.html#line.36">buildQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
 <div class="block">Build the query by delegating to <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html#configureQuery(javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.CriteriaBuilder)"><code>configureQuery()</code></a> for configuration.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#buildQuery(javax.persistence.EntityManager)">buildQuery</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao">TypedQueryCallback</a>&lt;<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">T</a>,<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">R</a>&gt;</code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>entityManager</code> - JPA <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a> representing an open transaction</dd>
-<dt><span class="strong">Returns:</span></dt><dd>constructed JPA <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Query.html?is-external=true" title="class or interface in javax.persistence"><code>Query</code></a> to perform</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>entityManager</code> - entity manager to use for queries</dd>
+<dt><span class="strong">Returns:</span></dt><dd>query for instaces of tyep <code>T</code></dd></dl>
 </li>
 </ul>
 <a name="configureQuery(javax.persistence.criteria.CriteriaQuery, javax.persistence.criteria.CriteriaBuilder)">
@@ -272,9 +272,10 @@ extends <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" tit
 <ul class="blockListLast">
 <li class="blockList">
 <h4>configureQuery</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/CriteriaCallback.html#line.43">configureQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">T</a>&gt;&nbsp;criteriaQuery,
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/CriteriaCallback.html#line.49">configureQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="type parameter in CriteriaCallback">T</a>&gt;&nbsp;criteriaQuery,
                   <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.html?is-external=true" title="class or interface in javax.persistence.criteria">CriteriaBuilder</a>&nbsp;criteriaBuilder)</pre>
 <div class="block">Configure the <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaQuery.html?is-external=true" title="class or interface in javax.persistence.criteria"><code>CriteriaQuery</code></a>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>criteriaQuery</code> - the query to configure</dd><dd><code>criteriaBuilder</code> - builder instance</dd></dl>
 </li>
 </ul>
 </li>

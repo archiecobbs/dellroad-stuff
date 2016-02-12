@@ -158,8 +158,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getPersistenceExceptionTranslator</h4>
-<pre><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/dao/support/PersistenceExceptionTranslator.html?is-external=true" title="class or interface in org.springframework.dao.support">PersistenceExceptionTranslator</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.20">getPersistenceExceptionTranslator</a>()</pre>
+<pre><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/dao/support/PersistenceExceptionTranslator.html?is-external=true" title="class or interface in org.springframework.dao.support">PersistenceExceptionTranslator</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.22">getPersistenceExceptionTranslator</a>()</pre>
 <div class="block">Get the configured exception translator.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>exception translator used to determine which transactions are retryable</dd></dl>
 </li>
 </ul>
 <a name="getMaxRetriesDefault()">
@@ -168,8 +169,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getMaxRetriesDefault</h4>
-<pre>int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.25">getMaxRetriesDefault</a>()</pre>
+<pre>int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.29">getMaxRetriesDefault</a>()</pre>
 <div class="block">Get the aspect-wide default for <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#maxRetries()"><code>RetryTransaction.maxRetries()</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>defatul maximum number of transaction retry attempts</dd></dl>
 </li>
 </ul>
 <a name="getInitialDelayDefault()">
@@ -178,8 +180,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getInitialDelayDefault</h4>
-<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.30">getInitialDelayDefault</a>()</pre>
+<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.36">getInitialDelayDefault</a>()</pre>
 <div class="block">Get the aspect-wide default for <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#initialDelay()"><code>RetryTransaction.initialDelay()</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>default initial delay between retry attempts in milliseconds</dd></dl>
 </li>
 </ul>
 <a name="getMaximumDelayDefault()">
@@ -188,8 +191,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getMaximumDelayDefault</h4>
-<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.35">getMaximumDelayDefault</a>()</pre>
+<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.43">getMaximumDelayDefault</a>()</pre>
 <div class="block">Get the aspect-wide default for <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#maximumDelay()"><code>RetryTransaction.maximumDelay()</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>default maximum delay between retry attempts in milliseconds</dd></dl>
 </li>
 </ul>
 <a name="getAttemptNumber()">
@@ -198,7 +202,7 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getAttemptNumber</h4>
-<pre>int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.42">getAttemptNumber</a>()</pre>
+<pre>int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransactionProvider.html#line.50">getAttemptNumber</a>()</pre>
 <div class="block">Get the current transaction attempt number.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>transaction attempt number, or zero if the aspect is not active in the current thread</dd></dl>
 </li>

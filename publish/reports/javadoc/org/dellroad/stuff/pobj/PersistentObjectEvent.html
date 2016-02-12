@@ -260,12 +260,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/util/EventObject
 <ul class="blockList">
 <li class="blockList">
 <h4>getVersion</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.52">getVersion</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.54">getVersion</a>()</pre>
 <div class="block">Get the version that this event is associated with. This will be the version of the <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html#getNewRoot()">new root</a>.
 
  <p>
  The <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> class always delivers notifications in order, so this
  number should always increase over time.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>new root version number</dd></dl>
 </li>
 </ul>
 <a name="getOldRoot()">
@@ -274,7 +275,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/util/EventObject
 <ul class="blockList">
 <li class="blockList">
 <h4>getOldRoot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="type parameter in PersistentObjectEvent">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.64">getOldRoot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="type parameter in PersistentObjectEvent">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.66">getOldRoot</a>()</pre>
 <div class="block">Get the old root prior to the update.
 
  <p>
@@ -288,7 +289,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/util/EventObject
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getNewRoot</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="type parameter in PersistentObjectEvent">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.76">getNewRoot</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="type parameter in PersistentObjectEvent">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectEvent.html#line.78">getNewRoot</a>()</pre>
 <div class="block">Get the new root after the update.
 
  <p>

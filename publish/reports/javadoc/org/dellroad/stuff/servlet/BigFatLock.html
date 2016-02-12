@@ -280,8 +280,9 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>runWithLock</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.57">runWithLock</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.59">runWithLock</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Invoke the given action after acquiring the big fat lock.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform while locked</dd></dl>
 </li>
 </ul>
 <a name="runWithLock(java.util.concurrent.Callable)">
@@ -290,11 +291,13 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>runWithLock</h4>
-<pre>public static&nbsp;&lt;V&gt;&nbsp;V&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.78">runWithLock</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent">Callable</a>&lt;V&gt;&nbsp;action)
+<pre>public static&nbsp;&lt;V&gt;&nbsp;V&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.85">runWithLock</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent">Callable</a>&lt;V&gt;&nbsp;action)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Invoke the given action after acquiring the big fat lock.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>V</code> - action return type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform while locked</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result from <code>action</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if <code>action</code> throws an exception</dd></dl>
 </li>
 </ul>
 <a name="isLockHeld()">
@@ -303,8 +306,9 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>isLockHeld</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.99">isLockHeld</a>()</pre>
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.108">isLockHeld</a>()</pre>
 <div class="block">Verify that the current thread is holding the big fat lock.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if lock is held</dd></dl>
 </li>
 </ul>
 <a name="toString()">
@@ -313,7 +317,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.104">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLock.html#line.113">toString</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>

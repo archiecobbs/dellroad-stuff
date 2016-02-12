@@ -152,7 +152,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>wait</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/TimedWait.html#line.44">wait</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/TimedWait.html#line.42">wait</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
            long&nbsp;timeout,
            <a href="../../../../org/dellroad/stuff/java/Predicate.html" title="interface in org.dellroad.stuff.java">Predicate</a>&nbsp;predicate)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></pre>
@@ -164,12 +164,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  is already synchronized on <code>obj</code>. It also guarantees that upon return, <code>obj</code> will have remained
  continuously locked since the most recent invocation of <a href="../../../../org/dellroad/stuff/java/Predicate.html#test()"><code>predicate.test()</code></a>, so that any
  derived state computed therein will still be valid.
- </p>
 
  <p>
  This method uses <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html?is-external=true#nanoTime()" title="class or interface in java.lang"><code>System.nanoTime()</code></a> instead of <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/System.html?is-external=true#currentTimeMillis()" title="class or interface in java.lang"><code>System.currentTimeMillis()</code></a> and so is immune to
- adjustments in clock time.
- </p></div>
+ adjustments in clock time.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to sleep on; must already be locked</dd><dd><code>timeout</code> - wait timeout in milliseconds, or zero for an infinite wait</dd><dd><code>predicate</code> - predicate to test</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the predicate became true before the timeout, false if the timeout expired</dd>
 <dt><span class="strong">Throws:</span></dt>

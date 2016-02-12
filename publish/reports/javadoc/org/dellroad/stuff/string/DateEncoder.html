@@ -201,10 +201,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>encode</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.41">encode</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.42">encode</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;date)</pre>
 <div class="block">Encode the given date as a string of the form <code>2009-12-01T15:33:07.763Z</code>.
  If the fractional seconds portion is zero, it will be omitted.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>date</code> - date to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>endoded date</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>date</code> is <code>null</code></dd></dl>
 </li>
@@ -215,9 +216,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>decode</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.53">decode</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.55">decode</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Decode the given date.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - encoded date</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded date</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>string</code> is malformed</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>string</code> is <code>null</code></dd></dl>
@@ -229,9 +231,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getDateFormat</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.72">getDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text">SimpleDateFormat</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/DateEncoder.html#line.75">getDateFormat</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;format)</pre>
 <div class="block">Get a <a href="https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html?is-external=true" title="class or interface in java.text"><code>SimpleDateFormat</code></a> configured with the given format and for the UTC time zone and strict parsing.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>format</code> - date format string</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>format</code> - date format string</dd>
+<dt><span class="strong">Returns:</span></dt><dd>date formatter</dd></dl>
 </li>
 </ul>
 </li>

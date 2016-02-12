@@ -218,7 +218,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>TopologicalSorter</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/graph/TopologicalSorter.html#line.54">TopologicalSorter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.html" title="type parameter in TopologicalSorter">E</a>&gt;&nbsp;nodes,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/graph/TopologicalSorter.html#line.56">TopologicalSorter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;<a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.html" title="type parameter in TopologicalSorter">E</a>&gt;&nbsp;nodes,
                  <a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.EdgeLister.html" title="interface in org.dellroad.stuff.graph">TopologicalSorter.EdgeLister</a>&lt;<a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.html" title="type parameter in TopologicalSorter">E</a>&gt;&nbsp;edgeLister)</pre>
 <div class="block">Convenience constructor for when ties should be broken based on the original ordering.
 
@@ -226,8 +226,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  Equivalent to:
   <blockquote>
   <code>TopologicalSorter(nodes, edgeLister, null);</code>
-  </blockquote>
- </p></div>
+  </blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>nodes</code> - set of nodes to sort</dd><dd><code>edgeLister</code> - defines the edges between nodes</dd></dl>
 </li>
 </ul>
 </li>
@@ -244,15 +244,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>sort</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.html" title="type parameter in TopologicalSorter">E</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/graph/TopologicalSorter.html#line.71">sort</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/graph/TopologicalSorter.html" title="type parameter in TopologicalSorter">E</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/graph/TopologicalSorter.html#line.72">sort</a>()</pre>
 <div class="block">Produce a total ordering of the nodes consistent with the partial ordering
  implied by the edge lister and tie breaker provided to the constructor.
 
  <p>
  The returned list will have the property that if there is an edge from X to Y,
  then X will appear before Y in the list. If there is no edge (or sequence of edges) from X to Y
- in either direction, then X will appear before Y if the tie breaker sorts X before Y.
- </p></div>
+ in either direction, then X will appear before Y if the tie breaker sorts X before Y.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>sorted, mutable list of nodes</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the partial ordering relation contains a cycle</dd></dl>
@@ -270,8 +269,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  The returned list will have the property that if there is an edge from X to Y,
  then Y will appear before X in the list. If there is no edge (or sequence of edges) from X to Y
- in either direction, then X will appear before Y if the tie breaker sorts X before Y.
- </p></div>
+ in either direction, then X will appear before Y if the tie breaker sorts X before Y.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>sorted, mutable list of nodes</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the partial ordering relation contains a cycle</dd></dl>

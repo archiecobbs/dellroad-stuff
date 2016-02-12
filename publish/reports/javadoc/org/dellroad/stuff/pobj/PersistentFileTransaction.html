@@ -199,7 +199,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>PersistentFileTransaction</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.45">PersistentFileTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source)
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.47">PersistentFileTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source)
                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
                                  <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <div class="block">Constructor.</div>
@@ -207,8 +207,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if no updates are found</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>source</code> is null</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code> - if XML parsing fails</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="PersistentFileTransaction(javax.xml.transform.Source, javax.xml.transform.TransformerFactory)">
@@ -217,7 +217,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentFileTransaction</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.57">PersistentFileTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.61">PersistentFileTransaction</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source,
                          <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;transformerFactory)
                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
                                  <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -226,8 +226,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if no updates are found</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>source</code> is null</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code> - if XML parsing fails</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 </li>
@@ -244,8 +244,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getData</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html?is-external=true" title="class or interface in org.w3c.dom">Document</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.69">getData</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html?is-external=true" title="class or interface in org.w3c.dom">Document</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.75">getData</a>()</pre>
 <div class="block">Get the current XML data. Does not include the XML update list.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>XML data</dd></dl>
 </li>
 </ul>
 <a name="getSystemId()">
@@ -254,8 +255,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getSystemId</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.76">getSystemId</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.84">getSystemId</a>()</pre>
 <div class="block">Get the system ID of the original source input.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>XML system ID</dd></dl>
 </li>
 </ul>
 <a name="getUpdates()">
@@ -264,8 +266,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdates</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.83">getUpdates</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.93">getUpdates</a>()</pre>
 <div class="block">Get the updates list associated with this transaction.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>list of updates</dd></dl>
 </li>
 </ul>
 <a name="transform(javax.xml.transform.Transformer)">
@@ -274,10 +277,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>transform</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.94">transform</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Transformer.html?is-external=true" title="class or interface in javax.xml.transform">Transformer</a>&nbsp;transformer)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.105">transform</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Transformer.html?is-external=true" title="class or interface in javax.xml.transform">Transformer</a>&nbsp;transformer)
                throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerException.html?is-external=true" title="class or interface in javax.xml.transform">TransformerException</a></pre>
 <div class="block">Apply an XSLT transform to the current XML object in this transaction.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>transformer</code> - XSLT transformer</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the current root object is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerException.html?is-external=true" title="class or interface in javax.xml.transform">TransformerException</a></code> - if the transformation fails</dd></dl>
@@ -289,7 +293,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.138">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentFileTransaction.html#line.149">toString</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>

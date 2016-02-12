@@ -301,8 +301,9 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockList">
 <li class="blockList">
 <h4>setTransform</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.49">setTransform</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/core/io/Resource.html?is-external=true" title="class or interface in org.springframework.core.io">Resource</a>&nbsp;transform)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.51">setTransform</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/core/io/Resource.html?is-external=true" title="class or interface in org.springframework.core.io">Resource</a>&nbsp;transform)</pre>
 <div class="block">Configure the XSLT transform as a resource.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>transform</code> - transform for this schema update</dd></dl>
 </li>
 </ul>
 <a name="getTransform()">
@@ -311,7 +312,7 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockList">
 <li class="blockList">
 <h4>getTransform</h4>
-<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/core/io/Resource.html?is-external=true" title="class or interface in org.springframework.core.io">Resource</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.53">getTransform</a>()</pre>
+<pre>public&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/core/io/Resource.html?is-external=true" title="class or interface in org.springframework.core.io">Resource</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.55">getTransform</a>()</pre>
 </li>
 </ul>
 <a name="setParameters(java.util.Properties)">
@@ -320,8 +321,9 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockList">
 <li class="blockList">
 <h4>setParameters</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.60">setParameters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</a>&nbsp;parameters)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.64">setParameters</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Properties.html?is-external=true" title="class or interface in java.util">Properties</a>&nbsp;parameters)</pre>
 <div class="block">Configure XSLT parameters. This is an optional property.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>parameters</code> - transform parameters</dd></dl>
 </li>
 </ul>
 <a name="getTransformerFactory()">
@@ -330,12 +332,13 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockList">
 <li class="blockList">
 <h4>getTransformerFactory</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.71">getTransformerFactory</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.77">getTransformerFactory</a>()</pre>
 <div class="block">Get the configured <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform"><code>TransformerFactory</code></a> that will be used to create the <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Transformer.html?is-external=true" title="class or interface in javax.xml.transform"><code>Transformer</code></a>
  that will be used to actually apply the <a href="../../../../org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#setTransform(org.springframework.core.io.Resource)">configured XSL transform</a>.
 
  <p>
  This property is optional; if not specified, <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true#newInstance()" title="class or interface in javax.xml.transform"><code>TransformerFactory.newInstance()</code></a> is used.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>custom factory for XSL transformers, or null if none configured</dd></dl>
 </li>
 </ul>
 <a name="setTransformerFactory(javax.xml.transform.TransformerFactory)">
@@ -344,12 +347,12 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockList">
 <li class="blockList">
 <h4>setTransformerFactory</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.83">setTransformerFactory</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;transformerFactory)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.90">setTransformerFactory</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;transformerFactory)</pre>
 <div class="block">Set the <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform"><code>TransformerFactory</code></a> to use.
 
  <p>
  This property is optional; if not specified, <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true#newInstance()" title="class or interface in javax.xml.transform"><code>TransformerFactory.newInstance()</code></a> is used.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#getTransformerFactory()"><code>getTransformerFactory()</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>transformerFactory</code> - custom factory for XSL transformers, or null for none</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#getTransformerFactory()"><code>getTransformerFactory()</code></a></dd></dl>
 </li>
 </ul>
 <a name="apply(org.dellroad.stuff.pobj.PersistentFileTransaction)">
@@ -358,7 +361,7 @@ extends <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchem
 <ul class="blockListLast">
 <li class="blockList">
 <h4>apply</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.91">apply</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/SpringXSLPersistentObjectSchemaUpdate.html#line.98">apply</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)</pre>
 <div class="block">Apply this update to the given transaction.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>

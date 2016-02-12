@@ -168,11 +168,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeExpression</h4>
-<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.27">deserializeExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.33">deserializeExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
-<div class="block">Deserialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a></dd></dl>
+<div class="block">Deserialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a>. Equivalent to:
+  <blockquote><code>
+  SpringParseUtil.deserializeExpression(string, null);
+  </code></blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - encoded Spring expression</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded expression</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a></dd></dl>
 </li>
 </ul>
 <a name="deserializeTemplateExpression(java.lang.String)">
@@ -181,14 +186,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeTemplateExpression</h4>
-<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.40">deserializeTemplateExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
+<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.49">deserializeTemplateExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)
                                                 throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
-<div class="block">Deserialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a> as a template expression. Equivalent to
+<div class="block">Deserialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a> as a template expression. Equivalent to:
   <blockquote><code>
-  deserializeExpression(string, ParserContext.TEMPLATE_EXPRESSION);
-  <code><blockquote></div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a>, 
+  SpringParseUtil.deserializeExpression(string, ParserContext.TEMPLATE_EXPRESSION);
+  </code></blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - expression string</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a>, 
 <a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#deserializeExpression(java.lang.String, org.springframework.expression.ParserContext)"><code>deserializeExpression(String, ParserContext)</code></a></dd></dl>
 </li>
 </ul>
@@ -198,12 +205,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>deserializeExpression</h4>
-<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.49">deserializeExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
+<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.62">deserializeExpression</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string,
                                <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/ParserContext.html?is-external=true" title="class or interface in org.springframework.expression">ParserContext</a>&nbsp;context)
                                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></pre>
 <div class="block">Deserialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a> using the supplied <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/ParserContext.html?is-external=true" title="class or interface in org.springframework.expression"><code>ParserContext</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code></dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - XML encoding created by <a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a></dd><dd><code>context</code> - parser context</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded value</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXParseException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXParseException</a></code> - if the parse fails</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#serializeExpression(org.springframework.expression.Expression)"><code>serializeExpression(org.springframework.expression.Expression)</code></a></dd></dl>
 </li>
 </ul>
 <a name="serializeExpression(org.springframework.expression.Expression)">
@@ -212,9 +221,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>serializeExpression</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.63">serializeExpression</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;expr)</pre>
-<div class="block">Serialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a>.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#deserializeExpression(java.lang.String)"><code>deserializeExpression(java.lang.String)</code></a></dd></dl>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/SpringParseUtil.html#line.81">serializeExpression</a>(<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression">Expression</a>&nbsp;expr)</pre>
+<div class="block">Serialize a Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/expression/Expression.html?is-external=true" title="class or interface in org.springframework.expression"><code>Expression</code></a>.
+
+ <p>
+ Returns <code>expr.getExpressionString()</code>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>expr</code> - Spring expression</dd>
+<dt><span class="strong">Returns:</span></dt><dd>encoded value</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/jibx/SpringParseUtil.html#deserializeExpression(java.lang.String)"><code>deserializeExpression(java.lang.String)</code></a></dd></dl>
 </li>
 </ul>
 </li>

@@ -113,7 +113,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.129">SpringVaadinServlet</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.124">SpringVaadinServlet</a>
 extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.server">VaadinServlet</a></pre>
 <div class="block">A <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinServlet</code></a> that associates and manages a Spring
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>ConfigurableWebApplicationContext</code></a> with each
@@ -137,24 +137,21 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
      &lt;/init-param&gt;
  &lt;/servlet&gt;
  </pre></blockquote>
- </p>
 
  <p>
  The main function of this servlet is to create and register a <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a> as a listener on the
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinService</code></a> associated with this servlet. The <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a> in turn detects
  the creation and destruction of Vaadin application instances (represented by <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>
  instances) and does the work of managing the associated Spring application contexts.
- </p>
 
  <p>
  Use of this servlet in place of the standard Vaadin servlet is required for the <a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin7"><code>@VaadinConfigurable</code></a>
  annotation to work.
- </p>
 
  <p>
  Supported URL parameters:
  <div style="margin-left: 20px;">
- <table border="1" cellpadding="3" cellspacing="0">
+ <table border="1" cellpadding="3" cellspacing="0" summary="Servlet URL Parameters">
  <tr bgcolor="#ccffcc">
   <th align="left">Parameter Name</th>
   <th align="left">Required?</th>
@@ -207,13 +204,11 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
  </tr>
  </table>
  </div>
- </p>
 
  <p>
  Note: if any beans are declared <code>scope="session"</code> in your application context, you must register Spring's
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/request/RequestContextListener.html?is-external=true" title="class or interface in org.springframework.web.context.request"><code>RequestContextListener</code></a> as a listener in your <code>web.xml</code>
- (normally, Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html?is-external=true" title="class or interface in org.springframework.web.servlet"><code>DispatcherServlet</code></a> would handle this task).
- </p></div>
+ (normally, Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html?is-external=true" title="class or interface in org.springframework.web.servlet"><code>DispatcherServlet</code></a> would handle this task).</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin7"><code>VaadinConfigurable</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a>, 
@@ -398,7 +393,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>CONFIG_LOCATION_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.136">CONFIG_LOCATION_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.131">CONFIG_LOCATION_PARAMETER</a></pre>
 <div class="block">Servlet initialization parameter (<code>"configLocation"</code>) used to specify
  the location(s) of the Spring application context XML file(s). Multiple XML files may be separated by whitespace.
  This parameter is optional.</div>
@@ -411,7 +406,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>LISTENER_CLASS_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.143">LISTENER_CLASS_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.138">LISTENER_CLASS_PARAMETER</a></pre>
 <div class="block">Servlet initialization parameter (<code>"listenerClass"</code>) used to specify
  the name of an custom subclass of <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinSessionListener</code></a>.
  This parameter is optional.</div>
@@ -424,7 +419,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>APPLICATION_NAME_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.150">APPLICATION_NAME_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.145">APPLICATION_NAME_PARAMETER</a></pre>
 <div class="block">Servlet initialization parameter (<code>"applicationName"</code>) used to specify
  the name the application.
  This parameter is optional.</div>
@@ -437,7 +432,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>SESSION_TRACKING_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.157">SESSION_TRACKING_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.152">SESSION_TRACKING_PARAMETER</a></pre>
 <div class="block">Servlet initialization parameter (<code>"sessionTracking"</code>) that enables
  tracking of all Vaadin session.
  This parameter is optional, and defaults to <code>false</code>.</div>
@@ -450,7 +445,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>MAX_SESSIONS_PARAMETER</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.164">MAX_SESSIONS_PARAMETER</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.159">MAX_SESSIONS_PARAMETER</a></pre>
 <div class="block">Servlet initialization parameter (<code>"maxSessions"</code>) that configures the
  maximum number of simultaneous Vaadin sessions. Requires <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#SESSION_TRACKING_PARAMETER"><code>SESSION_TRACKING_PARAMETER</code></a> to be set to <code>true</code>.
  This parameter is optional, and defaults to zero, which means no limit.</div>
@@ -471,7 +466,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SpringVaadinServlet</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.129">SpringVaadinServlet</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.124">SpringVaadinServlet</a>()</pre>
 </li>
 </ul>
 </li>
@@ -488,7 +483,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>init</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.172">init</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletConfig.html?is-external=true" title="class or interface in javax.servlet">ServletConfig</a>&nbsp;config)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.167">init</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletConfig.html?is-external=true" title="class or interface in javax.servlet">ServletConfig</a>&nbsp;config)
           throws <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html?is-external=true" title="class or interface in javax.servlet">ServletException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -505,7 +500,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>servletInitialized</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.180">servletInitialized</a>()
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.175">servletInitialized</a>()
                            throws <a href="https://docs.oracle.com/javaee/7/api/javax/servlet/ServletException.html?is-external=true" title="class or interface in javax.servlet">ServletException</a></pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
@@ -520,7 +515,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>createServletService</h4>
-<pre>protected&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServletService.html?is-external=true" title="class or interface in com.vaadin.server">VaadinServletService</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.228">createServletService</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/DeploymentConfiguration.html?is-external=true" title="class or interface in com.vaadin.server">DeploymentConfiguration</a>&nbsp;deploymentConfiguration)
+<pre>protected&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServletService.html?is-external=true" title="class or interface in com.vaadin.server">VaadinServletService</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.223">createServletService</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/DeploymentConfiguration.html?is-external=true" title="class or interface in com.vaadin.server">DeploymentConfiguration</a>&nbsp;deploymentConfiguration)
                                              throws <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/ServiceException.html?is-external=true" title="class or interface in com.vaadin.server">ServiceException</a></pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
@@ -535,7 +530,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>getSessions</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.278">getSessions</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.273">getSessions</a>()</pre>
 <div class="block">Get all live <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>s associated with this instance.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>live tracked sessions, or an empty collection if session tracking is not enabled</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionContainer</code></a></dd></dl>
 </li>
@@ -546,7 +541,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getServlet</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7">SpringVaadinServlet</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.290">getServlet</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7">SpringVaadinServlet</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinServlet.html#line.285">getServlet</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a> that is associated with the given <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinServlet</code></a> associated with <code>session</code> is not a

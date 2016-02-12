@@ -213,8 +213,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <ul class="blockList">
 <li class="blockList">
 <h4>setSQLCommandList</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.27">setSQLCommandList</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;action)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.29">setSQLCommandList</a>(<a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema">SQLCommandList</a>&nbsp;action)</pre>
 <div class="block">Configure the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema"><code>SQLCommandList</code></a> to be applied to the database on first access. Required property.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - SQL command(s) to apply exactly once to the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a></dd></dl>
 </li>
 </ul>
 <a name="setTransactional(boolean)">
@@ -223,9 +224,10 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <ul class="blockList">
 <li class="blockList">
 <h4>setTransactional</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.35">setTransactional</a>(boolean&nbsp;transactional)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.39">setTransactional</a>(boolean&nbsp;transactional)</pre>
 <div class="block">Configure whether the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html" title="class in org.dellroad.stuff.schema"><code>SQLCommandList</code></a> is applied transactionally or not.
  Default is <code>true</code>.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>transactional</code> - true for transactional application of SQL command(s)</dd></dl>
 </li>
 </ul>
 <a name="updateDataSource(javax.sql.DataSource)">
@@ -234,7 +236,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <ul class="blockListLast">
 <li class="blockList">
 <h4>updateDataSource</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.40">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/UpdatingDataSource.html#line.44">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#updateDataSource(javax.sql.DataSource)">AbstractUpdatingDataSource</a></code></strong></div>
 <div class="block">Update the inner <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>.
@@ -244,8 +246,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#updateDataSource(javax.sql.DataSource)">updateDataSource</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html" title="class in org.dellroad.stuff.schema">AbstractUpdatingDataSource</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>dataSource</code> - the <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> to update</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if the update attempt fails</dd></dl>
 </li>
 </ul>
 </li>

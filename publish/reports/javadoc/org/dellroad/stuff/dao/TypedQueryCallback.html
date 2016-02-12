@@ -212,12 +212,11 @@ extends <a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="c
 <ul class="blockList">
 <li class="blockList">
 <h4>executeQuery</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">R</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.28">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Query.html?is-external=true" title="class or interface in javax.persistence">Query</a>&nbsp;query)</pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">R</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.27">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/Query.html?is-external=true" title="class or interface in javax.persistence">Query</a>&nbsp;query)</pre>
 <div class="block">Execute the query.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao"><code>TypedQueryCallback</code></a> delegates to <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)"><code>executeQuery(TypedQuery)</code></a>.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao"><code>TypedQueryCallback</code></a> delegates to <a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)"><code>executeQuery(TypedQuery)</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/QueryCallback.html#executeQuery(javax.persistence.Query)">executeQuery</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="class in org.dellroad.stuff.dao">QueryCallback</a>&lt;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">R</a>&gt;</code></dd>
@@ -231,7 +230,7 @@ extends <a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="c
 <ul class="blockList">
 <li class="blockList">
 <h4>buildQuery</h4>
-<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.36">buildQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
+<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.35">buildQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
 <div class="block">Build the query as a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence"><code>TypedQuery</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -246,12 +245,14 @@ extends <a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="c
 <ul class="blockListLast">
 <li class="blockList">
 <h4>executeQuery</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">R</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.45">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">T</a>&gt;&nbsp;query)</pre>
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">R</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/TypedQueryCallback.html#line.47">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="type parameter in TypedQueryCallback">T</a>&gt;&nbsp;query)</pre>
 <div class="block">Execute the query. Typically this is implemented in one of these two ways:
  <blockquote><code>
-   return query.getSingleResult();<br />
+   return query.getSingleResult();
    return query.getResultList();
  </code></blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>query</code> - query to execute</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of query</dd></dl>
 </li>
 </ul>
 </li>

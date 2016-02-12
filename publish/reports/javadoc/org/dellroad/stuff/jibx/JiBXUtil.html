@@ -268,7 +268,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.53">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.55">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -281,7 +281,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The <code>input</code> is not closed by this method.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>input</code> - source for the XML document</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>input</code> - source for the XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading from <code>input</code></dd></dl>
@@ -293,7 +294,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.73">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.77">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
@@ -306,7 +307,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The <code>input</code> is not closed by this method.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>input</code> - source for the XML document</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>input</code> - source for the XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading from <code>input</code></dd></dl>
@@ -318,7 +320,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.107">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.113">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</a>&nbsp;input)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -331,7 +333,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The <code>input</code> is not closed by this method.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>input</code> - source for the XML document</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>input</code> - source for the XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading from <code>input</code></dd></dl>
@@ -343,7 +346,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.127">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.135">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io">Reader</a>&nbsp;input)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
@@ -356,7 +359,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 
  <p>
  The <code>input</code> is not closed by this method.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>input</code> - source for the XML document</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>input</code> - source for the XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading from <code>input</code></dd></dl>
@@ -368,7 +372,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.158">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.168">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;url)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -378,7 +382,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>url</code> - source for the XML document</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>url</code> - source for the XML document</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading the referenced document</dd></dl>
@@ -390,7 +395,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>readObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.175">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.187">readObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;targetClass,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/net/URL.html?is-external=true" title="class or interface in java.net">URL</a>&nbsp;url)
                     throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
@@ -400,7 +405,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>url</code> - source for the XML document</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - type of object to read</dd><dt><span class="strong">Parameters:</span></dt><dd><code>targetClass</code> - target class</dd><dd><code>url</code> - source for the XML document</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd>
+<dt><span class="strong">Returns:</span></dt><dd>decoded object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX parse error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs reading the referenced document</dd></dl>
@@ -414,7 +420,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>writeObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.201">writeObject</a>(T&nbsp;obj,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.214">writeObject</a>(T&nbsp;obj,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)
                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
                                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -424,7 +430,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>output</code> - output destination; will <b>not</b> be closed by this method</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>output</code> - output destination; will <b>not</b> be closed by this method</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs writing to <code>output</code></dd></dl>
@@ -438,7 +444,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>writeObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.218">writeObject</a>(T&nbsp;obj,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.232">writeObject</a>(T&nbsp;obj,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)
                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
@@ -448,7 +454,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>output</code> - output destination; will <b>not</b> be closed by this method</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>output</code> - output destination; will <b>not</b> be closed by this method</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs writing to <code>output</code></dd></dl>
@@ -462,7 +468,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>writeObject</h4>
-<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.233">writeObject</a>(T&nbsp;obj,
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.250">writeObject</a>(T&nbsp;obj,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer)
                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
                                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
@@ -472,10 +478,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>writer</code> - output destination; will <b>not</b> be closed by this method</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>writer</code> - output destination; will <b>not</b> be closed by this method</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs writing to <code>writer</code></dd></dl>
 </li>
 </ul>
 <a name="writeObject(java.lang.Object, java.lang.String, java.io.Writer)">
@@ -484,7 +490,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>writeObject</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.248">writeObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.267">writeObject</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer)
                         throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a>,
@@ -496,8 +502,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to write</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd><dd><code>writer</code> - output destination; will <b>not</b> be closed by this method</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs writing to <code>writer</code></dd></dl>
 </li>
 </ul>
 <a name="toString(java.lang.Object)">
@@ -506,7 +512,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.283">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.303">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)
                        throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></pre>
 <div class="block">Encode the given instance as an XML document and return it as a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>.
  This method assumes there is exactly one binding for the given class.
@@ -515,6 +521,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to encode</dd>
+<dt><span class="strong">Returns:</span></dt><dd>XML encoding of <code>obj</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd></dl>
 </li>
@@ -525,7 +532,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.298">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/jibx/JiBXUtil.html#line.319">toString</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
               <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;bindingName)
                        throws <a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></pre>
 <div class="block">Encode the given instance as an XML document and return it as a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>.
@@ -534,6 +541,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  This method runs within a new invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.util.concurrent.Callable)"><code>IdGenerator.run()</code></a> to support object references
  (see <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a>).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to encode</dd><dd><code>bindingName</code> - binding name, or null to choose the only one</dd>
+<dt><span class="strong">Returns:</span></dt><dd>XML encoding of <code>obj</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://jibx.sourceforge.net/api/org/jibx/runtime/JiBXException.html?is-external=true" title="class or interface in org.jibx.runtime">JiBXException</a></code> - if there is a JiBX encoding error</dd></dl>
 </li>

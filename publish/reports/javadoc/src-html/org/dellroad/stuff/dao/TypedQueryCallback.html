@@ -30,29 +30,31 @@
 <span class="sourceLineNo">022</span>     *<a name="line.22"></a>
 <span class="sourceLineNo">023</span>     * &lt;p&gt;<a name="line.23"></a>
 <span class="sourceLineNo">024</span>     * The implementation in {@link TypedQueryCallback} delegates to {@link #executeQuery(TypedQuery)}.<a name="line.24"></a>
-<span class="sourceLineNo">025</span>     * &lt;/p&gt;<a name="line.25"></a>
-<span class="sourceLineNo">026</span>     */<a name="line.26"></a>
-<span class="sourceLineNo">027</span>    @SuppressWarnings("unchecked")<a name="line.27"></a>
-<span class="sourceLineNo">028</span>    protected final R executeQuery(Query query) {<a name="line.28"></a>
-<span class="sourceLineNo">029</span>        return this.executeQuery((TypedQuery&lt;T&gt;)query);<a name="line.29"></a>
-<span class="sourceLineNo">030</span>    }<a name="line.30"></a>
-<span class="sourceLineNo">031</span><a name="line.31"></a>
-<span class="sourceLineNo">032</span>    /**<a name="line.32"></a>
-<span class="sourceLineNo">033</span>     * Build the query as a {@link TypedQuery}.<a name="line.33"></a>
-<span class="sourceLineNo">034</span>     */<a name="line.34"></a>
-<span class="sourceLineNo">035</span>    @Override<a name="line.35"></a>
-<span class="sourceLineNo">036</span>    protected abstract TypedQuery&lt;T&gt; buildQuery(EntityManager entityManager);<a name="line.36"></a>
-<span class="sourceLineNo">037</span><a name="line.37"></a>
-<span class="sourceLineNo">038</span>    /**<a name="line.38"></a>
-<span class="sourceLineNo">039</span>     * Execute the query. Typically this is implemented in one of these two ways:<a name="line.39"></a>
-<span class="sourceLineNo">040</span>     * &lt;blockquote&gt;&lt;code&gt;<a name="line.40"></a>
-<span class="sourceLineNo">041</span>     *   return query.getSingleResult();&lt;br /&gt;<a name="line.41"></a>
-<span class="sourceLineNo">042</span>     *   return query.getResultList();<a name="line.42"></a>
-<span class="sourceLineNo">043</span>     * &lt;/code&gt;&lt;/blockquote&gt;<a name="line.43"></a>
-<span class="sourceLineNo">044</span>     */<a name="line.44"></a>
-<span class="sourceLineNo">045</span>    protected abstract R executeQuery(TypedQuery&lt;T&gt; query);<a name="line.45"></a>
-<span class="sourceLineNo">046</span>}<a name="line.46"></a>
-<span class="sourceLineNo">047</span><a name="line.47"></a>
+<span class="sourceLineNo">025</span>     */<a name="line.25"></a>
+<span class="sourceLineNo">026</span>    @SuppressWarnings("unchecked")<a name="line.26"></a>
+<span class="sourceLineNo">027</span>    protected final R executeQuery(Query query) {<a name="line.27"></a>
+<span class="sourceLineNo">028</span>        return this.executeQuery((TypedQuery&lt;T&gt;)query);<a name="line.28"></a>
+<span class="sourceLineNo">029</span>    }<a name="line.29"></a>
+<span class="sourceLineNo">030</span><a name="line.30"></a>
+<span class="sourceLineNo">031</span>    /**<a name="line.31"></a>
+<span class="sourceLineNo">032</span>     * Build the query as a {@link TypedQuery}.<a name="line.32"></a>
+<span class="sourceLineNo">033</span>     */<a name="line.33"></a>
+<span class="sourceLineNo">034</span>    @Override<a name="line.34"></a>
+<span class="sourceLineNo">035</span>    protected abstract TypedQuery&lt;T&gt; buildQuery(EntityManager entityManager);<a name="line.35"></a>
+<span class="sourceLineNo">036</span><a name="line.36"></a>
+<span class="sourceLineNo">037</span>    /**<a name="line.37"></a>
+<span class="sourceLineNo">038</span>     * Execute the query. Typically this is implemented in one of these two ways:<a name="line.38"></a>
+<span class="sourceLineNo">039</span>     * &lt;blockquote&gt;&lt;code&gt;<a name="line.39"></a>
+<span class="sourceLineNo">040</span>     *   return query.getSingleResult();<a name="line.40"></a>
+<span class="sourceLineNo">041</span>     *   return query.getResultList();<a name="line.41"></a>
+<span class="sourceLineNo">042</span>     * &lt;/code&gt;&lt;/blockquote&gt;<a name="line.42"></a>
+<span class="sourceLineNo">043</span>     *<a name="line.43"></a>
+<span class="sourceLineNo">044</span>     * @param query query to execute<a name="line.44"></a>
+<span class="sourceLineNo">045</span>     * @return result of query<a name="line.45"></a>
+<span class="sourceLineNo">046</span>     */<a name="line.46"></a>
+<span class="sourceLineNo">047</span>    protected abstract R executeQuery(TypedQuery&lt;T&gt; query);<a name="line.47"></a>
+<span class="sourceLineNo">048</span>}<a name="line.48"></a>
+<span class="sourceLineNo">049</span><a name="line.49"></a>
 
 
 

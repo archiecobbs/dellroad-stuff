@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.126">SpringVaadinSessionListener</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.118">SpringVaadinSessionListener</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionInitListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionInitListener</a>, <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a></pre>
 <div class="block">Manages an associated Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/WebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>WebApplicationContext</code></a> with each <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> (aka, "Vaadin application").
@@ -114,14 +114,12 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
  (i.e., the one created by Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ContextLoaderListener.html?is-external=true" title="class or interface in org.springframework.web.context"><code>ContextLoaderListener</code></a>).
  This setup is analogous to how Spring's <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html?is-external=true" title="class or interface in org.springframework.web.servlet"><code>DispatcherServlet</code></a>
  creates per-servlet application contexts that are children of the overall servlet web context.
- </p>
 
  <p>
  This class is implemented as a <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionInitListener.html?is-external=true" title="class or interface in com.vaadin.server"><code>SessionInitListener</code></a> and <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server"><code>SessionDestroyListener</code></a> on the servlet's
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinService</code></a> object. In turn, the Spring context is created when a new Vaadin application
  instance is initialized, and destroyed when it is closed. To use this class, use the <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a>
  in place of the usual <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinServlet</code></a> in <code>web.xml</code>.
- </p>
 
  <h3>Accessing the Spring Context</h3>
 
@@ -130,7 +128,6 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
  Alternately, use <a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin7"><code>@VaadinConfigurable</code></a> (see below) and implement
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ApplicationContextAware.html?is-external=true" title="class or interface in org.springframework.context"><code>ApplicationContextAware</code></a>, etc.
  Invoking <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#configureBean(java.lang.Object)"><code>configureBean()</code></a> at any time will configure a bean manually.
- </p>
 
  <h3>Exposing the Vaadin Session</h3>
 
@@ -153,7 +150,6 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
  will automagically cause the new <code>FooBar</code> object to be configured by the application context associated with
  the currently running Vaadin application. In effect, this does for Vaadin application beans what Spring's
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/annotation/Configurable.html?is-external=true" title="class or interface in org.springframework.beans.factory.annotation"><code>@Configurable</code></a> does for regular servlet context-wide beans.
- </p>
 
  <p>
  Note however that Spring <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/DisposableBean.html?is-external=true#destroy()" title="class or interface in org.springframework.beans.factory">destroy methods</a>
@@ -163,7 +159,6 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
  can themselves register as a <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server"><code>SessionDestroyListener</code></a> for shutdown notification; but see
  <a href="../../../../org/dellroad/stuff/vaadin7/VaadinUtil.html#addSessionDestroyListener(com.vaadin.server.VaadinSession, com.vaadin.server.SessionDestroyListener)"><code>VaadinUtil.addSessionDestroyListener()</code></a> for a memory-leak free
  method for doing this.
- </p>
 
  <h3>Serialization and Clustering</h3>
 
@@ -172,19 +167,16 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/context/ConfigurableApplicationContext.html?is-external=true#refresh()" title="class or interface in org.springframework.context">refreshed</a>; therefore, the
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context"><code>ConfigurableWebApplicationContext</code></a> is not itself stored in the HTTP session by this class. This is consistent
  with the way normal Spring application contexts ususally work across clustered servers.
- </p>
 
  <p>
  However, any session-scope beans should work as expected.
  So while this class associates an application context with each <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>, when sessions are shared across
  multiple servers in a clustered environment, there will actually be a separate application contexts per server.
  Beans that must truly be "session wide" should be declared <code>scope="session"</code> as you normally would.
- </p>
 
  <p>
  Note: using <code>scope="session"</code> requires adding a <code>&lt;listener&gt;</code> clause registering Spring's
- <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/request/RequestContextListener.html?is-external=true" title="class or interface in org.springframework.web.context.request"><code>RequestContextListener</code></a> in your <code>web.xml</code>.
- </p></div>
+ <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/request/RequestContextListener.html?is-external=true" title="class or interface in org.springframework.web.context.request"><code>RequestContextListener</code></a> in your <code>web.xml</code>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/VaadinConfigurable.html" title="annotation in org.dellroad.stuff.vaadin7"><code>VaadinConfigurable</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/SpringVaadinServlet.html" title="class in org.dellroad.stuff.vaadin7"><code>SpringVaadinServlet</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/VaadinApplication.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinApplication</code></a>, 
@@ -296,7 +288,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SpringVaadinSessionListener</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.146">SpringVaadinSessionListener</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;applicationName,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.138">SpringVaadinSessionListener</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;applicationName,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;configLocation)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>applicationName</code> - Vaadin application name</dd><dd><code>configLocation</code> - XML application context config file location(s), or null for the default
@@ -319,7 +311,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>getApplicationName</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.158">getApplicationName</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.150">getApplicationName</a>()</pre>
 <div class="block">Get the name of this Vaadin application.</div>
 </li>
 </ul>
@@ -329,7 +321,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>getApplicationContext</h4>
-<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.168">getApplicationContext</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
+<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.160">getApplicationContext</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session)</pre>
 <div class="block">Get the Spring application context associated with the given <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>Spring application context, or null if none is found</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -342,7 +334,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>getApplicationContext</h4>
-<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.181">getApplicationContext</a>()</pre>
+<pre>public static&nbsp;<a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/web/context/ConfigurableWebApplicationContext.html?is-external=true" title="class or interface in org.springframework.web.context">ConfigurableWebApplicationContext</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.173">getApplicationContext</a>()</pre>
 <div class="block">Get the Spring application context associated with the current thread's <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>Spring application context, never null</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -356,7 +348,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>configureBean</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.204">configureBean</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;bean)</pre>
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.196">configureBean</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;bean)</pre>
 <div class="block">Configure the given bean using the Spring application context associated with the current thread's <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>bean</code> - Java bean to configure</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -370,7 +362,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>sessionInit</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.215">sessionInit</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionInitEvent.html?is-external=true" title="class or interface in com.vaadin.server">SessionInitEvent</a>&nbsp;event)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.207">sessionInit</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionInitEvent.html?is-external=true" title="class or interface in com.vaadin.server">SessionInitEvent</a>&nbsp;event)
                  throws <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/ServiceException.html?is-external=true" title="class or interface in com.vaadin.server">ServiceException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -385,7 +377,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockList">
 <li class="blockList">
 <h4>loadContext</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.235">loadContext</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.227">loadContext</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a>&nbsp;session,
                <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinRequest.html?is-external=true" title="class or interface in com.vaadin.server">VaadinRequest</a>&nbsp;request)</pre>
 <div class="block">Load the Spring application context.
 
@@ -400,7 +392,7 @@ implements <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/va
 <ul class="blockListLast">
 <li class="blockList">
 <h4>sessionDestroy</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.295">sessionDestroy</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyEvent.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyEvent</a>&nbsp;event)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/SpringVaadinSessionListener.html#line.287">sessionDestroy</a>(<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyEvent.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyEvent</a>&nbsp;event)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true#sessionDestroy(com.vaadin.server.SessionDestroyEvent)" title="class or interface in com.vaadin.server">sessionDestroy</a></code>&nbsp;in interface&nbsp;<code><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/SessionDestroyListener.html?is-external=true" title="class or interface in com.vaadin.server">SessionDestroyListener</a></code></dd>

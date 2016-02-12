@@ -86,25 +86,22 @@
 <li class="blockList">
 <dl>
 <dt>All Known Implementing Classes:</dt>
-<dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dd>
+<dd><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a>, <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.27">Network</a></pre>
+<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.24">Network</a></pre>
 <div class="block">Abstraction layer representing "the network", over which we communicate with other nodes.
 
  <p>
  In general, messages may be delayed, dropped or delivered out of order. Specific implementations
  may provide more strict guarantees.
- </p>
 
  <p>
  Remote peers are identified by <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>s; the interpretation of these <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>s is up to the implementation.
- </p>
 
  <p>
- Notifications are delivered to the specified <a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net"><code>Network.Handler</code></a>.
- </p></div>
+ Notifications are delivered to the specified <a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net"><code>Network.Handler</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -184,7 +181,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.36">start</a>(<a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a>&nbsp;handler)
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.33">start</a>(<a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a>&nbsp;handler)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Start this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>handler</code> - handler for notifications</dd>
@@ -199,12 +196,11 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.45">stop</a>()</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.41">stop</a>()</pre>
 <div class="block">Stop this instance.
 
  <p>
- Does nothing if already stopped.
- </p></div>
+ Does nothing if already stopped.</div>
 </li>
 </ul>
 <a name="send(java.lang.String, java.nio.ByteBuffer)">
@@ -213,7 +209,7 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>send</h4>
-<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.61">send</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer,
+<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Network.html#line.57">send</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer,
            <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;msg)</pre>
 <div class="block">Send (or enqueue for sending) a message to a remote peer.
 

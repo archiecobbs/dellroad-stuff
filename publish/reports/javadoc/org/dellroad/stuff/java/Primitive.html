@@ -99,14 +99,13 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.24">Primitive</a>&lt;T&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.23">Primitive</a>&lt;T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;T&gt;</pre>
 <div class="block">Simple utility enumeration for working Java <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a> instances representing primitive types (including <code>void</code>).
 
  <p>
- Instances of this class represent the eight Java primitive types plus <code>void</code>.
- <p/></div>
+ Instances of this class represent the eight Java primitive types plus <code>void</code>.</div>
 </li>
 </ul>
 </div>
@@ -244,42 +243,50 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#getSize()">getSize</a></strong>()</code>
+<div class="block">Get the size of one value of this primitive type in bytes.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#getType()">getType</a></strong>()</code>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a> object representing this primitive type, e.g., <code>Integer.TYPE</code>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#getUnwrapMethod()">getUnwrapMethod</a></strong>()</code>
 <div class="block">Get the wrapper class' "unwrap" method for this primitive type, e.g., <code>Integer.intValue()</code>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#getWrapperType()">getWrapperType</a></strong>()</code>
 <div class="block">Get the wrapper <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a> object for this primitive type, e.g., <code>Integer.class</code>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#parseValue(java.lang.String)">parseValue</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</code>
 <div class="block">Parse a string-encoded value of this instance.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#toString()">toString</a></strong>()</code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&gt;</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#values()">values</a></strong>()</code>
 <div class="block">Get all instances of this class.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>abstract &lt;R&gt;&nbsp;R</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#visit(org.dellroad.stuff.java.PrimitiveSwitch)">visit</a></strong>(<a href="../../../../org/dellroad/stuff/java/PrimitiveSwitch.html" title="interface in org.dellroad.stuff.java">PrimitiveSwitch</a>&lt;R&gt;&nbsp;pswitch)</code>&nbsp;</td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/Primitive.html#visit(org.dellroad.stuff.java.PrimitiveSwitch)">visit</a></strong>(<a href="../../../../org/dellroad/stuff/java/PrimitiveSwitch.html" title="interface in org.dellroad.stuff.java">PrimitiveSwitch</a>&lt;R&gt;&nbsp;pswitch)</code>
+<div class="block">Apply visitor pattern.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -316,7 +323,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>VOID</h4>
-<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Void.html?is-external=true" title="class or interface in java.lang">Void</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.30">VOID</a></pre>
+<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Void.html?is-external=true" title="class or interface in java.lang">Void</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.29">VOID</a></pre>
 <div class="block">Void type. The <a href="../../../../org/dellroad/stuff/java/Primitive.html#getDefaultValue()"><code>getDefaultValue()</code></a>, <a href="../../../../org/dellroad/stuff/java/Primitive.html#compare(T, T)"><code>compare()</code></a>, and <a href="../../../../org/dellroad/stuff/java/Primitive.html#parseValue(java.lang.String)"><code>parseValue()</code></a>
  methods always throw exceptions.</div>
 </li>
@@ -327,7 +334,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>BOOLEAN</h4>
-<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.52">BOOLEAN</a></pre>
+<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.51">BOOLEAN</a></pre>
 <div class="block">Boolean type. String values must equal <code>"true"</code> or <code>"false"</code>.</div>
 </li>
 </ul>
@@ -337,7 +344,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>BYTE</h4>
-<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Byte.html?is-external=true" title="class or interface in java.lang">Byte</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.74">BYTE</a></pre>
+<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Byte.html?is-external=true" title="class or interface in java.lang">Byte</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.73">BYTE</a></pre>
 <div class="block">Byte type. String values are parsed using <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Byte.html?is-external=true#decode(java.lang.String)" title="class or interface in java.lang"><code>Byte.decode()</code></a>.</div>
 </li>
 </ul>
@@ -347,7 +354,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>CHARACTER</h4>
-<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.97">CHARACTER</a></pre>
+<pre>public static final&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Character.html?is-external=true" title="class or interface in java.lang">Character</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.96">CHARACTER</a></pre>
 <div class="block">Character type. String values must be exactly one character long.</div>
 </li>
 </ul>
@@ -415,7 +422,10 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>visit</h4>
-<pre>public abstract&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.249">visit</a>(<a href="../../../../org/dellroad/stuff/java/PrimitiveSwitch.html" title="interface in org.dellroad.stuff.java">PrimitiveSwitch</a>&lt;R&gt;&nbsp;pswitch)</pre>
+<pre>public abstract&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.258">visit</a>(<a href="../../../../org/dellroad/stuff/java/PrimitiveSwitch.html" title="interface in org.dellroad.stuff.java">PrimitiveSwitch</a>&lt;R&gt;&nbsp;pswitch)</pre>
+<div class="block">Apply visitor pattern.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>R</code> - return type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>pswitch</code> - visit target</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of visit</dd></dl>
 </li>
 </ul>
 <a name="getDefaultValue()">
@@ -424,8 +434,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getDefaultValue</h4>
-<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.254">getDefaultValue</a>()</pre>
+<pre>public abstract&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.265">getDefaultValue</a>()</pre>
 <div class="block">Get this primitive's default value.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>default value for this primitive type</dd></dl>
 </li>
 </ul>
 <a name="getName()">
@@ -434,8 +445,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getName</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.259">getName</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.272">getName</a>()</pre>
 <div class="block">Get the short name for this primitive type, e.g., "int".</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>short form name of this primitive type</dd></dl>
 </li>
 </ul>
 <a name="getLongName()">
@@ -444,9 +456,10 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getLongName</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.267">getLongName</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.282">getLongName</a>()</pre>
 <div class="block">Get the long name for this primitive type, e.g., "Integer".
  Also the simple name of the wrapper type.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>long form name of this primitive type</dd></dl>
 </li>
 </ul>
 <a name="getLetter()">
@@ -455,8 +468,20 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getLetter</h4>
-<pre>public&nbsp;char&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.274">getLetter</a>()</pre>
+<pre>public&nbsp;char&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.291">getLetter</a>()</pre>
 <div class="block">Get the single character descriptor for this primitive type, e.g., "I".</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>letter associated with this primitive type</dd></dl>
+</li>
+</ul>
+<a name="getSize()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getSize</h4>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.300">getSize</a>()</pre>
+<div class="block">Get the size of one value of this primitive type in bytes.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>primitive size in bytes</dd></dl>
 </li>
 </ul>
 <a name="getType()">
@@ -465,8 +490,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getType</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.281">getType</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.309">getType</a>()</pre>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a> object representing this primitive type, e.g., <code>Integer.TYPE</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>primitive type associated with this primitive type</dd></dl>
 </li>
 </ul>
 <a name="getWrapperType()">
@@ -475,8 +501,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getWrapperType</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.288">getWrapperType</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.318">getWrapperType</a>()</pre>
 <div class="block">Get the wrapper <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a> object for this primitive type, e.g., <code>Integer.class</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>wrapper type associated with this primitive type</dd></dl>
 </li>
 </ul>
 <a name="getParsePattern()">
@@ -485,10 +512,11 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getParsePattern</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.297">getParsePattern</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.329">getParsePattern</a>()</pre>
 <div class="block">Get a regular expression that matches all allowed inputs to <a href="../../../../org/dellroad/stuff/java/Primitive.html#parseValue(java.lang.String)"><code>parseValue()</code></a>.
  The returned pattern may also accept some values that <a href="../../../../org/dellroad/stuff/java/Primitive.html#parseValue(java.lang.String)"><code>parseValue()</code></a> rejects,
  such as <code>32768</code> for a <code>short</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>pattern matching valid string encodings</dd></dl>
 </li>
 </ul>
 <a name="getUnwrapMethod()">
@@ -497,8 +525,9 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>getUnwrapMethod</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.306">getUnwrapMethod</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.340">getUnwrapMethod</a>()</pre>
 <div class="block">Get the wrapper class' "unwrap" method for this primitive type, e.g., <code>Integer.intValue()</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the unwrap method associated with this primitive type</dd></dl>
 </li>
 </ul>
 <a name="compare(java.lang.Object,java.lang.Object)">
@@ -509,7 +538,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>compare</h4>
-<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.320">compare</a>(<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;value1,
+<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.354">compare</a>(<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;value1,
           <a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;value2)</pre>
 <div class="block">Compare two primitive values.</div>
 <dl>
@@ -525,11 +554,12 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>parseValue</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.331">parseValue</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.366">parseValue</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Parse a string-encoded value of this instance.
  This method is guaranteed to accept all possible return values from the primitive's <a href="../../../../org/dellroad/stuff/java/Primitive.html#toString()"><code>toString()</code></a>,
  and possibly other reasonable inputs (e.g., hex and octal values for integral types).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - string representation of a value</dd>
+<dt><span class="strong">Returns:</span></dt><dd>parsed value</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>string</code> is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>string</code> does not match the <a href="../../../../org/dellroad/stuff/java/Primitive.html#getParsePattern()">parse pattern</a></dd></dl>
@@ -541,7 +571,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>forName</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.346">forName</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.381">forName</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <div class="block">Get the instance with the given name (e.g., <code>"void"</code>, <code>"int"</code>, etc.).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>name</code> - instance short name</dd>
 <dt><span class="strong">Returns:</span></dt><dd>corresponding instance, or null if name does not correspond to any <a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java"><code>Primitive</code></a> instance</dd>
@@ -555,7 +585,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>values</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.361">values</a>()</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.396">values</a>()</pre>
 <div class="block">Get all instances of this class.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>a modifiable set containing all instances; modifications have no effect on this class</dd></dl>
 </li>
@@ -566,9 +596,10 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.371">get</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;c)</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a>&lt;?&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.407">get</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;c)</pre>
 <div class="block">Get the value corresponding to the given Java primitive or primitive wrapper type.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>the <a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java"><code>Primitive</code></a> corresponding to <code>c</code>, or <code>null</code>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>c</code> - Java type class object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the <a href="../../../../org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java"><code>Primitive</code></a> corresponding to <code>c</code>, or <code>null</code>
          if <code>c</code> is not a primitive or primitive wrapper type</dd></dl>
 </li>
 </ul>
@@ -578,7 +609,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.421">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/Primitive.html#line.457">toString</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>

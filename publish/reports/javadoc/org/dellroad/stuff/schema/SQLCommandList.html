@@ -314,7 +314,7 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>setSplitPattern</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.96">setSplitPattern</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;splitPattern)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.97">setSplitPattern</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;splitPattern)</pre>
 <div class="block">Set the <i>split pattern</i> used to split apart a script containing multiple SQL statements into individual statements.
 
  <p>
@@ -325,7 +325,8 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
  If this is set to <code>null</code>, or the script does not contain any instances of the regular expression,
  the script is assumed to contain a single SQL statement. SQL statements are whitespace-trimmed and any
  "statements" that consist entirely of whitespace are ignored.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>splitPattern</code> - regular expression pattern used to split multiple SQL statements</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/PatternSyntaxException.html?is-external=true" title="class or interface in java.util.regex">PatternSyntaxException</a></code> - if the pattern is not a valid Java regular expression</dd></dl>
 </li>
 </ul>
@@ -335,7 +336,7 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>apply</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.107">apply</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.108">apply</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&nbsp;c)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block">Applies each individual SQL command in the script. Commands are separated
  using the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html#setSplitPattern(java.lang.String)"><code>split pattern</code></a>.</div>
@@ -353,8 +354,9 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>split</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SQLCommand.html" title="class in org.dellroad.stuff.schema">SQLCommand</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.115">split</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SQLCommand.html" title="class in org.dellroad.stuff.schema">SQLCommand</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.118">split</a>()</pre>
 <div class="block">Split the SQL script into individual statements and return them as <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema"><code>DatabaseAction</code></a>s.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>list of individual SQL statements</dd></dl>
 </li>
 </ul>
 <a name="splitSQL()">
@@ -363,7 +365,7 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
 <ul class="blockListLast">
 <li class="blockList">
 <h4>splitSQL</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.129">splitSQL</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SQLCommandList.html#line.132">splitSQL</a>()</pre>
 <div class="block">Split the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html#setSQLScript(java.lang.String)">configured SQL script</a> into individual SQL statements
  using the configured <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html#setSplitPattern(java.lang.String)">split pattern</a>.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>an array of individual SQL statements</dd>

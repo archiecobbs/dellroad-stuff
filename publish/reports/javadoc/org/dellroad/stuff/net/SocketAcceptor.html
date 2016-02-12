@@ -367,8 +367,9 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>getBacklog</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.79">getBacklog</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.81">getBacklog</a>()</pre>
 <div class="block">Get maximum connect backlog.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>maximum backlogged connections</dd></dl>
 </li>
 </ul>
 <a name="setBacklog(int)">
@@ -377,7 +378,7 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>setBacklog</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.82">setBacklog</a>(int&nbsp;backlog)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.84">setBacklog</a>(int&nbsp;backlog)</pre>
 </li>
 </ul>
 <a name="getMaxConnections()">
@@ -386,7 +387,7 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>getMaxConnections</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.91">getMaxConnections</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.93">getMaxConnections</a>()</pre>
 <div class="block">Get maximum number of concurrent connections.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>max conncurrent connections, or zero for unlimited</dd></dl>
 </li>
@@ -397,7 +398,7 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>setMaxConnections</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.94">setMaxConnections</a>(int&nbsp;maxConnections)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.96">setMaxConnections</a>(int&nbsp;maxConnections)</pre>
 </li>
 </ul>
 <a name="getPort()">
@@ -406,8 +407,9 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>getPort</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.101">getPort</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.105">getPort</a>()</pre>
 <div class="block">Get TCP port to listen on.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>TCP listening port</dd></dl>
 </li>
 </ul>
 <a name="setPort(int)">
@@ -416,7 +418,7 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>setPort</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.104">setPort</a>(int&nbsp;port)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.108">setPort</a>(int&nbsp;port)</pre>
 </li>
 </ul>
 <a name="start()">
@@ -425,11 +427,11 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.111">start</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.117">start</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Start accepting incoming connections. Does nothing if already started.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs setting up the server socket</dd></dl>
 </li>
 </ul>
 <a name="stop()">
@@ -438,7 +440,7 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.257">stop</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.263">stop</a>()</pre>
 <div class="block">Stop accepting connections. Does nothing if already stopped.
 
  <p>
@@ -452,15 +454,16 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockList">
 <li class="blockList">
 <h4>createServerSocket</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html?is-external=true" title="class or interface in java.net">ServerSocket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.339">createServerSocket</a>()
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/ServerSocket.html?is-external=true" title="class or interface in java.net">ServerSocket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.348">createServerSocket</a>()
                                    throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Create the server's socket via which connections will be accepted.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/net/SocketAcceptor.html" title="class in org.dellroad.stuff.net"><code>SocketAcceptor</code></a> creates the socket and sets the "reuse address" flag.
  Subclasses may override.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>server socket</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="getSocketHandler(java.net.Socket)">
@@ -469,12 +472,13 @@ extends <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title=
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getSocketHandler</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net">SocketHandler</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.350">getSocketHandler</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;socket)
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net">SocketHandler</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/SocketAcceptor.html#line.361">getSocketHandler</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;socket)
                                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net"><code>SocketHandler</code></a> that will handle a new connection using the given socket.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>new handler, or <code>null</code> to disconnect the socket immediately</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>socket</code> - connection socket</dd>
+<dt><span class="strong">Returns:</span></dt><dd>new handler, or <code>null</code> to disconnect the socket immediately</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 </li>

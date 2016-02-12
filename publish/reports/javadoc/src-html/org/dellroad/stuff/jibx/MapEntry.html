@@ -120,96 +120,105 @@
 <span class="sourceLineNo">112</span><a name="line.112"></a>
 <span class="sourceLineNo">113</span>    /**<a name="line.113"></a>
 <span class="sourceLineNo">114</span>     * Get this map entry's key.<a name="line.114"></a>
-<span class="sourceLineNo">115</span>     */<a name="line.115"></a>
-<span class="sourceLineNo">116</span>    public K getKey() {<a name="line.116"></a>
-<span class="sourceLineNo">117</span>        return this.key;<a name="line.117"></a>
-<span class="sourceLineNo">118</span>    }<a name="line.118"></a>
-<span class="sourceLineNo">119</span>    public void setKey(K key) {<a name="line.119"></a>
-<span class="sourceLineNo">120</span>        this.key = key;<a name="line.120"></a>
-<span class="sourceLineNo">121</span>    }<a name="line.121"></a>
-<span class="sourceLineNo">122</span><a name="line.122"></a>
-<span class="sourceLineNo">123</span>    /**<a name="line.123"></a>
-<span class="sourceLineNo">124</span>     * Get this map entry's value.<a name="line.124"></a>
-<span class="sourceLineNo">125</span>     */<a name="line.125"></a>
-<span class="sourceLineNo">126</span>    public V getValue() {<a name="line.126"></a>
-<span class="sourceLineNo">127</span>        return this.value;<a name="line.127"></a>
-<span class="sourceLineNo">128</span>    }<a name="line.128"></a>
-<span class="sourceLineNo">129</span>    public void setValue(V value) {<a name="line.129"></a>
-<span class="sourceLineNo">130</span>        this.value = value;<a name="line.130"></a>
-<span class="sourceLineNo">131</span>    }<a name="line.131"></a>
-<span class="sourceLineNo">132</span><a name="line.132"></a>
-<span class="sourceLineNo">133</span>    /**<a name="line.133"></a>
-<span class="sourceLineNo">134</span>     * Helper method intended to be used by a custom JiBX "iter-method".<a name="line.134"></a>
-<span class="sourceLineNo">135</span>     * This method returns an iterator that iterates over all entries in the given map.<a name="line.135"></a>
-<span class="sourceLineNo">136</span>     *<a name="line.136"></a>
-<span class="sourceLineNo">137</span>     * @param &lt;K&gt; type of map keys<a name="line.137"></a>
-<span class="sourceLineNo">138</span>     * @param &lt;V&gt; type of map values<a name="line.138"></a>
-<span class="sourceLineNo">139</span>     * @param map map to iterate<a name="line.139"></a>
-<span class="sourceLineNo">140</span>     * @param entryClass the subclass of {@link MapEntry} used for iterated elements; must have a default constructor<a name="line.140"></a>
-<span class="sourceLineNo">141</span>     * @return map entry iterator<a name="line.141"></a>
-<span class="sourceLineNo">142</span>     */<a name="line.142"></a>
-<span class="sourceLineNo">143</span>    public static &lt;K, V, E extends MapEntry&lt;K, V&gt;&gt; Iterator&lt;E&gt; iterate(Map&lt;K, V&gt; map, final Class&lt;E&gt; entryClass) {<a name="line.143"></a>
-<span class="sourceLineNo">144</span>        final Iterator&lt;Map.Entry&lt;K, V&gt;&gt; entryIterator = map.entrySet().iterator();<a name="line.144"></a>
-<span class="sourceLineNo">145</span>        return new Iterator&lt;E&gt;() {<a name="line.145"></a>
-<span class="sourceLineNo">146</span><a name="line.146"></a>
-<span class="sourceLineNo">147</span>            @Override<a name="line.147"></a>
-<span class="sourceLineNo">148</span>            public boolean hasNext() {<a name="line.148"></a>
-<span class="sourceLineNo">149</span>                return entryIterator.hasNext();<a name="line.149"></a>
-<span class="sourceLineNo">150</span>            }<a name="line.150"></a>
+<span class="sourceLineNo">115</span>     *<a name="line.115"></a>
+<span class="sourceLineNo">116</span>     * @return map entry key<a name="line.116"></a>
+<span class="sourceLineNo">117</span>     */<a name="line.117"></a>
+<span class="sourceLineNo">118</span>    public K getKey() {<a name="line.118"></a>
+<span class="sourceLineNo">119</span>        return this.key;<a name="line.119"></a>
+<span class="sourceLineNo">120</span>    }<a name="line.120"></a>
+<span class="sourceLineNo">121</span>    public void setKey(K key) {<a name="line.121"></a>
+<span class="sourceLineNo">122</span>        this.key = key;<a name="line.122"></a>
+<span class="sourceLineNo">123</span>    }<a name="line.123"></a>
+<span class="sourceLineNo">124</span><a name="line.124"></a>
+<span class="sourceLineNo">125</span>    /**<a name="line.125"></a>
+<span class="sourceLineNo">126</span>     * Get this map entry's value.<a name="line.126"></a>
+<span class="sourceLineNo">127</span>     *<a name="line.127"></a>
+<span class="sourceLineNo">128</span>     * @return map entry value<a name="line.128"></a>
+<span class="sourceLineNo">129</span>     */<a name="line.129"></a>
+<span class="sourceLineNo">130</span>    public V getValue() {<a name="line.130"></a>
+<span class="sourceLineNo">131</span>        return this.value;<a name="line.131"></a>
+<span class="sourceLineNo">132</span>    }<a name="line.132"></a>
+<span class="sourceLineNo">133</span>    public void setValue(V value) {<a name="line.133"></a>
+<span class="sourceLineNo">134</span>        this.value = value;<a name="line.134"></a>
+<span class="sourceLineNo">135</span>    }<a name="line.135"></a>
+<span class="sourceLineNo">136</span><a name="line.136"></a>
+<span class="sourceLineNo">137</span>    /**<a name="line.137"></a>
+<span class="sourceLineNo">138</span>     * Helper method intended to be used by a custom JiBX "iter-method".<a name="line.138"></a>
+<span class="sourceLineNo">139</span>     * This method returns an iterator that iterates over all entries in the given map.<a name="line.139"></a>
+<span class="sourceLineNo">140</span>     *<a name="line.140"></a>
+<span class="sourceLineNo">141</span>     * @param &lt;K&gt; type of map keys<a name="line.141"></a>
+<span class="sourceLineNo">142</span>     * @param &lt;V&gt; type of map values<a name="line.142"></a>
+<span class="sourceLineNo">143</span>     * @param &lt;E&gt; map entry type<a name="line.143"></a>
+<span class="sourceLineNo">144</span>     * @param map map to iterate<a name="line.144"></a>
+<span class="sourceLineNo">145</span>     * @param entryClass the subclass of {@link MapEntry} used for iterated elements; must have a default constructor<a name="line.145"></a>
+<span class="sourceLineNo">146</span>     * @return map entry iterator<a name="line.146"></a>
+<span class="sourceLineNo">147</span>     */<a name="line.147"></a>
+<span class="sourceLineNo">148</span>    public static &lt;K, V, E extends MapEntry&lt;K, V&gt;&gt; Iterator&lt;E&gt; iterate(Map&lt;K, V&gt; map, final Class&lt;E&gt; entryClass) {<a name="line.148"></a>
+<span class="sourceLineNo">149</span>        final Iterator&lt;Map.Entry&lt;K, V&gt;&gt; entryIterator = map.entrySet().iterator();<a name="line.149"></a>
+<span class="sourceLineNo">150</span>        return new Iterator&lt;E&gt;() {<a name="line.150"></a>
 <span class="sourceLineNo">151</span><a name="line.151"></a>
 <span class="sourceLineNo">152</span>            @Override<a name="line.152"></a>
-<span class="sourceLineNo">153</span>            public E next() {<a name="line.153"></a>
-<span class="sourceLineNo">154</span>                Map.Entry&lt;K, V&gt; entry = entryIterator.next();<a name="line.154"></a>
-<span class="sourceLineNo">155</span>                E mapEntry;<a name="line.155"></a>
-<span class="sourceLineNo">156</span>                try {<a name="line.156"></a>
-<span class="sourceLineNo">157</span>                    mapEntry = entryClass.newInstance();<a name="line.157"></a>
-<span class="sourceLineNo">158</span>                } catch (Exception e) {<a name="line.158"></a>
-<span class="sourceLineNo">159</span>                    throw new RuntimeException("unexpected exception", e);<a name="line.159"></a>
-<span class="sourceLineNo">160</span>                }<a name="line.160"></a>
-<span class="sourceLineNo">161</span>                mapEntry.setKey(entry.getKey());<a name="line.161"></a>
-<span class="sourceLineNo">162</span>                mapEntry.setValue(entry.getValue());<a name="line.162"></a>
-<span class="sourceLineNo">163</span>                return mapEntry;<a name="line.163"></a>
-<span class="sourceLineNo">164</span>            }<a name="line.164"></a>
-<span class="sourceLineNo">165</span><a name="line.165"></a>
-<span class="sourceLineNo">166</span>            @Override<a name="line.166"></a>
-<span class="sourceLineNo">167</span>            public void remove() {<a name="line.167"></a>
-<span class="sourceLineNo">168</span>                entryIterator.remove();<a name="line.168"></a>
+<span class="sourceLineNo">153</span>            public boolean hasNext() {<a name="line.153"></a>
+<span class="sourceLineNo">154</span>                return entryIterator.hasNext();<a name="line.154"></a>
+<span class="sourceLineNo">155</span>            }<a name="line.155"></a>
+<span class="sourceLineNo">156</span><a name="line.156"></a>
+<span class="sourceLineNo">157</span>            @Override<a name="line.157"></a>
+<span class="sourceLineNo">158</span>            public E next() {<a name="line.158"></a>
+<span class="sourceLineNo">159</span>                Map.Entry&lt;K, V&gt; entry = entryIterator.next();<a name="line.159"></a>
+<span class="sourceLineNo">160</span>                E mapEntry;<a name="line.160"></a>
+<span class="sourceLineNo">161</span>                try {<a name="line.161"></a>
+<span class="sourceLineNo">162</span>                    mapEntry = entryClass.newInstance();<a name="line.162"></a>
+<span class="sourceLineNo">163</span>                } catch (Exception e) {<a name="line.163"></a>
+<span class="sourceLineNo">164</span>                    throw new RuntimeException("unexpected exception", e);<a name="line.164"></a>
+<span class="sourceLineNo">165</span>                }<a name="line.165"></a>
+<span class="sourceLineNo">166</span>                mapEntry.setKey(entry.getKey());<a name="line.166"></a>
+<span class="sourceLineNo">167</span>                mapEntry.setValue(entry.getValue());<a name="line.167"></a>
+<span class="sourceLineNo">168</span>                return mapEntry;<a name="line.168"></a>
 <span class="sourceLineNo">169</span>            }<a name="line.169"></a>
-<span class="sourceLineNo">170</span>        };<a name="line.170"></a>
-<span class="sourceLineNo">171</span>    }<a name="line.171"></a>
-<span class="sourceLineNo">172</span><a name="line.172"></a>
-<span class="sourceLineNo">173</span>    /**<a name="line.173"></a>
-<span class="sourceLineNo">174</span>     * Helper method intended to be used by a custom JiBX "add-method".<a name="line.174"></a>
-<span class="sourceLineNo">175</span>     * If there is an existing entry with the same key, a {@link JiBXParseException} is thrown.<a name="line.175"></a>
-<span class="sourceLineNo">176</span>     *<a name="line.176"></a>
-<span class="sourceLineNo">177</span>     * @param map map to which to add an new entry<a name="line.177"></a>
-<span class="sourceLineNo">178</span>     * @param entry new entry to add<a name="line.178"></a>
-<span class="sourceLineNo">179</span>     * @throws JiBXParseException if the map already contains an entry with the given key<a name="line.179"></a>
-<span class="sourceLineNo">180</span>     */<a name="line.180"></a>
-<span class="sourceLineNo">181</span>    public static &lt;K, V&gt; void add(Map&lt;K, V&gt; map, MapEntry&lt;? extends K, ? extends V&gt; entry) throws JiBXParseException {<a name="line.181"></a>
-<span class="sourceLineNo">182</span>        MapEntry.add(map, entry, false);<a name="line.182"></a>
-<span class="sourceLineNo">183</span>    }<a name="line.183"></a>
-<span class="sourceLineNo">184</span><a name="line.184"></a>
-<span class="sourceLineNo">185</span>    /**<a name="line.185"></a>
-<span class="sourceLineNo">186</span>     * Helper method intended to be used by a custom JiBX "add-method".<a name="line.186"></a>
-<span class="sourceLineNo">187</span>     *<a name="line.187"></a>
-<span class="sourceLineNo">188</span>     * @param map map to which to add an new entry<a name="line.188"></a>
-<span class="sourceLineNo">189</span>     * @param entry new entry to add<a name="line.189"></a>
-<span class="sourceLineNo">190</span>     * @param allowDuplicate {@code true} to replace any existing entry having the same key,<a name="line.190"></a>
-<span class="sourceLineNo">191</span>     *  or {@code false} to throw a {@link JiBXParseException} if there is an existing entry<a name="line.191"></a>
-<span class="sourceLineNo">192</span>     * @throws JiBXParseException if {@code allowDuplicate} is {@code false} and an entry<a name="line.192"></a>
-<span class="sourceLineNo">193</span>     *  with the same key already exists in {@code map}<a name="line.193"></a>
-<span class="sourceLineNo">194</span>     */<a name="line.194"></a>
-<span class="sourceLineNo">195</span>    public static &lt;K, V&gt; void add(Map&lt;K, V&gt; map, MapEntry&lt;? extends K, ? extends V&gt; entry, boolean allowDuplicate)<a name="line.195"></a>
-<span class="sourceLineNo">196</span>      throws JiBXParseException {<a name="line.196"></a>
-<span class="sourceLineNo">197</span>        K key = entry.getKey();<a name="line.197"></a>
-<span class="sourceLineNo">198</span>        V value = entry.getValue();<a name="line.198"></a>
-<span class="sourceLineNo">199</span>        if (!allowDuplicate &amp;&amp; map.containsKey(key))<a name="line.199"></a>
-<span class="sourceLineNo">200</span>            throw new JiBXParseException("duplicate key in map", "" + key);<a name="line.200"></a>
-<span class="sourceLineNo">201</span>        map.put(key, value);<a name="line.201"></a>
-<span class="sourceLineNo">202</span>    }<a name="line.202"></a>
-<span class="sourceLineNo">203</span>}<a name="line.203"></a>
-<span class="sourceLineNo">204</span><a name="line.204"></a>
+<span class="sourceLineNo">170</span><a name="line.170"></a>
+<span class="sourceLineNo">171</span>            @Override<a name="line.171"></a>
+<span class="sourceLineNo">172</span>            public void remove() {<a name="line.172"></a>
+<span class="sourceLineNo">173</span>                entryIterator.remove();<a name="line.173"></a>
+<span class="sourceLineNo">174</span>            }<a name="line.174"></a>
+<span class="sourceLineNo">175</span>        };<a name="line.175"></a>
+<span class="sourceLineNo">176</span>    }<a name="line.176"></a>
+<span class="sourceLineNo">177</span><a name="line.177"></a>
+<span class="sourceLineNo">178</span>    /**<a name="line.178"></a>
+<span class="sourceLineNo">179</span>     * Helper method intended to be used by a custom JiBX "add-method".<a name="line.179"></a>
+<span class="sourceLineNo">180</span>     * If there is an existing entry with the same key, a {@link JiBXParseException} is thrown.<a name="line.180"></a>
+<span class="sourceLineNo">181</span>     *<a name="line.181"></a>
+<span class="sourceLineNo">182</span>     * @param &lt;K&gt; type of map keys<a name="line.182"></a>
+<span class="sourceLineNo">183</span>     * @param &lt;V&gt; type of map values<a name="line.183"></a>
+<span class="sourceLineNo">184</span>     * @param map map to which to add an new entry<a name="line.184"></a>
+<span class="sourceLineNo">185</span>     * @param entry new entry to add<a name="line.185"></a>
+<span class="sourceLineNo">186</span>     * @throws JiBXParseException if the map already contains an entry with the given key<a name="line.186"></a>
+<span class="sourceLineNo">187</span>     */<a name="line.187"></a>
+<span class="sourceLineNo">188</span>    public static &lt;K, V&gt; void add(Map&lt;K, V&gt; map, MapEntry&lt;? extends K, ? extends V&gt; entry) throws JiBXParseException {<a name="line.188"></a>
+<span class="sourceLineNo">189</span>        MapEntry.add(map, entry, false);<a name="line.189"></a>
+<span class="sourceLineNo">190</span>    }<a name="line.190"></a>
+<span class="sourceLineNo">191</span><a name="line.191"></a>
+<span class="sourceLineNo">192</span>    /**<a name="line.192"></a>
+<span class="sourceLineNo">193</span>     * Helper method intended to be used by a custom JiBX "add-method".<a name="line.193"></a>
+<span class="sourceLineNo">194</span>     *<a name="line.194"></a>
+<span class="sourceLineNo">195</span>     * @param &lt;K&gt; type of map keys<a name="line.195"></a>
+<span class="sourceLineNo">196</span>     * @param &lt;V&gt; type of map values<a name="line.196"></a>
+<span class="sourceLineNo">197</span>     * @param map map to which to add an new entry<a name="line.197"></a>
+<span class="sourceLineNo">198</span>     * @param entry new entry to add<a name="line.198"></a>
+<span class="sourceLineNo">199</span>     * @param allowDuplicate {@code true} to replace any existing entry having the same key,<a name="line.199"></a>
+<span class="sourceLineNo">200</span>     *  or {@code false} to throw a {@link JiBXParseException} if there is an existing entry<a name="line.200"></a>
+<span class="sourceLineNo">201</span>     * @throws JiBXParseException if {@code allowDuplicate} is {@code false} and an entry<a name="line.201"></a>
+<span class="sourceLineNo">202</span>     *  with the same key already exists in {@code map}<a name="line.202"></a>
+<span class="sourceLineNo">203</span>     */<a name="line.203"></a>
+<span class="sourceLineNo">204</span>    public static &lt;K, V&gt; void add(Map&lt;K, V&gt; map, MapEntry&lt;? extends K, ? extends V&gt; entry, boolean allowDuplicate)<a name="line.204"></a>
+<span class="sourceLineNo">205</span>      throws JiBXParseException {<a name="line.205"></a>
+<span class="sourceLineNo">206</span>        K key = entry.getKey();<a name="line.206"></a>
+<span class="sourceLineNo">207</span>        V value = entry.getValue();<a name="line.207"></a>
+<span class="sourceLineNo">208</span>        if (!allowDuplicate &amp;&amp; map.containsKey(key))<a name="line.208"></a>
+<span class="sourceLineNo">209</span>            throw new JiBXParseException("duplicate key in map", "" + key);<a name="line.209"></a>
+<span class="sourceLineNo">210</span>        map.put(key, value);<a name="line.210"></a>
+<span class="sourceLineNo">211</span>    }<a name="line.211"></a>
+<span class="sourceLineNo">212</span>}<a name="line.212"></a>
+<span class="sourceLineNo">213</span><a name="line.213"></a>
 
 
 

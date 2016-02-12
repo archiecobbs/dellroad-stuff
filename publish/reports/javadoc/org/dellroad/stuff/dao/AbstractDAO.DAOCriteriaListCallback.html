@@ -113,7 +113,7 @@
 </dl>
 <hr>
 <br>
-<pre>protected abstract class <a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.267">AbstractDAO.DAOCriteriaListCallback</a>
+<pre>protected abstract class <a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.290">AbstractDAO.DAOCriteriaListCallback</a>
 extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao">CriteriaCallback</a>&lt;T,<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;T&gt;&gt;</pre>
 <div class="block">Convenience subclass of <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao"><code>CriteriaCallback</code></a> for use by DAO subclasses when returning lists of persistent instances.</div>
 </li>
@@ -223,7 +223,7 @@ extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractDAO.DAOCriteriaListCallback</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaListCallback.html#line.269">AbstractDAO.DAOCriteriaListCallback</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaListCallback.html#line.292">AbstractDAO.DAOCriteriaListCallback</a>()</pre>
 </li>
 </ul>
 </li>
@@ -240,17 +240,18 @@ extends <a href="../../../../org/dellroad/stuff/dao/CriteriaCallback.html" title
 <ul class="blockListLast">
 <li class="blockList">
 <h4>executeQuery</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaListCallback.html#line.274">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;query)</pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.DAOCriteriaListCallback.html#line.297">executeQuery</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/TypedQuery.html?is-external=true" title="class or interface in javax.persistence">TypedQuery</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;query)</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)">TypedQueryCallback</a></code></strong></div>
 <div class="block">Execute the query. Typically this is implemented in one of these two ways:
  <blockquote><code>
-   return query.getSingleResult();<br />
+   return query.getSingleResult();
    return query.getResultList();
  </code></blockquote></div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html#executeQuery(javax.persistence.TypedQuery)">executeQuery</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao">TypedQueryCallback</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>query</code> - query to execute</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of query</dd></dl>
 </li>
 </ul>
 </li>

@@ -103,7 +103,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.43">GitRepository</a>
+<pre>public class <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.40">GitRepository</a>
 extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" title="class in org.dellroad.stuff.spring">AbstractBean</a></pre>
 <div class="block">Represents a <code>git(1)</code> repository and provides a few simple methods that wrap the command-line client
  and provide the functionality needed by <a href="../../../../../org/dellroad/stuff/pobj/distrib/Synchronizer.html" title="class in org.dellroad.stuff.pobj.distrib"><code>Synchronizer</code></a>.
@@ -112,16 +112,13 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
  <p>
  This class assumes the repository already has all branches and remotes already configured, and that no
  other external process is accessing the <code>git(1)</code> repository without our knowledge.
- </p>
 
  <p>
  Instances are thread safe and guarantees exclusive access to the working directory
  to each <a href="../../../../../org/dellroad/stuff/pobj/distrib/GitRepository.Accessor.html" title="interface in org.dellroad.stuff.pobj.distrib"><code>GitRepository.Accessor</code></a> while it is in use.
- </p>
 
  <p>
- Requires git version at least 1.7.4.
- </p></div>
+ Requires git version at least 1.7.4.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://git-scm.com/">Git web site</a></dd></dl>
 </li>
 </ul>
@@ -355,7 +352,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>BRANCH_NAME_PATTERN</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.48">BRANCH_NAME_PATTERN</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.45">BRANCH_NAME_PATTERN</a></pre>
 <div class="block">Accepted git branch name pattern.</div>
 </li>
 </ul>
@@ -365,7 +362,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>REMOTE_NAME_PATTERN</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.53">REMOTE_NAME_PATTERN</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.50">REMOTE_NAME_PATTERN</a></pre>
 <div class="block">Accepted git remote name pattern.</div>
 </li>
 </ul>
@@ -375,7 +372,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SHA1_PATTERN</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.58">SHA1_PATTERN</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> <a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.55">SHA1_PATTERN</a></pre>
 <div class="block">SHA1 pattern.</div>
 </li>
 </ul>
@@ -393,7 +390,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GitRepository</h4>
-<pre>public&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.70">GitRepository</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;dir)</pre>
+<pre>public&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.67">GitRepository</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;dir)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>dir</code> - repository filesystem location (i.e., the directory containing <code>.git</code> as a subdirectory)</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -414,14 +411,13 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>afterPropertiesSet</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.79">afterPropertiesSet</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.76">afterPropertiesSet</a>()
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html#afterPropertiesSet()">AbstractBean</a></code></strong></div>
 <div class="block">Initialize bean.
 
  <p>
- The implementation in <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" title="class in org.dellroad.stuff.spring"><code>AbstractBean</code></a> does nothing.
- </p></div>
+ The implementation in <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" title="class in org.dellroad.stuff.spring"><code>AbstractBean</code></a> does nothing.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true#afterPropertiesSet()" title="class or interface in org.springframework.beans.factory">afterPropertiesSet</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true" title="class or interface in org.springframework.beans.factory">InitializingBean</a></code></dd>
@@ -437,8 +433,9 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>getDirectory</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.91">getDirectory</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.90">getDirectory</a>()</pre>
 <div class="block">Get the git working directory associated with this instance.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>repository working directory location</dd></dl>
 </li>
 </ul>
 <a name="fetch()">
@@ -447,7 +444,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>fetch</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.100">fetch</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.99">fetch</a>()</pre>
 <div class="block">Fetch data from all configured remotes to update our local copy of their information.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../../org/dellroad/stuff/pobj/distrib/GitException.html" title="class in org.dellroad.stuff.pobj.distrib">GitException</a></code> - if an error occurs</dd></dl>
@@ -459,7 +456,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>fetch</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.112">fetch</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;remotes)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.111">fetch</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;remotes)</pre>
 <div class="block">Fetch data from the named remotes to update our local copy of their information.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>remotes</code> - list of remotes</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -474,7 +471,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>getAuthorDate</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.140">getAuthorDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tree)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Date.html?is-external=true" title="class or interface in java.util">Date</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.139">getAuthorDate</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tree)</pre>
 <div class="block">Get the author date associated with the given commit.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>tree</code> - commit reference</dd>
 <dt><span class="strong">Returns:</span></dt><dd>author date</dd>
@@ -489,7 +486,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>access</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.162">access</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.161">access</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
             <a href="../../../../../org/dellroad/stuff/pobj/distrib/GitRepository.Accessor.html" title="interface in org.dellroad.stuff.pobj.distrib">GitRepository.Accessor</a>&nbsp;accessor)</pre>
 <div class="block">Access the head of the specified branch or the named commit.
  Any changes made by the <a href="../../../../../org/dellroad/stuff/pobj/distrib/GitRepository.Accessor.html" title="interface in org.dellroad.stuff.pobj.distrib"><code>GitRepository.Accessor</code></a> are discarded when this method completes.</div>
@@ -509,15 +506,14 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>commit</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.210">commit</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.208">commit</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
             <a href="../../../../../org/dellroad/stuff/pobj/distrib/GitRepository.Accessor.html" title="interface in org.dellroad.stuff.pobj.distrib">GitRepository.Accessor</a>&nbsp;accessor,
             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</pre>
 <div class="block">Commit changes onto the specified branch. The branch must already exist.
 
  <p>
  If after the <code>accessor</code> runs nothing has changed, then no commit is performed
- and the previous commit ID is returned.
- </p></div>
+ and the previous commit ID is returned.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>branch</code> - name of the branch we want to commit onto</dd><dd><code>accessor</code> - callback interface to update the working directory contents</dd><dd><code>message</code> - commit message</dd>
 <dt><span class="strong">Returns:</span></dt><dd>commit name (SHA-1 hash), or previous existing commit if no changes were made</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -534,7 +530,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>ensureBranch</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.265">ensureBranch</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
+<pre>public&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.263">ensureBranch</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</pre>
 <div class="block">Ensure the specified local branch exists. If it does not, it will be created with an initial empty commit.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>branch</code> - name of the branch we want to ensure exists</dd><dd><code>message</code> - commit message (only used if branch does not yet exist)</dd>
@@ -550,7 +546,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>equalTrees</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.301">equalTrees</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tree1,
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.299">equalTrees</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tree1,
                  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;tree2)</pre>
 <div class="block">Compare two committed trees for equality.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>tree1</code> - name of the first tree (branch name, commit, etc.)</dd><dd><code>tree2</code> - name of the second tree (branch name, commit, etc.)</dd>
@@ -566,7 +562,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>merge</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.335">merge</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.332">merge</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;branch,
            <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;other,
            <a href="../../../../../org/dellroad/stuff/pobj/distrib/MergeStrategy.html" title="enum in org.dellroad.stuff.pobj.distrib">MergeStrategy</a>&nbsp;strategy,
            <a href="../../../../../org/dellroad/stuff/pobj/distrib/GitRepository.Accessor.html" title="interface in org.dellroad.stuff.pobj.distrib">GitRepository.Accessor</a>&nbsp;accessor,
@@ -575,8 +571,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 
  <p>
  Trivial merges, i.e., when <code>other</code> is already an ancestor of <code>branch</code>, do not result in a new commit
- and the <code>accessor</code> is not run.
- </p></div>
+ and the <code>accessor</code> is not run.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>branch</code> - name of the branch we want to commit onto</dd><dd><code>other</code> - name of the other commit or branch we want to merge into <code>branch</code></dd><dd><code>strategy</code> - merge strategy</dd><dd><code>accessor</code> - callback interface to access the working directory contents after the merge; may be null</dd><dd><code>message</code> - commit message</dd>
 <dt><span class="strong">Returns:</span></dt><dd>commit name (SHA-1 hash)</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -594,7 +589,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>followReference</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.393">followReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.390">followReference</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;filename)</pre>
 <div class="block">Read file possibly containing a reference and follow it until we get a commit ID.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>filename</code> - filename relative to <code>.git</code>, e.g., <code>"HEAD"</code> or <code>"refs/heads/foobar"</code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>SHA-1 commit ID</dd>
@@ -608,7 +603,7 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>reset</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.425">reset</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.422">reset</a>()</pre>
 <div class="block">Clean out and reset working directory.</div>
 </li>
 </ul>
@@ -618,9 +613,10 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>getCurrentCommit</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.435">getCurrentCommit</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.433">getCurrentCommit</a>()</pre>
 <div class="block">Get the commit ID of what we have currently checked out (i.e., our HEAD).</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>HEAD commit ID</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../../org/dellroad/stuff/pobj/distrib/GitException.html" title="class in org.dellroad.stuff.pobj.distrib">GitException</a></code> - if we can't figure it out</dd></dl>
 </li>
 </ul>
@@ -630,11 +626,13 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>readFirstLine</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.442">readFirstLine</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.444">readFirstLine</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file)
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Read the first line of a file (trimmed) as a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - file to read</dd>
+<dt><span class="strong">Returns:</span></dt><dd>first line of <code>file</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="getRepoFile(java.lang.String)">
@@ -643,9 +641,10 @@ extends <a href="../../../../../org/dellroad/stuff/spring/AbstractBean.html" tit
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getRepoFile</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.464">getRepoFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;path)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../../src-html/org/dellroad/stuff/pobj/distrib/GitRepository.html#line.467">getRepoFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;path)</pre>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io"><code>File</code></a> corresponding to the given relative path under the <code>.git</code> directory.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>path</code> - relative path, e.g., <code>HEAD</code> or <code>refs/heads/foo</code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>path</code> - relative path, e.g., <code>HEAD</code> or <code>refs/heads/foo</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>corresponding file</dd></dl>
 </li>
 </ul>
 </li>

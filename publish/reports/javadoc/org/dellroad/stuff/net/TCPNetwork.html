@@ -34,7 +34,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../org/dellroad/stuff/net/TCPConnection.html" title="class in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
 <li>Next Class</li>
 </ul>
 <ul class="navList">
@@ -88,7 +88,12 @@
 <li><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">org.dellroad.stuff.net.SelectorSupport</a></li>
 <li>
 <ul class="inheritance">
+<li><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">org.dellroad.stuff.net.ChannelNetwork</a></li>
+<li>
+<ul class="inheritance">
 <li>org.dellroad.stuff.net.TCPNetwork</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -103,15 +108,14 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.33">TCPNetwork</a>
-extends <a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.23">TCPNetwork</a>
+extends <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a>
 implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></pre>
-<div class="block"><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementation based on TCP sockets.
+<div class="block"><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net"><code>Network</code></a> implementation based on TCP connections.
 
  <p>
  Remote peers have the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a> form <code>IP-Address[:port]</code>. If the port is omitted,
- the default port provided to the constructor is assumed.
- </p></div>
+ the default port provided to the constructor is assumed.</div>
 </li>
 </ul>
 </div>
@@ -158,32 +162,14 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <div class="block">Default connect timeout for outgoing connections (20000L milliseconds).</div>
 </td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static int</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_CONNECTIONS">DEFAULT_MAX_CONNECTIONS</a></strong></code>
-<div class="block">Default maximum number of simultaneous connections (1000).</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static long</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_IDLE_TIME">DEFAULT_MAX_IDLE_TIME</a></strong></code>
-<div class="block">Default idle connection timeout (30000L milliseconds).</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>static int</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_MESSAGE_SIZE">DEFAULT_MAX_MESSAGE_SIZE</a></strong></code>
-<div class="block">Default maximum allowed size of an incoming message (33554432 bytes).</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static long</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_OUTPUT_QUEUE_SIZE">DEFAULT_MAX_OUTPUT_QUEUE_SIZE</a></strong></code>
-<div class="block">Default maximum allowed size of a connection's outgoing queue before we start dropping messages
- (67108864L bytes).</div>
-</td>
-</tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a name="fields_inherited_from_class_org.dellroad.stuff.net.ChannelNetwork">
+<!--   -->
+</a>
+<h3>Fields inherited from class&nbsp;org.dellroad.stuff.net.<a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></h3>
+<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#connectionMap">connectionMap</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#DEFAULT_MAX_CONNECTIONS">DEFAULT_MAX_CONNECTIONS</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#DEFAULT_MAX_IDLE_TIME">DEFAULT_MAX_IDLE_TIME</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#DEFAULT_MAX_MESSAGE_SIZE">DEFAULT_MAX_MESSAGE_SIZE</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#DEFAULT_MAX_OUTPUT_QUEUE_SIZE">DEFAULT_MAX_OUTPUT_QUEUE_SIZE</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#executor">executor</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#handler">handler</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#log">log</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a name="fields_inherited_from_class_org.dellroad.stuff.net.SelectorSupport">
 <!--   -->
@@ -237,39 +223,27 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 </td>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>protected <a href="../../../../org/dellroad/stuff/net/TCPConnection.html" title="class in org.dellroad.stuff.net">TCPConnection</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#createConnection(java.lang.String)">createConnection</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer)</code>
+<div class="block">Create a new connection to the specified peer.</div>
+</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>long</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getConnectTimeout()">getConnectTimeout</a></strong>()</code>
 <div class="block">Get the outgoing connection timeout.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getListenAddress()">getListenAddress</a></strong>()</code>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net"><code>InetSocketAddress</code></a> to which this instance is bound or will bind.</div>
 </td>
 </tr>
-<tr class="altColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxConnections()">getMaxConnections</a></strong>()</code>
-<div class="block">Get the maximum number of allowed connections.</div>
-</td>
-</tr>
 <tr class="rowColor">
-<td class="colFirst"><code>long</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxIdleTime()">getMaxIdleTime</a></strong>()</code>
-<div class="block">Get the maximum idle time for connections before automatically closing them down.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxMessageSize()">getMaxMessageSize</a></strong>()</code>
-<div class="block">Get the maximum allowed length for incoming messages.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>long</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxOutputQueueSize()">getMaxOutputQueueSize</a></strong>()</code>
-<div class="block">Get the maximum allowed size of the queue for outgoing messages.</div>
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#normalizePeerName(java.lang.String)">normalizePeerName</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer)</code>
+<div class="block">Normalize the given peer.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -283,19 +257,6 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#parsePortPart(java.lang.String, int)">parsePortPart</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;address,
                           int&nbsp;defaultPort)</code>
 <div class="block">Parse out the port part of an address that has an optional colon plus TCP port number suffix.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#send(java.lang.String, java.nio.ByteBuffer)">send</a></strong>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer,
-        <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;msg)</code>
-<div class="block">Send (or enqueue for sending) a message to a remote peer.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#serviceCleanup()">serviceCleanup</a></strong>()</code>
-<div class="block">Perform shutdown cleanups.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -316,22 +277,6 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#setMaxConnections(int)">setMaxConnections</a></strong>(int&nbsp;maxConnections)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#setMaxIdleTime(long)">setMaxIdleTime</a></strong>(long&nbsp;maxIdleTime)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#setMaxMessageSize(int)">setMaxMessageSize</a></strong>(int&nbsp;maxMessageSize)</code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#setMaxOutputQueueSize(long)">setMaxOutputQueueSize</a></strong>(long&nbsp;maxOutputQueueSize)</code>&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#start(org.dellroad.stuff.net.Network.Handler)">start</a></strong>(<a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a>&nbsp;handler)</code>
 <div class="block">Start this instance.</div>
 </td>
@@ -348,6 +293,13 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 </tr>
 </table>
 <ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.dellroad.stuff.net.ChannelNetwork">
+<!--   -->
+</a>
+<h3>Methods inherited from class&nbsp;org.dellroad.stuff.net.<a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></h3>
+<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#getMaxConnections()">getMaxConnections</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#getMaxIdleTime()">getMaxIdleTime</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#getMaxMessageSize()">getMaxMessageSize</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#getMaxOutputQueueSize()">getMaxOutputQueueSize</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#send(java.lang.String, java.nio.ByteBuffer)">send</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#serviceCleanup()">serviceCleanup</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#setMaxConnections(int)">setMaxConnections</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#setMaxIdleTime(long)">setMaxIdleTime</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#setMaxMessageSize(int)">setMaxMessageSize</a>, <a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#setMaxOutputQueueSize(long)">setMaxOutputQueueSize</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_org.dellroad.stuff.net.SelectorSupport">
 <!--   -->
 </a>
@@ -360,6 +312,13 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
 <code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#finalize()" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#getClass()" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notify()" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#notifyAll()" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait()" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long)" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#wait(long, int)" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods_inherited_from_class_org.dellroad.stuff.net.Network">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.dellroad.stuff.net.<a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></h3>
+<code><a href="../../../../org/dellroad/stuff/net/Network.html#send(java.lang.String, java.nio.ByteBuffer)">send</a></code></li>
 </ul>
 </li>
 </ul>
@@ -375,65 +334,16 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a name="DEFAULT_MAX_CONNECTIONS">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DEFAULT_MAX_CONNECTIONS</h4>
-<pre>public static final&nbsp;int <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.40">DEFAULT_MAX_CONNECTIONS</a></pre>
-<div class="block">Default maximum number of simultaneous connections (1000).</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxConnections()"><code>getMaxConnections()</code></a>, 
-<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_MAX_CONNECTIONS">Constant Field Values</a></dd></dl>
-</li>
-</ul>
-<a name="DEFAULT_MAX_IDLE_TIME">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DEFAULT_MAX_IDLE_TIME</h4>
-<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.47">DEFAULT_MAX_IDLE_TIME</a></pre>
-<div class="block">Default idle connection timeout (30000L milliseconds).</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxIdleTime()"><code>getMaxIdleTime()</code></a>, 
-<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_MAX_IDLE_TIME">Constant Field Values</a></dd></dl>
-</li>
-</ul>
 <a name="DEFAULT_CONNECT_TIMEOUT">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DEFAULT_CONNECT_TIMEOUT</h4>
-<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.54">DEFAULT_CONNECT_TIMEOUT</a></pre>
-<div class="block">Default connect timeout for outgoing connections (20000L milliseconds).</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getConnectTimeout()"><code>getConnectTimeout()</code></a>, 
-<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_CONNECT_TIMEOUT">Constant Field Values</a></dd></dl>
-</li>
-</ul>
-<a name="DEFAULT_MAX_MESSAGE_SIZE">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>DEFAULT_MAX_MESSAGE_SIZE</h4>
-<pre>public static final&nbsp;int <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.61">DEFAULT_MAX_MESSAGE_SIZE</a></pre>
-<div class="block">Default maximum allowed size of an incoming message (33554432 bytes).</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxMessageSize()"><code>getMaxMessageSize()</code></a>, 
-<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_MAX_MESSAGE_SIZE">Constant Field Values</a></dd></dl>
-</li>
-</ul>
-<a name="DEFAULT_MAX_OUTPUT_QUEUE_SIZE">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>DEFAULT_MAX_OUTPUT_QUEUE_SIZE</h4>
-<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.69">DEFAULT_MAX_OUTPUT_QUEUE_SIZE</a></pre>
-<div class="block">Default maximum allowed size of a connection's outgoing queue before we start dropping messages
- (67108864L bytes).</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getMaxOutputQueueSize()"><code>getMaxOutputQueueSize()</code></a>, 
-<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_MAX_OUTPUT_QUEUE_SIZE">Constant Field Values</a></dd></dl>
+<h4>DEFAULT_CONNECT_TIMEOUT</h4>
+<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.30">DEFAULT_CONNECT_TIMEOUT</a></pre>
+<div class="block">Default connect timeout for outgoing connections (20000L milliseconds).</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#getConnectTimeout()"><code>getConnectTimeout()</code></a>, 
+<a href="../../../../constant-values.html#org.dellroad.stuff.net.TCPNetwork.DEFAULT_CONNECT_TIMEOUT">Constant Field Values</a></dd></dl>
 </li>
 </ul>
 </li>
@@ -450,7 +360,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockListLast">
 <li class="blockList">
 <h4>TCPNetwork</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.95">TCPNetwork</a>(int&nbsp;defaultPort)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.48">TCPNetwork</a>(int&nbsp;defaultPort)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>defaultPort</code> - default TCP port when no port is explicitly proviced</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -471,7 +381,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>getListenAddress</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.109">getListenAddress</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.62">getListenAddress</a>()</pre>
 <div class="block">Get the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net"><code>InetSocketAddress</code></a> to which this instance is bound or will bind.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>listen address, possibly null for default behavior</dd></dl>
 </li>
@@ -482,61 +392,18 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>setListenAddress</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.128">setListenAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;address)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.79">setListenAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net">InetSocketAddress</a>&nbsp;address)</pre>
 <div class="block">Configure the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/InetSocketAddress.html?is-external=true" title="class or interface in java.net"><code>InetSocketAddress</code></a> to which this instance should bind.
 
  <p>
  If this instance is already started, invoking this method will have no effect until it is
  <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#stop()">stopped</a> and restarted.
- </p>
 
  <p>
- By default, instances listen on all interfaces on the defaul port configured in the constructor.
- </p></div>
+ By default, instances listen on all interfaces on the defaul port configured in the constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - listen address, or null to listen on all interfaces on the default port provided to the constructor</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>address</code> is null</dd></dl>
-</li>
-</ul>
-<a name="getMaxConnections()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMaxConnections</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.139">getMaxConnections</a>()</pre>
-<div class="block">Get the maximum number of allowed connections. Default is <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_CONNECTIONS">1000</a>.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>max allowed connections</dd></dl>
-</li>
-</ul>
-<a name="setMaxConnections(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMaxConnections</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.142">setMaxConnections</a>(int&nbsp;maxConnections)</pre>
-</li>
-</ul>
-<a name="getMaxIdleTime()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMaxIdleTime</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.152">getMaxIdleTime</a>()</pre>
-<div class="block">Get the maximum idle time for connections before automatically closing them down.
- Default is <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_IDLE_TIME">30000L</a>ms.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>max connection idle time in milliseconds</dd></dl>
-</li>
-</ul>
-<a name="setMaxIdleTime(long)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMaxIdleTime</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.155">setMaxIdleTime</a>(long&nbsp;maxIdleTime)</pre>
 </li>
 </ul>
 <a name="getConnectTimeout()">
@@ -545,7 +412,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>getConnectTimeout</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.164">getConnectTimeout</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.90">getConnectTimeout</a>()</pre>
 <div class="block">Get the outgoing connection timeout. Default is <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_CONNECT_TIMEOUT">20000L</a>ms.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>outgoing connection timeout in milliseconds</dd></dl>
 </li>
@@ -556,48 +423,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>setConnectTimeout</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.167">setConnectTimeout</a>(long&nbsp;connectTimeout)</pre>
-</li>
-</ul>
-<a name="getMaxMessageSize()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMaxMessageSize</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.176">getMaxMessageSize</a>()</pre>
-<div class="block">Get the maximum allowed length for incoming messages. Default is <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_MESSAGE_SIZE">33554432</a> bytes.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>max allowed incoming message length in bytes</dd></dl>
-</li>
-</ul>
-<a name="setMaxMessageSize(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMaxMessageSize</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.179">setMaxMessageSize</a>(int&nbsp;maxMessageSize)</pre>
-</li>
-</ul>
-<a name="getMaxOutputQueueSize()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMaxOutputQueueSize</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.189">getMaxOutputQueueSize</a>()</pre>
-<div class="block">Get the maximum allowed size of the queue for outgoing messages.
- Default is <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#DEFAULT_MAX_OUTPUT_QUEUE_SIZE">67108864L</a> bytes.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>max allowed outgoing message queue length in bytes</dd></dl>
-</li>
-</ul>
-<a name="setMaxOutputQueueSize(long)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMaxOutputQueueSize</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.192">setMaxOutputQueueSize</a>(long&nbsp;maxOutputQueueSize)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.93">setConnectTimeout</a>(long&nbsp;connectTimeout)</pre>
 </li>
 </ul>
 <a name="start(org.dellroad.stuff.net.Network.Handler)">
@@ -606,13 +432,15 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.199">start</a>(<a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a>&nbsp;handler)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.100">start</a>(<a href="../../../../org/dellroad/stuff/net/Network.Handler.html" title="interface in org.dellroad.stuff.net">Network.Handler</a>&nbsp;handler)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/Network.html#start(org.dellroad.stuff.net.Network.Handler)">Network</a></code></strong></div>
 <div class="block">Start this instance.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/net/Network.html#start(org.dellroad.stuff.net.Network.Handler)">start</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></code></dd>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#start(org.dellroad.stuff.net.Network.Handler)">start</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>handler</code> - handler for notifications</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs</dd></dl>
@@ -624,7 +452,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.233">stop</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.130">stop</a>()</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#stop()">SelectorSupport</a></code></strong></div>
 <div class="block">Stop this instance.
 
@@ -634,30 +462,8 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/net/Network.html#stop()">stop</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></code></dd>
 <dt><strong>Overrides:</strong></dt>
-<dd><code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#stop()">stop</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></code></dd>
+<dd><code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#stop()">stop</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></code></dd>
 </dl>
-</li>
-</ul>
-<a name="send(java.lang.String, java.nio.ByteBuffer)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>send</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.265">send</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer,
-           <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio">ByteBuffer</a>&nbsp;msg)</pre>
-<div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/Network.html#send(java.lang.String, java.nio.ByteBuffer)">Network</a></code></strong></div>
-<div class="block">Send (or enqueue for sending) a message to a remote peer.
-
- <p>
- If this method returns true, then <a href="../../../../org/dellroad/stuff/net/Network.Handler.html#outputQueueEmpty(java.lang.String)"><code>Handler.outputQueueEmpty()</code></a>
- is guaranteed to be invoked with parameter <code>peer</code> at some later point.</div>
-<dl>
-<dt><strong>Specified by:</strong></dt>
-<dd><code><a href="../../../../org/dellroad/stuff/net/Network.html#send(java.lang.String, java.nio.ByteBuffer)">send</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/net/Network.html" title="interface in org.dellroad.stuff.net">Network</a></code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>peer</code> - message destination</dd><dd><code>msg</code> - message to send</dd>
-<dt><span class="strong">Returns:</span></dt><dd>true if message was succesfully enqueued for output; false if message failed to be delivered due to local reasons,
-  such as failure to initiate a new connection or output queue overflow</dd></dl>
 </li>
 </ul>
 <a name="parseAddressPart(java.lang.String)">
@@ -666,7 +472,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>parseAddressPart</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.299">parseAddressPart</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;address)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.153">parseAddressPart</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;address)</pre>
 <div class="block">Parse out the address part of an address that has an optional colon plus TCP port number suffix.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - address of the form <code>ipaddr</code> or <code>ipaddr:port</code></dd>
 <dt><span class="strong">Returns:</span></dt><dd>the IP address part</dd></dl>
@@ -678,7 +484,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>parsePortPart</h4>
-<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.310">parsePortPart</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;address,
+<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.164">parsePortPart</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;address,
                 int&nbsp;defaultPort)</pre>
 <div class="block">Parse out the port part of an address that has an optional colon plus TCP port number suffix.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>address</code> - address of the form <code>ipaddr</code> or <code>ipaddr:port</code></dd><dd><code>defaultPort</code> - default port if none specified in <code>address</code></dd>
@@ -691,12 +497,11 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>configureServerSocketChannel</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.339">configureServerSocketChannel</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/ServerSocketChannel.html?is-external=true" title="class or interface in java.nio.channels">ServerSocketChannel</a>&nbsp;serverSocketChannel)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.192">configureServerSocketChannel</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/ServerSocketChannel.html?is-external=true" title="class or interface in java.nio.channels">ServerSocketChannel</a>&nbsp;serverSocketChannel)</pre>
 <div class="block">Configure the <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/ServerSocketChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>ServerSocketChannel</code></a> to be used by this instance. This method is invoked by <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html#start(org.dellroad.stuff.net.Network.Handler)"><code>start(org.dellroad.stuff.net.Network.Handler)</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><code>TCPNetwork</code></a> does nothing. Subclasses may override to configure socket options, etc.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><code>TCPNetwork</code></a> does nothing. Subclasses may override to configure socket options, etc.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>serverSocketChannel</code> - channel to configure</dd></dl>
 </li>
 </ul>
@@ -706,13 +511,12 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>configureSocketChannel</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.352">configureSocketChannel</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html?is-external=true" title="class or interface in java.nio.channels">SocketChannel</a>&nbsp;socketChannel)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.204">configureSocketChannel</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html?is-external=true" title="class or interface in java.nio.channels">SocketChannel</a>&nbsp;socketChannel)</pre>
 <div class="block">Configure a new <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/channels/SocketChannel.html?is-external=true" title="class or interface in java.nio.channels"><code>SocketChannel</code></a> to be used by this instance. This method is invoked when new connections
  are created.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><code>TCPNetwork</code></a> does nothing. Subclasses may override to configure socket options, etc.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><code>TCPNetwork</code></a> does nothing. Subclasses may override to configure socket options, etc.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>socketChannel</code> - channel to configure</dd></dl>
 </li>
 </ul>
@@ -722,20 +526,60 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 <ul class="blockList">
 <li class="blockList">
 <h4>toString</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.358">toString</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.210">toString</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#toString()" title="class or interface in java.lang">toString</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="serviceHousekeeping()">
+<a name="normalizePeerName(java.lang.String)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
+<h4>normalizePeerName</h4>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.306">normalizePeerName</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer)</pre>
+<div class="block">Normalize the given peer.
+
+ <p>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net"><code>TCPNetwork</code></a> converts <code>peer</code> to lower case and appends the
+ (default) port if not specified in the string.</div>
+<dl>
+<dt><strong>Overrides:</strong></dt>
+<dd><code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#normalizePeerName(java.lang.String)">normalizePeerName</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>peer</code> - remote peer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>normalized form for <code>peer</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - <code>inheritDoc</code></dd></dl>
+</li>
+</ul>
+<a name="createConnection(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>createConnection</h4>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/net/TCPConnection.html" title="class in org.dellroad.stuff.net">TCPConnection</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.316">createConnection</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;peer)
+                                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#createConnection(java.lang.String)">ChannelNetwork</a></code></strong></div>
+<div class="block">Create a new connection to the specified peer.</div>
+<dl>
+<dt><strong>Specified by:</strong></dt>
+<dd><code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#createConnection(java.lang.String)">createConnection</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>peer</code> - remote peer</dd>
+<dt><span class="strong">Returns:</span></dt><dd>new connection to <code>peer</code></dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
+</li>
+</ul>
+<a name="serviceHousekeeping()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
 <h4>serviceHousekeeping</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.527">serviceHousekeeping</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.353">serviceHousekeeping</a>()</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#serviceHousekeeping()">SelectorSupport</a></code></strong></div>
 <div class="block">Perform housekeeping.
 
@@ -758,32 +602,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
  The implementation in <a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net"><code>SelectorSupport</code></a> does nothing.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
-<dd><code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#serviceHousekeeping()">serviceHousekeeping</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></code></dd>
-</dl>
-</li>
-</ul>
-<a name="serviceCleanup()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>serviceCleanup</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/TCPNetwork.html#line.552">serviceCleanup</a>()</pre>
-<div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#serviceCleanup()">SelectorSupport</a></code></strong></div>
-<div class="block">Perform shutdown cleanups.
-
- <p>
- This method is invoked at shutdown from the internal service thread; this instance will be locked at that time.
-
- <p>
- Note: ay invocation from this method to <a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#createSelectionKey(java.nio.channels.SelectableChannel, org.dellroad.stuff.net.SelectorSupport.IOHandler)"><code>createSelectionKey()</code></a> will result in
- an <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang"><code>IllegalStateException</code></a>.
-
- <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net"><code>SelectorSupport</code></a> does nothing.</div>
-<dl>
-<dt><strong>Overrides:</strong></dt>
-<dd><code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html#serviceCleanup()">serviceCleanup</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/SelectorSupport.html" title="class in org.dellroad.stuff.net">SelectorSupport</a></code></dd>
+<dd><code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html#serviceHousekeeping()">serviceHousekeeping</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/ChannelNetwork.html" title="class in org.dellroad.stuff.net">ChannelNetwork</a></code></dd>
 </dl>
 </li>
 </ul>
@@ -813,7 +632,7 @@ implements <a href="../../../../org/dellroad/stuff/net/Network.html" title="inte
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../org/dellroad/stuff/net/SocketHandler.html" title="interface in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
+<li><a href="../../../../org/dellroad/stuff/net/TCPConnection.html" title="class in org.dellroad.stuff.net"><span class="strong">Prev Class</span></a></li>
 <li>Next Class</li>
 </ul>
 <ul class="navList">

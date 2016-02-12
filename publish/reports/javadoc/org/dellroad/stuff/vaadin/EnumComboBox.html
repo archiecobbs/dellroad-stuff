@@ -421,12 +421,11 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.26">EnumComboBox</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.25">EnumComboBox</a>()</pre>
 <div class="block">Default constructor.
 
  <p>
- Caller must separately invoke <a href="../../../../org/dellroad/stuff/vaadin/EnumComboBox.html#setEnumDataSource(java.lang.Class)"><code>setEnumDataSource(java.lang.Class&lt;T&gt;)</code></a>.
- </p></div>
+ Caller must separately invoke <a href="../../../../org/dellroad/stuff/vaadin/EnumComboBox.html#setEnumDataSource(java.lang.Class)"><code>setEnumDataSource(java.lang.Class&lt;T&gt;)</code></a>.</div>
 </li>
 </ul>
 <a name="EnumComboBox(java.lang.Class)">
@@ -435,15 +434,14 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.42">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.40">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass)</pre>
 <div class="block">Convenience constructor.
 
  <p>
  Equivalent to:
   <blockquote><code>
   EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY.getName(), false);
-  </code></blockquote>
- </p></div>
+  </code></blockquote></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>enumClass</code> - enum type, or null to leave data source unset</dd></dl>
 </li>
 </ul>
@@ -453,7 +451,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.59">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.56">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
             boolean&nbsp;allowNull)</pre>
 <div class="block">Convenience constructor.
 
@@ -461,8 +459,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
  Equivalent to:
   <blockquote><code>
   EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY, allowNull);
-  </code></blockquote>
- </p></div>
+  </code></blockquote></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>enumClass</code> - enum type, or null to leave data source unset</dd><dd><code>allowNull</code> - true to allow a null selection, false otherwise</dd></dl>
 </li>
 </ul>
@@ -472,7 +469,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.76">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.72">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;displayPropertyName)</pre>
 <div class="block">Convenience constructor.
 
@@ -480,8 +477,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
  Equivalent to:
   <blockquote><code>
   EnumComboBox(enumClass, displayPropertyName, false);
-  </code></blockquote>
- </p></div>
+  </code></blockquote></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>enumClass</code> - enum type</dd><dd><code>displayPropertyName</code> - container property to display in the combo box</dd></dl>
 </li>
 </ul>
@@ -491,7 +487,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockList">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.94">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.89">EnumComboBox</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass,
             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;displayPropertyName,
             boolean&nbsp;allowNull)</pre>
 <div class="block">Convenience constructor.
@@ -500,8 +496,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
  Equivalent to:
   <blockquote><code>
   EnumComboBox(enumClass != null ? new EnumContainer&lt;T&gt;(enumClass) : null, displayPropertyName, allowNull);
-  </code></blockquote>
- </p></div>
+  </code></blockquote></div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>enumClass</code> - enum type, or null to leave data source unset</dd><dd><code>displayPropertyName</code> - container property to display in the combo box</dd><dd><code>allowNull</code> - true to allow a null selection, false otherwise</dd></dl>
 </li>
 </ul>
@@ -511,15 +506,14 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>EnumComboBox</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.110">EnumComboBox</a>(<a href="../../../../org/dellroad/stuff/vaadin/EnumContainer.html" title="class in org.dellroad.stuff.vaadin">EnumContainer</a>&lt;?&gt;&nbsp;container,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.104">EnumComboBox</a>(<a href="../../../../org/dellroad/stuff/vaadin/EnumContainer.html" title="class in org.dellroad.stuff.vaadin">EnumContainer</a>&lt;?&gt;&nbsp;container,
             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;displayPropertyName,
             boolean&nbsp;allowNull)</pre>
 <div class="block">Primary constructor.
 
  <p>
  This instance is configured for item caption <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractSelect.html?is-external=true#ITEM_CAPTION_MODE_PROPERTY" title="class or interface in com.vaadin.ui"><code>AbstractSelect.ITEM_CAPTION_MODE_PROPERTY</code></a> mode, with
- <code>displayPropertyName</code> as the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractSelect.html?is-external=true#setItemCaptionPropertyId(java.lang.Object)" title="class or interface in com.vaadin.ui">item caption property</a>.
- </p></div>
+ <code>displayPropertyName</code> as the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractSelect.html?is-external=true#setItemCaptionPropertyId(java.lang.Object)" title="class or interface in com.vaadin.ui">item caption property</a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>container</code> - container data source, or null to leave data source unset</dd><dd><code>displayPropertyName</code> - container property to display in the combo box</dd><dd><code>allowNull</code> - true to allow a null selection, false otherwise</dd></dl>
 </li>
 </ul>
@@ -537,7 +531,7 @@ extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>setEnumDataSource</h4>
-<pre>public&nbsp;&lt;T extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang">Enum</a>&lt;T&gt;&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.130">setEnumDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass)</pre>
+<pre>public&nbsp;&lt;T extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang">Enum</a>&lt;T&gt;&gt;&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/EnumComboBox.html#line.124">setEnumDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;enumClass)</pre>
 <div class="block">Set the <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang"><code>Enum</code></a> type whose instances serve as this instance's data source.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>enumClass</code> is null</dd></dl>

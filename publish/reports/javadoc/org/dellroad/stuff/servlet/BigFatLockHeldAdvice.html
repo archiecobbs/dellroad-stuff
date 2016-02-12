@@ -228,10 +228,11 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>BigFatLockHeldAdvice</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.22">BigFatLockHeldAdvice</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;aspectJBeforeAdviceMethod,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.26">BigFatLockHeldAdvice</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;aspectJBeforeAdviceMethod,
                     <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/aop/aspectj/AspectJExpressionPointcut.html?is-external=true" title="class or interface in org.springframework.aop.aspectj">AspectJExpressionPointcut</a>&nbsp;pointcut,
                     <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/aop/aspectj/AspectInstanceFactory.html?is-external=true" title="class or interface in org.springframework.aop.aspectj">AspectInstanceFactory</a>&nbsp;aif)</pre>
 <div class="block">Constructor.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>aspectJBeforeAdviceMethod</code> - method to advise</dd><dd><code>pointcut</code> - pointcut</dd><dd><code>aif</code> - factory for aspect instance</dd></dl>
 </li>
 </ul>
 </li>
@@ -248,7 +249,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockList">
 <li class="blockList">
 <h4>before</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.30">before</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.34">before</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>[]&nbsp;args,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;target)</pre>
 <div class="block">Verifies the <a href="../../../../org/dellroad/stuff/servlet/BigFatLock.html" title="class in org.dellroad.stuff.servlet"><code>BigFatLock</code></a> is held. If not, <a href="../../../../org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#lockNotHeld()"><code>lockNotHeld()</code></a> is invoked.</div>
@@ -266,7 +267,7 @@ extends <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springf
 <ul class="blockListLast">
 <li class="blockList">
 <h4>lockNotHeld</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.42">lockNotHeld</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/servlet/BigFatLockHeldAdvice.html#line.46">lockNotHeld</a>()</pre>
 <div class="block">Invoked in cases where the current thread does not hold the <a href="../../../../org/dellroad/stuff/servlet/BigFatLock.html" title="class in org.dellroad.stuff.servlet"><code>BigFatLock</code></a>.
 
  <p>

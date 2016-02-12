@@ -394,9 +394,10 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>isConfigured</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.119">isConfigured</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.121">isConfigured</a>()</pre>
 <div class="block">Is this bean configured? "Configured" means that either <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#start(T)"><code>start()</code></a> or <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#reconfigure(T, T)"><code>reconfigure()</code></a> has
  been invoked successfully since the most recent <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#stop()"><code>stop()</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if this instance is configured</dd></dl>
 </li>
 </ul>
 <a name="handleEvent(org.dellroad.stuff.pobj.PersistentObjectEvent)">
@@ -405,13 +406,13 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>handleEvent</h4>
-<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.124">handleEvent</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="class in org.dellroad.stuff.pobj">PersistentObjectEvent</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">ROOT</a>&gt;&nbsp;event)</pre>
+<pre>public final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.126">handleEvent</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectEvent.html" title="class in org.dellroad.stuff.pobj">PersistentObjectEvent</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">ROOT</a>&gt;&nbsp;event)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html#handleEvent(org.dellroad.stuff.pobj.PersistentObjectEvent)">PersistentObjectListener</a></code></strong></div>
 <div class="block">Handle notification of an updated root object.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html#handleEvent(org.dellroad.stuff.pobj.PersistentObjectEvent)">handleEvent</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectListener.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectListener</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">ROOT</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>event</code> - notification event</dd></dl>
 </li>
 </ul>
 <a name="start(java.lang.Object)">
@@ -422,7 +423,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.175">start</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;beanConfig)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.177">start</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;beanConfig)
               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Start this bean. This instance's monitor will be locked when this method is invoked.
 
@@ -439,7 +440,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.184">stop</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.186">stop</a>()</pre>
 <div class="block">Stop this bean. This instance's monitor will be locked when this method is invoked.
 
  <p>
@@ -454,7 +455,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>reconfigure</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.197">reconfigure</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;oldConfig,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.199">reconfigure</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;oldConfig,
                <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;newConfig)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Reconfigure this bean. This instance's monitor will be locked when this method is invoked.
@@ -474,7 +475,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>requiresReconfigure</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.213">requiresReconfigure</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;oldConfig,
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.215">requiresReconfigure</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;oldConfig,
                           <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;newConfig)</pre>
 <div class="block">Determine if a change from <code>oldConfig</code> to <code>newConfig</code> requires a <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#reconfigure(T, T)"><code>reconfigure()</code></a> operation.
 
@@ -493,7 +494,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>getBeanConfig</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.223">getBeanConfig</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">ROOT</a>&nbsp;rootConfig)</pre>
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.225">getBeanConfig</a>(<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">ROOT</a>&nbsp;rootConfig)</pre>
 <div class="block">Extract the configuration sub-tree object that this node uses for its configuration given the root configuration object.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>rootConfig</code> - root config object, never null</dd>
 <dt><span class="strong">Returns:</span></dt><dd>this bean's config object</dd></dl>
@@ -505,7 +506,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockList">
 <li class="blockList">
 <h4>getBeanConfig</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.231">getBeanConfig</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.233">getBeanConfig</a>()</pre>
 <div class="block">Get the current configuration (sub-tree) object appropriate for this instance, or null if not configured.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>current bean configuration, or null if not <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#isConfigured()">configured</a>
   or the <a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> has been stopped</dd></dl>
@@ -517,7 +518,7 @@ implements <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/spri
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getRequiredConfig</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.252">getRequiredConfig</a>()</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="type parameter in AbstractConfiguredBean">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/AbstractConfiguredBean.html#line.254">getRequiredConfig</a>()</pre>
 <div class="block">Get the current configuration (sub-tree) object appropriate for this instance, and require that
  this instance also be <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#isConfigured()">configured</a> at the time this method is invoked.
  This method is like <a href="../../../../org/dellroad/stuff/pobj/AbstractConfiguredBean.html#getBeanConfig(ROOT)"><code>getBeanConfig()</code></a> but it throws an exception instead of returning null.</div>

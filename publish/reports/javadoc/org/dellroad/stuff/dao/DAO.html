@@ -215,8 +215,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getType</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.22">getType</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.24">getType</a>()</pre>
 <div class="block">Get the type of persistent object handled by this instance.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>associated object type</dd></dl>
 </li>
 </ul>
 <a name="getById(long)">
@@ -225,8 +226,10 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getById</h4>
-<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.29">getById</a>(long&nbsp;id)</pre>
+<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.34">getById</a>(long&nbsp;id)</pre>
 <div class="block">Get an instance by ID. This assumes object IDs are long values.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>id</code> - unique ID for instance</dd>
+<dt><span class="strong">Returns:</span></dt><dd>instance with the given <code>id</code>, or null if not found</dd></dl>
 </li>
 </ul>
 <a name="getAll()">
@@ -235,8 +238,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getAll</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.34">getAll</a>()</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.41">getAll</a>()</pre>
 <div class="block">Get all instances.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>list of all instances of type <code>T</code></dd></dl>
 </li>
 </ul>
 <a name="getReference(long)">
@@ -245,11 +249,13 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>getReference</h4>
-<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.42">getReference</a>(long&nbsp;id)</pre>
+<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.52">getReference</a>(long&nbsp;id)</pre>
 <div class="block">Get a reference to an instance by ID. This assumes object IDs are long values.
 
  <p>
  Note if the instance does not exist, then an exception may be thrown either here or later upon first access.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>id</code> - unique ID for instance</dd>
+<dt><span class="strong">Returns:</span></dt><dd>reference to instance with the given <code>id</code></dd></dl>
 </li>
 </ul>
 <a name="save(java.lang.Object)">
@@ -260,8 +266,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>save</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.49">save</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.61">save</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Save a newly created instance.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to save</dd></dl>
 </li>
 </ul>
 <a name="delete(java.lang.Object)">
@@ -272,8 +279,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>delete</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.54">delete</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.68">delete</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Delete the given instance from the persistent store.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to delete</dd></dl>
 </li>
 </ul>
 <a name="merge(java.lang.Object)">
@@ -284,8 +292,10 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>merge</h4>
-<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.59">merge</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.76">merge</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Merge the given object into the current session.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to merge</dd>
+<dt><span class="strong">Returns:</span></dt><dd>merged persistent instance</dd></dl>
 </li>
 </ul>
 <a name="refresh(java.lang.Object)">
@@ -296,8 +306,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>refresh</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.64">refresh</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.83">refresh</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Refresh the given object from the database.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to refresh</dd></dl>
 </li>
 </ul>
 <a name="detach(java.lang.Object)">
@@ -308,8 +319,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>detach</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.69">detach</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.90">detach</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Evict an object from the session cache.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to evict</dd></dl>
 </li>
 </ul>
 <a name="flush()">
@@ -318,7 +330,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.76">flush</a>()</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.97">flush</a>()</pre>
 <div class="block">Flush outstanding changes to the persistent store.</div>
 </li>
 </ul>
@@ -328,8 +340,9 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>setFlushMode</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.81">setFlushMode</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence">FlushModeType</a>&nbsp;flushMode)</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.104">setFlushMode</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence">FlushModeType</a>&nbsp;flushMode)</pre>
 <div class="block">Set flush mode.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>flushMode</code> - desired flush mode</dd></dl>
 </li>
 </ul>
 <a name="clear()">
@@ -338,7 +351,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>clear</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.86">clear</a>()</pre>
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.109">clear</a>()</pre>
 <div class="block">Clear the session cache.</div>
 </li>
 </ul>
@@ -348,7 +361,7 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>isReadOnly</h4>
-<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.94">isReadOnly</a>()</pre>
+<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.117">isReadOnly</a>()</pre>
 <div class="block">Determine if the current transaction is read-only.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>true if the current transaction is read-only</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -363,8 +376,10 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>contains</h4>
-<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.99">contains</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
+<pre>boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/DAO.html#line.125">contains</a>(<a href="../../../../org/dellroad/stuff/dao/DAO.html" title="type parameter in DAO">T</a>&nbsp;obj)</pre>
 <div class="block">Determine if the current session (i.e., <code>EntityManager</code>) contains the given instance.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - instance to inquire about</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the current transaction contains <code>obj</code></dd></dl>
 </li>
 </ul>
 </li>

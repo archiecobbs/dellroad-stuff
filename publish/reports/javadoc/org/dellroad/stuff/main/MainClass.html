@@ -269,13 +269,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.33">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
+<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.35">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)
                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Subclass main implementation. This method is free to throw exceptions; these will
  be displayed on standard error and converted into non-zero exit values.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>exit value</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - command line arguments</dd>
+<dt><span class="strong">Returns:</span></dt><dd>process exit value</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs; will result in the process exiting with an exit value of one</dd></dl>
 </li>
 </ul>
 <a name="commandLoop(java.lang.String, java.lang.String)">
@@ -284,13 +285,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>commandLoop</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.39">commandLoop</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;appName,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.45">commandLoop</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;appName,
                <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;prompt)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Enter command loop. Commands are read using GNU libreadline and handed off
  to <a href="../../../../org/dellroad/stuff/main/MainClass.html#handleCommand(java.lang.String)"><code>handleCommand(java.lang.String)</code></a> for processing.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>appName</code> - application name</dd><dd><code>prompt</code> - command prompt</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs</dd></dl>
 </li>
 </ul>
 <a name="handleCommand(java.lang.String)">
@@ -299,15 +301,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>handleCommand</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.121">handleCommand</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;line)
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.129">handleCommand</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;line)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Callback used by <a href="../../../../org/dellroad/stuff/main/MainClass.html#commandLoop(java.lang.String, java.lang.String)"><code>commandLoop(java.lang.String, java.lang.String)</code></a>.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/main/MainClass.html" title="class in org.dellroad.stuff.main"><code>MainClass</code></a> just returns <code>false</code>.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>true to continue reading the next command, false to exit</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>line</code> - command line input</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true to continue reading the next command, false to exit</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs</dd></dl>
 </li>
 </ul>
 <a name="usageMessage()">
@@ -316,7 +319,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>usageMessage</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.128">usageMessage</a>()</pre>
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.136">usageMessage</a>()</pre>
 <div class="block">Display the usage message to standard error.</div>
 </li>
 </ul>
@@ -326,7 +329,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>usageError</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.133">usageError</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.141">usageError</a>()</pre>
 <div class="block">Print the usage message and exit with exit value 1.</div>
 </li>
 </ul>
@@ -336,8 +339,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>errout</h4>
-<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.141">errout</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</pre>
+<pre>protected final&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.151">errout</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;message)</pre>
 <div class="block">Emit an error message an exit with exit value 1.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>message</code> - error message</dd></dl>
 </li>
 </ul>
 <a name="parsePropertyFlags(java.lang.String[])">
@@ -346,10 +350,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>parsePropertyFlags</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.152">parsePropertyFlags</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.163">parsePropertyFlags</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
 <div class="block">Parse command line flags of the form <code>-Dname=value</code> and set the corresponding system properties.
  Parsing stops at the first argument not starting with a dash (or <code>--</code>).</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>command line with all the property-setting flags removed</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - command line arguments</dd>
+<dt><span class="strong">Returns:</span></dt><dd><code>args</code> with the <code>-Dname=value</code> flags removed</dd></dl>
 </li>
 </ul>
 <a name="doMain(java.lang.String[])">
@@ -358,13 +363,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>doMain</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.185">doMain</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/main/MainClass.html#line.197">doMain</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;args)</pre>
 <div class="block">Invokes <a href="../../../../org/dellroad/stuff/main/MainClass.html#run(java.lang.String[])"><code>run(java.lang.String[])</code></a>, catching any exceptions thrown and exiting with a non-zero
  value if and only if an exception was caught.
- <p/>
+
  <p>
- The concrete class' <code>main()</code> method should invoke this method.
- </p></div>
+ The concrete class' <code>main()</code> method should invoke this method.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>args</code> - command line arguments</dd></dl>
 </li>
 </ul>
 </li>

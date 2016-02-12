@@ -207,8 +207,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <ul class="blockList">
 <li class="blockList">
 <h4>setSchemaUpdater</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdatingDataSource.html#line.25">setSchemaUpdater</a>(<a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema">SQLSchemaUpdater</a>&nbsp;schemaUpdater)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdatingDataSource.html#line.27">setSchemaUpdater</a>(<a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema">SQLSchemaUpdater</a>&nbsp;schemaUpdater)</pre>
 <div class="block">Configure the <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>SQLSchemaUpdater</code></a> that will initialize and update the database. Required property.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>schemaUpdater</code> - schema updater</dd></dl>
 </li>
 </ul>
 <a name="updateDataSource(javax.sql.DataSource)">
@@ -217,7 +218,7 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <ul class="blockListLast">
 <li class="blockList">
 <h4>updateDataSource</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdatingDataSource.html#line.30">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/SchemaUpdatingDataSource.html#line.32">updateDataSource</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql">DataSource</a>&nbsp;dataSource)
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#updateDataSource(javax.sql.DataSource)">AbstractUpdatingDataSource</a></code></strong></div>
 <div class="block">Update the inner <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>.
@@ -227,8 +228,9 @@ extends <a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSourc
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#updateDataSource(javax.sql.DataSource)">updateDataSource</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractUpdatingDataSource.html" title="class in org.dellroad.stuff.schema">AbstractUpdatingDataSource</a></code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>dataSource</code> - the <a href="https://docs.oracle.com/javase/7/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a> to update</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if the update attempt fails</dd></dl>
 </li>
 </ul>
 </li>

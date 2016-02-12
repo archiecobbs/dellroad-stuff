@@ -94,7 +94,7 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.85">XMLResultSetWriter</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.83">XMLResultSetWriter</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Outputs the result of an SQL query as XML.
 
@@ -123,7 +123,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
       &lt;/data&gt;
   &lt;/result-set&gt;
  </pre>
- </p>
 
  <p>
  If you turn on column name tags via <a href="../../../../org/dellroad/stuff/sql/XMLResultSetWriter.html#setColumnNameTags(boolean)"><code>setColumnNameTags()</code></a>, the output would look like this:
@@ -149,8 +148,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
           ...
       &lt;/data&gt;
   &lt;/result-set&gt;
- </pre>
- </p></div>
+ </pre></div>
 </li>
 </ul>
 </div>
@@ -258,7 +256,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>TYPE_NAMES</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.90">TYPE_NAMES</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Integer.html?is-external=true" title="class or interface in java.lang">Integer</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.88">TYPE_NAMES</a></pre>
 <div class="block">Mapping from result set <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/Types.html?is-external=true" title="class or interface in java.sql"><code>Types</code></a> values to their corresponding names.</div>
 </li>
 </ul>
@@ -276,7 +274,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>XMLResultSetWriter</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.129">XMLResultSetWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;writer,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.127">XMLResultSetWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamWriter.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamWriter</a>&nbsp;writer,
                   int&nbsp;indent)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writer</code> - where to write the XML</dd><dd><code>indent</code> - number of spaces for indentation</dd>
@@ -302,6 +300,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <div class="block">Set whether to use the SQL column labels as the XML element names for the data columns
  instead of <code>&lt;column&gt;</code>.
  Default is false.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>columnNameTags</code> - true to name XML elements using the corresponding SQL column names</dd></dl>
 </li>
 </ul>
 <a name="write(java.sql.ResultSet)">
@@ -310,7 +309,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.157">write</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html?is-external=true" title="class or interface in java.sql">ResultSet</a>&nbsp;resultSet)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.161">write</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html?is-external=true" title="class or interface in java.sql">ResultSet</a>&nbsp;resultSet)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a>,
                   <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <div class="block">Write the given <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html?is-external=true" title="class or interface in java.sql"><code>ResultSet</code></a> out within a <code>&lt;result-set&gt;</code> XML element.
@@ -321,9 +320,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
       write(null, resultSet)
   </code></blockquote>
  element is included.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code></dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>resultSet</code> - query result set</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a></code> - if accessing <code>resultSet</code> throws an exception</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code> - if XML output fails</dd></dl>
 </li>
 </ul>
 <a name="write(java.lang.String, java.sql.ResultSet)">
@@ -332,7 +332,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>write</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.185">write</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;query,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/sql/XMLResultSetWriter.html#line.188">write</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;query,
          <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html?is-external=true" title="class or interface in java.sql">ResultSet</a>&nbsp;resultSet)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/sql/SQLException.html?is-external=true" title="class or interface in java.sql">SQLException</a>,
                   <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
@@ -349,7 +349,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
   xmlResultSetWriter.write(query, resultSet);
   writer.writeEndDocument();
  </pre>
- </p>
 
  <p>
  The result set is iterated in a forward direction only.</div>

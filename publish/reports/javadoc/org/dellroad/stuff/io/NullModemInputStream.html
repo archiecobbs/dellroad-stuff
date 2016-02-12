@@ -214,15 +214,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterInputSt
 <ul class="blockListLast">
 <li class="blockList">
 <h4>NullModemInputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.35">NullModemInputStream</a>(<a href="../../../../org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io">WriteCallback</a>&nbsp;writer,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.34">NullModemInputStream</a>(<a href="../../../../org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io">WriteCallback</a>&nbsp;writer,
                     <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <div class="block">Constructor.
 
  <p>
  The <code>writer</code>'s <a href="../../../../org/dellroad/stuff/io/WriteCallback.html#writeTo(java.io.OutputStream)"><code>writeTo()</code></a> method will be invoked (once)
  asynchronously in a dedicated writer thread. The <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> provided to it will
- relay the bytes that are then read from this instance.
- </p></div>
+ relay the bytes that are then read from this instance.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>writer</code> - <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> writer callback</dd><dd><code>name</code> - name for this instance; used to create the name of the background thread</dd></dl>
 </li>
 </ul>
@@ -240,8 +239,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterInputSt
 <ul class="blockList">
 <li class="blockList">
 <h4>getPipedInputStream</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedInputStream.html?is-external=true" title="class or interface in java.io">PipedInputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.58">getPipedInputStream</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedInputStream.html?is-external=true" title="class or interface in java.io">PipedInputStream</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.59">getPipedInputStream</a>()</pre>
 <div class="block">Get the wrapped stream cast as a <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedInputStream.html?is-external=true" title="class or interface in java.io"><code>PipedInputStream</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/PipedInputStream.html?is-external=true" title="class or interface in java.io"><code>PipedInputStream</code></a></dd></dl>
 </li>
 </ul>
 <a name="finalize()">
@@ -250,7 +250,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterInputSt
 <ul class="blockListLast">
 <li class="blockList">
 <h4>finalize</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.70">finalize</a>()
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/NullModemInputStream.html#line.71">finalize</a>()
                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a></pre>
 <div class="block">Ensure input stream is closed when this instance is no longer referenced.
 

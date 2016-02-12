@@ -427,8 +427,9 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getEntityManager</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.56">getEntityManager</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.58">getEntityManager</a>()</pre>
 <div class="block">Get the configured <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>this DAO's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a></dd></dl>
 </li>
 </ul>
 <a name="setEntityManager(javax.persistence.EntityManager)">
@@ -437,12 +438,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>setEntityManager</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.68">setEntityManager</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.72">setEntityManager</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence">EntityManager</a>&nbsp;entityManager)</pre>
 <div class="block">Set the configured <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a>.
 
  <p>
  This method has a <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/PersistenceContext.html?is-external=true" title="class or interface in javax.persistence"><code>@PersistenceContext</code></a> annotation and normally
  would be invoked automatically by Spring.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>entityManager</code> - this DAO's <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/EntityManager.html?is-external=true" title="class or interface in javax.persistence"><code>EntityManager</code></a></dd></dl>
 </li>
 </ul>
 <a name="afterPropertiesSet()">
@@ -451,14 +453,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>afterPropertiesSet</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.73">afterPropertiesSet</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.77">afterPropertiesSet</a>()
                         throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/spring/AbstractBean.html#afterPropertiesSet()">AbstractBean</a></code></strong></div>
 <div class="block">Initialize bean.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title="class in org.dellroad.stuff.spring"><code>AbstractBean</code></a> does nothing.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/spring/AbstractBean.html" title="class in org.dellroad.stuff.spring"><code>AbstractBean</code></a> does nothing.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true#afterPropertiesSet()" title="class or interface in org.springframework.beans.factory">afterPropertiesSet</a></code>&nbsp;in interface&nbsp;<code><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true" title="class or interface in org.springframework.beans.factory">InitializingBean</a></code></dd>
@@ -474,13 +475,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getType</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.82">getType</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.86">getType</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getType()">DAO</a></code></strong></div>
 <div class="block">Get the type of persistent object handled by this instance.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getType()">getType</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Returns:</span></dt><dd>associated object type</dd></dl>
 </li>
 </ul>
 <a name="getById(long)">
@@ -489,13 +490,14 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getById</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.89">getById</a>(long&nbsp;id)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.93">getById</a>(long&nbsp;id)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getById(long)">DAO</a></code></strong></div>
 <div class="block">Get an instance by ID. This assumes object IDs are long values.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getById(long)">getById</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>id</code> - unique ID for instance</dd>
+<dt><span class="strong">Returns:</span></dt><dd>instance with the given <code>id</code>, or null if not found</dd></dl>
 </li>
 </ul>
 <a name="getAll()">
@@ -504,13 +506,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getAll</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.94">getAll</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.98">getAll</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getAll()">DAO</a></code></strong></div>
 <div class="block">Get all instances.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getAll()">getAll</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Returns:</span></dt><dd>list of all instances of type <code>T</code></dd></dl>
 </li>
 </ul>
 <a name="getReference(long)">
@@ -519,7 +521,7 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getReference</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.104">getReference</a>(long&nbsp;id)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.108">getReference</a>(long&nbsp;id)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getReference(long)">DAO</a></code></strong></div>
 <div class="block">Get a reference to an instance by ID. This assumes object IDs are long values.
 
@@ -528,7 +530,8 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#getReference(long)">getReference</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>id</code> - unique ID for instance</dd>
+<dt><span class="strong">Returns:</span></dt><dd>reference to instance with the given <code>id</code></dd></dl>
 </li>
 </ul>
 <a name="find(java.lang.String, java.lang.Object...)">
@@ -537,9 +540,11 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>find</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.111">find</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;queryString,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.119">find</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;queryString,
            <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>...&nbsp;params)</pre>
 <div class="block">Find instances using a query string and query parameters.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>queryString</code> - JPQL query string</dd><dd><code>params</code> - query string parameters</dd>
+<dt><span class="strong">Returns:</span></dt><dd>zero or more matching objects</dd></dl>
 </li>
 </ul>
 <a name="findUnique(java.lang.String, java.lang.Object...)">
@@ -548,10 +553,11 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>findUnique</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.125">findUnique</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;queryString,
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.135">findUnique</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;queryString,
            <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>...&nbsp;params)</pre>
 <div class="block">Find a unique instance using a query string and query parameters.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>unique instance found, or null if none was found</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>queryString</code> - JPQL query string</dd><dd><code>params</code> - query string parameters</dd>
+<dt><span class="strong">Returns:</span></dt><dd>unique instance found, or null if none was found</dd></dl>
 </li>
 </ul>
 <a name="getBy(org.dellroad.stuff.dao.QueryCallback)">
@@ -560,8 +566,10 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>getBy</h4>
-<pre>protected&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.137">getBy</a>(<a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="class in org.dellroad.stuff.dao">QueryCallback</a>&lt;R&gt;&nbsp;callback)</pre>
+<pre>protected&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.151">getBy</a>(<a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="class in org.dellroad.stuff.dao">QueryCallback</a>&lt;R&gt;&nbsp;callback)</pre>
 <div class="block">Search using a <a href="../../../../org/dellroad/stuff/dao/QueryCallback.html" title="class in org.dellroad.stuff.dao"><code>QueryCallback</code></a>.</div>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>R</code> - return type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>callback</code> - query callback</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of query</dd></dl>
 </li>
 </ul>
 <a name="bulkUpdate(org.dellroad.stuff.dao.UpdateCallback)">
@@ -570,8 +578,10 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>bulkUpdate</h4>
-<pre>protected&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.144">bulkUpdate</a>(<a href="../../../../org/dellroad/stuff/dao/UpdateCallback.html" title="class in org.dellroad.stuff.dao">UpdateCallback</a>&nbsp;callback)</pre>
+<pre>protected&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.161">bulkUpdate</a>(<a href="../../../../org/dellroad/stuff/dao/UpdateCallback.html" title="class in org.dellroad.stuff.dao">UpdateCallback</a>&nbsp;callback)</pre>
 <div class="block">Perform a bulk update.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>callback</code> - query callback</dd>
+<dt><span class="strong">Returns:</span></dt><dd>number of rows affected</dd></dl>
 </li>
 </ul>
 <a name="save(java.lang.Object)">
@@ -582,13 +592,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>save</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.151">save</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.168">save</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#save(T)">DAO</a></code></strong></div>
 <div class="block">Save a newly created instance.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#save(T)">save</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to save</dd></dl>
 </li>
 </ul>
 <a name="delete(java.lang.Object)">
@@ -599,13 +609,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>delete</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.156">delete</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.173">delete</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#delete(T)">DAO</a></code></strong></div>
 <div class="block">Delete the given instance from the persistent store.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#delete(T)">delete</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to delete</dd></dl>
 </li>
 </ul>
 <a name="merge(java.lang.Object)">
@@ -616,13 +626,14 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>merge</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.161">merge</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.178">merge</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#merge(T)">DAO</a></code></strong></div>
 <div class="block">Merge the given object into the current session.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#merge(T)">merge</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to merge</dd>
+<dt><span class="strong">Returns:</span></dt><dd>merged persistent instance</dd></dl>
 </li>
 </ul>
 <a name="refresh(java.lang.Object)">
@@ -633,13 +644,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>refresh</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.166">refresh</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.183">refresh</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#refresh(T)">DAO</a></code></strong></div>
 <div class="block">Refresh the given object from the database.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#refresh(T)">refresh</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to refresh</dd></dl>
 </li>
 </ul>
 <a name="detach(java.lang.Object)">
@@ -648,13 +659,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>detach</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.171">detach</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.188">detach</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#detach(T)">DAO</a></code></strong></div>
 <div class="block">Evict an object from the session cache.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#detach(T)">detach</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to evict</dd></dl>
 </li>
 </ul>
 <a name="flush()">
@@ -663,7 +674,7 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.178">flush</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.195">flush</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#flush()">DAO</a></code></strong></div>
 <div class="block">Flush outstanding changes to the persistent store.</div>
 <dl>
@@ -678,13 +689,13 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>setFlushMode</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.183">setFlushMode</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence">FlushModeType</a>&nbsp;flushMode)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.200">setFlushMode</a>(<a href="https://docs.oracle.com/javaee/7/api/javax/persistence/FlushModeType.html?is-external=true" title="class or interface in javax.persistence">FlushModeType</a>&nbsp;flushMode)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#setFlushMode(javax.persistence.FlushModeType)">DAO</a></code></strong></div>
 <div class="block">Set flush mode.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#setFlushMode(javax.persistence.FlushModeType)">setFlushMode</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>flushMode</code> - desired flush mode</dd></dl>
 </li>
 </ul>
 <a name="clear()">
@@ -693,7 +704,7 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>clear</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.188">clear</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.205">clear</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#clear()">DAO</a></code></strong></div>
 <div class="block">Clear the session cache.</div>
 <dl>
@@ -708,7 +719,7 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>isReadOnly</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.193">isReadOnly</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.210">isReadOnly</a>()</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#isReadOnly()">DAO</a></code></strong></div>
 <div class="block">Determine if the current transaction is read-only.</div>
 <dl>
@@ -725,13 +736,14 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>contains</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.198">contains</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.215">contains</a>(<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;obj)</pre>
 <div class="block"><strong>Description copied from interface:&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html#contains(T)">DAO</a></code></strong></div>
 <div class="block">Determine if the current session (i.e., <code>EntityManager</code>) contains the given instance.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/dao/DAO.html#contains(T)">contains</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interface in org.dellroad.stuff.dao">DAO</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;</code></dd>
-</dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - instance to inquire about</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the current transaction contains <code>obj</code></dd></dl>
 </li>
 </ul>
 <a name="cast(java.lang.Object)">
@@ -740,8 +752,10 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockList">
 <li class="blockList">
 <h4>cast</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.207">cast</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.227">cast</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <div class="block">Cast the given object to this instance's persistent instance type.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to cast</dd>
+<dt><span class="strong">Returns:</span></dt><dd><code>obj</code> cast to type <code>T</code></dd></dl>
 </li>
 </ul>
 <a name="castList(java.util.List)">
@@ -750,9 +764,11 @@ implements <a href="../../../../org/dellroad/stuff/dao/DAO.html" title="interfac
 <ul class="blockListLast">
 <li class="blockList">
 <h4>castList</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.216">castList</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;?&gt;&nbsp;list)</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/dao/AbstractDAO.html" title="type parameter in AbstractDAO">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/dao/AbstractDAO.html#line.239">castList</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;?&gt;&nbsp;list)</pre>
 <div class="block">Cast the given list to a list of this instance's persistent instance type.
  Does not actually inspect the contents of the list.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>list</code> - list of objects</dd>
+<dt><span class="strong">Returns:</span></dt><dd><code>list</code> cast to a list of <code>T</code></dd></dl>
 </li>
 </ul>
 </li>

@@ -249,8 +249,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <div class="block">Encode a string, escaping control and XML-invalid characters.
  Whether tab, newline, and carriage return are escaped is optional;
  these are the three control characters that are valid inside XML documents.
- <p/>
- <p/>
+
+ <p>
  Characters are escaped using <code>&#92;uNNNN</code> notation like Java unicode characters,
  e.g., <code>0x001f</code> would appear in the encoded string as <code>&#92;u001f</code>.
  Normal Java backslash escapes are used for tab, newline, carriage return, backspace, and formfeed.
@@ -268,8 +268,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <h4>decode</h4>
 <pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.121">decode</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;text)</pre>
 <div class="block">Decode a string encoded by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#encode(java.lang.String, boolean)"><code>encode(java.lang.String, boolean)</code></a>.
- <p/>
- <p/>
+
+ <p>
  The parsing is strict; any ill-formed backslash escape sequence (i.e., not of the form
  <code>&#92;uNNNN</code>, <code>\b</code>, <code>\t</code>, <code>\n</code>, <code>\f</code>, <code>\r</code>
  or <code>\\</code>) will cause an exception to be thrown.</div>
@@ -285,14 +285,17 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>enquote</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.199">enquote</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.202">enquote</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Enquote a string. Functions like <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#encode(java.lang.String, boolean)"><code>encode(string, true)</code></a> but in addition the resulting
  string is surrounded by double quotes and double quotes in the string are backslash-escaped.
- <p/>
+
  <p>
  Note: the strings returned by this method are not suitable for decoding by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#decode(java.lang.String)"><code>decode(java.lang.String)</code></a>.
- Use <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#dequote(java.lang.String)"><code>dequote(java.lang.String)</code></a> instead.
- </p></div>
+ Use <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#dequote(java.lang.String)"><code>dequote(java.lang.String)</code></a> instead.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - string to enquote</dd>
+<dt><span class="strong">Returns:</span></dt><dd>enquoted string, or the string <code>null</code> (not quoted) if <code>string</code> is null</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>string</code> is null</dd></dl>
 </li>
 </ul>
 <a name="enquote(byte[], int, int)">
@@ -301,11 +304,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>enquote</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.208">enquote</a>(byte[]&nbsp;data,
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.219">enquote</a>(byte[]&nbsp;data,
              int&nbsp;off,
              int&nbsp;len)</pre>
 <div class="block">Enquote bytes, treating them as an ASCII string.</div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(String)</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>data</code> - ascii character buffer</dd><dd><code>off</code> - starting offset in <code>data</code></dd><dd><code>len</code> - number of characters in <code>data</code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>enquoted string</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>data</code> is null</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">IndexOutOfBoundsException</a></code> - if <code>off</code> and/or <code>len</code> is invalid</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(String)</code></a></dd></dl>
 </li>
 </ul>
 <a name="dequote(java.lang.String)">
@@ -314,9 +321,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>dequote</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.222">dequote</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;quotedString)</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.238">dequote</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;quotedString)</pre>
 <div class="block">Dequote a string previously enquoted by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(java.lang.String)</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>quotedString</code> - a string returned by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(java.lang.String)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>original unquoted string</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>quotedString</code> has an invalid format (i.e., it could not have
   ever been returned by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(java.lang.String)</code></a>)</dd></dl>
@@ -328,11 +336,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>enquotedLength</h4>
-<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.241">enquotedLength</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
+<pre>public static&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.258">enquotedLength</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;string)</pre>
 <div class="block">Determine the length of a string previously enquoted by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(java.lang.String)</code></a> when it appears
  as the prefix of a longer string. This method assumes that the prefix is a valid quoted
  string; use <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#dequote(java.lang.String)"><code>dequote(java.lang.String)</code></a> to verify.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>string</code> - a string containing a prefix returned by <a href="../../../../org/dellroad/stuff/string/StringEncoder.html#enquote(java.lang.String)"><code>enquote(java.lang.String)</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>length of <code>string</code> when enquoted</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if a starting or terminating quote character is not found</dd></dl>
 </li>
@@ -343,14 +352,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>isValidXMLChar</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.262">isValidXMLChar</a>(char&nbsp;ch)</pre>
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/StringEncoder.html#line.280">isValidXMLChar</a>(char&nbsp;ch)</pre>
 <div class="block">Determine if the given character is a valid XML character according to the XML 1.0 specification.
- <p/>
+
  <p>
  Valid characters are tab, newline, carriage return, and characters in the ranges
- <code>&#92;u0020 - &#92;ud7ff</code> and <code>&#92;ue000 - &#92;fffdf</code> (inclusive).
- </p></div>
-<dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://www.w3.org/TR/REC-xml/#charsets">The XML 1.0 Specification</a></dd></dl>
+ <code>&#92;u0020 - &#92;ud7ff</code> and <code>&#92;ue000 - &#92;fffdf</code> (inclusive).</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>ch</code> - character to test</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>ch</code> is valid within XML</dd><dt><span class="strong">See Also:</span></dt><dd><a href="http://www.w3.org/TR/REC-xml/#charsets">The XML 1.0 Specification</a></dd></dl>
 </li>
 </ul>
 </li>

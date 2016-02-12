@@ -85,7 +85,7 @@
 <pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</a>
-public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.html#line.896">FieldBuilder.AbstractField</a></pre>
+public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.html#line.890">FieldBuilder.AbstractField</a></pre>
 <div class="block">Specifies how a Java property should be edited in Vaadin using an <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true" title="class or interface in com.vaadin.ui"><code>AbstractField</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin7"><code>FieldBuilder</code></a></dd></dl>
 </li>
@@ -241,13 +241,12 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>type</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true" title="class or interface in com.vaadin.ui">AbstractField</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.907">type</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true" title="class or interface in com.vaadin.ui">AbstractField</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.900">type</a></pre>
 <div class="block">Get the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true" title="class or interface in com.vaadin.ui"><code>AbstractField</code></a> type that will edit the property.
 
  <p>
  Although this property has a default value, it must be overridden either in this annotation, or
- by also including a more specific annotation such as <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/TextField.html?is-external=true" title="class or interface in com.vaadin.ui"><code>TextField</code></a>.
- </p></div>
+ by also including a more specific annotation such as <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/TextField.html?is-external=true" title="class or interface in com.vaadin.ui"><code>TextField</code></a>.</div>
 <dl>
 <dt>Default:</dt>
 <dd>com.vaadin.ui.AbstractField.class</dd>
@@ -260,7 +259,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>styleNames</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.914">styleNames</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.907">styleNames</a></pre>
 <div class="block">Get style names.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#addStyleName(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.addStyleName(java.lang.String)</code></a></dd></dl>
 <dl>
@@ -275,7 +274,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>width</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.921">width</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.914">width</a></pre>
 <div class="block">Get width.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setWidth(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setWidth(String)</code></a></dd></dl>
 <dl>
@@ -290,7 +289,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>height</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.928">height</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.921">height</a></pre>
 <div class="block">Get height.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setHeight(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setHeight(String)</code></a></dd></dl>
 <dl>
@@ -305,7 +304,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>caption</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.935">caption</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.928">caption</a></pre>
 <div class="block">Get the caption associated with this field.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setCaption(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setCaption(java.lang.String)</code></a></dd></dl>
 <dl>
@@ -320,7 +319,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>description</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.942">description</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.935">description</a></pre>
 <div class="block">Get the description associated with this field.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setDescription(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setDescription(java.lang.String)</code></a></dd></dl>
 <dl>
@@ -335,7 +334,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>enabled</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.949">enabled</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.942">enabled</a></pre>
 <div class="block">Get whether this field is enabled.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setEnabled(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setEnabled(boolean)</code></a></dd></dl>
 <dl>
@@ -350,7 +349,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>immediate</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.956">immediate</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.949">immediate</a></pre>
 <div class="block">Get whether this field is immediate.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setImmediate(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setImmediate(boolean)</code></a></dd></dl>
 <dl>
@@ -365,7 +364,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>readOnly</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.963">readOnly</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.956">readOnly</a></pre>
 <div class="block">Get whether this field is read-only.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractComponent.html?is-external=true#setReadOnly(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractComponent.setReadOnly(boolean)</code></a></dd></dl>
 <dl>
@@ -380,14 +379,13 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>converter</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter">Converter</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.977">converter</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter">Converter</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.969">converter</a></pre>
 <div class="block">Get the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter"><code>Converter</code></a> type that convert field value to data model type.
  The specified class must have a no-arg constructor and compatible type.
 
  <p>
  The default value of this property is <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter"><code>Converter</code></a>, which means do not set a specific
- <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter"><code>Converter</code></a> on the field.
- </p></div>
+ <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/util/converter/Converter.html?is-external=true" title="class or interface in com.vaadin.data.util.converter"><code>Converter</code></a> on the field.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setConverter(com.vaadin.data.util.converter.Converter)" title="class or interface in com.vaadin.ui"><code>AbstractField.setConverter(Converter)</code></a></dd></dl>
 <dl>
 <dt>Default:</dt>
@@ -401,7 +399,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>validators</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Validator.html?is-external=true" title="class or interface in com.vaadin.data">Validator</a>&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.984">validators</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;? extends <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Validator.html?is-external=true" title="class or interface in com.vaadin.data">Validator</a>&gt;[]&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.976">validators</a></pre>
 <div class="block">Get <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Validator.html?is-external=true" title="class or interface in com.vaadin.data"><code>Validator</code></a> types to add to this field. All such types must have no-arg constructors.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#addValidator(com.vaadin.data.Validator)" title="class or interface in com.vaadin.ui"><code>AbstractField.addValidator(com.vaadin.data.Validator)</code></a></dd></dl>
 <dl>
@@ -416,7 +414,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>buffered</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.991">buffered</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.983">buffered</a></pre>
 <div class="block">Get whether this field is buffered.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setBuffered(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractField.setBuffered(boolean)</code></a></dd></dl>
 <dl>
@@ -431,7 +429,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>invalidAllowed</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.998">invalidAllowed</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.990">invalidAllowed</a></pre>
 <div class="block">Get whether invalid values are allowed.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setInvalidAllowed(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractField.setInvalidAllowed(boolean)</code></a></dd></dl>
 <dl>
@@ -446,7 +444,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>invalidCommitted</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1005">invalidCommitted</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.997">invalidCommitted</a></pre>
 <div class="block">Get whether invalid values should be committed.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setInvalidCommitted(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractField.setInvalidCommitted(boolean)</code></a></dd></dl>
 <dl>
@@ -461,7 +459,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>conversionError</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1012">conversionError</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1004">conversionError</a></pre>
 <div class="block">Get error message when value cannot be converted to data model type.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setConversionError(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractField.setConversionError(java.lang.String)</code></a></dd></dl>
 <dl>
@@ -476,7 +474,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>requiredError</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1019">requiredError</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1011">requiredError</a></pre>
 <div class="block">Get the error that is shown if this field is required, but empty.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setRequiredError(java.lang.String)" title="class or interface in com.vaadin.ui"><code>AbstractField.setRequiredError(java.lang.String)</code></a></dd></dl>
 <dl>
@@ -491,7 +489,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>validationVisible</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1026">validationVisible</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1018">validationVisible</a></pre>
 <div class="block">Get whether automatic visible validation is enabled.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setValidationVisible(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractField.setValidationVisible(boolean)</code></a></dd></dl>
 <dl>
@@ -506,7 +504,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockList">
 <li class="blockList">
 <h4>required</h4>
-<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1033">required</a></pre>
+<pre>public abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1025">required</a></pre>
 <div class="block">Get whether field is required.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setRequired(boolean)" title="class or interface in com.vaadin.ui"><code>AbstractField.setRequired(boolean)</code></a></dd></dl>
 <dl>
@@ -521,7 +519,7 @@ public static @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin
 <ul class="blockListLast">
 <li class="blockList">
 <h4>tabIndex</h4>
-<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1040">tabIndex</a></pre>
+<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/FieldBuilder.AbstractField.html#line.1032">tabIndex</a></pre>
 <div class="block">Get tabular index.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/AbstractField.html?is-external=true#setTabIndex(int)" title="class or interface in com.vaadin.ui"><code>AbstractField.setTabIndex(int)</code></a></dd></dl>
 <dl>

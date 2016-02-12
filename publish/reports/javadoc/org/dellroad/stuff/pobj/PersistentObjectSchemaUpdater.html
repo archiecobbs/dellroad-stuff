@@ -108,7 +108,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.62">PersistentObjectSchemaUpdater</a>&lt;T&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.59">PersistentObjectSchemaUpdater</a>&lt;T&gt;
 extends <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>,<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&gt;
 implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;T&gt;</pre>
 <div class="block">A <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj"><code>PersistentObjectDelegate</code></a> that is also a <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>AbstractSchemaUpdater</code></a> that automatically
@@ -118,7 +118,6 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
  To use this class, wrap your normal delegate in an instance of this class. This will augment
  the serialization and deserialization process to keep track of which updates have been applied to the XML structure,
  and automatically and transparently apply any needed updates during deserialization.
- </p>
 
  <p>
  Updates are tracked by inserting an <code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#UPDATES_ELEMENT_NAME"><code>&lt;pobj:updates&gt;</code></a></code> element
@@ -129,19 +128,17 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
  <blockquote><pre>
   &lt;MyConfig&gt;
       <b>&lt;pobj:updates xmlns:pobj="http://dellroad-stuff.googlecode.com/ns/persistentObject"&gt;
-          &lt;pobj:update>some-update-name-1&lt;/pobj:update&gt;
-          &lt;pobj:update>some-update-name-2&lt;/pobj:update&gt;
+          &lt;pobj:update&gt;some-update-name-1&lt;/pobj:update&gt;
+          &lt;pobj:update&gt;some-update-name-2&lt;/pobj:update&gt;
       &lt;/pobj:updates&gt;</b>
       &lt;username&gt;admin&lt;/username&gt;
       &lt;password&gt;secret&lt;/password&gt;
   &lt;/MyConfig&gt;
  </pre></blockquote>
- </p>
 
  <p>
  For Spring applications, <a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>SpringPersistentObjectSchemaUpdater</code></a> provides a convenient declarative way
- to define your schema updates via XSLT files.
- </p></div>
+ to define your schema updates via XSLT files.</div>
 </li>
 </ul>
 </div>
@@ -364,7 +361,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>NAMESPACE_URI</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.68">NAMESPACE_URI</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.65">NAMESPACE_URI</a></pre>
 <div class="block">XML namespace URI used for nested update elements.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.pobj.PersistentObjectSchemaUpdater.NAMESPACE_URI">Constant Field Values</a></dd></dl>
 </li>
@@ -375,7 +372,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>XML_PREFIX</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.73">XML_PREFIX</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.70">XML_PREFIX</a></pre>
 <div class="block">Preferred XML namespace prefix for <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#NAMESPACE_URI"><code>NAMESPACE_URI</code></a> elements.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../constant-values.html#org.dellroad.stuff.pobj.PersistentObjectSchemaUpdater.XML_PREFIX">Constant Field Values</a></dd></dl>
 </li>
@@ -386,7 +383,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>UPDATES_ELEMENT_NAME</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.78">UPDATES_ELEMENT_NAME</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.75">UPDATES_ELEMENT_NAME</a></pre>
 <div class="block">XML element name for the updates list.</div>
 </li>
 </ul>
@@ -396,7 +393,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>UPDATE_ELEMENT_NAME</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.83">UPDATE_ELEMENT_NAME</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.80">UPDATE_ELEMENT_NAME</a></pre>
 <div class="block">XML element name for a single update.</div>
 </li>
 </ul>
@@ -406,7 +403,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>XMLNS_ATTRIBUTE_NAME</h4>
-<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.88">XMLNS_ATTRIBUTE_NAME</a></pre>
+<pre>public static final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/namespace/QName.html?is-external=true" title="class or interface in javax.xml.namespace">QName</a> <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.85">XMLNS_ATTRIBUTE_NAME</a></pre>
 <div class="block">XML namespace URI used for namespace declarations.</div>
 </li>
 </ul>
@@ -416,7 +413,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockListLast">
 <li class="blockList">
 <h4>delegate</h4>
-<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.90">delegate</a></pre>
+<pre>protected final&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.87">delegate</a></pre>
 </li>
 </ul>
 </li>
@@ -433,7 +430,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentObjectSchemaUpdater</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.110">PersistentObjectSchemaUpdater</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&nbsp;delegate)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.107">PersistentObjectSchemaUpdater</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&nbsp;delegate)</pre>
 <div class="block">Constructor.
 
  <p>
@@ -459,13 +456,12 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>setTransformerFactory</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.128">setTransformerFactory</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;transformerFactory)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.124">setTransformerFactory</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform">TransformerFactory</a>&nbsp;transformerFactory)</pre>
 <div class="block">Configure the <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform"><code>TransformerFactory</code></a> to be used by this instance when reading the updates from the XML file.
  Must support reading from a StAX <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform"><code>Source</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> returns null.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> returns null.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>transformerFactory</code> - <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/TransformerFactory.html?is-external=true" title="class or interface in javax.xml.transform"><code>TransformerFactory</code></a> to use or null for the platform default</dd></dl>
 </li>
 </ul>
@@ -477,7 +473,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>copy</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.144">copy</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;original)</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.140">copy</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;original)</pre>
 <div class="block">Make a deep copy of the given object.
 
  <p>
@@ -485,6 +481,8 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#copy(T)">copy</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>original</code> - original object</dd>
+<dt><span class="strong">Returns:</span></dt><dd>deep copy of the object graph rooted at <code>original</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>original</code> is null</dd>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd></dl>
@@ -498,7 +496,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>isSameGraph</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.155">isSameGraph</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;root1,
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.151">isSameGraph</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;root1,
                   <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;root2)</pre>
 <div class="block">Compare two object graphs.
 
@@ -507,7 +505,8 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#isSameGraph(T, T)">isSameGraph</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;</code></dd>
-<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - root of first object graph</dd><dd><code>root2</code> - root of second object graph</dd></dl>
+<dt><span class="strong">Parameters:</span></dt><dd><code>root1</code> - root of first object graph</dd><dd><code>root2</code> - root of second object graph</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>root1</code> and <code>root2</code> represent equal object graphs</dd></dl>
 </li>
 </ul>
 <a name="validate(java.lang.Object)">
@@ -518,7 +517,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>validate</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.168">validate</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;obj)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.164">validate</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;obj)</pre>
 <div class="block">Validate the given instance.
 
  <p>
@@ -526,6 +525,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#validate(T)">validate</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;</code></dd>
+<dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - root object</dd>
 <dt><span class="strong">Returns:</span></dt><dd>set of zero or more constraint violations</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>obj</code> is null</dd></dl>
@@ -537,7 +537,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>handleWritebackException</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.179">handleWritebackException</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&nbsp;pobj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.175">handleWritebackException</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;&nbsp;pobj,
                             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
 <div class="block">Handle an exception thrown during a delayed write-back attempt.
 
@@ -555,7 +555,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>getDefaultValue</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.190">getDefaultValue</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.186">getDefaultValue</a>()</pre>
 <div class="block">Get the default value for the root object graph.
 
  <p>
@@ -574,7 +574,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>serialize</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.204">serialize</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;obj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.200">serialize</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;obj,
              <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Result.html?is-external=true" title="class or interface in javax.xml.transform">Result</a>&nbsp;result)
                throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Serialize object to XML.
@@ -588,7 +588,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to serialize; must not be modified</dd><dd><code>result</code> - XML destination</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="deserialize(javax.xml.transform.Source)">
@@ -597,14 +597,13 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>deserialize</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.241">deserialize</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source)
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.236">deserialize</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/transform/Source.html?is-external=true" title="class or interface in javax.xml.transform">Source</a>&nbsp;source)
               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Deserialize object from XML.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> delegates to the delegate provided in the constructor
- but also removes the update list as the first XML tag and applies any needed updates.
- </p></div>
+ but also removes the update list as the first XML tag and applies any needed updates.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html#deserialize(javax.xml.transform.Source)">deserialize</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate.html" title="interface in org.dellroad.stuff.pobj">PersistentObjectDelegate</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="type parameter in PersistentObjectSchemaUpdater">T</a>&gt;</code></dd>
@@ -612,7 +611,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dt><span class="strong">Returns:</span></dt><dd>deserialized object</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectException</a></code> - if an error occurs</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an I/O error occurs</dd></dl>
 </li>
 </ul>
 <a name="databaseNeedsInitialization(org.dellroad.stuff.pobj.PersistentFileTransaction)">
@@ -621,7 +620,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>databaseNeedsInitialization</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.275">databaseNeedsInitialization</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.270">databaseNeedsInitialization</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                                        throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#databaseNeedsInitialization(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Determine if the database needs initialization.
@@ -632,6 +631,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#databaseNeedsInitialization(T)">databaseNeedsInitialization</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>,<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - open transaction</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the database needs initialization</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
@@ -642,7 +642,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>initializeDatabase</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.280">initializeDatabase</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.275">initializeDatabase</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#initializeDatabase(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Initialize an uninitialized database. This should create and initialize the database schema and content,
@@ -661,7 +661,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>openTransaction</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.285">openTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.280">openTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                                              throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#openTransaction(D)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Begin a transaction on the given database.
@@ -682,7 +682,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>commitTransaction</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.290">commitTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.285">commitTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#commitTransaction(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Commit a previously opened transaction.</div>
@@ -700,7 +700,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>rollbackTransaction</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.295">rollbackTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.290">rollbackTransaction</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                             throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#rollbackTransaction(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Roll back a previously opened transaction.
@@ -719,7 +719,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockList">
 <li class="blockList">
 <h4>getAppliedUpdateNames</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.300">getAppliedUpdateNames</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.295">getAppliedUpdateNames</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction)
                                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#getAppliedUpdateNames(T)">AbstractSchemaUpdater</a></code></strong></div>
 <div class="block">Determine which updates have already been applied to the database.</div>
@@ -727,6 +727,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#getAppliedUpdateNames(T)">getAppliedUpdateNames</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a>&lt;<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>,<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&gt;</code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - open transaction</dd>
+<dt><span class="strong">Returns:</span></dt><dd>set of already-applied updates</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
@@ -737,7 +738,7 @@ implements <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectDelegate
 <ul class="blockListLast">
 <li class="blockList">
 <h4>recordUpdateApplied</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.305">recordUpdateApplied</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html#line.300">recordUpdateApplied</a>(<a href="../../../../org/dellroad/stuff/pobj/PersistentFileTransaction.html" title="class in org.dellroad.stuff.pobj">PersistentFileTransaction</a>&nbsp;transaction,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
                             throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#recordUpdateApplied(T, java.lang.String)">AbstractSchemaUpdater</a></code></strong></div>

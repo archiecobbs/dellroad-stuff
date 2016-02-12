@@ -107,15 +107,14 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.23">AnnotatedXMLStreamReader</a>
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.22">AnnotatedXMLStreamReader</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util/StreamReaderDelegate.html?is-external=true" title="class or interface in javax.xml.stream.util">StreamReaderDelegate</a></pre>
 <div class="block"><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLStreamReader</code></a> that reads and removes an initial annotation element from an XML document.
  The annotation element, if present, must be the first element inside the top-level document element.
  When the annotation element is encountered, <a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#readAnnotationElement(javax.xml.stream.XMLStreamReader)"><code>readAnnotationElement()</code></a> will be invoked.
 
  <p>
- This class can be used in combination with <a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamWriter.html" title="class in org.dellroad.stuff.xml"><code>AnnotatedXMLStreamWriter</code></a> to transparently annotate XML documents.
- </p></div>
+ This class can be used in combination with <a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamWriter.html" title="class in org.dellroad.stuff.xml"><code>AnnotatedXMLStreamWriter</code></a> to transparently annotate XML documents.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamWriter.html" title="class in org.dellroad.stuff.xml"><code>AnnotatedXMLStreamWriter</code></a></dd></dl>
 </li>
 </ul>
@@ -218,7 +217,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AnnotatedXMLStreamReader</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.36">AnnotatedXMLStreamReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamReader</a>&nbsp;parent)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.35">AnnotatedXMLStreamReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamReader</a>&nbsp;parent)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>parent</code> - parent reader</dd></dl>
 </li>
@@ -237,7 +236,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>next</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.41">next</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.40">next</a>()
          throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -254,7 +253,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>nextTag</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.58">nextTag</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.57">nextTag</a>()
             throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -271,7 +270,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockListLast">
 <li class="blockList">
 <h4>readAnnotationElement</h4>
-<pre>protected abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.82">readAnnotationElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamReader</a>&nbsp;reader)
+<pre>protected abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#line.81">readAnnotationElement</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamReader</a>&nbsp;reader)
                                           throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <div class="block">Determine if the given <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamReader.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLStreamReader</code></a> is positioned at the annotation element, and if so, read it.
 
@@ -279,12 +278,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
  When this method is invoked, the <code>reader</code>'s current event has type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#START_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.START_ELEMENT</code></a> and may represent
  the start of the annotation element. If it doesn't, this method should not read any events and immediately return false.
  Otherwise, this method should read subsequent events up <i>through</i> the corresponding <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>
- event and return true. Upon return, the <code>reader</code>'s current event will have type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>.
- </p></div>
+ event and return true. Upon return, the <code>reader</code>'s current event will have type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>reader</code> - source from which the the annotation element is to be read, if found</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the current event is the start of the annotation element and has been read, false otherwise</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code> - if an XML parse error occurs</dd></dl>
 </li>
 </ul>
 </li>

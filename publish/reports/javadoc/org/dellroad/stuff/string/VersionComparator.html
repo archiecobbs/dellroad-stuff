@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.25">VersionComparator</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.24">VersionComparator</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;</pre>
 <div class="block">Comparator for version numbers.
@@ -108,8 +108,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
  of one or more digits, or a contiguous sequence of one or more non-digits, and where the period character
  ('.') serves as a part separator. Then, parts are compared pair-wise until there is a difference, as
  determined by the <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util"><code>Comparator</code></a> provided to the constructor, or one version string runs out of parts,
- in which case it is less than the other.
- </p></div>
+ in which case it is less than the other.</div>
 </li>
 </ul>
 </div>
@@ -198,7 +197,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>VersionComparator</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.37">VersionComparator</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;partComparator)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.36">VersionComparator</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;partComparator)</pre>
 <div class="block">Primary constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>partComparator</code> - compares individual parts</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -211,7 +210,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VersionComparator</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.49">VersionComparator</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.48">VersionComparator</a>()</pre>
 <div class="block">Convenience constructor.
 
  <p>
@@ -232,7 +231,7 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockList">
 <li class="blockList">
 <h4>compare</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.54">compare</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;v1,
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.53">compare</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;v1,
           <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;v2)</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -246,18 +245,16 @@ implements <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparat
 <ul class="blockListLast">
 <li class="blockList">
 <h4>separateIntoParts</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.95">separateIntoParts</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;version)</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/string/VersionComparator.html#line.92">separateIntoParts</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;version)</pre>
 <div class="block">Split a version string into parts.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/string/VersionComparator.html" title="class in org.dellroad.stuff.string"><code>VersionComparator</code></a> defines a <b>part</b> as a contiguous sequence
  of one or more digits, or a contiguous sequence of one or more non-digits, and where the period character
  ('.') serves as a part separator.
- </p>
 
  <p>
- Subclasses may choose to override this method to define parts differently.
- </p></div>
+ Subclasses may choose to override this method to define parts differently.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>version</code> - the original version string</dd>
 <dt><span class="strong">Returns:</span></dt><dd>the parts of the version string</dd></dl>
 </li>

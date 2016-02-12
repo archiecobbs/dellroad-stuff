@@ -95,7 +95,7 @@
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - Java type to be introspected</dd><dd><code>A</code> - Java annotation type</dd></dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.36">MethodAnnotationScanner</a>&lt;T,A extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.34">MethodAnnotationScanner</a>&lt;T,A extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Scan a class hierarchy for annotated methods in an override-aware manner.
 
@@ -103,12 +103,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  Instances find all methods annotated with a specific annotation in a given Java class or any of its superclasses
  and superinterfaces, while also being override-aware, i.e., filtering out annotations on overridden supertype methods
  when the overriding method also has the annotation. This operation is performed by <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#findAnnotatedMethods()"><code>findAnnotatedMethods()</code></a>.
- </p>
 
  <p>
  Subclasses may validate the annotations, and control which annotated methods to include and/or reject, by overriding
- <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#getAnnotation(java.lang.reflect.Method)"><code>getAnnotation()</code></a> and/or <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#includeMethod(java.lang.reflect.Method, A)"><code>includeMethod()</code></a>.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#getAnnotation(java.lang.reflect.Method)"><code>getAnnotation()</code></a> and/or <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#includeMethod(java.lang.reflect.Method, A)"><code>includeMethod()</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -259,7 +257,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>type</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.38">type</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">T</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.36">type</a></pre>
 </li>
 </ul>
 <a name="annotationType">
@@ -268,7 +266,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>annotationType</h4>
-<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a> extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.39">annotationType</a></pre>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a> extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt; <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.37">annotationType</a></pre>
 </li>
 </ul>
 </li>
@@ -285,7 +283,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>MethodAnnotationScanner</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.48">MethodAnnotationScanner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">T</a>&gt;&nbsp;type,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.46">MethodAnnotationScanner</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">T</a>&gt;&nbsp;type,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&gt;&nbsp;annotationType)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>type</code> - Java class to be introspected</dd><dd><code>annotationType</code> - Java annotation type to search for</dd>
@@ -307,7 +305,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>findAnnotatedMethods</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.65">findAnnotatedMethods</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.63">findAnnotatedMethods</a>()</pre>
 <div class="block">Build set of annotated methods, with overridden annotated methods omitted.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>the set of all annotated methods, with overridden annotated methods removed
   when the overriding method is also annotated</dd></dl>
@@ -319,7 +317,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>findMethodInfos</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.109">findMethodInfos</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;klass,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.107">findMethodInfos</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;klass,
                    <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&gt;&nbsp;set)</pre>
 <div class="block">Scan the given type and all its supertypes for annotated methods and add them to the list.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>klass</code> - type to scan, possibly null</dd><dd><code>set</code> - set to add methods to</dd></dl>
@@ -331,13 +329,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getAnnotation</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.144">getAnnotation</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</pre>
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.141">getAnnotation</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</pre>
 <div class="block">Get the annotation on the given method.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner</code></a> just invokes <code>method.getAnnotation()</code>.
- Subclasses may override to automatically synthesize annotations, etc.
- </p></div>
+ Subclasses may override to automatically synthesize annotations, etc.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>method</code> - method in question</dd>
 <dt><span class="strong">Returns:</span></dt><dd>annotation for <code>method</code>, or null if there is none</dd></dl>
 </li>
@@ -350,18 +347,16 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>includeMethod</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.165">includeMethod</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.160">includeMethod</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
                     <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;annotation)</pre>
 <div class="block">Determine whether the annotated method should be included.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner</code></a> returns true if <code>method</code> takes zero parameters
  and returns anything other than void, otherwise false.
- </p>
 
  <p>
- Subclasses may apply different tests and optionally throw an exception if a method is improperly annotated.
- </p></div>
+ Subclasses may apply different tests and optionally throw an exception if a method is improperly annotated.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>method</code> - method to check</dd><dd><code>annotation</code> - method's annotation</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true to include method, false to ignore it</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -374,7 +369,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>overrides</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.181">overrides</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;override,
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.176">overrides</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;override,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;original)</pre>
 <div class="block">Determine if one method strictly overrides another.
 
@@ -394,14 +389,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createMethodInfo</h4>
-<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.221">createMethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<pre>protected&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java">MethodAnnotationScanner.MethodInfo</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.216">createMethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
                                                   <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;annotation)</pre>
 <div class="block">Create a new <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> instance corresponding to the given annotated method.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner</code></a> just instantiates a <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> directly.
- </p></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>method</code> - the method</dd><dd><code>annotation</code> - the annotation annotating the method</dd></dl>
+ The implementation in <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner</code></a> just instantiates a <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> directly.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>method</code> - the method</dd><dd><code>annotation</code> - the annotation annotating the method</dd>
+<dt><span class="strong">Returns:</span></dt><dd>new <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> instance</dd></dl>
 </li>
 </ul>
 </li>

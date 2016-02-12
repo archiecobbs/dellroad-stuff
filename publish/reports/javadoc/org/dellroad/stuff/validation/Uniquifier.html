@@ -141,15 +141,14 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getUniqued</h4>
-<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Uniquifier.html#line.30">getUniqued</a>(<a href="../../../../org/dellroad/stuff/validation/Uniquifier.html" title="type parameter in Uniquifier">T</a>&nbsp;value)</pre>
+<pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/validation/Uniquifier.html#line.29">getUniqued</a>(<a href="../../../../org/dellroad/stuff/validation/Uniquifier.html" title="type parameter in Uniquifier">T</a>&nbsp;value)</pre>
 <div class="block">Get an object representing the unique value of the given instance.
  In other words, if and only two values are "the same", this method should return object(s) that
  match (according to <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#equals(java.lang.Object)" title="class or interface in java.lang"><code>equals()</code></a> and <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#hashCode()" title="class or interface in java.lang"><code>Object.hashCode()</code></a>).
 
  <p>
  This method may return a value of <code>null</code> to indicate that <code>value</code> does not in fact
- need to be unique.
- </p></div>
+ need to be unique.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>value</code> - the value to be uniquified</dd>
 <dt><span class="strong">Returns:</span></dt><dd>unique representative, or <code>null</code> to except <code>value</code> from the uniqueness requirement</dd>
 <dt><span class="strong">Throws:</span></dt>

@@ -86,12 +86,11 @@
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Inherited.html?is-external=true" title="class or interface in java.lang.annotation">@Inherited</a>
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>={<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#TYPE" title="class or interface in java.lang.annotation">TYPE</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</a>})
-public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.115">RetryTransaction</a></pre>
+public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.110">RetryTransaction</a></pre>
 <div class="block">An annotation for <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/transaction/annotation/Transactional.html?is-external=true" title="class or interface in org.springframework.transaction.annotation"><code>@Transactional</code></a> methods that
  want to have transactions automatically retried when they fail due to a transient exception. A transient exception
  is one that Spring would translate into a
  <a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/dao/TransientDataAccessException.html?is-external=true" title="class or interface in org.springframework.dao"><code>TransientDataAccessException</code></a>.
- </p>
 
  <p>
  This automatic retry logic is very handy for solving the problem of transient deadlocks that can occur in complex Java/ORM
@@ -99,13 +98,11 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
  to design Java/ORM applications such that transient deadlocks at the database layer can't occur. Since these
  deadlocks can often be dealt with simply by retrying the transaction, having retry logic automatically applied can
  eliminate this problem.
- </p>
 
  <p>
  Note, beans involved in transactions should either be stateless, or be prepared to rollback any state changes on transaction
  failure; of course, this is true whether or not transactions are automatically being retried, but adding automatic retry
  can magnify pre-existing bugs of that nature.
- </p>
 
  <p>
  The <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html" title="annotation in org.dellroad.stuff.spring"><code>@RetryTransaction</code></a> annotation is ignored unless all of the following conditions are satisfied:
@@ -156,7 +153,6 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
  <p>
  Logging behavior: Normal activity is logged at trace level, retries are logged at debug level, and errors are logged
  at error level.
- </p>
 
  <p>
  Transactional code can determine the transaction attempt number using the <a href="../../../../org/dellroad/stuff/spring/RetryTransactionProvider.html" title="interface in org.dellroad.stuff.spring"><code>RetryTransactionProvider</code></a> interface
@@ -177,8 +173,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
           final int attempt = this.retryTransactionProvider.getAttempt();
           ...
       }
-   </pre></blockquote>
- </p></div>
+   </pre></blockquote></div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="http://docs.spring.io/spring/docs/4.1.x/javadoc-api/org/springframework/transaction/annotation/Transactional.html?is-external=true" title="class or interface in org.springframework.transaction.annotation"><code>Transactional</code></a></dd></dl>
 </li>
 </ul>
@@ -237,19 +232,18 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
 <ul class="blockList">
 <li class="blockList">
 <h4>maxRetries</h4>
-<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.152">maxRetries</a></pre>
+<pre>public abstract&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.147">maxRetries</a></pre>
 <div class="block">The maximum number of transaction retry attempts.
 
  <p>
  If the transaction fails, it will be retried at most this many times.
  This limit applies to retries only; it does not apply to the very first attempt, which is always made.
  So a value of zero means at most one attempt.
- </p>
 
  <p>
  If this property is not set explicitly, the default value of <code>-1</code> indicates that the aspect-wide default value
- (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_MAX_RETRIES">4</a> by default), should be used.
- </p></div>
+ (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_MAX_RETRIES">4</a> by default), should be used.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>maximum number of transaction retry attempts</dd></dl>
 <dl>
 <dt>Default:</dt>
 <dd>-1</dd>
@@ -262,15 +256,15 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
 <ul class="blockList">
 <li class="blockList">
 <h4>initialDelay</h4>
-<pre>public abstract&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.164">initialDelay</a></pre>
+<pre>public abstract&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.160">initialDelay</a></pre>
 <div class="block">The initial delay between retry attempts in milliseconds.
  After the first transaction failure, we will pause for approximately this many milliseconds.
  For additional failures we apply a randomized exponential back-off, up to a maximum of <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#maximumDelay()"><code>maximumDelay()</code></a>.
 
  <p>
  If this property is not set explicitly, the default value of <code>-1</code> indicates that the aspect-wide default value
- (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_INITIAL_DELAY">100L</a> milliseconds by default), should be used.
- </p></div>
+ (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_INITIAL_DELAY">100L</a> milliseconds by default), should be used.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>initial delay between retry attempts in milliseconds</dd></dl>
 <dl>
 <dt>Default:</dt>
 <dd>-1L</dd>
@@ -283,15 +277,15 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/spring/RetryT
 <ul class="blockListLast">
 <li class="blockList">
 <h4>maximumDelay</h4>
-<pre>public abstract&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.176">maximumDelay</a></pre>
+<pre>public abstract&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/spring/RetryTransaction.html#line.173">maximumDelay</a></pre>
 <div class="block">The maximum delay between retry attempts in milliseconds.
  After the first transaction failure, we will pause for approximately <a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#initialDelay()"><code>initialDelay()</code></a> milliseconds.
  For additional failures we apply a randomized exponential back-off, up to a maximum of this value.
 
  <p>
  If this property is not set explicitly, the default value of <code>-1</code> indicates that the aspect-wide default value
- (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_MAXIMUM_DELAY">30000L</a> milliseconds by default), should be used.
- </p></div>
+ (<a href="../../../../org/dellroad/stuff/spring/RetryTransaction.html#DEFAULT_MAXIMUM_DELAY">30000L</a> milliseconds by default), should be used.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>maximum delay between retry attempts in milliseconds</dd></dl>
 <dl>
 <dt>Default:</dt>
 <dd>-1L</dd>

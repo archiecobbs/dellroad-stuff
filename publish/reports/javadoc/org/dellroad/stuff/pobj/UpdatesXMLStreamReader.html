@@ -252,15 +252,14 @@ extends <a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamReader.htm
  When this method is invoked, the <code>reader</code>'s current event has type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#START_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.START_ELEMENT</code></a> and may represent
  the start of the annotation element. If it doesn't, this method should not read any events and immediately return false.
  Otherwise, this method should read subsequent events up <i>through</i> the corresponding <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>
- event and return true. Upon return, the <code>reader</code>'s current event will have type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>.
- </p></div>
+ event and return true. Upon return, the <code>reader</code>'s current event will have type <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamConstants.html?is-external=true#END_ELEMENT" title="class or interface in javax.xml.stream"><code>XMLStreamConstants.END_ELEMENT</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html#readAnnotationElement(javax.xml.stream.XMLStreamReader)">readAnnotationElement</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/xml/AnnotatedXMLStreamReader.html" title="class in org.dellroad.stuff.xml">AnnotatedXMLStreamReader</a></code></dd>
 <dt><span class="strong">Parameters:</span></dt><dd><code>reader</code> - source from which the the annotation element is to be read, if found</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if the current event is the start of the annotation element and has been read, false otherwise</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></code> - if an XML parse error occurs</dd></dl>
 </li>
 </ul>
 </li>

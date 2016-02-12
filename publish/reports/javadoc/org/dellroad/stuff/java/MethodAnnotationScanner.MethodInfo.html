@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.230">MethodAnnotationScanner.MethodInfo</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.html#line.225">MethodAnnotationScanner.MethodInfo</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Holds information about an annotated method detected by a <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html#findAnnotatedMethods()"><code>MethodAnnotationScanner.findAnnotatedMethods()</code></a></dd></dl>
@@ -145,7 +145,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <tr class="rowColor">
 <td class="colFirst"><code><a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a></code></td>
 <td class="colLast"><code><strong><a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#getAnnotation()">getAnnotation</a></strong>()</code>
-<div class="block">Get the method annotattion.</div>
+<div class="block">Get the method annotation.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -201,7 +201,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>MethodAnnotationScanner.MethodInfo</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.235">MethodAnnotationScanner.MethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.230">MethodAnnotationScanner.MethodInfo</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
                                   <a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;annotation)</pre>
 </li>
 </ul>
@@ -219,7 +219,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getMethod</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.254">getMethod</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.249">getMethod</a>()</pre>
 <div class="block">Get the annotated method.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>annotated method taking zero parameters and returning non-void</dd></dl>
 </li>
@@ -230,8 +230,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getAnnotation</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.261">getAnnotation</a>()</pre>
-<div class="block">Get the method annotattion.</div>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/java/MethodAnnotationScanner.html" title="type parameter in MethodAnnotationScanner">A</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.258">getAnnotation</a>()</pre>
+<div class="block">Get the method annotation.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>annotation found on the method</dd></dl>
 </li>
 </ul>
 <a name="getMethodPropertyName()">
@@ -240,9 +241,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getMethodPropertyName</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.270">getMethodPropertyName</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html#line.268">getMethodPropertyName</a>()</pre>
 <div class="block">Get the Java bean property name implied by this method's name, if any.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the name of the bean property implied by the method</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the method's name does not follow Java bean conventions</dd></dl>
 </li>
 </ul>
@@ -258,7 +260,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>...&nbsp;params)</pre>
 <div class="block">Invoke the method and return the result. Any checked exception thrown is rethrown after being wrapped
  in a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang"><code>RuntimeException</code></a>.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>result of invoking method</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - instance on which to invoke the method; may be null for static methods</dd><dd><code>params</code> - method parameters</dd>
+<dt><span class="strong">Returns:</span></dt><dd>result of invoking method</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang">RuntimeException</a></code> - if invocation fails</dd></dl>
 </li>

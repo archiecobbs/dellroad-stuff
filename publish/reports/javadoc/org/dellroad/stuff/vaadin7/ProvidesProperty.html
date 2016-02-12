@@ -85,7 +85,7 @@
 <pre><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true" title="class or interface in java.lang.annotation">@Retention</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Retention.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>=<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/RetentionPolicy.html?is-external=true#RUNTIME" title="class or interface in java.lang.annotation">RUNTIME</a>)
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true" title="class or interface in java.lang.annotation">@Target</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Target.html?is-external=true#value()" title="class or interface in java.lang.annotation">value</a>={<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#METHOD" title="class or interface in java.lang.annotation">METHOD</a>,<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/ElementType.html?is-external=true#FIELD" title="class or interface in java.lang.annotation">FIELD</a>})
 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/annotation/Documented.html?is-external=true" title="class or interface in java.lang.annotation">@Documented</a>
-public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesProperty.html#line.119">ProvidesProperty</a></pre>
+public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesProperty.html#line.114">ProvidesProperty</a></pre>
 <div class="block">Declares that a Java method provides a read-only Vaadin <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property</code></a> value in a Java class
  whose instances back the items in a <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data"><code>Container</code></a>.
 
@@ -94,13 +94,11 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Provi
  can be used to automatically generate a list of <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7"><code>PropertyDef</code></a>s and a <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> using a
  <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html" title="class in org.dellroad.stuff.vaadin7"><code>ProvidesPropertyScanner</code></a>. This happens automatically when using the appropriate constructors of the various
  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Container.html?is-external=true" title="class or interface in com.vaadin.data"><code>Container</code></a> classes in this package.
- </p>
 
  <p>
  This annotation indicates that a read-only Vaadin <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property</code></a> having the <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html#value()">specified name</a>
  and type derived from the method's return value is accessible by reading that method.
  Annotated methods must have zero parameters.
- </p>
 
  <p>
  For example:
@@ -162,7 +160,6 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Provi
  table.setValue("jsmith");
  ...
  </pre></blockquote>
- </p>
 
  <p>
  Some details regarding <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a> annotations on methods:
@@ -178,11 +175,9 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Provi
       wins (if the two methods are delcared in the same class, an exception is thrown). This allows subclasses
       to "override" which method supplies a given property.</li>
   </ul>
- </p>
 
  <p>
- To control how properties are sorted (e.g., in tables), see <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a>.
- </p></div>
+ To control how properties are sorted (e.g., in tables), see <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a>.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>ProvidesPropertySort</code></a>, 
 <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html" title="class in org.dellroad.stuff.vaadin7"><code>ProvidesPropertyScanner</code></a></dd></dl>
 </li>
@@ -230,7 +225,7 @@ public @interface <a href="../../../../src-html/org/dellroad/stuff/vaadin7/Provi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>value</h4>
-<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesProperty.html#line.125">value</a></pre>
+<pre>public abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesProperty.html#line.120">value</a></pre>
 <div class="block">Get the name of the Vaadin property. If this is left unset (empty string), then the
  bean property name of the annotated bean property "getter" method is used.</div>
 <dl>

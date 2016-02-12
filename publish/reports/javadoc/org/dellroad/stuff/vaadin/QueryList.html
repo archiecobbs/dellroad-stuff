@@ -146,13 +146,13 @@
 <ul class="blockList">
 <li class="blockList">
 <h4>size</h4>
-<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/QueryList.html#line.24">size</a>()</pre>
+<pre>long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/QueryList.html#line.25">size</a>()</pre>
 <div class="block">Get the total size of this list.
 
  <p>
  For any given <a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="interface in org.dellroad.stuff.vaadin"><code>QueryList</code></a> instance, this method is expected to return a the same value if invoked multiple times.
- Therefore, callers may safely choose to invoke it only once on a given instance and cache the result.
- </p></div>
+ Therefore, callers may safely choose to invoke it only once on a given instance and cache the result.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the size of this list</dd></dl>
 </li>
 </ul>
 <a name="get(long)">
@@ -161,11 +161,12 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>get</h4>
-<pre><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="type parameter in QueryList">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/QueryList.html#line.34">get</a>(long&nbsp;index)
+<pre><a href="../../../../org/dellroad/stuff/vaadin/QueryList.html" title="type parameter in QueryList">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin/QueryList.html#line.36">get</a>(long&nbsp;index)
       throws <a href="../../../../org/dellroad/stuff/vaadin/InvalidQueryListException.html" title="class in org.dellroad.stuff.vaadin">InvalidQueryListException</a></pre>
 <div class="block">Get an item in the list, or throw an exception if this instance is no longer valid
  or cannot provide the item.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>index</code> - index of the item (zero-based)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the item at <code>index</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IndexOutOfBoundsException.html?is-external=true" title="class or interface in java.lang">IndexOutOfBoundsException</a></code> - if <code>index</code> is less than zero or greater than or equal to <a href="../../../../org/dellroad/stuff/vaadin/QueryList.html#size()"><code>size()</code></a></dd>
 <dd><code><a href="../../../../org/dellroad/stuff/vaadin/InvalidQueryListException.html" title="class in org.dellroad.stuff.vaadin">InvalidQueryListException</a></code> - if this list has become invalid or cannot provide the item</dd></dl>

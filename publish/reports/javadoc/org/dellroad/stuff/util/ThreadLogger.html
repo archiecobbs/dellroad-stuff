@@ -108,7 +108,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.44">ThreadLogger</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.42">ThreadLogger</a>
 extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?is-external=true" title="class or interface in org.apache.log4j">WriterAppender</a></pre>
 <div class="block">A Log4J appender that can be configured on a per-thread basis to direct the log messages
  to an arbitrary <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a> destination.
@@ -117,7 +117,6 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
  Normally this appender does nothing. However, if a thread invokes <a href="../../../../org/dellroad/stuff/util/ThreadLogger.html#setLogDestination(java.io.Writer, boolean)"><code>setLogDestination()</code></a>
  with a non-null <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a>, then any messages logged by <i>that particular thread</i> will go to that <a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a>.
  This allows individual threads to copy and/or redirect their own log messages as they see fit.
- </p>
 
  <p>
  Configure this appender just as you would any other. For example:
@@ -137,8 +136,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
       ...
       &lt;appender-ref ref="threadlog"&gt;
   &lt;/root&gt;
-  </pre></blockquote>
- </p></div>
+  </pre></blockquote></div>
 </li>
 </ul>
 </div>
@@ -261,7 +259,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ThreadLogger</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.53">ThreadLogger</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.51">ThreadLogger</a>()</pre>
 </li>
 </ul>
 </li>
@@ -278,7 +276,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
 <ul class="blockList">
 <li class="blockList">
 <h4>setLogDestination</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.64">setLogDestination</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.62">setLogDestination</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer,
                      boolean&nbsp;inherit)</pre>
 <div class="block">Configure the logging output destination for the current thread.
  Optionally also applies to all of the current thread's descendant threads.</div>
@@ -291,7 +289,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
 <ul class="blockList">
 <li class="blockList">
 <h4>setLogDestination</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.75">setLogDestination</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer)</pre>
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.73">setLogDestination</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;writer)</pre>
 <div class="block">Configure the logging output destination for the current thread and all its descendant threads.
  This is a convenience method, equivalent to
  <a href="../../../../org/dellroad/stuff/util/ThreadLogger.html#setLogDestination(java.io.Writer, boolean)"><code>setLogDestination</code></a><code>(writer, true)</code>.</div>
@@ -304,7 +302,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
 <ul class="blockList">
 <li class="blockList">
 <h4>getLogDestination</h4>
-<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.84">getLogDestination</a>()</pre>
+<pre>public static&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io">Writer</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.82">getLogDestination</a>()</pre>
 <div class="block">Get the currently configured logging output destination for the current thread.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>current thread logging destination, or null if there is none</dd></dl>
 </li>
@@ -315,7 +313,7 @@ extends <a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?i
 <ul class="blockListLast">
 <li class="blockList">
 <h4>checkEntryConditions</h4>
-<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.90">checkEntryConditions</a>()</pre>
+<pre>protected&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/util/ThreadLogger.html#line.88">checkEntryConditions</a>()</pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?is-external=true#checkEntryConditions()" title="class or interface in org.apache.log4j">checkEntryConditions</a></code>&nbsp;in class&nbsp;<code><a href="http://www.slf4j.org/api/org/apache/log4j/WriterAppender.html?is-external=true" title="class or interface in org.apache.log4j">WriterAppender</a></code></dd>

@@ -241,7 +241,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getId</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.61">getId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.62">getId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <div class="block">Get a unique ID for the given object.
 
  <p>
@@ -252,7 +252,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  New IDs are assigned sequentially starting at <code>1</code>. No conflict avoidance with IDs assigned
  via <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#setId(java.lang.Object, long)"><code>setId()</code></a> is performed; if there is a conflict, an exception is thrown.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>a non-zero, unique identifier for <code>obj</code></dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to ID; must not be null</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a non-zero, unique identifier for <code>obj</code></dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>obj</code> is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the next sequential ID has already been assigned to a different object
@@ -266,9 +267,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>checkId</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.83">checkId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.85">checkId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj)</pre>
 <div class="block">Test whether the given object is already registered with this instance.</div>
-<dl><dt><span class="strong">Returns:</span></dt><dd>a non-zero, unique identifier for <code>obj</code> if already registered, otherwise zero</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to test; must not be null</dd>
+<dt><span class="strong">Returns:</span></dt><dd>a non-zero, unique identifier for <code>obj</code> if already registered, otherwise zero</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>obj</code> is null</dd></dl>
 </li>
@@ -279,7 +281,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setId</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.99">setId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.101">setId</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;obj,
          long&nbsp;id)</pre>
 <div class="block">Assign a unique ID to the given object. Does nothing if the object and ID number are already associated.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>obj</code> - object to assign</dd><dd><code>id</code> - unique ID number to assign</dd>
@@ -294,7 +296,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getObject</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.120">getObject</a>(long&nbsp;id)</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.122">getObject</a>(long&nbsp;id)</pre>
 <div class="block">Get the object assigned to the given ID.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>id</code> - unique ID</dd>
 <dt><span class="strong">Returns:</span></dt><dd>object associated with that ID, or null if no object is assigned to <code>id</code></dd></dl>
@@ -306,7 +308,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.134">flush</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.136">flush</a>()</pre>
 <div class="block">Flush any cleared weak references.
 
  <p>
@@ -321,7 +323,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.154">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
+<pre>public static&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.156">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>&nbsp;action)</pre>
 <div class="block">Create a new <a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java"><code>IdGenerator</code></a> and make it available via <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#get()"><code>get()</code></a> for the duration of the given operation.
 
  <p>
@@ -338,18 +340,18 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre>public static&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.172">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent">Callable</a>&lt;R&gt;&nbsp;action)
+<pre>public static&nbsp;&lt;R&gt;&nbsp;R&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.176">run</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/Callable.html?is-external=true" title="class or interface in java.util.concurrent">Callable</a>&lt;R&gt;&nbsp;action)
              throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Create a new <a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java"><code>IdGenerator</code></a> and make it available via <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#get()"><code>get()</code></a> for the duration of the given operation.
 
  <p>
  This method is re-entrant: nested invocations of this method in the same thread re-use the same <a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java"><code>IdGenerator</code></a>
  instance.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform, and which may successfully invoke <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#get()"><code>get()</code></a></dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>R</code> - action return type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>action</code> - action to perform, and which may successfully invoke <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#get()"><code>get()</code></a></dd>
 <dt><span class="strong">Returns:</span></dt><dd>result of invoking <code>action</code></dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>action</code> is null</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if <code>action</code> throws an exception</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>action</code> is null</dd></dl>
 </li>
 </ul>
 <a name="get()">
@@ -358,7 +360,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>get</h4>
-<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java">IdGenerator</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.187">get</a>()</pre>
+<pre>public static&nbsp;<a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java">IdGenerator</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/IdGenerator.html#line.191">get</a>()</pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java"><code>IdGenerator</code></a> associated with the current thread.
  This method only works when the current thread is running within an invocation of <a href="../../../../org/dellroad/stuff/java/IdGenerator.html#run(java.lang.Runnable)"><code>run()</code></a>;
  otherwise, an <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang"><code>IllegalStateException</code></a> is thrown.</div>

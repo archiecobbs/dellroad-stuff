@@ -200,9 +200,9 @@ extends <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentObjectValidationException</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectValidationException.html#line.27">PersistentObjectValidationException</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;T&gt;&gt;&nbsp;violations)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectValidationException.html#line.28">PersistentObjectValidationException</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;T&gt;&gt;&nbsp;violations)</pre>
 <div class="block">Constructor.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>violations</code> - set of violations</dd>
+<dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - root object type</dd><dt><span class="strong">Parameters:</span></dt><dd><code>violations</code> - set of violations</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>violations</code> is null</dd></dl>
 </li>
@@ -221,8 +221,9 @@ extends <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectException.h
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getViolations</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectValidationException.html#line.35">getViolations</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javaee/7/api/javax/validation/ConstraintViolation.html?is-external=true" title="class or interface in javax.validation">ConstraintViolation</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/pobj/PersistentObjectValidationException.html#line.38">getViolations</a>()</pre>
 <div class="block">Get the set of constraint violations.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>the constraint violations that triggered this exception</dd></dl>
 </li>
 </ul>
 </li>

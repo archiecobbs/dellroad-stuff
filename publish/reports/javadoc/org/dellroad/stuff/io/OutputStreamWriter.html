@@ -108,7 +108,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.34">OutputStreamWriter</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.31">OutputStreamWriter</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io">FilterOutputStream</a></pre>
 <div class="block">Serializes zero or more <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>s inside a single underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>. The results can be
  deserialized as equally many distinct <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s on the other end using an <a href="../../../../org/dellroad/stuff/io/InputStreamReader.html" title="class in org.dellroad.stuff.io"><code>InputStreamReader</code></a>.
@@ -118,16 +118,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
  To use this class, invoke <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html#start()"><code>start()</code></a> to start a new <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>, write to it by writing to this
  class normally, and then use <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html#stop()"><code>stop()</code></a> to close the current <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>. A new, subsequent <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>
  is created by invoking <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html#start()"><code>start()</code></a> again.
- </p>
 
  <p>
  Each <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> written in this way will be read as distinct <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> by the
  <a href="../../../../org/dellroad/stuff/io/InputStreamReader.html" title="class in org.dellroad.stuff.io"><code>InputStreamReader</code></a> at the other end.
- </p>
 
  <p>
- Instances of this class are thread safe.
- </p></div>
+ Instances of this class are thread safe.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/io/InputStreamReader.html" title="class in org.dellroad.stuff.io"><code>InputStreamReader</code></a></dd></dl>
 </li>
 </ul>
@@ -238,7 +235,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>OutputStreamWriter</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.47">OutputStreamWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.44">OutputStreamWriter</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>output</code> - the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> that will carry nested <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>s within it</dd></dl>
 </li>
@@ -257,7 +254,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.58">start</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.55">start</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Start a new <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
@@ -271,7 +268,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>stop</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.74">stop</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.71">stop</a>()
           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">End the current <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>. This flushes the underlying output.
  A new <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> will be created upon the next invocation of <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html#start()"><code>start()</code></a>.</div>
@@ -287,15 +284,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.96">close</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.92">close</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Close this instance. Does nothing if already closed.
  If there an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> is already started when this method is invoked, it will be implicitly
  <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html#stop()">stopped</a>.
 
  <p>
- This ends the current <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> and closes the underlying output.
- </p></div>
+ This ends the current <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> and closes the underlying output.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true#close()" title="class or interface in java.io">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></code></dd>
@@ -313,7 +309,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>write</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.108">write</a>(int&nbsp;ch)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/OutputStreamWriter.html#line.104">write</a>(int&nbsp;ch)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <dl>
 <dt><strong>Overrides:</strong></dt>

@@ -124,7 +124,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.52">VaadinSessionContainer</a>&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7">VaadinSessionInfo</a>&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.50">VaadinSessionContainer</a>&lt;T extends <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7">VaadinSessionInfo</a>&gt;
 extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html" title="class in org.dellroad.stuff.vaadin7">SelfKeyedContainer</a>&lt;T&gt;</pre>
 <div class="block">Container containing active <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>s.
 
@@ -139,7 +139,6 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
  By subclassing this class and <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a>, additional session-related properties,
  such as logged-in user, can be added to the container by annotating the <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a>
  subclass with <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a> annotations.
- </p>
 
  <p>
  Note the following:
@@ -150,8 +149,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
   <li>The <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#connect()"><code>connect()</code></a> and <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#disconnect()"><code>disconnect()</code></a> methods must be invoked before and after (respectively)
       this container is used; typically these would be invoked in the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/ui/Component.html?is-external=true#attach()" title="class or interface in com.vaadin.ui"><code>Component.attach()</code></a>
       and <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/ClientConnector.html?is-external=true#detach()" title="class or interface in com.vaadin.server"><code>ClientConnector.detach()</code></a> methods of a corresponding widget.
- </ul>
- </p></div>
+ </ul></div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin7.VaadinSessionContainer">Serialized Form</a></dd></dl>
 </li>
 </ul>
@@ -304,7 +302,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.dellroad.stuff.vaadin7.<a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html" title="class in org.dellroad.stuff.vaadin7">AbstractSimpleContainer</a></h3>
-<code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#addContainerFilter(com.vaadin.data.Container.Filter)">addContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#addContainerFilter(java.lang.Object, java.lang.String, boolean, boolean)">addContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#afterReload()">afterReload</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#createBackedItem(T, java.util.Collection, org.dellroad.stuff.vaadin7.PropertyExtractor)">createBackedItem</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerFilters()">getContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerProperty(java.lang.Object, java.lang.Object)">getContainerProperty</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerPropertyIds()">getContainerPropertyIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getItemIds()">getItemIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyExtractor()">getPropertyExtractor</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)">getPropertyValue</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getSortableContainerPropertyIds()">getSortableContainerPropertyIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getType(java.lang.Object)">getType</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getUnfilteredItem(java.lang.Object)">getUnfilteredItem</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#internalRemoveAllItems()">internalRemoveAllItems</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.lang.Iterable)">load</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeAllContainerFilters()">removeAllContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilter(com.vaadin.data.Container.Filter)">removeContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilters(java.lang.Object)">removeContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperties(java.util.Collection)">setProperties</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperty(org.dellroad.stuff.vaadin7.PropertyDef)">setProperty</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)">setPropertyExtractor</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#sort(java.lang.Object[], boolean[])">sort</a></code></li>
+<code><a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#addContainerFilter(com.vaadin.data.Container.Filter)">addContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#addContainerFilter(java.lang.Object, java.lang.String, boolean, boolean)">addContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#afterReload()">afterReload</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#createBackedItem(T, java.util.Collection, org.dellroad.stuff.vaadin7.PropertyExtractor)">createBackedItem</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerFilters()">getContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerProperty(java.lang.Object, java.lang.Object)">getContainerProperty</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getContainerPropertyIds()">getContainerPropertyIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getItemIds()">getItemIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyExtractor()">getPropertyExtractor</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getPropertyValue(T, org.dellroad.stuff.vaadin7.PropertyDef)">getPropertyValue</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getSortableContainerPropertyIds()">getSortableContainerPropertyIds</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getType(java.lang.Object)">getType</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#getUnfilteredItem(java.lang.Object)">getUnfilteredItem</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#internalRemoveAllItems()">internalRemoveAllItems</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.lang.Iterable)">load</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#load(java.util.Iterator)">load</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeAllContainerFilters()">removeAllContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilter(com.vaadin.data.Container.Filter)">removeContainerFilter</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#removeContainerFilters(java.lang.Object)">removeContainerFilters</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperties(java.util.Collection)">setProperties</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setProperty(org.dellroad.stuff.vaadin7.PropertyDef)">setProperty</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#setPropertyExtractor(org.dellroad.stuff.vaadin7.PropertyExtractor)">setPropertyExtractor</a>, <a href="../../../../org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html#sort(java.lang.Object[], boolean[])">sort</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods_inherited_from_class_com.vaadin.data.util.AbstractInMemoryContainer">
@@ -361,7 +359,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockListLast">
 <li class="blockList">
 <h4>session</h4>
-<pre>protected final&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.58">session</a></pre>
+<pre>protected final&nbsp;<a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server">VaadinSession</a> <a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.56">session</a></pre>
 <div class="block">The <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> that this container instance is associated with.
  Determined by whatever <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is associated with the current thread at construction time.</div>
 </li>
@@ -380,13 +378,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>VaadinSessionContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.85">VaadinSessionContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&gt;&nbsp;type)</pre>
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.82">VaadinSessionContainer</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&gt;&nbsp;type)</pre>
 <div class="block">Constructor.
 
  <p>
  Properties will be determined by the <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesProperty</code></a> and
- <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.
- </p></div>
+ <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertySort.html" title="annotation in org.dellroad.stuff.vaadin7"><code>&#64;ProvidesPropertySort</code></a> annotated methods in the given class.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>type</code> - class to introspect for annotated methods</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>type</code> is null</dd>
@@ -408,7 +405,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VaadinSessionContainer</h4>
-<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.99">VaadinSessionContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&gt;&nbsp;propertyExtractor,
+<pre>protected&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.96">VaadinSessionContainer</a>(<a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">PropertyExtractor</a>&lt;? super <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&gt;&nbsp;propertyExtractor,
                       <a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;propertyDefs)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>propertyExtractor</code> - used to extract properties from the underlying Java objects;
@@ -430,7 +427,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>connect</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.110">connect</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.107">connect</a>()</pre>
 <div class="block">Connect this container and start tracking sessions.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -446,7 +443,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>disconnect</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.120">disconnect</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.117">disconnect</a>()</pre>
 <div class="block">Disconnect this container and stop tracking sessions.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -462,13 +459,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>reload</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.133">reload</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.129">reload</a>()</pre>
 <div class="block">Asynchronously reload this container.
 
  <p>
  This method can be invoked from any thread. It creates a new thread to do the actual
- reloading via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doReload()"><code>doReload()</code></a> to avoid potential deadlocks.
- </p></div>
+ reloading via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doReload()"><code>doReload()</code></a> to avoid potential deadlocks.</div>
 </li>
 </ul>
 <a name="update()">
@@ -477,13 +473,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>update</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.156">update</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.151">update</a>()</pre>
 <div class="block">Asynchronously update this container's items.
 
  <p>
  This method can be invoked from any thread. It creates a new thread to do the actual
- updating via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doUpdate()"><code>doUpdate()</code></a> to avoid potential deadlocks.
- </p></div>
+ updating via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doUpdate()"><code>doUpdate()</code></a> to avoid potential deadlocks.</div>
 </li>
 </ul>
 <a name="doUpdate()">
@@ -492,7 +487,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>doUpdate</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.190">doUpdate</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.183">doUpdate</a>()</pre>
 <div class="block">Update each <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> instance in this container.
  Using this method is more efficient than reloading the entire container.
 
@@ -502,12 +497,10 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
  corresponding to <i>that <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> instance</i> is locked, so that information from that session
  can be safely gathered; then, <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#makeUpdatesVisible()"><code>VaadinSessionInfo.makeUpdatesVisible()</code></a> is invoked while the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>
  associated with <i>this container</i> is locked, so item properties can be safely updated, etc.
- </p>
 
  <p>
  This method must <b>not</b> be invoked while any <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is locked.
- For example, it may be invoked by a regular timer (only while this container is <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#connect()">connected</a>).
- </p></div>
+ For example, it may be invoked by a regular timer (only while this container is <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#connect()">connected</a>).</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is a locked <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with the current thread</dd></dl>
 </li>
@@ -518,13 +511,12 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockList">
 <li class="blockList">
 <h4>doReload</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.236">doReload</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.228">doReload</a>()</pre>
 <div class="block">Reload this container. Reloads this container with <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> instances for each <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>
  (created via <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#createVaadinSessionInfo()"><code>createVaadinSessionInfo()</code></a>), and then invokes <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doUpdate()"><code>doUpdate()</code></a>.
 
  <p>
- This method must <b>not</b> be invoked while any <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is locked.
- </p></div>
+ This method must <b>not</b> be invoked while any <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> is locked.</div>
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is a locked <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with the current thread</dd></dl>
 </li>
@@ -535,7 +527,7 @@ extends <a href="../../../../org/dellroad/stuff/vaadin7/SelfKeyedContainer.html"
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createVaadinSessionInfo</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.269">createVaadinSessionInfo</a>()</pre>
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="type parameter in VaadinSessionContainer">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#line.261">createVaadinSessionInfo</a>()</pre>
 <div class="block">Create a <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> backing object for the <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with the current thread.
  The <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> will be already locked.</div>
 </li>

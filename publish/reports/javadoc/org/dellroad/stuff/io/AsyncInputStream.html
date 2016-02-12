@@ -94,7 +94,7 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.29">AsyncInputStream</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.27">AsyncInputStream</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Performs asynchonous reads on an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> and notifies of input events.
 
@@ -103,12 +103,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  The background thread runs until this instance is <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.html#close()">closed</a>, EOF or an exception is detected
  on the input, or a listener callback method throws an exception. A null listener may be supplied; in which case
  this class will just sink the <a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.
- </p>
 
  <p>
  Instances of this class are thread-safe. The <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.html#close()"><code>close()</code></a> method may be safely invoked re-entrantly from the
- listener callback methods.
- </p></div>
+ listener callback methods.</div>
 </li>
 </ul>
 </div>
@@ -222,7 +220,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.33">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.31">log</a></pre>
 </li>
 </ul>
 </li>
@@ -239,14 +237,13 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AsyncInputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.53">AsyncInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.50">AsyncInputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input,
                 <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name,
                 <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.html" title="interface in org.dellroad.stuff.io">AsyncInputStream.Listener</a>&nbsp;listener)</pre>
 <div class="block">Constructor.
 
  <p>
- If <code>listener</code> is null, this instance effectively reads and discards all of the input in a background thread.
- </p></div>
+ If <code>listener</code> is null, this instance effectively reads and discards all of the input in a background thread.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>input</code> - underlying input stream</dd><dd><code>name</code> - name for this instance; used to create the name of the background thread</dd><dd><code>listener</code> - callback object for input events, or null for none</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if any parameter is null</dd></dl>
@@ -266,7 +263,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.75">close</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncInputStream.html#line.72">close</a>()</pre>
 <div class="block">Close this instance.
 
  <p>

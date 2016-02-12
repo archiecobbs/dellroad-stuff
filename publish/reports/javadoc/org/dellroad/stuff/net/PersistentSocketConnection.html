@@ -99,13 +99,12 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.19">PersistentSocketConnection</a>
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.18">PersistentSocketConnection</a>
 extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&gt;</pre>
 <div class="block">Maintains a persistent <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net"><code>Socket</code></a> connection to a remote server, automatically reconnecting when the connection fails.
 
  <p>
- Subclasses need only override <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>.
- </p></div>
+ Subclasses need only override <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>.</div>
 </li>
 </ul>
 </div>
@@ -227,7 +226,7 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentSocketConnection</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.19">PersistentSocketConnection</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.18">PersistentSocketConnection</a>()</pre>
 </li>
 </ul>
 </li>
@@ -244,8 +243,9 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>getServerAddress</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/SocketAddress.html?is-external=true" title="class or interface in java.net">SocketAddress</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.28">getServerAddress</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/SocketAddress.html?is-external=true" title="class or interface in java.net">SocketAddress</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.29">getServerAddress</a>()</pre>
 <div class="block">Get the address to which this instance should connect.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>remote server address</dd></dl>
 </li>
 </ul>
 <a name="setServerAddress(java.net.SocketAddress)">
@@ -254,12 +254,12 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>setServerAddress</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.39">setServerAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/SocketAddress.html?is-external=true" title="class or interface in java.net">SocketAddress</a>&nbsp;serverAddress)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.41">setServerAddress</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/SocketAddress.html?is-external=true" title="class or interface in java.net">SocketAddress</a>&nbsp;serverAddress)</pre>
 <div class="block">Configure the address to which this instance should connect.
 
  <p>
- Required property.
- </p></div>
+ Required property.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>serverAddress</code> - remote server address</dd></dl>
 </li>
 </ul>
 <a name="start()">
@@ -268,13 +268,12 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>start</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.46">start</a>()</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.48">start</a>()</pre>
 <div class="block"><strong>Description copied from class:&nbsp;<code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#start()">PersistentConnection</a></code></strong></div>
 <div class="block">Start this instance. This starts the background thread, which initiates the first connection attempt.
 
  <p>
- If this instance is already started, nothing happens.
- </p></div>
+ If this instance is already started, nothing happens.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#start()">start</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&gt;</code></dd>
@@ -287,23 +286,21 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>createConnection</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.61">createConnection</a>()
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.66">createConnection</a>()
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a>,
                                   <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Create a new server connection.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentSocketConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentSocketConnection</code></a> creates a socket via <a href="../../../../org/dellroad/stuff/net/PersistentSocketConnection.html#createSocket()"><code>createSocket()</code></a>
- and connects the socket to the configured server.
- </p></div>
+ and connects the socket to the configured server.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()">createConnection</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&gt;</code></dd>
-<dt><span class="strong">Returns:</span></dt><dd>context for the connection, which will be supplied to <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>
- and <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#cleanupConnection(C)"><code>cleanupConnection()</code></a></dd>
+<dt><span class="strong">Returns:</span></dt><dd>connected socket</dd>
 <dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></code> - if interrupted</dd>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if there is a problem establishing the connection</dd></dl>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if the connection attempt fails</dd>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></code> - if the current thread is interrupted</dd></dl>
 </li>
 </ul>
 <a name="cleanupConnection(java.net.Socket)">
@@ -312,12 +309,11 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockList">
 <li class="blockList">
 <h4>cleanupConnection</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.77">cleanupConnection</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;socket)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.81">cleanupConnection</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;socket)</pre>
 <div class="block">Perform cleanup after a server connection ends.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentSocketConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentSocketConnection</code></a> ensures the socket is closed.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentSocketConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentSocketConnection</code></a> ensures the socket is closed.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#cleanupConnection(C)">cleanupConnection</a></code>&nbsp;in class&nbsp;<code><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&gt;</code></dd>
@@ -330,16 +326,16 @@ extends <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" t
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createSocket</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.93">createSocket</a>()
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net">Socket</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentSocketConnection.html#line.99">createSocket</a>()
                        throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Create the <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net"><code>Socket</code></a> to use for a new connection. The socket should <b>not</b> be connected yet.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentSocketConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentSocketConnection</code></a> creates a normal <a href="https://docs.oracle.com/javase/7/docs/api/java/net/Socket.html?is-external=true" title="class or interface in java.net"><code>Socket</code></a> and sets the keep-alive flag
- to ensure connection failures are detected promptly. Subclasses may override to configure the socket differently.
- </p></div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+ to ensure connection failures are detected promptly. Subclasses may override to configure the socket differently.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>new socket</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if socket creation fails</dd></dl>
 </li>
 </ul>
 </li>

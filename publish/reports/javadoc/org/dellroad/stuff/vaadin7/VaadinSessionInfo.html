@@ -266,19 +266,17 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>updateInformation</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#line.57">updateInformation</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#line.55">updateInformation</a>()</pre>
 <div class="block">Update this instance with information from its corresponding <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a>,
  which will be associated with the current thread and locked.
 
  <p>
  This method is invoked from <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doUpdate()"><code>VaadinSessionContainer.doUpdate()</code></a>; the implementation in
  <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> does nothing.
- </p>
 
  <p>
  When this method and <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#makeUpdatesVisible()"><code>makeUpdatesVisible()</code></a> are overridden, consider declaring them both <code>synchronized</code>,
- as they are invoked with different locks held yet will access the same information.
- </p></div>
+ as they are invoked with different locks held yet will access the same information.</div>
 </li>
 </ul>
 <a name="makeUpdatesVisible()">
@@ -287,7 +285,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>makeUpdatesVisible</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#line.75">makeUpdatesVisible</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#line.71">makeUpdatesVisible</a>()</pre>
 <div class="block">Make the updates previously gathered by <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#updateInformation()"><code>updateInformation()</code></a> visible in this instance's <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionContainer</code></a>.
  The  <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.server"><code>VaadinSession</code></a> associated with this instance's <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionContainer</code></a> will be associated with the
  current thread and locked.
@@ -295,12 +293,10 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  This method is invoked from <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionContainer.html#doUpdate()"><code>VaadinSessionContainer.doUpdate()</code></a>; the implementation in
  <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html" title="class in org.dellroad.stuff.vaadin7"><code>VaadinSessionInfo</code></a> does nothing.
- </p>
 
  <p>
  When this method and <a href="../../../../org/dellroad/stuff/vaadin7/VaadinSessionInfo.html#updateInformation()"><code>updateInformation()</code></a> are used, consider declaring them both <code>synchronized</code>,
- as they are invoked with different locks held yet will access the same information.
- </p></div>
+ as they are invoked with different locks held yet will access the same information.</div>
 </li>
 </ul>
 </li>

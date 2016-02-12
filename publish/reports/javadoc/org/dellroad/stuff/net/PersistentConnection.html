@@ -99,7 +99,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.43">PersistentConnection</a>&lt;C&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.40">PersistentConnection</a>&lt;C&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Support superclass for clients that want to maintain a persistent connection to some server.
 
@@ -108,7 +108,6 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  it would be used to maintain a persistent connection to a remote server over the network. This class
  mainly serves to implement the connection state machine, including an exponential back-off retry timer,
  subclass notifications for state transitions, and guaranteed thread safety.
- </p>
 
  <p>
  Each instance has a dedicated thread that manages the connection and performs any required work while connected.
@@ -116,14 +115,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> and <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#cleanupConnection(C)"><code>cleanupConnection()</code></a>.
  The actual per-connection work is performed by <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>.
  Each connection has an associated connection context (defined by the subclass) and passed to these methods.
- </p>
 
  <p>
  The subclass is also notified of state machine transitions via the state transition methods
  <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#started()"><code>started()</code></a>, <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stopped(java.lang.Throwable)"><code>stopped()</code></a>, <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#connectionSuccessful()"><code>connectionSuccessful()</code></a>,
  <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#connectionFailed(java.lang.Exception)"><code>connectionFailed()</code></a>, and <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#connectionEnded(java.lang.Exception)"><code>connectionEnded()</code></a>;
- all of these methods are invoked by the background thread.
- </p></div>
+ all of these methods are invoked by the background thread.</div>
 </li>
 </ul>
 </div>
@@ -312,7 +309,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>DEFAULT_MIN_RESTART_DELAY</h4>
-<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.50">DEFAULT_MIN_RESTART_DELAY</a></pre>
+<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.47">DEFAULT_MIN_RESTART_DELAY</a></pre>
 <div class="block">Default minimum restart delay.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#setMinRestartDelay(long)"><code>setMinRestartDelay(long)</code></a>, 
 <a href="../../../../constant-values.html#org.dellroad.stuff.net.PersistentConnection.DEFAULT_MIN_RESTART_DELAY">Constant Field Values</a></dd></dl>
@@ -324,7 +321,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>DEFAULT_MAX_RESTART_DELAY</h4>
-<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.57">DEFAULT_MAX_RESTART_DELAY</a></pre>
+<pre>public static final&nbsp;long <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.54">DEFAULT_MAX_RESTART_DELAY</a></pre>
 <div class="block">Default maximum restart delay.</div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#setMaxRestartDelay(long)"><code>setMaxRestartDelay(long)</code></a>, 
 <a href="../../../../constant-values.html#org.dellroad.stuff.net.PersistentConnection.DEFAULT_MAX_RESTART_DELAY">Constant Field Values</a></dd></dl>
@@ -336,7 +333,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.59">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.56">log</a></pre>
 </li>
 </ul>
 </li>
@@ -353,7 +350,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>PersistentConnection</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.43">PersistentConnection</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.40">PersistentConnection</a>()</pre>
 </li>
 </ul>
 </li>
@@ -370,7 +367,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setMinRestartDelay</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.74">setMinRestartDelay</a>(long&nbsp;minRestartDelay)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.71">setMinRestartDelay</a>(long&nbsp;minRestartDelay)</pre>
 <div class="block">Set the minimum restart delay after being disconnected from the server.
  Default is <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#DEFAULT_MIN_RESTART_DELAY"><code>DEFAULT_MIN_RESTART_DELAY</code></a> (<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#DEFAULT_MIN_RESTART_DELAY">10000L</a>}ms).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>minRestartDelay</code> - minimum restart delay in milliseconds</dd></dl>
@@ -382,7 +379,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getMinRestartDelay</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.77">getMinRestartDelay</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.74">getMinRestartDelay</a>()</pre>
 </li>
 </ul>
 <a name="setMaxRestartDelay(long)">
@@ -391,7 +388,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setMaxRestartDelay</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.87">setMaxRestartDelay</a>(long&nbsp;maxRestartDelay)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.84">setMaxRestartDelay</a>(long&nbsp;maxRestartDelay)</pre>
 <div class="block">Set the maximum restart delay after being disconnected from the server.
  Default is <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#DEFAULT_MAX_RESTART_DELAY"><code>DEFAULT_MAX_RESTART_DELAY</code></a> (<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#DEFAULT_MAX_RESTART_DELAY">600000L</a>}ms).</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>maxRestartDelay</code> - maximum restart delay in milliseconds</dd></dl>
@@ -403,7 +400,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getMaxRestartDelay</h4>
-<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.90">getMaxRestartDelay</a>()</pre>
+<pre>public&nbsp;long&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.87">getMaxRestartDelay</a>()</pre>
 </li>
 </ul>
 <a name="getThreadName()">
@@ -412,12 +409,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getThreadName</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.101">getThreadName</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.99">getThreadName</a>()</pre>
 <div class="block">Get the name to use for the network client thread.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> returns <code>this.toString() + " thread"</code>.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> returns <code>this.toString() + " thread"</code>.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>network client thread name</dd></dl>
 </li>
 </ul>
 <a name="start()">
@@ -427,12 +424,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>start</h4>
 <pre><a href="https://docs.oracle.com/javase/7/docs/api/javax/annotation/PostConstruct.html?is-external=true" title="class or interface in javax.annotation">@PostConstruct</a>
-public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.115">start</a>()</pre>
+public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.112">start</a>()</pre>
 <div class="block">Start this instance. This starts the background thread, which initiates the first connection attempt.
 
  <p>
- If this instance is already started, nothing happens.
- </p></div>
+ If this instance is already started, nothing happens.</div>
 </li>
 </ul>
 <a name="stop()">
@@ -442,12 +438,11 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <li class="blockList">
 <h4>stop</h4>
 <pre><a href="https://docs.oracle.com/javase/7/docs/api/javax/annotation/PreDestroy.html?is-external=true" title="class or interface in javax.annotation">@PreDestroy</a>
-public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.130">stop</a>()</pre>
+public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.126">stop</a>()</pre>
 <div class="block">Stop this client.
 
  <p>
- This method simply <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html?is-external=true#interrupt()" title="class or interface in java.lang">interrupts</a> the background thread, if any.
- </p></div>
+ This method simply <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html?is-external=true#interrupt()" title="class or interface in java.lang">interrupts</a> the background thread, if any.</div>
 </li>
 </ul>
 <a name="isRunning()">
@@ -456,8 +451,9 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>isRunning</h4>
-<pre>public final&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.141">isRunning</a>()</pre>
+<pre>public final&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.139">isRunning</a>()</pre>
 <div class="block">Determine if this instance is started.</div>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if this instance is currently running</dd></dl>
 </li>
 </ul>
 <a name="createConnection()">
@@ -466,15 +462,14 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>createConnection</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.229">createConnection</a>()
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.226">createConnection</a>()
                                throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a>,
                                       <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Create a new server connection.
 
  <p>
  If this method throws an unchecked exception, <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stopped(java.lang.Throwable)"><code>stopped()</code></a> will be invoked with the exception
- and this instance will be automatically stopped.
- </p></div>
+ and this instance will be automatically stopped.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>context for the connection, which will be supplied to <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>
  and <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#cleanupConnection(C)"><code>cleanupConnection()</code></a></dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -490,7 +485,7 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>handleConnection</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.253">handleConnection</a>(<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;connectionContext)
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.247">handleConnection</a>(<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;connectionContext)
                                   throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a>,
                                          <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Handle one server connection.
@@ -498,17 +493,14 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
  <p>
  This method may either throw an exception or return normally; the only difference is whether
  <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#connectionEnded(java.lang.Exception)"><code>connectionEnded()</code></a> is invoked with a non-null parameter or not.
- </p>
 
  <p>
  Ideally this method should never return normally. However, in practice there are legitimate reasons to do so,
  for example, if there is an application-level error that indicates the particular connection is no longer usable.
- </p>
 
  <p>
  If this method throws an unchecked exception, <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stopped(java.lang.Throwable)"><code>stopped()</code></a> will be invoked with the exception
- and this instance will be automatically stopped.
- </p></div>
+ and this instance will be automatically stopped.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>connectionContext</code> - connection context returned from <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> when this connection was created</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></code> - if interrupted</dd>
@@ -523,28 +515,24 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>cleanupConnection</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.280">cleanupConnection</a>(<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;connectionContext)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.270">cleanupConnection</a>(<a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="type parameter in PersistentConnection">C</a>&nbsp;connectionContext)</pre>
 <div class="block">Perform cleanup after a server connection ends. This method should close any open sockets, etc.
 
  <p>
  For each successful invocation of <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> there is guaranteed be exactly
  one invocation of this method.
- </p>
 
  <p>
  The <code>exception</code> parameter indicates either a normal return (if null) or thrown exception (if not null) from
  <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>. In any case, this instance will automatically begin attempting to reconnect
  when this method returns.
- </p>
 
  <p>
  If this method throws an unchecked exception, <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stopped(java.lang.Throwable)"><code>stopped()</code></a> will be invoked with the exception
  and this instance will be automatically stopped.
- </p>
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing. Subclasses should override if necessary.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing. Subclasses should override if necessary.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>connectionContext</code> - connection context returned from <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> when this connection was created</dd></dl>
 </li>
 </ul>
@@ -554,12 +542,11 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>started</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.292">started</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.281">started</a>()</pre>
 <div class="block">State machine transition: this instance was started via <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#start()"><code>start()</code></a>.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.</div>
 </li>
 </ul>
 <a name="stopped(java.lang.Throwable)">
@@ -568,13 +555,12 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>stopped</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.305">stopped</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.293">stopped</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;t)</pre>
 <div class="block">State machine transition: this instance was stopped via <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stop()"><code>stop()</code></a> of because or
  an unchecked exception was thrown by one of the subclass methods.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>t</code> - unexpected exception, or null if this instance was stopped via <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#stop()"><code>stop()</code></a>.</dd></dl>
 </li>
 </ul>
@@ -584,13 +570,12 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>connectionSuccessful</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.316">connectionSuccessful</a>()</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.303">connectionSuccessful</a>()</pre>
 <div class="block">State machine transition: initialization of a new connection via <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> was successful
  and we are connected to the server.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.</div>
 </li>
 </ul>
 <a name="connectionFailed(java.lang.Exception)">
@@ -599,13 +584,12 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockList">
 <li class="blockList">
 <h4>connectionFailed</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.329">connectionFailed</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.315">connectionFailed</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</pre>
 <div class="block">State machine transition: initialization of a new connection via <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a> failed due to an exception.
  This instance will automatically attempt to retry.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>e</code> - Exception thrown by <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#createConnection()"><code>createConnection()</code></a>.</dd></dl>
 </li>
 </ul>
@@ -615,14 +599,13 @@ public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/Persi
 <ul class="blockListLast">
 <li class="blockList">
 <h4>connectionEnded</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.344">connectionEnded</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</pre>
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/net/PersistentConnection.html#line.329">connectionEnded</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a>&nbsp;e)</pre>
 <div class="block">State machine transition: an established connection to the server has ended. This indicates either normal
  return or a thrown an exception from <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>.
  This instance will automatically attempt to reconnect.
 
  <p>
- The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.
- </p></div>
+ The implementation in <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net"><code>PersistentConnection</code></a> does nothing; subclasses may override.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>e</code> - Exception thrown by <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a>,
   or null if <a href="../../../../org/dellroad/stuff/net/PersistentConnection.html#handleConnection(C)"><code>handleConnection()</code></a> returned normally</dd></dl>
 </li>

@@ -99,7 +99,7 @@
 </dl>
 <hr>
 <br>
-<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.49">AbstractSchemaUpdater</a>&lt;D,T&gt;
+<pre>public abstract class <a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.48">AbstractSchemaUpdater</a>&lt;D,T&gt;
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
 <div class="block">Handles the initialization and schema maintenance of a database.
 
@@ -119,8 +119,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <li>Apply any outstanding <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema"><code>SchemaUpdate</code></a>s as needed, ordered properly according to
       their <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#getRequiredPredecessors()">predecessor constraints</a>; and</li>
  <li>Keep track of which <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema"><code>SchemaUpdate</code></a>s have already been applied across restarts.</li>
- </ul>
- </p></div>
+ </ul></div>
 </li>
 </ul>
 </div>
@@ -316,7 +315,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.51">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.50">log</a></pre>
 </li>
 </ul>
 </li>
@@ -333,7 +332,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractSchemaUpdater</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.49">AbstractSchemaUpdater</a>()</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.48">AbstractSchemaUpdater</a>()</pre>
 </li>
 </ul>
 </li>
@@ -350,7 +349,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getUpdates</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.62">getUpdates</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.61">getUpdates</a>()</pre>
 <div class="block">Get the configured updates. This property is required.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>configured updates</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#setUpdates(java.util.Collection)"><code>setUpdates()</code></a></dd></dl>
 </li>
@@ -361,7 +360,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setUpdates</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.84">setUpdates</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;updates)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.83">setUpdates</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Collection.html?is-external=true" title="class or interface in java.util">Collection</a>&lt;? extends <a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;updates)</pre>
 <div class="block">Configure the updates.
  This should be the set of all updates that may need to be applied to the database.
 
@@ -384,7 +383,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isIgnoreUnrecognizedUpdates</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.94">isIgnoreUnrecognizedUpdates</a>()</pre>
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.93">isIgnoreUnrecognizedUpdates</a>()</pre>
 <div class="block">Determine whether unrecognized updates are ignored or cause an exception.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>true if unrecognized updates should be ignored, false if they should cause an exception to be thrown</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#setIgnoreUnrecognizedUpdates(boolean)"><code>setIgnoreUnrecognizedUpdates()</code></a></dd></dl>
 </li>
@@ -395,7 +394,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>setIgnoreUnrecognizedUpdates</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.114">setIgnoreUnrecognizedUpdates</a>(boolean&nbsp;ignoreUnrecognizedUpdates)</pre>
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.113">setIgnoreUnrecognizedUpdates</a>(boolean&nbsp;ignoreUnrecognizedUpdates)</pre>
 <div class="block">Configure behavior when an unknown update is registered as having already been applied in the database.
 
  <p>
@@ -418,7 +417,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>initializeAndUpdateDatabase</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.143">initializeAndUpdateDatabase</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.142">initializeAndUpdateDatabase</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database)
                                  throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Perform database schema initialization and updates.
 
@@ -451,9 +450,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>isValidUpdateName</h4>
-<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.180">isValidUpdateName</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateName)</pre>
+<pre>public static&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.182">isValidUpdateName</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;updateName)</pre>
 <div class="block">Determine if the given schema update name is valid. Valid names are non-empty and
  have no leading or trailing whitespace.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>updateName</code> - schema update name</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if <code>updateName</code> is valid</dd></dl>
 </li>
 </ul>
 <a name="databaseNeedsInitialization(java.lang.Object)">
@@ -464,13 +465,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>databaseNeedsInitialization</h4>
-<pre>protected abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.193">databaseNeedsInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
+<pre>protected abstract&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.196">databaseNeedsInitialization</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
                                                 throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Determine if the database needs initialization.
 
  <p>
  If so, <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#initializeDatabase(T)"><code>initializeDatabase(T)</code></a> will eventually be invoked.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - open transaction</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the database needs initialization</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
@@ -483,7 +485,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>initializeDatabase</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.202">initializeDatabase</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.205">initializeDatabase</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
                                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Initialize an uninitialized database. This should create and initialize the database schema and content,
  including whatever portion of that is used to track schema updates.</div>
@@ -500,7 +502,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>openTransaction</h4>
-<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.213">openTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database)
+<pre>protected abstract&nbsp;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.216">openTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database)
                               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Begin a transaction on the given database.
  The transaction will always eventually either be
@@ -519,7 +521,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>commitTransaction</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.221">commitTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.224">commitTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
                                    throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Commit a previously opened transaction.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - open transaction previously returned from <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#openTransaction(D)"><code>openTransaction()</code></a></dd>
@@ -535,7 +537,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>rollbackTransaction</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.230">rollbackTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.233">rollbackTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
                                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Roll back a previously opened transaction.
  This method will also be invoked if <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#commitTransaction(T)"><code>commitTransaction()</code></a> throws an exception.</div>
@@ -552,10 +554,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getAppliedUpdateNames</h4>
-<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.238">getAppliedUpdateNames</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
+<pre>protected abstract&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Set.html?is-external=true" title="class or interface in java.util">Set</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.242">getAppliedUpdateNames</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction)
                                               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Determine which updates have already been applied to the database.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - open transaction</dd>
+<dt><span class="strong">Returns:</span></dt><dd>set of already-applied updates</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
@@ -568,7 +571,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>recordUpdateApplied</h4>
-<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.248">recordUpdateApplied</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction,
+<pre>protected abstract&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.252">recordUpdateApplied</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction,
                        <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)
                                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Record an update as having been applied to the database.</div>
@@ -584,7 +587,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getOrderingTieBreaker</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.260">getOrderingTieBreaker</a>()</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.264">getOrderingTieBreaker</a>()</pre>
 <div class="block">Determine the preferred ordering of two updates that do not have any predecessor constraints
  (including implied indirect constraints) between them.
 
@@ -600,14 +603,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>generateMultiUpdateName</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.275">generateMultiUpdateName</a>(<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&nbsp;update,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.280">generateMultiUpdateName</a>(<a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html" title="interface in org.dellroad.stuff.schema">SchemaUpdate</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&nbsp;update,
                              int&nbsp;index)</pre>
 <div class="block">Generate the update name for one action within a multi-action update.
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>AbstractSchemaUpdater</code></a> just adds a suffix using <code>index + 1</code>, padded to
  5 digits, producing names like <code>name-00001</code>, <code>name-00002</code>, etc.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>update</code> - the schema update</dd><dd><code>index</code> - the index of the action (zero based)</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#isSingleAction()"><code>SchemaUpdate.isSingleAction()</code></a></dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>update</code> - the schema update</dd><dd><code>index</code> - the index of the action (zero based)</dd>
+<dt><span class="strong">Returns:</span></dt><dd>update name</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/schema/SchemaUpdate.html#isSingleAction()"><code>SchemaUpdate.isSingleAction()</code></a></dd></dl>
 </li>
 </ul>
 <a name="getAllUpdateNames()">
@@ -616,11 +620,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getAllUpdateNames</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.282">getAllUpdateNames</a>()
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.290">getAllUpdateNames</a>()
                                   throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Get the names of all updates including multi-action updates.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code></dd></dl>
+<dl><dt><span class="strong">Returns:</span></dt><dd>list of update names</dd>
+<dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs</dd></dl>
 </li>
 </ul>
 <a name="apply(java.lang.Object,org.dellroad.stuff.schema.DatabaseAction)">
@@ -631,7 +636,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>apply</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.304">apply</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.314">apply</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&nbsp;transaction,
          <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&nbsp;action)
               throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Execute a database action within an existing transaction.
@@ -643,7 +648,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>AbstractSchemaUpdater</code></a> simply invokes <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html#apply(T)"><code>action.apply()</code></a>;
  subclasses may override if desired.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>transaction</code> - transaction within which to apply <code>action</code></dd><dd><code>action</code> - operation to perform</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
 </ul>
@@ -655,7 +661,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>applyInTransaction</h4>
-<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.318">applyInTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database,
+<pre>protected&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/schema/AbstractSchemaUpdater.html#line.330">applyInTransaction</a>(<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">D</a>&nbsp;database,
                       <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="type parameter in AbstractSchemaUpdater">T</a>&gt;&nbsp;action)
                            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></pre>
 <div class="block">Execute a database action. A new transaction will be created, used, and closed.
@@ -664,7 +670,8 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
  <p>
  If the action or <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#commitTransaction(T)"><code>commitTransaction()</code></a> fails, the transaction
  is <a href="../../../../org/dellroad/stuff/schema/AbstractSchemaUpdater.html#rollbackTransaction(T)">rolled back</a>.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>database</code> - database to apply <code>action</code> to</dd><dd><code>action</code> - operation to perform</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a></code> - if an error occurs while accessing the database</dd></dl>
 </li>
 </ul>

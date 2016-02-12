@@ -103,7 +103,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.35">StackXMLEventReader</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.32">StackXMLEventReader</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util/EventReaderDelegate.html?is-external=true" title="class or interface in javax.xml.stream.util">EventReaderDelegate</a></pre>
 <div class="block">Wrapper for a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLEventReader.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLEventReader</code></a> that keeps track of the current element(s) being parsed as a stack
  of <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a> events.
@@ -112,15 +112,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
  Each time a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a> is read from the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLEventReader.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLEventReader</code></a>, it is pushed onto
  the stack; each time a <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/EndElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>EndElement</code></a> is read from the underlying <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLEventReader.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLEventReader</code></a>,
  the previously push <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a> is popped off.
- </p>
 
  <p>
  Invocations of <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util/EventReaderDelegate.html?is-external=true#peek()" title="class or interface in javax.xml.stream.util"><code>EventReaderDelegate.peek()</code></a> do not affect the element stack.
- </p>
 
  <p>
- If an <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLStreamException</code></a> is thrown at any point, the element stack is no longer guaranteed to track properly.
- </p></div>
+ If an <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream"><code>XMLStreamException</code></a> is thrown at any point, the element stack is no longer guaranteed to track properly.</div>
 </li>
 </ul>
 </div>
@@ -227,7 +224,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockListLast">
 <li class="blockList">
 <h4>StackXMLEventReader</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.45">StackXMLEventReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLEventReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLEventReader</a>&nbsp;reader)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.42">StackXMLEventReader</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLEventReader.html?is-external=true" title="class or interface in javax.xml.stream">XMLEventReader</a>&nbsp;reader)</pre>
 <div class="block">Constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>reader</code> - underlying reader</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -248,7 +245,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>getTopElement</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events">StartElement</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.57">getTopElement</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events">StartElement</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.54">getTopElement</a>()</pre>
 <div class="block">Get the top-most <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a> event on the stack. This corresponds to the innermost XML
  element currently being read.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>current element, or null if the current parse position is outside of the document element</dd></dl>
@@ -260,12 +257,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>getElementStack</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events">StartElement</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.70">getElementStack</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events">StartElement</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.66">getElementStack</a>()</pre>
 <div class="block">Get the entire stack of <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a>s.
 
  <p>
- A copy is returned; changes to the returned list do not affect this instance.
- </p></div>
+ A copy is returned; changes to the returned list do not affect this instance.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>element stack; the first element in the list is the document element</dd></dl>
 </li>
 </ul>
@@ -275,7 +271,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>getElementText</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.75">getElementText</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.71">getElementText</a>()
                       throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -292,7 +288,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>next</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.82">next</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.78">next</a>()</pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true#next()" title="class or interface in java.util">next</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/util/Iterator.html?is-external=true" title="class or interface in java.util">Iterator</a></code></dd>
@@ -307,7 +303,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>nextEvent</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.91">nextEvent</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.87">nextEvent</a>()
                    throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -324,7 +320,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockList">
 <li class="blockList">
 <h4>nextTag</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.96">nextTag</a>()
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.92">nextTag</a>()
                  throws <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/XMLStreamException.html?is-external=true" title="class or interface in javax.xml.stream">XMLStreamException</a></pre>
 <dl>
 <dt><strong>Specified by:</strong></dt>
@@ -341,7 +337,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/util
 <ul class="blockListLast">
 <li class="blockList">
 <h4>adjust</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.106">adjust</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;event)</pre>
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/xml/StackXMLEventReader.html#line.102">adjust</a>(<a href="https://docs.oracle.com/javase/7/docs/api/javax/xml/stream/events/XMLEvent.html?is-external=true" title="class or interface in javax.xml.stream.events">XMLEvent</a>&nbsp;event)</pre>
 <div class="block">Adjust the stack after reading the given event.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>event</code> - newly read event</dd>
 <dt><span class="strong">Returns:</span></dt><dd><code>event</code></dd></dl>

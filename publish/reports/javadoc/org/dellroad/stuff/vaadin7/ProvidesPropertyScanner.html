@@ -207,13 +207,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockList">
 <li class="blockList">
 <h4>getPropertyDefs</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#line.190">getPropertyDefs</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;?&gt;&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#line.189">getPropertyDefs</a>()</pre>
 <div class="block">Get the list of <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7"><code>PropertyDef</code></a>s generated from the annotated methods.
 
  <p>
  All of the properties in the returned list can be extracted from instances of this reader's configured
- class by the <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> returned by <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#getPropertyExtractor()"><code>getPropertyExtractor()</code></a>.
- </p></div>
+ class by the <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> returned by <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#getPropertyExtractor()"><code>getPropertyExtractor()</code></a>.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>unmodifiable list of properties</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#getPropertyExtractor()"><code>getPropertyExtractor()</code></a></dd></dl>
 </li>
 </ul>
@@ -223,7 +222,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html
 <ul class="blockListLast">
 <li class="blockList">
 <h4>getPropertyExtractor</h4>
-<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SortingPropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">SortingPropertyExtractor</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html" title="type parameter in ProvidesPropertyScanner">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#line.201">getPropertyExtractor</a>()</pre>
+<pre>public&nbsp;<a href="../../../../org/dellroad/stuff/vaadin7/SortingPropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7">SortingPropertyExtractor</a>&lt;<a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html" title="type parameter in ProvidesPropertyScanner">T</a>&gt;&nbsp;<a href="../../../../src-html/org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#line.200">getPropertyExtractor</a>()</pre>
 <div class="block">Get the <a href="../../../../org/dellroad/stuff/vaadin7/PropertyExtractor.html" title="interface in org.dellroad.stuff.vaadin7"><code>PropertyExtractor</code></a> that extracts Vaadin <a href="http://vaadin.com/download/release/7.3/7.3.7/docs/api/com/vaadin/data/Property.html?is-external=true" title="class or interface in com.vaadin.data"><code>Property</code></a> values
  from instances of the annotated class when given one of the <a href="../../../../org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7"><code>PropertyDef</code></a>s returned by
  <a href="../../../../org/dellroad/stuff/vaadin7/ProvidesPropertyScanner.html#getPropertyDefs()"><code>getPropertyDefs()</code></a>.</div>

@@ -98,7 +98,7 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.34">FileStreamRepository</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.32">FileStreamRepository</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
 implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></pre>
 <div class="block">Provides a file-based implementation of the <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io"><code>StreamRepository</code></a> interface with
@@ -106,14 +106,12 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 
  <p>
  Atomic updates are implemented using an <a href="../../../../org/dellroad/stuff/io/AtomicUpdateFileOutputStream.html" title="class in org.dellroad.stuff.io"><code>AtomicUpdateFileOutputStream</code></a>.
- </p>
 
  <p>
  When backups are configured, the base file must be copied, not moved, to the first backup on update to avoid
  a small window where the base file doesn't exist. This class uses <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html?is-external=true#createLink(java.nio.file.Path, java.nio.file.Path)" title="class or interface in java.nio.file">hard links</a> to perform
  this "copy" efficiently. This behavior can be altered by overriding <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html#copy(java.io.File, java.io.File)"><code>copy()</code></a> on systems not supporting
- hard links.
- </p></div>
+ hard links.</div>
 </li>
 </ul>
 </div>
@@ -235,7 +233,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>FileStreamRepository</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.51">FileStreamRepository</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.49">FileStreamRepository</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
                     int&nbsp;numBackups)</pre>
 <div class="block">Primary constructor.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - the file that will store the stream content</dd><dd><code>numBackups</code> - number of backup copies to keep</dd>
@@ -258,6 +256,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
  <blockquote><code>
   FileStreamRepository(file, 0);
  </code></blockquote></div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - the file that will store the stream content</dd></dl>
 </li>
 </ul>
 </li>
@@ -319,6 +318,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/io/StreamRepository.html#getInputStream()">getInputStream</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>input containing current repository contents</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs</dd></dl>
 </li>
@@ -338,11 +338,11 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 
  <p>
  If the returned stream throws an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a> at any time, including during <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a>,
- or if <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a> is never invoked, then no update to the underlying storage occurs.
- </p></div>
+ or if <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true#close()" title="class or interface in java.io"><code>close()</code></a> is never invoked, then no update to the underlying storage occurs.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="../../../../org/dellroad/stuff/io/StreamRepository.html#getOutputStream()">getOutputStream</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></code></dd>
+<dt><span class="strong">Returns:</span></dt><dd>output for overwriting the current repository contents</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an error occurs</dd></dl>
 </li>
@@ -371,7 +371,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 <ul class="blockList">
 <li class="blockList">
 <h4>getBackupFile</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.160">getBackupFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
+<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/FileStreamRepository.html#line.161">getBackupFile</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a>&nbsp;file,
                  int&nbsp;index)</pre>
 <div class="block">Generate a backup file name.
 
@@ -379,7 +379,8 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
  The implementation in <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io"><code>FileStreamRepository</code></a> returns a file with the same name as <code>file</code>
  plus a suffix <code>.1</code>,  <code>.2</code>, <code>.3</code>, etc. corresponding to <code>index</code>.
  Subclasses may override as desired.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - the file that stores the current stream content (i.e., from <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html#getFile()"><code>getFile()</code></a>)</dd><dd><code>index</code> - backup index, always greater than or equal to 1</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>file</code> - the file that stores the current stream content (i.e., from <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html#getFile()"><code>getFile()</code></a>)</dd><dd><code>index</code> - backup index, always greater than or equal to 1</dd>
+<dt><span class="strong">Returns:</span></dt><dd>the <code>index</code>'th backup file for <code>file</code></dd></dl>
 </li>
 </ul>
 <a name="copy(java.io.File, java.io.File)">
@@ -395,8 +396,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
 
  <p>
  The implementation in <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io"><code>FileStreamRepository</code></a> uses <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html?is-external=true#createLink(java.nio.file.Path, java.nio.file.Path)" title="class or interface in java.nio.file">hard links</a>.
- Subclasses must override this method if the platform does not support hard links.
- </p></div>
+ Subclasses must override this method if the platform does not support hard links.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>src</code> - source file</dd><dd><code>dst</code> - destination file</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if unsuccessful</dd></dl>

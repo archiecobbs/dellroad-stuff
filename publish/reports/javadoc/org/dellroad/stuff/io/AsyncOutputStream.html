@@ -108,30 +108,26 @@
 </dl>
 <hr>
 <br>
-<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.43">AsyncOutputStream</a>
+<pre>public class <a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.39">AsyncOutputStream</a>
 extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io">FilterOutputStream</a></pre>
 <div class="block">An <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> that performs writes using a background thread, so that
  write, flush, and close operations never block.
- <p/>
 
  <p>
  If the underlying output stream throws an <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io"><code>IOException</code></a> during any operation,
  this instance will re-throw the exception for all subsequent operations.
- </p>
 
  <p>
  Instances use an internal buffer whose size is configured at construction time;
  if the buffer overflows, a <a href="../../../../org/dellroad/stuff/io/BufferOverflowException.html" title="class in org.dellroad.stuff.io"><code>BufferOverflowException</code></a> is thrown. Alternately,
  if a buffer size of zero is configured, the internal buffer will expand automatically as needed
- (up to 2<super>31</super> bytes).
+ (up to 2<sup>31</sup> bytes).
  However, this creates a memory leak if the underlying <a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> blocks indefinitely.
- </p>
 
  <p>
  Instances of this class are thread safe, and moreover writes are atomic: if multiple threads are writing
  at the same time the bytes written in any single method invocation are written contiguously to the
- underlying output.
- </p></div>
+ underlying output.</div>
 </li>
 </ul>
 </div>
@@ -307,7 +303,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>log</h4>
-<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.49">log</a></pre>
+<pre>protected final&nbsp;<a href="http://www.slf4j.org/api/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> <a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.45">log</a></pre>
 </li>
 </ul>
 </li>
@@ -324,7 +320,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>AsyncOutputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.65">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out)</pre>
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.61">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out)</pre>
 <div class="block">Convenience constructor for when an auto-expanding buffer is desired and a default thread name is to be used.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>out</code> - underlying output stream</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -337,7 +333,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>AsyncOutputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.76">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.72">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out,
                  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <div class="block">Convenience constructor for when an auto-expanding buffer is desired.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>out</code> - underlying output stream</dd><dd><code>name</code> - name for this instance; used to create the name of the background thread</dd>
@@ -351,7 +347,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AsyncOutputStream</h4>
-<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.89">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out,
+<pre>public&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.85">AsyncOutputStream</a>(<a href="https://docs.oracle.com/javase/7/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;out,
                  int&nbsp;bufsize,
                  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;name)</pre>
 <div class="block">Constructor.</div>
@@ -375,13 +371,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.125">write</a>(int&nbsp;b)
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.120">write</a>(int&nbsp;b)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Write data.
 
  <p>
- This method will never block. To effect a normal blocking write, use <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForSpace(int, long)"><code>waitForSpace(int, long)</code></a> first.
- </p></div>
+ This method will never block. To effect a normal blocking write, use <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForSpace(int, long)"><code>waitForSpace(int, long)</code></a> first.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true#write(int)" title="class or interface in java.io">write</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io">FilterOutputStream</a></code></dd>
@@ -398,15 +393,14 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>write</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.145">write</a>(byte[]&nbsp;data,
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.139">write</a>(byte[]&nbsp;data,
          int&nbsp;off,
          int&nbsp;len)
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Write data.
 
  <p>
- This method will never block. To effect a normal blocking write, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForSpace(int, long)"><code>waitForSpace(int, long)</code></a> first.
- </p></div>
+ This method will never block. To effect a normal blocking write, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForSpace(int, long)"><code>waitForSpace(int, long)</code></a> first.</div>
 <dl>
 <dt><strong>Overrides:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true#write(byte[], int, int)" title="class or interface in java.io">write</a></code>&nbsp;in class&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputStream.html?is-external=true" title="class or interface in java.io">FilterOutputStream</a></code></dd>
@@ -424,7 +418,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>flush</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.192">flush</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.184">flush</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Flush output. This method will cause the underlying stream to be flushed once all of the data written to this
  instance at the time this method is invoked has been written to it.
@@ -433,11 +427,9 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
  If additional data is written and then a second flush is requested before the first flush has actually occurred,
  the first flush will be canceled and only the second flush will be applied. Normally this is not a problem because
  the act of writing more data and then flushing forces earlier data to be flushed as well.
- </p>
 
  <p>
- This method will never block. To block until the underlying flush operation completes, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForIdle(long)"><code>waitForIdle(long)</code></a>.
- </p></div>
+ This method will never block. To block until the underlying flush operation completes, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForIdle(long)"><code>waitForIdle(long)</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Flushable.html?is-external=true#flush()" title="class or interface in java.io">flush</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Flushable.html?is-external=true" title="class or interface in java.io">Flushable</a></code></dd>
@@ -455,17 +447,15 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>close</h4>
-<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.212">close</a>()
+<pre>public&nbsp;void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.202">close</a>()
            throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Close this instance. This will (eventually) close the underlying output stream.
 
  <p>
  If this instance has already been closed, nothing happens.
- </p>
 
  <p>
- This method will never block. To block until the underlying close operation completes, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForIdle(long)"><code>waitForIdle(long)</code></a>.
- </p></div>
+ This method will never block. To block until the underlying close operation completes, invoke <a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForIdle(long)"><code>waitForIdle(long)</code></a>.</div>
 <dl>
 <dt><strong>Specified by:</strong></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true#close()" title="class or interface in java.io">close</a></code>&nbsp;in interface&nbsp;<code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/Closeable.html?is-external=true" title="class or interface in java.io">Closeable</a></code></dd>
@@ -483,7 +473,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>getException</h4>
-<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.224">getException</a>()</pre>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.214">getException</a>()</pre>
 <div class="block">Get the exception thrown by the underlying output stream, if any.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>thrown exception, or <code>null</code> if none has been thrown by the underlying stream</dd></dl>
 </li>
@@ -494,12 +484,11 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>getBufferSize</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.237">getBufferSize</a>()</pre>
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.226">getBufferSize</a>()</pre>
 <div class="block">Get the capacity of this instance's output buffer.
 
  <p>
- If a (fixed) non-zero value was given at construction time, this will return that value.
- </p></div>
+ If a (fixed) non-zero value was given at construction time, this will return that value.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>current output buffer capacity</dd></dl>
 </li>
 </ul>
@@ -509,7 +498,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>availableBufferSpace</h4>
-<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.249">availableBufferSpace</a>()
+<pre>public&nbsp;int&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.238">availableBufferSpace</a>()
                          throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Get the number of free bytes remaining in the output buffer.</div>
 <dl><dt><span class="strong">Returns:</span></dt><dd>current number of available bytes in the output buffer</dd>
@@ -524,11 +513,12 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>isWorkOutstanding</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.262">isWorkOutstanding</a>()
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.252">isWorkOutstanding</a>()
                           throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
 <div class="block">Determine if there is outstanding work still to be performed (writes, flushes, and/or close operations)
  by the background thread.</div>
-<dl><dt><span class="strong">Throws:</span></dt>
+<dl><dt><span class="strong">Returns:</span></dt><dd>true if work remains to be done</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if this instance is or has been closed</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code> - if an exception has been detected on the underlying stream</dd><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/io/AsyncOutputStream.html#waitForIdle(long)"><code>waitForIdle(long)</code></a></dd></dl>
 </li>
@@ -539,7 +529,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockList">
 <li class="blockList">
 <h4>waitForSpace</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.285">waitForSpace</a>(int&nbsp;numBytes,
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.274">waitForSpace</a>(int&nbsp;numBytes,
                    long&nbsp;timeout)
                      throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
                             <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></pre>
@@ -547,8 +537,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 
  <p>
  If a zero buffer size was configured at construction time, indicating an auto-expanding buffer,
- this will return immediately.
- </p></div>
+ this will return immediately.</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>numBytes</code> - amount of buffer space required</dd><dd><code>timeout</code> - maximum time to wait in milliseconds, or zero for infinite</dd>
 <dt><span class="strong">Returns:</span></dt><dd>true if space was found, false if time expired</dd>
 <dt><span class="strong">Throws:</span></dt>
@@ -565,7 +554,7 @@ extends <a href="https://docs.oracle.com/javase/7/docs/api/java/io/FilterOutputS
 <ul class="blockListLast">
 <li class="blockList">
 <h4>waitForIdle</h4>
-<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.309">waitForIdle</a>(long&nbsp;timeout)
+<pre>public&nbsp;boolean&nbsp;<a href="../../../../src-html/org/dellroad/stuff/io/AsyncOutputStream.html#line.298">waitForIdle</a>(long&nbsp;timeout)
                     throws <a href="https://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
                            <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang">InterruptedException</a></pre>
 <div class="block">Wait for all outstanding work to complete.</div>

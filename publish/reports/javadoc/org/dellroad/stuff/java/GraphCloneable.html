@@ -86,7 +86,7 @@
 <li class="blockList">
 <hr>
 <br>
-<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/java/GraphCloneable.html#line.81">GraphCloneable</a></pre>
+<pre>public interface <a href="../../../../src-html/org/dellroad/stuff/java/GraphCloneable.html#line.76">GraphCloneable</a></pre>
 <div class="block">Implemented by objects in an object graph that support <i>graph cloning</i>, i.e., deep copies without
  duplicates and preserving reference topology.
 
@@ -96,7 +96,6 @@
  As a result the copy graph has the same reference topology as the original graph (with respect to all the
  <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a>s). In particular, reference cycles among <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a>s are preserved and do not
  cause infinite loops.
- </p>
 
  <p>
  Graph cloning operates similar to a deep copy operation, except that graph cloning uses a <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java"><code>GraphCloneRegistry</code></a> to keep
@@ -104,12 +103,10 @@
  <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java"><code>GraphCloneRegistry</code></a> is used to check whether the referred-to objects have already been copied, and if so, the existing
  copy is used. This requires that implementations <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html#setGraphClone(org.dellroad.stuff.java.GraphCloneable)">register</a> their clones
  prior to <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html#getGraphClone(T)">recursing</a> on any <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a> fields.
- </p>
 
  <p>
  The net effect is equivalent to serializing and then deserializing the entire object graph, but without the overhead,
  losing <code>transient</code> values, and other issues.
- </p>
 
  <p>
  Here is an example of a class properly implementing this interface:
@@ -148,14 +145,12 @@
       }
   }
   </pre>
- </p>
 
  <p>
  To graph clone any object graph rooted at <code>root</code>, you would do this:
   <pre>
       new GraphCloneRegistry().getGraphClone(root);
-  </pre>
- </p></div>
+  </pre></div>
 <dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java"><code>GraphCloneRegistry</code></a></dd></dl>
 </li>
 </ul>
@@ -202,7 +197,7 @@
 <ul class="blockListLast">
 <li class="blockList">
 <h4>createGraphClone</h4>
-<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/GraphCloneable.html#line.119">createGraphClone</a>(<a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java">GraphCloneRegistry</a>&nbsp;registry)
+<pre>void&nbsp;<a href="../../../../src-html/org/dellroad/stuff/java/GraphCloneable.html#line.112">createGraphClone</a>(<a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java">GraphCloneRegistry</a>&nbsp;registry)
                       throws <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/CloneNotSupportedException.html?is-external=true" title="class or interface in java.lang">CloneNotSupportedException</a></pre>
 <div class="block">Create a graph clone of this instance and register it with the given <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html" title="class in org.dellroad.stuff.java"><code>GraphCloneRegistry</code></a>.
 
@@ -221,7 +216,6 @@
       All <a href="../../../../org/dellroad/stuff/java/GraphCloneable.html" title="interface in org.dellroad.stuff.java"><code>GraphCloneable</code></a> fields must be copied via <a href="../../../../org/dellroad/stuff/java/GraphCloneRegistry.html#getGraphClone(T)"><code>GraphCloneRegistry.getGraphClone(T)</code></a>.
   </li>
  </ul>
- </p>
 
  <p>
  The most efficient implementation of this method often involves declaring the class to implement <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Cloneable.html?is-external=true" title="class or interface in java.lang"><code>Cloneable</code></a>
@@ -229,12 +223,11 @@
  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang"><code>Object.clone()</code></a>). For that reason, this method is declared to throw <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/CloneNotSupportedException.html?is-external=true" title="class or interface in java.lang"><code>CloneNotSupportedException</code></a>
  as a coding convenience; if a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/CloneNotSupportedException.html?is-external=true" title="class or interface in java.lang"><code>CloneNotSupportedException</code></a> is actually thrown, it will trigger a
  <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang"><code>RuntimeException</code></a>.
- </p>
 
  <p>
- This method will only be invoked once for any instance during a graph cloning operation.
- </p></div>
-<dl><dt><span class="strong">Throws:</span></dt>
+ This method will only be invoked once for any instance during a graph cloning operation.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>registry</code> - registry for clones</dd>
+<dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/NullPointerException.html?is-external=true" title="class or interface in java.lang">NullPointerException</a></code> - if <code>registry</code> is null</dd>
 <dd><code><a href="https://docs.oracle.com/javase/7/docs/api/java/lang/CloneNotSupportedException.html?is-external=true" title="class or interface in java.lang">CloneNotSupportedException</a></code> - declared so implementors can invoke <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true#clone()" title="class or interface in java.lang"><code>super.clone()</code></a>
   directly; if thrown, it will trigger a <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/RuntimeException.html?is-external=true" title="class or interface in java.lang"><code>RuntimeException</code></a></dd></dl>
