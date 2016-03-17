@@ -469,7 +469,6 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         final TxInfo<T> info = tx.getInfo();
         if (info == null)
             throw new NoTransactionException("no current transaction exists");
-        final PersistentObject<T>.Snapshot snapshot = info.getSnapshot();
 
         // Rollback
         if (this.logger.isTraceEnabled())

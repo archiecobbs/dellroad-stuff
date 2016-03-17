@@ -273,7 +273,7 @@ public class PropertyDef<T> {
      * @return negative, zero, or positive based on comparing {@code value1} to {@code value2}
      * @throws UnsupportedOperationException if this instance does not support sorting property values
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "null" })
     public int sort(T value1, T value2) {
         if ((value1 == null) != (value2 == null))
             return value1 == null ? -1 : 1;

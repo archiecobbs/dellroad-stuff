@@ -246,8 +246,8 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         if (connection != null) {
 
             // Compare the socket addresses of the initiator side of each connection
-            final SocketAddress oldAddr = (InetSocketAddress)connection.getSocketChannel().socket().getLocalSocketAddress();
-            final SocketAddress newAddr = (InetSocketAddress)socketChannel.getRemoteAddress();
+            final SocketAddress oldAddr = connection.getSocketChannel().socket().getLocalSocketAddress();
+            final SocketAddress newAddr = socketChannel.getRemoteAddress();
             final String oldDesc = oldAddr.toString().replaceAll("^[^/]*/", "");            // strip off hostname part, if any
             final String newDesc = newAddr.toString().replaceAll("^[^/]*/", "");            // strip off hostname part, if any
             final int diff = newDesc.compareTo(oldDesc);
@@ -261,7 +261,8 @@ public class TCPNetwork extends ChannelNetwork implements Network {
                 socketChannel = null;
             }
             if (diff <= 0) {
-                this.log.info("closing existing duplicate connection to " + socketChannel.getRemoteAddress());
+                final String remoteAddress = socketChannel != null ? "" + socketChannel.getRemoteAddress() : "<same>";
+                this.log.info("closing existing duplicate connection to " + remoteAddress);
                 this.connectionMap.remove(peer);
                 connection.close(new IOException("duplicate connection"));
                 connection = null;

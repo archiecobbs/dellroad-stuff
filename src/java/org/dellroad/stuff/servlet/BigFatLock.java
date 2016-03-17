@@ -93,10 +93,9 @@ public final class BigFatLock extends OncePerRequestFilter {
                     LOG.trace("thread " + Thread.currentThread() + " releasing " + BIG_FAT_LOCK);
                 }
             }
-        } else {
-            synchronized (BIG_FAT_LOCK) {
-                return action.call();
-            }
+        }
+        synchronized (BIG_FAT_LOCK) {
+            return action.call();
         }
     }
 

@@ -260,7 +260,7 @@ public final class ParseUtil {
             if (millis >= 1000 && millis % 1000 == 0)
                 b.append(String.format("%ds", millis / 1000));
             else
-                b.append(String.format("%.3fs", (double)millis / 1000.0));
+                b.append(String.format("%.3fs", millis / 1000.0));
         }
         return b.toString();
     }

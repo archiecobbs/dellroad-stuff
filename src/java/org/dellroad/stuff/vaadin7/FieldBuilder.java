@@ -376,7 +376,7 @@ public class FieldBuilder {
             }
 
             // Verify the field type specified by a narrower annotation has compatible narrower field type
-            if (!applier.getActualFieldType().isAssignableFrom(type)) {
+            if (!applier.getActualFieldType().isAssignableFrom(type) && typeApplier != null) {
                 throw new IllegalArgumentException("conflicting field types specified by annotations of type "
                   + typeApplier.getAnnotation().annotationType().getName() + " (type() = " + type.getName() + ") and "
                   + applier.getAnnotation().annotationType().getName() + " (type() = " + applier.getActualFieldType().getName()

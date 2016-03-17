@@ -527,11 +527,10 @@ public abstract class AbstractSchemaUpdater<D, T> {
                 if (update.isSingleAction()) {
                     this.handleSingleMultiUpdate(transaction, actions);
                     break;
-                } else {
-                    int index = 0;
-                    for (DatabaseAction<T> action : this.actions)
-                        this.handleMultiUpdate(transaction, action, index++);
                 }
+                int index = 0;
+                for (DatabaseAction<T> action : this.actions)
+                    this.handleMultiUpdate(transaction, action, index++);
                 break;
             }
         }
