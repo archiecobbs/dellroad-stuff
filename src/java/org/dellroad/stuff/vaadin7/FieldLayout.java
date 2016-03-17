@@ -228,5 +228,15 @@ public class FieldLayout<T> extends HorizontalLayout implements Field<T> {
     public Property getPropertyDataSource() {
         return this.field.getPropertyDataSource();
     }
+
+    @Override
+    public boolean isEmpty() {
+        return this.field.isEmpty();
+    }
+
+    @Override
+    public void clear() {
+        this.field.clear();
+    }
 }
 
