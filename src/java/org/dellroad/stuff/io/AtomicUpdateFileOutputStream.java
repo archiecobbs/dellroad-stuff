@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 /**
  * A {@link FileOutputStream} that atomically updates the target file.
@@ -138,10 +140,7 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
 
         // Rename file, or delete it if that fails
         try {
-            if (!this.tempFile.renameTo(this.targetFile)) {
-                throw new IOException("error renaming temporary file `" + this.tempFile.getName()
-                  + "' to `" + this.targetFile.getName() + "'");
-            }
+            Files.move(this.tempFile.toPath(), this.targetFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
             this.tempFile = null;
         } finally {
             if (this.tempFile != null)          // exception thrown, cancel transaction
