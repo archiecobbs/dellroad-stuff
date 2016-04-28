@@ -53,7 +53,7 @@ public abstract class WritableResource extends StreamResource implements WriteCa
      * Write the resource contents to the given {@link OutputStream} and then close it.
      *
      * <p>
-     * Note that the {@link com.vaadin.server.VaadinSession} associated with this resource will <b>not</b> be locked
+     * Note that the {@link com.vaadin.Application} associated with this resource will <b>not</b> be locked
      * when this method is invoked.
      *
      * @param output resource output stream
