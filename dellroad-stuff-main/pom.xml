@@ -38,28 +38,20 @@ This module contains general purpose classes.</description>
             <scope>test</scope>
         </dependency>
 
-        <!-- A few classes depend on Spring. Use "provided" scope assuming dellroad-stuff-spring is also being used. -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-            <scope>provided</scope>
-        </dependency>
+        <!-- A few classes depend on random other stuff; set these dependencies to optional. -->
 
-        <!-- A few classes depend on other random stuff. Use "provided" scope because these are very optional. -->
-
-        <!-- For MainClass -->
+        <!-- For MainClass and ContextMainClass -->
         <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
             <version>${jline.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- For ThreadLogger -->
@@ -67,7 +59,7 @@ This module contains general purpose classes.</description>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>${log4j.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- For ant tasks -->
@@ -75,13 +67,13 @@ This module contains general purpose classes.</description>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <version>${ant.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
         <!-- For CSVOutput -->
@@ -89,34 +81,22 @@ This module contains general purpose classes.</description>
             <groupId>au.com.bytecode</groupId>
             <artifactId>opencsv</artifactId>
             <version>${opencsv.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
-    <!--
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-          conf="build->aop,beans,aspects,context-support,expression,orm,oxm,tx,web-servlet"/>
-    -->
-
+        <!-- For validation stuff -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${validation-api.version}</version>
         </dependency>
+
+        <!-- For DAO stuff -->
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
             <version>1.0.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlet-api.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 </project>

@@ -89,14 +89,14 @@ This module contains classes related to the Vaadin GUI framework.</description>
             <scope>provided</scope>
         </dependency>
 
-        <!-- A few classes depend on dellroad-stuff-spring. Use "provided" scope assuming it is also being provided. -->
+        <!-- A few classes depend on other dellroad-stuff-spring; set these dependencies to optional. -->
 
         <!-- For VaadinDelayedAction -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>${project.parent.artifactId}-spring</artifactId>
             <version>${project.version}</version>
-            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
