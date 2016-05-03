@@ -21,6 +21,12 @@ public class ProcessRunnerTest extends TestSupport {
 
     @Test
     public void testProcessRunner() throws Exception {
+
+        // Don't run this on Windows
+        if (System.getProperty("os.name").toLowerCase().startsWith("win"))
+            return;
+
+        // Start up "grep"
         Process p = Runtime.getRuntime().exec(new String[] { "grep", "a" });
         ProcessRunner runner = new ProcessRunner(p, new WriteCallback() {
             @Override
