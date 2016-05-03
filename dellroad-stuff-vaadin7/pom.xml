@@ -42,12 +42,6 @@ This module contains classes related to the Vaadin GUI framework.</description>
             <artifactId>vaadin-server</artifactId>
             <version>${vaadin7.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.vaadin</groupId>
-            <artifactId>vaadin-client</artifactId>
-            <version>${vaadin7.version}</version>
-            <scope>runtime</scope>
-        </dependency>
 
         <!-- Spring -->
         <dependency>
