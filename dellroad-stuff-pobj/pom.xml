@@ -22,6 +22,22 @@ This module contains general classes related to PersistenceObject, a very simple
             <url>file://${project.basedir}/../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
+    <!-- We require the 6.0-SNAPSHOT version of BCEL for JiBX binding to work on Java 8 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache.snapshots</id>
+                <name>Apache Development Snapshot Repository</name>
+                <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
 
         <!-- Sibling JARs -->
@@ -99,6 +115,26 @@ This module contains general classes related to PersistenceObject, a very simple
                         </goals>
                     </execution>
                 </executions>
+
+                <!-- We require the 6.0-SNAPSHOT version of BCEL for JiBX binding to work on Java 8 -->
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.bcel</groupId>
+                        <artifactId>bcel</artifactId>
+                        <version>${bcel.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jibx</groupId>
+                        <artifactId>jibx-bind</artifactId>
+                        <version>${jibx.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>bcel</groupId>
+                                <artifactId>bcel</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
