@@ -67,6 +67,14 @@ This module contains general classes related to PersistenceObject, a very simple
             <scope>test</scope>
         </dependency>
 
+        <!-- Apparently missing Vaadin transitive dependency -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- A few classes depend on Vaadin; set these dependencies to optional. -->
         <dependency>
             <groupId>com.vaadin</groupId>
