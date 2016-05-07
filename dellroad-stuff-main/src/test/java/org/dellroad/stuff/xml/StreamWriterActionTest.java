@@ -32,7 +32,7 @@ public class StreamWriterActionTest extends TestSupport {
         this.copy(input, actualFile);
         final String actual = this.readResource(actualFile);
         final String expected = this.readResource(inputResource);
-        Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\\n"), expected.trim());
+        Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\n"), expected.trim());
 
         // Clean up
         actualFile.delete();

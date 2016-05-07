@@ -33,7 +33,7 @@ public class EmptyTagXMLStreamWriterTest extends TestSupport {
         this.consolidateTags(input, actualFile);
         final String actual = this.readResource(actualFile);
         final String expected = this.readResource(expectedResource);
-        Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\\n"), expected.trim());
+        Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\n"), expected.trim());
 
         // Clean up
         actualFile.delete();
