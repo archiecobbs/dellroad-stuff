@@ -8,8 +8,6 @@ Version 2.0.0 Released May 10, 2016
             SpringSQLSchemaUpdater (check Spring XML files!)
         From dao
             AbstractDAO
-        From servlet
-            All classes
     - Update MainClass to use jline for CLI
     - Remove deprecated Vaadin 6.x classes.
     - Update to Vaadin 7.5
