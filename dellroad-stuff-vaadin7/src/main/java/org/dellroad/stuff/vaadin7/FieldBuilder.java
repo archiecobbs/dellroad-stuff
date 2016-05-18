@@ -1307,7 +1307,7 @@ public class FieldBuilder {
         /**
          * Get the {@link AbstractTextField} type that will edit the property.
          */
-        Class<? extends com.vaadin.ui.TextField> type() default com.vaadin.ui.TextField.class;
+        Class<? extends com.vaadin.ui.AbstractTextField> type() default com.vaadin.ui.TextField.class;
 
         /**
          * Get the representation of null.
