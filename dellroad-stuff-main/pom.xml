@@ -13,9 +13,7 @@
     <artifactId>dellroad-stuff-main</artifactId>
     <name>DellRoad Stuff Main</name>
     <packaging>jar</packaging>
-    <description>DellRoad Stuff is a dumping ground for various useful Java classes and ant build macros that have evolved over time from repeated use in several different projects.
-
-This module contains general purpose classes.</description>
+    <description>DellRoad Stuff general purpose classes.</description>
     <distributionManagement>
         <site>
             <id>${project.artifactId}-site</id>

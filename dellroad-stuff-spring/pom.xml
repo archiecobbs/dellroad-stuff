@@ -13,9 +13,7 @@
     <artifactId>dellroad-stuff-spring</artifactId>
     <name>DellRoad Stuff Spring Classes</name>
     <packaging>jar</packaging>
-    <description>DellRoad Stuff is a dumping ground for various useful Java classes and ant build macros that have evolved over time from repeated use in several different projects.
-
-This module contains general classes related to the Spring Framework.</description>
+    <description>DellRoad Stuff classes related to the Spring Framework.</description>
     <distributionManagement>
         <site>
             <id>${project.artifactId}-site</id>
