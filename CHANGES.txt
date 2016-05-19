@@ -1,4 +1,4 @@
-Version Next
+Version 2.0.1 Released May 19, 2016
 
     - Fixed wrong default for @FieldBuilder.AbstractTextField.type()
 
