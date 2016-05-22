@@ -74,6 +74,8 @@ public class IndentXMLEventWriter extends EventWriterDelegate {
             this.depth++;
             break;
         case XMLEvent.END_ELEMENT:
+            if (this.depth == 0)
+                throw new IllegalArgumentException("end element with no corresponding start element: " + event);
             this.depth--;
             switch (lastEvent) {
             case XMLEvent.START_ELEMENT:
