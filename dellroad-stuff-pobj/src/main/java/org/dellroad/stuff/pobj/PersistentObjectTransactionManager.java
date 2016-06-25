@@ -417,6 +417,15 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
     @Override
     @SuppressWarnings("unchecked")
     protected void prepareForCommit(DefaultTransactionStatus status) {
+
+        // Logging
+        if (this.logger.isTraceEnabled())
+            this.logger.trace("PersistentObjectTransactionManager.prepareForCommit(): status=" + status);
+
+        // Is there a transaction?
+        if (!status.hasTransaction())
+            return;
+
         final TxInfo<T> info = ((TxWrapper<T>)status.getTransaction()).getInfo();
         if (this.logger.isTraceEnabled())
             this.logger.trace("PersistentObjectTransactionManager.prepareForCommit(): status=" + status + " info=" + info);
@@ -431,6 +440,10 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         // Logging
         if (this.logger.isTraceEnabled())
             this.logger.trace("PersistentObjectTransactionManager.doCommit(): status=" + status);
+
+        // Is there a transaction?
+        if (!status.hasTransaction())
+            return;
 
         // Get transaction
         final TxWrapper<T> tx = (TxWrapper<T>)status.getTransaction();
@@ -464,6 +477,10 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         if (this.logger.isTraceEnabled())
             this.logger.trace("PersistentObjectTransactionManager.doRollback(): status=" + status);
 
+        // Is there a transaction?
+        if (!status.hasTransaction())
+            return;
+
         // Get transaction
         final TxWrapper<T> tx = (TxWrapper<T>)status.getTransaction();
         final TxInfo<T> info = tx.getInfo();
@@ -483,6 +500,10 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         // Logging
         if (this.logger.isTraceEnabled())
             this.logger.trace("PersistentObjectTransactionManager.doSetRollbackOnly(): status=" + status);
+
+        // Is there a transaction?
+        if (!status.hasTransaction())
+            return;
 
         // Get transaction
         final TxWrapper<T> tx = (TxWrapper<T>)status.getTransaction();
