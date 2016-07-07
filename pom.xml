@@ -15,6 +15,7 @@
     <modules>
         <module>dellroad-stuff-jibx</module>
         <module>dellroad-stuff-main</module>
+        <module>dellroad-stuff-maven-plugin</module>
         <module>dellroad-stuff-pobj</module>
         <module>dellroad-stuff-spring</module>
         <module>dellroad-stuff-test</module>
@@ -64,6 +65,7 @@
         <jmock.version>2.8.2</jmock.version>
         <log4j.version>1.2.17</log4j.version>
         <opencsv.version>2.4</opencsv.version>
+        <plugin-api.version>3.3.9</plugin-api.version>
         <portlet-api.version>2.0</portlet-api.version>
         <servlet-api.version>3.1.0</servlet-api.version>
         <slf4j.version>1.7.21</slf4j.version>
