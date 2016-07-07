@@ -158,7 +158,6 @@
                 <configuration>
                     <notimestamp>true</notimestamp>
                     <links>
-                        <link>http://docs.guava-libraries.googlecode.com/git/javadoc/</link>
                         <link>http://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>http://google.github.io/guava/releases/${guava.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>
@@ -259,7 +258,6 @@
                     <notimestamp>true</notimestamp>
                     <aggregate>true</aggregate>
                     <links>
-                        <link>http://docs.guava-libraries.googlecode.com/git/javadoc/</link>
                         <link>http://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>http://google.github.io/guava/releases/${guava.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>

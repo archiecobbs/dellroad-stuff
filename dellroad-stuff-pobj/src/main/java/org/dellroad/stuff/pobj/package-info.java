@@ -36,6 +36,6 @@
  * <p>
  * A {@link org.dellroad.stuff.pobj.PersistentObjectTransactionManager} for use with Spring's transaction support is also provided.
  *
- * @see <a href="http://dellroad-stuff.googlecode.com/">The dellroad-stuff Project</a>
+ * @see <a href="https://github.com/archiecobbs/dellroad-stuff">The dellroad-stuff Project</a>
  */
 package org.dellroad.stuff.pobj;
