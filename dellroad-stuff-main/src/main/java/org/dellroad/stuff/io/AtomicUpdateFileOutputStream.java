@@ -140,7 +140,8 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
 
         // Rename file, or delete it if that fails
         try {
-            Files.move(this.tempFile.toPath(), this.targetFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
+            Files.move(this.tempFile.toPath(), this.targetFile.toPath(),
+              StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
             this.tempFile = null;
         } finally {
             if (this.tempFile != null)          // exception thrown, cancel transaction
