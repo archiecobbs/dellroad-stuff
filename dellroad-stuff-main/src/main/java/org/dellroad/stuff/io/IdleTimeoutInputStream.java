@@ -51,7 +51,7 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
      *
      * @param in input source
      * @param threadName name for the reader thread, or null for default
-     * @param timeout maximum input idle time, or zero for infinity
+     * @param timeout maximum input idle time in milliseconds, or zero for infinity
      * @throws IllegalArgumentException if {@code timeout} is negative
      */
     public IdleTimeoutInputStream(InputStream in, String threadName, long timeout) {
@@ -70,7 +70,7 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
      *  </code></blockquote>
      *
      * @param in input source
-     * @param timeout maximum input idle time
+     * @param timeout maximum input idle time in milliseconds, or zero for infinity
      * @throws IllegalArgumentException if {@code timeout} is negative
      */
     public IdleTimeoutInputStream(InputStream in, long timeout) {
