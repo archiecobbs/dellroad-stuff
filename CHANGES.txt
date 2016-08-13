@@ -3,6 +3,7 @@ Version 2.0.2
     - Fixed potential NPE in PersistentObjectTransactionManager when using
       Propagation.SUPPORTS if there is already an existing transaction
     - Detect end without matching start event in IndentXMLEventWriter
+    - Enhance Primitive class to implement Serializable
 
 Version 2.0.1 Released May 19, 2016
 

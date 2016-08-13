@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.java;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ import java.util.regex.Pattern;
  *
  * @param <T> Primitive wrapper type
  */
-public abstract class Primitive<T> implements Comparator<T> {
+public abstract class Primitive<T> implements Comparator<T>, Serializable {
 
     /**
      * Void type. The {@link #getDefaultValue}, {@link #compare compare()}, and {@link #parseValue parseValue()}
@@ -227,6 +228,8 @@ public abstract class Primitive<T> implements Comparator<T> {
             return Double.parseDouble(string);
         }
     };
+
+    private static final long serialVersionUID = 1445360538621930171L;
 
     private static HashMap<Class<?>, Primitive<?>> classMap;
 
