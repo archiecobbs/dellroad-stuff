@@ -30,7 +30,7 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      *
      * @param dataSource underlying {@link DataSource} to update
      */
-    public void setDataSource(DataSource dataSource) {
+    public synchronized void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
@@ -38,7 +38,7 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      * Update the inner {@link DataSource}.
      *
      * <p>
-     * This method will be invoked at most once.
+     * This method will be invoked at most once. This instance's monitor will be locked when this method is invoked.
      *
      * @param dataSource the {@link DataSource} to update
      * @throws SQLException if the update attempt fails
@@ -50,7 +50,7 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      *
      * @return the underlying {@link DataSource}
      */
-    protected DataSource getInnerDataSource() {
+    protected synchronized DataSource getInnerDataSource() {
         return this.dataSource;
     }
 

@@ -170,7 +170,7 @@ public class MergedResultSet implements ResultSet {
                         return 0;
                     int diff = ((Comparable)value1).compareTo(value2);
                     if (diff != 0)
-                        return sortOrders2[i] ? diff : -diff;
+                        return sortOrders2[i] ? diff : diff < 0 ? 1 : -1;
                 }
                 return 0;
             }

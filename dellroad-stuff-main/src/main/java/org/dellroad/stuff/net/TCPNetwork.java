@@ -228,9 +228,11 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         }
 
         // Accept connection
-        SocketChannel socketChannel = this.serverSocketChannel.accept();
-        if (socketChannel == null)
-            return;
+        SocketChannel socketChannel;
+        synchronized (this) {
+            if (this.serverSocketChannel == null || (socketChannel = this.serverSocketChannel.accept()) == null)
+                return;
+        }
         this.log.info("accepted incoming connection from " + socketChannel.getRemoteAddress());
         socketChannel
           .setOption(StandardSocketOptions.SO_KEEPALIVE, true)

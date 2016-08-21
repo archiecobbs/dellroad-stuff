@@ -1,0 +1,40 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="org.dellroad.stuff.main.MainClass"/>
+        <Bug pattern="DM_EXIT"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.io.CSVOutput"/>
+        <Method name="&lt;init&gt;"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.io.FileStreamRepository"/>
+        <Method name="copy"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.io.FileStreamRepository"/>
+        <Method name="rotateBackups"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.io.AtomicUpdateFileOutputStream"/>
+        <Method name="cancel"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.java.ObjectComparator"/>
+        <Bug pattern="SE_COMPARATOR_SHOULD_BE_SERIALIZABLE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.ant.HibernateDDLFormatterTask"/>
+        <Method name="execute"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.sql.MergedResultSet$1"/>
+        <Method name="compare"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE"/>
+    </Match>
+</FindBugsFilter>

@@ -48,10 +48,10 @@ public abstract class SocketAcceptor {
      *
      * @return address to listen on, or null for any
      */
-    public InetAddress getInetAddress() {
+    public synchronized InetAddress getInetAddress() {
         return this.address;
     }
-    public void setInetAddress(InetAddress address) {
+    public synchronized void setInetAddress(InetAddress address) {
         this.address = address;
     }
 
@@ -60,10 +60,10 @@ public abstract class SocketAcceptor {
      *
      * @return maximum backlogged connections
      */
-    public int getBacklog() {
+    public synchronized int getBacklog() {
         return this.backlog;
     }
-    public void setBacklog(int backlog) {
+    public synchronized void setBacklog(int backlog) {
         this.backlog = backlog;
     }
 
@@ -72,10 +72,10 @@ public abstract class SocketAcceptor {
      *
      * @return max conncurrent connections, or zero for unlimited
      */
-    public int getMaxConnections() {
+    public synchronized int getMaxConnections() {
         return this.maxConnections;
     }
-    public void setMaxConnections(int maxConnections) {
+    public synchronized void setMaxConnections(int maxConnections) {
         this.maxConnections = maxConnections;
     }
 
@@ -84,10 +84,10 @@ public abstract class SocketAcceptor {
      *
      * @return TCP listening port
      */
-    public int getPort() {
+    public synchronized int getPort() {
         return this.port;
     }
-    public void setPort(int port) {
+    public synchronized void setPort(int port) {
         this.port = port;
     }
 
@@ -98,40 +98,38 @@ public abstract class SocketAcceptor {
      * @throws IllegalArgumentException if configuration is invalid
      */
     @PostConstruct
-    public void start() {
-        synchronized (this) {
+    public synchronized void start() {
 
-            // Sanity check
-            if (this.port == 0)
-                throw new IllegalArgumentException("TCP port not set");
-            if (this.port < 1 || this.port > 65535)
-                throw new IllegalArgumentException("invalid TCP port " + this.port);
-            if (this.maxConnections < 0)
-                throw new IllegalArgumentException("invalid maxConnections " + this.maxConnections);
+        // Sanity check
+        if (this.port == 0)
+            throw new IllegalArgumentException("TCP port not set");
+        if (this.port < 1 || this.port > 65535)
+            throw new IllegalArgumentException("invalid TCP port " + this.port);
+        if (this.maxConnections < 0)
+            throw new IllegalArgumentException("invalid maxConnections " + this.maxConnections);
 
-            // Already started?
-            if (this.started)
-                return;
+        // Already started?
+        if (this.started)
+            return;
 
-            // Create server thread
-            String addr = this.address != null ? "" + this.address : "*";
-            String threadName = this.getClass().getSimpleName() + "[" + addr + ":" + this.port + "]";
-            this.serverThread = new Thread(threadName) {
-                @Override
-                public void run() {
-                    SocketAcceptor.this.run();
-                }
-            };
-
-            // Create socket
-            try {
-                this.serverSocket = this.createServerSocket();
-            } catch (IOException e) {
-                throw new RuntimeException("error creating server socket", e);
+        // Create server thread
+        String addr = this.address != null ? "" + this.address : "*";
+        String threadName = this.getClass().getSimpleName() + "[" + addr + ":" + this.port + "]";
+        this.serverThread = new Thread(threadName) {
+            @Override
+            public void run() {
+                SocketAcceptor.this.run();
             }
-            if (this.serverSocket == null)
-                throw new RuntimeException("createServerSocket() returned a null socket");
+        };
+
+        // Create socket
+        try {
+            this.serverSocket = this.createServerSocket();
+        } catch (IOException e) {
+            throw new RuntimeException("error creating server socket", e);
         }
+        if (this.serverSocket == null)
+            throw new RuntimeException("createServerSocket() returned a null socket");
 
         // Start server thread
         this.serverThread.start();
@@ -342,7 +340,7 @@ public abstract class SocketAcceptor {
      * @return server socket
      * @throws IOException if an I/O error occurs
      */
-    protected ServerSocket createServerSocket() throws IOException {
+    protected synchronized ServerSocket createServerSocket() throws IOException {
         ServerSocket socket = new ServerSocket(this.port, this.backlog, this.address);
         socket.setReuseAddress(true);
         return socket;

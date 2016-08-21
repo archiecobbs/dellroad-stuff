@@ -205,6 +205,7 @@ public class ProcessRunner {
         }
 
         // Done
+        assert exitValue != null;
         return exitValue;
     }
 
@@ -233,7 +234,7 @@ public class ProcessRunner {
      * @param off offset of the first data byte
      * @param len length of the data
      */
-    protected void handleStandardOutput(byte[] buf, int off, int len) {
+    protected synchronized void handleStandardOutput(byte[] buf, int off, int len) {
         if (this.discardStandardOutput)
             return;
         this.stdoutBuffer.write(buf, off, len);
@@ -254,7 +255,7 @@ public class ProcessRunner {
      * @param off offset of the first data byte
      * @param len length of the data in {@code buf}
      */
-    protected void handleStandardError(byte[] buf, int off, int len) {
+    protected synchronized void handleStandardError(byte[] buf, int off, int len) {
         if (this.discardStandardError)
             return;
         this.stderrBuffer.write(buf, off, len);

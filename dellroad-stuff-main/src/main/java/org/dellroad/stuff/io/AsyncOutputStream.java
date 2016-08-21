@@ -44,6 +44,7 @@ public class AsyncOutputStream extends FilterOutputStream {
 
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
+    private final String threadName;
     private byte[] buf;                 // output buffer
     private int count;                  // number of bytes in output buffer ready to be written
     private int flushMark = -1;         // buffer byte at which a flush is requested, or -1 if none
@@ -90,19 +91,9 @@ public class AsyncOutputStream extends FilterOutputStream {
             throw new IllegalArgumentException("null name");
         if (bufsize < 0)
             throw new IllegalArgumentException("invalid bufsize " + bufsize);
+        this.threadName = name;
         this.expand = bufsize == 0;
         this.buf = new byte[Math.min(Math.max(bufsize, MIN_BUFFER_SIZE), MAX_BUFFER_SIZE)];
-
-        // Start worker thread
-        this.thread = new Thread(name) {
-            @Override
-            public void run() {
-                AsyncOutputStream.this.threadMain();
-            }
-        };
-        this.thread.setDaemon(true);
-        this.thread.start();
-        synchronized (this) { }
     }
 
     /**
@@ -161,6 +152,7 @@ public class AsyncOutputStream extends FilterOutputStream {
         this.count += len;
 
         // Wakeup writer thread
+        this.startThreadIfNecessary();
         this.notifyAll();
     }
 
@@ -184,6 +176,7 @@ public class AsyncOutputStream extends FilterOutputStream {
     public synchronized void flush() throws IOException {
         this.checkExceptions();
         this.flushMark = this.count;
+        this.startThreadIfNecessary();
         this.notifyAll();                               // wake up writer thread
     }
 
@@ -203,6 +196,7 @@ public class AsyncOutputStream extends FilterOutputStream {
         if (this.closed)
             return;
         this.closed = true;
+        this.startThreadIfNecessary();
         this.notifyAll();                               // wake up writer thread
     }
 
@@ -271,7 +265,7 @@ public class AsyncOutputStream extends FilterOutputStream {
      * @throws InterruptedException     if the current thread is interrupted
      * @see #availableBufferSpace
      */
-    public boolean waitForSpace(final int numBytes, long timeout) throws IOException, InterruptedException {
+    public synchronized boolean waitForSpace(final int numBytes, long timeout) throws IOException, InterruptedException {
         if (this.expand)
             return true;
         if (numBytes > this.buf.length)
@@ -323,6 +317,23 @@ public class AsyncOutputStream extends FilterOutputStream {
      */
     private boolean threadHasWork() {
         return this.count > 0 || this.flushMark != -1 || this.closed;
+    }
+
+    /**
+     * Start the background thread if necessary.
+     */
+    private void startThreadIfNecessary() {
+        assert Thread.holdsLock(this);
+        if (this.thread == null && this.threadHasWork()) {
+            this.thread = new Thread(this.threadName) {
+                @Override
+                public void run() {
+                    AsyncOutputStream.this.threadMain();
+                }
+            };
+            this.thread.setDaemon(true);
+            this.thread.start();
+        }
     }
 
     /**

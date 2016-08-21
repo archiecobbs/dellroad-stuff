@@ -7,7 +7,6 @@ package org.dellroad.stuff.main;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -66,7 +65,6 @@ public abstract class MainClass {
         this.console.setHistory(history);
 
         // Main loop
-        final PrintWriter writer = new PrintWriter(this.console.getOutput(), true);
         try {
             while (true) {
 

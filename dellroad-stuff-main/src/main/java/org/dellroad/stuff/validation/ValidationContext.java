@@ -67,7 +67,7 @@ public class ValidationContext<T> {
      * @return configured validation groups
      */
     public final Class<?>[] getGroups() {
-        return this.groups;
+        return this.groups.clone();
     }
 
     /**

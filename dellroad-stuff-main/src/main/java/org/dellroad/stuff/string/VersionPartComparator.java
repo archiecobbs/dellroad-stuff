@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.string;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Comparator;
 
@@ -17,7 +18,7 @@ import java.util.Comparator;
  *
  * @see VersionComparator
  */
-public class VersionPartComparator implements Comparator<String> {
+public class VersionPartComparator implements Comparator<String>, Serializable {
 
     @Override
     public int compare(String part1, String part2) {

@@ -45,7 +45,6 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     private String defaultEncoding = DEFAULT_ENCODING;
 
     private boolean started;
-    private boolean newlineAfter;
     private int lastEvent = -1;
     private int depth;
 

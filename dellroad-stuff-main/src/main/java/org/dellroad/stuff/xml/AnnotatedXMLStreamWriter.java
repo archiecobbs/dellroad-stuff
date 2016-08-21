@@ -26,7 +26,6 @@ public abstract class AnnotatedXMLStreamWriter extends StreamWriterDelegate {
     //  1 = after document element but before annotation element
     //  2 = after annotation element
     private byte state;
-    private boolean needEnding;
 
     public AnnotatedXMLStreamWriter(XMLStreamWriter parent) {
         super(parent);

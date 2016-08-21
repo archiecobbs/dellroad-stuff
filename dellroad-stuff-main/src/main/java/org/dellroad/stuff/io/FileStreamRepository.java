@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,9 +31,11 @@ import org.slf4j.LoggerFactory;
  * this "copy" efficiently. This behavior can be altered by overriding {@link #copy copy()} on systems not supporting
  * hard links.
  */
-public class FileStreamRepository implements StreamRepository {
+public class FileStreamRepository implements StreamRepository, Serializable {
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private static final long serialVersionUID = 6073048079512648449L;
+
+    private transient /*final*/ Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final File file;
 
@@ -84,7 +88,7 @@ public class FileStreamRepository implements StreamRepository {
      *
      * @return the number of backup files to maintain
      */
-    public final int getNumBackups() {
+    public final synchronized int getNumBackups() {
         return this.numBackups;
     }
 
@@ -97,7 +101,7 @@ public class FileStreamRepository implements StreamRepository {
      * @param numBackups number of backup files
      * @throws IllegalArgumentException if {@code numBackups} is less than zero
      */
-    public void setNumBackups(int numBackups) {
+    public synchronized void setNumBackups(int numBackups) {
         this.numBackups = numBackups;
     }
 
@@ -109,8 +113,8 @@ public class FileStreamRepository implements StreamRepository {
     @Override
     public AtomicUpdateFileOutputStream getOutputStream() throws IOException {
         String tempName = this.file.getName();
-        while (tempName.length() < 3)
-            tempName += "z";
+        if (tempName.length() < 3)
+            tempName += "zzz".substring(tempName.length());
         final File tempFile = File.createTempFile(tempName, null, this.file.getParentFile());
         return new AtomicUpdateFileOutputStream(this.file, tempFile) {
             @Override
@@ -216,6 +220,13 @@ public class FileStreamRepository implements StreamRepository {
             } else
                 src.renameTo(dst);      // OK if this fails, that means the backup file doesn't exist yet
         }
+    }
+
+// Serialization
+
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+        this.log = LoggerFactory.getLogger(this.getClass());
     }
 }
 

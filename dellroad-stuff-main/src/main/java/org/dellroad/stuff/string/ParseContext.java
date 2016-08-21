@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.string;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,9 @@ import java.util.regex.Pattern;
  * <p>
  * Instances of this class are not thread safe.
  */
-public class ParseContext implements Cloneable {
+public class ParseContext implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = -5369933310249261572L;
 
     private static final int MAX_REJECT_QUOTE = 15;
 

@@ -129,7 +129,7 @@ public final class StringEncoder {
             // Handle unescaped characters
             if (ch != '\\') {
                 if (!isValidXMLChar(ch))
-                    throw new IllegalArgumentException(String.format("illegal character 0x%04x in encoded string", ch));
+                    throw new IllegalArgumentException(String.format("illegal character 0x%04x in encoded string", (int)ch));
                 buf.append(ch);
                 continue;
             }
