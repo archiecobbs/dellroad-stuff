@@ -20,6 +20,8 @@ import java.util.Comparator;
  */
 public class VersionPartComparator implements Comparator<String>, Serializable {
 
+    private static final long serialVersionUID = 388619947826617690L;
+
     @Override
     public int compare(String part1, String part2) {
         BigInteger num1 = part1.matches("[0-9]+") ? new BigInteger(part1, 10) : null;

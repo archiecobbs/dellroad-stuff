@@ -11,6 +11,7 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.ObjectProperty;
 import com.vaadin.ui.Table;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
@@ -33,9 +34,12 @@ import java.util.Comparator;
  *  Property prop = this.get(container, itemId);
  * </pre></blockquote>
  *
+ * <p>
+ * Instances are serializable if the default value is.
+ *
  * @param <T> property's value type
  */
-public class PropertyDef<T> {
+public class PropertyDef<T> implements Serializable {
 
     /**
      * Comparator that sorts instances by name.
@@ -46,6 +50,8 @@ public class PropertyDef<T> {
             return p1.getName().compareTo(p2.getName());
         }
     };
+
+    private static final long serialVersionUID = -8991380517167562622L;
 
     private final String name;
     private final Class<T> type;

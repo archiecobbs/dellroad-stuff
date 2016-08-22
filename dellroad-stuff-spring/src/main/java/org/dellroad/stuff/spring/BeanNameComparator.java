@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.spring;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashMap;
 
@@ -17,7 +18,9 @@ import org.springframework.beans.factory.ListableBeanFactory;
  * <p>
  * Names that are not present in the configured {@link ListableBeanFactory} cause an exception.
  */
-public class BeanNameComparator implements Comparator<String> {
+public class BeanNameComparator implements Comparator<String>, Serializable {
+
+    private static final long serialVersionUID = 5748344324099448841L;
 
     private final HashMap<String, Integer> beanNameMap;
     private final String factoryName;

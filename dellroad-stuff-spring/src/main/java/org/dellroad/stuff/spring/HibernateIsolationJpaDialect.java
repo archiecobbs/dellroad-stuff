@@ -120,7 +120,7 @@ public class HibernateIsolationJpaDialect extends HibernateJpaDialect {
     /**
      * Wraps superclass transaction data and adds isolation level to restore.
      */
-    protected class TransactionDataWrapper {
+    protected static class TransactionDataWrapper {
 
         private final Object transactionData;
         private final Connection connection;

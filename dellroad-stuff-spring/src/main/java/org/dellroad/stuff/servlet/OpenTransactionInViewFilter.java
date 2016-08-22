@@ -48,10 +48,14 @@ public class OpenTransactionInViewFilter extends OncePerRequestFilter {
     protected void initFilterBean() throws ServletException {
         super.initFilterBean();
         log.debug("finding containing WebApplicationContext");
+        final WebApplicationContext wac;
         try {
-            this.webApplicationContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+            wac = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         } catch (IllegalStateException e) {
             throw new ServletException("could not locate containing WebApplicationContext");
+        }
+        synchronized (this) {
+            this.webApplicationContext = wac;
         }
     }
 
@@ -67,7 +71,7 @@ public class OpenTransactionInViewFilter extends OncePerRequestFilter {
         this.transactionDefinition.setReadOnly(readOnly);
     }
 
-    public void setTransactionManagerBeanName(String transactionManagerBeanName) {
+    public synchronized void setTransactionManagerBeanName(String transactionManagerBeanName) {
         this.transactionManagerBeanName = transactionManagerBeanName;
     }
 

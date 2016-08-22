@@ -1,0 +1,6 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.AbstractBeanDefinitionParser"/>
+        <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
+    </Match>
+</FindBugsFilter>

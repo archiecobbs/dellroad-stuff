@@ -28,6 +28,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * methods always throw exceptions.
      */
     public static final Primitive<Void> VOID = new Primitive<Void>(Void.TYPE, Void.class, 'V', 0, "") {
+
+        private static final long serialVersionUID = -7949695577609812484L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseVoid();
@@ -50,6 +53,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * Boolean type. String values must equal {@code "true"} or {@code "false"}.
      */
     public static final Primitive<Boolean> BOOLEAN = new Primitive<Boolean>(Boolean.TYPE, Boolean.class, 'Z', 1, "true|false") {
+
+        private static final long serialVersionUID = 6929408176584630874L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseBoolean();
@@ -73,6 +79,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      */
     public static final Primitive<Byte> BYTE = new Primitive<Byte>(Byte.TYPE, Byte.class, 'B', 1,
       "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,2}))|(0+[0-7]{0,3})|([1-9][0-9]{0,2}))") {
+
+        private static final long serialVersionUID = -5720606133595207151L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseByte();
@@ -96,6 +105,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      */
     public static final Primitive<Character> CHARACTER = new Primitive<Character>(
       Character.TYPE, Character.class, 'C', 2, "(?s).") {
+
+        private static final long serialVersionUID = -6140764391849287341L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseCharacter();
@@ -121,6 +133,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      */
     public static final Primitive<Short> SHORT = new Primitive<Short>(Short.TYPE, Short.class, 'S', 2,
       "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,4}))|(0+[0-7]{0,6})|([1-9][0-9]{0,4}))") {
+
+        private static final long serialVersionUID = -7258485621744729715L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseShort();
@@ -144,6 +159,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      */
     public static final Primitive<Integer> INTEGER = new Primitive<Integer>(Integer.TYPE, Integer.class, 'I', 4,
       "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,8}))|(0+[0-7]{0,11})|([1-9][0-9]{0,9}))") {
+
+        private static final long serialVersionUID = 6417724691359947003L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseInteger();
@@ -166,6 +184,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * Float type. String values are parsed using {@link Float#parseFloat Float.parseFloat()}.
      */
     public static final Primitive<Float> FLOAT = new Primitive<Float>(Float.TYPE, Float.class, 'F', 4, DoubleFormat.REGEX) {
+
+        private static final long serialVersionUID = -5540301676120287470L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseFloat();
@@ -189,6 +210,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      */
     public static final Primitive<Long> LONG = new Primitive<Long>(Long.TYPE, Long.class, 'J', 8,
       "(?i)(\\+|-)?(((0x|#)0*(\\p{XDigit}{1,16}))|(0+[0-7]{0,22})|([1-9][0-9]{0,18}))") {
+
+        private static final long serialVersionUID = -6797953814533403166L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseLong();
@@ -211,6 +235,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * Double type. String values are parsed using {@link Double#parseDouble Double.parseDouble()}.
      */
     public static final Primitive<Double> DOUBLE = new Primitive<Double>(Double.TYPE, Double.class, 'D', 8, DoubleFormat.REGEX) {
+
+        private static final long serialVersionUID = -1216396451473814398L;
+
         @Override
         public <R> R visit(PrimitiveSwitch<R> pswitch) {
             return pswitch.caseDouble();

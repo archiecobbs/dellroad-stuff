@@ -141,7 +141,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * @param persistentObject the persistent object to sync
      */
-    public void setPersistentObject(PersistentObject<T> persistentObject) {
+    public synchronized void setPersistentObject(PersistentObject<T> persistentObject) {
         this.persistentObject = persistentObject;
     }
 
@@ -157,7 +157,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * @param git {@code git(1)} repository
      */
-    public void setGitRepository(GitRepository git) {
+    public synchronized void setGitRepository(GitRepository git) {
         this.git = git;
     }
 
@@ -169,7 +169,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * @param filename XML file name
      */
-    public void setFilename(String filename) {
+    public synchronized void setFilename(String filename) {
         this.filename = filename;
     }
 
@@ -189,7 +189,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      *
      * @param branch branch name
      */
-    public void setBranch(String branch) {
+    public synchronized void setBranch(String branch) {
         this.branch = branch;
     }
 
@@ -211,7 +211,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public synchronized void afterPropertiesSet() throws Exception {
         super.afterPropertiesSet();
 
         // Sanity check
@@ -241,7 +241,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
     }
 
     @Override
-    public void destroy() throws Exception {
+    public synchronized void destroy() throws Exception {
         this.persistentObject.removeListener(this);
         this.git = null;
         super.destroy();
@@ -339,7 +339,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * @return committed root
      * @throws PersistentObjectException if the committed root cannot be read
      */
-    public T getCommittedRoot() {
+    public synchronized T getCommittedRoot() {
         final ArrayList<T> rootList = new ArrayList<T>(1);
         this.git.access(this.branch, new GitRepository.Accessor() {
             @Override

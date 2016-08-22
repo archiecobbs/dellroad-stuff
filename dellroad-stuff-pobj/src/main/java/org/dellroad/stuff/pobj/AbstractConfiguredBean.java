@@ -58,7 +58,7 @@ public abstract class AbstractConfiguredBean<ROOT, T> extends AbstractBean
      *
      * @param persistentObject keeper of the this bean's configuration
      */
-    protected void setPersistentObject(PersistentObject<ROOT> persistentObject) {
+    protected synchronized void setPersistentObject(PersistentObject<ROOT> persistentObject) {
         this.persistentObject = persistentObject;
     }
 

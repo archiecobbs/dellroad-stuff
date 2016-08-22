@@ -1,0 +1,22 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin7.PropertyDef"/>
+        <Method name="sort"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin7.ProvidesPropertyScanner$AnnotationPropertyDef$2"/>
+        <Method name="compare"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin7.SpringVaadinServlet"/>
+        <Field name="liveSessions"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin7.VaadinApplicationScope"/>
+        <Field name="beanHolders"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+</FindBugsFilter>

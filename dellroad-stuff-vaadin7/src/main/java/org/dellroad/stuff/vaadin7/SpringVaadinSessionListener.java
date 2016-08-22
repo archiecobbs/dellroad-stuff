@@ -120,7 +120,7 @@ public class SpringVaadinSessionListener implements SessionInitListener, Session
     private static final long serialVersionUID = -2107311484324869198L;
     private static final WeakHashMap<VaadinSession, ConfigurableWebApplicationContext> CONTEXT_MAP = new WeakHashMap<>();
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
+    private transient Logger log = LoggerFactory.getLogger(this.getClass());
     private final UUID uuid = UUID.randomUUID();            // ensures a unique ID for the associated context across a cluster
     private final String applicationName;
     private final String configLocation;
@@ -307,6 +307,7 @@ public class SpringVaadinSessionListener implements SessionInitListener, Session
 
     private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
         input.defaultReadObject();
+        this.log = LoggerFactory.getLogger(this.getClass());
         final VaadinSession session = VaadinUtil.getCurrentSession();
         final VaadinRequest request = VaadinUtil.getCurrentRequest();
         VaadinUtil.invoke(session, new Runnable() {

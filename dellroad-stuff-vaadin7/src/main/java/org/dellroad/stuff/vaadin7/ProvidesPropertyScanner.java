@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -299,6 +300,24 @@ public class ProvidesPropertyScanner<T> {
                 }
             };
             return this.comparator;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final AnnotationPropertyDef<?> that = (AnnotationPropertyDef<?>)obj;
+            return Objects.equals(this.methodInfo, that.methodInfo)
+              && Objects.equals(this.sortMethodInfo, that.sortMethodInfo);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode()
+              ^ (this.methodInfo != null ? this.methodInfo.hashCode() : 0)
+              ^ (this.sortMethodInfo != null ? this.sortMethodInfo.hashCode() : 0);
         }
     }
 }

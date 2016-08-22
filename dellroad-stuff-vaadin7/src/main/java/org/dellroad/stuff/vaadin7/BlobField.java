@@ -16,7 +16,11 @@ import com.vaadin.ui.ProgressBar;
 import com.vaadin.ui.Upload;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +30,16 @@ import org.slf4j.LoggerFactory;
  * (i.e., "blobs"). The blob is updated using a file upload.
  */
 @SuppressWarnings("serial")
-public class BlobField extends CustomField<byte[]> implements Upload.Receiver,
+public class BlobField extends CustomField<byte[]> implements Serializable, Upload.Receiver,
   Upload.StartedListener, Upload.ProgressListener, Upload.SucceededListener, Upload.FailedListener {
+
+    private static final long serialVersionUID = 7566102164730793008L;
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final Label descriptionLabel = new Label();
     private final HorizontalLayout layout = new HorizontalLayout();
-    private final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+    private transient ByteArrayOutputStream buffer = new ByteArrayOutputStream();
     private final ProgressBar progressBar = new ProgressBar();
     private final Upload upload = new Upload();
 
@@ -192,6 +198,19 @@ public class BlobField extends CustomField<byte[]> implements Upload.Receiver,
         final byte[] value = this.getValue();
         this.descriptionLabel.setValue(value != null ? value.length + " bytes" : "Null");
         this.upload.setEnabled(!this.isReadOnly());
+    }
+
+// Serialization
+
+    private void writeObject(ObjectOutputStream output) throws IOException {
+        output.defaultWriteObject();
+        output.writeObject(this.buffer.toByteArray());
+    }
+
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+        this.buffer = new ByteArrayOutputStream();
+        buffer.write((byte[])input.readObject());
     }
 }
 

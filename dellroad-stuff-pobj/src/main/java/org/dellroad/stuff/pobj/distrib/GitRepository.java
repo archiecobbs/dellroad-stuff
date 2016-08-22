@@ -442,19 +442,12 @@ public class GitRepository extends AbstractBean {
      * @throws IOException if an I/O error occurs
      */
     protected String readFirstLine(File file) throws IOException {
-        final FileInputStream inputStream = new FileInputStream(file);
-        try {
-            final LineNumberReader reader = new LineNumberReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
+        try (final LineNumberReader reader = new LineNumberReader(
+          new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8")))) {
             final String firstLine = reader.readLine();
             if (firstLine == null)
                 throw new GitException("read empty content from `" + file + "'");
             return firstLine.trim();
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                // ignore
-            }
         }
     }
 

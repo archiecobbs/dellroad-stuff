@@ -380,7 +380,7 @@ public class PersistentObject<T> {
      *
      * @return number of backing file backup copies
      */
-    public int getNumBackups() {
+    public synchronized int getNumBackups() {
         return this.streamRepository != null ? this.streamRepository.getNumBackups() : 0;
     }
 
@@ -392,7 +392,7 @@ public class PersistentObject<T> {
      * @throws IllegalStateException if no persistent file has been configured yet
      * @see #getNumBackups
      */
-    public void setNumBackups(int numBackups) {
+    public synchronized void setNumBackups(int numBackups) {
         if (this.streamRepository == null)
             throw new IllegalStateException("the persistent file must be configured prior to the number of backups");
         this.streamRepository.setNumBackups(numBackups);
@@ -844,27 +844,19 @@ public class PersistentObject<T> {
      * @throws PersistentObjectException if an error occurs
      */
     protected T read() {
-
-        // Open file
         this.log.info(this + ": reading persistent file `" + this.getFile() + "'");
-        BufferedInputStream input;
-        try {
-            input = new BufferedInputStream(this.streamRepository.getInputStream());
-        } catch (IOException e) {
-            throw new PersistentObjectException("error opening persistent file", e);
+        final FileStreamRepository streamRepositorySnapshot;
+        synchronized (this) {
+            streamRepositorySnapshot = this.streamRepository;
         }
-
-        // Parse XML
-        try {
+        if (streamRepositorySnapshot == null)
+            throw new PersistentObjectException("no file configured");
+        try (final BufferedInputStream input = new BufferedInputStream(streamRepositorySnapshot.getInputStream())) {
             StreamSource source = new StreamSource(input);
             source.setSystemId(this.getFile());
             return PersistentObject.read(this.delegate, source, false);
-        } finally {
-            try {
-                input.close();
-            } catch (IOException e) {
-                // ignore
-            }
+        } catch (IOException e) {
+            throw new PersistentObjectException("error reading persistent file", e);
         }
     }
 

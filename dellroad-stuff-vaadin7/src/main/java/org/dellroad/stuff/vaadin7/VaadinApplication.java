@@ -61,7 +61,7 @@ public class VaadinApplication implements Serializable {
     private static final long serialVersionUID = -4202507689739224846L;
     private static final Class<VaadinApplication> ATTRIBUTE_KEY = VaadinApplication.class;
 
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected transient Logger log = LoggerFactory.getLogger(this.getClass());
 
     private transient VaadinSession session;
 
@@ -282,6 +282,7 @@ public class VaadinApplication implements Serializable {
     private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
         input.defaultReadObject();
         this.session = VaadinUtil.getCurrentSession();
+        this.log = LoggerFactory.getLogger(this.getClass());
     }
 }
 
