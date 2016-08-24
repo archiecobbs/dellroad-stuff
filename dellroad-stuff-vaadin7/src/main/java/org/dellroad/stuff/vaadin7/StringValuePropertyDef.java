@@ -13,6 +13,8 @@ package org.dellroad.stuff.vaadin7;
  */
 public class StringValuePropertyDef extends PropertyDef<String> implements SortingPropertyExtractor<Object> {
 
+    private static final long serialVersionUID = 2452425597211239316L;
+
     /**
      * Constructor.
      *

@@ -235,6 +235,8 @@ public class ProvidesPropertyScanner<T> {
 
     private class AnnotationPropertyDef<V> extends PropertyDef<V> {
 
+        private static final long serialVersionUID = 4983663265225248971L;
+
         private final MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo;
         private final MethodAnnotationScanner<T, ProvidesPropertySort>.MethodInfo sortMethodInfo;
 
@@ -308,7 +310,8 @@ public class ProvidesPropertyScanner<T> {
                 return true;
             if (!super.equals(obj))
                 return false;
-            final AnnotationPropertyDef<?> that = (AnnotationPropertyDef<?>)obj;
+            final ProvidesPropertyScanner<?>.AnnotationPropertyDef<?> that
+              = (ProvidesPropertyScanner<?>.AnnotationPropertyDef<?>)obj;
             return Objects.equals(this.methodInfo, that.methodInfo)
               && Objects.equals(this.sortMethodInfo, that.sortMethodInfo);
         }
