@@ -5,6 +5,7 @@ Version 2.0.2 Released August 22, 2016
     - Detect end without matching start event in IndentXMLEventWriter
     - Enhance Primitive and other classes to implement Serializable
     - Added FindBugs to the build and addressed several reported issues
+    - Added maven plugin
 
 Version 2.0.1 Released May 19, 2016
 
