@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>Serialized Form (DellRoad Stuff 2.0.1 API)</title>
+<title>Serialized Form (DellRoad Stuff 2.0.3-SNAPSHOT API)</title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style">
 </head>
 <body>
 <script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="Serialized Form (DellRoad Stuff 2.0.1 API)";
+        parent.document.title="Serialized Form (DellRoad Stuff 2.0.3-SNAPSHOT API)";
     }
 //-->
 </script>
@@ -74,6 +74,54 @@
 </a>
 <h3>Class <a href="org/dellroad/stuff/io/BufferOverflowException.html" title="class in org.dellroad.stuff.io">org.dellroad.stuff.io.BufferOverflowException</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a> implements Serializable</h3>
 </li>
+<li class="blockList"><a name="org.dellroad.stuff.io.FileStreamRepository">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io">org.dellroad.stuff.io.FileStreamRepository</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>6073048079512648449L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serialized_methods">
+<!--   -->
+</a>
+<h3>Serialization Methods</h3>
+<ul class="blockList">
+<li class="blockListLast"><a name="readObject(java.io.ObjectInputStream)">
+<!--   -->
+</a>
+<h4>readObject</h4>
+<pre>private&nbsp;void&nbsp;readObject(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/ObjectInputStream.html?is-external=true" title="class or interface in java.io">ObjectInputStream</a>&nbsp;input)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+                        <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassNotFoundException.html?is-external=true" title="class or interface in java.lang">ClassNotFoundException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassNotFoundException.html?is-external=true" title="class or interface in java.lang">ClassNotFoundException</a></code></dd></dl>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>file</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/io/File.html?is-external=true" title="class or interface in java.io">File</a> file</pre>
+</li>
+<li class="blockList">
+<h4>numBackups</h4>
+<pre>int numBackups</pre>
+</li>
+<li class="blockListLast">
+<h4>timestamp</h4>
+<pre>long timestamp</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="blockList"><a name="org.dellroad.stuff.io.IdleTimeoutException">
 <!--   -->
 </a>
@@ -110,6 +158,44 @@
 <li class="blockListLast">
 <h4>exception</h4>
 <pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a> exception</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.java.Primitive">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">org.dellroad.stuff.java.Primitive</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>1445360538621930171L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>primType</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">T</a>&gt; primType</pre>
+</li>
+<li class="blockList">
+<h4>wrapType</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">T</a>&gt; wrapType</pre>
+</li>
+<li class="blockList">
+<h4>letter</h4>
+<pre>char letter</pre>
+</li>
+<li class="blockList">
+<h4>size</h4>
+<pre>byte size</pre>
+</li>
+<li class="blockListLast">
+<h4>parsePattern</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html?is-external=true" title="class or interface in java.util.regex">Pattern</a> parsePattern</pre>
 </li>
 </ul>
 </li>
@@ -276,6 +362,32 @@
 <li class="blockList">
 <h2 title="Package">Package&nbsp;org.dellroad.stuff.spring</h2>
 <ul class="blockList">
+<li class="blockList"><a name="org.dellroad.stuff.spring.BeanNameComparator">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/spring/BeanNameComparator.html" title="class in org.dellroad.stuff.spring">org.dellroad.stuff.spring.BeanNameComparator</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>5748344324099448841L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>beanNameMap</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">K</a>,<a href="http://docs.oracle.com/javase/7/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">V</a>&gt; beanNameMap</pre>
+</li>
+<li class="blockListLast">
+<h4>factoryName</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> factoryName</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="blockList"><a name="org.dellroad.stuff.spring.HibernateIsolationJpaDialect">
 <!--   -->
 </a>
@@ -293,6 +405,46 @@
 </ul>
 </li>
 </ul>
+</li>
+</ul>
+</li>
+<li class="blockList">
+<h2 title="Package">Package&nbsp;org.dellroad.stuff.string</h2>
+<ul class="blockList">
+<li class="blockList"><a name="org.dellroad.stuff.string.ParseContext">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/string/ParseContext.html" title="class in org.dellroad.stuff.string">org.dellroad.stuff.string.ParseContext</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-5369933310249261572L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>input</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> input</pre>
+</li>
+<li class="blockListLast">
+<h4>index</h4>
+<pre>int index</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.string.VersionPartComparator">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/string/VersionPartComparator.html" title="class in org.dellroad.stuff.string">org.dellroad.stuff.string.VersionPartComparator</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>388619947826617690L</dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -389,7 +541,38 @@
 <!--   -->
 </a>
 <h3>Class <a href="org/dellroad/stuff/vaadin7/BlobField.html" title="class in org.dellroad.stuff.vaadin7">org.dellroad.stuff.vaadin7.BlobField</a> extends <a href="http://vaadin.com/download/release/7.5/7.5.5/docs/api/com/vaadin/ui/CustomField.html?is-external=true" title="class or interface in com.vaadin.ui">CustomField</a>&lt;byte[]&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>7566102164730793008L</dd>
+</dl>
 <ul class="blockList">
+<li class="blockList"><a name="serialized_methods">
+<!--   -->
+</a>
+<h3>Serialization Methods</h3>
+<ul class="blockList">
+<li class="blockList"><a name="readObject(java.io.ObjectInputStream)">
+<!--   -->
+</a>
+<h4>readObject</h4>
+<pre>private&nbsp;void&nbsp;readObject(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/ObjectInputStream.html?is-external=true" title="class or interface in java.io">ObjectInputStream</a>&nbsp;input)
+                 throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a>,
+                        <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassNotFoundException.html?is-external=true" title="class or interface in java.lang">ClassNotFoundException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassNotFoundException.html?is-external=true" title="class or interface in java.lang">ClassNotFoundException</a></code></dd></dl>
+</li>
+<li class="blockListLast"><a name="writeObject(java.io.ObjectOutputStream)">
+<!--   -->
+</a>
+<h4>writeObject</h4>
+<pre>private&nbsp;void&nbsp;writeObject(<a href="http://docs.oracle.com/javase/7/docs/api/java/io/ObjectOutputStream.html?is-external=true" title="class or interface in java.io">ObjectOutputStream</a>&nbsp;output)
+                  throws <a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
+<dl><dt><span class="strong">Throws:</span></dt>
+<dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd></dl>
+</li>
+</ul>
+</li>
 <li class="blockList"><a name="serializedForm">
 <!--   -->
 </a>
@@ -406,10 +589,6 @@
 <li class="blockList">
 <h4>layout</h4>
 <pre><a href="http://vaadin.com/download/release/7.5/7.5.5/docs/api/com/vaadin/ui/HorizontalLayout.html?is-external=true" title="class or interface in com.vaadin.ui">HorizontalLayout</a> layout</pre>
-</li>
-<li class="blockList">
-<h4>buffer</h4>
-<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/io/ByteArrayOutputStream.html?is-external=true" title="class or interface in java.io">ByteArrayOutputStream</a> buffer</pre>
 </li>
 <li class="blockList">
 <h4>progressBar</h4>
@@ -489,6 +668,36 @@
 <!--   -->
 </a>
 <h3>Class <a href="org/dellroad/stuff/vaadin7/InvalidQueryListException.html" title="class in org.dellroad.stuff.vaadin7">org.dellroad.stuff.vaadin7.InvalidQueryListException</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Exception.html?is-external=true" title="class or interface in java.lang">Exception</a> implements Serializable</h3>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.vaadin7.PropertyDef">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">org.dellroad.stuff.vaadin7.PropertyDef</a> extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>-8991380517167562622L</dd>
+</dl>
+<ul class="blockList">
+<li class="blockList"><a name="serializedForm">
+<!--   -->
+</a>
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>name</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> name</pre>
+</li>
+<li class="blockList">
+<h4>type</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">T</a>&gt; type</pre>
+</li>
+<li class="blockListLast">
+<h4>defaultValue</h4>
+<pre><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> defaultValue</pre>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 <li class="blockList"><a name="org.dellroad.stuff.vaadin7.ReadOnlyProperty">
 <!--   -->
@@ -674,10 +883,6 @@
 <h3>Serialized Fields</h3>
 <ul class="blockList">
 <li class="blockList">
-<h4>log</h4>
-<pre><a href="http://slf4j.org/apidocs/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> log</pre>
-</li>
-<li class="blockList">
 <h4>uuid</h4>
 <pre><a href="http://docs.oracle.com/javase/7/docs/api/java/util/UUID.html?is-external=true" title="class or interface in java.util">UUID</a> uuid</pre>
 </li>
@@ -692,6 +897,15 @@
 </ul>
 </li>
 </ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.vaadin7.StringValuePropertyDef">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin7/StringValuePropertyDef.html" title="class in org.dellroad.stuff.vaadin7">org.dellroad.stuff.vaadin7.StringValuePropertyDef</a> extends <a href="org/dellroad/stuff/vaadin7/PropertyDef.html" title="class in org.dellroad.stuff.vaadin7">PropertyDef</a>&lt;<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&gt; implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>2452425597211239316L</dd>
+</dl>
 </li>
 <li class="blockList"><a name="org.dellroad.stuff.vaadin7.VaadinApplication">
 <!--   -->
@@ -717,17 +931,6 @@
 <dl><dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></code></dd>
 <dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/ClassNotFoundException.html?is-external=true" title="class or interface in java.lang">ClassNotFoundException</a></code></dd></dl>
-</li>
-</ul>
-</li>
-<li class="blockList"><a name="serializedForm">
-<!--   -->
-</a>
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockListLast">
-<h4>log</h4>
-<pre><a href="http://slf4j.org/apidocs/org/slf4j/Logger.html?is-external=true" title="class or interface in org.slf4j">Logger</a> log</pre>
 </li>
 </ul>
 </li>

@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>IdleTimeoutInputStream (DellRoad Stuff 2.0.1 API)</title>
+<title>IdleTimeoutInputStream (DellRoad Stuff 2.0.3-SNAPSHOT API)</title>
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
 <script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="IdleTimeoutInputStream (DellRoad Stuff 2.0.1 API)";
+        parent.document.title="IdleTimeoutInputStream (DellRoad Stuff 2.0.3-SNAPSHOT API)";
     }
 //-->
 </script>
@@ -249,7 +249,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
                       <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;threadName,
                       long&nbsp;timeout)</pre>
 <div class="block">Constructor.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - input source</dd><dd><code>threadName</code> - name for the reader thread, or null for default</dd><dd><code>timeout</code> - maximum input idle time, or zero for infinity</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - input source</dd><dd><code>threadName</code> - name for the reader thread, or null for default</dd><dd><code>timeout</code> - maximum input idle time in milliseconds, or zero for infinity</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>timeout</code> is negative</dd></dl>
 </li>
@@ -266,7 +266,7 @@ implements <a href="../../../../org/dellroad/stuff/io/AsyncInputStream.Listener.
   <blockquote><code>
   IdleTimeoutInputStream(in, null, timeout);
   </code></blockquote></div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - input source</dd><dd><code>timeout</code> - maximum input idle time</dd>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>in</code> - input source</dd><dd><code>timeout</code> - maximum input idle time in milliseconds, or zero for infinity</dd>
 <dt><span class="strong">Throws:</span></dt>
 <dd><code><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>timeout</code> is negative</dd></dl>
 </li>

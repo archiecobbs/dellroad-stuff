@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>FileStreamRepository (DellRoad Stuff 2.0.1 API)</title>
+<title>FileStreamRepository (DellRoad Stuff 2.0.3-SNAPSHOT API)</title>
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
 <script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="FileStreamRepository (DellRoad Stuff 2.0.1 API)";
+        parent.document.title="FileStreamRepository (DellRoad Stuff 2.0.3-SNAPSHOT API)";
     }
 //-->
 </script>
@@ -95,13 +95,13 @@
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></dd>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a>, <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="strong">FileStreamRepository</span>
 extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
-implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a></pre>
+implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io">StreamRepository</a>, <a href="http://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></pre>
 <div class="block">Provides a file-based implementation of the <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io"><code>StreamRepository</code></a> interface with
  the added feature of automated backups.
 
@@ -113,6 +113,7 @@ implements <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" tit
  a small window where the base file doesn't exist. This class uses <a href="http://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html?is-external=true#createLink(java.nio.file.Path, java.nio.file.Path)" title="class or interface in java.nio.file">hard links</a> to perform
  this "copy" efficiently. This behavior can be altered by overriding <a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html#copy(java.io.File, java.io.File)"><code>copy()</code></a> on systems not supporting
  hard links.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../serialized-form.html#org.dellroad.stuff.io.FileStreamRepository">Serialized Form</a></dd></dl>
 </li>
 </ul>
 </div>

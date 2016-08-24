@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
-<title>PropertyDef (DellRoad Stuff 2.0.1 API)</title>
+<title>PropertyDef (DellRoad Stuff 2.0.3-SNAPSHOT API)</title>
 <link rel="stylesheet" type="text/css" href="../../../../stylesheet.css" title="Style">
 </head>
 <body>
 <script type="text/javascript"><!--
     if (location.href.indexOf('is-external=true') == -1) {
-        parent.document.title="PropertyDef (DellRoad Stuff 2.0.1 API)";
+        parent.document.title="PropertyDef (DellRoad Stuff 2.0.3-SNAPSHOT API)";
     }
 //-->
 </script>
@@ -95,13 +95,18 @@
 <li class="blockList">
 <dl><dt><span class="strong">Type Parameters:</span></dt><dd><code>T</code> - property's value type</dd></dl>
 <dl>
+<dt>All Implemented Interfaces:</dt>
+<dd><a href="http://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></dd>
+</dl>
+<dl>
 <dt>Direct Known Subclasses:</dt>
 <dd><a href="../../../../org/dellroad/stuff/vaadin7/StringValuePropertyDef.html" title="class in org.dellroad.stuff.vaadin7">StringValuePropertyDef</a></dd>
 </dl>
 <hr>
 <br>
 <pre>public class <span class="strong">PropertyDef&lt;T&gt;</span>
-extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></pre>
+extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>
+implements <a href="http://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></pre>
 <div class="block">Defines a Vaadin property, having a name, which is also the property ID, and its type.
  This class provides a mechanism for the explicit naming and identification of Vaadin properties.
 
@@ -119,7 +124,11 @@ extends <a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Object.html?
   int age = def.read(item);
   ...
   Property prop = this.get(container, itemId);
- </pre></blockquote></div>
+ </pre></blockquote>
+
+ <p>
+ Instances are serializable if the default value is.</div>
+<dl><dt><span class="strong">See Also:</span></dt><dd><a href="../../../../serialized-form.html#org.dellroad.stuff.vaadin7.PropertyDef">Serialized Form</a></dd></dl>
 </li>
 </ul>
 </div>
