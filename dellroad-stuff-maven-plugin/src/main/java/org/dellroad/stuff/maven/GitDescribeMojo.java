@@ -3,7 +3,7 @@
  * Copyright (C) 2015 Archie L. Cobbs. All rights reserved.
  */
 
-package org.jsimpledb.maven;
+package org.dellroad.stuff.maven;
 
 import java.io.File;
 import java.io.IOException;
