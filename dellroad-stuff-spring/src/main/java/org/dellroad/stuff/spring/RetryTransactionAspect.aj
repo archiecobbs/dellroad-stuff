@@ -95,8 +95,9 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
 
 // Aspect
 
-    // Ensure that this aspect is woven outside of the AnnotationTransactionAspect
-    declare precedence : RetryTransactionAspect, org.springframework.transaction.aspectj.*;
+    // Ensure that this aspect is woven outside of the AnnotationTransactionAspect but inside of AnnotationAsyncExecutionAspect
+    declare precedence :
+        org.springframework.scheduling.aspectj.*, RetryTransactionAspect, org.springframework.transaction.aspectj.*;
 
     /**
      * Attempt to execute a transactional method. If the method throws any exception which is translated

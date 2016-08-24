@@ -1,5 +1,6 @@
 Version 2.0.3
 
+    - Ensure @RetryTransaction happens after Spring's @Async
     - Corrected maven plugin Java pacakge
 
 Version 2.0.2 Released August 24, 2016
