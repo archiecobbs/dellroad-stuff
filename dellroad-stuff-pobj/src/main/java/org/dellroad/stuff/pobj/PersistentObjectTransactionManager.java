@@ -329,7 +329,7 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
             snapshot = txDef.isReadOnly() && this.readOnlySharedRoot ?
               this.persistentObject.getSharedRootSnapshot() : this.persistentObject.getRootSnapshot();
         } catch (PersistentObjectException e) {
-            throw new CannotCreateTransactionException("error creating new JSimpleDB transaction", e);
+            throw new CannotCreateTransactionException("error creating new PersistentObject transaction", e);
         }
 
         // Associate transaction with this thread for getCurrent()

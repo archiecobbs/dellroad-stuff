@@ -1,6 +1,6 @@
 <FindBugsFilter>
     <Match>
-        <Class name="org.jsimpledb.maven.GitDescribeMojo"/>
+        <Class name="org.dellroad.stuff.maven.GitDescribeMojo"/>
         <Method name="execute"/>
         <Bug pattern="DM_DEFAULT_ENCODING"/>
     </Match>
