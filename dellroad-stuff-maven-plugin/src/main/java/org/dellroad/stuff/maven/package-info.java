@@ -4,6 +4,6 @@
  */
 
 /**
- * JSimpleDB Maven plugins.
+ * DellRoad Stuff Maven plugins.
  */
-package org.jsimpledb.maven;
+package org.dellroad.stuff.maven;
