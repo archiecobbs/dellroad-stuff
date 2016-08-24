@@ -173,6 +173,7 @@
                         <link>http://vaadin.com/download/release/${vaadin7.version.prefix}/${vaadin7.version}/docs/api/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
+                        <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                 </configuration>
                 <executions>
@@ -297,6 +298,7 @@
                         <link>http://vaadin.com/download/release/${vaadin7.version.prefix}/${vaadin7.version}/docs/api/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
+                        <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                 </configuration>
                 <reportSets>
