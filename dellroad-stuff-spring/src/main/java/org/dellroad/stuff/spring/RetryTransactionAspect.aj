@@ -6,10 +6,11 @@
 package org.dellroad.stuff.spring;
 
 import java.lang.reflect.Method;
+import java.util.ArrayDeque;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 import org.aspectj.lang.reflect.MethodSignature;
-import org.dellroad.stuff.java.ThreadLocalHolder;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.dao.DataAccessException;
@@ -30,7 +31,12 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  */
 public aspect RetryTransactionAspect extends AbstractBean implements RetryTransactionProvider {
 
-    private final ThreadLocalHolder<Integer> attemptHolder = new ThreadLocalHolder<Integer>();
+    private final ThreadLocal<ArrayDeque<Integer>> attempts = new ThreadLocal<ArrayDeque<Integer>>() {
+        @Override
+        public ArrayDeque<Integer> initialValue() {
+            return new ArrayDeque<>(2);
+        }
+    };
     private final Random random = new Random();
 
     // Default values for retry settings
@@ -80,8 +86,11 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
 
     @Override
     public int getAttemptNumber() {
-        final Integer attempt = this.attemptHolder.get();
-        return attempt != null ? attempt : 0;
+        try {
+            return this.attempts.get().getFirst();
+        } catch (NoSuchElementException e) {
+            return 0;
+        }
     }
 
 // InitializingBean
@@ -167,19 +176,21 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                     this.log.debug("retrying @Transactional method {} (attempt #{})", method, attempt);
             }
 
-            // Make attempt
+            // Make next attempt
             try {
 
-                // Make next attempt
+                // Make attempt
                 if (this.log.isTraceEnabled())
                     this.log.trace("starting @Transactional method {} (attempt #{})", method, attempt);
-                final Object[] result = new Object[1];
-                this.attemptHolder.invoke(attempt, new Runnable() {
-                    @Override
-                    public void run() {
-                        result[0] = proceed(txObject);
-                    }
-                });
+                this.attempts.get().push(attempt);
+                final Object result;
+                try {
+                    result = proceed(txObject);
+                } finally {
+                    this.attempts.get().pop();
+                }
+
+                // Success
                 if (attempt > 1) {
                     if (this.log.isDebugEnabled())
                         this.log.debug("successfully completed @Transactional method {} on re-try attempt #{}", method, attempt);
@@ -187,9 +198,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                     if (this.log.isTraceEnabled())
                         this.log.trace("successfully completed @Transactional method {} on first attempt", method);
                 }
-
-                // We're done
-                return result[0];
+                return result;
             } catch (RuntimeException e) {
 
                 // Translate the exception, if not already translated into something recognizable
@@ -219,19 +228,6 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
         // All attempts failed
         this.log.error("@Transactional method {} failed after {} attempts, giving up!", method, maxRetries);
         throw transientException;
-    }
-
-// Static methods
-
-    /**
-     * Get the current transaction attempt number.
-     *
-     * @return transaction attempt number, or zero if this aspect is not active in the current thread
-     * @deprecated Use {@link RetryTransactionProvider#getAttemptNumber} instead
-     */
-    public static int getAttempt() {
-        final Integer attempt = RetryTransactionAspect.aspectOf().attemptHolder.get();
-        return attempt != null ? attempt : 0;
     }
 
 // Helper methods
