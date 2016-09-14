@@ -1,3 +1,7 @@
+Version Next
+
+    - Handle nested TX's from multiple TX managers in @RetryTransaction
+
 Version 2.0.3 Released September 7, 2016
 
     - Ensure @RetryTransaction happens after Spring's @Async

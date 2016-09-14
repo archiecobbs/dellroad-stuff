@@ -7,6 +7,7 @@ package org.dellroad.stuff.spring;
 
 import java.lang.reflect.Method;
 import java.util.ArrayDeque;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -31,9 +32,9 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  */
 public aspect RetryTransactionAspect extends AbstractBean implements RetryTransactionProvider {
 
-    private final ThreadLocal<ArrayDeque<Integer>> attempts = new ThreadLocal<ArrayDeque<Integer>>() {
+    private final ThreadLocal<ArrayDeque<RetryInfo>> retryInfos = new ThreadLocal<ArrayDeque<RetryInfo>>() {
         @Override
-        public ArrayDeque<Integer> initialValue() {
+        public ArrayDeque<RetryInfo> initialValue() {
             return new ArrayDeque<>(2);
         }
     };
@@ -86,11 +87,18 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
 
     @Override
     public int getAttemptNumber() {
-        try {
-            return this.attempts.get().getFirst();
-        } catch (NoSuchElementException e) {
-            return 0;
+        return this.getAttemptNumber(null);
+    }
+
+    @Override
+    public int getAttemptNumber(String transactionManagerName) {
+        final ArrayDeque<RetryInfo> retryInfoStack = this.retryInfos.get();
+        for (Iterator<RetryInfo> i = retryInfoStack.descendingIterator(); i.hasNext(); ) {
+            final RetryInfo retryInfo = i.next();
+            if (transactionManagerName == null || transactionManagerName.equals(retryInfo.getTransactionManagerName()))
+                return retryInfo.getAttemptNumber();
         }
+        return 0;
     }
 
 // InitializingBean
@@ -126,13 +134,14 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
             throw new RuntimeException("no @Transactional annotation found for method "
               + method + "; required for @RetryTransaction");
         }
+        final String transactionManagerName = transactionAttribute.getQualifier();
 
         // Do nothing unless this method is about to create a new transaction
         switch (transactionAttribute.getPropagationBehavior()) {
         case TransactionDefinition.PROPAGATION_REQUIRES_NEW:
             break;
         case TransactionDefinition.PROPAGATION_REQUIRED:
-            if (TransactionSynchronizationManager.isActualTransactionActive()) {
+            if (TransactionSynchronizationManager.isActualTransactionActive() && this.getAttemptNumber(transactionManagerName) > 0) {
                 if (this.log.isTraceEnabled())
                     this.log.trace("skipping retry logic; transaction already open in @Transactional method {}", method);
                 return proceed(txObject);
@@ -162,12 +171,13 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
             throw new RuntimeException("@RetryTransaction aspect must be configured before use");
 
         // Perform attempts
+        final RetryInfo retryInfo = new RetryInfo(transactionManagerName);
         TransientDataAccessException transientException;
-        int attempt = 1;
         do {
 
             // If this is not the first attempt, sleep for a while
-            if (attempt > 1) {
+            final int attempt = retryInfo.getAttemptNumber();
+            if (retryInfo.getAttemptNumber() > 1) {
                 final long delay = this.calculateDelay(attempt, initialDelay, maximumDelay);
                 if (this.log.isDebugEnabled())
                     this.log.debug("pausing {}ms before retrying @Transactional method {}", delay, method);
@@ -182,12 +192,12 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                 // Make attempt
                 if (this.log.isTraceEnabled())
                     this.log.trace("starting @Transactional method {} (attempt #{})", method, attempt);
-                this.attempts.get().push(attempt);
+                this.retryInfos.get().push(retryInfo);
                 final Object result;
                 try {
                     result = proceed(txObject);
                 } finally {
-                    this.attempts.get().pop();
+                    this.retryInfos.get().pop();
                 }
 
                 // Success
@@ -222,8 +232,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                 // Re-throw the transient exception when we've run out of attempts
                 transientException = (TransientDataAccessException)translatedException;
             }
-        }
-        while (attempt++ <= maxRetries);
+        } while (retryInfo.incrementAttemptNumber() <= maxRetries);
 
         // All attempts failed
         this.log.error("@Transactional method {} failed after {} attempts, giving up!", method, maxRetries);
@@ -310,5 +319,29 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     private pointcut retryTransactionalMethodExecution(Object txObject) : this(txObject)
         && (executionOfPublicMethodInTransactionalType() || executionOfTransactionalMethod())
         && (executionOfPublicMethodInRetryTransactionType() || executionOfRetryTransactionMethod());
+
+// Info about an active retry in progress
+
+    private static class RetryInfo {
+
+        private final String transactionManagerName;
+        private int attemptNumber = 1;
+
+        RetryInfo(String transactionManagerName) {
+            this.transactionManagerName = transactionManagerName;
+        }
+
+        public String getTransactionManagerName() {
+            return this.transactionManagerName;
+        }
+
+        public int getAttemptNumber() {
+            return this.attemptNumber;
+        }
+
+        public int incrementAttemptNumber() {
+            return this.attemptNumber++;
+        }
+    }
 }
 

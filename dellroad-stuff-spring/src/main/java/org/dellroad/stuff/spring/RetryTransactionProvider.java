@@ -43,10 +43,21 @@ public interface RetryTransactionProvider {
     long getMaximumDelayDefault();
 
     /**
-     * Get the current transaction attempt number.
+     * Get the current transaction attempt number in the inner-most active transaction.
+     *
+     * <p>
+     * Equivalent to {@code getAttemptNumber(null)}.
      *
      * @return transaction attempt number, or zero if the aspect is not active in the current thread
      */
     int getAttemptNumber();
+
+    /**
+     * Get the current transaction attempt number for the specified transaction manager.
+     *
+     * @param transactionManagerName transaction manager name, or null to match all
+     * @return transaction attempt number, or zero if the aspect is not active in the current thread for the transaction manager
+     */
+    int getAttemptNumber(String transactionManagerName);
 }
 
