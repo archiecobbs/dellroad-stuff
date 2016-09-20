@@ -142,8 +142,10 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
             break;
         case TransactionDefinition.PROPAGATION_REQUIRED:
             if (TransactionSynchronizationManager.isActualTransactionActive() && this.getAttemptNumber(transactionManagerName) > 0) {
-                if (this.log.isTraceEnabled())
-                    this.log.trace("skipping retry logic; transaction already open in @Transactional method {}", method);
+                if (this.log.isTraceEnabled()) {
+                    this.log.trace("skipping retry logic; transaction already open for tx manager {} in @Transactional method {}",
+                      transactionManagerName, method);
+                }
                 return proceed(txObject);
             }
             break;
