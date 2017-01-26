@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     private long maxIdleTime = DEFAULT_MAX_IDLE_TIME;
     private int maxMessageSize = DEFAULT_MAX_MESSAGE_SIZE;
     private long maxOutputQueueSize = DEFAULT_MAX_OUTPUT_QUEUE_SIZE;
+    private String serviceThreadName;
 
 // Public API
 
@@ -114,6 +116,22 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
         this.maxOutputQueueSize = maxOutputQueueSize;
     }
 
+    /**
+     * Get the name of the service thread.
+     *
+     * <p>
+     * By default this is null, meaning no special name is used. In that case the name will look something
+     * like {@code pool-2-thread-1}.
+     *
+     * @return custom service thread name, or null for none
+     */
+    public synchronized String getServiceThreadName() {
+        return this.serviceThreadName;
+    }
+    public synchronized void setServiceThreadName(String serviceThreadName) {
+        this.serviceThreadName = serviceThreadName;
+    }
+
 // Lifecycle
 
     @Override
@@ -125,7 +143,17 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
                 return;
             if (this.log.isDebugEnabled())
                 this.log.debug("starting " + this);
-            this.executor = Executors.newSingleThreadExecutor();
+            this.executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
+                @Override
+                public Thread newThread(Runnable r) {
+                    final Thread thread = new Thread(r);
+                    synchronized (ChannelNetwork.this) {
+                        if (ChannelNetwork.this.serviceThreadName != null)
+                            thread.setName(ChannelNetwork.this.serviceThreadName);
+                    }
+                    return thread;
+                }
+            });
             this.handler = handler;
             successful = true;
         } finally {
