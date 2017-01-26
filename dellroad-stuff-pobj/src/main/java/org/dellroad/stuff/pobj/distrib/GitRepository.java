@@ -217,10 +217,13 @@ public class GitRepository extends AbstractBean {
         if (message == null)
             throw new IllegalArgumentException("null message");
 
-        // Get ref file and verify branch is really a local branch
-        final File refFile = this.getRepoFile("refs/heads/" + branch);
-        if (!refFile.exists())
-            throw new GitException("branch `" + branch + "' does not exist or is not a local branch");
+        // Verify branch is really a local branch
+        try {
+            if (!this.localBranchExists(branch))
+                throw new GitException("branch `" + branch + "' does not exist or is not a local branch");
+        } catch (IOException e) {
+            throw new GitException("error accessing git directory", e);
+        }
 
         // Reset
         this.reset();
@@ -271,9 +274,12 @@ public class GitRepository extends AbstractBean {
             throw new IllegalArgumentException("null message");
 
         // Does branch already exist?
-        final File refFile = this.getRepoFile("refs/heads/" + branch);
-        if (refFile.exists())
-            return;
+        try {
+            if (this.localBranchExists(branch))
+                return;
+        } catch (IOException e) {
+            throw new GitException("error accessing git directory", e);
+        }
 
         // Create a commit with no parents and an empty tree
         this.log.info("creating new local branch `" + branch + "' starting with an empty commit in directory `" + this.dir + "'");
@@ -343,10 +349,13 @@ public class GitRepository extends AbstractBean {
         if (message == null)
             throw new IllegalArgumentException("null message");
 
-        // Get ref file and verify branch is really a local branch
-        final File refFile = this.getRepoFile("refs/heads/" + branch);
-        if (!refFile.exists())
-            throw new GitException("branch `" + branch + "' does not exist or is not a local branch");
+        // Verify branch is really a local branch
+        try {
+            if (!this.localBranchExists(branch))
+                throw new GitException("branch `" + branch + "' does not exist or is not a local branch");
+        } catch (IOException e) {
+            throw new GitException("error accessing git directory", e);
+        }
 
         // Reset
         this.reset();
@@ -459,6 +468,45 @@ public class GitRepository extends AbstractBean {
      */
     public File getRepoFile(String path) {
         return new File(new File(this.dir, ".git"), path);
+    }
+
+    /**
+     * Determine if the named local branch exists.
+     *
+     * @param branch branch name
+     * @return true if found, otherwise false
+     * @throws IOException if an I/O error occurs
+     */
+    public boolean localBranchExists(String branch) throws IOException {
+        return this.refExists("refs/heads/" + branch);
+    }
+
+    /**
+     * Determine if the named reference exists.
+     *
+     * @param ref reference name
+     * @return true if found, otherwise false
+     * @throws IOException if an I/O error occurs
+     */
+    public boolean refExists(String ref) throws IOException {
+
+        // Look for file
+        final File refFile = this.getRepoFile(ref);
+        if (refFile.exists())
+            return true;
+
+        // Look in packed-refs
+        final File packedRefsFile = this.getRepoFile("packed-refs");
+        if (packedRefsFile.exists()) {
+            try (final LineNumberReader reader = new LineNumberReader(
+              new InputStreamReader(new FileInputStream(packedRefsFile), Charset.forName("UTF-8")))) {
+                for (String line; (line = reader.readLine()) != null; ) {
+                    if (line.substring(line.lastIndexOf(' ') + 1).equals(ref))
+                        return true;
+                }
+            }
+        }
+        return false;
     }
 
 // Accessor
