@@ -48,8 +48,8 @@ import java.lang.annotation.Target;
  *  <li>
  *      In the case of
  *      {@link org.springframework.transaction.TransactionDefinition#PROPAGATION_REQUIRED PROPAGATION_REQUIRED} propagation,
- *      there must not be a transaction already open in the calling thread. In other words, the invoked method must
- *      be the one responsible for creating the transaction.
+ *      there must not be a transaction already open in the calling thread (under the same transaction manager). In other words,
+ *      the invoked method must be the one responsible for creating a new transaction.
  *  </li>
  *  <li>
  *      The method's class must be woven (either at build time or runtime) using the
