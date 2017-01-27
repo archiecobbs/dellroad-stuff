@@ -537,8 +537,8 @@ public class GitRepository extends AbstractBean {
               new InputStreamReader(new FileInputStream(packedRefsFile), Charset.forName("UTF-8")))) {
                 for (String line; (line = reader.readLine()) != null; ) {
                     final Matcher matcher = PACKED_REF_PATTERN.matcher(line);
-                    if (matcher.matches() && matcher.group(1).equals(ref))
-                        return matcher.group(2);
+                    if (matcher.matches() && matcher.group(2).equals(ref))
+                        return matcher.group(1);
                 }
             }
         }
