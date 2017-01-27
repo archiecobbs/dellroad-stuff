@@ -54,6 +54,16 @@ public class GitRepository extends AbstractBean {
      */
     public static final Pattern SHA1_PATTERN = Pattern.compile("[0-9a-f]{40}");
 
+    /**
+     * Packed reference pattern.
+     */
+    public static final Pattern PACKED_REF_PATTERN = Pattern.compile("([0-9a-f]{40})\\s+([^\\s]+)");
+
+    /**
+     * Indirect reference pattern.
+     */
+    public static final Pattern INDIRECT_REF_PATTERN = Pattern.compile("ref: (.*)");
+
     private final File dir;
 
 // Constructors
@@ -399,30 +409,24 @@ public class GitRepository extends AbstractBean {
     public String followReference(String filename) {
         for (int i = 0; i < 10; i++) {
 
-            // Read file
-            final File file = this.getRepoFile(filename);
-            String line;
+            // Read reference
+            final String ref;
             try {
-                line = this.readFirstLine(file);
+                ref = this.readRef(filename);
             } catch (IOException e) {
-                throw new GitException("error reading `" + file + "'", e);
+                throw new GitException("error reading reference: " + filename, e);
             }
+            if (ref == null)
+                throw new GitException("reference not found: " + filename);
 
             // Is it a SHA-1?
-            if (SHA1_PATTERN.matcher(line).matches())
-                return line;
+            if (SHA1_PATTERN.matcher(ref).matches())
+                return ref;
 
-            // Is it a reference?
-            final Matcher matcher = Pattern.compile("ref: (.*)$").matcher(line);
-            if (matcher.matches()) {
-                filename = matcher.group(1);
-                continue;
-            }
-
-            // Dunno
-            throw new GitException("can't interpret contents of `" + file + "': " + line);
+            // Recurse and try again
+            filename = ref;
         }
-        throw new GitException("too many levels of git references");
+        throw new GitException("too many levels indirection in reference: " + filename);
     }
 
     /**
@@ -489,11 +493,42 @@ public class GitRepository extends AbstractBean {
      * @throws IOException if an I/O error occurs
      */
     public boolean refExists(String ref) throws IOException {
+        return this.readRef(ref) != null;
+    }
+
+    /**
+     * Read the given reference.
+     *
+     * @param ref reference name
+     * @return reference (possibly another reference), or null if not found
+     * @throws IOException if an I/O error occurs
+     */
+    public String readRef(String ref) throws IOException {
 
         // Look for file
         final File refFile = this.getRepoFile(ref);
-        if (refFile.exists())
-            return true;
+        if (refFile.exists()) {
+
+            // Read file
+            final String line;
+            try {
+                line = this.readFirstLine(refFile);
+            } catch (IOException e) {
+                throw new GitException("error reading `" + refFile + "'", e);
+            }
+
+            // Is it a SHA-1?
+            if (SHA1_PATTERN.matcher(line).matches())
+                return line;
+
+            // Is it a reference?
+            final Matcher matcher = INDIRECT_REF_PATTERN.matcher(line);
+            if (matcher.matches())
+                return matcher.group(1);
+
+            // Unexpected
+            throw new GitException("can't interpret contents of `" + refFile + "': " + line);
+        }
 
         // Look in packed-refs
         final File packedRefsFile = this.getRepoFile("packed-refs");
@@ -501,12 +536,15 @@ public class GitRepository extends AbstractBean {
             try (final LineNumberReader reader = new LineNumberReader(
               new InputStreamReader(new FileInputStream(packedRefsFile), Charset.forName("UTF-8")))) {
                 for (String line; (line = reader.readLine()) != null; ) {
-                    if (line.substring(line.lastIndexOf(' ') + 1).equals(ref))
-                        return true;
+                    final Matcher matcher = PACKED_REF_PATTERN.matcher(line);
+                    if (matcher.matches() && matcher.group(1).equals(ref))
+                        return matcher.group(2);
                 }
             }
         }
-        return false;
+
+        // Not found
+        return null;
     }
 
 // Accessor
