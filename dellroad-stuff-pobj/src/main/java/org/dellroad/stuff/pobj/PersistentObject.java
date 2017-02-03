@@ -681,6 +681,7 @@ public class PersistentObject<T> {
      *
      * @param newRoot new persistent object
      * @param expectedVersion expected current version number, or zero to ignore the current version number
+     * @param alreadyValidated true if {@code newRoot} has already been validated
      * @return the new current version number (unchanged if {@code newRoot} is
      *  {@linkplain PersistentObjectDelegate#isSameGraph the same as} the current root)
      * @throws IllegalArgumentException if {@code newRoot} is null and empty stops are disallowed
@@ -690,8 +691,26 @@ public class PersistentObject<T> {
      * @throws PersistentObjectVersionException if {@code expectedVersion} is non-zero and not equal to the current version
      * @throws PersistentObjectValidationException if the new root has validation errors
      */
-    public final synchronized long setRoot(T newRoot, long expectedVersion) {
-        return this.setRootInternal(newRoot, expectedVersion, false, false, false);
+    public long setRoot(T newRoot, long expectedVersion, boolean alreadyValidated) {
+        return this.setRootInternal(newRoot, expectedVersion, false, false, alreadyValidated);
+    }
+
+    /**
+     * Atomically update the root object.
+     *
+     * <p>
+     * This method is equivalent to:
+     * <blockquote><code>
+     *  setRoot(newRoot, expectedVersion, false);
+     * </code></blockquote>
+     *
+     * @param newRoot new persistent object
+     * @param expectedVersion expected current version number, or zero to ignore the current version number
+     * @return the new current version number (unchanged if {@code newRoot} is
+     *  {@linkplain PersistentObjectDelegate#isSameGraph the same as} the current root)
+     */
+    public long setRoot(T newRoot, long expectedVersion) {
+        return this.setRoot(newRoot, expectedVersion, false);
     }
 
     synchronized long setRootInternal(T newRoot, long expectedVersion,
@@ -716,11 +735,8 @@ public class PersistentObject<T> {
             return this.version;
 
         // Validate the new root
-        if (newRoot != null && !alreadyValidated) {
-            Set<ConstraintViolation<T>> violations = this.delegate.validate(newRoot);
-            if (!violations.isEmpty())
-                throw new PersistentObjectValidationException(violations);
-        }
+        if (newRoot != null && !alreadyValidated)
+            this.validate(newRoot);
 
         // Do the update
         final T oldRoot = this.root;
@@ -1086,6 +1102,22 @@ public class PersistentObject<T> {
 
         // Done
         return root;
+    }
+
+    /**
+     * Validate a root object.
+     *
+     * <p>
+     * Deletgates to {@link PersistentObjectDelegate#validate} to perform the actual validation.
+     *
+     * @param <T> root object type
+     * @throws IllegalArgumentException if {@code root} is null
+     * @throws PersistentObjectValidationException if the root has validation errors
+     */
+    public void validate(T root) {
+        final Set<ConstraintViolation<T>> violations = this.delegate.validate(root);
+        if (!violations.isEmpty())
+            throw new PersistentObjectValidationException(violations);
     }
 
     /**

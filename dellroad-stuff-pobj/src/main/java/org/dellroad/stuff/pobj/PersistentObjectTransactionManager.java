@@ -456,8 +456,11 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         try {
             if (!info.isReadOnly()) {
                 if (this.logger.isTraceEnabled())
+                    this.logger.trace("PersistentObjectTransactionManager.doCommit(): validating " + info);
+                this.persistentObject.validate(snapshot.getRoot());
+                if (this.logger.isTraceEnabled())
                     this.logger.trace("PersistentObjectTransactionManager.doCommit(): committing " + info);
-                this.persistentObject.setRoot(snapshot.getRoot(), snapshot.getVersion());
+                this.persistentObject.setRoot(snapshot.getRoot(), snapshot.getVersion(), true);
             } else
                 this.logger.trace("PersistentObjectTransactionManager.doCommit(): not committing read-only " + info);
         } catch (PersistentObjectVersionException e) {

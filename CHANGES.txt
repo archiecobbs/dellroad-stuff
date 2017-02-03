@@ -1,6 +1,7 @@
 Version Next
 
     - Fixed bug in GitRepository when .git contains a "packed-refs" file
+    - Allow for PersistentObject validation prior to setRoot()
 
 Version 2.0.4 Released September 20, 2016
 

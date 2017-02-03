@@ -14,6 +14,7 @@ import org.dellroad.stuff.pobj.PersistentObject;
 import org.dellroad.stuff.pobj.PersistentObjectEvent;
 import org.dellroad.stuff.pobj.PersistentObjectException;
 import org.dellroad.stuff.pobj.PersistentObjectListener;
+import org.dellroad.stuff.pobj.PersistentObjectValidationException;
 import org.dellroad.stuff.pobj.PersistentObjectVersionException;
 import org.dellroad.stuff.spring.AbstractBean;
 
@@ -309,7 +310,8 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
             mergeCommit = this.git.access(this.branch, new GitRepository.Accessor() {
                 @Override
                 public void accessWorkingCopy(File dir) {
-                    rootList.add(Synchronizer.this.readXMLFile(dir, false));
+                    if (rootList.isEmpty())
+                        rootList.add(Synchronizer.this.readXMLFile(dir, false));
                 }
             });
         } catch (PersistentObjectException e) {
@@ -317,11 +319,21 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
             return;
         }
 
+        // Validate new root before applying it, to make the actual application faster
+        this.log.debug("pre-validating merge commit " + mergeCommit);
+        final T mergedRoot = rootList.get(0);
+        try {
+            this.persistentObject.validate(mergedRoot);
+        } catch (PersistentObjectValidationException e) {
+            this.log.error("error validating newly merged root; the local persistent object will not be updated", e);
+            return;
+        }
+
         // Apply changes to local persistent object; but if the local version has changed, do nothing;
         // we will do another merge when we get the next notification for the newer root.
         try {
             this.log.debug("applying merge commit " + mergeCommit + " to local persistent object");
-            final long version = this.persistentObject.setRoot(rootList.get(0), snapshot.getVersion());
+            final long version = this.persistentObject.setRoot(mergedRoot, snapshot.getVersion(), true);
             this.log.info("successfully applied commit " + mergeCommit + " to local persistent object as version " + version);
         } catch (PersistentObjectVersionException e) {
             this.log.debug("merged root is out of date (version " + e.getExpectedVersion() + " < " + e.getActualVersion()
