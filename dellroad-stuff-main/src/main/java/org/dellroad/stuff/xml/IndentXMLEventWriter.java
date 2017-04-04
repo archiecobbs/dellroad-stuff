@@ -102,6 +102,9 @@ public class IndentXMLEventWriter extends EventWriterDelegate {
 
     /**
      * Emit a newline followed by indentation to the given depth.
+     *
+     * @param depth indentation depth
+     * @throws XMLStreamException if an XML error occurs
      */
     protected void indent(int depth) throws XMLStreamException {
         if (this.indent < 0)

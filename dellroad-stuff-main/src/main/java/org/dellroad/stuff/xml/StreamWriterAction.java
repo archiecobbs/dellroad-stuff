@@ -27,6 +27,7 @@ public abstract class StreamWriterAction {
      * Apply this action to the given {@link XMLStreamWriter} by invoking method(s) to effect some XML output event(s).
      *
      * @param writer XML writer
+     * @throws XMLStreamException if an XML error occurs
      * @throws NullPointerException if {@code writer} is null
      */
     public abstract void apply(XMLStreamWriter writer) throws XMLStreamException;
@@ -39,6 +40,7 @@ public abstract class StreamWriterAction {
      * This method does not advance or modify {@code reader}.
      *
      * @param reader XML input
+     * @return action corresponding to {@code reader}
      * @throws XMLStreamException if an error occurs
      * @throws NullPointerException if {@code reader} is null
      */

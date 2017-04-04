@@ -84,6 +84,7 @@ public abstract class AnnotatedXMLEventReader extends EventReaderDelegate {
      *
      * @param reader source from which the rest of the annotation element is to be read
      * @return false if the annotation element is not seen, true if seen and fully read
+     * @throws XMLStreamException if a parsing error occurs
      */
     protected abstract boolean readAnnotationElement(XMLEventReader reader) throws XMLStreamException;
 

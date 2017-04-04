@@ -28,6 +28,9 @@ public abstract class AbstractValidator<C extends Annotation, T> implements Cons
 
     /**
      * Convenience method to add a constraint violation described by {@code message} and disable the default violation.
+     *
+     * @param context validation context
+     * @param message violation message
      */
     protected void setViolation(ConstraintValidatorContext context, String message) {
         context.disableDefaultConstraintViolation();
@@ -37,6 +40,10 @@ public abstract class AbstractValidator<C extends Annotation, T> implements Cons
     /**
      * Apply this constraint to all values in a collection. This is a convenience method for validators
      * that want to work with both simple properties and collection properties.
+     *
+     * @param collection collection of objects to validate
+     * @param context validation context
+     * @return true if all objects are valid
      */
     protected boolean isCollectionValid(Collection<? extends T> collection, ConstraintValidatorContext context) {
         boolean result = true;

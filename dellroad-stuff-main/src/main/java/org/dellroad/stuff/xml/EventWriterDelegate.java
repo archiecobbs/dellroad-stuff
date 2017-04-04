@@ -36,6 +36,8 @@ public class EventWriterDelegate implements XMLEventWriter {
 
     /**
      * Get parent instance.
+     *
+     * @return parent of this instance
      */
     public XMLEventWriter getParent() {
         return this.parent;
@@ -43,6 +45,8 @@ public class EventWriterDelegate implements XMLEventWriter {
 
     /**
      * Set parent instance.
+     *
+     * @param parent parent of this instance
      */
     public void setParent(XMLEventWriter parent) {
         this.parent = parent;

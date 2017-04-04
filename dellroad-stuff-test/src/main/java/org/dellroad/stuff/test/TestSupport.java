@@ -78,6 +78,9 @@ public abstract class TestSupport {
 
     /**
      * Read some file in as a UTF-8 encoded string.
+     *
+     * @param file file to read from
+     * @return contents of file
      */
     protected String readResource(File file) {
         try {
@@ -89,6 +92,9 @@ public abstract class TestSupport {
 
     /**
      * Read some classpath resource in as a UTF-8 encoded string.
+     *
+     * @param path classpath resource to read from
+     * @return contents of resource
      */
     protected String readResource(String path) {
         final URL url = getClass().getResource(path);
@@ -99,6 +105,9 @@ public abstract class TestSupport {
 
     /**
      * Read some URL resource in as a UTF-8 encoded string.
+     *
+     * @param url resource to read from
+     * @return contents of resource
      */
     protected String readResource(URL url) {
         InputStreamReader reader = null;

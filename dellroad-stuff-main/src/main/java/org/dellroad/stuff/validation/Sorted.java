@@ -35,12 +35,16 @@ public @interface Sorted {
     /**
      * Specifies a {@link java.util.Comparator} to use. If none is specified, the natural sort ordering is used.
      * The class must have a default constructor.
+     *
+     * @return comparator class
      */
     @SuppressWarnings("rawtypes")
     Class<? extends Comparator> comparator() default Comparator.class;
 
     /**
      * Configures whether the sorting should be strict, i.e., whether adjacent equal elements should be disallowed.
+     *
+     * @return true to disallow equal elements
      */
     boolean strict() default true;
 }

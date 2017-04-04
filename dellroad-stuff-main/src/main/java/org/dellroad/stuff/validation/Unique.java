@@ -46,6 +46,8 @@ public @interface Unique {
 
     /**
      * Name of the uniqueness domain. Domains are identified by name. Different domains do not interact.
+     *
+     * @return identifier for the uniqueness domain
      */
     String domain();
 
@@ -54,6 +56,7 @@ public @interface Unique {
      * Leave unset if the values themselves are sufficient for uniqueness (e.g., the objects themselves are
      * unique under {@link #equals equals()} comparison).
      *
+     * @return unique object generator
      * @see DefaultUniquifier
      */
     Class<? extends Uniquifier<?>> uniquifier() default DefaultUniquifier.class;

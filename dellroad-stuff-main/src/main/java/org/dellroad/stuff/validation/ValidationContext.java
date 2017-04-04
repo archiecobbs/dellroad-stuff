@@ -56,6 +56,8 @@ public class ValidationContext<T> {
 
     /**
      * Get the root object associated with this instance.
+     *
+     * @return root of validation object graph
      */
     public final T getRoot() {
         return this.root;
@@ -76,6 +78,7 @@ public class ValidationContext<T> {
      *  <code>{@link #validate(Validator) validate}(Validation.buildDefaultValidatorFactory().getValidator())</code>
      *  </blockquote>
      *
+     * @return zero or more violations
      * @throws IllegalStateException if this method is invoked re-entrantly
      */
     public Set<ConstraintViolation<T>> validate() {
@@ -86,6 +89,8 @@ public class ValidationContext<T> {
      * Validate this instance's root object using the given {@link Validator}, making the context
      * available to the current thread during the validation process via {@link #getCurrentContext}.
      *
+     * @param validator the validator
+     * @return zero or more violations
      * @throws IllegalStateException if this method is invoked re-entrantly
      */
     public Set<ConstraintViolation<T>> validate(final Validator validator) {
@@ -128,6 +133,7 @@ public class ValidationContext<T> {
      * This method is only valid during invocations of {@link #validate(Validator) validate()}.
      *
      * @param type required type
+     * @param <V> root validation object type
      * @return current {@link ValidationContext}
      * @throws IllegalStateException if {@link #validate(Validator) validate()} is not currently executing
      * @throws ClassCastException if the current {@link ValidationContext} is not of type {@code type}
@@ -152,6 +158,8 @@ public class ValidationContext<T> {
      * Convenience method to get the root object being validated by the current thread, cast to the desired type.
      * This method is only valid during invocations of {@link #validate(Validator) validate()}.
      *
+     * @param type required type
+     * @param <T> root validation object type
      * @return current validation root object
      * @throws IllegalStateException if {@link #validate(Validator) validate()} is not currently executing
      * @throws ClassCastException if the current validation root is not of type {@code type}

@@ -35,11 +35,15 @@ public @interface Pattern {
 
     /**
      * Regular expression that must be matched.
+     *
+     * @return regular expression
      */
     String regexp();
 
     /**
      * Regular expression flags.
+     *
+     * @return regular expression flags
      */
     javax.validation.constraints.Pattern.Flag[] flags() default {};
 }

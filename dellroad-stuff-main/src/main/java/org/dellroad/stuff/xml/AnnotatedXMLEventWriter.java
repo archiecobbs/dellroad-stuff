@@ -78,6 +78,8 @@ public abstract class AnnotatedXMLEventWriter extends EventWriterDelegate {
 
     /**
      * Get the whitespace found between the opening document tag and the first non-space child.
+     *
+     * @return initial whitespace
      */
     protected String getTrailingSpace() {
         return this.trailingSpace.toString();
@@ -91,6 +93,7 @@ public abstract class AnnotatedXMLEventWriter extends EventWriterDelegate {
      * by any nested content, and then lastly the {@link javax.xml.stream.events.EndElement} for the annotation element.
      *
      * @param writer output to which the annotation element should be written
+     * @throws XMLStreamException if an XML error occurs
      */
     protected abstract void addAnnotationElement(XMLEventWriter writer) throws XMLStreamException;
 }

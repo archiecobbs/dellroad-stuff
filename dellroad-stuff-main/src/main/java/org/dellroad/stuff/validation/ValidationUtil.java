@@ -25,6 +25,8 @@ public final class ValidationUtil {
      *
      * @param obj object to validate
      * @param groups group(s) targeted for validation (if empty, defaults to {@link javax.validation.groups.Default})
+     * @param <T> root validation object type
+     * @return zero or more violations
      * @throws IllegalArgumentException if either paramter is null
      */
     public static <T> Set<ConstraintViolation<T>> validate(T obj, Class<?>... groups) {

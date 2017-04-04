@@ -84,6 +84,8 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is true.
+     *
+     * @param addMissingXmlDeclaration true to add XML declaration
      */
     public void setAddMissingXmlDeclaration(boolean addMissingXmlDeclaration) {
         this.addMissingXmlDeclaration = addMissingXmlDeclaration;
@@ -96,6 +98,8 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
      *
      * <p>
      * Default is true.
+     *
+     * @param indentAfterXmlDeclaration true to indent after XML declaration
      */
     public void setIndentAfterXmlDeclaration(boolean indentAfterXmlDeclaration) {
         this.indentAfterXmlDeclaration = indentAfterXmlDeclaration;

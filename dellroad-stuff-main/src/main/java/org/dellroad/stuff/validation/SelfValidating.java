@@ -18,6 +18,7 @@ public interface SelfValidating {
     /**
      * Validate this instance.
      *
+     * @param context validation context
      * @throws SelfValidationException to indicate this instance is invalid
      */
     void checkValid(ConstraintValidatorContext context) throws SelfValidationException;
