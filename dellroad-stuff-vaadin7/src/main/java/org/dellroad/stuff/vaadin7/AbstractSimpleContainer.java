@@ -141,6 +141,8 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
 
     /**
      * Get the configured {@link PropertyExtractor} for this container.
+     *
+     * @return configured {@link PropertyExtractor}
      */
     public PropertyExtractor<? super T> getPropertyExtractor() {
         return this.propertyExtractor;
@@ -434,6 +436,7 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      * @param object underlying Java object
      * @param propertyDefs property definitions
      * @param propertyExtractor extracts the property value from {@code object}
+     * @return new {@link BackedItem}
      * @throws IllegalArgumentException if any parameter is null
      */
     protected BackedItem<T> createBackedItem(T object, Collection<PropertyDef<?>> propertyDefs,

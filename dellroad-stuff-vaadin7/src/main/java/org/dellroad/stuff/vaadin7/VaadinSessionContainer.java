@@ -257,6 +257,8 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
     /**
      * Create a {@link VaadinSessionInfo} backing object for the {@link VaadinSession} associated with the current thread.
      * The {@link VaadinSession} will be already locked.
+     *
+     * @return {@link VaadinSessionInfo} backing object for the current session
      */
     protected abstract T createVaadinSessionInfo();
 

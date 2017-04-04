@@ -296,6 +296,8 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
 
     /**
      * Get the window size configured at construction time.
+     *
+     * @return configured window size
      */
     public int getWindowSize() {
         return this.windowSize;
@@ -303,6 +305,8 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
 
     /**
      * Get the current size estimate for the underlying data.
+     *
+     * @return current size estimate
      */
     public long getCurrentSizeEstimate() {
         return this.size;

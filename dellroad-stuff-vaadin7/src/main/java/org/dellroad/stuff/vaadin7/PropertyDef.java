@@ -65,6 +65,10 @@ public class PropertyDef<T> implements Serializable {
      *  <blockquote><pre>
      *  PropertyDef(name, type, null);
      *  </pre></blockquote>
+     *
+     * @param name property name; also serves as the property ID
+     * @param type property type
+     * @throws IllegalArgumentException if {@code name} or {@code type} is null
      */
     public PropertyDef(String name, Class<T> type) {
         this(name, type, null);
@@ -76,6 +80,7 @@ public class PropertyDef<T> implements Serializable {
      * @param name property name; also serves as the property ID
      * @param type property type
      * @param defaultValue default value for the property; may be null
+     * @throws IllegalArgumentException if {@code name} or {@code type} is null
      */
     public PropertyDef(String name, Class<T> type, T defaultValue) {
         if (name == null)
@@ -168,6 +173,7 @@ public class PropertyDef<T> implements Serializable {
     /**
      * Get the property that this instance represents from the given {@link Item}.
      *
+     * @param item item with property
      * @return property, or null if not found
      * @throws ClassCastException if the property found has a different type than this instance
      */
@@ -245,6 +251,7 @@ public class PropertyDef<T> implements Serializable {
     /**
      * Read the property that this instance represents from the given {@link Item}.
      *
+     * @param item item with property
      * @return property value, or null if not found
      * @throws ClassCastException if the property in {@code item} has the wrong type
      */
@@ -261,6 +268,7 @@ public class PropertyDef<T> implements Serializable {
      * <p>
      * The implementation in {@link PropertyDef} returns true if this instance's type implements {@link Comparable}.
      *
+     * @return true if this instance supports sorting property values
      * @see #sort sort()
      */
     public boolean isSortable() {

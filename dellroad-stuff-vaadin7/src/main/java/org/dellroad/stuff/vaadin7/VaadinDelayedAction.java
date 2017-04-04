@@ -22,6 +22,8 @@ public abstract class VaadinDelayedAction extends DelayedAction {
      *  <blockquote><code>
      *  VaadinDelayedAction(taskScheduler, VaadinUtil.getCurrentSession())
      *  </code></blockquote>
+     *
+     *  @param taskScheduler scheduler object
      */
     public VaadinDelayedAction(TaskScheduler taskScheduler) {
         this(taskScheduler, VaadinUtil.getCurrentSession());

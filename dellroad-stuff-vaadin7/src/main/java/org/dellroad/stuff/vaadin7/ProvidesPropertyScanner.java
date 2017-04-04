@@ -196,6 +196,7 @@ public class ProvidesPropertyScanner<T> {
      * from instances of the annotated class when given one of the {@link PropertyDef}s returned by
      * {@link #getPropertyDefs}.
      *
+     * @return associated property extractor
      * @see #getPropertyDefs
      */
     public SortingPropertyExtractor<T> getPropertyExtractor() {

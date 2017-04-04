@@ -146,6 +146,8 @@ public class SpringVaadinSessionListener implements SessionInitListener, Session
 
     /**
      * Get the name of this Vaadin application.
+     *
+     * @return application name
      */
     public String getApplicationName() {
         return this.applicationName;
@@ -154,6 +156,7 @@ public class SpringVaadinSessionListener implements SessionInitListener, Session
     /**
      * Get the Spring application context associated with the given {@link VaadinSession}.
      *
+     * @param session Vaadin session
      * @return Spring application context, or null if none is found
      * @throws IllegalArgumentException if {@code session} is null
      */

@@ -28,6 +28,8 @@ public class VaadinSessionInfo {
 
     /**
      * Get the {@link VaadinSession} associated with this instance.
+     *
+     * @return associated session
      */
     public VaadinSession getVaadinSession() {
         return this.session;
@@ -35,6 +37,8 @@ public class VaadinSessionInfo {
 
     /**
      * Determine if the {@link VaadinSession} associated with this instance is also associated with the current thread.
+     *
+     * @return true if the associated session is the also current thread's session
      */
     public boolean isCurrentSession() {
         return this.session == VaadinSession.getCurrent();

@@ -54,6 +54,9 @@ public class ConvertedProperty<P, M> extends AbstractProperty<P> {
      *  <blockquote><code>
      *  ConvertedProperty(property, converter, null)
      *  </code></blockquote>
+     *
+     * @param property underlying property
+     * @param converter property value converter
      */
     public ConvertedProperty(Property<M> property, Converter<P, M> converter) {
         this(property, converter, null);

@@ -172,6 +172,8 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
 
     /**
      * Get the configured {@link PropertyExtractor} for this container.
+     *
+     * @return the configured {@link PropertyExtractor}
      */
     public PropertyExtractor<? super T> getPropertyExtractor() {
         return this.propertyExtractor;
@@ -294,6 +296,7 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
     /**
      * Get the Java backing object at the given index in the list.
      *
+     * @param index list index
      * @return backing object, or null if {@code index} is out of range
      */
     protected T getJavaObject(int index) {
@@ -373,6 +376,7 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      * @param object underlying Java object
      * @param propertyDefs property definitions
      * @param propertyExtractor extracts the property value from {@code object}
+     * @return new {@link BackedItem}
      * @throws IllegalArgumentException if any parameter is null
      */
     protected BackedItem<T> createBackedItem(T object, Collection<PropertyDef<?>> propertyDefs,

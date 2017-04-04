@@ -1110,7 +1110,7 @@ public class PersistentObject<T> {
      * <p>
      * Deletgates to {@link PersistentObjectDelegate#validate} to perform the actual validation.
      *
-     * @param <T> root object type
+     * @param root root object to validate
      * @throws IllegalArgumentException if {@code root} is null
      * @throws PersistentObjectValidationException if the root has validation errors
      */

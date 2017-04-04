@@ -108,6 +108,8 @@ public final class VaadinUtil {
      * already be holding the session lock when it attempts to acquire the application-specific lock,
      * this creates the potential for a lock-ordering reversal deadlock.
      *
+     * @param session Vaadin session
+     * @param action action to perform
      * @throws IllegalArgumentException if either parameter is null
      * @see VaadinApplication#invoke
      */
@@ -139,6 +141,8 @@ public final class VaadinUtil {
      * Note: when executing within a Vaadin HTTP request, the current thread's {@link VaadinSession} is available
      * via {@link VaadinSession#getCurrent}; consider also using {@link VaadinApplication#invokeLater} instead of this method.
      *
+     * @param session Vaadin session
+     * @param action action to perform
      * @return a corresponding {@link Future}
      * @throws IllegalArgumentException if either parameter is null
      * @see #invoke
@@ -164,6 +168,8 @@ public final class VaadinUtil {
      * lifetime is longer than the {@link VaadinSession} lifetime. This method handles that de-registration for
      * you automatically.
      *
+     * @param session Vaadin session
+     * @param listener listener for notifications
      * @throws IllegalArgumentException if either parameter is null
      * @see VaadinApplication#addSessionDestroyListener
      */
@@ -174,6 +180,8 @@ public final class VaadinUtil {
     /**
      * Remove a listener added via {@link #addSessionDestroyListener addSessionDestroyListener()}.
      *
+     * @param session Vaadin session
+     * @param listener listener for notifications
      * @throws IllegalArgumentException if either parameter is null
      * @see VaadinApplication#removeSessionDestroyListener
      */

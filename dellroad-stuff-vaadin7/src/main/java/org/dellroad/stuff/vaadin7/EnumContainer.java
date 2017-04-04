@@ -65,6 +65,9 @@ public class EnumContainer<T extends Enum<T>> extends SelfKeyedContainer<T> {
      * <p>
      * The implementation in {@link EnumContainer} returns all values in their natural order.
      * Subclasses may override to filter and/or re-order.
+     *
+     * @param type enum class instance
+     * @return instances to include in container
      */
     protected List<T> getExposedValues(Class<T> type) {
         return EnumUtil.getValues(type);

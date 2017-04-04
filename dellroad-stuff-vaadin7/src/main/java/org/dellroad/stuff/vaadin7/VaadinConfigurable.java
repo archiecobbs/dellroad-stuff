@@ -48,21 +48,29 @@ public @interface VaadinConfigurable {
 
     /**
      * Configuration bean definition template name, if any.
+     *
+     * @return bean definition template name, or empty string for none
      */
     String value() default "";
 
     /**
      * Whether and how to automatically autowire dependencies.
+     *
+     * @return true to autowire
      */
     Autowire autowire() default Autowire.NO;
 
     /**
      * Whether to enable dependency checking.
+     *
+     * @return true for dependency checking
      */
     boolean dependencyCheck() default false;
 
     /**
      * Whether to inject dependencies prior to constructor execution.
+     *
+     * @return true for pre-construction dependency injection
      */
     boolean preConstruction() default false;
 
@@ -72,6 +80,7 @@ public @interface VaadinConfigurable {
      * For beans that are (or will interact with) Vaadin widgets, containers, etc., this typically
      * indicates a programming error. In such cases, this property configures what to do, if anything.
      *
+     * @return action to take if session is not locked
      * @see com.vaadin.server.VaadinSession#getLockInstance
      */
     ErrorAction ifSessionNotLocked() default ErrorAction.EXCEPTION;

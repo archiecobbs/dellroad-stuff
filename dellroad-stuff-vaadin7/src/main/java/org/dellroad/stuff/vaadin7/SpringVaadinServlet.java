@@ -58,7 +58,7 @@ import javax.servlet.ServletException;
  * Supported URL parameters:
  * <div style="margin-left: 20px;">
  * <table border="1" cellpadding="3" cellspacing="0" summary="Servlet URL Parameters">
- * <tr bgcolor="#ccffcc">
+ * <tr style="bgcolor:#ccffcc">
  *  <th align="left">Parameter Name</th>
  *  <th align="left">Required?</th>
  *  <th align="left">Description</th>
@@ -279,6 +279,8 @@ public class SpringVaadinServlet extends VaadinServlet {
     /**
      * Get the {@link SpringVaadinServlet} that is associated with the given {@link VaadinSession}.
      *
+     * @param session Vaadin session
+     * @return the assocated {@link SpringVaadinServlet}
      * @throws IllegalStateException if the {@link VaadinServlet} associated with {@code session} is not a
      *  {@link SpringVaadinServlet}
      */

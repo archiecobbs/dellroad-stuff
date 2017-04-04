@@ -76,6 +76,8 @@ public class BlobField extends CustomField<byte[]> implements Serializable, Uplo
 
     /**
      * Get the {@link Upload} associated with this instance.
+     *
+     * @return the associated {@link Upload}
      */
     public Upload getUpload() {
         return this.upload;
@@ -83,6 +85,8 @@ public class BlobField extends CustomField<byte[]> implements Serializable, Uplo
 
     /**
      * Get the description {@link Label} associated with this instance.
+     *
+     * @return the associated description
      */
     public Label getDescriptionLabel() {
         return this.descriptionLabel;

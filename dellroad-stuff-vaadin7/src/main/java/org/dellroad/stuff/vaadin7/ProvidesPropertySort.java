@@ -114,6 +114,8 @@ public @interface ProvidesPropertySort {
     /**
      * Get the name of the Vaadin property. If this is left unset (empty string), then the
      * bean property name of the annotated bean property "getter" method is used.
+     *
+     * @return property name
      */
     String value() default "";
 }

@@ -301,6 +301,8 @@ public class FieldBuilder {
      * the result.
      *
      * @param bean model bean annotated with {@link FieldBuilder} annotations
+     * @param <T> bean type
+     * @return new {@link BeanFieldGroup}
      * @throws IllegalArgumentException if {@code bean} is null
      */
     @SuppressWarnings("unchecked")
@@ -319,6 +321,10 @@ public class FieldBuilder {
 
     /**
      * Instantiate and configure an {@link AbstractField} according to the given scanned annotations.
+     *
+     * @param appliers annotation appliers
+     * @param description description of the field (used for exception messages)
+     * @return new field
      */
     protected com.vaadin.ui.AbstractField<?> buildField(Collection<AnnotationApplier<?, ?>> appliers, String description) {
 
@@ -427,6 +433,8 @@ public class FieldBuilder {
      * The method must be a getter method taking no arguments. Annotations are ordered so that annotations
      * on a method in type X appear before annotations on an overridden method in type Y, a supertype of X.
      *
+     * @param method annotated getter method
+     * @return appliers for annotations found
      * @throws IllegalArgumentException if {@code method} is null
      * @throws IllegalArgumentException if {@code method} has parameters
      */
@@ -472,6 +480,7 @@ public class FieldBuilder {
      * Find all relevant annotations declared directly on the given {@link Method}.
      *
      * @param method method to inspect
+     * @return annotations found
      * @throws IllegalArgumentException if {@code method} is null
      */
     protected List<AnnotationApplier<?, ?>> buildDirectApplierList(Method method) {
@@ -492,8 +501,10 @@ public class FieldBuilder {
 
     /**
      * Get the {@link AnnotationApplier} that applies the given annotation.
-     * Subclasses can add support for additioanl annotation types by overriding this method.
+     * Subclasses can add support for additional annotation types by overriding this method.
      *
+     * @param method method to inspect
+     * @param annotation method annotation to inspect
      * @return corresponding {@link AnnotationApplier}, or null if annotation is unknown
      */
     protected AnnotationApplier<?, ?> getAnnotationApplier(Method method, Annotation annotation) {
@@ -875,6 +886,8 @@ public class FieldBuilder {
 
         /**
          * The name of the property that the annotated method's return value edits.
+         *
+         * @return property name
          */
         String value();
     }
@@ -895,6 +908,8 @@ public class FieldBuilder {
          * <p>
          * Although this property has a default value, it must be overridden either in this annotation, or
          * by also including a more specific annotation such as {@link TextField}.
+         *
+         * @return field type
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.ui.AbstractField> type() default com.vaadin.ui.AbstractField.class;
@@ -902,6 +917,7 @@ public class FieldBuilder {
         /**
          * Get style names.
          *
+         * @return style names
          * @see com.vaadin.ui.AbstractComponent#addStyleName
          */
         String[] styleNames() default {};
@@ -909,6 +925,7 @@ public class FieldBuilder {
         /**
          * Get width.
          *
+         * @return field width
          * @see com.vaadin.ui.AbstractComponent#setWidth(String)
          */
         String width() default "";
@@ -916,6 +933,7 @@ public class FieldBuilder {
         /**
          * Get height.
          *
+         * @return field height
          * @see com.vaadin.ui.AbstractComponent#setHeight(String)
          */
         String height() default "";
@@ -923,6 +941,7 @@ public class FieldBuilder {
         /**
          * Get the caption associated with this field.
          *
+         * @return field caption
          * @see com.vaadin.ui.AbstractComponent#setCaption
          */
         String caption() default "";
@@ -930,6 +949,7 @@ public class FieldBuilder {
         /**
          * Get the description associated with this field.
          *
+         * @return field description
          * @see com.vaadin.ui.AbstractComponent#setDescription
          */
         String description() default "";
@@ -937,6 +957,7 @@ public class FieldBuilder {
         /**
          * Get whether this field is enabled.
          *
+         * @return true to enable field
          * @see com.vaadin.ui.AbstractComponent#setEnabled
          */
         boolean enabled() default true;
@@ -944,6 +965,7 @@ public class FieldBuilder {
         /**
          * Get whether this field is immediate.
          *
+         * @return true for immediate mode
          * @see com.vaadin.ui.AbstractComponent#setImmediate
          */
         boolean immediate() default false;
@@ -951,6 +973,7 @@ public class FieldBuilder {
         /**
          * Get whether this field is read-only.
          *
+         * @return true for read-only
          * @see com.vaadin.ui.AbstractComponent#setReadOnly
          */
         boolean readOnly() default false;
@@ -963,7 +986,8 @@ public class FieldBuilder {
          * The default value of this property is {@link Converter}, which means do not set a specific
          * {@link Converter} on the field.
          *
-         * @see AbstractField#setConverter(Converter)
+         * @return field value converter
+         * @see com.vaadin.ui.AbstractField#setConverter(Converter)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends Converter> converter() default Converter.class;
@@ -971,63 +995,72 @@ public class FieldBuilder {
         /**
          * Get {@link Validator} types to add to this field. All such types must have no-arg constructors.
          *
-         * @see AbstractField#addValidator
+         * @return field validators
+         * @see com.vaadin.ui.AbstractField#addValidator
          */
         Class<? extends Validator>[] validators() default {};
 
         /**
          * Get whether this field is buffered.
          *
-         * @see AbstractField#setBuffered
+         * @return true for buffered mode
+         * @see com.vaadin.ui.AbstractField#setBuffered
          */
         boolean buffered() default false;
 
         /**
          * Get whether invalid values are allowed.
          *
-         * @see AbstractField#setInvalidAllowed
+         * @return true to allow invalid values
+         * @see com.vaadin.ui.AbstractField#setInvalidAllowed
          */
         boolean invalidAllowed() default true;
 
         /**
          * Get whether invalid values should be committed.
          *
-         * @see AbstractField#setInvalidCommitted
+         * @return true to allow invalid values to be committed
+         * @see com.vaadin.ui.AbstractField#setInvalidCommitted
          */
         boolean invalidCommitted() default false;
 
         /**
          * Get error message when value cannot be converted to data model type.
          *
-         * @see AbstractField#setConversionError
+         * @return error message
+         * @see com.vaadin.ui.AbstractField#setConversionError
          */
         String conversionError() default "Could not convert value to {0}";
 
         /**
          * Get the error that is shown if this field is required, but empty.
          *
-         * @see AbstractField#setRequiredError
+         * @return error message
+         * @see com.vaadin.ui.AbstractField#setRequiredError
          */
         String requiredError() default "";
 
         /**
          * Get whether automatic visible validation is enabled.
          *
-         * @see AbstractField#setValidationVisible
+         * @return true for automatic visible validation
+         * @see com.vaadin.ui.AbstractField#setValidationVisible
          */
         boolean validationVisible() default true;
 
         /**
          * Get whether field is required.
          *
-         * @see AbstractField#setRequired
+         * @return true if value is required
+         * @see com.vaadin.ui.AbstractField#setRequired
          */
         boolean required() default false;
 
         /**
          * Get tabular index.
          *
-         * @see AbstractField#setTabIndex
+         * @return field tab index
+         * @see com.vaadin.ui.AbstractField#setTabIndex
          */
         int tabIndex() default 0;
     }
@@ -1049,12 +1082,15 @@ public class FieldBuilder {
          * <p>
          * Although this property has a default value, it must be overridden either in this annotation, or
          * by also including a more specific annotation such as {@link ComboBox}.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.AbstractSelect> type() default com.vaadin.ui.AbstractSelect.class;
 
         /**
          * Get the item caption mode.
          *
+         * @return caption mode
          * @see com.vaadin.ui.AbstractSelect#setItemCaptionMode
          */
         com.vaadin.ui.AbstractSelect.ItemCaptionMode itemCaptionMode()
@@ -1063,6 +1099,7 @@ public class FieldBuilder {
         /**
          * Get the item caption property ID (which must be a string).
          *
+         * @return caption property ID
          * @see com.vaadin.ui.AbstractSelect#setItemCaptionPropertyId
          */
         String itemCaptionPropertyId() default "";
@@ -1070,6 +1107,7 @@ public class FieldBuilder {
         /**
          * Get the item icon property ID (which must be a string).
          *
+         * @return icon property ID
          * @see com.vaadin.ui.AbstractSelect#setItemIconPropertyId
          */
         String itemIconPropertyId() default "";
@@ -1077,6 +1115,7 @@ public class FieldBuilder {
         /**
          * Get the null selection item ID.
          *
+         * @return null selection item ID
          * @see com.vaadin.ui.AbstractSelect#setNullSelectionItemId
          */
         String nullSelectionItemId() default "";
@@ -1084,6 +1123,7 @@ public class FieldBuilder {
         /**
          * Get multi-select setting.
          *
+         * @return true to allow multiple select
          * @see com.vaadin.ui.AbstractSelect#setMultiSelect
          */
         boolean multiSelect() default false;
@@ -1091,6 +1131,7 @@ public class FieldBuilder {
         /**
          * Get whether new items are allowed.
          *
+         * @return true to allow new items
          * @see com.vaadin.ui.AbstractSelect#setNewItemsAllowed
          */
         boolean newItemsAllowed() default false;
@@ -1098,6 +1139,7 @@ public class FieldBuilder {
         /**
          * Get whether null selection is allowed.
          *
+         * @return true to allow null selection
          * @see com.vaadin.ui.AbstractSelect#setNullSelectionAllowed
          */
         boolean nullSelectionAllowed() default true;
@@ -1116,6 +1158,8 @@ public class FieldBuilder {
 
         /**
          * Get the {@link com.vaadin.ui.CheckBox} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.CheckBox> type() default com.vaadin.ui.CheckBox.class;
     }
@@ -1134,12 +1178,15 @@ public class FieldBuilder {
 
         /**
          * Get the {@link com.vaadin.ui.ComboBox} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.ComboBox> type() default com.vaadin.ui.ComboBox.class;
 
         /**
          * Get the input prompt.
          *
+         * @return input prompt
          * @see com.vaadin.ui.ComboBox#setInputPrompt
          */
         String inputPrompt() default "";
@@ -1147,6 +1194,7 @@ public class FieldBuilder {
         /**
          * Get the page length.
          *
+         * @return page length, or -1 for none
          * @see com.vaadin.ui.ComboBox#setPageLength
          */
         int pageLength() default -1;
@@ -1154,6 +1202,7 @@ public class FieldBuilder {
         /**
          * Get whether to scroll to the selected item.
          *
+         * @return true to scroll to the selected item
          * @see com.vaadin.ui.ComboBox#setScrollToSelectedItem
          */
         boolean scrollToSelectedItem() default true;
@@ -1161,6 +1210,7 @@ public class FieldBuilder {
         /**
          * Get whether text input is allowed.
          *
+         * @return true to allow text input
          * @see com.vaadin.ui.ComboBox#setTextInputAllowed
          */
         boolean textInputAllowed() default true;
@@ -1168,6 +1218,7 @@ public class FieldBuilder {
         /**
          * Get the filtering mode.
          *
+         * @return filtering mode
          * @see com.vaadin.ui.ComboBox#setFilteringMode
          */
         FilteringMode filteringMode() default FilteringMode.STARTSWITH;
@@ -1189,6 +1240,8 @@ public class FieldBuilder {
         /**
          * Get the {@link org.dellroad.stuff.vaadin7.EnumComboBox} type that will edit the property.
          * Type must have a no-arg constructor.
+         *
+         * @return field type
          */
         Class<? extends org.dellroad.stuff.vaadin7.EnumComboBox> type() default org.dellroad.stuff.vaadin7.EnumComboBox.class;
 
@@ -1196,6 +1249,7 @@ public class FieldBuilder {
          * Get the {@link Enum} type to choose from. If left as default, the type will be inferred from
          * the getter method return type, which must be an {@link Enum} type.
          *
+         * @return enum type
          * @see org.dellroad.stuff.vaadin7.EnumComboBox#setEnumDataSource
          */
         @SuppressWarnings("rawtypes")
@@ -1216,12 +1270,15 @@ public class FieldBuilder {
 
         /**
          * Get the {@link com.vaadin.ui.ListSelect} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.ListSelect> type() default com.vaadin.ui.ListSelect.class;
 
         /**
          * Get the number of rows in the editor.
          *
+         * @return number of rows, or -1 for none
          * @see com.vaadin.ui.ListSelect#setRows
          */
         int rows() default -1;
@@ -1240,12 +1297,15 @@ public class FieldBuilder {
 
         /**
          * Get the {@link com.vaadin.ui.DateField} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.DateField> type() default com.vaadin.ui.DateField.class;
 
         /**
          * Get the date format string.
          *
+         * @return date format string
          * @see com.vaadin.ui.DateField#setDateFormat
          */
         String dateFormat() default "";
@@ -1253,6 +1313,7 @@ public class FieldBuilder {
         /**
          * Get the date parse error message.
          *
+         * @return date parse error message
          * @see com.vaadin.ui.DateField#setParseErrorMessage
          */
         String parseErrorMessage() default "";
@@ -1260,6 +1321,7 @@ public class FieldBuilder {
         /**
          * Get the date out of range error message.
          *
+         * @return date out of range error message
          * @see com.vaadin.ui.DateField#setDateOutOfRangeMessage
          */
         String dateOutOfRangeMessage() default "";
@@ -1267,6 +1329,7 @@ public class FieldBuilder {
         /**
          * Get the date resolution.
          *
+         * @return date resolution
          * @see com.vaadin.ui.DateField#setResolution
          */
         Resolution resolution() default Resolution.DAY;
@@ -1274,6 +1337,7 @@ public class FieldBuilder {
         /**
          * Get whether to show ISO week numbers.
          *
+         * @return whether to show ISO week numbers
          * @see com.vaadin.ui.DateField#setShowISOWeekNumbers
          */
         boolean showISOWeekNumbers() default false;
@@ -1281,6 +1345,7 @@ public class FieldBuilder {
         /**
          * Get the time zone (in string form).
          *
+         * @return time zone name
          * @see com.vaadin.ui.DateField#setTimeZone
          */
         String timeZone() default "";
@@ -1288,6 +1353,7 @@ public class FieldBuilder {
         /**
          * Get lenient mode.
          *
+         * @return true for lenient mode
          * @see com.vaadin.ui.DateField#setLenient
          */
         boolean lenient() default false;
@@ -1306,12 +1372,15 @@ public class FieldBuilder {
 
         /**
          * Get the {@link AbstractTextField} type that will edit the property.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.AbstractTextField> type() default com.vaadin.ui.TextField.class;
 
         /**
          * Get the representation of null.
          *
+         * @return representation for null value
          * @see com.vaadin.ui.AbstractTextField#setNullRepresentation
          */
         String nullRepresentation() default "null";
@@ -1319,6 +1388,7 @@ public class FieldBuilder {
         /**
          * Get whether null value may be set.
          *
+         * @return whether null value is allowed
          * @see com.vaadin.ui.AbstractTextField#setNullSettingAllowed
          */
         boolean nullSettingAllowed() default false;
@@ -1326,6 +1396,7 @@ public class FieldBuilder {
         /**
          * Get text change event mode.
          *
+         * @return text change event mode
          * @see com.vaadin.ui.AbstractTextField#setTextChangeEventMode
          */
         com.vaadin.ui.AbstractTextField.TextChangeEventMode textChangeEventMode()
@@ -1334,6 +1405,7 @@ public class FieldBuilder {
         /**
          * Get text change event timeout.
          *
+         * @return text change event timeout in seconds, or -1 to not override
          * @see com.vaadin.ui.AbstractTextField#setTextChangeTimeout
          */
         int textChangeTimeout() default -1;
@@ -1341,6 +1413,7 @@ public class FieldBuilder {
         /**
          * Get the number of columns.
          *
+         * @return number of columns, or zero to not override
          * @see com.vaadin.ui.AbstractTextField#setColumns
          */
         int columns() default 0;
@@ -1348,6 +1421,7 @@ public class FieldBuilder {
         /**
          * Get the maximum length.
          *
+         * @return maximum length, or -1 to not override
          * @see com.vaadin.ui.AbstractTextField#setMaxLength
          */
         int maxLength() default -1;
@@ -1367,6 +1441,8 @@ public class FieldBuilder {
 
         /**
          * Get the {@link TextField} type that will edit the property.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.TextField> type() default com.vaadin.ui.TextField.class;
     }
@@ -1385,12 +1461,15 @@ public class FieldBuilder {
 
         /**
          * Get the {@link TextArea} type that will edit the property.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.TextArea> type() default com.vaadin.ui.TextArea.class;
 
         /**
          * Set the number of rows.
          *
+         * @return number of rows, or -1 for none
          * @see com.vaadin.ui.TextArea#setRows
          */
         int rows() default -1;
@@ -1398,6 +1477,7 @@ public class FieldBuilder {
         /**
          * Set wordwrap mode.
          *
+         * @return word wrap mode
          * @see com.vaadin.ui.TextArea#setWordwrap
          */
         boolean wordwrap() default true;
@@ -1417,6 +1497,8 @@ public class FieldBuilder {
 
         /**
          * Get the {@link PasswordField} type that will edit the property.
+         *
+         * @return field type
          */
         Class<? extends com.vaadin.ui.PasswordField> type() default com.vaadin.ui.PasswordField.class;
     }

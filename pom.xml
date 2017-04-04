@@ -70,7 +70,6 @@
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
         <testng.version>6.9.10</testng.version>
-        <vaadin7.version.prefix>7.7</vaadin7.version.prefix>
         <vaadin7.version>7.7.3</vaadin7.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
 
@@ -192,7 +191,7 @@
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>http://slf4j.org/apidocs/</link>
-                        <link>http://vaadin.com/download/release/${vaadin7.version.prefix}/${vaadin7.version}/docs/api/</link>
+                        <link>https://vaadin.com/api/${vaadin7.version}/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
@@ -317,7 +316,7 @@
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>http://slf4j.org/apidocs/</link>
-                        <link>http://vaadin.com/download/release/${vaadin7.version.prefix}/${vaadin7.version}/docs/api/</link>
+                        <link>https://vaadin.com/api/${vaadin7.version}/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>

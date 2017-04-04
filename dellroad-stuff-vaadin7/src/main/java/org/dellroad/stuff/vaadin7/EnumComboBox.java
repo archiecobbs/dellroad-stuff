@@ -37,6 +37,7 @@ public class EnumComboBox extends ComboBox {
      *  </code></blockquote>
      *
      * @param enumClass enum type, or null to leave data source unset
+     * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass) {
         this(enumClass, false);
@@ -53,6 +54,7 @@ public class EnumComboBox extends ComboBox {
      *
      * @param enumClass enum type, or null to leave data source unset
      * @param allowNull true to allow a null selection, false otherwise
+     * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass, boolean allowNull) {
         this(enumClass, EnumContainer.TO_STRING_PROPERTY, allowNull);
@@ -69,6 +71,7 @@ public class EnumComboBox extends ComboBox {
      *
      * @param enumClass enum type
      * @param displayPropertyName container property to display in the combo box
+     * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass, String displayPropertyName) {
         this(enumClass, displayPropertyName, false);
@@ -86,6 +89,7 @@ public class EnumComboBox extends ComboBox {
      * @param enumClass enum type, or null to leave data source unset
      * @param displayPropertyName container property to display in the combo box
      * @param allowNull true to allow a null selection, false otherwise
+     * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass, String displayPropertyName, boolean allowNull) {
         this(enumClass != null ? new EnumContainer<T>(enumClass) : null, displayPropertyName, allowNull);
@@ -120,6 +124,8 @@ public class EnumComboBox extends ComboBox {
     /**
      * Set the {@link Enum} type whose instances serve as this instance's data source.
      *
+     * @param enumClass enum class instance
+     * @param <T> enum type
      * @throws IllegalArgumentException if {@code enumClass} is null
      */
     public <T extends Enum<T>> void setEnumDataSource(Class<T> enumClass) {

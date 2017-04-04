@@ -79,6 +79,7 @@ public abstract class VaadinApplicationListener<E extends ApplicationEvent>
      * Handle a listener event. When this method is invoked, it will already be within the context
      * of the {@link VaadinSession} with which this listener is associated.
      *
+     * @param event event to handle
      * @see VaadinUtil#invoke
      * @see VaadinUtil#getCurrentSession
      */

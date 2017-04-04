@@ -167,6 +167,7 @@ public class VaadinApplication implements Serializable {
      * Useful for subclasses of {@link VaadinApplication} that want to provide their own zero-parameter {@code get()} methods.
      *
      * @param clazz singleton instance type
+     * @param <T> application type
      * @return singleton instance of {@code clazz} in the session, never null
      * @throws IllegalArgumentException if {@code clazz} is null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
@@ -181,6 +182,7 @@ public class VaadinApplication implements Serializable {
      *
      * @param session Vaadin session
      * @param clazz singleton instance type
+     * @param <T> application type
      * @return singleton instance of {@code clazz} in the session, never null
      * @throws IllegalArgumentException if {@code session} is null
      * @throws IllegalArgumentException if {@code clazz} is null
@@ -235,6 +237,7 @@ public class VaadinApplication implements Serializable {
      * {@link VaadinSession} associated with this instance.
      *
      * @param action action to perform
+     * @return future for the action
      * @throws IllegalArgumentException if {@code action} is null
      * @see VaadinUtil#invokeLater
      */
@@ -250,6 +253,7 @@ public class VaadinApplication implements Serializable {
      * {@link VaadinUtil#addSessionDestroyListener VaadinUtil.addSessionDestroyListener()} using the
      * {@link VaadinSession} associated with this instance.
      *
+     * @param listener listener for notifications
      * @throws IllegalArgumentException if {@code listener} is null
      * @see VaadinUtil#addSessionDestroyListener
      */
@@ -265,6 +269,7 @@ public class VaadinApplication implements Serializable {
      * {@link VaadinUtil#removeSessionDestroyListener VaadinUtil.removeSessionDestroyListener()} using the
      * {@link VaadinSession} associated with this instance.
      *
+     * @param listener listener for notifications
      * @throws IllegalArgumentException if {@code listener} is null
      * @see VaadinUtil#removeSessionDestroyListener
      */

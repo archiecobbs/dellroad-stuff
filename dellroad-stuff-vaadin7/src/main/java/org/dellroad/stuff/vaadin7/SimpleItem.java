@@ -160,6 +160,8 @@ public class SimpleItem<T> implements BackedItem<T> {
      * The implementation in {@link SimpleItem} returns {@code new Property<V>(propertyDef)}.
      *
      * @param propertyDef property definition
+     * @param <V> property type
+     * @return new property
      * @throws IllegalArgumentException if {@code propertyDef} is null
      */
     protected <V> Property<V> createProperty(PropertyDef<V> propertyDef) {
