@@ -53,26 +53,25 @@
         <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
 
         <!-- Dependency versions -->
-        <ant.version>1.8.1</ant.version>
+        <ant.version>1.9.7</ant.version>
         <aspectj.version>1.8.9</aspectj.version>
-        <bcel.version>6.0-20150726.222224-123</bcel.version>
-        <guava.version>19.0</guava.version>
+        <guava.version>21.0</guava.version>
         <hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
-        <hibernate.version>4.3.3.Final</hibernate.version>
-        <javax.el-api.version>2.2.4</javax.el-api.version>
-        <jibx.version>1.2.6</jibx.version>
-        <jline.version>2.14.1</jline.version>
+        <hibernate.core.version>5.0.7.Final</hibernate.core.version>
+        <javax.el-api.version>2.2.5</javax.el-api.version>
+        <jibx.version>1.3.1</jibx.version>
+        <jline.version>2.14.2</jline.version>
         <jmock.version>2.8.2</jmock.version>
         <log4j.version>1.2.17</log4j.version>
         <opencsv.version>2.4</opencsv.version>
         <plugin-api.version>3.3.9</plugin-api.version>
         <portlet-api.version>2.0</portlet-api.version>
         <servlet-api.version>3.1.0</servlet-api.version>
-        <slf4j.version>1.7.21</slf4j.version>
-        <spring.version>4.1.9.RELEASE</spring.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <spring.version>4.3.7.RELEASE</spring.version>
         <testng.version>6.9.10</testng.version>
-        <vaadin7.version.prefix>7.5</vaadin7.version.prefix>
-        <vaadin7.version>7.5.5</vaadin7.version>
+        <vaadin7.version.prefix>7.7</vaadin7.version.prefix>
+        <vaadin7.version>7.7.3</vaadin7.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
 
     </properties>
