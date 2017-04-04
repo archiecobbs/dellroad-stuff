@@ -1,5 +1,6 @@
 Version Next
 
+    - Fixed bug in FileStreamRepository and cross-device file moves
     - Fixed bug in GitRepository when .git contains a "packed-refs" file
     - Allow for PersistentObject validation prior to setRoot()
 

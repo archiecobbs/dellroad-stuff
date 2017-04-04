@@ -115,7 +115,7 @@ public class FileStreamRepository implements StreamRepository, Serializable {
         String tempName = this.file.getName();
         if (tempName.length() < 3)
             tempName += "zzz".substring(tempName.length());
-        final File tempFile = File.createTempFile(tempName, null, this.file.getParentFile());
+        final File tempFile = File.createTempFile(tempName, null, this.file.getAbsoluteFile().getParentFile());
         return new AtomicUpdateFileOutputStream(this.file, tempFile) {
             @Override
             public void close() throws IOException {

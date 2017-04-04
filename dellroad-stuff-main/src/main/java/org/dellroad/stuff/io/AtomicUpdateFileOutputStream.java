@@ -68,7 +68,7 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
      * @throws NullPointerException if either parameter is null
      */
     public AtomicUpdateFileOutputStream(File targetFile) throws IOException {
-        this(targetFile, File.createTempFile("atomicupdate", null, targetFile.getParentFile()));
+        this(targetFile, File.createTempFile("atomicupdate", null, targetFile.getAbsoluteFile().getParentFile()));
     }
 
     /**
