@@ -4,6 +4,7 @@ Version 2.1.0
     - Fixed bug in GitRepository when .git contains a "packed-refs" file
     - Allow for PersistentObject validation prior to setRoot()
     - Added LongMap and LongSet
+    - Removed BigFatLock
     - Updated to Java 8
 
 Version 2.0.4 Released September 20, 2016
