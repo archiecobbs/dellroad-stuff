@@ -8,6 +8,7 @@ package org.dellroad.stuff.io;
 import au.com.bytecode.opencsv.CSVWriter;
 
 import java.io.BufferedWriter;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.dellroad.stuff.string.DateEncoder;
 
@@ -24,10 +26,11 @@ import org.dellroad.stuff.string.DateEncoder;
  *
  * @see <a href="http://opencsv.sourceforge.net/">OpenCSV</a>
  */
-public class CSVOutput {
+public class CSVOutput implements Closeable {
 
     private final CSVWriter writer;
     private final String[] columns;
+    private final AtomicBoolean closed = new AtomicBoolean();
 
     /**
      * Constructor.
@@ -129,8 +132,10 @@ public class CSVOutput {
      *
      * @throws IOException if an I/O error occurs
      */
+    @Override
     public void close() throws IOException {
-        this.writer.close();
+        if (this.closed.compareAndSet(false, true))
+            this.writer.close();
     }
 
     /**
