@@ -5,10 +5,13 @@
 
 package org.dellroad.stuff.java;
 
+import java.util.function.BooleanSupplier;
+
 /**
  * A boolean predicate.
  */
-public interface Predicate {
+@FunctionalInterface
+public interface Predicate extends BooleanSupplier {
 
     /**
      * Determine if the predicate is true.
@@ -16,5 +19,15 @@ public interface Predicate {
      * @return true if predicate is true, otherwise false
      */
     boolean test();
+
+    /**
+     * Returns {@code this.}{@link #test}.
+     *
+     * @return result of test
+     */
+    @Override
+    default boolean getAsBoolean() {
+        return this.test();
+    }
 }
 

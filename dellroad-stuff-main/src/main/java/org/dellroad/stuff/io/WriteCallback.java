@@ -11,6 +11,7 @@ import java.io.OutputStream;
 /**
  * Callback interface used to write output to an {@link OutputStream}.
  */
+@FunctionalInterface
 public interface WriteCallback {
 
     /**

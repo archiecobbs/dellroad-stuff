@@ -11,6 +11,7 @@ import java.io.InputStream;
 /**
  * Callback interface used to read input from an {@link InputStream}.
  */
+@FunctionalInterface
 public interface ReadCallback {
 
     /**

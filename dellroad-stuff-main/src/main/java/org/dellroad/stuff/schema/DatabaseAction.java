@@ -10,6 +10,7 @@ package org.dellroad.stuff.schema;
  *
  * @param <T> database transaction type
  */
+@FunctionalInterface
 public interface DatabaseAction<T> {
 
     /**
