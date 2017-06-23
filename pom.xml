@@ -8,7 +8,7 @@
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
     <name>DellRoad Stuff</name>
-    <version>2.1.0</version>
+    <version>2.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <description>DellRoad Stuff is a dumping ground for various useful Java classes and ant build macros that have evolved over time from repeated use in several different projects.</description>
     <url>https://github.com/archiecobbs/dellroad-stuff</url>
