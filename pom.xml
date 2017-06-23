@@ -20,6 +20,7 @@
         <module>dellroad-stuff-spring</module>
         <module>dellroad-stuff-test</module>
         <module>dellroad-stuff-vaadin7</module>
+        <module>dellroad-stuff-vaadin8</module>
     </modules>
     <licenses>
         <license>
@@ -70,7 +71,8 @@
         <slf4j.version>1.7.25</slf4j.version>
         <spring.version>4.3.7.RELEASE</spring.version>
         <testng.version>6.9.10</testng.version>
-        <vaadin7.version>7.7.3</vaadin7.version>
+        <vaadin7.version>7.7.10</vaadin7.version>
+        <vaadin8.version>8.0.6</vaadin8.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
 
     </properties>
@@ -179,7 +181,7 @@
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>http://slf4j.org/apidocs/</link>
-                        <link>https://vaadin.com/api/${vaadin7.version}/</link>
+                        <link>https://vaadin.com/api/${vaadin8.version}/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
@@ -304,7 +306,7 @@
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>http://slf4j.org/apidocs/</link>
-                        <link>https://vaadin.com/api/${vaadin7.version}/</link>
+                        <link>https://vaadin.com/api/${vaadin8.version}/</link>
                         <link>http://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javaee/7/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>

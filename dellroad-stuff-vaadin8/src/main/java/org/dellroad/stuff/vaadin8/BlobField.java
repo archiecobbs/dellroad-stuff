@@ -1,0 +1,213 @@
+
+/*
+ * Copyright (C) 2011 Archie L. Cobbs. All rights reserved.
+ */
+
+package org.dellroad.stuff.vaadin8;
+
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Component;
+import com.vaadin.ui.CustomField;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
+import com.vaadin.ui.ProgressBar;
+import com.vaadin.ui.Upload;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * A Vaadin {@link com.vaadin.ui.Field} for editing {@code byte[]} array values (i.e., "blobs").
+ *
+ * <p>
+ * The blob is updated using a file upload.
+ */
+@SuppressWarnings("serial")
+public class BlobField extends CustomField<byte[]> implements Serializable, Upload.Receiver,
+  Upload.StartedListener, Upload.ProgressListener, Upload.SucceededListener, Upload.FailedListener {
+
+    private static final long serialVersionUID = 7566102164730793008L;
+
+    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    private final Label descriptionLabel = new Label();
+    private final HorizontalLayout layout = new HorizontalLayout();
+    private transient ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+    private final ProgressBar progressBar = new ProgressBar();
+    private final Upload upload = new Upload();
+
+    private byte[] value;
+
+    /**
+     * Constructor.
+     */
+    public BlobField() {
+        this.addValueChangeListener(e -> this.updateDisplay());
+    }
+
+    @Override
+    public void attach() {
+        super.attach();
+        this.updateDisplay();
+    }
+
+    // Cancel any upload in progress if we are detached
+    @Override
+    public void detach() {
+        super.detach();
+        this.upload.interruptUpload();
+    }
+
+    /**
+     * Get the {@link Upload} associated with this instance.
+     *
+     * @return the associated {@link Upload}
+     */
+    public Upload getUpload() {
+        return this.upload;
+    }
+
+    /**
+     * Get the description {@link Label} associated with this instance.
+     *
+     * @return the associated description
+     */
+    public Label getDescriptionLabel() {
+        return this.descriptionLabel;
+    }
+
+// CustomField
+
+    @Override
+    protected Component initContent() {
+
+        // Initialize layout
+        this.layout.setMargin(false);
+        this.layout.setSpacing(true);
+
+        // Add description
+        this.descriptionLabel.setSizeUndefined();
+        this.layout.addComponent(this.descriptionLabel);
+        this.layout.setComponentAlignment(this.descriptionLabel, Alignment.MIDDLE_LEFT);
+        this.layout.addComponent(new Label("\u00a0\u00a0"));
+
+        // Add upload
+        this.upload.setReceiver(this);
+        this.upload.addStartedListener(this);
+        this.upload.addProgressListener(this);
+        this.upload.addSucceededListener(this);
+        this.upload.addFailedListener(this);
+        this.upload.setImmediateMode(true);
+        this.layout.addComponent(this.upload);
+
+        // Add progress bar
+        this.progressBar.setIndeterminate(false);
+        this.progressBar.setVisible(false);
+        this.layout.addComponent(this.progressBar);
+        this.layout.setComponentAlignment(this.progressBar, Alignment.MIDDLE_LEFT);
+        this.layout.setExpandRatio(this.progressBar, 1.0f);
+
+        // Done
+        return layout;
+    }
+
+    @Override
+    protected void doSetValue(byte[] value) {
+        this.value = value;
+        this.updateDisplay();
+    }
+
+// HasValue
+
+    @Override
+    public byte[] getValue() {
+        return this.value;
+    }
+
+// Upload.Receiver
+
+    @Override
+    public OutputStream receiveUpload(String filename, String mimeType) {
+        return this.buffer;
+    }
+
+// Upload.StartedListener
+
+    @Override
+    public void uploadStarted(Upload.StartedEvent event) {
+        this.log.info("started upload of file `" + event.getFilename() + "'");
+        this.progressBar.setValue(0.0f);
+        this.progressBar.setVisible(true);
+        this.updateDisplay();
+    }
+
+// Upload.ProgressListener
+
+    @Override
+    public void updateProgress(long readBytes, long contentLength) {
+        float fraction = (float)readBytes / (float)contentLength;
+        fraction = Math.max(fraction, 0.0f);
+        fraction = Math.min(fraction, 1.0f);
+        fraction = (int)(fraction * 64.0f) / 64.0f;                 // quantize fraction to avoid zillions of PUSH updates
+        this.progressBar.setValue(fraction);
+    }
+
+// Upload.SucceededListener
+
+    @Override
+    public void uploadSucceeded(Upload.SucceededEvent event) {
+        final byte[] data = this.buffer.toByteArray();
+        this.log.info("finished upload of file `" + event.getFilename() + "' (" + data.length + " bytes)");
+        this.buffer.reset();
+        this.setValue(data);
+        this.progressBar.setVisible(false);
+        this.updateDisplay();
+    }
+
+// Upload.FailedListener
+
+    @Override
+    public void uploadFailed(Upload.FailedEvent event) {
+        this.log.info("failed upload of file `" + event.getFilename() + "': " + event.getReason());
+        this.progressBar.setVisible(false);
+        this.updateDisplay();
+        if (this.getUI() != null) {
+            final Notification notification = new Notification("Upload failed",
+              "" + event.getReason(), Notification.Type.ERROR_MESSAGE);
+            notification.setDelayMsec(3000);
+            notification.show(this.getUI().getPage());
+        }
+    }
+
+// Internal Methods
+
+    /**
+     * Update the description label to reflect the current property value and read-only status.
+     */
+    protected void updateDisplay() {
+        this.descriptionLabel.setValue(this.value != null ? this.value.length + " bytes" : "Null");
+        this.upload.setEnabled(!this.isReadOnly());
+    }
+
+// Serialization
+
+    private void writeObject(ObjectOutputStream output) throws IOException {
+        output.defaultWriteObject();
+        output.writeObject(this.buffer.toByteArray());
+    }
+
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+        this.buffer = new ByteArrayOutputStream();
+        buffer.write((byte[])input.readObject());
+    }
+}
+
