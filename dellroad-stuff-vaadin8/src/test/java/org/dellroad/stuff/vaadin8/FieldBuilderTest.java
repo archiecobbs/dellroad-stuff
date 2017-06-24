@@ -34,7 +34,7 @@ public class FieldBuilderTest extends TestSupport {
 
     @Test
     public void test1() throws Exception {
-        final Binder<Foo> binder = new FieldBuilder().buildAndBind(Foo.class);
+        final Binder<Foo> binder = new FieldBuilder<>(Foo.class).buildAndBind().getBinder();
 
         final TextArea field1 = (TextArea)binder.getBinding("field1").get().getField();
         Assert.assertEquals(field1.getPlaceholder(), "ph");

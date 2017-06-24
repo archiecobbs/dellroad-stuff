@@ -6,7 +6,12 @@
 package org.dellroad.stuff.vaadin8;
 
 import com.vaadin.data.Binder;
+import com.vaadin.data.BindingValidationStatusHandler;
+import com.vaadin.data.Converter;
+import com.vaadin.data.ErrorMessageProvider;
 import com.vaadin.data.HasValue;
+import com.vaadin.data.Validator;
+import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.shared.ui.datefield.DateTimeResolution;
@@ -33,17 +38,21 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 
 /**
- * Automatically builds and binds fields for a Java bean annotated with {@link FieldBuilder} annotations.
+ * Builds a {@link Binder} and binds auto-generated fields based on {@link FieldBuilder} annotations on property getter methods.
+ *
+ * <p>
  * The various nested {@link FieldBuilder} annotation types annotate Java bean property "getter" methods and specify
- * how the the bean properties of that class should be edited using {@link HasValue}'s. This allows all information
- * about how to edit a Java model class to stay contained within that class.
+ * how the the bean properties of that class should be edited. This allows all information about how to edit a Java model
+ * class to stay contained within that class.
  *
  * <p>
  * This class supports two types of annotations: first, the {@link ProvidesField &#64;ProvidesField} annotation annotates
@@ -64,13 +73,25 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * When using more specific annotations, the "superclass" annotations configure the corresponding superclass' properties.
  *
  * <p>
+ * Finally, the {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} annotation provides for configuration of the field
+ * binding itself.
+ *
+ * <p>
  * A simple example shows how these annotations are used:
  * <blockquote><pre>
- * // Use a 10x40 TextArea to edit the "description" property
+ * // Use a 10 row TextArea to edit the "description" property
  * <b>&#64;FieldBuilder.AbstractComponent(caption = "Description:")</b>
  * <b>&#64;FieldBuilder.TextArea(rows = 10)</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Description is mandatory", validator = MyValidator.class)</b>
  * public String getDescription() {
  *     return this.description;
+ * }
+ *
+ * // Use an enum combo box to edit the gender property
+ * <b>&#64;FieldBuilder.EnumComboBox(caption = "Gender:")</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Description is mandatory")</b>
+ * public Gender getGender() {
+ *     return this.gender;
  * }
  *
  * // Use my own custom field to edit the "foobar" property
@@ -85,12 +106,13 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * <blockquote><pre>
  * // Create fields based on FieldBuilder.* annotations
  * Person person = new Person("Joe Smith", 100);
- * Binder&lt;Person&gt; binder = <b>FieldBuilder.buildAndBind(person)</b>;
+ * Binder&lt;Person&gt; binder = <b>FieldBuilder.buildAndBind(person).getBinder()</b>;
  *
  * // Layout the fields in a form
  * FormLayout layout = new FormLayout();
- * for (Binder.Binding&lt;Person, ?&gt; binding : binder.getBindings())
- *     layout.addComponent((Component)binding.getField());
+ * layout.add((Component)binder.getBinding("description").get().getField());
+ * layout.add((Component)binder.getBinding("gender").get().getField());
+ * layout.add((Component)binder.getBinding("foobar").get().getField());
  * </pre></blockquote>
  *
  * <p>
@@ -111,84 +133,100 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see TextArea
  * @see TextField
  */
-public class FieldBuilder {
+public class FieldBuilder<T> {
+
+    private final Class<T> type;
+    private final HashSet<String> propertyNames = new HashSet<>();
+
+    private Binder<T> binder;
 
     /**
-     * Introspect for {@link FieldBuilder} annotations on getter methods of the specified class and return
-     * a new {@link Binder} with the corresponding fields built and bound.
-     *
-     * <p>
-     * Note that {@link ProvidesField &#64;ProvidesField} annotations on instance methods are ignored, because there is
-     * no bean instance provided; use {@link #buildBinder(Object)} instead of this method to include them.
-     *
-     * @param type bean type
-     * @param <T> bean type
-     * @return new {@link Binder}
-     * @throws IllegalArgumentException if {@code type} is null
+     * Constructor.
      */
-    public <T> Binder<T> buildAndBind(Class<T> type) {
-
-        // Sanity check
+    public FieldBuilder(Class<T> type) {
         if (type == null)
             throw new IllegalArgumentException("null type");
-        final Binder<T> binder = new Binder<>(type);
-
-        // Scan bean properties to build and bind fields
-        for (Map.Entry<String, HasValue<?>> entry : this.buildBeanPropertyFields(type, null).entrySet())
-            binder.bind(entry.getValue(), entry.getKey());
-
-        // Done
-        return binder;
+        this.type = type;
     }
 
     /**
-     * Introspect for {@link FieldBuilder} annotations on getter methods of the specified bean's class and return
-     * a new {@link Binder} with the corresponding fields built and bound and the given bean configured.
+     * Get the type associated with this instance.
      *
-     * @param bean bean annotated with {@link FieldBuilder} annotations
-     * @param <T> bean type
-     * @return new {@link Binder}
-     * @throws IllegalArgumentException if {@code bean} is null
+     * @return configured type
      */
-    @SuppressWarnings("unchecked")
-    public <T> Binder<T> buildBinder(T bean) {
-
-        // Sanity check
-        if (bean == null)
-            throw new IllegalArgumentException("null bean");
-
-        // Create binder
-        final Binder<T> binder = (Binder<T>)new Binder<>(bean.getClass());
-
-        // Scan bean properties to build and bind fields
-        for (Map.Entry<String, HasValue<?>> entry : this.buildBeanPropertyFields((Class<T>)bean.getClass(), bean).entrySet())
-            binder.bind(entry.getValue(), entry.getKey());
-
-        // Set bean
-        binder.setBean(bean);
-        return binder;
+    public Class<T> getType() {
+        return this.type;
     }
 
-    protected <T> Map<String, HasValue<?>> buildBeanPropertyFields(Class<T> type, T bean) {
+    /**
+     * Get the binder associated with this instance.
+     *
+     * @return binder, or null if {@link #buildAndBind buildAndBind()} has not yet been invoked
+     */
+    public Binder<T> getBinder() {
+        return this.binder;
+    }
 
-        // Sanity check
-        if (type == null)
+    /**
+     * Get the names of all properties bound by the most recent invocation of {@link #buildAndBind buildAndBind()}.
+     *
+     * @return field names
+     */
+    public Set<String> getPropertyNames() {
+        return Collections.unmodifiableSet(this.propertyNames);
+    }
+
+    /**
+     * Introspect for {@link FieldBuilder} annotations on getter methods of the configured class,
+     * and create and bind the corresponding fields.
+     *
+     * <p>
+     * Note that non-static {@link ProvidesField &#64;ProvidesField} annotations on instance methods are ignored, because
+     * there is no bean instance provided; use {@link #buildAndBind(Object)} instead of this method to include them.
+     *
+     * @return this instance
+     */
+    public FieldBuilder<T> buildAndBind() {
+        this.doBuildAndBind(null);
+        return this;
+    }
+
+    /**
+     * Introspect for {@link FieldBuilder} annotations on getter methods of the configured class,
+     * create and bind the corresponding fields, and set the given bean in the {@link Binder}.
+     *
+     * @return this instance
+     * @throws IllegalArgumentException if {@code bean} is null
+     */
+    public FieldBuilder<T> buildAndBind(T bean) {
+        if (bean == null)
             throw new IllegalArgumentException("null bean");
+        this.doBuildAndBind(bean);
+        binder.setBean(bean);
+        return this;
+    }
+
+    protected void doBuildAndBind(T bean) {
+
+        // Reset
+        this.binder = new Binder<>(this.type);
+        this.propertyNames.clear();
 
         // Look for all bean property getter methods
         BeanInfo beanInfo;
         try {
-            beanInfo = Introspector.getBeanInfo(type);
+            beanInfo = Introspector.getBeanInfo(this.type);
         } catch (IntrospectionException e) {
             throw new RuntimeException("unexpected exception", e);
         }
         final HashMap<String, Method> getterMap = new HashMap<>();              // contains all getter methods
+        final HashMap<String, String> inverseGetterMap = new HashMap<>();
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
             Method method = propertyDescriptor.getReadMethod();
 
             // Work around Introspector stupidity where it returns overridden superclass' getter method
-            if (method != null && method.getClass() != type) {
-                for (Class<?> c = type; c != null && c != method.getClass(); c = c.getSuperclass()) {
+            if (method != null && method.getClass() != this.type) {
+                for (Class<?> c = this.type; c != null && c != method.getClass(); c = c.getSuperclass()) {
                     try {
                         method = c.getDeclaredMethod(method.getName(), method.getParameterTypes());
                     } catch (Exception e) {
@@ -199,12 +237,14 @@ public class FieldBuilder {
             }
 
             // Add getter, if appropriate
-            if (method != null && method.getReturnType() != void.class && method.getParameterTypes().length == 0)
+            if (method != null && method.getReturnType() != void.class && method.getParameterTypes().length == 0) {
                 getterMap.put(propertyDescriptor.getName(), method);
+                inverseGetterMap.put(method.getName(), propertyDescriptor.getName());
+            }
         }
 
-        // Scan getters for FieldBuilder.* annotations other than FieldBuidler.ProvidesField
-        final HashMap<String, HasValue<?>> map = new HashMap<>();              // contains @FieldBuilder.* fields
+        // Scan getters for FieldBuilder.* annotations other than FieldBuidler.ProvidesField and FieldBuilder.Binding
+        final HashMap<String, Binder.BindingBuilder<T, ?>> fieldBuilderMap = new HashMap<>();   // contains @FieldBuilder.* fields
         for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
             final String propertyName = entry.getKey();
             final Method method = entry.getValue();
@@ -215,12 +255,15 @@ public class FieldBuilder {
                 continue;
 
             // Build field
-            map.put(propertyName, this.buildField(applierList, "method " + method));
+            final HasValue<?> field = this.buildField(applierList, "method " + method);
+
+            // Add binding builder
+            fieldBuilderMap.put(propertyName, this.binder.forField(field));
         }
 
         // Scan all methods for @FieldBuilder.ProvidesField annotations
         final HashMap<String, Method> providerMap = new HashMap<>();            // contains @FieldBuilder.ProvidesField methods
-        this.buildProviderMap(providerMap, type);
+        this.buildProviderMap(providerMap);
 
         // Check for conflicts between @FieldBuidler.ProvidesField and other annotations and add fields to map
         for (Map.Entry<String, Method> entry : providerMap.entrySet()) {
@@ -228,7 +271,7 @@ public class FieldBuilder {
             final Method method = entry.getValue();
 
             // Verify field is not already defined
-            if (map.containsKey(propertyName)) {
+            if (fieldBuilderMap.containsKey(propertyName)) {
                 throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName + "': annotation @"
                   + ProvidesField.class.getName() + " on method " + method
                   + " cannot be combined with other @FieldBuilder.* annotation types");
@@ -251,19 +294,56 @@ public class FieldBuilder {
             }
 
             // Save field
-            map.put(propertyName, field);
+            fieldBuilderMap.put(propertyName, this.binder.forField(field));
         }
 
-        // Done
-        return map;
+        // Scan getters for FieldBuilder.Binding annotations
+        final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();                  // contains @FieldBuilder.Binding's
+        final MethodAnnotationScanner<T, Binding> bindingAnnotationScanner
+          = new MethodAnnotationScanner<T, Binding>(this.type, Binding.class);
+        for (MethodAnnotationScanner<T, Binding>.MethodInfo methodInfo : bindingAnnotationScanner.findAnnotatedMethods()) {
+            final String propertyName = inverseGetterMap.get(methodInfo.getMethod().getName());
+            bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
+        }
+
+        // Apply @FieldBuilder.Binding annotations (if any) and bind fields
+        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : fieldBuilderMap.entrySet()) {
+            final String propertyName = entry.getKey();
+            final Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
+
+            // Apply @FieldBuilder.Binding annotation, if any
+            final Binding bindingAnnotation = bindingAnnotationMap.get(propertyName);
+            if (bindingAnnotation != null)
+                this.applyBindingAnnotation(bindingBuilder, bindingAnnotation);
+
+            // Bind field
+            this.propertyNames.add(propertyName);
+            bindingBuilder.bind(propertyName);
+        }
     }
 
     // This method exists solely to bind the generic type
-    private <T> void buildProviderMap(Map<String, Method> providerMap, Class<T> type) {
+    private void buildProviderMap(Map<String, Method> providerMap) {
         final MethodAnnotationScanner<T, ProvidesField> scanner
-          = new MethodAnnotationScanner<T, ProvidesField>(type, ProvidesField.class);
+          = new MethodAnnotationScanner<T, ProvidesField>(this.type, ProvidesField.class);
         for (MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo : scanner.findAnnotatedMethods())
             this.buildProviderMap(providerMap, methodInfo.getMethod().getDeclaringClass(), methodInfo.getMethod().getName());
+    }
+
+    @SuppressWarnings("unchecked")
+    private void applyBindingAnnotation(Binder.BindingBuilder<T, ?> bindingBuilder, Binding bindingAnnotation) {
+        if (bindingAnnotation.required().length() > 0)
+            bindingBuilder.asRequired(bindingAnnotation.required());
+        if (bindingAnnotation.requiredProvider() != ErrorMessageProvider.class)
+            bindingBuilder.asRequired(FieldBuilder.instantiate(bindingAnnotation.requiredProvider()));
+        if (bindingAnnotation.converter() != Converter.class)
+            bindingBuilder.withConverter(FieldBuilder.instantiate(bindingAnnotation.converter()));
+        if (bindingAnnotation.validationStatusHandler() != BindingValidationStatusHandler.class) {
+            bindingBuilder.withValidationStatusHandler(
+              FieldBuilder.instantiate(bindingAnnotation.validationStatusHandler()));
+        }
+        if (bindingAnnotation.validator() != Validator.class)
+            bindingBuilder.withValidator(FieldBuilder.instantiate(bindingAnnotation.validator()));
     }
 
     // Used by buildBeanPropertyFields() to validate @FieldBuilder.ProvidesField annotations
@@ -366,32 +446,32 @@ public class FieldBuilder {
         }
 
         // Determine field type
-        Class<? extends HasValue<?>> type = null;
+        Class<? extends HasValue<?>> fieldType = null;
         AnnotationApplier<?> typeApplier = null;
         for (AnnotationApplier<?> applier : applierList) {
 
             // Pick up type() if specified
             if (applier.getActualFieldType() == null)
                 continue;
-            if (type == null) {
-                type = applier.getActualFieldType();
+            if (fieldType == null) {
+                fieldType = applier.getActualFieldType();
                 typeApplier = applier;
                 continue;
             }
 
             // Verify the field type specified by a narrower annotation has compatible narrower field type
-            if (!applier.getActualFieldType().isAssignableFrom(type) && typeApplier != null) {
+            if (!applier.getActualFieldType().isAssignableFrom(fieldType) && typeApplier != null) {
                 throw new IllegalArgumentException("conflicting field types specified by annotations of type "
-                  + typeApplier.getAnnotation().annotationType().getName() + " (type() = " + type.getName() + ") and "
+                  + typeApplier.getAnnotation().annotationType().getName() + " (type() = " + fieldType.getName() + ") and "
                   + applier.getAnnotation().annotationType().getName() + " (type() = " + applier.getActualFieldType().getName()
                   + ") for " + description);
             }
         }
-        if (type == null)
+        if (fieldType == null)
             throw new IllegalArgumentException("cannot determine field type; no type() specified for " + description);
 
         // Instantiate field
-        final HasValue<?> field = FieldBuilder.instantiate(type);
+        final HasValue<?> field = FieldBuilder.instantiate(fieldType);
 
         // Configure the field
         for (AnnotationApplier<?> applier : applierList)
@@ -500,7 +580,7 @@ public class FieldBuilder {
      * @return corresponding {@link AnnotationApplier}, or null if annotation is unknown
      */
     protected <A extends Annotation> AnnotationApplier<A> getAnnotationApplier(Method method, A annotation) {
-        return this.isFieldBuilderAnnotation(annotation) ? new AnnotationApplier<>(method, annotation) : null;
+        return this.isFieldBuilderFieldAnnotation(annotation) ? new AnnotationApplier<>(method, annotation) : null;
     }
 
 // AnnotationApplier
@@ -654,7 +734,7 @@ public class FieldBuilder {
         }
     }
 
-    private boolean isFieldBuilderAnnotation(Annotation annotation) {
+    private boolean isFieldBuilderFieldAnnotation(Annotation annotation) {
         return FieldBuilder.getFieldBuilderAnnotationType(annotation) != null;
     }
 
@@ -663,7 +743,7 @@ public class FieldBuilder {
         for (Class<?> iface : annotation.getClass().getInterfaces()) {
             if (iface.getDeclaringClass() != FieldBuilder.class)
                 continue;
-            if (ProvidesField.class.isAssignableFrom(iface))
+            if (ProvidesField.class.isAssignableFrom(iface) || Binding.class.isAssignableFrom(iface))
                 continue;
             return (Class<A>)iface;
         }
@@ -677,7 +757,8 @@ public class FieldBuilder {
      *
      * <p>
      * Annotated methods must take zero arguments and return a type compatible with {@link HasValue}.
-     * To be included when used with {@link #buildAndBind(Class)}, the annotated method must be {@code static}.
+     * To be included when used with {@link #buildAndBind()} (taking no bean parameter), the annotated method must be
+     * {@code static}.
      *
      * @see FieldBuilder
      */
@@ -692,6 +773,68 @@ public class FieldBuilder {
          * @return property name
          */
         String value();
+    }
+
+    /**
+     * Specifies properties of the {@link Binder} binding itself.
+     *
+     * <p>
+     * Properties correspond to methods in {@link Binder.BindingBuider}.
+     *
+     * @see FieldBuilder
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface Binding {
+
+        /**
+         * Get "as required" error message.
+         *
+         * <p>
+         * Either this or {@link #requiredProvider} should be set, but not both.
+         *
+         * @return "as required" error message
+         * @see Binder.BindingBuider#asRequired(String)
+         */
+        String required() default "";
+
+        /**
+         * Get "as required" error message provider class.
+         *
+         * <p>
+         * Either this or {@link #required} should be set, but not both.
+         *
+         * @return "as required" error message provider class
+         * @see Binder.BindingBuider#asRequired(ErrorMessageProvider)
+         */
+        Class<? extends ErrorMessageProvider> requiredProvider() default ErrorMessageProvider.class;
+
+        /**
+         * Get the converter class.
+         *
+         * @return converter class
+         * @see Binder.BindingBuider#withConverter(Converter)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends Converter> converter() default Converter.class;
+
+        /**
+         * Get the validation status handler class.
+         *
+         * @return validation status handler class
+         * @see Binder.BindingBuider#withValidationStatusHandler
+         */
+        Class<? extends BindingValidationStatusHandler> validationStatusHandler() default BindingValidationStatusHandler.class;
+
+        /**
+         * Get the validator class.
+         *
+         * @return validator class
+         * @see Binder.BindingBuider#withValidator
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends Validator> validator() default Validator.class;
     }
 
     /**
@@ -1031,6 +1174,15 @@ public class FieldBuilder {
         Class<? extends ItemCaptionGenerator> itemCaptionGenerator() default ItemCaptionGenerator.class;
 
         /**
+         * Get the {@link ListDataProvider} data provider class.
+         *
+         * @return data provider class
+         * @see com.vaadin.ui.ComboBox#setDataProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends ListDataProvider> dataProvider() default ListDataProvider.class;
+
+        /**
          * Get the new item handler class.
          *
          * @return new item handler
@@ -1038,6 +1190,15 @@ public class FieldBuilder {
          */
         Class<? extends com.vaadin.ui.ComboBox.NewItemHandler> newItemHandler()
           default com.vaadin.ui.ComboBox.NewItemHandler.class;
+
+        /**
+         * Get the {@link ListDataProvider} class used to populate the {@link ComboBox}.
+         *
+         * @return data provider
+         * @see com.vaadin.ui.ComboBox#setDataProvider(ListDataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends ListDataProvider> listDataProvider() default ListDataProvider.class;
 
         /**
          * Get whether empty selection is allowed.
