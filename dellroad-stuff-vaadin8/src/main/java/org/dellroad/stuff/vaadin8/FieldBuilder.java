@@ -11,7 +11,9 @@ import com.vaadin.data.Converter;
 import com.vaadin.data.ErrorMessageProvider;
 import com.vaadin.data.HasValue;
 import com.vaadin.data.Validator;
+import com.vaadin.data.provider.DataProvider;
 import com.vaadin.data.provider.ListDataProvider;
+import com.vaadin.server.SerializablePredicate;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.shared.ui.datefield.DateTimeResolution;
@@ -707,6 +709,7 @@ public class FieldBuilder<T> {
     @EnumComboBox
     @ListSelect
     @PasswordField
+    @RadioButtonGroup
     @RichTextArea
     @Slider
     @TextArea
@@ -1276,6 +1279,70 @@ public class FieldBuilder<T> {
          */
         @SuppressWarnings("rawtypes")
         Class<? extends org.dellroad.stuff.vaadin8.EnumComboBox> type() default org.dellroad.stuff.vaadin8.EnumComboBox.class;
+    }
+
+    /**
+     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.RadioButtonGroup}.
+     *
+     * @see FieldBuilder.AbstractSingleSelect
+     * @see FieldBuilder
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface RadioButtonGroup {
+
+        /**
+         * Get the {@link com.vaadin.ui.CheckBox} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.ui.RadioButtonGroup> type() default com.vaadin.ui.RadioButtonGroup.class;
+
+        /**
+         * Get the item caption generator class.
+         *
+         * @return caption generator
+         * @see com.vaadin.ui.RadioButtonGroup#setItemCaptionGenerator
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends ItemCaptionGenerator> itemCaptionGenerator() default ItemCaptionGenerator.class;
+
+        /**
+         * Get the item icon generator class.
+         *
+         * @return icon generator
+         * @see com.vaadin.ui.RadioButtonGroup#setItemIconGenerator
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends IconGenerator> itemIconGenerator() default IconGenerator.class;
+
+        /**
+         * Get the item enabled provider class.
+         *
+         * @return enabled provider
+         * @see com.vaadin.ui.RadioButtonGroup#setItemEnabledProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends SerializablePredicate> itemEnabledProvider() default SerializablePredicate.class;
+
+        /**
+         * Get the {@link DataProvider} data provider class.
+         *
+         * @return data provider class
+         * @see com.vaadin.ui.RadioButtonGroup#setDataProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends DataProvider> dataProvider() default DataProvider.class;
+
+        /**
+         * Get HTML content allowed.
+         *
+         * @return true for HTML content allowed
+         * @see com.vaadin.ui.RadioButtonGroup#setHtmlContentAllowed
+         */
+        boolean htmlContentAllowed() default false;
     }
 
     /**
