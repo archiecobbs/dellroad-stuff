@@ -60,9 +60,11 @@ public class FieldBuilderTest extends TestSupport {
         Assert.assertEquals(field1.isEnabled(), true);
         Assert.assertEquals(field1.isResponsive(), false);
         Assert.assertEquals(field1.isVisible(), false);
+        Assert.assertEquals(field1.isRequiredIndicatorVisible(), true);
 
         final TextField field2 = (TextField)binder.getBinding("field2").get().getField();
         Assert.assertTrue(field2 instanceof MyTextField);
+        Assert.assertEquals(field2.isRequiredIndicatorVisible(), false);
 
         final TextField field3 = (TextField)binder.getBinding("field3").get().getField();
         Assert.assertTrue(field3 instanceof MyTextField);
@@ -102,6 +104,8 @@ public class FieldBuilderTest extends TestSupport {
         @FieldBuilder.TextArea(
             rows = 33,
             wordWrap = true)
+        @FieldBuilder.Binding(
+            required = "required field")
         public abstract String getField1();
         public abstract void setField1(String x);
 
