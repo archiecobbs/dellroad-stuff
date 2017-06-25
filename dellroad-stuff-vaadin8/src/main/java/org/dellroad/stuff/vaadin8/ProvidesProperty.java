@@ -12,18 +12,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares that a Java method provides a read-only Vaadin {@link com.vaadin.data.Property} value in a Java class
- * whose instances back the items in a {@link com.vaadin.data.Container}.
+ * Provides the information necessary to auto-generate a {@link PropertyDefinition} based on the annotated getter method.
  *
  * <p>
- * {@link ProvidesProperty &#64;ProvidesProperty} and {@link ProvidesPropertySort &#64;ProvidesPropertySort} method annotations
- * can be used to automatically generate a {@link PropertySet}'s using a {@link ProvidesPropertyScanner}. The resulting
- * {@link PropertySet} can then, e.g., be provided to {@link com.vaadin.ui.Grid#withPropertySet Grid.withPropertySet()}.
+ * {@link ProvidesProperty &#64;ProvidesProperty} method annotations can be used to automatically generate a
+ * {@link PropertySet}'s using a {@link ProvidesPropertyScanner}. The resulting {@link PropertySet} can then
+ * be provided to {@link com.vaadin.ui.Grid#withPropertySet Grid.withPropertySet()} for example.
  *
  * <p>
- * This annotation indicates that a read-only Vaadin {@link com.vaadin.data.PropertyDefinition} having the
- * {@linkplain #value specified name} and type derived from the method's return value is accessible by reading that method.
- * Annotated methods must have zero parameters.
+ * This annotation indicates that a read-only Vaadin {@link com.vaadin.data.PropertyDefinition} having the type
+ * equal to the method's return type is accessible by reading that method. Annotated methods must have zero parameters.
  *
  * <p>
  * For example:
@@ -44,7 +42,7 @@ import java.lang.annotation.Target;
  *         this.username = username;
  *     }
  *
- *     <b>&#64;ProvidesProperty</b>                     // property name "realName" is implied by method name
+ *     <b>&#64;ProvidesProperty</b>                     // property name "realName" is implied
  *     public String getRealName() {
  *         return this.realName;
  *     }
@@ -58,20 +56,7 @@ import java.lang.annotation.Target;
  *     }
  * }
  *
- * // User container class
- * public class UserContainer extends SimpleKeyedContainer&lt;String, User&gt; {
- *
- *     public UserContainer() {
- *         super(<b>User.class</b>);
- *     }
- *
- *     &#64;Override
- *     public String getKeyFor(User user) {
- *         return user.getUsername();
- *     }
- * }
- *
- * // Build Grid showing users with annotation-defined properties
+ * // Build Grid showing users with auto-generated properties
  * Grid<User> grid = Grid.withPropertySet(new ProvidesPropertyScanner(User.class).getPropertySet());
  * grid.setVisibleColumns(User.USERNAME_PROPERTY, User.REAL_NAME_PROPERTY);
  * ...
@@ -83,19 +68,16 @@ import java.lang.annotation.Target;
  *  <li>Only non-void methods taking zero parameters are supported; {@link ProvidesProperty &#64;ProvidesProperty}
  *      annotations on other methods are ignored</li>
  *  <li>Protected, package private, and private methods are supported.</li>
- *  <li>{@link ProvidesProperty &#64;ProvidesProperty} annotations on interface methods are supported</li>
+ *  <li>{@link ProvidesProperty &#64;ProvidesProperty} annotations declared in super-types (including interfaces)
+ *      are supported</li>
  *  <li>If a method and the superclass or superinterface method it overrides are both annotated with
  *      {@link ProvidesProperty &#64;ProvidesProperty}, then the overridding method's annotation takes precedence.
  *  <li>If two methods with different names are annotated with {@link ProvidesProperty &#64;ProvidesProperty} for the same
  *      {@linkplain #value property name}, then the declaration in the class which is a sub-type of the other
- *      wins (if the two methods are delcared in the same class, an exception is thrown). This allows subclasses
+ *      wins (if the two classes are equal or not comparable, an exception is thrown). This allows subclasses
  *      to "override" which method supplies a given property.</li>
  *  </ul>
  *
- * <p>
- * To control how properties are sorted (e.g., in tables), see {@link ProvidesPropertySort &#64;ProvidesPropertySort}.
- *
- * @see ProvidesPropertySort
  * @see ProvidesPropertyScanner
  */
 @Retention(RetentionPolicy.RUNTIME)
