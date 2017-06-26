@@ -3,12 +3,12 @@
  * Copyright (C) 2012 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.pobj.vaadin;
+package org.dellroad.stuff.pobj.vaadin8;
 
 import org.dellroad.stuff.pobj.PersistentObject;
 import org.dellroad.stuff.pobj.PersistentObjectEvent;
 import org.dellroad.stuff.pobj.PersistentObjectListener;
-import org.dellroad.stuff.vaadin7.VaadinExternalListener;
+import org.dellroad.stuff.vaadin8.VaadinExternalListener;
 
 /**
  * Specialization of {@link VaadinExternalListener} customized for listening to {@link PersistentObject}s.
@@ -24,13 +24,7 @@ public abstract class VaadinPersistentObjectListener<T> extends VaadinExternalLi
 
     @Override
     public final void handleEvent(final PersistentObjectEvent<T> event) {
-        this.handleEvent(new Runnable() {
-            @Override
-            public void run() {
-                VaadinPersistentObjectListener.this.handlePersistentObjectChange(
-                  event.getOldRoot(), event.getNewRoot(), event.getVersion());
-            }
-        });
+        this.handleEvent(() -> this.handlePersistentObjectChange(event.getOldRoot(), event.getNewRoot(), event.getVersion()));
     }
 
     /**

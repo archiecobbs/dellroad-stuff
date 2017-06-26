@@ -4,9 +4,9 @@
  */
 
 /**
- * Classes that facilitate connecting Vaadin to {@link org.dellroad.stuff.pobj.PersistentObject}s.
+ * Classes that facilitate connecting Vaadin 7.x to {@link org.dellroad.stuff.pobj.PersistentObject}s.
  *
  * @see org.dellroad.stuff.pobj
  * @see org.dellroad.stuff.vaadin7
  */
-package org.dellroad.stuff.pobj.vaadin;
+package org.dellroad.stuff.pobj.vaadin7;

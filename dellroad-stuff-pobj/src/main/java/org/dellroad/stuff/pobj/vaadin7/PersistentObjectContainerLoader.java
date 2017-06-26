@@ -3,7 +3,7 @@
  * Copyright (C) 2012 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.pobj.vaadin;
+package org.dellroad.stuff.pobj.vaadin7;
 
 import com.vaadin.server.VaadinSession;
 
