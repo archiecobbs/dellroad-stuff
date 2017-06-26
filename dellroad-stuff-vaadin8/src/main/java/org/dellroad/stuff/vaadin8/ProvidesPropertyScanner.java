@@ -6,6 +6,7 @@
 package org.dellroad.stuff.vaadin8;
 
 import com.vaadin.data.PropertySet;
+import com.vaadin.util.ReflectTools;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
@@ -14,7 +15,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
-import org.dellroad.stuff.java.Primitive;
 
 /**
  * Scans a Java class hierarchy for {@link ProvidesProperty &#64;ProvidesProperty} annotated getter methods and creates
@@ -87,12 +87,9 @@ public class ProvidesPropertyScanner<T> {
             // Get property type
             Class<?> propertyType = methodInfo.getMethod().getReturnType();
 
-            // Wrap primitive types
-            if (propertyType.isPrimitive())
-                propertyType = Primitive.get(propertyType).getWrapperType();
-
             // Add property definition
-            this.addPropertyDefinition(propertyType, name, caption, methodInfo);
+            this.propertySet.add(ReflectTools.convertPrimitiveType(propertyType),
+              name, caption, methodInfo.getMethod(), methodInfo.getSetter());
         }
     }
 
@@ -125,11 +122,5 @@ public class ProvidesPropertyScanner<T> {
     protected String getPropertyCaption(MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
         return methodInfo.getAnnotation().caption().length() > 0 ?
           methodInfo.getAnnotation().caption() : this.getPropertyName(methodInfo);
-    }
-
-    // This method exists solely to bind the generic type
-    private <V> void addPropertyDefinition(Class<V> type, String name, String caption,
-      MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
-        this.propertySet.add(type, name, caption, methodInfo.getMethod(), methodInfo.getSetter());
     }
 }

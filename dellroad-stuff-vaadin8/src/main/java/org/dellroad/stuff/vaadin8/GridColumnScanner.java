@@ -6,6 +6,7 @@
 package org.dellroad.stuff.vaadin8;
 
 import com.vaadin.ui.Grid;
+import com.vaadin.util.ReflectTools;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -107,7 +108,8 @@ public class GridColumnScanner<T> {
             final MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo = e.getValue();
             final Method getter = methodInfo.getMethod();
             final Method setter = methodInfo.getSetter();
-            propertySet.add(getter.getReturnType(), propertyName, methodInfo.getAnnotation().caption(), getter, setter);
+            propertySet.add(ReflectTools.convertPrimitiveType(getter.getReturnType()),
+              propertyName, methodInfo.getAnnotation().caption(), getter, setter);
         }
 
         // Create grid
