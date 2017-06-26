@@ -297,6 +297,24 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
             }
         }
 
+        /**
+         * Assuming this instance's annotated method is a getter method, find the corresponding setter method if it exists.
+         *
+         * @return corresponding public setter method, or null if none exists
+         */
+        public Method getSetter() {
+            final String getterName = this.method.getName();
+            if (getterName.matches("^(is|get).+$")) {
+                final String setterName = "set" + getterName.substring(getterName.startsWith("is") ? 2 : 3);
+                try {
+                    return this.method.getDeclaringClass().getMethod(setterName, this.method.getReturnType());
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+            return null;
+        }
+
         @Override
         public boolean equals(Object obj) {
             if (obj == this)
