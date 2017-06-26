@@ -24,10 +24,16 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * configures corresponding {@link Grid.Column}s on a {@link Grid} instance.
  *
  * <p>
+ * This class will also introspect for {@link FieldBuilder} annotations and
+ * {@linkplain Grid.Column#setEditorBinding(Binder.Binding) configure editor bindings accordingly via
+ * {@link FieldBuilder#setEditorBindings}.
+ *
+ * <p>
  * See {@link GridColumn} for an example of usage.
  *
  * @param <T> Java class to be introspected
  * @see GridColumn &#64;GridColumn
+ * @see FieldBuilder#setEditorBindings
  */
 public class GridColumnScanner<T> {
 
@@ -114,6 +120,9 @@ public class GridColumnScanner<T> {
 
         // Create grid
         final Grid<T> grid = Grid.withPropertySet(propertySet);
+
+        // Set field editors
+        new FieldBuilder<>(this.type).buildAndBind().setEditorBindings(grid);
 
         // Get default annotation
         final GridColumn defaults = GridColumnScanner.getDefaults();
