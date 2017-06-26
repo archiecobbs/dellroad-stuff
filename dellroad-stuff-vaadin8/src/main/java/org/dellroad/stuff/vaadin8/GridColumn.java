@@ -64,6 +64,7 @@ import java.lang.annotation.Target;
  *      {@linkplain #value property name}, then the declaration in the class which is a sub-type of the other
  *      wins (if the two classes are equal or not comparable, an exception is thrown). This allows subclasses
  *      to "override" which method supplies a given property.</li>
+ *  <li>Columns will be ordered first by {@link #order}, then by property name</li>
  *  </ul>
  *
  * @see GridColumnScanner
@@ -230,4 +231,11 @@ public @interface GridColumn {
      * @see com.vaadin.ui.Grid.Column#setWidth
      */
     double width() default Float.NaN;
+
+    /**
+     * Get the ordering value for this column.
+     *
+     * @return column order value
+     */
+    double order() default 0;
 }

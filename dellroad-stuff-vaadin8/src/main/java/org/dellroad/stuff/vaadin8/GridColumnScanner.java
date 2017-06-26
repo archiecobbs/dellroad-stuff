@@ -8,9 +8,11 @@ package org.dellroad.stuff.vaadin8;
 import com.vaadin.ui.Grid;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,7 +31,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
 public class GridColumnScanner<T> {
 
     private final Class<T> type;
-    private final HashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new HashMap<>();
+    private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
 
     /**
      * Constructor.
@@ -55,13 +57,14 @@ public class GridColumnScanner<T> {
         // Check for duplicate @GridColumn names
         final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,
           AnnotationUtil.getClassComparator(false));
+        final HashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> unorderedColumnMap = new HashMap<>();
         for (MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo : gridColumnMethods) {
             final String propertyName = this.getPropertyName(methodInfo);
 
             // Check for name conflict
-            final MethodAnnotationScanner<T, GridColumn>.MethodInfo previousInfo = this.columnMap.get(propertyName);
+            final MethodAnnotationScanner<T, GridColumn>.MethodInfo previousInfo = unorderedColumnMap.get(propertyName);
             if (previousInfo == null) {
-                this.columnMap.put(propertyName, methodInfo);
+                unorderedColumnMap.put(propertyName, methodInfo);
                 continue;
             }
 
@@ -72,12 +75,22 @@ public class GridColumnScanner<T> {
                   + " declaration for property `" + propertyName + "' on method " + previousInfo.getMethod()
                   + " and " + methodInfo.getMethod() + " declared in the same class");
             case 1:
-                this.columnMap.put(propertyName, methodInfo);
+                unorderedColumnMap.put(propertyName, methodInfo);
                 break;
             default:
                 break;
             }
         }
+
+        // Order columns
+        final ArrayList<Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo>> columnList
+          = new ArrayList<>(unorderedColumnMap.entrySet());
+        Collections.sort(columnList,
+          Comparator.<Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo>>comparingDouble(
+           entry -> entry.getValue().getAnnotation().order())
+          .thenComparing(Map.Entry::getKey));
+        for (Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> entry : columnList)
+            this.columnMap.put(entry.getKey(), entry.getValue());
     }
 
     /**
@@ -147,7 +160,7 @@ public class GridColumnScanner<T> {
     /**
      * Get the annotations found through introspection keyed by property name.
      *
-     * @return columns keyed by property name
+     * @return columns keyed by property name and sorted based on {@link GridColumn#order}, then property name
      */
     public Map<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> getColumnMap() {
         return Collections.unmodifiableMap(this.columnMap);
