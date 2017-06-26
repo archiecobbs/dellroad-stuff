@@ -100,7 +100,6 @@ public final class VaadinUtil {
      * @param listener listener for notifications
      * @return listener registration
      * @throws IllegalArgumentException if either parameter is null
-     * @see VaadinApplication#addSessionDestroyListener
      */
     public static Registration addSessionDestroyListener(VaadinSession session, SessionDestroyListener listener) {
         final LeakAvoidingDestroyListener wrappedListener = new LeakAvoidingDestroyListener(session, listener);

@@ -30,6 +30,8 @@ public class SimplePropertySet<T> implements PropertySet<T> {
      * @param caption property caption
      * @param getter property getter
      * @param setter property setter, or null for none
+     * @param <V> property type
+     * @return newly created property definition
      * @throws IllegalArgumentException if any parameter other than {@code setter} is null
      * @throws IllegalArgumentException if a property named {@code name} already exists
      */

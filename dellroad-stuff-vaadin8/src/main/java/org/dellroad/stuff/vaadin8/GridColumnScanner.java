@@ -128,6 +128,7 @@ public class GridColumnScanner<T> {
      * Get the property name from the annotation.
      *
      * @param methodInfo method info
+     * @return property name
      */
     protected String getPropertyName(MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo) {
         return methodInfo.getAnnotation().value().length() > 0 ?

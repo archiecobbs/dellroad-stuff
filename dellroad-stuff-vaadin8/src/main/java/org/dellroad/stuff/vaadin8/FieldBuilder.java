@@ -121,6 +121,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * For all annotations in the {@link FieldBuilder.AbstractComponent &#64;FieldBuilder.AbstractComponent} hierarchy,
  * leaving properties set to their default values results in the default behavior.
  *
+ * @param <T> backing object type
  * @see AbstractTextField
  * @see CheckBox
  * @see ComboBox
@@ -144,6 +145,8 @@ public class FieldBuilder<T> {
 
     /**
      * Constructor.
+     *
+     * @param type backing object type
      */
     public FieldBuilder(Class<T> type) {
         if (type == null)
@@ -203,6 +206,7 @@ public class FieldBuilder<T> {
      * Introspect for {@link FieldBuilder} annotations on getter methods of the configured class,
      * create and bind the corresponding fields, and set the given bean in the {@link Binder}.
      *
+     * @param bean bean to introspect and bind
      * @return this instance
      * @throws IllegalArgumentException if {@code bean} is null
      */
@@ -584,6 +588,7 @@ public class FieldBuilder<T> {
      *
      * @param method method to inspect
      * @param annotation method annotation to inspect
+     * @param <A> annotation type
      * @return corresponding {@link AnnotationApplier}, or null if annotation is unknown
      */
     protected <A extends Annotation> AnnotationApplier<A> getAnnotationApplier(Method method, A annotation) {
@@ -737,7 +742,7 @@ public class FieldBuilder<T> {
      * Specifies properties of the {@link Binder} binding itself.
      *
      * <p>
-     * Properties correspond to methods in {@link Binder.BindingBuider}.
+     * Properties correspond to methods in {@link Binder.BindingBuilder}.
      *
      * @see FieldBuilder
      */
@@ -753,7 +758,7 @@ public class FieldBuilder<T> {
          * Either this or {@link #requiredProvider} should be set, but not both.
          *
          * @return "as required" error message
-         * @see Binder.BindingBuider#asRequired(String)
+         * @see Binder.BindingBuilder#asRequired(String)
          */
         String required() default "";
 
@@ -764,7 +769,7 @@ public class FieldBuilder<T> {
          * Either this or {@link #required} should be set, but not both.
          *
          * @return "as required" error message provider class
-         * @see Binder.BindingBuider#asRequired(ErrorMessageProvider)
+         * @see Binder.BindingBuilder#asRequired(ErrorMessageProvider)
          */
         Class<? extends ErrorMessageProvider> requiredProvider() default ErrorMessageProvider.class;
 
@@ -772,7 +777,7 @@ public class FieldBuilder<T> {
          * Get the converter class.
          *
          * @return converter class
-         * @see Binder.BindingBuider#withConverter(Converter)
+         * @see Binder.BindingBuilder#withConverter(Converter)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends Converter> converter() default Converter.class;
@@ -781,7 +786,7 @@ public class FieldBuilder<T> {
          * Get the validation status handler class.
          *
          * @return validation status handler class
-         * @see Binder.BindingBuider#withValidationStatusHandler
+         * @see Binder.BindingBuilder#withValidationStatusHandler
          */
         Class<? extends BindingValidationStatusHandler> validationStatusHandler() default BindingValidationStatusHandler.class;
 
@@ -789,7 +794,7 @@ public class FieldBuilder<T> {
          * Get the validator class.
          *
          * @return validator class
-         * @see Binder.BindingBuider#withValidator
+         * @see Binder.BindingBuilder#withValidator
          */
         @SuppressWarnings("rawtypes")
         Class<? extends Validator> validator() default Validator.class;
@@ -1666,7 +1671,7 @@ public class FieldBuilder<T> {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.com.vaadin.ui.RichTextArea}.
+     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.RichTextArea}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder

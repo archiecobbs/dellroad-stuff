@@ -18,7 +18,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Provides the information necessary to auto-generate a {@link Grid.Column} based on the annotated getter method.
+ * Provides the information necessary to auto-generate a {@link com.vaadin.ui.Grid.Column} based on the annotated getter method.
  *
  * <p>
  * Example:
@@ -87,7 +87,7 @@ public @interface GridColumn {
      * Get the caption for the Grid column.
      *
      * @return column caption
-     * @see Grid.Column#setCaption
+     * @see com.vaadin.ui.Grid.Column#setCaption
      */
     String caption() default "";
 
@@ -95,7 +95,7 @@ public @interface GridColumn {
      * Get the in-memory comparator for the Grid column.
      *
      * @return column comparator
-     * @see Grid.Column#setComparator
+     * @see com.vaadin.ui.Grid.Column#setComparator
      */
     @SuppressWarnings("rawtypes")
     Class<? extends SerializableComparator> comparator() default SerializableComparator.class;
@@ -104,7 +104,7 @@ public @interface GridColumn {
      * Get the description generator for the Grid column.
      *
      * @return column description generator
-     * @see Grid.Column#setDescriptionGenerator
+     * @see com.vaadin.ui.Grid.Column#setDescriptionGenerator
      */
     @SuppressWarnings("rawtypes")
     Class<? extends DescriptionGenerator> descriptionGenerator() default DescriptionGenerator.class;
@@ -113,7 +113,7 @@ public @interface GridColumn {
      * Get whether the Grid column is editable.
      *
      * @return whether editable
-     * @see Grid.Column#setEditable
+     * @see com.vaadin.ui.Grid.Column#setEditable
      */
     boolean editable() default false;
 
@@ -121,7 +121,7 @@ public @interface GridColumn {
      * Get the expand ratio for the Grid column.
      *
      * @return column expand ratio
-     * @see Grid.Column#setExpandRatio
+     * @see com.vaadin.ui.Grid.Column#setExpandRatio
      */
     int expandRatio() default -1;
 
@@ -129,7 +129,7 @@ public @interface GridColumn {
      * Get whether the Grid column is hidable.
      *
      * @return whether hidable
-     * @see Grid.Column#setHidable
+     * @see com.vaadin.ui.Grid.Column#setHidable
      */
     boolean hidable() default false;
 
@@ -137,7 +137,7 @@ public @interface GridColumn {
      * Get whether the Grid column is hidden.
      *
      * @return whether hidden
-     * @see Grid.Column#setHidden
+     * @see com.vaadin.ui.Grid.Column#setHidden
      */
     boolean hidden() default false;
 
@@ -145,7 +145,7 @@ public @interface GridColumn {
      * Get the hiding toggle caption for the Grid column.
      *
      * @return column hiding toggle caption
-     * @see Grid.Column#setHidingToggleCaption
+     * @see com.vaadin.ui.Grid.Column#setHidingToggleCaption
      */
     String hidingToggleCaption() default "";
 
@@ -153,7 +153,7 @@ public @interface GridColumn {
      * Get the debug ID for the Grid column.
      *
      * @return column debug ID
-     * @see Grid.Column#setId
+     * @see com.vaadin.ui.Grid.Column#setId
      */
     String id() default "";
 
@@ -161,7 +161,7 @@ public @interface GridColumn {
      * Get the maximum width for the Grid column.
      *
      * @return column maximum width
-     * @see Grid.Column#setMaximumWidth
+     * @see com.vaadin.ui.Grid.Column#setMaximumWidth
      */
     double maximumWidth() default Float.NaN;
 
@@ -169,7 +169,7 @@ public @interface GridColumn {
      * Get the minimum width for the Grid column.
      *
      * @return column minimum width
-     * @see Grid.Column#setMinimumWidth
+     * @see com.vaadin.ui.Grid.Column#setMinimumWidth
      */
     double minimumWidth() default Float.NaN;
 
@@ -177,7 +177,7 @@ public @interface GridColumn {
      * Get the renderer for the Grid column.
      *
      * @return column renderer
-     * @see Grid.Column#setRenderer
+     * @see com.vaadin.ui.Grid.Column#setRenderer
      */
     @SuppressWarnings("rawtypes")
     Class<? extends Renderer> renderer() default Renderer.class;
@@ -186,7 +186,7 @@ public @interface GridColumn {
      * Get whether the Grid column is resizable.
      *
      * @return whether resizable
-     * @see Grid.Column#setResizable
+     * @see com.vaadin.ui.Grid.Column#setResizable
      */
     boolean resizable() default false;
 
@@ -194,7 +194,7 @@ public @interface GridColumn {
      * Get whether the Grid column is sortable.
      *
      * @return whether sortable
-     * @see Grid.Column#setSortable
+     * @see com.vaadin.ui.Grid.Column#setSortable
      */
     boolean sortable() default false;
 
@@ -202,7 +202,7 @@ public @interface GridColumn {
      * Get the sort order provider for the Grid column.
      *
      * @return column sort order provider
-     * @see Grid.Column#setSortOrderProvider
+     * @see com.vaadin.ui.Grid.Column#setSortOrderProvider
      */
     Class<? extends SortOrderProvider> sortOrderProvider() default SortOrderProvider.class;
 
@@ -210,7 +210,7 @@ public @interface GridColumn {
      * Get the back-end sort properties for the Grid column.
      *
      * @return column back-end sort properties
-     * @see Grid.Column#setSortOrderProvider
+     * @see com.vaadin.ui.Grid.Column#setSortOrderProvider
      */
     String[] sortProperty() default {};
 
@@ -218,7 +218,7 @@ public @interface GridColumn {
      * Get the style generator for the Grid column.
      *
      * @return column style generator
-     * @see Grid.Column#setStyleGenerator
+     * @see com.vaadin.ui.Grid.Column#setStyleGenerator
      */
     @SuppressWarnings("rawtypes")
     Class<? extends StyleGenerator> styleGenerator() default StyleGenerator.class;
@@ -227,7 +227,7 @@ public @interface GridColumn {
      * Get the width for the Grid column.
      *
      * @return column width
-     * @see Grid.Column#setWidth
+     * @see com.vaadin.ui.Grid.Column#setWidth
      */
     double width() default Float.NaN;
 }

@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A Vaadin {@link com.vaadin.ui.Field} for editing {@code byte[]} array values (i.e., "blobs").
+ * A Vaadin {@link CustomField} for editing {@code byte[]} array values (i.e., "blobs").
  *
  * <p>
  * The blob is updated using a file upload.

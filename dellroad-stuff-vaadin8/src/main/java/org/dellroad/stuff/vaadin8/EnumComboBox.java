@@ -12,7 +12,7 @@ import java.util.EnumSet;
 /**
  * {@link ComboBox} that chooses an {@link Enum} value.
  *
- * @see EnumContainer
+ * @param <T> enum type
  */
 @SuppressWarnings("serial")
 public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
@@ -39,7 +39,6 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      *  </code></blockquote>
      *
      * @param enumClass enum type, or null to leave unset
-     * @param <T> enum type
      */
     public EnumComboBox(Class<T> enumClass) {
         this(enumClass, false);
@@ -49,7 +48,6 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      * Primary constructor.
      *
      * @param enumClass enum type, or null to leave unset
-     * @param displayPropertyName container property to display in the combo box
      * @param allowEmpty true to allow an empty selection, false otherwise
      */
     public EnumComboBox(Class<T> enumClass, boolean allowEmpty) {
@@ -63,7 +61,6 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      * Set the enum class.
      *
      * @param enumClass enum type
-     * @param <T> enum type
      * @throws IllegalArgumentException if {@code enumClass} is null
      */
     public void setEnumClass(Class<T> enumClass) {
@@ -80,7 +77,6 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      * Get the enum class.
      *
      * @return enum type
-     * @param <T> enum type
      */
     public Class<T> getEnumClass() {
         return this.enumClass;

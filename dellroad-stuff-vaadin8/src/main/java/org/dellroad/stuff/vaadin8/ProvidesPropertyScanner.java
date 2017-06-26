@@ -18,8 +18,8 @@ import org.dellroad.stuff.java.Primitive;
 
 /**
  * Scans a Java class hierarchy for {@link ProvidesProperty &#64;ProvidesProperty} annotated getter methods and creates
- * a corresponding {@link PropertySet} containing read-only {@link PropertyDefinition}s that extract property values from
- * instances of the given class via the annotated methods.
+ * a corresponding {@link com.vaadin.data.PropertySet} containing {@link com.vaadin.data.PropertyDefinition}s
+ * that extract property values from instances of the given class via the annotated methods.
  *
  * @param <T> Java class to be introspected
  * @see ProvidesProperty &#64;ProvidesProperty
@@ -97,7 +97,7 @@ public class ProvidesPropertyScanner<T> {
     }
 
     /**
-     * Get the {@link PropertySet} generated from the annotated methods.
+     * Get the {@link com.vaadin.data.PropertySet} generated from the annotated methods.
      *
      * @return property set
      */
@@ -109,6 +109,7 @@ public class ProvidesPropertyScanner<T> {
      * Get the property name.
      *
      * @param methodInfo method info
+     * @return property name
      */
     protected String getPropertyName(MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
         return methodInfo.getAnnotation().value().length() > 0 ?
@@ -119,6 +120,7 @@ public class ProvidesPropertyScanner<T> {
      * Get the property caption.
      *
      * @param methodInfo method info
+     * @return property caption
      */
     protected String getPropertyCaption(MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
         return methodInfo.getAnnotation().caption().length() > 0 ?

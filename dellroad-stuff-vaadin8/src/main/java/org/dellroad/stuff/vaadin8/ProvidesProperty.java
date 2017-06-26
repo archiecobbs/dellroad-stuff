@@ -12,12 +12,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Provides the information necessary to auto-generate a {@link PropertyDefinition} based on the annotated getter method.
+ * Provides the information necessary to auto-generate a {@link com.vaadin.data.PropertyDefinition} based on the
+ * annotated getter method.
  *
  * <p>
  * {@link ProvidesProperty &#64;ProvidesProperty} method annotations can be used to automatically generate a
- * {@link PropertySet}'s using a {@link ProvidesPropertyScanner}. The resulting {@link PropertySet} can then
- * be provided to {@link com.vaadin.ui.Grid#withPropertySet Grid.withPropertySet()} for example.
+ * {@link com.vaadin.data.PropertySet}'s using a {@link ProvidesPropertyScanner}. The resulting
+ * {@link com.vaadin.data.PropertySet} can then be provided to {@link com.vaadin.ui.Grid#withPropertySet Grid.withPropertySet()}
+ * for example.
  *
  * <p>
  * This annotation indicates that a read-only Vaadin {@link com.vaadin.data.PropertyDefinition} having the type

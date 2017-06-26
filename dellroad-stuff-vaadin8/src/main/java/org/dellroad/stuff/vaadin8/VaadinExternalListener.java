@@ -89,7 +89,7 @@ public abstract class VaadinExternalListener<S> {
     }
 
     /**
-     * Set whether to notify asynchronously. If set, {@link Session#access Session.access()} will
+     * Set whether to notify asynchronously. If set, {@link VaadinSession#access VaadinSession.access()} will
      * be used for notifications, so that these occur on a different thread from the original notifying thread.
      *
      * @param asynchronous true to notify asynchronously, false for synchronous notifications
@@ -103,7 +103,7 @@ public abstract class VaadinExternalListener<S> {
      * Register as a listener on configured event source.
      *
      * <p>
-     * This also registers a {@link SessionDestroyListener} on the {@linkplain #getSession configured Vaadin application},
+     * This also listens for shutdown of the {@linkplain #getSession configured Vaadin application},
      * so that when the application closes we can unregister this instance from the event source to avoid a memory leak.
      *
      * @throws IllegalStateException if this instance is already registered
@@ -119,7 +119,7 @@ public abstract class VaadinExternalListener<S> {
      * Un-register as a listener on configured event source.
      *
      * <p>
-     * This also unregisters the {@link SessionDestroyListener} registered by {@link #register}.
+     * This also removes the listener registered by {@link #register}.
      */
     public void unregister() {
         if (this.sessionDestroyRegistration != null) {
@@ -154,8 +154,8 @@ public abstract class VaadinExternalListener<S> {
      * Subclass listener methods should handle events by invoking this method to ensure proper locking to avoid race conditions.
      *
      * <p>
-     * This method delegates to {@link Session#accessSynchronously Session.accessSynchronously()}, or
-     * {@link Session#access Session.access()} if this instance is configured to be
+     * This method delegates to {@link VaadinSession#accessSynchronously VaadinSession.accessSynchronously()}, or
+     * {@link VaadinSession#access VaadinSession.access()} if this instance is configured to be
      * {@linkplain #setAsynchronous asynchronous}.
      *
      * @param action action to perform
