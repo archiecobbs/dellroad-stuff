@@ -14,6 +14,8 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.dellroad.stuff.java.SerializableMethod;
+
 /**
  * Straightforward {@link PropertyDefinition} implementation based on getter and setter methods.
  *
@@ -28,8 +30,8 @@ public class SimplePropertyDefinition<T, V> implements PropertyDefinition<T, V> 
     private final Class<V> type;
     private final String name;
     private final String caption;
-    private final Method getter;
-    private final Method setter;
+    private final SerializableMethod getter;
+    private final SerializableMethod setter;
 
     /**
      * Constructor.
@@ -58,8 +60,8 @@ public class SimplePropertyDefinition<T, V> implements PropertyDefinition<T, V> 
         this.type = type;
         this.name = name;
         this.caption = caption;
-        this.getter = getter;
-        this.setter = setter;
+        this.getter = new SerializableMethod(getter);
+        this.setter = setter != null ? new SerializableMethod(setter) : null;
     }
 
     @Override
@@ -84,13 +86,13 @@ public class SimplePropertyDefinition<T, V> implements PropertyDefinition<T, V> 
 
     @Override
     public ValueProvider<T, V> getGetter() {
-        return obj -> this.type.cast(AnnotationUtil.invoke(this.getter, obj));
+        return obj -> this.type.cast(AnnotationUtil.invoke(this.getter.getMethod(), obj));
     }
 
     @Override
     public Optional<Setter<T, V>> getSetter() {
         return this.setter != null ?
-          Optional.of((obj, value) -> AnnotationUtil.invoke(this.setter, obj, value)) : Optional.empty();
+          Optional.of((obj, value) -> AnnotationUtil.invoke(this.setter.getMethod(), obj, value)) : Optional.empty();
     }
 
 // Object
