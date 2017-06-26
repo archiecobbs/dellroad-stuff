@@ -161,9 +161,12 @@ public class FieldBuilder<T> {
     /**
      * Get the binder associated with this instance.
      *
-     * @return binder, or null if {@link #buildAndBind buildAndBind()} has not yet been invoked
+     * @return binder
+     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
      */
     public Binder<T> getBinder() {
+        if (this.binder == null)
+            throw new IllegalStateException("buildAndBind() not invoked yet");
         return this.binder;
     }
 
@@ -171,8 +174,11 @@ public class FieldBuilder<T> {
      * Get the names of all properties bound by the most recent invocation of {@link #buildAndBind buildAndBind()}.
      *
      * @return field names
+     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
      */
     public Set<String> getPropertyNames() {
+        if (this.binder == null)
+            throw new IllegalStateException("buildAndBind() not invoked yet");
         return Collections.unmodifiableSet(this.propertyNames);
     }
 
