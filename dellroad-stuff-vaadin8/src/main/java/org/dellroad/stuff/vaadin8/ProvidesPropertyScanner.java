@@ -5,19 +5,13 @@
 
 package org.dellroad.stuff.vaadin8;
 
-import com.vaadin.data.PropertyDefinition;
 import com.vaadin.data.PropertySet;
-import com.vaadin.data.ValueProvider;
-import com.vaadin.server.Setter;
 
 import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 import org.dellroad.stuff.java.Primitive;

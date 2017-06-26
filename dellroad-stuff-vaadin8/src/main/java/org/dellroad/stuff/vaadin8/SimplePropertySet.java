@@ -10,7 +10,6 @@ import com.vaadin.data.PropertySet;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
