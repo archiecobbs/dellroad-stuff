@@ -32,7 +32,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -337,15 +335,15 @@ public class FieldBuilder<T> {
         if (bindingAnnotation.required().length() > 0)
             bindingBuilder.asRequired(bindingAnnotation.required());
         if (bindingAnnotation.requiredProvider() != ErrorMessageProvider.class)
-            bindingBuilder.asRequired(FieldBuilder.instantiate(bindingAnnotation.requiredProvider()));
+            bindingBuilder.asRequired(AnnotationUtil.instantiate(bindingAnnotation.requiredProvider()));
         if (bindingAnnotation.converter() != Converter.class)
-            bindingBuilder.withConverter(FieldBuilder.instantiate(bindingAnnotation.converter()));
+            bindingBuilder.withConverter(AnnotationUtil.instantiate(bindingAnnotation.converter()));
         if (bindingAnnotation.validationStatusHandler() != BindingValidationStatusHandler.class) {
             bindingBuilder.withValidationStatusHandler(
-              FieldBuilder.instantiate(bindingAnnotation.validationStatusHandler()));
+              AnnotationUtil.instantiate(bindingAnnotation.validationStatusHandler()));
         }
         if (bindingAnnotation.validator() != Validator.class)
-            bindingBuilder.withValidator(FieldBuilder.instantiate(bindingAnnotation.validator()));
+            bindingBuilder.withValidator(AnnotationUtil.instantiate(bindingAnnotation.validator()));
     }
 
     // Used by buildBeanPropertyFields() to validate @FieldBuilder.ProvidesField annotations
@@ -473,7 +471,7 @@ public class FieldBuilder<T> {
             throw new IllegalArgumentException("cannot determine field type; no type() specified for " + description);
 
         // Instantiate field
-        final HasValue<?> field = FieldBuilder.instantiate(fieldType);
+        final HasValue<?> field = AnnotationUtil.instantiate(fieldType);
 
         // Configure the field
         for (AnnotationApplier<?> applier : applierList)
@@ -481,25 +479,6 @@ public class FieldBuilder<T> {
 
         // Done
         return field;
-    }
-
-    private static <T> T instantiate(Class<T> type) {
-        Constructor<T> constructor;
-        try {
-            constructor = type.getDeclaredConstructor();
-        } catch (Exception e) {
-            throw new RuntimeException("cannot instantiate " + type + " because no zero-arg constructor could be found", e);
-        }
-        try {
-            constructor.setAccessible(true);
-        } catch (Exception e) {
-            // ignore
-        }
-        try {
-            return constructor.newInstance();
-        } catch (Exception e) {
-            throw new RuntimeException("cannot instantiate " + type + " using its zero-arg constructor", e);
-        }
     }
 
     /**
@@ -630,53 +609,17 @@ public class FieldBuilder<T> {
             // Get annotation defaults so we can see what properties are changed
             final A defaults = FieldBuilder.getDefaults(this.annotation);
 
-            // Copy annotation property values and apply to the corresponding properties of the field (if changed from default)
-            for (Method fieldSetter : field.getClass().getMethods()) {
-
-                // Set if method is a setter method
-                if (!fieldSetter.getName().startsWith("set") || fieldSetter.getName().length() < 4)
-                    continue;
-                final Class<?>[] parameterTypes = fieldSetter.getParameterTypes();
-                if (parameterTypes.length != 1)
-                    continue;
-                final String propertyName = Introspector.decapitalize(fieldSetter.getName().substring(3));
-                try {
-
-                    // Special handling for EnumComboBox
-                    if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox
-                      && propertyName.equals("enumClass")
-                      && Enum.class.isAssignableFrom(this.method.getReturnType())) {
-                        ((org.dellroad.stuff.vaadin8.EnumComboBox)field).setEnumClass(
-                          this.method.getReturnType().asSubclass(Enum.class));
-                        continue;
-                    }
-
-                    // Find corresponding annotation property, if any
-                    final Method annotationGetter;
-                    try {
-                        annotationGetter = this.annotation.getClass().getMethod(propertyName);
-                    } catch (NoSuchMethodException e) {
-                        continue;
-                    }
-
-                    // Get value from annotation, and annotation's default value
-                    Object value = annotationGetter.invoke(this.annotation);
-                    final Object defaultValue = annotationGetter.invoke(defaults);
-
-                    // If annotation value is same as default, don't do anything
-                    if (Objects.equals(value, defaultValue))
-                        continue;
-
-                    // Special case for Class<?> values: instantiate the class
-                    if (value instanceof Class)
-                        value = FieldBuilder.instantiate((Class<?>)value);
-
-                    // Copy over the value
-                    fieldSetter.invoke(field, value);
-                } catch (Exception e) {
-                    throw new RuntimeException("unexpected exception", e);
+            // Apply non-default annotation values
+            AnnotationUtil.apply(field, this.annotation, defaults, (fieldSetter, propertyName) -> {
+                if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox                 // special handling for EnumComboBox
+                  && propertyName.equals("enumClass")
+                  && Enum.class.isAssignableFrom(this.method.getReturnType())) {
+                    ((org.dellroad.stuff.vaadin8.EnumComboBox)field).setEnumClass(
+                      this.method.getReturnType().asSubclass(Enum.class));
+                    return false;
                 }
-            }
+                return true;
+            });
 
             // Special handling for "styleNames" property
             final Method styleNamesGetter;
@@ -714,17 +657,10 @@ public class FieldBuilder<T> {
     @Slider
     @TextArea
     @TextField
+    @SuppressWarnings("unchecked")
     private static <A extends Annotation> A getDefaults(A annotation) {
-        final A defaultAnnotation;
-        try {
-            defaultAnnotation = FieldBuilder.class.getDeclaredMethod("getDefaults", Annotation.class)
-              .getDeclaredAnnotation(FieldBuilder.getFieldBuilderAnnotationType(annotation));
-        } catch (Exception e) {
-            throw new RuntimeException("unexpected exception", e);
-        }
-        if (defaultAnnotation == null)
-            throw new RuntimeException("internal error: didn't find " + annotation);
-        return defaultAnnotation;
+        return AnnotationUtil.getAnnotation(FieldBuilder.getFieldBuilderAnnotationType(annotation),
+          FieldBuilder.class, "getDefaults", Annotation.class);
     }
 
     private static <A extends Annotation> Class<? extends com.vaadin.ui.Component> getVaadinComponentType(A annotation) {
@@ -741,16 +677,10 @@ public class FieldBuilder<T> {
         return FieldBuilder.getFieldBuilderAnnotationType(annotation) != null;
     }
 
-    @SuppressWarnings("unchecked")
     private static <A extends Annotation> Class<A> getFieldBuilderAnnotationType(A annotation) {
-        for (Class<?> iface : annotation.getClass().getInterfaces()) {
-            if (iface.getDeclaringClass() != FieldBuilder.class)
-                continue;
-            if (ProvidesField.class.isAssignableFrom(iface) || Binding.class.isAssignableFrom(iface))
-                continue;
-            return (Class<A>)iface;
-        }
-        return null;
+        return AnnotationUtil.getAnnotationType(annotation, type -> type.getDeclaringClass() == FieldBuilder.class
+          && !ProvidesField.class.isAssignableFrom(type)
+          && !Binding.class.isAssignableFrom(type));
     }
 
 // Annotations
