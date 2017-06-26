@@ -32,7 +32,7 @@ import org.dellroad.stuff.java.Primitive;
  */
 public class ProvidesPropertyScanner<T> {
 
-    private final AnnotationPropertySet<T> propertySet = new AnnotationPropertySet<T>();
+    private final SimplePropertySet<T> propertySet = new SimplePropertySet<T>();
 
     /**
      * Constructor.
@@ -82,7 +82,7 @@ public class ProvidesPropertyScanner<T> {
             }
         }
 
-        // Build AnnotationPropertyDef list
+        // Build PropertyDefinition list
         for (Map.Entry<String, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> e : providesPropertyNameMap.entrySet()) {
             final String name = e.getKey();
             final MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo = e.getValue();
@@ -98,7 +98,7 @@ public class ProvidesPropertyScanner<T> {
                 propertyType = Primitive.get(propertyType).getWrapperType();
 
             // Add property definition
-            this.propertySet.add(this.createAnnotationPropertyDef(this.propertySet, name, caption, propertyType, methodInfo));
+            this.addPropertyDefinition(propertyType, name, caption, methodInfo);
         }
     }
 
@@ -132,142 +132,8 @@ public class ProvidesPropertyScanner<T> {
     }
 
     // This method exists solely to bind the generic type
-    private <V> AnnotationPropertyDef<V> createAnnotationPropertyDef(AnnotationPropertySet<T> propertySet, String name,
-      String caption, Class<V> type, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
-        return new AnnotationPropertyDef<V>(propertySet, name, caption, type, methodInfo);
-    }
-
-// AnnotationPropertySet
-
-    private static class AnnotationPropertySet<T> implements PropertySet<T> {
-
-        private static final long serialVersionUID = 4983663265225248973L;
-
-        private final HashMap<String, PropertyDefinition<T, ?>> defs = new HashMap<>();
-
-        boolean add(PropertyDefinition<T, ?> def) {
-            return this.defs.put(def.getName(), def) == null;
-        }
-
-        @Override
-        public Stream<PropertyDefinition<T, ?>> getProperties() {
-            return this.defs.values().stream();
-        }
-
-        @Override
-        public Optional<PropertyDefinition<T, ?>> getProperty(String name) {
-            final PropertyDefinition<T, ?> def = this.defs.get(name);
-            return def != null ? Optional.of(def) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this)
-                return true;
-            if (obj == null || obj.getClass() != this.getClass())
-                return false;
-            final AnnotationPropertySet<?> that = (AnnotationPropertySet<?>)obj;
-            return this.defs.equals(that.defs);
-        }
-
-        @Override
-        public int hashCode() {
-            return this.defs.hashCode();
-        }
-    }
-
-// AnnotationPropertyDef
-
-    private class AnnotationPropertyDef<V> implements PropertyDefinition<T, V> {
-
-        private static final long serialVersionUID = 4983663265225248972L;
-
-        private final AnnotationPropertySet<T> propertySet;
-        private final String name;
-        private final String caption;
-        private final Class<V> type;
-        private final MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo;
-        private final Method setter;
-
-        AnnotationPropertyDef(AnnotationPropertySet<T> propertySet, String name, String caption, Class<V> type,
-          MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
-            this.propertySet = propertySet;
-            this.caption = caption;
-            this.name = name;
-            this.type = type;
-            this.methodInfo = methodInfo;
-
-            // Find corresponding setter, if any
-            final Method getter = methodInfo.getMethod();
-            final String getterName = getter.getName();
-            Method setter0 = null;
-            if (getterName.matches("^(is|get).+$")) {
-                final String setterName = "set" + getterName.substring(getterName.startsWith("is") ? 2 : 3);
-                try {
-                    setter0 = getter.getDeclaringClass().getMethod(setterName, getter.getReturnType());
-                } catch (Exception e) {
-                    // ignore
-                }
-            }
-            this.setter = setter0;
-        }
-
-        @Override
-        public String getCaption() {
-            return this.caption;
-        }
-
-        @Override
-        public ValueProvider<T, V> getGetter() {
-            return obj -> this.type.cast(this.methodInfo.invoke(obj));
-        }
-
-        @Override
-        public String getName() {
-            return this.name;
-        }
-
-        @Override
-        public PropertySet<T> getPropertySet() {
-            return this.propertySet;
-        }
-
-        @Override
-        public Optional<Setter<T, V>> getSetter() {
-            return this.setter != null ?
-              Optional.of((obj, value) -> AnnotationUtil.invoke(this.setter, obj, value)) : Optional.empty();
-        }
-
-        @Override
-        public Class<V> getType() {
-            return this.type;
-        }
-
-        public MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo getMethodInfo() {
-            return this.methodInfo;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this)
-                return true;
-            if (obj == null || obj.getClass() != this.getClass())
-                return false;
-            final ProvidesPropertyScanner<?>.AnnotationPropertyDef<?> that
-              = (ProvidesPropertyScanner<?>.AnnotationPropertyDef<?>)obj;
-            return Objects.equals(this.name, that.name)
-              && Objects.equals(this.caption, that.caption)
-              && Objects.equals(this.type, that.type)
-              && Objects.equals(this.methodInfo, that.methodInfo);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(this.name)
-              ^ Objects.hashCode(this.caption)
-              ^ Objects.hashCode(this.type)
-              ^ Objects.hashCode(this.methodInfo);
-        }
+    private <V> void addPropertyDefinition(Class<V> type, String name, String caption,
+      MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
+        this.propertySet.add(type, name, caption, methodInfo.getMethod(), methodInfo.getSetter());
     }
 }
-
