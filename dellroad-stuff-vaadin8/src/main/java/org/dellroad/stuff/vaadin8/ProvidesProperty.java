@@ -57,19 +57,18 @@ import java.lang.annotation.Target;
  * }
  *
  * // Build Grid showing users with auto-generated properties
- * Grid<User> grid = Grid.withPropertySet(new ProvidesPropertyScanner(User.class).getPropertySet());
+ * Grid&lt;User&gt; grid = Grid.withPropertySet(new ProvidesPropertyScanner(User.class).getPropertySet());
  * grid.setVisibleColumns(User.USERNAME_PROPERTY, User.REAL_NAME_PROPERTY);
  * ...
  * </pre></blockquote>
  *
  * <p>
- * Some details regarding {@link ProvidesProperty &#64;ProvidesProperty} annotations on methods:
+ * Some details regarding {@link ProvidesProperty &#64;ProvidesProperty} annotations:
  *  <ul>
  *  <li>Only non-void methods taking zero parameters are supported; {@link ProvidesProperty &#64;ProvidesProperty}
  *      annotations on other methods are ignored</li>
  *  <li>Protected, package private, and private methods are supported.</li>
- *  <li>{@link ProvidesProperty &#64;ProvidesProperty} annotations declared in super-types (including interfaces)
- *      are supported</li>
+ *  <li>{@link ProvidesProperty &#64;ProvidesProperty} annotations declared in super-types (including interfaces) are supported</li>
  *  <li>If a method and the superclass or superinterface method it overrides are both annotated with
  *      {@link ProvidesProperty &#64;ProvidesProperty}, then the overridding method's annotation takes precedence.
  *  <li>If two methods with different names are annotated with {@link ProvidesProperty &#64;ProvidesProperty} for the same

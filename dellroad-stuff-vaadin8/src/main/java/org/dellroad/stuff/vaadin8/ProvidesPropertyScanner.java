@@ -23,7 +23,7 @@ import org.dellroad.stuff.java.Primitive;
 
 /**
  * Scans a Java class hierarchy for {@link ProvidesProperty &#64;ProvidesProperty} annotated getter methods and creates
- * corresponding {@link PropertySet}s containing read-only {@link PropertyDefinition}s that extract property values from
+ * a corresponding {@link PropertySet} containing read-only {@link PropertyDefinition}s that extract property values from
  * instances of the given class via the annotated methods.
  *
  * @param <T> Java class to be introspected
@@ -197,6 +197,7 @@ public class ProvidesPropertyScanner<T> {
         private final String caption;
         private final Class<V> type;
         private final MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo;
+        private final Method setter;
 
         AnnotationPropertyDef(AnnotationPropertySet<T> propertySet, String name, String caption, Class<V> type,
           MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
@@ -205,6 +206,20 @@ public class ProvidesPropertyScanner<T> {
             this.name = name;
             this.type = type;
             this.methodInfo = methodInfo;
+
+            // Find corresponding setter, if any
+            final Method getter = methodInfo.getMethod();
+            final String getterName = getter.getName();
+            Method setter0 = null;
+            if (getterName.matches("^(is|get).+$")) {
+                final String setterName = "set" + getterName.substring(getterName.startsWith("is") ? 2 : 3);
+                try {
+                    setter0 = getter.getDeclaringClass().getMethod(setterName, getter.getReturnType());
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+            this.setter = setter0;
         }
 
         @Override
@@ -229,7 +244,8 @@ public class ProvidesPropertyScanner<T> {
 
         @Override
         public Optional<Setter<T, V>> getSetter() {
-            return Optional.empty();
+            return this.setter != null ?
+              Optional.of((obj, value) -> AnnotationUtil.invoke(this.setter, obj, value)) : Optional.empty();
         }
 
         @Override
