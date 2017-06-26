@@ -19,6 +19,7 @@ import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.shared.ui.datefield.DateTimeResolution;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Grid;
 import com.vaadin.ui.IconGenerator;
 import com.vaadin.ui.ItemCaptionGenerator;
 
@@ -42,6 +43,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -209,6 +211,36 @@ public class FieldBuilder<T> {
             throw new IllegalArgumentException("null bean");
         this.doBuildAndBind(bean);
         binder.setBean(bean);
+        return this;
+    }
+
+    /**
+     * Set this instance's field bindings as the editor bindings for the corresponding columns in the given {@link Grid}.
+     *
+     * <p>
+     * This method invokes {@link Grid.Column#setEditorBinding(Binder.Binding)} for each binding for which the {@link Grid}
+     * has a column whose column ID matches the binding property name.
+     *
+     * @param grid {@link Grid} for editor bindings
+     * @return this instance
+     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
+     * @throws IllegalArgumentException if {@code grid} is null
+     * @see Grid.Column#setEditorBinding(Binder.Binding)
+     */
+    public FieldBuilder<T> setEditorBindings(Grid<T> grid) {
+        if (this.binder == null)
+            throw new IllegalStateException("buildAndBind() not invoked yet");
+        if (grid == null)
+            throw new IllegalArgumentException("null grid");
+        for (String propertyName : this.propertyNames) {
+            final Grid.Column<T, ?> gridColumn = grid.getColumn(propertyName);
+            if (gridColumn == null)
+                continue;
+            final Optional<Binder.Binding<T, ?>> optionalBinding = this.binder.getBinding(propertyName);
+            if (!optionalBinding.isPresent())
+                continue;
+            gridColumn.setEditorBinding(optionalBinding.get());
+        }
         return this;
     }
 
