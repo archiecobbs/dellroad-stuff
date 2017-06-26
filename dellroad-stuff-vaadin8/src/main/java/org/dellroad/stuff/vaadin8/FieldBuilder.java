@@ -683,7 +683,6 @@ public class FieldBuilder<T> {
     @Slider
     @TextArea
     @TextField
-    @SuppressWarnings("unchecked")
     private static <A extends Annotation> A getDefaults(A annotation) {
         return AnnotationUtil.getAnnotation(FieldBuilder.getFieldBuilderAnnotationType(annotation),
           FieldBuilder.class, "getDefaults", Annotation.class);

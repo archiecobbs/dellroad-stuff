@@ -105,7 +105,7 @@ public class ProvidesPropertyScanner<T> {
     /**
      * Get the {@link PropertySet} generated from the annotated methods.
      *
-     * @return propertie set
+     * @return property set
      */
     public PropertySet<T> getPropertySet() {
         return this.propertySet;
