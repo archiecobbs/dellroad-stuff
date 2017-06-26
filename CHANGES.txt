@@ -2,6 +2,7 @@ Version Next
 
     - Added new vaadin8 sub-module
     - Removed explicit Maven dependency on log4j
+    - Added SerializableMethod
 
 Version 2.1.0 Released April 4, 2017
 
