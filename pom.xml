@@ -322,6 +322,7 @@
                 <configuration>
                     <notimestamp>true</notimestamp>
                     <aggregate>true</aggregate>
+                    <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
                     <links>
                         <link>http://docs.spring.io/spring/docs/${spring.version}/javadoc-api/</link>
                         <link>http://google.github.io/guava/releases/${guava.version}/api/docs/</link>
