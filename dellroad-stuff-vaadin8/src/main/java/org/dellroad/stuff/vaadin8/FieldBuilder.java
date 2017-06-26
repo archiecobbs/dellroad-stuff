@@ -446,20 +446,8 @@ public class FieldBuilder<T> {
 
         // Get comparator that sorts by class hierarchy, narrower types first; note Collections.sort() is stable,
         // so for any specific annotation type, that annotation on subtype appears before that annotation on supertype.
-        final Comparator<AnnotationApplier<?>> comparator = new Comparator<AnnotationApplier<?>>() {
-            @Override
-            public int compare(AnnotationApplier<?> a1, AnnotationApplier<?> a2) {
-                final Class<?> type1 = FieldBuilder.getVaadinComponentType(a1.getAnnotation());
-                final Class<?> type2 = FieldBuilder.getVaadinComponentType(a2.getAnnotation());
-                if (type1 == type2)
-                    return 0;
-                if (type1.isAssignableFrom(type2))
-                    return 1;
-                if (type2.isAssignableFrom(type1))
-                    return -1;
-                return 0;
-            }
-        };
+        final Comparator<AnnotationApplier<?>> comparator = Comparator.comparing(
+          a -> FieldBuilder.getVaadinComponentType(a.getAnnotation()), AnnotationUtil.getClassComparator(true));
 
         // Sanity check for duplicates and conflicts
         final ArrayList<AnnotationApplier<?>> applierList = new ArrayList<>(appliers);

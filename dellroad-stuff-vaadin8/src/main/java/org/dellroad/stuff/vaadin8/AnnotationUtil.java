@@ -10,6 +10,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -142,5 +143,26 @@ final class AnnotationUtil {
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Get a comparator that partially orders classes where narrower types sort first, otherwise, both equal
+     * and non-comparable types compare as equal, so they will not reorder under a stable sort such as
+     * {@link java.util.Collections#sort Collections.sort()}.
+     *
+     * @param incomparableEqual true to return zero for incomparable classes, false to throw {@link RuntimeException}
+     */
+    static Comparator<Class<?>> getClassComparator(boolean incomparableEqual) {
+        return (type1, type2) -> {
+            if (type1 == type2)
+                return 0;
+            if (type1.isAssignableFrom(type2))
+                return 1;
+            if (type2.isAssignableFrom(type1))
+                return -1;
+            if (incomparableEqual)
+                return 0;
+            throw new RuntimeException("internal error: incomparable classes " + type1.getName() + " and " + type2.getName());
+        };
     }
 }

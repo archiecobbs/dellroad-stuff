@@ -11,6 +11,7 @@ import com.vaadin.data.ValueProvider;
 import com.vaadin.server.Setter;
 
 import java.lang.reflect.Method;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -54,6 +55,8 @@ public class ProvidesPropertyScanner<T> {
           = new MethodAnnotationScanner<T, ProvidesProperty>(type, ProvidesProperty.class).findAnnotatedMethods();
 
         // Check for duplicate @ProvidesProperty names
+        final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,
+          AnnotationUtil.getClassComparator(false));
         final HashMap<String, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyNameMap = new HashMap<>();
         for (MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo : providesPropertyMethods) {
             final String propertyName = this.getPropertyName(methodInfo);
@@ -66,7 +69,7 @@ public class ProvidesPropertyScanner<T> {
             }
 
             // If there is a name conflict, the sub-type method declaration wins
-            switch (this.compareDeclaringClass(previousInfo.getMethod(), methodInfo.getMethod())) {
+            switch (methodComparator.compare(previousInfo.getMethod(), methodInfo.getMethod())) {
             case 0:
                 throw new IllegalArgumentException("duplicate @" + ProvidesProperty.class.getSimpleName()
                   + " declaration for property `" + propertyName + "' on method " + previousInfo.getMethod()
@@ -132,19 +135,6 @@ public class ProvidesPropertyScanner<T> {
     private <V> AnnotationPropertyDef<V> createAnnotationPropertyDef(AnnotationPropertySet<T> propertySet, String name,
       String caption, Class<V> type, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo) {
         return new AnnotationPropertyDef<V>(propertySet, name, caption, type, methodInfo);
-    }
-
-    // Compare two methods to determine which one has the declaring class that is a sub-type of the other's
-    private int compareDeclaringClass(Method method1, Method method2) {
-        final Class<?> class1 = method1.getDeclaringClass();
-        final Class<?> class2 = method2.getDeclaringClass();
-        if (class1 == class2)
-            return 0;
-        if (class1.isAssignableFrom(class2))
-            return 1;
-        if (class2.isAssignableFrom(class1))
-            return -1;
-        throw new RuntimeException("internal error: incomparable classes " + class1.getName() + " and " + class2.getName());
     }
 
 // AnnotationPropertySet
