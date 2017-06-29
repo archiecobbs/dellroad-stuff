@@ -1,6 +1,7 @@
 Version Next
 
     - Added new vaadin8 sub-module
+    - Added asynchronous update mode to AbstractUpdatingDataSource
     - Removed explicit Maven dependency on log4j
     - Added SerializableMethod
 
