@@ -9,6 +9,10 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import javax.sql.DataSource;
@@ -32,8 +36,8 @@ import javax.sql.DataSource;
  * before the update is complete will throw an {@link UpdateInProgressException}.
  *
  * <p>
- * The {@link #waitForUpdate} method can also be used to wait for completion of the initial update, and {@link #isUpdated}
- * checks whether the update is complete.
+ * The {@link #getUpdateCompleteFuture} returns a {@link Future} that waits for completion of the initial update;
+ * {@link #isUpdated} checks whether the update is complete.
  *
  * <p>
  * The {@link #setDataSource dataSource} property is required.
@@ -49,6 +53,12 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
     private boolean asynchronous;
     private int state = INITIAL;
     private SQLException error;
+    private CompletableFuture<DataSource> future = new CompletableFuture<DataSource>() {
+        @Override
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            throw new UnsupportedOperationException("cancel() not supported");
+        }
+    };
 
     /**
      * Configure the underlying {@link DataSource}. Required property.
@@ -119,15 +129,42 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      */
     public boolean triggerUpdate() throws SQLException {
 
-        // Check state
+        // Read async flag
         final boolean async;
+        synchronized (this) {
+            async = this.asynchronous;
+        }
+
+        // Trigger update
+        return this.triggerUpdate(async ? runnable -> {
+            final Thread thread = new Thread(runnable);
+            thread.setName("SQL-Updater");
+            thread.start();
+        } : null);
+    }
+
+    /**
+     * Trigger the update of the underlying {@link DataSource} if it has not already been triggered.
+     *
+     * @param executor in asynchronous mode, the executor that will actually perform the update, otherwise ignored
+     * @return true if update was triggered by this invocation, false if update had already been triggered or is completed
+     * @throws IllegalStateException if no {@link DataSource} has been configured
+     * @throws IllegalArgumentException if in asynchronous mode and {@code executor} is null
+     * @throws SQLException if the update fails or has already failed
+     */
+    public boolean triggerUpdate(Executor executor) throws SQLException {
+
+        // Check state
         synchronized (this) {
             switch (this.state) {
             case INITIAL:
                 if (this.dataSource == null)
                     throw new IllegalStateException("no DataSource configured");
                 this.state = UPDATING;
-                async = this.asynchronous;
+                if (!this.asynchronous)
+                    executor = r -> r.run();
+                else if (executor == null)
+                    throw new IllegalArgumentException("null executor");
                 break;
             case UPDATING:
             case UPDATED:
@@ -139,70 +176,27 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
             }
         }
 
-        // We actually triggered the update
-        if (async) {
-            final Thread thread = new Thread(this::doUpdate);
-            thread.setName("SQL-Updater");
-            thread.start();
-        } else
-            this.doUpdate();
+        // We actually triggered the update so we need to do it
+        executor.execute(this::doUpdate);
 
         // Done
         return true;
     }
 
     /**
-     * Wait for the update of the underlying {@link DataSource} to be completed.
+     * Get a {@link Future} that waits for the update of the underlying {@link DataSource} to be completed.
+     *
+     * <p>
+     * The returned {@link Future} does not support cancellation; invoking {@link Future#cancel} will generate
+     * an {@link UnsupportedOperationException}.
      *
      * <p>
      * Note that this method does not actually trigger the update; use {@link #triggerUpdate} for that.
      *
-     * @throws SQLException if the update fails or has already failed
+     * @return update completed future
      */
-    public synchronized void waitForUpdate() throws InterruptedException, SQLException {
-        while (true) {
-            switch (this.state) {
-            case INITIAL:
-            case UPDATING:
-                this.wait();
-                break;
-            case UPDATED:
-                return;
-            case FAILED:
-                throw new SQLException("update failed", this.error);
-            default:
-                throw new RuntimeException("internal error: " + this.state);
-            }
-        }
-    }
-
-    private void doUpdate() {
-
-        // Get inner DataSource
-        final DataSource innerDataSource;
-        synchronized (this) {
-            assert this.state == UPDATING;
-            innerDataSource = this.dataSource;
-        }
-
-        // Perform update
-        try {
-            this.updateDataSource(innerDataSource);
-        } catch (Throwable t) {
-            synchronized (this) {
-                assert this.state == UPDATING;
-                this.state = FAILED;
-                this.error = t instanceof SQLException ? (SQLException)t : new SQLException(t);
-                this.notifyAll();
-            }
-        }
-
-        // Success
-        synchronized (this) {
-            assert this.state == UPDATING;
-            this.state = UPDATED;
-            this.notifyAll();
-        }
+    public synchronized Future<DataSource> getUpdateCompleteFuture() {
+        return this.future;
     }
 
 // DataSource methods
@@ -268,36 +262,62 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
      * @throws UpdateInProgressException if an update is in progress and this instance is in asynchronous mode
      */
     protected DataSource getUpdatedDataSource() throws SQLException {
-        while (true) {
 
-            // Check state
-            final boolean async;
-            synchronized (this) {
+        // Trigger update
+        this.triggerUpdate();
+
+        // Throw exception in async mode if we would have to wait
+        synchronized (this) {
+            if (this.asynchronous) {
                 switch (this.state) {
-                case INITIAL:
                 case UPDATING:
-                    async = this.asynchronous;
-                    break;
                 case UPDATED:
-                    return this.dataSource;
-                case FAILED:
-                    throw new SQLException("update failed", this.error);
+                    throw new UpdateInProgressException("update still in progress");
                 default:
-                    throw new RuntimeException("internal error: " + this.state);
+                    break;
                 }
             }
+        }
 
-            // Trigger update
-            this.triggerUpdate();
+        // Wait for update to complete
+        try {
+            return this.getUpdateCompleteFuture().get();
+        } catch (ExecutionException e) {
+            throw new SQLException("DataSource update failed", e.getCause());
+        } catch (InterruptedException e) {
+            throw new SQLException("interrupted while waiting for update to complete", e);
+        }
+    }
 
-            // Wait for it to complete, or throw exception
-            if (async)
-                throw new UpdateInProgressException("update in progress");
-            try {
-                this.waitForUpdate();
-            } catch (InterruptedException e) {
-                throw new SQLException("interrupted while waiting for update to complete", e);
+    // Do the update
+    private void doUpdate() {
+
+        // Get inner DataSource
+        final DataSource innerDataSource;
+        synchronized (this) {
+            assert this.state == UPDATING;
+            innerDataSource = this.dataSource;
+        }
+
+        // Perform update
+        try {
+            this.updateDataSource(innerDataSource);
+        } catch (Throwable t) {
+            synchronized (this) {
+                assert this.state == UPDATING;
+                this.state = FAILED;
+                this.future.completeExceptionally(t);
+                this.error = t instanceof SQLException ? (SQLException)t : new SQLException(t);
+                this.notifyAll();
             }
+        }
+
+        // Success
+        synchronized (this) {
+            assert this.state == UPDATING;
+            this.state = UPDATED;
+            this.future.complete(innerDataSource);
+            this.notifyAll();
         }
     }
 }
