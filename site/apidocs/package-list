@@ -10,7 +10,7 @@ org.dellroad.stuff.maven
 org.dellroad.stuff.net
 org.dellroad.stuff.pobj
 org.dellroad.stuff.pobj.distrib
-org.dellroad.stuff.pobj.vaadin
+org.dellroad.stuff.pobj.vaadin8
 org.dellroad.stuff.schema
 org.dellroad.stuff.servlet
 org.dellroad.stuff.spring
@@ -18,6 +18,6 @@ org.dellroad.stuff.sql
 org.dellroad.stuff.string
 org.dellroad.stuff.test
 org.dellroad.stuff.util
-org.dellroad.stuff.vaadin7
+org.dellroad.stuff.vaadin8
 org.dellroad.stuff.validation
 org.dellroad.stuff.xml
