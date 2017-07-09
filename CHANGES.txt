@@ -1,4 +1,4 @@
-Version Next
+Version 2.2.0 Released July 9, 2017
 
     - Added new vaadin8 sub-module
     - Added asynchronous update mode to AbstractUpdatingDataSource
