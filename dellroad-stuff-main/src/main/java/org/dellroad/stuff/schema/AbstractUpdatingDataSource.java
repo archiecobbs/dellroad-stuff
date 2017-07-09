@@ -74,6 +74,8 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
 
     /**
      * Determine whether this instance is in asynchronous mode.
+     *
+     * @return true if this instance is in asynchronous mode, otherwise false
      */
     public synchronized boolean isAsynchronous() {
         return this.asynchronous;

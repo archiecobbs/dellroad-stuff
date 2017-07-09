@@ -121,6 +121,9 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * For all annotations in the {@link FieldBuilder.AbstractComponent &#64;FieldBuilder.AbstractComponent} hierarchy,
  * leaving properties set to their default values results in the default behavior.
  *
+ * <p>
+ * See also {@link GridColumn &#64;GridColumn} for how to use these annotations when building a {@link com.vaadin.ui.Grid}.
+ *
  * @param <T> backing object type
  * @see AbstractTextField
  * @see CheckBox

@@ -18,7 +18,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Provides the information necessary to auto-generate a {@link com.vaadin.ui.Grid.Column} based on the annotated getter method.
+ * Provides the information necessary to auto-generate a {@link com.vaadin.ui.Grid.Column} and a field for editing
+ * values, based on annotated getter methods.
  *
  * <p>
  * Example:
@@ -29,7 +30,10 @@ import java.lang.annotation.Target;
  *     private String username;
  *     private LocalDate dateOfBirth;
  *
- *     <b>&#64;GridColumn(caption = "User name", expandRatio = 3)</b>
+ *     <b>&#64;FieldBuilder.AbstractComponent(caption = "Username:")</b>
+ *     <b>&#64;FieldBuilder.AbstractTextField(maxLength = 16)</b>
+ *     <b>&#64;FieldBuilder.Binding(required = "Username is required")</b>
+ *     <b>&#64;GridColumn(caption = "Username", expandRatio = 3)</b>
  *     public String getUsername() {
  *         return this.username;
  *     }
@@ -37,7 +41,9 @@ import java.lang.annotation.Target;
  *         this.username = username;
  *     }
  *
- *     <b>&#64;GridColumn(caption = "Birthday", sortable = true)</b>
+ *     <b>&#64;FieldBuilder.AbstractComponent(caption = "Date Of Birth:")</b>
+ *     <b>&#64;FieldBuilder.DateField</b>
+ *     <b>&#64;GridColumn(caption = "DOB", sortable = true)</b>
  *     public LocalDate getDateOfBirth() {
  *         return this.dateOfBirth;
  *     }

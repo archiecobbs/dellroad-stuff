@@ -25,7 +25,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  *
  * <p>
  * This class will also introspect for {@link FieldBuilder} annotations and
- * {@linkplain Grid.Column#setEditorBinding(Binder.Binding) configure editor bindings accordingly via
+ * {@linkplain Grid.Column#setEditorBinding(Binder.Binding) configure editor bindings} accordingly via
  * {@link FieldBuilder#setEditorBindings}.
  *
  * <p>
