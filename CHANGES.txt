@@ -1,3 +1,7 @@
+Version 2.2.1
+
+    - Added @FieldBuilder.Binding.nullRepresentation()
+
 Version 2.2.0 Released July 9, 2017
 
     - Added new vaadin8 sub-module

@@ -141,6 +141,8 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  */
 public class FieldBuilder<T> {
 
+    private static final String STRING_DEFAULT = "<FieldBuilderStringDefault>";
+
     private final Class<T> type;
     private final HashSet<String> propertyNames = new HashSet<>();
 
@@ -264,8 +266,8 @@ public class FieldBuilder<T> {
         } catch (IntrospectionException e) {
             throw new RuntimeException("unexpected exception", e);
         }
-        final HashMap<String, Method> getterMap = new HashMap<>();              // contains all getter methods
-        final HashMap<String, String> inverseGetterMap = new HashMap<>();
+        final HashMap<String, Method> getterMap = new HashMap<>();              // mapping from property name -> method
+        final HashMap<String, String> inverseGetterMap = new HashMap<>();       // mapping from getter name -> property name
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
             Method method = propertyDescriptor.getReadMethod();
 
@@ -389,6 +391,14 @@ public class FieldBuilder<T> {
         }
         if (bindingAnnotation.validator() != Validator.class)
             bindingBuilder.withValidator(AnnotationUtil.instantiate(bindingAnnotation.validator()));
+        }
+        if (!bindingAnnotation.nullRepresentation().equals(STRING_DEFAULT)) {
+            try {
+                ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(bindingAnnotation.nullRepresentation());
+            } catch (ClassCastException e) {
+                // ignore
+            }
+        }
     }
 
     // Used by buildBeanPropertyFields() to validate @FieldBuilder.ProvidesField annotations
@@ -764,6 +774,17 @@ public class FieldBuilder<T> {
          * @see Binder.BindingBuilder#asRequired(String)
          */
         String required() default "";
+
+        /**
+         * Get the null representation.
+         *
+         * <p>
+         * This property only works for fields that present a {@link String} value, such as {@link com.vaadin.ui.TextField}.
+         *
+         * @return null representation
+         * @see Binder.BindingBuilder#withNullRepresentation
+         */
+        String nullRepresentation() default STRING_DEFAULT;
 
         /**
          * Get "as required" error message provider class.
