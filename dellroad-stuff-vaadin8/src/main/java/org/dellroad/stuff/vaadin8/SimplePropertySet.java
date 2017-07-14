@@ -9,8 +9,10 @@ import com.vaadin.data.PropertyDefinition;
 import com.vaadin.data.PropertySet;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
 
 /**
@@ -41,6 +43,13 @@ public class SimplePropertySet<T> implements PropertySet<T> {
             throw new IllegalArgumentException("property `" + name + "' already exists");
         this.defs.put(name, def);
         return def;
+    }
+
+    /**
+     * Get all property names.
+     */
+    public Set<String> getPropertyNames() {
+        return Collections.unmodifiableSet(this.defs.keySet());
     }
 
     @Override
