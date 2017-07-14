@@ -344,12 +344,14 @@ public class FieldBuilder<T> {
         // Apply @FieldBuilder.Binding annotations (if any) and bind fields
         for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : bindingBuilderMap.entrySet()) {
             final String propertyName = entry.getKey();
-            final Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
+            Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
 
             // Apply @FieldBuilder.Binding annotation, if any
             final Binding bindingAnnotation = bindingAnnotationMap.get(propertyName);
-            if (bindingAnnotation != null)
-                this.applyBindingAnnotation(bindingBuilder, bindingAnnotation);
+            if (bindingAnnotation != null) {
+                bindingBuilder = this.applyBindingAnnotation(bindingBuilder, bindingAnnotation);
+                entry.setValue(bindingBuilder);
+            }
 
             // Bind field
             this.propertyNames.add(propertyName);
@@ -380,27 +382,29 @@ public class FieldBuilder<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void applyBindingAnnotation(Binder.BindingBuilder<T, ?> bindingBuilder, Binding bindingAnnotation) {
+    private Binder.BindingBuilder<T, ?> applyBindingAnnotation(
+      Binder.BindingBuilder<T, ?> bindingBuilder, Binding bindingAnnotation) {
         if (bindingAnnotation.required().length() > 0)
-            bindingBuilder.asRequired(bindingAnnotation.required());
+            bindingBuilder = bindingBuilder.asRequired(bindingAnnotation.required());
         if (bindingAnnotation.requiredProvider() != ErrorMessageProvider.class)
-            bindingBuilder.asRequired(AnnotationUtil.instantiate(bindingAnnotation.requiredProvider()));
+            bindingBuilder = bindingBuilder.asRequired(AnnotationUtil.instantiate(bindingAnnotation.requiredProvider()));
         if (bindingAnnotation.converter() != Converter.class)
-            bindingBuilder.withConverter(AnnotationUtil.instantiate(bindingAnnotation.converter()));
+            bindingBuilder = bindingBuilder.withConverter(AnnotationUtil.instantiate(bindingAnnotation.converter()));
         if (bindingAnnotation.validationStatusHandler() != BindingValidationStatusHandler.class) {
-            bindingBuilder.withValidationStatusHandler(
+            bindingBuilder = bindingBuilder.withValidationStatusHandler(
               AnnotationUtil.instantiate(bindingAnnotation.validationStatusHandler()));
         }
         if (bindingAnnotation.validator() != Validator.class)
-            bindingBuilder.withValidator(AnnotationUtil.instantiate(bindingAnnotation.validator()));
-        }
+            bindingBuilder = bindingBuilder.withValidator(AnnotationUtil.instantiate(bindingAnnotation.validator()));
         if (!bindingAnnotation.nullRepresentation().equals(STRING_DEFAULT)) {
             try {
-                ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(bindingAnnotation.nullRepresentation());
+                bindingBuilder = ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(
+                  bindingAnnotation.nullRepresentation());
             } catch (ClassCastException e) {
                 // ignore
             }
         }
+        return bindingBuilder;
     }
 
     // Used by buildBeanPropertyFields() to validate @FieldBuilder.ProvidesField annotations
