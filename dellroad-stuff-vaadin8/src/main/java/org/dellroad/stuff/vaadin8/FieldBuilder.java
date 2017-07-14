@@ -43,7 +43,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -181,7 +180,11 @@ public class FieldBuilder<T> {
     }
 
     /**
-     * Get the names of all properties bound by the most recent invocation of {@link #buildAndBind buildAndBind()}.
+     * Get the names of all properties discovered and bound by the most recent invocation of {@link #buildAndBind buildAndBind()}.
+     *
+     * <p>
+     * This will be the subset of all of the {@link Binder}'s properties containing those for which the getter method
+     * had {@link &#64;FieldBuilder} annotations.
      *
      * @return field names
      * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
@@ -245,10 +248,7 @@ public class FieldBuilder<T> {
             final Grid.Column<T, ?> gridColumn = grid.getColumn(propertyName);
             if (gridColumn == null)
                 continue;
-            final Optional<Binder.Binding<T, ?>> optionalBinding = this.binder.getBinding(propertyName);
-            if (!optionalBinding.isPresent())
-                continue;
-            gridColumn.setEditorBinding(optionalBinding.get());
+            this.binder.getBinding(propertyName).ifPresent(b -> gridColumn.setEditorBinding(b));
         }
         return this;
     }
@@ -269,19 +269,7 @@ public class FieldBuilder<T> {
         final HashMap<String, Method> getterMap = new HashMap<>();              // mapping from property name -> method
         final HashMap<String, String> inverseGetterMap = new HashMap<>();       // mapping from getter name -> property name
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-            Method method = propertyDescriptor.getReadMethod();
-
-            // Work around Introspector stupidity where it returns overridden superclass' getter method
-            if (method != null && method.getClass() != this.type) {
-                for (Class<?> c = this.type; c != null && c != method.getClass(); c = c.getSuperclass()) {
-                    try {
-                        method = c.getDeclaredMethod(method.getName(), method.getParameterTypes());
-                    } catch (Exception e) {
-                        continue;
-                    }
-                    break;
-                }
-            }
+            final Method method = this.workAroundIntrospectorBug(propertyDescriptor.getReadMethod());
 
             // Add getter, if appropriate
             if (method != null && method.getReturnType() != void.class && method.getParameterTypes().length == 0) {
@@ -290,8 +278,8 @@ public class FieldBuilder<T> {
             }
         }
 
-        // Scan getters for FieldBuilder.* annotations other than FieldBuidler.ProvidesField and FieldBuilder.Binding
-        final HashMap<String, Binder.BindingBuilder<T, ?>> fieldBuilderMap = new HashMap<>();   // contains @FieldBuilder.* fields
+        // Scan getters for FieldBuilder.* annotations other than FieldBuilder.ProvidesField and FieldBuilder.Binding
+        final HashMap<String, Binder.BindingBuilder<T, ?>> bindingBuilderMap = new HashMap<>();   // contains @FieldBuilder.* fields
         for (Map.Entry<String, Method> entry : getterMap.entrySet()) {
             final String propertyName = entry.getKey();
             final Method method = entry.getValue();
@@ -305,20 +293,20 @@ public class FieldBuilder<T> {
             final HasValue<?> field = this.buildField(applierList, "method " + method);
 
             // Add binding builder
-            fieldBuilderMap.put(propertyName, this.binder.forField(field));
+            bindingBuilderMap.put(propertyName, this.binder.forField(field));
         }
 
         // Scan all methods for @FieldBuilder.ProvidesField annotations
         final HashMap<String, Method> providerMap = new HashMap<>();            // contains @FieldBuilder.ProvidesField methods
         this.buildProviderMap(providerMap);
 
-        // Check for conflicts between @FieldBuidler.ProvidesField and other annotations and add fields to map
+        // Check for conflicts between @FieldBuilder.ProvidesField and other annotations and add fields to map
         for (Map.Entry<String, Method> entry : providerMap.entrySet()) {
             final String propertyName = entry.getKey();
             final Method method = entry.getValue();
 
             // Verify field is not already defined
-            if (fieldBuilderMap.containsKey(propertyName)) {
+            if (bindingBuilderMap.containsKey(propertyName)) {
                 throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName + "': annotation @"
                   + ProvidesField.class.getName() + " on method " + method
                   + " cannot be combined with other @FieldBuilder.* annotation types");
@@ -341,7 +329,7 @@ public class FieldBuilder<T> {
             }
 
             // Save field
-            fieldBuilderMap.put(propertyName, this.binder.forField(field));
+            bindingBuilderMap.put(propertyName, this.binder.forField(field));
         }
 
         // Scan getters for FieldBuilder.Binding annotations
@@ -354,7 +342,7 @@ public class FieldBuilder<T> {
         }
 
         // Apply @FieldBuilder.Binding annotations (if any) and bind fields
-        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : fieldBuilderMap.entrySet()) {
+        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : bindingBuilderMap.entrySet()) {
             final String propertyName = entry.getKey();
             final Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
 
@@ -375,6 +363,20 @@ public class FieldBuilder<T> {
           = new MethodAnnotationScanner<T, ProvidesField>(this.type, ProvidesField.class);
         for (MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo : scanner.findAnnotatedMethods())
             this.buildProviderMap(providerMap, methodInfo.getMethod().getDeclaringClass(), methodInfo.getMethod().getName());
+    }
+
+    private Method workAroundIntrospectorBug(Method method) {
+        if (method == null)
+            return method;
+        for (Class<?> c = this.type; c != null && c != method.getClass(); c = c.getSuperclass()) {
+            try {
+                method = c.getDeclaredMethod(method.getName(), method.getParameterTypes());
+            } catch (Exception e) {
+                continue;
+            }
+            break;
+        }
+        return method;
     }
 
     @SuppressWarnings("unchecked")
