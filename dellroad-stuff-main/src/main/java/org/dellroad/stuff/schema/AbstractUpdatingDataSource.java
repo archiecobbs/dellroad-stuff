@@ -125,6 +125,11 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
     /**
      * Trigger the update of the underlying {@link DataSource} if it has not already been triggered.
      *
+     * <p>
+     * In synchronous mode, this will perform the update in the current thread if necesssary.
+     * In asynchronous mode, this will spawn a new anonymous thread to do the update; use {@link #triggerUpdate(Executor)}
+     * if more control is needed.
+     *
      * @return true if update was triggered by this invocation, false if update had already been triggered or is completed
      * @throws IllegalStateException if no {@link DataSource} has been configured
      * @throws SQLException if the update fails or has already failed
