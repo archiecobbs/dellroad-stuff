@@ -2,6 +2,7 @@ Version 2.2.1
 
     - Added @FieldBuilder.Binding.nullRepresentation()
     - Fixed bug in handling of @FieldBuilder.Binding properties
+    - Fixed bug in AbstractUpdatingDataSource in asynchronous mode
 
 Version 2.2.0 Released July 9, 2017
 

@@ -275,15 +275,8 @@ public abstract class AbstractUpdatingDataSource implements DataSource {
 
         // Throw exception in async mode if we would have to wait
         synchronized (this) {
-            if (this.asynchronous) {
-                switch (this.state) {
-                case UPDATING:
-                case UPDATED:
-                    throw new UpdateInProgressException("update still in progress");
-                default:
-                    break;
-                }
-            }
+            if (this.asynchronous && this.state == UPDATING)
+                throw new UpdateInProgressException("update still in progress");
         }
 
         // Wait for update to complete
