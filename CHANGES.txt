@@ -1,4 +1,4 @@
-Version 2.2.1
+Version 2.2.1 Released July 18, 2017
 
     - Added @FieldBuilder.Binding.nullRepresentation()
     - Fixed bug in handling of @FieldBuilder.Binding properties
