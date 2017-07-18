@@ -294,26 +294,30 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     }
 
     /*
-     * Matches the execution of any public method in a type with the @Transactional annotation, or any subtype of a type with the
-     * @Transactional annotation.
+     * Matches the execution of any public method in a type with the @Transactional (meta-)annotation,
+     * or any subtype of a type with the @Transactional annotation.
      */
-    private pointcut executionOfPublicMethodInTransactionalType() : execution(public * ((@Transactional *)+).*(..));
+    private pointcut executionOfPublicMethodInTransactionalType() :
+       execution(public * ((@Transactional *)+).*(..)) || execution(public * ((@(@Transactional *) *)+).*(..));
 
     /*
-     * Matches the execution of any public method in a type with the @RetryTransaction annotation, or any subtype of a type with the
-     * @RetryTransaction annotation.
+     * Matches the execution of any public method in a type with the @RetryTransaction (meta-)annotation,
+     * or any subtype of a type with the @RetryTransaction annotation.
      */
-    private pointcut executionOfPublicMethodInRetryTransactionType() : execution(public * ((@RetryTransaction *)+).*(..));
+    private pointcut executionOfPublicMethodInRetryTransactionType() :
+      execution(public * ((@RetryTransaction *)+).*(..)) || execution(public * ((@(@RetryTransaction *) *)+).*(..));
 
     /*
-     * Matches the execution of any method with the @Transactional annotation.
+     * Matches the execution of any method with the @Transactional (meta-)annotation.
      */
-    private pointcut executionOfTransactionalMethod() : execution(@Transactional * *(..));
+    private pointcut executionOfTransactionalMethod() :
+      execution(@Transactional * *(..)) || execution(@(@Transactional *) * *(..));
 
     /*
-     * Matches the execution of any method with the @RetryTransaction annotation.
+     * Matches the execution of any method with the @RetryTransaction (meta-)annotation.
      */
-    private pointcut executionOfRetryTransactionMethod() : execution(@RetryTransaction * *(..));
+    private pointcut executionOfRetryTransactionMethod() :
+      execution(@RetryTransaction * *(..)) || execution(@(@RetryTransaction *) * *(..));
 
     /*
      * Main pointcut - matched join points have both @Transactional and @RetryTransaction on method and/or type
