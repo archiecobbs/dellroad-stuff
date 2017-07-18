@@ -184,7 +184,7 @@ public class FieldBuilder<T> {
      *
      * <p>
      * This will be the subset of all of the {@link Binder}'s properties containing those for which the getter method
-     * had {@link &#64;FieldBuilder} annotations.
+     * had {@link FieldBuilder &#64;FieldBuilder} annotations.
      *
      * @return field names
      * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked

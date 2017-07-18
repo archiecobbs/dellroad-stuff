@@ -47,6 +47,8 @@ public class SimplePropertySet<T> implements PropertySet<T> {
 
     /**
      * Get all property names.
+     *
+     * @return all property names
      */
     public Set<String> getPropertyNames() {
         return Collections.unmodifiableSet(this.defs.keySet());
