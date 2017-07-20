@@ -51,7 +51,7 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      * @param allowEmpty true to allow an empty selection, false otherwise
      */
     public EnumComboBox(Class<T> enumClass, boolean allowEmpty) {
-        this.setTextInputAllowed(false);
+        this.setItemCaptionGenerator(T::toString);
         this.setEmptySelectionAllowed(allowEmpty);
         if (enumClass != null)
             this.setEnumClass(enumClass);
