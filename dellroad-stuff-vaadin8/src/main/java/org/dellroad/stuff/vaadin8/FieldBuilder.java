@@ -1185,15 +1185,6 @@ public class FieldBuilder<T> {
           default com.vaadin.ui.ComboBox.NewItemHandler.class;
 
         /**
-         * Get the {@link ListDataProvider} class used to populate the {@link ComboBox}.
-         *
-         * @return data provider
-         * @see com.vaadin.ui.ComboBox#setDataProvider(ListDataProvider)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends ListDataProvider> listDataProvider() default ListDataProvider.class;
-
-        /**
          * Get whether empty selection is allowed.
          *
          * @return true to allow empty selection
