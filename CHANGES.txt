@@ -1,3 +1,7 @@
+Version 2.2.2
+
+    - Fixed bug where @GridColumn.order() was not working
+
 Version 2.2.1 Released July 18, 2017
 
     - Added @FieldBuilder.Binding.nullRepresentation()

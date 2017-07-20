@@ -139,6 +139,9 @@ public class GridColumnScanner<T> {
             AnnotationUtil.apply(column, methodInfo.getAnnotation(), defaults, (method, name) -> true);
         }
 
+        // Order columns
+        grid.setColumns(this.columnMap.keySet().toArray(new String[this.columnMap.size()]));
+
         // Done
         return grid;
     }
