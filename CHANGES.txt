@@ -1,6 +1,7 @@
 Version 2.2.2
 
     - Fixed bug where @GridColumn.order() was not working
+    - Fixed bug where vaadin7 @FieldBuilder.TextArea rows() set max length instead
 
 Version 2.2.1 Released July 18, 2017
 

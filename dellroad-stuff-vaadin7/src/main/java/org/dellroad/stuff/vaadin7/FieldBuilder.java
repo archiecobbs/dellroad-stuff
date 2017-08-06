@@ -844,7 +844,7 @@ public class FieldBuilder {
         public void applyTo(com.vaadin.ui.TextArea field) {
             field.setWordwrap(this.annotation.wordwrap());
             if (this.annotation.rows() != -1)
-                field.setMaxLength(this.annotation.rows());
+                field.setRows(this.annotation.rows());
 
         }
     }
