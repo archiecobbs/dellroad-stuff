@@ -1346,6 +1346,15 @@ public class FieldBuilder<T> {
         Class<? extends com.vaadin.ui.ListSelect> type() default com.vaadin.ui.ListSelect.class;
 
         /**
+         * Get the {@link DataProvider} class.
+         *
+         * @return data provider class
+         * @see com.vaadin.ui.ListSelect#setDataProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends DataProvider> dataProvider() default DataProvider.class;
+
+        /**
          * Get the number of rows in the editor.
          *
          * @return number of rows, or -1 for none
