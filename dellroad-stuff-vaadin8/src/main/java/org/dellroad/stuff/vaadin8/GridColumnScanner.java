@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin8;
 
+import com.vaadin.data.PropertySet;
 import com.vaadin.ui.Grid;
 import com.vaadin.util.ReflectTools;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 
@@ -103,9 +105,28 @@ public class GridColumnScanner<T> {
     /**
      * Build a {@link Grid} with columns auto-generated from introspected {@link GridColumn &#64;GridColumn} annotations.
      *
+     * <p>
+     * The implementation in {@link GridColumnScanner} simply invokes {@link #buildGrid() this.buildGrid(Grid::withPropertySet)}.
+     *
      * @return new {@link Grid}
      */
     public Grid<T> buildGrid() {
+        return this.buildGrid(Grid::withPropertySet);
+    }
+
+    /**
+     * Build a {@link Grid} with columns auto-generated from introspected {@link GridColumn &#64;GridColumn} annotations,
+     * using the given function to instantiate the {@link Grid}.
+     *
+     * @param creator function that creates a new {@link Grid} instance given a {@link PropertySet}
+     * @return new {@link Grid}
+     * @throws IllegalArgumentException if {@code creator} is null
+     */
+    public Grid<T> buildGrid(Function<? super PropertySet<T>, ? extends Grid<T>> creator) {
+
+        // Sanity check
+        if (creator == null)
+            throw new IllegalArgumentException("null creator");
 
         // Build property set
         final SimplePropertySet<T> propertySet = new SimplePropertySet<>();
@@ -119,7 +140,7 @@ public class GridColumnScanner<T> {
         }
 
         // Create grid
-        final Grid<T> grid = Grid.withPropertySet(propertySet);
+        final Grid<T> grid = creator.apply(propertySet);
 
         // Set field editors
         new FieldBuilder<>(this.type).buildAndBind().setEditorBindings(grid);
