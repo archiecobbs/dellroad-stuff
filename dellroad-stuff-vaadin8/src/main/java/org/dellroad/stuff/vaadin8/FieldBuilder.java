@@ -40,7 +40,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -90,7 +90,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  *
  * // Use an enum combo box to edit the gender property
  * <b>&#64;FieldBuilder.EnumComboBox(caption = "Gender:")</b>
- * <b>&#64;FieldBuilder.Binding(required = "Description is mandatory")</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Description is mandatory", order = 3.0)</b>
  * public Gender getGender() {
  *     return this.gender;
  * }
@@ -143,7 +143,7 @@ public class FieldBuilder<T> {
     private static final String STRING_DEFAULT = "<FieldBuilderStringDefault>";
 
     private final Class<T> type;
-    private final HashSet<String> propertyNames = new HashSet<>();
+    private final LinkedHashSet<String> propertyNames = new LinkedHashSet<>();
 
     private Binder<T> binder;
 
@@ -185,6 +185,10 @@ public class FieldBuilder<T> {
      * <p>
      * This will be the subset of all of the {@link Binder}'s properties containing those for which the getter method
      * had {@link FieldBuilder &#64;FieldBuilder} annotations.
+     *
+     * <p>
+     * The returned {@link Set} will iterate fields in order by {@link Binding#order &#64;FieldBuilder.Binding.order()} values,
+     * then by name.
      *
      * @return field names
      * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
@@ -257,7 +261,6 @@ public class FieldBuilder<T> {
 
         // Reset
         this.binder = new Binder<>(this.type);
-        this.propertyNames.clear();
 
         // Look for all bean property getter methods
         BeanInfo beanInfo;
@@ -341,8 +344,15 @@ public class FieldBuilder<T> {
             bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
         }
 
+        // Get all binding builders
+        final List<Map.Entry<String, Binder.BindingBuilder<T, ?>>> builderList = new ArrayList<>(bindingBuilderMap.entrySet());
+
+        // Collect corresponding ordering values
+        final HashMap<String, Double> orderMap = new HashMap<>(builderList.size());
+
         // Apply @FieldBuilder.Binding annotations (if any) and bind fields
-        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : bindingBuilderMap.entrySet()) {
+        for (int i = 0; i < builderList.size(); i++) {
+            final Map.Entry<String, Binder.BindingBuilder<T, ?>> entry = builderList.get(i);
             final String propertyName = entry.getKey();
             Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
 
@@ -351,12 +361,22 @@ public class FieldBuilder<T> {
             if (bindingAnnotation != null) {
                 bindingBuilder = this.applyBindingAnnotation(bindingBuilder, bindingAnnotation);
                 entry.setValue(bindingBuilder);
+                orderMap.put(propertyName, bindingAnnotation.order());
             }
 
             // Bind field
-            this.propertyNames.add(propertyName);
             bindingBuilder.bind(propertyName);
         }
+
+        // Sort builders
+        Collections.sort(builderList, Comparator
+          .<Map.Entry<String, Binder.BindingBuilder<T, ?>>>comparingDouble(e -> orderMap.getOrDefault(e.getKey(), 0.0))
+          .thenComparing(Map.Entry::getKey));
+
+        // Rebuild property names set
+        this.propertyNames.clear();
+        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : builderList)
+            this.propertyNames.add(entry.getKey());
     }
 
     // This method exists solely to bind the generic type
@@ -769,6 +789,13 @@ public class FieldBuilder<T> {
     @Target(ElementType.METHOD)
     @Documented
     public @interface Binding {
+
+        /**
+         * Get the ordering value for this field.
+         *
+         * @return field order value
+         */
+        double order() default 0;
 
         /**
          * Get "as required" error message.

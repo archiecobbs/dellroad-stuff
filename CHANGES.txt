@@ -1,6 +1,7 @@
 Version 2.2.2
 
     - Fixed bug where @GridColumn.order() was not working
+    - Added FieldBuilder.Binding.order() to order bound fields
     - Added GridColumnScanner.buildGrid() variant allowing caller to construct the Grid
     - Fixed bug where vaadin7 @FieldBuilder.TextArea rows() set max length instead
     - Added missing annotation method @FieldBuilder.ListSelect.dataProvider()
