@@ -59,16 +59,28 @@ import java.lang.annotation.Target;
  *  <li>
  *      The {@code RetryTransactionAspect} aspect must be configured with a
  *      {@link org.springframework.dao.support.PersistenceExceptionTranslator PersistenceExceptionTranslator} appropriate for
- *      the ORM layer being used. The simplest way to do this is to include the aspect in your Spring application context,
- *      for example:
- *      <pre>
+ *      the ORM layer being used.
  *
+ *      <p>
+ *      This is required because the {@code RetryTransactionAspect} doesn't know <i>a priori</i> which exceptions are
+ *      "retryable" and which exceptions are hard errors. However, this is something that the
+ *      {@link org.springframework.dao.support.PersistenceExceptionTranslator PersistenceExceptionTranslator} knows,
+ *      because part of its job is wrapping lower-layer exceptions in {@link org.springframework.dao} exceptions,
+ *      in particular {@link org.springframework.dao.TransientDataAccessException TransientDataAccessException}.
+ *
+ *      <p>
+ *      The simplest way to do this is to include the aspect in your Spring application context, for example:
+ *
+ *      <pre>
  *      &lt;bean class="org.dellroad.stuff.spring.RetryTransactionAspect" factory-method="aspectOf"
  *        p:persistenceExceptionTranslator-ref="myJpaDialect"/&gt;
- *      </pre>This also gives you the opportunity to change the default values for {@link #maxRetries}, {@link #initialDelay},
- *      and {@link #maximumDelay}, which are applied when not explicitly overridden in the annotation, for example:
- *      <pre>
+ *      </pre>
  *
+ *      <p>
+ *      This also gives you the opportunity to change the default values for {@link #maxRetries}, {@link #initialDelay},
+ *      and {@link #maximumDelay}, which are applied when not explicitly overridden in the annotation, for example:
+ *
+ *      <pre>
  *      &lt;bean class="org.dellroad.stuff.spring.RetryTransactionAspect" factory-method="aspectOf"
  *        p:persistenceExceptionTranslator-ref="myJpaDialect" p:maxRetriesDefault="2"
  *        p:initialDelayDefault="25" p:maximumDelayDefault="5000"/&gt;
