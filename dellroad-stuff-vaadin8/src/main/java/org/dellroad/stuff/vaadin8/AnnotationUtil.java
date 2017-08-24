@@ -10,7 +10,11 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -63,7 +67,14 @@ final class AnnotationUtil {
      * @param filter filter taking method and property name that returns true to proceed, false to skip
      */
     static <A extends Annotation> void apply(Object bean, A annotation, A defaults, BiPredicate<Method, String> filter) {
-        for (Method beanSetter : bean.getClass().getMethods()) {
+        final List<Method> methods = Arrays.asList(bean.getClass().getMethods());
+        Collections.sort(methods, Comparator.comparing(Method::getDeclaringClass, (c1, c2) -> {
+            final boolean higher = c1.isAssignableFrom(c2);
+            final boolean lower = c2.isAssignableFrom(c1);
+            return lower == higher ? 0 : lower ? -1 : 1;
+        }));
+        final HashSet<String> propertiesSet = new HashSet<>();
+        for (Method beanSetter : methods) {
 
             // Set if method is a setter method
             if (!beanSetter.getName().startsWith("set") || beanSetter.getName().length() < 4)
@@ -72,6 +83,8 @@ final class AnnotationUtil {
             if (parameterTypes.length != 1)
                 continue;
             final String propertyName = Introspector.decapitalize(beanSetter.getName().substring(3));
+            if (propertiesSet.contains(propertyName))
+                continue;
 
             // Check filter
             if (!filter.test(beanSetter, propertyName))
@@ -100,6 +113,9 @@ final class AnnotationUtil {
 
                 // Copy over the value
                 beanSetter.invoke(bean, value);
+
+                // Mark property set
+                propertiesSet.add(propertyName);
             } catch (Exception e) {
                 throw new RuntimeException("unexpected exception", e);
             }
