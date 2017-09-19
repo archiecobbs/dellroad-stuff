@@ -122,7 +122,7 @@ public class GridColumnScanner<T> {
      * @return new {@link Grid}
      * @throws IllegalArgumentException if {@code creator} is null
      */
-    public Grid<T> buildGrid(Function<? super PropertySet<T>, ? extends Grid<T>> creator) {
+    public <G extends Grid<T>> G buildGrid(Function<? super PropertySet<T>, G> creator) {
 
         // Sanity check
         if (creator == null)
@@ -140,7 +140,7 @@ public class GridColumnScanner<T> {
         }
 
         // Create grid
-        final Grid<T> grid = creator.apply(propertySet);
+        final G grid = creator.apply(propertySet);
 
         // Set field editors
         new FieldBuilder<>(this.type).buildAndBind().setEditorBindings(grid);
