@@ -72,13 +72,7 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         for (MethodInfo methodInfo : set) {
             final String name = methodInfo.getMethod().getName();
             final Method method = methodInfo.getMethod();
-            HashSet<MethodInfo> nameSet = nameSetMap.get(name);
-            if (nameSet == null) {
-                nameSet = new HashSet<MethodInfo>();
-                nameSetMap.put(name, nameSet);
-                nameSet.add(methodInfo);
-                continue;
-            }
+            final HashSet<MethodInfo> nameSet = nameSetMap.computeIfAbsent(name, s -> new HashSet<>());
             for (Iterator<MethodInfo> i = nameSet.iterator(); i.hasNext(); ) {
                 final Method otherMethod = i.next().getMethod();
                 if (MethodAnnotationScanner.overrides(method, otherMethod)) {
