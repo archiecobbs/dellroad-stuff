@@ -6,7 +6,9 @@
 package org.dellroad.stuff.vaadin8;
 
 import com.vaadin.data.PropertySet;
+import com.vaadin.data.ValueProvider;
 import com.vaadin.ui.Grid;
+import com.vaadin.ui.renderers.Renderer;
 import com.vaadin.util.ReflectTools;
 
 import java.lang.reflect.Method;
@@ -152,12 +154,17 @@ public class GridColumnScanner<T> {
         for (Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> e : this.columnMap.entrySet()) {
             final String propertyName = e.getKey();
             final MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo = e.getValue();
+            final GridColumn annotation = methodInfo.getAnnotation();
 
             // Get column
             final Grid.Column<T, ?> column = grid.getColumn(propertyName);
 
             // Apply annotation values
-            AnnotationUtil.apply(column, methodInfo.getAnnotation(), defaults, (method, name) -> true);
+            AnnotationUtil.apply(column, annotation, defaults, (method, name) -> true);
+
+            // Special handling for setRenderer() method with two parameters
+            if (annotation.renderer() != defaults.renderer() && annotation.valueProvider() != defaults.valueProvider())
+                this.setRenderer(column, annotation.renderer(), annotation.valueProvider());
         }
 
         // Order columns
@@ -165,6 +172,14 @@ public class GridColumnScanner<T> {
 
         // Done
         return grid;
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private <V, P, R extends Renderer, VP extends ValueProvider> void setRenderer(
+      Grid.Column<T, V> column, Class<R> rendererType, Class<VP> valueProviderType) {
+        final Renderer<P> renderer = (Renderer<P>)AnnotationUtil.instantiate(rendererType);
+        final ValueProvider<V, P> valueProvider = (ValueProvider<V, P>)AnnotationUtil.instantiate(valueProviderType);
+        column.setRenderer(valueProvider, renderer);
     }
 
     @GridColumn

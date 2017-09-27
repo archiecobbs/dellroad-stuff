@@ -1,5 +1,6 @@
 Version 2.2.2
 
+    - Added @GridColumn.valueProvider()
     - Fixed bug where @GridColumn.order() was not working
     - Added FieldBuilder.Binding.order() to order bound fields
     - Added GridColumnScanner.buildGrid() variant allowing caller to construct the Grid

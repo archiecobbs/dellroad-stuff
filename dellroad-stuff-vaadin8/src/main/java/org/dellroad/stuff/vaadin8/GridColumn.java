@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin8;
 
+import com.vaadin.data.ValueProvider;
 import com.vaadin.server.SerializableComparator;
 import com.vaadin.ui.StyleGenerator;
 import com.vaadin.ui.components.grid.DescriptionGenerator;
@@ -184,10 +185,24 @@ public @interface GridColumn {
      * Get the renderer for the Grid column.
      *
      * @return column renderer
-     * @see com.vaadin.ui.Grid.Column#setRenderer
+     * @see com.vaadin.ui.Grid.Column#setRenderer(Renderer)
      */
     @SuppressWarnings("rawtypes")
     Class<? extends Renderer> renderer() default Renderer.class;
+
+    /**
+     * Get the presentation value provider for the Grid column.
+     *
+     * <p>
+     * This property is ignored unless {@link #renderer} is also set. Otherwise, if this property is set then
+     * {@link Grid.Column#setRenderer(ValueProvider, Renderer)} is used instead of {@link Grid.Column#setRenderer(Renderer)}
+     * to configure custom cell rendering.
+     *
+     * @return column renderer value provider
+     * @see com.vaadin.ui.Grid.Column#setRenderer(ValueProvider, Renderer)
+     */
+    @SuppressWarnings("rawtypes")
+    Class<? extends ValueProvider> valueProvider() default ValueProvider.class;
 
     /**
      * Get whether the Grid column is resizable.
