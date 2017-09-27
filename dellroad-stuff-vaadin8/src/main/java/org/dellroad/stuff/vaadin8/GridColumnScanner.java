@@ -129,7 +129,7 @@ public class GridColumnScanner<T> {
             throw new IllegalArgumentException("null creator");
 
         // Build property set
-        final SimplePropertySet<T> propertySet = new SimplePropertySet<>();
+        final SimplePropertySet<T> propertySet = new SimplePropertySet<>(this.type);
         for (Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> e : this.columnMap.entrySet()) {
             final String propertyName = e.getKey();
             final MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo = e.getValue();

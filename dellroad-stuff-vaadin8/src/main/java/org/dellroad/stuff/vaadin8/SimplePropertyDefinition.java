@@ -65,6 +65,11 @@ public class SimplePropertyDefinition<T, V> implements PropertyDefinition<T, V> 
     }
 
     @Override
+    public Class<T> getPropertyHolderType() {
+        return this.propertySet.getType();
+    }
+
+    @Override
     public PropertySet<T> getPropertySet() {
         return this.propertySet;
     }

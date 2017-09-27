@@ -5,6 +5,7 @@ Version 2.2.2
     - Added GridColumnScanner.buildGrid() variant allowing caller to construct the Grid
     - Fixed bug where vaadin7 @FieldBuilder.TextArea rows() set max length instead
     - Added missing annotation method @FieldBuilder.ListSelect.dataProvider()
+    - Updated to Vaadin 8.1.4
 
 Version 2.2.1 Released July 18, 2017
 

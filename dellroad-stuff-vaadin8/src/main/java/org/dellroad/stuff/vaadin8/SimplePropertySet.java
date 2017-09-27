@@ -22,7 +22,28 @@ public class SimplePropertySet<T> implements PropertySet<T> {
 
     private static final long serialVersionUID = 4983663265225248973L;
 
+    private final Class<T> type;
     private final HashMap<String, PropertyDefinition<T, ?>> defs = new HashMap<>();
+
+    /**
+     * Constructor.
+     *
+     * @param type type containing the properties
+     */
+    public SimplePropertySet(Class<T> type) {
+        if (type == null)
+            throw new IllegalArgumentException("null type");
+        this.type = type;
+    }
+
+    /**
+     * Get the associated type.
+     *
+     * @return type containing the properties
+     */
+    public Class<T> getType() {
+        return this.type;
+    }
 
     /**
      * Add a new property.

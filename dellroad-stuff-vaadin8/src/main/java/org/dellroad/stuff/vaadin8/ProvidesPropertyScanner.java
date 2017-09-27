@@ -26,7 +26,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  */
 public class ProvidesPropertyScanner<T> {
 
-    private final SimplePropertySet<T> propertySet = new SimplePropertySet<T>();
+    private final SimplePropertySet<T> propertySet;
 
     /**
      * Constructor.
@@ -43,6 +43,7 @@ public class ProvidesPropertyScanner<T> {
         // Sanity check
         if (type == null)
             throw new IllegalArgumentException("null type");
+        this.propertySet = new SimplePropertySet<>(type);
 
         // Scan for @ProvidesProperty annotations
         final Set<MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyMethods

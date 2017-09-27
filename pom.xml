@@ -72,7 +72,7 @@
         <spring.version>4.3.7.RELEASE</spring.version>
         <testng.version>6.9.10</testng.version>
         <vaadin7.version>7.7.10</vaadin7.version>
-        <vaadin8.version>8.0.6</vaadin8.version>
+        <vaadin8.version>8.1.4</vaadin8.version>
         <validation-api.version>1.1.0.Final</validation-api.version>
 
     </properties>
