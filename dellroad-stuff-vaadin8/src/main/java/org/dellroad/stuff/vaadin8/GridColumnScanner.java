@@ -121,6 +121,7 @@ public class GridColumnScanner<T> {
      * using the given function to instantiate the {@link Grid}.
      *
      * @param creator function that creates a new {@link Grid} instance given a {@link PropertySet}
+     * @param <G> {@link Grid} type
      * @return new {@link Grid}
      * @throws IllegalArgumentException if {@code creator} is null
      */

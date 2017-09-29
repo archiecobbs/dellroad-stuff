@@ -195,7 +195,8 @@ public @interface GridColumn {
      *
      * <p>
      * This property is ignored unless {@link #renderer} is also set. Otherwise, if this property is set then
-     * {@link Grid.Column#setRenderer(ValueProvider, Renderer)} is used instead of {@link Grid.Column#setRenderer(Renderer)}
+     * {@link com.vaadin.ui.Grid.Column#setRenderer(ValueProvider, Renderer)} is used instead of
+     * {@link com.vaadin.ui.Grid.Column#setRenderer(Renderer)}
      * to configure custom cell rendering.
      *
      * @return column renderer value provider
