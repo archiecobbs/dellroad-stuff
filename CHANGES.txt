@@ -1,4 +1,4 @@
-Version 2.2.2
+Version 2.2.2 Released Friday September 29, 2017
 
     - Added @GridColumn.valueProvider()
     - Fixed bug where @GridColumn.order() was not working
