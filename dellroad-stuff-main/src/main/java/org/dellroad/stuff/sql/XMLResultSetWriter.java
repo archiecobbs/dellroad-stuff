@@ -79,6 +79,9 @@ import javax.xml.stream.XMLStreamWriter;
  *      &lt;/data&gt;
  *  &lt;/result-set&gt;
  * </pre>
+ *
+ * <p>
+ * When a row contains a null value in a column, that column is omitted entirely.
  */
 public class XMLResultSetWriter {
 
