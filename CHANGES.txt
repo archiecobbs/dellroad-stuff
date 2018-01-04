@@ -1,3 +1,7 @@
+Version Next
+
+    - Added PipedStreams
+
 Version 2.2.2 Released Friday September 29, 2017
 
     - Added @GridColumn.valueProvider()
