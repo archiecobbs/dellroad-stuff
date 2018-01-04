@@ -14,6 +14,11 @@ import java.io.PipedOutputStream;
  * Presents an {@link java.io.InputStream} interface given a {@link WriteCallback} that can write to an
  * {@link java.io.OutputStream}. A separate thread is created to perform the actual writing.
  *
+ * <p>
+ * At construction time, a background thread is created and invokes {@link WriteCallback#writeTo WriteCallback.writeTo()}
+ * on the configured {@link WriteCallback}. The data written by that method to the provided {@link OutputStream} is then
+ * made available for reading on this instance.
+ *
  * @since 1.0.74
  */
 public class NullModemInputStream extends FilterInputStream {
