@@ -146,7 +146,7 @@ public class PipedStreams {
 
     private synchronized void closeInput() throws IOException {
         assert this.check();
-        if (this.inputClosed) {
+        if (!this.inputClosed) {
             this.inputClosed = true;
             this.notifyAll();
         }
