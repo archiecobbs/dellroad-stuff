@@ -22,6 +22,11 @@ import java.io.OutputStream;
  */
 public class PipedStreams {
 
+    /**
+     * Default internal buffer size ({@value #DEFAULT_BUFFER_SIZE}).
+     */
+    public static final int DEFAULT_BUFFER_SIZE = 1000;
+
     private final Input input = this.new Input();
     private final Output output = this.new Output();
     private final byte[] buf;
@@ -35,7 +40,7 @@ public class PipedStreams {
      * Constructor.
      */
     public PipedStreams() {
-        this(1000);
+        this(DEFAULT_BUFFER_SIZE);
     }
 
     /**
@@ -50,10 +55,16 @@ public class PipedStreams {
         this.buf = new byte[bufsiz];
     }
 
+    /**
+     * Get the input side of the pipe.
+     */
     public InputStream getInputStream() {
         return this.input;
     }
 
+    /**
+     * Get the output side of the pipe.
+     */
     public OutputStream getOutputStream() {
         return this.output;
     }
@@ -74,7 +85,7 @@ public class PipedStreams {
         this.len--;
 
         // Wakeup waiting writers if we were previously full
-        if (this.len == this.buf.length - 1)
+        if (this.len + 1 == this.buf.length)
             this.notifyAll();
 
         // Done
@@ -82,11 +93,13 @@ public class PipedStreams {
     }
 
     private synchronized int read(byte[] b, int off, int len) throws IOException {
-        assert this.check();
 
-        // Check params
+        // Check stuff
+        assert this.check();
         if (off < 0 || len < 0 || off + len < 0 || off + len > b.length)
             throw new IndexOutOfBoundsException();
+        if (this.inputClosed)
+            throw new IOException("input closed");
         if (len == 0)
             return 0;
 
@@ -120,9 +133,11 @@ public class PipedStreams {
     }
 
     private synchronized long skip(long n) throws IOException {
-        assert this.check();
 
-        // Check param
+        // Check stuff
+        assert this.check();
+        if (this.inputClosed)
+            throw new IOException("input closed");
         if (n <= 0)
             return 0;
 
@@ -141,10 +156,12 @@ public class PipedStreams {
 
     private synchronized int available() throws IOException {
         assert this.check();
+        if (this.inputClosed)
+            throw new IOException("input closed");
         return this.len;
     }
 
-    private synchronized void closeInput() throws IOException {
+    private synchronized void closeInput() {
         assert this.check();
         if (!this.inputClosed) {
             this.inputClosed = true;
@@ -171,11 +188,13 @@ public class PipedStreams {
     }
 
     private synchronized void write(byte[] b, int off, int len) throws IOException {
-        assert this.check();
 
-        // Check params
+        // Check stuff
+        assert this.check();
         if (off < 0 || len < 0 || off + len < 0 || off + len > b.length)
             throw new IndexOutOfBoundsException();
+        if (this.outputClosed)
+            throw new IOException("output closed");
 
         // Possibly copy two chunks: from buf[off + len] to end of buf, then from buf[0] to buf[off]
         while (len > 0) {
@@ -198,7 +217,7 @@ public class PipedStreams {
         }
     }
 
-    private synchronized void closeOutput() throws IOException {
+    private synchronized void closeOutput() {
         assert this.check();
         if (!this.outputClosed) {
             this.outputClosed = true;
@@ -282,7 +301,7 @@ public class PipedStreams {
         }
 
         @Override
-        public void close() throws IOException {
+        public void close() {
             PipedStreams.this.closeInput();
         }
     }
@@ -306,7 +325,7 @@ public class PipedStreams {
         }
 
         @Override
-        public void close() throws IOException {
+        public void close() {
             PipedStreams.this.closeOutput();
         }
     }
