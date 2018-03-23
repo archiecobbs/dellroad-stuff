@@ -33,14 +33,14 @@ public class EnumComboBox extends ComboBox {
      * <p>
      * Equivalent to:
      *  <blockquote><code>
-     *  EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY.getName(), false);
+     *  EnumComboBox(enumClass, EnumContainer.TO_STRING_PROPERTY.getName(), true);
      *  </code></blockquote>
      *
      * @param enumClass enum type, or null to leave data source unset
      * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass) {
-        this(enumClass, false);
+        this(enumClass, true);
     }
 
     /**
@@ -134,4 +134,3 @@ public class EnumComboBox extends ComboBox {
             this.setValue(this.getContainerDataSource().getItemIds().iterator().next());
     }
 }
-

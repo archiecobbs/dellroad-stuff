@@ -35,13 +35,13 @@ public class EnumComboBox<T extends Enum<T>> extends ComboBox<T> {
      * <p>
      * Equivalent to:
      *  <blockquote><code>
-     *  EnumComboBox(enumClass, false);
+     *  EnumComboBox(enumClass, true);
      *  </code></blockquote>
      *
      * @param enumClass enum type, or null to leave unset
      */
     public EnumComboBox(Class<T> enumClass) {
-        this(enumClass, false);
+        this(enumClass, true);
     }
 
     /**
