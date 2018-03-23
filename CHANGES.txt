@@ -1,4 +1,4 @@
-Version Next
+Version 2.2.3 Released Friday March 23, 2018
 
     - Changed EnumComboBox constructor default to allow empty selection
     - Added missing @FieldBuilder.AbstractTextField.inputPrompt() (vaadin7)
