@@ -57,6 +57,8 @@ public class PipedStreams {
 
     /**
      * Get the input side of the pipe.
+     *
+     * @return input side
      */
     public InputStream getInputStream() {
         return this.input;
@@ -64,6 +66,8 @@ public class PipedStreams {
 
     /**
      * Get the output side of the pipe.
+     *
+     * @return output side
      */
     public OutputStream getOutputStream() {
         return this.output;

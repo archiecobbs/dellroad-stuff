@@ -16,8 +16,8 @@ import java.io.PipedOutputStream;
  *
  * <p>
  * At construction time, a background thread is created and invokes {@link ReadCallback#readFrom ReadCallback.readFrom()}
- * on the configured {@link ReadCallback}. The data read by that method from the provided {@link OutputStream} will be
- * whatever is written to this instance.
+ * on the configured {@link ReadCallback}. The data read by that method from the provided {@link java.io.InputStream}
+ * will be whatever is written to this instance.
  *
  * <p>
  * If data is written beyond what the reader is willing to consume, an {@link IOException} is thrown.

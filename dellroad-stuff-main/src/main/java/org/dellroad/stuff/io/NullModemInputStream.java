@@ -16,8 +16,8 @@ import java.io.PipedOutputStream;
  *
  * <p>
  * At construction time, a background thread is created and invokes {@link WriteCallback#writeTo WriteCallback.writeTo()}
- * on the configured {@link WriteCallback}. The data written by that method to the provided {@link OutputStream} is then
- * made available for reading on this instance.
+ * on the configured {@link WriteCallback}. The data written by that method to the provided {@link java.io.OutputStream}
+ * is then made available for reading on this instance.
  *
  * @since 1.0.74
  */
