@@ -1,6 +1,7 @@
 Version Next
 
     - Changed EnumComboBox constructor default to allow empty selection
+    - Added missing @FieldBuilder.AbstractTextField.inputPrompt() (vaadin7)
     - Added PipedStreams
 
 Version 2.2.2 Released Friday September 29, 2017

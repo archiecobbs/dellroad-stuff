@@ -801,6 +801,8 @@ public class FieldBuilder {
             field.setNullSettingAllowed(this.annotation.nullSettingAllowed());
             field.setTextChangeEventMode(this.annotation.textChangeEventMode());
             field.setTextChangeTimeout(this.annotation.textChangeTimeout());
+            if (this.annotation.inputPrompt().length() > 0)
+                field.setInputPrompt(this.annotation.inputPrompt());
             field.setColumns(this.annotation.columns());
             if (this.annotation.maxLength() != -1)
                 field.setMaxLength(this.annotation.maxLength());
@@ -1409,6 +1411,14 @@ public class FieldBuilder {
          * @see com.vaadin.ui.AbstractTextField#setTextChangeTimeout
          */
         int textChangeTimeout() default -1;
+
+        /**
+         * Get the input prompt.
+         *
+         * @return input prompt
+         * @see com.vaadin.ui.AbstractTextField#setInputPrompt
+         */
+        String inputPrompt() default "";
 
         /**
          * Get the number of columns.
