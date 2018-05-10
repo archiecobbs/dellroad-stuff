@@ -1,3 +1,7 @@
+Version 2.3.0
+
+    - Updated a bunch of dependencies
+
 Version 2.2.3 Released Friday March 23, 2018
 
     - Changed EnumComboBox constructor default to allow empty selection

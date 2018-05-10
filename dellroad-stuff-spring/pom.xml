@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>dellroad-stuff</artifactId>
-        <version>2.2.3</version>
+        <version>2.3.0-SNAPSHOT</version>
     </parent>
     <artifactId>dellroad-stuff-spring</artifactId>
     <name>DellRoad Stuff Spring Classes</name>
@@ -97,9 +97,9 @@
 
         <!-- For AbstractDAO and HibernateIsolationJpaDialect -->
         <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
+            <groupId>javax.persistence</groupId>
+            <artifactId>javax.persistence-api</artifactId>
+            <version>${persistence.api.version}</version>
             <optional>true</optional>
         </dependency>
     </dependencies>
@@ -109,7 +109,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>aspectj-maven-plugin</artifactId>
-                <version>1.8</version>
+                <version>${aspectj.maven-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.aspectj</groupId>
