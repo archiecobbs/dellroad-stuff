@@ -6,40 +6,23 @@
 package org.dellroad.stuff.maven;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
-import org.dellroad.stuff.java.ProcessRunner;
 
 /**
  * Sets a Maven project property based on the output of {@code git describe}.
  */
 @Mojo(name = "git-describe", threadSafe = true)
-public class GitDescribeMojo extends AbstractMojo {
-
-    /**
-     * Maven project.
-     */
-    @Parameter(defaultValue = "${project}", readonly = true)
-    private MavenProject project;
+public class GitDescribeMojo extends AbstractExecSetPropertyMojo {
 
     /**
      * The {@code git(1)} working directory where the code is checked out.
      */
     @Parameter(defaultValue = "${project.basedir}", property = "workingDirectory")
     private File workingDirectory;
-
-    /**
-     * The name of the Maven property to set.
-     */
-    @Parameter(defaultValue = "git.describe", property = "propertyName")
-    private String propertyName;
 
     /**
      * Commit-ish object name to describe. Defaults to {@code HEAD} if not set.
@@ -130,74 +113,47 @@ public class GitDescribeMojo extends AbstractMojo {
     private boolean firstParent;
 
     @Override
-    public void execute() throws MojoExecutionException, MojoFailureException {
+    public void execute() throws MojoExecutionException {
 
         // Validate
-        if (this.isSet(this.committish) && this.isSet(this.dirty))
+        if (this.isNonEmpty(this.committish) && this.isNonEmpty(this.dirty))
             throw new MojoExecutionException("only one of <committish> or <dirty> can be set");
 
         // Setup command
-        final ArrayList<String> params = new ArrayList<>(20);
-        params.add("git");
-        params.add("-C");
-        params.add(this.workingDirectory.toString());
-        params.add("describe");
-        if (this.isSet(this.dirty))
-            params.add("--dirty=" + this.dirty);
+        final ArrayList<String> command = new ArrayList<>(20);
+        command.add("git");
+        command.add("-C");
+        command.add(this.workingDirectory.toString());
+        command.add("describe");
+        if (this.isNonEmpty(this.dirty))
+            command.add("--dirty=" + this.dirty);
         if (this.all)
-            params.add("--all");
+            command.add("--all");
         if (this.tags)
-            params.add("--tags");
+            command.add("--tags");
         if (this.abbrev >= 0)
-            params.add("--abbrev=" + this.abbrev);
+            command.add("--abbrev=" + this.abbrev);
         if (this.candidates >= 0)
-            params.add("--candidates=" + this.candidates);
+            command.add("--candidates=" + this.candidates);
         if (this.exactMatch)
-            params.add("--exact-match");
+            command.add("--exact-match");
         if (this.longFormat)
-            params.add("--long");
-        if (this.isSet(this.match)) {
-            params.add("--match");
-            params.add(this.match);
+            command.add("--long");
+        if (this.isNonEmpty(this.match)) {
+            command.add("--match");
+            command.add(this.match);
         }
         if (this.always)
-            params.add("--always");
+            command.add("--always");
         if (this.firstParent)
-            params.add("--first-parent");
-        if (this.isSet(this.committish)) {
+            command.add("--first-parent");
+        if (this.isNonEmpty(this.committish)) {
             if (this.committish.charAt(0) == '-')
-                params.add("--");
-            params.add(this.committish);
+                command.add("--");
+            command.add(this.committish);
         }
 
-        // Start process
-        this.getLog().debug("invoking `git describe' command using these parameters: " + params);
-        final ProcessRunner runner;
-        try {
-            runner = new ProcessRunner(Runtime.getRuntime().exec(params.toArray(new String[params.size()])));
-        } catch (IOException e) {
-            throw new MojoExecutionException("execution of `git describe' failed", e);
-        }
-
-        // Wait for process to finish
-        final int result;
-        try {
-            result = runner.run();
-        } catch (InterruptedException e) {
-            throw new MojoExecutionException("invocation of `git describe' interrupted", e);
-        }
-        this.getLog().debug("`git describe' returned " + result);
-        if (result != 0)
-            throw new MojoExecutionException("`git describe' failed: " + new String(runner.getStandardError()));
-
-        // Get output text
-        final String text = new String(runner.getStandardOutput()).trim();
-
-        // Set maven property
-        this.project.getProperties().setProperty(this.propertyName, text);
-    }
-
-    private boolean isSet(String value) {
-        return value != null && value.length() > 0;
+        // Exec process and set property
+        this.executeAndSetProperty(this.workingDirectory, command);
     }
 }
