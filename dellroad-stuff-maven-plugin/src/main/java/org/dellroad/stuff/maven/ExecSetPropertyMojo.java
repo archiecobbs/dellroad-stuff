@@ -21,6 +21,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class ExecSetPropertyMojo extends AbstractExecSetPropertyMojo {
 
     /**
+     * The name of the Maven property to set.
+     */
+    @Parameter(property = "propertyName")
+    private String propertyName;
+
+    /**
      * The command to execute.
      */
     @Parameter(required = true)
@@ -37,6 +43,11 @@ public class ExecSetPropertyMojo extends AbstractExecSetPropertyMojo {
      */
     @Parameter(defaultValue = "${project.basedir}", property = "directory")
     private File directory;
+
+    @Override
+    protected String getPropertyName() {
+        return this.propertyName;
+    }
 
     @Override
     public void execute() throws MojoExecutionException {

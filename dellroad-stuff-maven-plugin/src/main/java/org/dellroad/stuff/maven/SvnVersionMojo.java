@@ -20,6 +20,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class SvnVersionMojo extends AbstractExecSetPropertyMojo {
 
     /**
+     * The name of the Maven property to set.
+     */
+    @Parameter(defaultValue = "svn.version", property = "propertyName")
+    private String propertyName;
+
+    /**
      * The {@code svn(1)} working directory where the code is checked out.
      */
     @Parameter(defaultValue = "${project.basedir}", property = "workingDirectory")
@@ -36,6 +42,11 @@ public class SvnVersionMojo extends AbstractExecSetPropertyMojo {
      */
     @Parameter(defaultValue = "", property = "trailingUrl")
     private String trailingUrl;
+
+    @Override
+    protected String getPropertyName() {
+        return this.propertyName;
+    }
 
     @Override
     public void execute() throws MojoExecutionException {

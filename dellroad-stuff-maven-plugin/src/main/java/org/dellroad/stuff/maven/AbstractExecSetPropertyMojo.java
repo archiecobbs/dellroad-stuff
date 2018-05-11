@@ -28,12 +28,6 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
     private MavenProject project;
 
     /**
-     * The name of the Maven property to set.
-     */
-    @Parameter(defaultValue = "git.describe", property = "propertyName")
-    private String propertyName;
-
-    /**
      * Whether to trim whitespace before setting the property value.
      */
     @Parameter(defaultValue = "true", property = "trim")
@@ -44,6 +38,11 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "UTF-8", property = "encoding")
     private String encoding;
+
+    /**
+     * Get the name of the property to set.
+     */
+    protected abstract String getPropertyName();
 
     /**
      * Execute command and set the property from standard output.
@@ -89,8 +88,11 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
             text = text.trim();
 
         // Set maven property
-        this.project.getProperties().setProperty(this.propertyName, text);
-        this.getLog().info("Set system property \"" + this.propertyName + "\"");
+        final String propertyName = this.getPropertyName();
+        if (propertyName == null)
+            throw new MojoExecutionException("internal error: no property name set");
+        this.project.getProperties().setProperty(propertyName, text);
+        this.getLog().info("Set system property \"" + propertyName + "\"");
     }
 
     protected boolean isNonEmpty(String value) {
