@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Sets a Maven project property based on the output of an arbitrary command.
  */
-@Mojo(name = "exec-set-property", threadSafe = true)
+@Mojo(name = "exec-set-property", threadSafe = true, defaultPhase = LifecyclePhase.INITIALIZE)
 public class ExecSetPropertyMojo extends AbstractExecSetPropertyMojo {
 
     /**

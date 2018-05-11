@@ -9,13 +9,14 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Sets a Maven project property based on the output of {@code svnversion}.
  */
-@Mojo(name = "svn-version", threadSafe = true)
+@Mojo(name = "svn-version", threadSafe = true, defaultPhase = LifecyclePhase.INITIALIZE)
 public class SvnVersionMojo extends AbstractExecSetPropertyMojo {
 
     /**
