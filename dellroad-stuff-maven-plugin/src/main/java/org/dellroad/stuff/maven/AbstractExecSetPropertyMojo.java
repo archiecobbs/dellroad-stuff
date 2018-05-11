@@ -62,7 +62,7 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
         }
 
         // Start process
-        this.getLog().debug("invoking command: " + command);
+        this.getLog().debug("Invoking command: " + command);
         final ProcessRunner runner;
         try {
             runner = new ProcessRunner(Runtime.getRuntime().exec(command.toArray(new String[command.size()]), null, directory));
@@ -78,21 +78,24 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
         } catch (InterruptedException e) {
             throw new MojoExecutionException("invocation of command interrupted", e);
         }
-        this.getLog().debug("command returned " + result);
+        this.getLog().debug("Command returned " + result);
+        final String stderr = new String(runner.getStandardError(), charset);
+        this.getLog().debug("Command standard error: \"" + stderr + "\"");
+        final String stdout = new String(runner.getStandardOutput(), charset);
+        this.getLog().debug("Command standard output: \"" + stdout + "\"");
         if (result != 0)
             throw new MojoExecutionException("command failed: " + new String(runner.getStandardError(), charset));
 
         // Get output text and optionally trim whitespace
-        String text = new String(runner.getStandardOutput(), charset).trim();
-        if (this.trim)
-            text = text.trim();
+        final String text = this.trim ? stdout.trim() : stdout;
 
         // Set maven property
         final String propertyName = this.getPropertyName();
         if (propertyName == null)
             throw new MojoExecutionException("internal error: no property name set");
+        this.getLog().debug("Seting property \"" + propertyName + "\" to \"" + text + "\"");
         this.project.getProperties().setProperty(propertyName, text);
-        this.getLog().info("Set system property \"" + propertyName + "\"");
+        this.getLog().info("Set property \"" + propertyName + "\"");
     }
 
     protected boolean isNonEmpty(String value) {
