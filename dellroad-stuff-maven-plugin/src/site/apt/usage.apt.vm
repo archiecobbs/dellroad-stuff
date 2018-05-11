@@ -1,0 +1,112 @@
+ ------
+ Usage
+ ------
+ Archie Cobbs
+ ------
+ 2018-05-11
+ ------
+
+Usage
+
+  The DellRoad Stuff plugin sets properties from the output of executed commands.
+
+  To set a property corresponding to <<<git describe>>>:
+
++-----+
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      <plugin>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>git-describe</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
++-----+
+
+  To set a property corresponding to <<<svnversion>>>:
+
++-----+
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      <plugin>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>svn-version</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
++-----+
+
+  To set properties from the output of arbitrary command(s):
+
++-----+
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      <plugin>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <id>exec1</id>
+            <configuration>
+              <propertyName>date.output</propertyName>
+              <command>date</command>
+              <parameters>
+                <parameter>-u</parameter>
+              </parameters>
+            </configuration>
+            <goals>
+              <goal>exec-set-property</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>exec2</id>
+            <configuration>
+              <propertyName>build.uptime</propertyName>
+              <command>/usr/bin/uptime</command>
+            </configuration>
+            <goals>
+              <goal>exec-set-property</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
++-----+
+
+  []

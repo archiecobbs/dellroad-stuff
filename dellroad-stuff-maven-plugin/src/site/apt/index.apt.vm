@@ -1,0 +1,52 @@
+ ------
+ Introduction
+ ------
+ Archie Cobbs
+ ------
+ 2018-05-11
+ ------
+
+${project.name}
+
+ The DellRoad Stuff plugin provides some miscellaneous goals that are useful for Maven projects.
+
+* Goals Overview
+
+  The DellRoad Stuff plugin has these goals:
+
+  * {{{./git-describe-mojo.html}dellroad:git-describe}} invokes <<<git describe>>> to set a project property.
+    This allows you to automatically incorporate git versioning information into your project.
+
+  * {{{./svn-version-mojo.html}dellroad:svn-version}} invokes <<<svnversion>>> to set a project property.
+    This allows you to automatically incorporate Subversion versioning information into your project.
+
+  * {{{./exec-set-property-mojo.html}dellroad:exec-set-property}} is a generalization of the above two goals
+    that executes an arbitrary command and sets a project property from the resulting output.
+
+  []
+
+* Usage
+
+  General instructions on how to use the Javadoc Plugin can be found on the {{{./usage.html}usage page}}. Some more
+  specific use cases are described in the examples given below.
+
+  In case you still have questions regarding the plugin's usage, please have a look at the {{{./faq.html}FAQ}} and feel
+  free to contact the {{{./mail-lists.html}user mailing list}}. The posts to the mailing list are archived and could
+  already contain the answer to your question as part of an older thread. Hence, it is also worth browsing/searching
+  the {{{./mail-lists.html}mail archive}}.
+
+  If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our
+  {{{./issue-tracking.html}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason,
+  entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated.
+  Of course, patches are welcome, too. Contributors can check out the project from our
+  {{{./source-repository.html}source repository}} and will find supplementary information in the
+  {{{http://maven.apache.org/guides/development/guide-helping.html}guide to helping with Maven}}.
+
+* Examples
+
+  The following examples show how to use the DellRoad Stuff Plugin:
+
+  * {{{./examples/git-version.html}Interpolating <<<git>>> version into a properties file}}
+
+  []

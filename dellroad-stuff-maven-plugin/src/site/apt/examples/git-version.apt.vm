@@ -1,0 +1,55 @@
+ ------
+ Interpolating git version into a properties file
+ ------
+ Archie Cobbs
+ ------
+ 2018-05-11
+ ------
+
+Examples
+
+  A common need is to substitute the current <<<git>>> version into a properties file that can be read
+  by the application at runtime.
+
+  To do this, first create your properties file in <<<src/main/resources/version.properties>>>:
+
++-----+
+# My properties file
+
+application.version=${git.describe}
++-----+
+
+  Then configure the <<<git-describe>>> goal and enable filtering:
+
++-----+
+<project>
+  ...
+  <build>
+    ...
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    ...
+    <plugins>
+      <plugin>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-maven-plugin</artifactId>
+        <version>${project.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>git-describe</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      ...
+    </plugins>
+  </build>
+  ...
+</project>
++-----+
+

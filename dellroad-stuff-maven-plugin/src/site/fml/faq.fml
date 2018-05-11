@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+  id="FAQ" title="Frequently Asked Questions" toplink="false">
+    <part id="General">
+
+        <faq id="what-phase">
+            <question>What is the default execution phase for <code>git-describe</code>, <code>svn-version</code>,
+                and <code>exec-set-property</code>?</question>
+            <answer>
+                <p>
+                    These goals run in the <code>initialize</code> phase by default.
+                </p>
+            </answer>
+        </faq>
+
+        <faq id="multiple-executions">
+            <question>How do I set more than one property using <code>exec-set-property</code>?</question>
+            <answer>
+                <p>
+                    The standard way to invoke a Maven plugin multiple times is to define multiple executions
+                    with different execution ID's.
+                </p>
+                <p>
+                    See <a href="http://maven.apache.org/guides/mini/guide-configuring-plugins.html#Using_the_executions_Tag">this page</a> for more info.
+                </p>
+            </answer>
+        </faq>
+
+    </part>
+</faqs>

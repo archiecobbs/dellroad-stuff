@@ -1,7 +1,8 @@
 Version 2.3.0
 
     - Fixed NPE in "git-describe" mojo if <workingDirectory> left as default
-    - Added new Maven plugin mojo's "exec-set-property" and "svn-version"
+    - Added new Maven plugin goals "exec-set-property" and "svn-version"
+    - Added some basic documentation for the Maven plugin
     - Updated a bunch of dependencies
 
 Version 2.2.3 Released Friday March 23, 2018
