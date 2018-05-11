@@ -90,6 +90,7 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
 
         // Set maven property
         this.project.getProperties().setProperty(this.propertyName, text);
+        this.getLog().info("Set system property \"" + this.propertyName + "\"");
     }
 
     protected boolean isNonEmpty(String value) {
