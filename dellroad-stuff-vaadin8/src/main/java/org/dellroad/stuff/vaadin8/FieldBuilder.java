@@ -1482,7 +1482,7 @@ public class FieldBuilder<T> {
          * @return true for text field enabled
          * @see com.vaadin.ui.DateField#setTextFieldEnabled
          */
-        boolean textFieldEnabled() default false;
+        boolean textFieldEnabled() default true;
 
         /**
          * Get the placeholder.
@@ -1533,7 +1533,7 @@ public class FieldBuilder<T> {
          * @return true for text field enabled
          * @see com.vaadin.ui.DateField#setTextFieldEnabled
          */
-        boolean textFieldEnabled() default false;
+        boolean textFieldEnabled() default true;
 
         /**
          * Get the placeholder.
