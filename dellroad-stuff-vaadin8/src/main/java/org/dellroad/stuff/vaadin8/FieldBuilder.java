@@ -1019,7 +1019,7 @@ public class FieldBuilder<T> {
     /**
      * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractListing}.
      *
-     * @see FieldBuilder.AbstractField
+     * @see FieldBuilder.AbstractComponent
      * @see FieldBuilder
      */
     @Retention(RetentionPolicy.RUNTIME)
