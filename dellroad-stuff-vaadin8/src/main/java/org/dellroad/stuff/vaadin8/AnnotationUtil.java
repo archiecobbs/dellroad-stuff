@@ -59,7 +59,7 @@ final class AnnotationUtil {
      * Read annotation values and apply non-default values to the corresponding properties of the given bean.
      *
      * <p>
-     * Properties that are {@link Class} instances result in instatiating the given class.
+     * Properties that are {@link Class} instances result in instantiating the given class.
      *
      * @param bean target bean
      * @param annotation annotation with properties
@@ -132,15 +132,23 @@ final class AnnotationUtil {
         } catch (Exception e) {
             throw new RuntimeException("cannot instantiate " + type + " because no zero-arg constructor could be found", e);
         }
+        return AnnotationUtil.instantiate(constructor);
+    }
+
+    /**
+     * Instantiate the given class using the given constructor.
+     */
+    static <T> T instantiate(Constructor<T> constructor, Object... args) {
         try {
             constructor.setAccessible(true);
         } catch (Exception e) {
             // ignore
         }
         try {
-            return constructor.newInstance();
+            return constructor.newInstance(args);
         } catch (Exception e) {
-            throw new RuntimeException("cannot instantiate " + type + " using its zero-arg constructor", e);
+            throw new RuntimeException("cannot instantiate "
+              + constructor.getDeclaringClass() + " using constructor " +  constructor, e);
         }
     }
 
