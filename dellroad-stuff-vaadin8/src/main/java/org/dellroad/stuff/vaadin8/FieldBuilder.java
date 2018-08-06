@@ -58,7 +58,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * <p>
  * This class supports two types of annotations: first, the {@link ProvidesField &#64;ProvidesField} annotation annotates
  * a method that knows how to build an {@link HasValue} suitable for editing the bean property specified by
- * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analgous to
+ * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analagous to
  * {@link ProvidesProperty &#64;ProvidesProperty}, except that it defines an editing field rather than a readable property.
  *
  * <p>
@@ -124,10 +124,10 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * See also {@link GridColumn &#64;GridColumn} for how to use these annotations when building a {@link com.vaadin.ui.Grid}.
  *
  * @param <T> backing object type
+ * @see AbstractDateField
  * @see AbstractTextField
  * @see CheckBox
  * @see ComboBox
- * @see AbstractDateField
  * @see DateField
  * @see DateTimeField
  * @see EnumComboBox
@@ -794,6 +794,7 @@ public class FieldBuilder<T> {
          * Get the ordering value for this field.
          *
          * @return field order value
+         * @see FieldBuilder#getPropertyNames
          */
         double order() default 0;
 
@@ -1336,7 +1337,7 @@ public class FieldBuilder<T> {
         Class<? extends SerializablePredicate> itemEnabledProvider() default SerializablePredicate.class;
 
         /**
-         * Get the {@link DataProvider} data provider class.
+         * Get the {@link DataProvider} class.
          *
          * @return data provider class
          * @see com.vaadin.ui.RadioButtonGroup#setDataProvider
