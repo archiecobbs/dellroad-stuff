@@ -36,6 +36,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -639,14 +640,16 @@ public class FieldBuilder<T> {
     /**
      * Class that knows how to apply annotation properties to a corresponding component.
      */
-    private static class AnnotationApplier<A extends Annotation> {
+    static class AnnotationApplier<A extends Annotation> {
 
         protected final Method method;
         protected final A annotation;
 
+        AnnotationApplier(A annotation) {
+            this(null, annotation);
+        }
+
         AnnotationApplier(Method method, A annotation) {
-            if (method == null)
-                throw new IllegalArgumentException("null method");
             if (annotation == null)
                 throw new IllegalArgumentException("null annotation");
             this.method = method;
@@ -677,6 +680,7 @@ public class FieldBuilder<T> {
 
             // Special case EnumComboBox takes a Class parameter
             if (org.dellroad.stuff.vaadin8.EnumComboBox.class.isAssignableFrom(fieldType)
+               && this.method != null
                && Enum.class.isAssignableFrom(this.method.getReturnType())) {
                 try {
                     return AnnotationUtil.instantiate(fieldType.getDeclaredConstructor(Class.class), this.method.getReturnType());
@@ -697,13 +701,18 @@ public class FieldBuilder<T> {
 
             // Apply non-default annotation values
             AnnotationUtil.apply(field, this.annotation, defaults, (fieldSetter, propertyName) -> {
-                if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox                 // special handling for EnumComboBox
+
+                // Special handling for EnumComboBox
+                if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox
+                  && this.method != null
                   && propertyName.equals("enumClass")
                   && Enum.class.isAssignableFrom(this.method.getReturnType())) {
                     ((org.dellroad.stuff.vaadin8.EnumComboBox)field).setEnumClass(
                       this.method.getReturnType().asSubclass(Enum.class));
                     return false;
                 }
+
+                // Proceed
                 return true;
             });
 
