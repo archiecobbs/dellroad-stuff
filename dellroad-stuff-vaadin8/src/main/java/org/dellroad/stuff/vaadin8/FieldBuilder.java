@@ -724,6 +724,10 @@ public class FieldBuilder<T> {
         }
     }
 
+    static <A extends Annotation> A getDefaults(A annotation) {
+        return FieldBuilder.getDefaults(FieldBuilder.getFieldBuilderAnnotationType(annotation));
+    }
+
     @AbstractComponent
     @AbstractDateField
     @AbstractField
@@ -743,9 +747,8 @@ public class FieldBuilder<T> {
     @Slider
     @TextArea
     @TextField
-    private static <A extends Annotation> A getDefaults(A annotation) {
-        return AnnotationUtil.getAnnotation(FieldBuilder.getFieldBuilderAnnotationType(annotation),
-          FieldBuilder.class, "getDefaults", Annotation.class);
+    static <A extends Annotation> A getDefaults(Class<A> annotationType) {
+        return AnnotationUtil.getAnnotation(annotationType, FieldBuilder.class, "getDefaults", Annotation.class);
     }
 
     private static <A extends Annotation> Class<? extends com.vaadin.ui.Component> getVaadinComponentType(A annotation) {
