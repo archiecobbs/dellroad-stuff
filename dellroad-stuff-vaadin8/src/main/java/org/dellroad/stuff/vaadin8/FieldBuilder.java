@@ -540,7 +540,7 @@ public class FieldBuilder<T> {
             throw new IllegalArgumentException("cannot determine field type; no type() specified for " + description);
 
         // Instantiate field
-        final HasValue<?> field = AnnotationUtil.instantiate(fieldType);
+        final HasValue<?> field = typeApplier.instantiate(fieldType);
 
         // Configure the field
         for (AnnotationApplier<?> applier : applierList)
@@ -671,6 +671,22 @@ public class FieldBuilder<T> {
             } catch (Exception e) {
                 throw new RuntimeException("unexpected exception", e);
             }
+        }
+
+        public HasValue<?> instantiate(Class<? extends HasValue<?>> fieldType) {
+
+            // Special case EnumComboBox takes a Class parameter
+            if (org.dellroad.stuff.vaadin8.EnumComboBox.class.isAssignableFrom(fieldType)
+               && Enum.class.isAssignableFrom(this.method.getReturnType())) {
+                try {
+                    return AnnotationUtil.instantiate(fieldType.getDeclaredConstructor(Class.class), this.method.getReturnType());
+                } catch (Exception e) {
+                    // ignore
+                }
+            }
+
+            // Instantiate using zero-arg constructor
+            return AnnotationUtil.instantiate(fieldType);
         }
 
         @SuppressWarnings("unchecked")
@@ -1282,7 +1298,9 @@ public class FieldBuilder<T> {
 
         /**
          * Get the {@link org.dellroad.stuff.vaadin8.EnumComboBox} type that will edit the property.
-         * Type must have a no-arg constructor.
+         *
+         * <p>
+         * The type may have either a no-arg constructor or a single-arg constructor taking the {@link Enum} type.
          *
          * @return field type
          */
