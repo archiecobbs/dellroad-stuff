@@ -370,7 +370,7 @@ public class FieldBuilder<T> {
         }
 
         // Sort builders
-        Collections.sort(builderList, Comparator
+        builderList.sort(Comparator
           .<Map.Entry<String, Binder.BindingBuilder<T, ?>>>comparingDouble(e -> orderMap.getOrDefault(e.getKey(), 0.0))
           .thenComparing(Map.Entry::getKey));
 
@@ -488,14 +488,14 @@ public class FieldBuilder<T> {
      */
     protected HasValue<?> buildField(Collection<AnnotationApplier<?>> appliers, String description) {
 
-        // Get comparator that sorts by class hierarchy, narrower types first; note Collections.sort() is stable,
+        // Get comparator that sorts by class hierarchy, narrower types first; note List.sort() is stable,
         // so for any specific annotation type, that annotation on subtype appears before that annotation on supertype.
         final Comparator<AnnotationApplier<?>> comparator = Comparator.comparing(
           a -> FieldBuilder.getVaadinComponentType(a.getAnnotation()), AnnotationUtil.getClassComparator(true));
 
         // Sanity check for duplicates and conflicts
         final ArrayList<AnnotationApplier<?>> applierList = new ArrayList<>(appliers);
-        Collections.sort(applierList, comparator);
+        applierList.sort(comparator);
         for (int i = 0; i < applierList.size() - 1; ) {
             final AnnotationApplier<?> a1 = applierList.get(i);
             final AnnotationApplier<?> a2 = applierList.get(i + 1);
