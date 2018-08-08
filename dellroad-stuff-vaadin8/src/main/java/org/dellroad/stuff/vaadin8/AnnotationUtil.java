@@ -61,6 +61,9 @@ final class AnnotationUtil {
      * <p>
      * Properties that are {@link Class} instances result in instantiating the given class.
      *
+     * <p>
+     * Non-primitive array properties are converted into {@link List}s if necessary.
+     *
      * @param bean target bean
      * @param annotation annotation with properties
      * @param defaults annotation with defaults
@@ -82,6 +85,7 @@ final class AnnotationUtil {
             final Class<?>[] parameterTypes = beanSetter.getParameterTypes();
             if (parameterTypes.length != 1)
                 continue;
+            final Class<?> parameterType = parameterTypes[0];
             final String propertyName = Introspector.decapitalize(beanSetter.getName().substring(3));
             if (propertiesSet.contains(propertyName))
                 continue;
@@ -110,6 +114,10 @@ final class AnnotationUtil {
                 // Special case for Class<?> values: instantiate the class
                 if (value instanceof Class)
                     value = AnnotationUtil.instantiate((Class<?>)value);
+
+                // Special case for converting array values into lists (if needed)
+                if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))
+                    value = Arrays.asList((Object[])value);
 
                 // Copy over the value
                 beanSetter.invoke(bean, value);
