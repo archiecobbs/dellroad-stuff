@@ -49,35 +49,41 @@ import java.util.Set;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 
 /**
- * Builds a {@link Binder} and binds auto-generated fields based on {@link FieldBuilder} annotations on property getter methods.
+ * Automatically builds a {@link Binder} and configures and binds fields based on method annotations.
  *
  * <p>
- * The various nested {@link FieldBuilder} annotation types annotate Java bean property "getter" methods and specify
- * how the the bean properties of that class should be edited. This allows all information about how to edit a Java model
- * class to stay contained within that class.
+ * {@link FieldBuilder} annotations allow for the automatic construction of forms for editing the annotated bean type.
+ * Annotations specify how bean properties should be edited in a form. As a result, all information about how to edit a Java
+ * type, including field customization such as captions, widths, etc., can be specified declaratively.
+ *
+ * <p><b>{@code @ProvidesField} vs. {@code @FieldBuilder.Foo}</b>
+ * <p>
+ * {@link FieldBuilder} supports two types of annotations that can tell it how to construct fields:
+ * the {@link ProvidesField &#64;ProvidesField} annotates a method that knows how to build a {@link HasValue}
+ * widget suitable for editing the named bean property. This is the most general approach, but it requires adding code.
  *
  * <p>
- * This class supports two types of annotations: first, the {@link ProvidesField &#64;ProvidesField} annotation annotates
- * a method that knows how to build an {@link HasValue} suitable for editing the bean property specified by
- * its {@link ProvidesField#value value()}. So {@link ProvidesField &#64;ProvidesField} is analagous to
- * {@link ProvidesProperty &#64;ProvidesProperty}, except that it defines an editing field rather than a readable property.
- *
- * <p>
- * The {@link FieldBuilder.AbstractComponent &#64;FieldBuilder.AbstractComponent} hierarchy annotations are the other type
- * of annotation.
- * These annotations annotate a Java bean property getter method and specify how to configure a {@link HasValue}
- * instance to edit the bean property corresponding to the getter method. The
+ * The {@code @FieldBuilder.Foo} annotations are the purely declarative way to specify how to construct a field.
+ * These annotations annotate Java bean property getter methods, and specify how to configure a
+ * {@link HasValue} widget that will edit the annotated property. The annotations
  * {@link FieldBuilder.AbstractComponent &#64;FieldBuilder.AbstractComponent},
- * {@link FieldBuilder.AbstractField &#64;FieldBuilder.AbstractField}, etc.
- * correspond to the Vaadin widget class hierarchy.
- * More specific annotations correspond to the various widget subclasses,
- * for example {@link ComboBox &#64;FieldBuilder.ComboBox} corresponds to {@link ComboBox}.
- * When using more specific annotations, the "superclass" annotations configure the corresponding superclass' properties.
+ * {@link FieldBuilder.AbstractField &#64;FieldBuilder.AbstractField}, {@link ComboBox &#64;FieldBuilder.ComboBox}, etc.
+ * mirror to the Vaadin widget class hierarchy and configure the corresponding widget properties (separate annotations were
+ * used for each class in the hierarchy because Java doesn't allow annotation inheritance).
+ *
+ *
+ * <p><b>Configuring the Binding</b>
+ * <p>
+ * In addition to configuring the fields associated with each bean property in the {@link Binder}, you may also
+ * want to configure the bindings themselves, for example, to specify a {@link Converter} or {@link Validator}.
+ * The {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} annotation allows you to configure the
+ * binding, using properties relevant to {@link Binder.BindingBuilder}.
  *
  * <p>
- * Finally, the {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} annotation provides for configuration of the field
- * binding itself.
+ * {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} also allows you to specify the order in which
+ * the fields should appear in the form.
  *
+ * <p><b>Example</b>
  * <p>
  * A simple example shows how these annotations are used:
  * <blockquote><pre>
@@ -97,32 +103,38 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * }
  *
  * // Use my own custom field to edit the "foobar" property
+ * public Foobar getFoobar() { ... }
+ * public void setFoobar(Foobar foobar) { ... }
+ *
  * <b>&#64;FieldBuilder.ProvidesField("foobar")</b>
  * private static MyCustomField createFoobarField() {
  *     ...
  * }
  * </pre></blockquote>
  *
+ * <p><b>Building the Form</b>
  * <p>
- * A {@link FieldBuilder} instance will read these annotations and build the fields automatically. For example:
+ * Use {@link #buildAndBind FieldBuilder.buildAndBind()} to setup the {@link Binder}, and then add the bound
+ * fields to your form:
  * <blockquote><pre>
  * // Create fields based on FieldBuilder.* annotations
- * Person person = new Person("Joe Smith", 100);
- * Binder&lt;Person&gt; binder = <b>FieldBuilder.buildAndBind(person).getBinder()</b>;
+ * Binder&lt;Person&gt; binder = <b>new FieldBuilder(Person.class).buildAndBind().getBinder()</b>;
  *
  * // Layout the fields in a form
  * FormLayout layout = new FormLayout();
  * layout.add((Component)binder.getBinding("description").get().getField());
  * layout.add((Component)binder.getBinding("gender").get().getField());
  * layout.add((Component)binder.getBinding("foobar").get().getField());
+ *
+ * // Bind a value
+ * Person person = new Person("Joe Smith", 100);
+ * binder.setBean(person);
  * </pre></blockquote>
  *
- * <p>
- * For all annotations in the {@link FieldBuilder.AbstractComponent &#64;FieldBuilder.AbstractComponent} hierarchy,
- * leaving properties set to their default values results in the default behavior.
  *
  * <p>
- * See also {@link GridColumn &#64;GridColumn} for how to use these annotations when building a {@link com.vaadin.ui.Grid}.
+ * To use the generated fields as editor bindings for a {@link Grid}, see {@link #setEditorBindings}.
+ * For declarative configuration of {@link Grid} columns, see {@link GridColumn &#64;GridColumn}.
  *
  * @param <T> backing object type
  * @see AbstractDateField
@@ -843,6 +855,9 @@ public class FieldBuilder<T> {
          * <p>
          * This property only works for fields that present a {@link String} value, such as {@link com.vaadin.ui.TextField}.
          *
+         * <p>
+         * Note: the default value is just a placeholder, indicating that no null representation should be configured.
+         *
          * @return null representation
          * @see Binder.BindingBuilder#withNullRepresentation
          */
@@ -1482,7 +1497,7 @@ public class FieldBuilder<T> {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.DateField}.
+     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.DateField}.
      *
      * @see FieldBuilder.AbstractDateField
      * @see FieldBuilder
@@ -1562,7 +1577,7 @@ public class FieldBuilder<T> {
          * Get whether text field is enabled.
          *
          * @return true for text field enabled
-         * @see com.vaadin.ui.DateField#setTextFieldEnabled
+         * @see com.vaadin.ui.DateTimeField#setTextFieldEnabled
          */
         boolean textFieldEnabled() default true;
 
@@ -1570,7 +1585,7 @@ public class FieldBuilder<T> {
          * Get the placeholder.
          *
          * @return placeholder
-         * @see com.vaadin.ui.DateField#setPlaceholder
+         * @see com.vaadin.ui.DateTimeField#setPlaceholder
          */
         String placeholder() default "";
 
