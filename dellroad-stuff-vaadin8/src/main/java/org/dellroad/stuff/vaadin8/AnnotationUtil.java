@@ -104,7 +104,7 @@ final class AnnotationUtil {
                 final Object defaultValue = annotationGetter.invoke(defaults);
 
                 // If annotation value is same as default, don't do anything
-                if (Objects.equals(value, defaultValue))
+                if (Objects.deepEquals(value, defaultValue))
                     continue;
 
                 // Special case for Class<?> values: instantiate the class
