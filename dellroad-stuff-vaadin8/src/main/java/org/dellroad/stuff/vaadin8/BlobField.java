@@ -36,7 +36,7 @@ public class BlobField extends CustomField<byte[]> implements Serializable, Uplo
 
     private static final long serialVersionUID = 7566102164730793008L;
 
-    protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected transient Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final Label descriptionLabel = new Label();
     private final HorizontalLayout layout = new HorizontalLayout();
@@ -206,8 +206,8 @@ public class BlobField extends CustomField<byte[]> implements Serializable, Uplo
 
     private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
         input.defaultReadObject();
+        this.log = LoggerFactory.getLogger(this.getClass());
         this.buffer = new ByteArrayOutputStream();
         buffer.write((byte[])input.readObject());
     }
 }
-
