@@ -26,6 +26,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -153,9 +154,11 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see TextArea
  * @see TextField
  */
-public class FieldBuilder<T> {
+public class FieldBuilder<T> implements Serializable {
 
     private static final String STRING_DEFAULT = "<FieldBuilderStringDefault>";
+
+    private static final long serialVersionUID = -4876472481099484174L;
 
     private final Class<T> type;
     private final LinkedHashSet<String> propertyNames = new LinkedHashSet<>();
