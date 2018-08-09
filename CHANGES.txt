@@ -1,3 +1,7 @@
+Version 2.3.1
+
+    - Minor bug fixes to @FieldBuilder
+
 Version 2.3.0 Released Friday May 11, 2018
 
     - Fixed NPE in "git-describe" mojo if <workingDirectory> left as default
