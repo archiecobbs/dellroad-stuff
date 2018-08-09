@@ -153,6 +153,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see Slider
  * @see TextArea
  * @see TextField
+ * @see GridColumn
  */
 public class FieldBuilder<T> implements Serializable {
 
@@ -397,7 +398,6 @@ public class FieldBuilder<T> implements Serializable {
             this.propertyNames.add(entry.getKey());
     }
 
-    // This method exists solely to bind the generic type
     private void buildProviderMap(Map<String, Method> providerMap) {
         final MethodAnnotationScanner<T, ProvidesField> scanner
           = new MethodAnnotationScanner<T, ProvidesField>(this.type, ProvidesField.class);
@@ -503,12 +503,12 @@ public class FieldBuilder<T> implements Serializable {
      * @param description description of the field (used for exception messages)
      * @return new field
      */
-    protected HasValue<?> buildField(Collection<AnnotationApplier<?>> appliers, String description) {
+    protected HasValue<?> buildField(Collection<? extends AnnotationApplier<?>> appliers, String description) {
 
         // Get comparator that sorts by class hierarchy, narrower types first; note List.sort() is stable,
         // so for any specific annotation type, that annotation on subtype appears before that annotation on supertype.
         final Comparator<AnnotationApplier<?>> comparator = Comparator.comparing(
-          a -> FieldBuilder.getVaadinComponentType(a.getAnnotation()), AnnotationUtil.getClassComparator(true));
+          a -> FieldBuilder.getVaadinWidgetType(a.getAnnotation()), AnnotationUtil.getClassComparator(true));
 
         // Sanity check for duplicates and conflicts
         final ArrayList<AnnotationApplier<?>> applierList = new ArrayList<>(appliers);
@@ -684,10 +684,11 @@ public class FieldBuilder<T> implements Serializable {
         @SuppressWarnings("unchecked")
         public Class<? extends HasValue<?>> getActualFieldType() {
             try {
-                final Class<?> defaultType = FieldBuilder.getVaadinComponentType(this.annotation);
+                final Class<?> defaultType = FieldBuilder.getVaadinWidgetType(this.annotation);
                 final Class<?> actualType = (Class<?>)this.annotation.getClass().getMethod("type").invoke(this.annotation);
-                return (actualType.getModifiers() & Modifier.ABSTRACT) != 0 && actualType == defaultType ?
-                  null : (Class<? extends HasValue<?>>)actualType.asSubclass(HasValue.class);
+                if ((actualType.getModifiers() & Modifier.ABSTRACT) != 0 && actualType == defaultType)
+                    return null;
+                return (Class<? extends HasValue<?>>)actualType.asSubclass(HasValue.class);
             } catch (Exception e) {
                 throw new RuntimeException("unexpected exception", e);
             }
@@ -701,7 +702,7 @@ public class FieldBuilder<T> implements Serializable {
                && Enum.class.isAssignableFrom(this.method.getReturnType())) {
                 try {
                     return AnnotationUtil.instantiate(fieldType.getDeclaredConstructor(Class.class), this.method.getReturnType());
-                } catch (Exception e) {
+                } catch (NoSuchMethodException | RuntimeException e) {
                     // ignore
                 }
             }
@@ -775,10 +776,13 @@ public class FieldBuilder<T> implements Serializable {
     @TextArea
     @TextField
     static <A extends Annotation> A getDefaults(Class<A> annotationType) {
-        return AnnotationUtil.getAnnotation(annotationType, FieldBuilder.class, "getDefaults", Annotation.class);
+        return AnnotationUtil.getAnnotation(annotationType, FieldBuilder.class, "getDefaults", Class.class);
     }
 
-    private static <A extends Annotation> Class<? extends com.vaadin.ui.Component> getVaadinComponentType(A annotation) {
+    /**
+     * Get the Vaadin {@link Component} widget type {@code Foo} that corresponds to the given {@code FieldBuilder.Foo} annotation.
+     */
+    private static <A extends Annotation> Class<? extends com.vaadin.ui.Component> getVaadinWidgetType(A annotation) {
         try {
             final Method typeMethod = FieldBuilder.getFieldBuilderAnnotationType(annotation).getMethod("type");
             final Class<?> defaultFieldType = (Class<?>)typeMethod.invoke(FieldBuilder.getDefaults(annotation));
@@ -788,10 +792,16 @@ public class FieldBuilder<T> implements Serializable {
         }
     }
 
+    /**
+     * Is the given annotation an instance of {@code FieldBuilder.Foo} for some Vaadin {@link Component} widget type {@code Foo}?
+     */
     private boolean isFieldBuilderFieldAnnotation(Annotation annotation) {
         return FieldBuilder.getFieldBuilderAnnotationType(annotation) != null;
     }
 
+    /**
+     * Get the original {@code FieldBuilder.Foo} annotation type that corresponds to the given {@code FieldBuilder.Foo} annotation.
+     */
     private static <A extends Annotation> Class<A> getFieldBuilderAnnotationType(A annotation) {
         return AnnotationUtil.getAnnotationType(annotation, type -> type.getDeclaringClass() == FieldBuilder.class
           && !ProvidesField.class.isAssignableFrom(type)
