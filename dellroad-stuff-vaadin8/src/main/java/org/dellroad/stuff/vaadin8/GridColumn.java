@@ -7,8 +7,8 @@ package org.dellroad.stuff.vaadin8;
 
 import com.vaadin.data.ValueProvider;
 import com.vaadin.server.SerializableComparator;
+import com.vaadin.ui.DescriptionGenerator;
 import com.vaadin.ui.StyleGenerator;
-import com.vaadin.ui.components.grid.DescriptionGenerator;
 import com.vaadin.ui.components.grid.SortOrderProvider;
 import com.vaadin.ui.renderers.Renderer;
 

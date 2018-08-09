@@ -16,7 +16,6 @@ import com.vaadin.data.provider.ListDataProvider;
 import com.vaadin.server.SerializablePredicate;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.shared.ui.datefield.DateResolution;
-import com.vaadin.shared.ui.datefield.DateTimeResolution;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Grid;
@@ -35,6 +34,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.temporal.Temporal;
+import java.time.temporal.TemporalAdjuster;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -144,6 +145,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see DateField
  * @see DateTimeField
  * @see EnumComboBox
+ * @see InlineDateField
  * @see ListSelect
  * @see PasswordField
  * @see RichTextArea
@@ -761,6 +763,7 @@ public class FieldBuilder<T> {
     @DateField
     @DateTimeField
     @EnumComboBox
+    @InlineDateField
     @ListSelect
     @PasswordField
     @RadioButtonGroup
@@ -1488,6 +1491,14 @@ public class FieldBuilder<T> {
         String parseErrorMessage() default "";
 
         /**
+         * Get the date resolution.
+         *
+         * @return date resolution
+         * @see com.vaadin.ui.AbstractDateField#setResolution
+         */
+        DateResolution resolution() default DateResolution.DAY;
+
+        /**
          * Get whether to show ISO week numbers.
          *
          * @return whether to show ISO week numbers
@@ -1513,14 +1524,6 @@ public class FieldBuilder<T> {
          * @return field type
          */
         Class<? extends com.vaadin.ui.DateField> type() default com.vaadin.ui.DateField.class;
-
-        /**
-         * Get the date resolution.
-         *
-         * @return date resolution
-         * @see com.vaadin.ui.DateField#setResolution
-         */
-        DateResolution resolution() default DateResolution.DAY;
 
         /**
          * Get whether text field is enabled.
@@ -1566,14 +1569,6 @@ public class FieldBuilder<T> {
         Class<? extends com.vaadin.ui.DateTimeField> type() default com.vaadin.ui.DateTimeField.class;
 
         /**
-         * Get the time resolution.
-         *
-         * @return time resolution
-         * @see com.vaadin.ui.DateTimeField#setResolution
-         */
-        DateTimeResolution resolution() default DateTimeResolution.SECOND;
-
-        /**
          * Get whether text field is enabled.
          *
          * @return true for text field enabled
@@ -1593,9 +1588,28 @@ public class FieldBuilder<T> {
          * Get the assistive text.
          *
          * @return assistive text
-         * @see com.vaadin.ui.DateField#setAssistiveText
+         * @see com.vaadin.ui.DateTimeField#setAssistiveText
          */
         String assistiveText() default "";
+    }
+
+    /**
+     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.InlineDateField}.
+     *
+     * @see FieldBuilder.AbstractDateField
+     * @see FieldBuilder
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface InlineDateField {
+
+        /**
+         * Get the {@link com.vaadin.ui.InlineDateField} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
+         */
+        Class<? extends com.vaadin.ui.InlineDateField> type() default com.vaadin.ui.InlineDateField.class;
     }
 
     /**
