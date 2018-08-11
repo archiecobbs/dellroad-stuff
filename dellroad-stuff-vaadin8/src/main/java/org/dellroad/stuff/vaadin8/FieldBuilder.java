@@ -918,7 +918,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractComponent}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractComponent}.
      *
      * @see FieldBuilder
      */
@@ -1029,7 +1029,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractField}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractField}.
      *
      * @see FieldBuilder.AbstractComponent
      * @see FieldBuilder
@@ -1077,7 +1077,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractListing}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractListing}.
      *
      * @see FieldBuilder.AbstractComponent
      * @see FieldBuilder
@@ -1109,7 +1109,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractMultiSelect}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractMultiSelect}.
      *
      * @see FieldBuilder.AbstractListing
      * @see FieldBuilder
@@ -1158,7 +1158,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractSingleSelect}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractSingleSelect}.
      *
      * @see FieldBuilder.AbstractListing
      * @see FieldBuilder
@@ -1198,7 +1198,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.CheckBox}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.CheckBox}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder
@@ -1217,7 +1217,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.ComboBox}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.ComboBox}.
      *
      * @see FieldBuilder.AbstractSingleSelect
      * @see FieldBuilder
@@ -1329,7 +1329,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link org.dellroad.stuff.vaadin8.EnumComboBox}.
+     * Specifies how a Java property should be edited using an {@link org.dellroad.stuff.vaadin8.EnumComboBox}.
      *
      * @see FieldBuilder.ComboBox
      * @see FieldBuilder
@@ -1352,7 +1352,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.RadioButtonGroup}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.RadioButtonGroup}.
      *
      * @see FieldBuilder.AbstractSingleSelect
      * @see FieldBuilder
@@ -1416,7 +1416,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.ListSelect}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.ListSelect}.
      *
      * @see FieldBuilder.AbstractMultiSelect
      * @see FieldBuilder
@@ -1453,7 +1453,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.AbstractDateField}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.AbstractDateField}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder
@@ -1521,7 +1521,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.DateField}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.DateField}.
      *
      * @see FieldBuilder.AbstractDateField
      * @see FieldBuilder
@@ -1564,7 +1564,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.DateTimeField}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.DateTimeField}.
      *
      * @see FieldBuilder.AbstractDateField
      * @see FieldBuilder
@@ -1607,7 +1607,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using an {@link com.vaadin.ui.InlineDateField}.
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.InlineDateField}.
      *
      * @see FieldBuilder.AbstractDateField
      * @see FieldBuilder
@@ -1626,7 +1626,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.AbstractTextField}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.AbstractTextField}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder
@@ -1677,7 +1677,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.TextField}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.TextField}.
      *
      * @see FieldBuilder.AbstractTextField
      * @see FieldBuilder
@@ -1696,7 +1696,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.TextArea}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.TextArea}.
      *
      * @see FieldBuilder.AbstractTextField
      * @see FieldBuilder
@@ -1731,7 +1731,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.PasswordField}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.PasswordField}.
      *
      * @see FieldBuilder.TextField
      * @see FieldBuilder
@@ -1750,7 +1750,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.Slider}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.Slider}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder
@@ -1801,7 +1801,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     /**
-     * Specifies how a Java property should be edited in Vaadin using a {@link com.vaadin.ui.RichTextArea}.
+     * Specifies how a Java property should be edited using a {@link com.vaadin.ui.RichTextArea}.
      *
      * @see FieldBuilder.AbstractField
      * @see FieldBuilder
