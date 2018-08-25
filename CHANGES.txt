@@ -1,6 +1,7 @@
-Version 2.3.1
+Version 2.4.0
 
     - Minor bug fixes to @FieldBuilder
+    - Updated a bunch of dependencies
 
 Version 2.3.0 Released Friday May 11, 2018
 

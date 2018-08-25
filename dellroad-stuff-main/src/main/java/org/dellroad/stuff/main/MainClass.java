@@ -92,7 +92,7 @@ public abstract class MainClass {
             if (history != null)
                 history.flush();
             this.console.flush();
-            this.console.shutdown();
+            this.console.close();
         }
     }
 
