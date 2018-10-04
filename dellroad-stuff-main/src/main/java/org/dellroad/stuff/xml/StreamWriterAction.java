@@ -34,7 +34,7 @@ public abstract class StreamWriterAction {
 
     /**
      * Get an instance that corresponds to the current event state of the given {@link XMLStreamReader}, such that
-     * a sequence of such instances created from consecutive input events will will recreate the input XML.
+     * a sequence of such instances created from consecutive input events will recreate the input XML.
      *
      * <p>
      * This method does not advance or modify {@code reader}.

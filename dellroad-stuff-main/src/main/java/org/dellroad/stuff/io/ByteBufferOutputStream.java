@@ -15,6 +15,10 @@ import java.nio.ReadOnlyBufferException;
  * Provides an {@link OutputStream} view of a {@link ByteBuffer}.
  *
  * <p>
+ * Any {@link ReadOnlyBufferException}s or {@link BufferOverflowException}s thrown by the underlying
+ * {@link ByteBuffer} will be wrapped in an {@link IOException} and rethrown.
+ *
+ * <p>
  * Instances are thread safe.
  */
 public class ByteBufferOutputStream extends OutputStream {
@@ -71,4 +75,3 @@ public class ByteBufferOutputStream extends OutputStream {
         }
     }
 }
-
