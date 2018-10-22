@@ -4,11 +4,18 @@ Highlights:
   * A few additions to [Spring](http://www.springframework.org/) integration (see [org.dellroad.stuff.spring](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/spring/package-summary.html))
   * Automated schema update tracking with Spring integration (see [org.dellroad.stuff.schema](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/schema/package-summary.html))
   * Several [Vaadin](http://vaadin.com) support classes, including:
-    * [Spring integration](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/SpringVaadinServlet.html)
-    * [In-memory](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html) and [query-based](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/AbstractQueryContainer.html) containers
-    * [Auto-generated container properties](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/ProvidesProperty.html) using annotations
-    * [Auto-generated fields](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/FieldBuilder.html) using annotations
-    * Miscellaneous other classes for [Vaadin 7.x](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/package-summary.html)
+    * For Vaadin 8.x:
+      * [Auto-generated container properties](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin8/ProvidesProperty.html) using annotations
+      * [Auto-generated fields](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin8/FieldBuilder.html) using annotations
+      * [Auto-generated Grid columns](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin8/GridColumn.html) using annotations
+      * Miscellaneous other classes for [Vaadin 8.x](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin8/package-summary.html)
+    * For Vaadin 7.x (note: Javadoc links are broken due to Vaadin 7.x vs. 8.x version conflict):
+      * [Spring integration](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/SpringVaadinServlet.html)
+      * [In-memory](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/AbstractSimpleContainer.html) and [query-based](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/AbstractQueryContainer.html) containers
+      * [Auto-generated container properties](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/ProvidesProperty.html) using annotations
+      * [Auto-generated fields](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/FieldBuilder.html) using annotations
+      * [Auto-generated Grid columns](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/GridColumn.html) using annotations
+      * Miscellaneous other classes for [Vaadin 7.x](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin7/package-summary.html)
   * Support classes for [JiBX](http://jibx.sourceforge.net/) (see [org.dellroad.stuff.jibx](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/jibx/package-summary.html))
   * Simple XML Persistence Objects (see [org.dellroad.stuff.pobj](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/pobj/package-summary.html))
   * Some handy [validation](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/validation/package-summary.html) support classes
