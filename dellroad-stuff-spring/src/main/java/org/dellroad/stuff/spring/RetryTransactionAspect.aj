@@ -214,9 +214,9 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                 return result;
             } catch (RuntimeException e) {
 
-                // Translate the exception, if not already translated into something recognizable
+                // Translate the exception; if already translated, translate it again in case our translator has another opinion
                 DataAccessException translatedException;
-                if (e instanceof UncategorizedDataAccessException && e.getCause() instanceof RuntimeException) {
+                if (e instanceof DataAccessException && e.getCause() instanceof RuntimeException) {
                     translatedException = this.persistenceExceptionTranslator
                       .translateExceptionIfPossible((RuntimeException)e.getCause());
                 } else if (e instanceof DataAccessException)

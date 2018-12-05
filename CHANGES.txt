@@ -1,6 +1,7 @@
 Version 2.4.0
 
     - Added method TransformErrorListener.isIgnorable()
+    - Translate causes of DataAccessException's in @RetryTransaction aspect
     - Minor bug fixes to @FieldBuilder
     - Updated a bunch of dependencies
 
