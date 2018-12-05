@@ -1,5 +1,6 @@
 Version 2.4.0
 
+    - Added method TransformErrorListener.isIgnorable()
     - Minor bug fixes to @FieldBuilder
     - Updated a bunch of dependencies
 

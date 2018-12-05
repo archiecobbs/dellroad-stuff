@@ -22,6 +22,9 @@ import org.slf4j.Logger;
  * <li>When throwing exceptions, wrap them in {@link RuntimeException}s to avoid being swallowed;
  *  otherwise Xalan-J will not terminate on a <code>&lt;message terminate="yes"&gt;</code></li>
  * </ul>
+ *
+ * <p>
+ * In addition, by overriding {@link #isIgnorable isIgnorable()} subclasses can ignore chosen issues.
  */
 public class TransformErrorListener implements ErrorListener {
 
@@ -35,6 +38,8 @@ public class TransformErrorListener implements ErrorListener {
 
     @Override
     public void warning(TransformerException e) throws TransformerException {
+        if (this.isIgnorable(e))
+            return;
         this.log.warn(this.getLogMessageFor(e));
         if (this.xalanWorkarounds)
             this.rethrow(e);
@@ -42,12 +47,16 @@ public class TransformErrorListener implements ErrorListener {
 
     @Override
     public void error(TransformerException e) throws TransformerException {
+        if (this.isIgnorable(e))
+            return;
         this.log.error(this.getLogMessageFor(e));
         this.rethrow(e);
     }
 
     @Override
     public void fatalError(TransformerException e) throws TransformerException {
+        if (this.isIgnorable(e))
+            return;
         this.log.error(this.getLogMessageFor(e));
         this.rethrow(e);
     }
@@ -61,5 +70,17 @@ public class TransformErrorListener implements ErrorListener {
             throw e;
         throw new RuntimeException("exception from XSL transform", e);
     }
-}
 
+    /**
+     * Determine if this listener should completely ignore the given exception.
+     *
+     * <p>
+     * The implementation in {@link TransformErrorListener} always returns false.
+     *
+     * @param e exception
+     * @return true to ignore the exception, false to handle normally
+     */
+    protected boolean isIgnorable(TransformerException e) {
+        return false;
+    }
+}
