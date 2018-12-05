@@ -3,4 +3,19 @@
         <Class name="org.dellroad.stuff.spring.AbstractBeanDefinitionParser"/>
         <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.AbstractBeanDefinitionParser"/>
+        <Method name="createBeanDefinition"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.HibernateIsolationJpaDialect"/>
+        <Method name="beginTransaction"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.HibernateIsolationJpaDialect"/>
+        <Method name="cleanupTransaction"/>
+        <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE"/>
+    </Match>
 </FindBugsFilter>
