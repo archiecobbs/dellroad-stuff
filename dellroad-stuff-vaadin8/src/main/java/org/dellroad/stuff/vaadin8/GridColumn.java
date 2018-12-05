@@ -219,7 +219,7 @@ public @interface GridColumn {
      * @return whether sortable
      * @see com.vaadin.ui.Grid.Column#setSortable
      */
-    boolean sortable() default false;
+    boolean sortable() default true;
 
     /**
      * Get the sort order provider for the Grid column.

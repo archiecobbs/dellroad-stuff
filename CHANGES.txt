@@ -2,6 +2,7 @@ Version 2.4.0
 
     - Added method TransformErrorListener.isIgnorable()
     - Translate causes of DataAccessException's in @RetryTransaction aspect
+    - Fixed bug where @GridColumn.sortable() was not working
     - Minor bug fixes to @FieldBuilder
     - Updated a bunch of dependencies
 
