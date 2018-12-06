@@ -1263,13 +1263,14 @@ public class FieldBuilder<T> implements Serializable {
         Class<? extends ListDataProvider> dataProvider() default ListDataProvider.class;
 
         /**
-         * Get the new item handler class.
+         * Get the new item provider class.
          *
-         * @return new item handler
-         * @see com.vaadin.ui.ComboBox#setNewItemHandler
+         * @return new item provider
+         * @see com.vaadin.ui.ComboBox#setNewItemProvider
          */
-        Class<? extends com.vaadin.ui.ComboBox.NewItemHandler> newItemHandler()
-          default com.vaadin.ui.ComboBox.NewItemHandler.class;
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.ui.ComboBox.NewItemProvider> newItemProvider()
+          default com.vaadin.ui.ComboBox.NewItemProvider.class;
 
         /**
          * Get whether empty selection is allowed.
