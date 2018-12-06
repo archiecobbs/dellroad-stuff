@@ -1,4 +1,4 @@
-Version 2.4.0
+Version 2.4.0 Released December 6, 2018
 
     - Added method TransformErrorListener.isIgnorable()
     - Translate causes of DataAccessException's in @RetryTransaction aspect
