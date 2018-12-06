@@ -41,6 +41,8 @@ public abstract class AbstractExecSetPropertyMojo extends AbstractMojo {
 
     /**
      * Get the name of the property to set.
+     *
+     * @return the name of the property to set
      */
     protected abstract String getPropertyName();
 
