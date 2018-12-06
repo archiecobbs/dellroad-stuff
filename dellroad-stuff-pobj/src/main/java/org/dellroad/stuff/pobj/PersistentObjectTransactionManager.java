@@ -464,9 +464,9 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
             } else
                 this.logger.trace("PersistentObjectTransactionManager.doCommit(): not committing read-only " + info);
         } catch (PersistentObjectVersionException e) {
-            throw new OptimisticLockingFailureException(null, e);
+            throw new OptimisticLockingFailureException("optimistic locking failure: " + e.getMessage(), e);
         } catch (PersistentObjectValidationException e) {
-            throw new DataIntegrityViolationException(null, e);
+            throw new DataIntegrityViolationException("validation failure: " + e.getMessage(), e);
         } catch (PersistentObjectException e) {
             throw new TransactionSystemException("error committing transaction", e);
         }

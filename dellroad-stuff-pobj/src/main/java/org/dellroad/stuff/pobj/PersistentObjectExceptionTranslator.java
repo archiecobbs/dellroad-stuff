@@ -18,9 +18,9 @@ public class PersistentObjectExceptionTranslator implements PersistenceException
     @Override
     public DataAccessException translateExceptionIfPossible(RuntimeException e) {
         if (e instanceof PersistentObjectVersionException)
-            return new OptimisticLockingFailureException(null, e);
+            return new OptimisticLockingFailureException("optimistic locking failure: " + e.getMessage(), e);
         if (e instanceof PersistentObjectValidationException)
-            return new DataIntegrityViolationException(null, e);
+            return new DataIntegrityViolationException("validation failure: " + e.getMessage(), e);
         return null;
     }
 }
