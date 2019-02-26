@@ -32,7 +32,7 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      * and {@link #setProperties setProperties()} are required to define the properties of this container
      * and how to extract them.
      */
-    public SimpleKeyedContainer() {
+    protected SimpleKeyedContainer() {
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      *  may be null but then container is not usable until one is configured via
      * {@link #setPropertyExtractor setPropertyExtractor()}
      */
-    public SimpleKeyedContainer(PropertyExtractor<? super T> propertyExtractor) {
+    protected SimpleKeyedContainer(PropertyExtractor<? super T> propertyExtractor) {
         this(propertyExtractor, null);
     }
 
@@ -72,7 +72,8 @@ public abstract class SimpleKeyedContainer<I, T> extends AbstractSimpleContainer
      * {@link #setPropertyExtractor setPropertyExtractor()}
      * @param propertyDefs container property definitions; null is treated like the empty set
      */
-    public SimpleKeyedContainer(PropertyExtractor<? super T> propertyExtractor, Collection<? extends PropertyDef<?>> propertyDefs) {
+    protected SimpleKeyedContainer(PropertyExtractor<? super T> propertyExtractor,
+      Collection<? extends PropertyDef<?>> propertyDefs) {
         super(propertyExtractor, propertyDefs);
     }
 

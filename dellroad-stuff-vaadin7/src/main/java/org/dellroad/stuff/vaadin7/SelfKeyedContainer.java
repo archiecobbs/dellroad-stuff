@@ -88,7 +88,7 @@ public class SelfKeyedContainer<T> extends SimpleKeyedContainer<T, T> {
      * @see ProvidesPropertySort
      * @see ProvidesPropertyScanner
      */
-    protected SelfKeyedContainer(Class<? super T> type) {
+    public SelfKeyedContainer(Class<? super T> type) {
         super(type);
     }
 

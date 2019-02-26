@@ -92,7 +92,7 @@ public class SimpleContainer<T> extends AbstractSimpleContainer<Integer, T> {
      * @see ProvidesPropertySort
      * @see ProvidesPropertyScanner
      */
-    protected SimpleContainer(Class<? super T> type) {
+    public SimpleContainer(Class<? super T> type) {
         super(type);
     }
 
