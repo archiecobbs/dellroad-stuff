@@ -19,6 +19,13 @@ import java.nio.channels.SocketChannel;
  * <p>
  * Remote peers have the {@link String} form <code>IP-Address[:port]</code>. If the port is omitted,
  * the default port provided to the constructor is assumed.
+ *
+ * <p>
+ * Individual TCP connections are created and maintained automatically as needed.
+ *
+ * <p>
+ * Note: if each peer's IP address is unique, consider overriding {@link #identifyPeer identifyPeer()}
+ * to remove the port. This will prevent the creation of duplicate connections between peers.
  */
 public class TCPNetwork extends ChannelNetwork implements Network {
 
@@ -261,7 +268,7 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         final InetSocketAddress remote = (InetSocketAddress)socketChannel.socket().getRemoteSocketAddress();
         final String peer = this.identifyPeer(remote);
         if (peer == null) {
-            this.log.info("rejecting connection from unrecognized peer " + socketChannel.getRemoteAddress());
+            this.log.info("rejecting unrecognized peer connection from {}", socketChannel.getRemoteAddress());
             socketChannel.close();
             return;
         }
@@ -274,39 +281,35 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         this.configureSocketChannel(socketChannel);
 
         // Are we already connected to this peer? If so (deterministically) choose which connection wins
-        TCPConnection connection = (TCPConnection)this.connectionMap.get(peer);
-        if (connection != null) {
+        final TCPConnection oldConnection = (TCPConnection)this.connectionMap.get(peer);
+        if (oldConnection != null) {
 
             // Compare the socket addresses of the initiator side of each connection
-            final SocketAddress oldAddr = connection.getSocketChannel().socket().getLocalSocketAddress();
+            final SocketAddress oldAddr = oldConnection.getSocketChannel().socket().getLocalSocketAddress();
             final SocketAddress newAddr = socketChannel.getRemoteAddress();
             final String oldDesc = oldAddr.toString().replaceAll("^[^/]*/", "");            // strip off hostname part, if any
             final String newDesc = newAddr.toString().replaceAll("^[^/]*/", "");            // strip off hostname part, if any
             final int diff = newDesc.compareTo(oldDesc);
-            this.log.info("connection mid-air collision: old: " + oldDesc + ", new: " + newDesc
-              + ", winner: " + (diff < 0 ? "new" : diff > 0 ? "old" : "neither (?)"));
+            this.log.info("connection mid-air collision: old: {} new: {} winner: {}",
+              oldDesc, newDesc, diff < 0 ? "new" : diff > 0 ? "old" : "neither (???)");
 
-            // Close the loser(s)
+            // If new incoming connection loses, close it and bail out
             if (diff >= 0) {
-                this.log.info("rejecting incoming connection from " + socketChannel.getRemoteAddress() + " as duplicate");
+                this.log.info("rejecting duplicate incoming connection from {} (peer \"{}\")", newAddr, peer);
                 socketChannel.close();
-                socketChannel = null;
+                return;
             }
-            if (diff <= 0) {
-                final String remoteAddress = socketChannel != null ? "" + socketChannel.getRemoteAddress() : "<same>";
-                this.log.info("closing existing duplicate connection to " + remoteAddress);
-                this.connectionMap.remove(peer);
-                connection.close(new IOException("duplicate connection"));
-                connection = null;
-            }
+
+            // New incoming connection wins, so close the old connection
+            this.log.info("closing existing duplicate connection to {} (peer \"{}\")", oldAddr, peer);
+            this.connectionMap.remove(peer);
+            oldConnection.close(new IOException("duplicate connection"));
         }
 
-        // Create connection from new socket if needed
-        if (connection == null && socketChannel != null) {
-            connection = new TCPConnection(this, peer, socketChannel);
-            this.connectionMap.put(peer, connection);
-            this.handleOutputQueueEmpty(connection);
-        }
+        // Create a new connection from the new incoming connection socket
+        final TCPConnection newConnection = new TCPConnection(this, peer, socketChannel);
+        this.connectionMap.put(peer, newConnection);
+        this.handleOutputQueueEmpty(newConnection);
     }
 
     // Enable/disable incoming connections

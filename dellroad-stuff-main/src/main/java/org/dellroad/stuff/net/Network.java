@@ -75,7 +75,11 @@ public interface Network {
         void handle(String peer, ByteBuffer msg);
 
         /**
-         * Receive notification that a remote peer's output queue has transitioned from a non empty state to an empty state
+         * Receive notification that a remote peer's output queue has transitioned from a non empty state to an empty state.
+         *
+         * <p>
+         * This notification can be used for flow-control, i.e., to prevent the local output queue for {@code peer}
+         * from growing without bound if there is network congestion, or the peer is slow to read messages, etc.
          *
          * @param peer remote peer
          */
