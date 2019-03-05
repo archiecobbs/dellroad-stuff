@@ -204,6 +204,29 @@ public class TCPNetwork extends ChannelNetwork implements Network {
     protected void configureSocketChannel(SocketChannel socketChannel) {
     }
 
+    /**
+     * Identify the peer behind an incoming connection.
+     *
+     * <p>
+     * The implementation in {@link TCPNetwork} returns the {@linkplain InetSocketAddress#getHostString the remote IP address},
+     * followed by a colon and {@linkplain InetSocketAddress#getPort the remote port} if that port differs from the default.
+     *
+     * <p>
+     * Note that the default behavior does not identify a peer simply by its IP address. Since TCP connections typically
+     * originate from randomly chosen ports, every connection from the same host will appear as a new peer. As a result,
+     * two hosts configured to talk to each other will end up creating two TCP connections, one in each direction.
+     *
+     * <p>
+     * To resolve that problem, and identify a peer by its IP address alone, override this method and just return
+     * {@code remote.getHostString()}.
+     *
+     * @param remote remote address of incoming connection
+     * @return associated peer name, or null if peer is not recognized (socket will be closed)
+     */
+    protected String identifyPeer(InetSocketAddress remote) {
+        return remote.getHostString() + (remote.getPort() != this.defaultPort ? ":" + remote.getPort() : "");
+    }
+
 // Object
 
     @Override
@@ -233,15 +256,22 @@ public class TCPNetwork extends ChannelNetwork implements Network {
             if (this.serverSocketChannel == null || (socketChannel = this.serverSocketChannel.accept()) == null)
                 return;
         }
+
+        // Identify peer
+        final InetSocketAddress remote = (InetSocketAddress)socketChannel.socket().getRemoteSocketAddress();
+        final String peer = this.identifyPeer(remote);
+        if (peer == null) {
+            this.log.info("rejecting connection from unrecognized peer " + socketChannel.getRemoteAddress());
+            socketChannel.close();
+            return;
+        }
+
+        // Configure socket
         this.log.info("accepted incoming connection from " + socketChannel.getRemoteAddress());
         socketChannel
           .setOption(StandardSocketOptions.SO_KEEPALIVE, true)
           .setOption(StandardSocketOptions.TCP_NODELAY, true);
         this.configureSocketChannel(socketChannel);
-
-        // Create peer
-        final InetSocketAddress remote = (InetSocketAddress)socketChannel.socket().getRemoteSocketAddress();
-        final String peer = remote.getHostString() + (remote.getPort() != this.defaultPort ? ":" + remote.getPort() : "");
 
         // Are we already connected to this peer? If so (deterministically) choose which connection wins
         TCPConnection connection = (TCPConnection)this.connectionMap.get(peer);

@@ -37,4 +37,9 @@
         <Method name="compare"/>
         <Bug pattern="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.net.TCPNetwork"/>
+        <Method name="handleAccept"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
 </FindBugsFilter>
