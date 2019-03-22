@@ -1,6 +1,7 @@
 Version Next
 
     - Added method TCPNetwork.identifyPeer()
+    - Added WorkaroundJibxMarshaller
 
 Version 2.4.0 Released December 6, 2018
 
