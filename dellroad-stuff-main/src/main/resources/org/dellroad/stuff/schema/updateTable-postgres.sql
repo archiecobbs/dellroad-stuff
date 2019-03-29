@@ -1,0 +1,4 @@
+CREATE TABLE SchemaUpdate (
+    updateName VARCHAR(255) NOT NULL PRIMARY KEY,
+    updateTime TIMESTAMP NOT NULL
+)

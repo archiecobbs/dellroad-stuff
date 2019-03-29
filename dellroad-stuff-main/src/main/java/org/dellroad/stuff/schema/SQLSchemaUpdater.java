@@ -169,6 +169,10 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * <td><code>classpath:org/dellroad/stuff/schema/updateTable-oracle.sql</code></td>
      * </tr>
      * <tr>
+     * <td>Postgres</td>
+     * <td><code>classpath:org/dellroad/stuff/schema/updateTable-postgres.sql</code></td>
+     * </tr>
+     * <tr>
      * <td>HSQLDB</td>
      * <td><code>classpath:org/dellroad/stuff/schema/updateTable-hsqldb.sql</code></td>
      * </tr>
