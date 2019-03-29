@@ -53,6 +53,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      */
     public static final String DEFAULT_UPDATE_TABLE_TIME_COLUMN = "updateTime";
 
+    private int transactionIsolation = Connection.TRANSACTION_SERIALIZABLE;
     private String updateTableName = DEFAULT_UPDATE_TABLE_NAME;
     private String updateTableNameColumn = DEFAULT_UPDATE_TABLE_NAME_COLUMN;
     private String updateTableTimeColumn = DEFAULT_UPDATE_TABLE_TIME_COLUMN;
@@ -220,6 +221,30 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.databaseInitialization = databaseInitialization;
     }
 
+    /**
+     * Get transaction isolation level for the schema check/migration transaction.
+     *
+     * <p>
+     * Default is {@link Connection#TRANSACTION_SERIALIZABLE}.
+     *
+     * @return transaction isolation level, or -1 to leave it alone
+     */
+    public int getTransactionIsolation() {
+        return this.transactionIsolation;
+    }
+
+    /**
+     * Set transaction isolation level for the schema check/migration transaction.
+     *
+     * <p>
+     * Default is {@link Connection#TRANSACTION_SERIALIZABLE}.
+     *
+     * @param isolation transaction isolation level, or -1 to leave it alone
+     */
+    public void setTransactionIsolation(final int transactionIsolation) {
+        this.transactionIsolation = transactionIsolation;
+    }
+
     @Override
     protected void apply(Connection c, DatabaseAction<Connection> action) throws SQLException {
         try {
@@ -271,7 +296,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     @Override
     protected Connection openTransaction(DataSource dataSource) throws SQLException {
         Connection c = dataSource.getConnection();
-        c.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        if (this.transactionIsolation != -1)
+            c.setTransactionIsolation(this.transactionIsolation);
         c.setAutoCommit(false);
         return c;
     }
