@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.dellroad.stuff.graph.TopologicalSorter;
 import org.slf4j.Logger;
@@ -144,26 +145,24 @@ public abstract class AbstractSchemaUpdater<D, T> {
         // Log
         this.log.info("verifying database " + database);
 
-        // First, initialize if necessary
-        this.applyInTransaction(database, new DatabaseAction<T>() {
-            @Override
-            public void apply(T transaction) throws Exception {
+        // First, determine if database needs initialization
+        final AtomicBoolean needsInitialization = new AtomicBoolean();
+        this.applyInTransaction(database, tx -> needsInitialization.set(this.databaseNeedsInitialization(tx)));
 
-                // Already initialized?
-                if (!AbstractSchemaUpdater.this.databaseNeedsInitialization(transaction)) {
-                    AbstractSchemaUpdater.this.log.debug("detected already-initialized database " + database);
-                    return;
-                }
+        // If so, initialize database
+        if (needsInitialization.get()) {
+            this.applyInTransaction(database, tx -> {
 
                 // Initialize database
-                AbstractSchemaUpdater.this.log.info("uninitialized database detected; initializing " + database);
-                AbstractSchemaUpdater.this.initializeDatabase(transaction);
+                this.log.info("uninitialized database detected; initializing " + database);
+                this.initializeDatabase(tx);
 
                 // Record all schema updates as having already been applied
-                for (String updateName : AbstractSchemaUpdater.this.getAllUpdateNames())
-                    AbstractSchemaUpdater.this.recordUpdateApplied(transaction, updateName);
-            }
-        });
+                for (String updateName : this.getAllUpdateNames())
+                    this.recordUpdateApplied(tx, updateName);
+            });
+        } else
+            this.log.debug("detected already-initialized database " + database);
 
         // Next, apply any new updates
         this.applySchemaUpdates(database);
@@ -351,7 +350,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
         final HashSet<SchemaUpdate<T>> allUpdates = new HashSet<SchemaUpdate<T>>(this.getUpdates());
 
         // Create mapping from update name to update; multiple updates will have multiple names
-        TreeMap<String, SchemaUpdate<T>> updateMap = new TreeMap<String, SchemaUpdate<T>>();
+        final TreeMap<String, SchemaUpdate<T>> updateMap = new TreeMap<String, SchemaUpdate<T>>();
         for (SchemaUpdate<T> update : allUpdates) {
             for (String updateName : this.getUpdateNames(update)) {
                 if (!isValidUpdateName(updateName))
@@ -378,12 +377,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
 
         // Determine which updates have already been applied
         final HashSet<String> appliedUpdateNames = new HashSet<String>();
-        this.applyInTransaction(database, new DatabaseAction<T>() {
-            @Override
-            public void apply(T transaction) throws Exception {
-                appliedUpdateNames.addAll(AbstractSchemaUpdater.this.getAppliedUpdateNames(transaction));
-            }
-        });
+        this.applyInTransaction(database, tx -> appliedUpdateNames.addAll(this.getAppliedUpdateNames(tx)));
         this.log.debug("these are the already-applied schema updates: " + appliedUpdateNames);
 
         // Check whether any unknown updates have been applied
@@ -424,12 +418,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
         // Apply and record each unapplied update
         for (SchemaUpdate<T> nextUpdate : updateList) {
             final RecordingUpdateHandler updateHandler = new RecordingUpdateHandler(nextUpdate, remainingUpdateNames);
-            this.applyInTransaction(database, new DatabaseAction<T>() {
-                @Override
-                public void apply(T transaction) throws Exception {
-                    updateHandler.process(transaction);
-                }
-            });
+            this.applyInTransaction(database, updateHandler::process);
         }
     }
 
@@ -485,12 +474,9 @@ public abstract class AbstractSchemaUpdater<D, T> {
         protected void handleSingleMultiUpdate(T transaction, final List<? extends DatabaseAction<T>> actions)
           throws Exception {
             assert this.remainingUpdateNames.contains(this.update.getName());
-            AbstractSchemaUpdater.this.applyAndRecordUpdate(transaction, this.update.getName(), new DatabaseAction<T>() {
-                @Override
-                public void apply(T transaction) throws Exception {
-                    for (DatabaseAction<T> action : actions)
-                        AbstractSchemaUpdater.this.apply(transaction, action);
-                }
+            AbstractSchemaUpdater.this.applyAndRecordUpdate(transaction, this.update.getName(), tx -> {
+                for (DatabaseAction<T> action : actions)
+                    AbstractSchemaUpdater.this.apply(tx, action);
             });
         }
 
