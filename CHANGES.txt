@@ -1,6 +1,7 @@
 Version Next
 
     - Added SQLSchemaUpdater.setTransactionIsolation() and Postgres init script
+    - Added method RetryTransactionProvider.retry for direct invocation
     - Added method TCPNetwork.identifyPeer()
     - Added WorkaroundJibxMarshaller
 

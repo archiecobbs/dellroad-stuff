@@ -113,6 +113,11 @@ import java.lang.annotation.Target;
  *      }
  *   </pre></blockquote>
  *
+ * <p>
+ * You can also invoke the retry logic directly (i.e., without going through a method woven with the aspect); see
+ * {@link RetryTransactionProvider#retry RetryTransactionProvider.retry()}.
+ *
+ * @see RetryTransactionProvider
  * @see org.springframework.transaction.annotation.Transactional
  */
 @Documented
