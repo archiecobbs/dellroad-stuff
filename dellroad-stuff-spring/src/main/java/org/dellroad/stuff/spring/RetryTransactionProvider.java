@@ -69,6 +69,7 @@ public interface RetryTransactionProvider {
      * This method provides a way to apply retry logic directly without going through a method woven with the aspect.
      *
      * @param setup retryable transaction setup
+     * @param <T> transaction return type
      * @throws IllegalArgumentException if {@code setup} is null
      */
     <T> T retry(RetrySetup<T> setup);
@@ -81,6 +82,7 @@ public interface RetryTransactionProvider {
      * <p>
      * Instances are immutable.
      *
+     * @param <T> transaction return type
      * @see RetryTransactionProvider#retry RetryTransactionProvider.retry()
      */
     class RetrySetup<T> {

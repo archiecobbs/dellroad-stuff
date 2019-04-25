@@ -239,7 +239,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * <p>
      * Default is {@link Connection#TRANSACTION_SERIALIZABLE}.
      *
-     * @param isolation transaction isolation level, or -1 to leave it alone
+     * @param transactionIsolation transaction isolation level, or -1 to leave it alone
      */
     public void setTransactionIsolation(final int transactionIsolation) {
         this.transactionIsolation = transactionIsolation;
