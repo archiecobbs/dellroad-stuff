@@ -70,6 +70,7 @@ public interface RetryTransactionProvider {
      *
      * @param setup retryable transaction setup
      * @param <T> transaction return type
+     * @return result from transaction
      * @throws IllegalArgumentException if {@code setup} is null
      */
     <T> T retry(RetrySetup<T> setup);
