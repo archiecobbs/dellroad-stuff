@@ -146,6 +146,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see InlineDateField
  * @see ListSelect
  * @see PasswordField
+ * @see RadioButtonGroup
  * @see RichTextArea
  * @see Slider
  * @see TextArea
@@ -1361,7 +1362,7 @@ public class FieldBuilder<T> implements Serializable {
     public @interface RadioButtonGroup {
 
         /**
-         * Get the {@link com.vaadin.ui.CheckBox} type that will edit the property. Type must have a no-arg constructor.
+         * Get the {@link com.vaadin.ui.RadioButtonGroup} type that will edit the property. Type must have a no-arg constructor.
          *
          * @return field type
          */
