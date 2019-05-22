@@ -1370,10 +1370,10 @@ public class FieldBuilder<T> implements Serializable {
          * Get the description generator class.
          *
          * @return description generator
-         * @see com.vaadin.ui.CheckBoxGroup#setDescriptionGenerator
+         * @see com.vaadin.ui.CheckBoxGroup#setItemDescriptionGenerator
          */
         @SuppressWarnings("rawtypes")
-        Class<? extends DescriptionGenerator> descriptionGenerator() default DescriptionGenerator.class;
+        Class<? extends DescriptionGenerator> itemDescriptionGenerator() default DescriptionGenerator.class;
 
         /**
          * Get the item enabled provider class.
