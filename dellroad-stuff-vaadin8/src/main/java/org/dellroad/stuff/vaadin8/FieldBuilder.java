@@ -18,6 +18,7 @@ import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.shared.ui.datefield.DateResolution;
 import com.vaadin.shared.ui.slider.SliderOrientation;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.DescriptionGenerator;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.IconGenerator;
 import com.vaadin.ui.ItemCaptionGenerator;
@@ -139,6 +140,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * @see AbstractDateField
  * @see AbstractTextField
  * @see CheckBox
+ * @see CheckBoxGroup
  * @see ComboBox
  * @see DateField
  * @see DateTimeField
@@ -761,6 +763,7 @@ public class FieldBuilder<T> implements Serializable {
     @AbstractSingleSelect
     @AbstractTextField
     @CheckBox
+    @CheckBoxGroup
     @ComboBox
     @DateField
     @DateTimeField
@@ -1122,7 +1125,7 @@ public class FieldBuilder<T> implements Serializable {
          *
          * <p>
          * Although this property has a default value, it must be overridden either in this annotation, or
-         * by also including a more specific annotation such as {@link ListSelect}.
+         * by also including a more specific annotation such as {@link ListSelect} or {@link CheckBoxGroup}.
          *
          * @return field type
          */
@@ -1325,6 +1328,70 @@ public class FieldBuilder<T> implements Serializable {
          * @see com.vaadin.ui.ComboBox#setTextInputAllowed
          */
         boolean textInputAllowed() default true;
+    }
+
+    /**
+     * Specifies how a Java property should be edited using an {@link com.vaadin.ui.CheckBoxGroup}.
+     *
+     * @see FieldBuilder.AbstractMultiSelect
+     * @see FieldBuilder
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface CheckBoxGroup {
+
+        /**
+         * Get the {@link com.vaadin.ui.CheckBoxGroup} type that will edit the property. Type must have a no-arg constructor.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.ui.CheckBoxGroup> type() default com.vaadin.ui.CheckBoxGroup.class;
+
+        /**
+         * Get the {@link DataProvider} class.
+         *
+         * @return data provider class
+         * @see com.vaadin.ui.CheckBoxGroup#setDataProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends DataProvider> dataProvider() default DataProvider.class;
+
+        /**
+         * Get HTML content allowed.
+         *
+         * @return true for HTML content allowed
+         * @see com.vaadin.ui.CheckBoxGroup#setHtmlContentAllowed
+         */
+        boolean htmlContentAllowed() default false;
+
+        /**
+         * Get the description generator class.
+         *
+         * @return description generator
+         * @see com.vaadin.ui.CheckBoxGroup#setDescriptionGenerator
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends DescriptionGenerator> descriptionGenerator() default DescriptionGenerator.class;
+
+        /**
+         * Get the item enabled provider class.
+         *
+         * @return enabled provider
+         * @see com.vaadin.ui.CheckBoxGroup#setItemEnabledProvider
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends SerializablePredicate> itemEnabledProvider() default SerializablePredicate.class;
+
+        /**
+         * Get the item icon generator class.
+         *
+         * @return icon generator
+         * @see com.vaadin.ui.CheckBoxGroup#setItemIconGenerator
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends IconGenerator> itemIconGenerator() default IconGenerator.class;
     }
 
     /**

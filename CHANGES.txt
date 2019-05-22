@@ -1,3 +1,7 @@
+Version Next
+
+    - Added @FieldBuilder.CheckBoxGroup
+
 Version 2.4.1 Released April 25, 2019
 
     - Added SQLSchemaUpdater.setTransactionIsolation() and Postgres init script
