@@ -13,7 +13,6 @@ import java.nio.channels.Selector;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.dellroad.stuff.java.Predicate;
 import org.dellroad.stuff.java.TimedWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -148,12 +147,7 @@ public abstract class SelectorSupport {
         final Thread currentServiceThread = this.serviceThread;
         String failure = null;
         try {
-            if (!TimedWait.wait(this, 1000L, new Predicate() {
-                @Override
-                public boolean test() {
-                    return SelectorSupport.this.serviceThread != currentServiceThread;
-                }
-            }))
+            if (!TimedWait.wait(this, 1000L, () -> this.serviceThread != currentServiceThread))
                 failure = "timed out";
         } catch (InterruptedException e) {
             failure = "interrupted";

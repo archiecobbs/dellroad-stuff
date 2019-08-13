@@ -32,12 +32,7 @@ public class ThreadParkingLot {
         final Thread thread = Thread.currentThread();
         this.parkedThreads.add(thread);
         try {
-            return TimedWait.wait(this, timeout, new Predicate() {
-                @Override
-                public boolean test() {
-                    return !ThreadParkingLot.this.parkedThreads.contains(thread);
-                }
-            });
+            return TimedWait.wait(this, timeout, () -> !this.parkedThreads.contains(thread));
         } finally {
             this.parkedThreads.remove(thread);
         }

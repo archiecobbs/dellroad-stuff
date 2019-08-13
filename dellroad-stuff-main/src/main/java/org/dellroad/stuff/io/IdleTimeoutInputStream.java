@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.dellroad.stuff.java.Predicate;
 import org.dellroad.stuff.java.TimedWait;
 
 /**
@@ -156,12 +155,7 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
 
             // Wait for some data to appear, timeout, EOF, exception, or closure
             try {
-                timedOut = !TimedWait.wait(this, duration, new Predicate() {
-                    @Override
-                    public boolean test() {
-                        return IdleTimeoutInputStream.this.state != OPEN || IdleTimeoutInputStream.this.xferLen > 0;
-                    }
-                });
+                timedOut = !TimedWait.wait(this, duration, () -> this.state != OPEN || this.xferLen > 0);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();                         // start over waiting!
             }
@@ -247,13 +241,7 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
 
             // Wait until there's more room in the transfer buffer
             try {
-                TimedWait.wait(this, 0, new Predicate() {
-                    @Override
-                    public boolean test() {
-                        return IdleTimeoutInputStream.this.state != OPEN
-                          || IdleTimeoutInputStream.this.xferLen < IdleTimeoutInputStream.this.xferBuf.length;
-                    }
-                });
+                TimedWait.wait(this, 0, () -> this.state != OPEN || this.xferLen < this.xferBuf.length);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }

@@ -441,16 +441,13 @@ public class AsyncOutputStream extends FilterOutputStream {
     private synchronized boolean waitForPredicate(long timeout, final Predicate predicate)
       throws IOException, InterruptedException {
         try {
-            return TimedWait.wait(this, timeout, new Predicate() {
-                @Override
-                public boolean test() {
-                    try {
-                        checkExceptions();
-                    } catch (IOException e) {
-                        throw new CheckedExceptionWrapper(e);
-                    }
-                    return predicate.test();
+            return TimedWait.wait(this, timeout, () -> {
+                try {
+                    this.checkExceptions();
+                } catch (IOException e) {
+                    throw new CheckedExceptionWrapper(e);
                 }
+                return predicate.test();
             });
         } catch (CheckedExceptionWrapper e) {
             throw (IOException)e.getException();

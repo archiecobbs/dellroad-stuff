@@ -24,6 +24,10 @@
         <Bug pattern="RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"/>
     </Match>
     <Match>
+        <Class name="org.dellroad.stuff.io.IdleTimeoutInputStream"/>
+        <Bug pattern="IS2_INCONSISTENT_SYNC"/>
+    </Match>
+    <Match>
         <Class name="org.dellroad.stuff.java.ObjectComparator"/>
         <Bug pattern="SE_COMPARATOR_SHOULD_BE_SERIALIZABLE"/>
     </Match>
