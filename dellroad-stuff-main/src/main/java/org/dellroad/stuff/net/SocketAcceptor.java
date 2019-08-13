@@ -292,13 +292,12 @@ public abstract class SocketAcceptor {
         }
 
         // Wait for all active connections to complete
-        long lastTime = System.nanoTime();
-        boolean logged = false;
+        long lastLogTime = 0;
         while (!this.connections.isEmpty()) {
-            long nextTime = System.nanoTime();
-            if (!logged || nextTime - lastTime > NOTIFICATION_INTERVAL) {
+            final long currentTime = System.nanoTime();
+            if (currentTime - lastLogTime > NOTIFICATION_INTERVAL) {
                 this.log.info("waiting for " + this.connections.size() + " active connection(s) to stop...");
-                logged = true;
+                lastLogTime = currentTime;
             }
             try {
                 this.wait();
@@ -306,7 +305,7 @@ public abstract class SocketAcceptor {
                 Thread.currentThread().interrupt();
             }
         }
-        if (logged)
+        if (lastLogTime != 0)
             this.log.info("all active connection(s) have stopped");
 
         // Done
