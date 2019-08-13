@@ -125,40 +125,46 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
     private synchronized boolean waitForData(final long duration, boolean exceptionOnEOF) throws IOException {
 
         // Wait for data or exception
-        for (boolean timedOut = false; !timedOut; ) {
+        boolean interrupted = false;
+        try {
+            for (boolean timedOut = false; !timedOut; ) {
 
-            // Check state
-            switch (this.state) {
-            case OPEN:
-                if (this.xferLen > 0)
-                    return true;
-                break;
-            case EOF:
-                if (exceptionOnEOF)
-                    throw new EOFException();
-                return false;
-            case EXCEPTION:
-                if (this.exception instanceof IOException)
-                    throw (IOException)this.exception;
-                if (this.exception instanceof RuntimeException)
-                    throw (RuntimeException)this.exception;
-                throw new RuntimeException(this.exception);                 // should never happen
-            case CLOSED:
-                throw new IOException("stream is closed");
-            default:
-                throw new RuntimeException("internal error");
+                // Check state
+                switch (this.state) {
+                case OPEN:
+                    if (this.xferLen > 0)
+                        return true;
+                    break;
+                case EOF:
+                    if (exceptionOnEOF)
+                        throw new EOFException();
+                    return false;
+                case EXCEPTION:
+                    if (this.exception instanceof IOException)
+                        throw (IOException)this.exception;
+                    if (this.exception instanceof RuntimeException)
+                        throw (RuntimeException)this.exception;
+                    throw new RuntimeException(this.exception);                 // should never happen
+                case CLOSED:
+                    throw new IOException("stream is closed");
+                default:
+                    throw new RuntimeException("internal error");
+                }
+
+                // Not waiting, just checking status?
+                if (duration < 0)
+                    return false;
+
+                // Wait for some data to appear, timeout, EOF, exception, or closure
+                try {
+                    timedOut = !TimedWait.wait(this, duration, () -> this.state != OPEN || this.xferLen > 0);
+                } catch (InterruptedException e) {
+                    interrupted = true;                                         // start over waiting!
+                }
             }
-
-            // Not waiting, just checking status?
-            if (duration < 0)
-                return false;
-
-            // Wait for some data to appear, timeout, EOF, exception, or closure
-            try {
-                timedOut = !TimedWait.wait(this, duration, () -> this.state != OPEN || this.xferLen > 0);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();                         // start over waiting!
-            }
+        } finally {
+            if (interrupted)
+                Thread.currentThread().interrupt();
         }
 
         // We timed out; throw IdleTimeoutException
@@ -209,42 +215,48 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
 
     @Override
     public synchronized void handleInput(byte[] buf, int off, int len) {
-        while (len > 0) {
+        boolean interrupted = false;
+        try {
+            while (len > 0) {
 
-            // Check state
-            switch (this.state) {
-            case OPEN:
-                break;
-            case EOF:
-            case EXCEPTION:
-            case CLOSED:
-                return;
-            default:
-                throw new RuntimeException("internal error");
+                // Check state
+                switch (this.state) {
+                case OPEN:
+                    break;
+                case EOF:
+                case EXCEPTION:
+                case CLOSED:
+                    return;
+                default:
+                    throw new RuntimeException("internal error");
+                }
+
+                // Copy what we can, if anything
+                final int copy = Math.min(len, this.xferBuf.length - this.xferLen);
+                if (copy > 0) {
+
+                    // Copy data
+                    System.arraycopy(buf, off, this.xferBuf, this.xferLen, copy);
+                    this.xferLen += copy;
+                    off += copy;
+                    len -= copy;
+
+                    // Notify sleeping readers, if any
+                    if (this.xferLen == copy)
+                        this.notifyAll();
+                    continue;
+                }
+
+                // Wait until there's more room in the transfer buffer
+                try {
+                    TimedWait.wait(this, 0, () -> this.state != OPEN || this.xferLen < this.xferBuf.length);
+                } catch (InterruptedException e) {
+                    interrupted = true;
+                }
             }
-
-            // Copy what we can, if anything
-            final int copy = Math.min(len, this.xferBuf.length - this.xferLen);
-            if (copy > 0) {
-
-                // Copy data
-                System.arraycopy(buf, off, this.xferBuf, this.xferLen, copy);
-                this.xferLen += copy;
-                off += copy;
-                len -= copy;
-
-                // Notify sleeping readers, if any
-                if (this.xferLen == copy)
-                    this.notifyAll();
-                continue;
-            }
-
-            // Wait until there's more room in the transfer buffer
-            try {
-                TimedWait.wait(this, 0, () -> this.state != OPEN || this.xferLen < this.xferBuf.length);
-            } catch (InterruptedException e) {
+        } finally {
+            if (interrupted)
                 Thread.currentThread().interrupt();
-            }
         }
     }
 

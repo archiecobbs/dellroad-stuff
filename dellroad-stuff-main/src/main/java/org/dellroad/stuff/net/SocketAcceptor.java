@@ -143,6 +143,7 @@ public abstract class SocketAcceptor {
                 // Block while we've reached our connection limit
                 synchronized (this) {
                     boolean logged = false;
+                    boolean interrupted = false;
                     while (this.serverSocket != null && this.maxConnections > 0 && this.connections.size() >= this.maxConnections) {
                         if (!logged) {
                             this.log.warn(Thread.currentThread().getName() + " has reached connection limit of "
@@ -152,11 +153,13 @@ public abstract class SocketAcceptor {
                         try {
                             this.wait();
                         } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
+                            interrupted = true;
                         }
                     }
                     if (logged)
                         this.log.info(Thread.currentThread().getName() + " is accepting new connections again");
+                    if (interrupted)
+                        Thread.currentThread().interrupt();
                 }
 
                 // Have we been stopped?
@@ -265,13 +268,16 @@ public abstract class SocketAcceptor {
         if (this.serverThread != null)
             this.log.info("stopping acceptor thread");
         this.closeServerSocket();
+        boolean interrupted = false;
         while (this.serverThread != null) {
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                interrupted = true;
             }
         }
+        if (interrupted)
+            Thread.currentThread().interrupt();
 
         // Notify all active connections
         for (SocketInfo socketInfo : this.connections) {
@@ -293,6 +299,7 @@ public abstract class SocketAcceptor {
 
         // Wait for all active connections to complete
         long lastLogTime = 0;
+        interrupted = false;
         while (!this.connections.isEmpty()) {
             final long currentTime = System.nanoTime();
             if (currentTime - lastLogTime > NOTIFICATION_INTERVAL) {
@@ -302,11 +309,13 @@ public abstract class SocketAcceptor {
             try {
                 this.wait();
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                interrupted = true;
             }
         }
         if (lastLogTime != 0)
             this.log.info("all active connection(s) have stopped");
+        if (interrupted)
+            Thread.currentThread().interrupt();
 
         // Done
         this.started = false;
