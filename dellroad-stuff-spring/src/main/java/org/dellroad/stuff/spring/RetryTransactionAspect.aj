@@ -287,9 +287,9 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
         }
 
         // Add in +/- 12.5% randomness
-        final int randomRange = Math.max(1, (int)(delay >> 3));
+        final int randomRange = Math.max(1, (int)(delay >> 2));         // divide by 4 => 25% total range from -12.5% to +12.5%
         synchronized (this.random) {
-            delay += this.random.nextInt(randomRange) - randomRange / 2;
+            delay += this.random.nextInt(randomRange) - (randomRange / 2);
         }
 
         // Enforce upper bound again
