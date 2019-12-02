@@ -15,12 +15,11 @@ import javax.xml.transform.Source;
 import org.dellroad.stuff.java.IdGenerator;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
-import org.springframework.oxm.jibx.JibxMarshaller;
 
 /**
- * Wrapper for Spring's {@link JibxMarshaller} that performs marshalling and unmarshalling operations
+ * Wrapper for Spring's {@link org.springframework.oxm.jibx.JibxMarshaller} that performs marshalling and unmarshalling operations
  * within an invocation of {@link IdGenerator#run IdGenerator.run()}. Simply set your
- * normal {@link JibxMarshaller} to the {@linkplain #setJibxMarshaller jibxMarshaller}
+ * normal {@link org.springframework.oxm.jibx.JibxMarshaller} to the {@linkplain #setJibxMarshaller jibxMarshaller}
  * property and use this class in its place.
  *
  * <p>
@@ -30,14 +29,16 @@ import org.springframework.oxm.jibx.JibxMarshaller;
  */
 public class IdMappingMarshaller implements Marshaller, Unmarshaller {
 
-    private JibxMarshaller jibxMarshaller;
+    @SuppressWarnings("deprecation")
+    private org.springframework.oxm.jibx.JibxMarshaller jibxMarshaller;
 
     /**
-     * Configure the nested {@link JibxMarshaller}. Required property.
+     * Configure the nested {@link org.springframework.oxm.jibx.JibxMarshaller}. Required property.
      *
      * @param jibxMarshaller nested marshaller
      */
-    public void setJibxMarshaller(JibxMarshaller jibxMarshaller) {
+    @SuppressWarnings("deprecation")
+    public void setJibxMarshaller(org.springframework.oxm.jibx.JibxMarshaller jibxMarshaller) {
         this.jibxMarshaller = jibxMarshaller;
     }
 
@@ -48,8 +49,9 @@ public class IdMappingMarshaller implements Marshaller, Unmarshaller {
     }
 
     /**
-     * Invokdes {@link JibxMarshaller#marshal JibxMarshaller.marshal()} on the configured
-     * {@link JibxMarshaller} within an invocation of {@link IdGenerator#run(Callable) IdGenerator.run()}.
+     * Invokdes {@link org.springframework.oxm.jibx.JibxMarshaller#marshal JibxMarshaller.marshal()} on the configured
+     * {@link org.springframework.oxm.jibx.JibxMarshaller} within an invocation of
+     * {@link IdGenerator#run(Callable) IdGenerator.run()}.
      */
     @Override
     public void marshal(final Object graph, final Result result) throws IOException {
@@ -67,8 +69,9 @@ public class IdMappingMarshaller implements Marshaller, Unmarshaller {
     }
 
     /**
-     * Invokdes {@link JibxMarshaller#unmarshal JibxMarshaller.unmarshal()} on the configured
-     * {@link JibxMarshaller} within an invocation of {@link IdGenerator#run(Callable) IdGenerator.run()}.
+     * Invokdes {@link org.springframework.oxm.jibx.JibxMarshaller#unmarshal JibxMarshaller.unmarshal()} on the configured
+     * {@link org.springframework.oxm.jibx.JibxMarshaller} within an invocation of
+     * {@link IdGenerator#run(Callable) IdGenerator.run()}.
      */
     @Override
     public Object unmarshal(final Source source) throws IOException {
