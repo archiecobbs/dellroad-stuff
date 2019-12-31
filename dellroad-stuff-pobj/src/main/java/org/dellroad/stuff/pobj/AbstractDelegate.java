@@ -115,7 +115,7 @@ public abstract class AbstractDelegate<T> implements PersistentObjectDelegate<T>
      * {@link PersistentObject} object is configured to disallow them, in which case an exception is thrown.
      *
      * <p>
-     * The implementation in {@link AbstractDelegate} returns null
+     * The implementation in {@link AbstractDelegate} returns null.
      *
      * @return root object initial value, or null if there is no default value
      */

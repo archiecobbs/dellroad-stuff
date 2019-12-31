@@ -78,7 +78,7 @@ public interface RetryTransactionProvider {
 // RetrySetup
 
     /**
-     * Holds the information required when applying retry logic.
+     * Holds the configuration information that is required when applying retry logic.
      *
      * <p>
      * Instances are immutable.
