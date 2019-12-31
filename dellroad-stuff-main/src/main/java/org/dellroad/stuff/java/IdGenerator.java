@@ -28,6 +28,9 @@ import java.util.concurrent.Callable;
  * New {@code long} ID numbers are issued serially; after 2<sup>64</sup>-1 invocations of {@link #getId getId()},
  * an {@link IllegalStateException} will be thrown.
  *
+ * <p>
+ * Instances are thread safe.
+ *
  * @see org.dellroad.stuff.jibx.IdMapper
  */
 public class IdGenerator {
@@ -73,6 +76,19 @@ public class IdGenerator {
             this.refMap.put(id, ref);
         }
         return id;
+    }
+
+    /**
+     * Get the next ID to be assigned.
+     *
+     * <p>
+     * This method does not actually assign the ID; it only returns the ID that would be assigned by the next
+     * invocation of {@link #getId}.
+     *
+     * @return next available ID
+     */
+    public synchronized long nextId() {
+        return this.next;
     }
 
     /**
