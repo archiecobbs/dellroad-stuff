@@ -92,7 +92,7 @@ public class HibernateIsolationJpaDialect extends HibernateJpaDialect {
         if (connection != null) {
             if (this.log.isTraceEnabled())
                 this.log.trace("restoring isolation level to " + wrapper.getIsolation() + " on " + connection);
-            DataSourceUtils.resetConnectionAfterTransaction(connection, wrapper.getIsolation());
+            DataSourceUtils.resetConnectionAfterTransaction(connection, wrapper.getIsolation(), false);
         }
     }
 
