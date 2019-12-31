@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.io;
 
+import java.io.Closeable;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +18,7 @@ import java.io.InputStream;
  *
  * @see OutputStreamWriter
  */
-public class InputStreamReader {
+public class InputStreamReader implements Closeable {
 
     // Escape codes
     static final int CONTROL_ESCAPE = 1;
@@ -149,6 +150,7 @@ public class InputStreamReader {
      *
      * @throws IOException if an there is an error closing the underlying {@link InputStream}
      */
+    @Override
     public synchronized void close() throws IOException {
         if (this.closed)
             return;

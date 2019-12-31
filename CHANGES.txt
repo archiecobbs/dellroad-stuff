@@ -1,6 +1,7 @@
 Version Next
 
     - Fixed bug where RetryTransactionAspect delay randomness was 1/2 of intended
+    - Declare InputStreamReader to explicitly implement Closeable
     - Added method IdGenerator.nextId()
 
 Version 2.4.2 Released May 22, 2019
