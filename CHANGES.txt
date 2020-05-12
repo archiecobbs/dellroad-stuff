@@ -1,6 +1,7 @@
 Version Next
 
     - Fixed bug where RetryTransactionAspect delay randomness was 1/2 of intended
+    - Made ChannelNetwork min direct buffer size configurable and increase default
     - Declare InputStreamReader to explicitly implement Closeable
     - Relax dependency version constraints
     - Added method IdGenerator.nextId()

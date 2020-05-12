@@ -27,11 +27,6 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
-    /**
-     * Minimum buffer size to use a direct buffer.
-     */
-    private static final int MIN_DIRECT_BUFFER_SIZE = 128;
-
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     protected final ChannelNetwork network;
     protected final String peer;
@@ -247,7 +242,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
                     throw new IOException("rec'd message with bogus length " + length);
 
                 // Set up for reading the actual message
-                this.inbuf = length >= MIN_DIRECT_BUFFER_SIZE ? ByteBuffer.allocateDirect(length) : ByteBuffer.allocate(length);
+                this.inbuf = length >= this.network.getMinDirectBufferSize() ?
+                  ByteBuffer.allocateDirect(length) : ByteBuffer.allocate(length);
                 this.readingLength = false;
                 continue;
             }

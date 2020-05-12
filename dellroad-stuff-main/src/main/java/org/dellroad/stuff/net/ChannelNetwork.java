@@ -52,6 +52,13 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
      */
     public static final long DEFAULT_MAX_OUTPUT_QUEUE_SIZE = 64 * 1024 * 1024;   // 64 MB
 
+    /**
+     * Default minimum buffer size to use a direct buffer.
+     *
+     * @see #getMinDirectBufferSize
+     */
+    public static final int DEFAULT_MIN_DIRECT_BUFFER_SIZE = 64 * 1024;          // 64 K
+
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     protected final HashMap<String, ChannelConnection> connectionMap = new HashMap<>();
@@ -62,6 +69,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     private long maxIdleTime = DEFAULT_MAX_IDLE_TIME;
     private int maxMessageSize = DEFAULT_MAX_MESSAGE_SIZE;
     private long maxOutputQueueSize = DEFAULT_MAX_OUTPUT_QUEUE_SIZE;
+    private int minDirectBufferSize = DEFAULT_MIN_DIRECT_BUFFER_SIZE;
     private String serviceThreadName;
 
 // Public API
@@ -130,6 +138,26 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     }
     public synchronized void setServiceThreadName(String serviceThreadName) {
         this.serviceThreadName = serviceThreadName;
+    }
+
+    /**
+     * Get the minimum incoming message size for which we should allocate a <b>direct</b> {@link ByteBuffer}.
+     *
+     * @return direct {@link ByteBuffer} minimum size
+     * @see ByteBuffer
+     */
+    public synchronized int getMinDirectBufferSize() {
+        return this.minDirectBufferSize;
+    }
+
+    /**
+     * Set the minimum incoming message size for which we should allocate a <b>direct</b> {@link ByteBuffer}.
+     *
+     * @return direct {@link ByteBuffer} minimum size
+     * @see ByteBuffer
+     */
+    public synchronized void setMinDirectBufferSize(final int minDirectBufferSize) {
+        this.minDirectBufferSize = minDirectBufferSize;
     }
 
 // Lifecycle
