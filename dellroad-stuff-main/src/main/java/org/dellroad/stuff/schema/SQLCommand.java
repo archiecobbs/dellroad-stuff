@@ -51,14 +51,10 @@ public class SQLCommand implements DatabaseAction<Connection> {
      */
     @Override
     public void apply(Connection c) throws SQLException {
-        Statement statement = c.createStatement();
-        String sep = this.sql.indexOf('\n') != -1 ? "\n" : " ";
-        this.log.info("executing SQL statement:" + sep + this.sql);
-        try {
+        try (final Statement statement = c.createStatement()) {
+            String sep = this.sql.indexOf('\n') != -1 ? "\n" : " ";
+            this.log.info("executing SQL statement:" + sep + this.sql);
             statement.execute(this.sql);
-        } finally {
-            statement.close();
         }
     }
 }
-
