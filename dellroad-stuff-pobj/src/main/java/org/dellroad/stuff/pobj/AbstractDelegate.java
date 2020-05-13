@@ -50,14 +50,14 @@ public abstract class AbstractDelegate<T> implements PersistentObjectDelegate<T>
         try {
             this.serialize(original, new StreamResult(buffer));
         } catch (IOException e) {
-            throw new PersistentObjectException("exception during serialize()");
+            throw new PersistentObjectException("exception during serialize()", e);
         }
         StreamSource source = new StreamSource(new StringReader(buffer.toString()));
         T copy;
         try {
             copy = this.deserialize(source);
         } catch (IOException e) {
-            throw new PersistentObjectException("exception during deserialize()");
+            throw new PersistentObjectException("exception during deserialize()", e);
         }
         if (copy == null)
             throw new PersistentObjectException("null object returned by deserialize()");
@@ -124,4 +124,3 @@ public abstract class AbstractDelegate<T> implements PersistentObjectDelegate<T>
         return null;
     }
 }
-
