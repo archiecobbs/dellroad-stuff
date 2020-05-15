@@ -858,7 +858,7 @@ public class PersistentObject<T> {
         if (streamRepositorySnapshot == null)
             throw new PersistentObjectException("no file configured");
         try (final BufferedInputStream input = new BufferedInputStream(streamRepositorySnapshot.getInputStream())) {
-            StreamSource source = new StreamSource(input);
+            final StreamSource source = new StreamSource(input);
             source.setSystemId(this.getFile());
             return PersistentObject.read(this.delegate, source, false);
         } catch (IOException e) {
@@ -930,7 +930,7 @@ public class PersistentObject<T> {
      * @return XML result output
      */
     protected Result createResult(OutputStream output, File systemId) {
-        StreamResult result = new StreamResult(output);
+        final StreamResult result = new StreamResult(output);
         result.setSystemId(systemId);
         return result;
     }
@@ -1067,7 +1067,7 @@ public class PersistentObject<T> {
             throw new IllegalArgumentException("null source");
 
         // Parse XML
-        T root;
+        final T root;
         try {
             root = delegate.deserialize(source);
         } catch (IOException e) {
@@ -1128,25 +1128,13 @@ public class PersistentObject<T> {
         if (file == null)
             throw new IllegalArgumentException("null file");
 
-        // Open file
-        BufferedInputStream input;
-        try {
-            input = new BufferedInputStream(new FileInputStream(file));
-        } catch (IOException e) {
-            throw new PersistentObjectException("error opening persistent file", e);
-        }
-
-        // Parse XML
-        try {
-            StreamSource source = new StreamSource(input);
+        // Read file and parse XML
+        try (final BufferedInputStream input = new BufferedInputStream(new FileInputStream(file))) {
+            final StreamSource source = new StreamSource(input);
             source.setSystemId(file);
             return PersistentObject.read(delegate, source, validate);
-        } finally {
-            try {
-                input.close();
-            } catch (IOException e) {
-                // ignore
-            }
+        } catch (IOException e) {
+            throw new PersistentObjectException("error reading persistent file", e);
         }
     }
 
@@ -1233,12 +1221,10 @@ public class PersistentObject<T> {
             throw new IllegalArgumentException("null file");
 
         // Write to file
-        try {
-            final BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file));
+        try (final BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file))) {
             final StreamResult result = new StreamResult(output);
             result.setSystemId(file);
             PersistentObject.write(root, delegate, result);
-            output.close();
         } catch (IOException e) {
             throw new PersistentObjectException("error writing persistent file", e);
         }
