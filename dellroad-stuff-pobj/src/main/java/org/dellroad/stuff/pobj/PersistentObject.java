@@ -406,7 +406,7 @@ public class PersistentObject<T> {
      *
      * @return if empty starts are allowed
      */
-    public boolean isAllowEmptyStart() {
+    public synchronized boolean isAllowEmptyStart() {
         return this.allowEmptyStart;
     }
 
@@ -433,7 +433,7 @@ public class PersistentObject<T> {
      *
      * @return true if empty stops are allowed
      */
-    public boolean isAllowEmptyStop() {
+    public synchronized boolean isAllowEmptyStop() {
         return this.allowEmptyStop;
     }
 
