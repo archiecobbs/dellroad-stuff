@@ -521,12 +521,8 @@ public class PersistentObject<T> {
 
         // Start checking the file
         if (this.checkInterval > 0) {
-            this.scheduledExecutor.scheduleWithFixedDelay(new Runnable() {
-                @Override
-                public void run() {
-                    PersistentObject.this.checkFileTimeout();
-                }
-            }, this.checkInterval, this.checkInterval, TimeUnit.MILLISECONDS);
+            this.scheduledExecutor.scheduleWithFixedDelay(
+              this::checkFileTimeout, this.checkInterval, this.checkInterval, TimeUnit.MILLISECONDS);
         }
 
         // Done
@@ -749,14 +745,8 @@ public class PersistentObject<T> {
             this.pendingWriteRoot = this.root;
             if (this.writeDelay == 0)
                 this.writeback();
-            else if (this.pendingWrite == null) {
-                this.pendingWrite = this.scheduledExecutor.schedule(new Runnable() {
-                    @Override
-                    public void run() {
-                        PersistentObject.this.writeTimeout();
-                    }
-                }, this.writeDelay, TimeUnit.MILLISECONDS);
-            }
+            else if (this.pendingWrite == null)
+                this.pendingWrite = this.scheduledExecutor.schedule(this::writeTimeout, this.writeDelay, TimeUnit.MILLISECONDS);
         }
 
         // Notify listeners
@@ -962,12 +952,7 @@ public class PersistentObject<T> {
 
         // Notify them
         final PersistentObjectEvent<T> event = new PersistentObjectEvent<T>(this, newVersion, oldRoot, newRoot);
-        this.notifyExecutor.submit(new Runnable() {
-            @Override
-            public void run() {
-                PersistentObject.this.doNotifyListeners(listenersCopy, event);
-            }
-        });
+        this.notifyExecutor.submit(() -> this.doNotifyListeners(listenersCopy, event));
     }
 
     // Read the persistent file and apply it
