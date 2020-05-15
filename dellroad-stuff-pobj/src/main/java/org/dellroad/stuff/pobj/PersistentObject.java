@@ -191,9 +191,11 @@ public class PersistentObject<T> {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final HashSet<PersistentObjectListener<T>> listeners = new HashSet<PersistentObjectListener<T>>();
+    private final Object sharedRootMutex = new Object();    // used to ensure only one shared root creator at a time
 
-    private PersistentObjectDelegate<T> delegate;
-    private FileStreamRepository streamRepository;
+    private volatile PersistentObjectDelegate<T> delegate;
+    private volatile FileStreamRepository streamRepository;
+
     private long writeDelay;
     private long checkInterval;
 
@@ -540,9 +542,10 @@ public class PersistentObject<T> {
         if (!this.started)
             return;
 
-        // Perform any lingering pending save now
-        if (this.cancelPendingWrite())
-            this.writeback();
+        // Cancel any pending write-back - and do it right now
+        final T rootToWrite = this.cancelPendingWrite();
+        if (rootToWrite != null)
+            this.write(rootToWrite);
 
         // Stop executor services
         this.log.info(this + ": shutting down");
@@ -556,7 +559,6 @@ public class PersistentObject<T> {
         this.notifyExecutor = null;
         this.root = null;
         this.sharedRoot = null;
-        this.pendingWriteRoot = null;
         this.timestamp = 0;
         this.started = false;
     }
@@ -567,7 +569,7 @@ public class PersistentObject<T> {
      * @return true if this instance has a non-null root object, false if this instance is not started
      *  or is in an empty start or empty stop state
      */
-    public boolean hasRoot() {
+    public synchronized boolean hasRoot() {
         return this.root != null;
     }
 
@@ -588,14 +590,9 @@ public class PersistentObject<T> {
      * @throws IllegalStateException if this instance is not started
      * @throws PersistentObjectException if an error occurs
      */
-    public synchronized T getRoot() {
-
-        // Sanity check
-        if (!this.started)
-            throw new IllegalStateException("not started");
-
-        // Copy root
-        return this.root != null ? this.delegate.copy(this.root) : null;
+    public T getRoot() {
+        final Snapshot snapshot = this.getRootSnapshot();
+        return snapshot != null ? snapshot.getRoot() : null;
     }
 
     /**
@@ -609,10 +606,9 @@ public class PersistentObject<T> {
      * @return shared copy of the root instance, or null during an empty start or empty stop
      * @throws IllegalStateException if this instance is not started
      */
-    public synchronized T getSharedRoot() {
-        if (this.sharedRoot == null)
-            this.sharedRoot = this.getRoot();
-        return this.sharedRoot;
+    public T getSharedRoot() {
+        final Snapshot snapshot = this.getSharedRootSnapshot();
+        return snapshot != null ? snapshot.getRoot() : null;
     }
 
     /**
@@ -624,11 +620,28 @@ public class PersistentObject<T> {
      * @throws PersistentObjectException if an error occurs
      * @see #getRoot
      */
-    public synchronized Snapshot getRootSnapshot() {
-        T myRoot = this.getRoot();
-        if (myRoot == null)
+    public Snapshot getRootSnapshot() {
+
+        // Grab the current root
+        final T rootToCopy;
+        final long rootVersion;
+        synchronized (this) {
+
+            // Sanity check
+            if (!this.started)
+                throw new IllegalStateException("not started");
+
+            // Grab the root we want to copy
+            rootToCopy = this.root;
+            rootVersion = this.version;
+        }
+
+        // Any root set?
+        if (rootToCopy == null)
             return null;
-        return new Snapshot(myRoot, this.version);
+
+        // Copy and return it
+        return new Snapshot(this.delegate.copy(rootToCopy), rootVersion);
     }
 
     /**
@@ -641,11 +654,29 @@ public class PersistentObject<T> {
      * @throws PersistentObjectException if an error occurs
      * @see #getSharedRoot
      */
-    public synchronized Snapshot getSharedRootSnapshot() {
-        T mySharedRoot = this.getSharedRoot();
-        if (mySharedRoot == null)
-            return null;
-        return new Snapshot(mySharedRoot, this.version);
+    public Snapshot getSharedRootSnapshot() {
+        synchronized (this.sharedRootMutex) {                   // ensure only one thread does the initial copy
+
+            // Snapshot already exists?
+            synchronized (this) {
+                if (this.sharedRoot != null)
+                    return new Snapshot(this.sharedRoot, this.version);
+            }
+
+            // Make a copy of the current root
+            final Snapshot snapshot = this.getRootSnapshot();
+            if (snapshot == null)
+                return null;
+
+            // Save the copy for others to use as well (unless version has just changed)
+            synchronized (this) {
+                if (this.sharedRoot == null && snapshot.getVersion() == this.version)
+                    this.sharedRoot = snapshot.getRoot();
+            }
+
+            // Done
+            return snapshot;
+        }
     }
 
     /**
@@ -674,6 +705,11 @@ public class PersistentObject<T> {
      * <p>
      * After a successful change, any registered {@linkplain PersistentObjectListener listeners} are notified in a
      * separate thread from the one that invoked this method.
+     *
+     * <p>
+     * It is possible that this method may succeed, even though writing out the new file fails. In that case,
+     * {@link PersistentObjectDelegate#handleWritebackException PersistentObjectDelegate.handleWritebackException()}
+     * will be invoked (in a separate thread).
      *
      * @param newRoot new persistent object
      * @param expectedVersion expected current version number, or zero to ignore the current version number
@@ -709,51 +745,90 @@ public class PersistentObject<T> {
         return this.setRoot(newRoot, expectedVersion, false);
     }
 
-    synchronized long setRootInternal(T newRoot, long expectedVersion,
-      boolean readingFile, boolean allowNotStarted, boolean alreadyValidated) {
+    long setRootInternal(T newRoot, long expectedVersion, boolean readingFile, boolean allowNotStarted, boolean alreadyValidated) {
 
         // Sanity check
-        if (newRoot == null && !this.isAllowEmptyStop())
-            throw new IllegalArgumentException("newRoot is null but empty stops are not enabled");
-        if (!this.started && !allowNotStarted)
-            throw new IllegalStateException("not started");
         if (expectedVersion < 0)
             throw new IllegalStateException("negative expectedVersion");
 
-        // Check version number
-        if (expectedVersion != 0 && this.version != expectedVersion)
-            throw new PersistentObjectVersionException(this.version, expectedVersion);
+        // Loop to handle race conditions that can occur while not synchronized
+        T oldRoot;
+        T newRootCopy = null;
+        long oldVersion;
+        long newVersion;
+        while (true) {
 
-        // Check for sameness
-        if (this.root == null && newRoot == null)
-            return this.version;
-        if (this.root != null && newRoot != null && this.delegate.isSameGraph(this.root, newRoot))
-            return this.version;
+            // Snapshot current root & version and do an initial quick version number check
+            synchronized (this) {
 
-        // Validate the new root
-        if (newRoot != null && !alreadyValidated)
-            this.validate(newRoot);
+                // Re-do parameter validation that depends on state which could have changed while unsynchronized
+                if (!this.started && !allowNotStarted)
+                    throw new IllegalStateException("not started");
+                if (newRoot == null && !this.isAllowEmptyStop())
+                    throw new IllegalArgumentException("newRoot is null but empty stops are not enabled");
+                if (expectedVersion != 0 && this.version != expectedVersion)
+                    throw new PersistentObjectVersionException(this.version, expectedVersion);
 
-        // Do the update
-        final T oldRoot = this.root;
-        this.root = newRoot != null ? this.delegate.copy(newRoot) : null;
-        this.version++;
-        this.sharedRoot = null;
+                // Snapshot current root & version
+                oldRoot = this.root;
+                oldVersion = this.version;
+            }
 
-        // Perform write-back, either now or later
-        if (!readingFile && this.root != null) {
-            this.pendingWriteRoot = this.root;
-            if (this.writeDelay == 0)
-                this.writeback();
-            else if (this.pendingWrite == null)
-                this.pendingWrite = this.scheduledExecutor.schedule(this::writeTimeout, this.writeDelay, TimeUnit.MILLISECONDS);
+            // Check for sameness
+            if (oldRoot == null && newRoot == null)
+                return oldVersion;
+            if (oldRoot != null && newRoot != null && this.delegate.isSameGraph(oldRoot, newRoot))
+                return oldVersion;
+
+            // Validate the new root
+            if (newRoot != null && !alreadyValidated) {
+                this.validate(newRoot);
+                alreadyValidated = true;
+            }
+
+            // Copy the new root to make it private, to ensure it can't get modified out from under us after we return
+            if (newRoot != null && newRootCopy == null)
+                newRootCopy = this.delegate.copy(newRoot);
+
+            // Do the atomic update
+            synchronized (this) {
+
+                // Re-do parameter validation that depends on state which could have changed while unsynchronized
+                if (!this.started && !allowNotStarted)
+                    throw new IllegalStateException("not started");
+                if (newRoot == null && !this.isAllowEmptyStop())
+                    throw new IllegalArgumentException("newRoot is null but empty stops are not enabled");
+
+                // Verify that current root & version we used didn't change while we were unsynchronized
+                if (this.root != oldRoot || this.version != oldVersion)
+                    continue;                                                           // oops, start over
+
+                // Apply the new root and bump the current version
+                this.root = newRootCopy;
+                newVersion = ++this.version;
+
+                // Invalidate the old shared root
+                this.sharedRoot = null;
+
+                // Schedule file write-back (if not already scheduled)
+                if (!readingFile && newRoot != null) {
+                    this.pendingWriteRoot = newRoot;
+                    if (this.pendingWrite == null) {
+                        this.pendingWrite = this.scheduledExecutor.schedule(
+                          this::writeTimeout, this.writeDelay, TimeUnit.MILLISECONDS);
+                    }
+                }
+            }
+
+            // We're done
+            break;
         }
 
         // Notify listeners
-        this.notifyListeners(this.version, oldRoot, newRoot);
+        this.notifyListeners(newVersion, oldRoot, newRoot);
 
         // Done
-        return this.version;
+        return newVersion;
     }
 
     /**
@@ -772,7 +847,7 @@ public class PersistentObject<T> {
      * @return the new current version number (unchanged if {@code newRoot} is
      *  {@linkplain PersistentObjectDelegate#isSameGraph the same as} the current root)
      */
-    public final synchronized long setRoot(T newRoot) {
+    public final long setRoot(T newRoot) {
         return this.setRoot(newRoot, 0);
     }
 
@@ -786,11 +861,7 @@ public class PersistentObject<T> {
      * @throws IllegalStateException if this instance is not started
      * @throws PersistentObjectException if an error occurs
      */
-    public synchronized void checkFile() {
-
-        // Sanity check
-        if (!this.started)
-            throw new IllegalStateException("not started");
+    public void checkFile() {
 
         // Get file timestamp
         long fileTime = this.getFile().lastModified();
@@ -798,8 +869,10 @@ public class PersistentObject<T> {
             return;
 
         // Check whether file has newly appeared or just been updated
-        if (this.timestamp != 0 && fileTime <= this.timestamp)
-            return;
+        synchronized (this) {
+            if (this.timestamp != 0 && fileTime <= this.timestamp)
+                return;
+        }
 
         // Read new file
         this.log.info(this + ": detected out-of-band update of persistent file `" + this.getFile() + "'");
@@ -877,16 +950,24 @@ public class PersistentObject<T> {
      * @throws IllegalArgumentException if {@code obj} is null
      * @throws PersistentObjectException if an error occurs
      */
-    protected final synchronized void write(T obj) {
+    protected final void write(T obj) {
 
         // Sanity check
         if (obj == null)
             throw new IllegalArgumentException("null obj");
 
+        // Get file
+        final FileStreamRepository streamRepositorySnapshot;
+        synchronized (this) {
+            streamRepositorySnapshot = this.streamRepository;
+        }
+        if (streamRepositorySnapshot == null)
+            throw new PersistentObjectException("no file configured");
+
         // Open atomic update output and buffer it
         AtomicUpdateFileOutputStream updateOutput;
         try {
-            updateOutput = this.streamRepository.getOutputStream();
+            updateOutput = streamRepositorySnapshot.getOutputStream();
         } catch (IOException e) {
             throw new PersistentObjectException("error creating temporary file", e);
         }
@@ -896,16 +977,19 @@ public class PersistentObject<T> {
         try {
 
             // Set up XML result
-            Result result = this.createResult(output, updateOutput.getTempFile());
+            final Result result = this.createResult(output, updateOutput.getTempFile());
 
             // Serialize root object
             PersistentObject.write(obj, this.delegate, result);
 
-            // Commit output
-            try {
-                output.close();
-            } catch (IOException e) {
-                throw new PersistentObjectException("error closing temporary file", e);
+            // Atomically commit file and get its updated timestamp
+            synchronized (this) {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    throw new PersistentObjectException("error closing temporary file", e);
+                }
+                this.timestamp = streamRepositorySnapshot.getFileTimestamp();
             }
 
             // Success
@@ -914,9 +998,6 @@ public class PersistentObject<T> {
             if (output != null)
                 updateOutput.cancel();
         }
-
-        // Update file timestamp
-        this.timestamp = this.streamRepository.getFileTimestamp();
     }
 
     /**
@@ -952,27 +1033,34 @@ public class PersistentObject<T> {
 
         // Notify them
         final PersistentObjectEvent<T> event = new PersistentObjectEvent<T>(this, newVersion, oldRoot, newRoot);
-        this.notifyExecutor.submit(() -> this.doNotifyListeners(listenersCopy, event));
+        final ExecutorService executor;
+        synchronized (this) {
+            executor = this.notifyExecutor;
+        }
+        if (executor != null)
+            executor.submit(() -> this.doNotifyListeners(listenersCopy, event));
     }
 
     // Read the persistent file and apply it
-    private synchronized void applyFile(long newTimestamp, boolean allowNotStarted) {
-        this.cancelPendingWrite();
-        this.timestamp = newTimestamp;                              // update timestamp even if update fails to avoid loops
+    private void applyFile(long newTimestamp, boolean allowNotStarted) {
+        synchronized (this) {
+            this.cancelPendingWrite();                  // disallow fights between reads & writes of the same file
+            this.timestamp = newTimestamp;              // update timestamp here, even if update below fails, to avoid loops
+        }
         this.setRootInternal(this.read(), 0, true, allowNotStarted, false);
     }
 
     // Handle a write-back timeout
-    private synchronized void writeTimeout() {
+    private void writeTimeout() {
 
-        // Check for cancel race
-        if (this.pendingWrite == null)
+        // Check for a cancel race
+        final T rootToWrite = this.cancelPendingWrite();
+        if (rootToWrite == null)                        // this async task was canceled but it had already started, nothing to do
             return;
-        this.pendingWrite = null;
 
         // Write it
         try {
-            this.writeback();
+            this.write(rootToWrite);
         } catch (ThreadDeath t) {
             throw t;
         } catch (Throwable t) {
@@ -981,13 +1069,7 @@ public class PersistentObject<T> {
     }
 
     // Handle a check file timeout
-    private synchronized void checkFileTimeout() {
-
-        // Handle race condition
-        if (!this.started)
-            return;
-
-        // Check file
+    private void checkFileTimeout() {
         try {
             this.checkFile();
         } catch (ThreadDeath t) {
@@ -997,21 +1079,21 @@ public class PersistentObject<T> {
         }
     }
 
-    // Write back root to persistent file
-    private synchronized void writeback() {
-        T objectToWrite = this.pendingWriteRoot;
-        assert objectToWrite != null;
-        this.pendingWriteRoot = null;
-        this.write(objectToWrite);
-    }
+    // Cancel a pending write, and if there was one, return the pending write-back object; otherwise, return null
+    private synchronized T cancelPendingWrite() {
 
-    // Cancel a pending write and return true if there was one
-    private synchronized boolean cancelPendingWrite() {
-        if (this.pendingWrite == null)
-            return false;
+        // Anything pending?
+        if (this.pendingWrite == null) {
+            assert this.pendingWriteRoot == null;
+            return null;
+        }
+
+        // Cancel asyn task and return pending write-back value
         this.pendingWrite.cancel(false);
         this.pendingWrite = null;
-        return true;
+        final T rootToWrite = this.pendingWriteRoot;
+        this.pendingWriteRoot = null;
+        return rootToWrite;
     }
 
     // Notify listeners. This is invoked in a separate thread.
@@ -1100,6 +1182,8 @@ public class PersistentObject<T> {
      * @throws PersistentObjectValidationException if the root has validation errors
      */
     public void validate(T root) {
+        if (this.delegate == null)
+            throw new IllegalArgumentException("null delegate");
         final Set<ConstraintViolation<T>> violations = this.delegate.validate(root);
         if (!violations.isEmpty())
             throw new PersistentObjectValidationException(violations);

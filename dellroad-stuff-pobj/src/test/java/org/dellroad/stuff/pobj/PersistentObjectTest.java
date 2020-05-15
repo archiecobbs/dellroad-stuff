@@ -103,6 +103,7 @@ public class PersistentObjectTest extends TestSupport {
 
         // Write it back
         pobj.setRoot(root, version);
+        Thread.sleep(500);                      // wait for write-back to complete
         this.log.info("new file:\n" + new String(Files.readAllBytes(pobj.getFile().toPath())));
 
         // Verify value was copied correctly
