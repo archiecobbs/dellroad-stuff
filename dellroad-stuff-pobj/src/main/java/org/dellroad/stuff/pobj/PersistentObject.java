@@ -199,10 +199,10 @@ public class PersistentObject<T> {
 
     private T root;                                         // current root object (private)
     private T sharedRoot;                                   // current root object (shared)
-    private T writebackRoot;                                // pending persistent file writeback value
     private ScheduledExecutorService scheduledExecutor;     // used for file checking and delayed write-back
     private ExecutorService notifyExecutor;                 // used to notify listeners
-    private ScheduledFuture<?> pendingWrite;                // a pending delayed write-back
+    private ScheduledFuture<?> pendingWrite;                // a pending write-back (this is null iff pendingWriteRoot is null)
+    private T pendingWriteRoot;                             // pending write-back value (this is null iff pendingWrite is null)
     private long version;                                   // current root object version
     private long timestamp;                                 // timestamp of persistent file when we last read it
     private boolean allowEmptyStart;
@@ -560,7 +560,7 @@ public class PersistentObject<T> {
         this.notifyExecutor = null;
         this.root = null;
         this.sharedRoot = null;
-        this.writebackRoot = null;
+        this.pendingWriteRoot = null;
         this.timestamp = 0;
         this.started = false;
     }
@@ -746,7 +746,7 @@ public class PersistentObject<T> {
 
         // Perform write-back, either now or later
         if (!readingFile && this.root != null) {
-            this.writebackRoot = this.root;
+            this.pendingWriteRoot = this.root;
             if (this.writeDelay == 0)
                 this.writeback();
             else if (this.pendingWrite == null) {
@@ -1014,9 +1014,9 @@ public class PersistentObject<T> {
 
     // Write back root to persistent file
     private synchronized void writeback() {
-        T objectToWrite = this.writebackRoot;
+        T objectToWrite = this.pendingWriteRoot;
         assert objectToWrite != null;
-        this.writebackRoot = null;
+        this.pendingWriteRoot = null;
         this.write(objectToWrite);
     }
 
@@ -1323,4 +1323,3 @@ public class PersistentObject<T> {
         }
     }
 }
-
