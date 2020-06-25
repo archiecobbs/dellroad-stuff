@@ -153,7 +153,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     /**
      * Set the minimum incoming message size for which we should allocate a <b>direct</b> {@link ByteBuffer}.
      *
-     * @return direct {@link ByteBuffer} minimum size
+     * @param minDirectBufferSize direct buffer size lower limit
      * @see ByteBuffer
      */
     public synchronized void setMinDirectBufferSize(final int minDirectBufferSize) {
