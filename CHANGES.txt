@@ -6,6 +6,7 @@ Version Next
     - Reduced the amount of locking in PersistentObject
     - Relax dependency version constraints
     - Added method IdGenerator.nextId()
+    - Added MessageFmt
 
 Version 2.4.2 Released May 22, 2019
 
