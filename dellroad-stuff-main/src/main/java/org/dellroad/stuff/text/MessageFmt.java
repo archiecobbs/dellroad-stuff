@@ -18,14 +18,28 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import javax.validation.ConstraintValidatorContext;
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.dellroad.stuff.validation.SelfValidates;
+import org.dellroad.stuff.validation.SelfValidating;
+import org.dellroad.stuff.validation.SelfValidationException;
+
 /**
  * POJO representing a {@link MessageFormat} that exposes its structure. Supports arbitrary recursive nesting
  * of {@link MessageFormat} with {@link ChoiceFormat}.
  *
  * <p>
  * This makes it easier to introspect, bypass nested quoting confusion, (de)serialize instances to/from XML, etc.
+ *
+ * <p>
+ * Instances also support full JSR 303 validation.
  */
-public class MessageFmt {
+@SelfValidates
+public class MessageFmt implements SelfValidating {
 
     private static final Field FORMATS_FIELD;
     private static final Field OFFSETS_FIELD;
@@ -112,6 +126,7 @@ public class MessageFmt {
      *
      * @return associated locale
      */
+    @NotNull
     public Locale getLocale() {
         return this.locale;
     }
@@ -124,7 +139,9 @@ public class MessageFmt {
      *
      * @return message format segments
      */
-    public List<Segment> getSegments() {
+    @NotNull
+    @Valid
+    public List<@NotNull Segment> getSegments() {
         return this.segments;
     }
     public void setSegments(final List<Segment> segments) {
@@ -151,6 +168,17 @@ public class MessageFmt {
         return this.segments.stream()
           .map(Segment::toPattern)
           .collect(Collectors.joining());
+    }
+
+// Validation
+
+    @Override
+    public void checkValid(ConstraintValidatorContext context) throws SelfValidationException {
+        try {
+            this.toMessageFormat();
+        } catch (IllegalArgumentException e) {
+            throw new SelfValidationException("invalid configuration", e);
+        }
     }
 
 // Object
@@ -204,6 +232,7 @@ public class MessageFmt {
 
     // Properties
 
+        @NotNull
         public String getString() {
             return this.string;
         }
@@ -251,6 +280,7 @@ public class MessageFmt {
          *
          * @return argument to format, zero-based
          */
+        @Min(0)
         public int getArgumentNumber() {
             return this.argumentNumber;
         }
@@ -505,7 +535,8 @@ public class MessageFmt {
     /**
      * An {@link ArgumentSegment} that formats its argument using a {@link DecimalFormat}.
      */
-    public static class DecimalArgumentSegment extends NumberFormatArgumentSegment<DecimalFormat> {
+    @SelfValidates
+    public static class DecimalArgumentSegment extends NumberFormatArgumentSegment<DecimalFormat> implements SelfValidating {
 
         private String pattern;
 
@@ -519,6 +550,7 @@ public class MessageFmt {
             this.pattern = format.toPattern();
         }
 
+        @NotNull
         public String getPattern() {
             return this.pattern;
         }
@@ -529,6 +561,19 @@ public class MessageFmt {
         @Override
         protected String getArgumentSuffix() {
             return "number," + this.pattern;
+        }
+
+    // Validation
+
+        @Override
+        public void checkValid(ConstraintValidatorContext context) throws SelfValidationException {
+            if (this.pattern != null) {
+                try {
+                    new DecimalFormat(this.pattern);
+                } catch (IllegalArgumentException e) {
+                    throw new SelfValidationException("invalid DecimalFormat pattern \"" + this.pattern + "\"", e);
+                }
+            }
         }
     }
 
@@ -575,7 +620,10 @@ public class MessageFmt {
          *
          * @return options for choice
          */
-        public List<Option> getOptions() {
+        @NotNull
+        @Size(min = 1)
+        @Valid
+        public List<@NotNull Option> getOptions() {
             return this.options;
         }
         public void setOptions(final List<Option> options) {
@@ -663,6 +711,8 @@ public class MessageFmt {
              *
              * @return the {@link MessageFmt} for this option
              */
+            @NotNull
+            @Valid
             public MessageFmt getFormat() {
                 return this.format;
             }
@@ -702,7 +752,9 @@ public class MessageFmt {
     /**
      * A {@link MessageFormat} argument segment that formats the argument using a {@link SimpleDateFormat}.
      */
-    public static class SimpleDateFormatArgumentSegment extends DateFormatArgumentSegment<SimpleDateFormat> {
+    @SelfValidates
+    public static class SimpleDateFormatArgumentSegment extends DateFormatArgumentSegment<SimpleDateFormat>
+      implements SelfValidating {
 
         private String pattern;
 
@@ -716,6 +768,7 @@ public class MessageFmt {
             this.pattern = format.toPattern();
         }
 
+        @NotNull
         public String getPattern() {
             return this.pattern;
         }
@@ -726,6 +779,19 @@ public class MessageFmt {
         @Override
         protected String getArgumentSuffix() {
             return "date," + this.pattern;
+        }
+
+    // Validation
+
+        @Override
+        public void checkValid(ConstraintValidatorContext context) throws SelfValidationException {
+            if (this.pattern != null) {
+                try {
+                    new SimpleDateFormat(this.pattern);
+                } catch (IllegalArgumentException e) {
+                    throw new SelfValidationException("invalid SimpleDateFormat pattern \"" + this.pattern + "\"", e);
+                }
+            }
         }
     }
 
@@ -743,6 +809,7 @@ public class MessageFmt {
             this.standard = standard;
         }
 
+        @NotNull
         public DateFormatStandard getStandard() {
             return this.standard;
         }
