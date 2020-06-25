@@ -153,6 +153,12 @@ public class MessageFmt implements SelfValidating {
     /**
      * Build the {@link MessageFormat} represented by this instance.
      *
+     * <p>
+     * This method is equivalent to:
+     * <blockquote>
+     * {@code new MessageFormat(this.}{@link #toPattern toPattern}{@code (), this.}{@link #toPattern getLocale}{@code ())}.
+     * </blockquote>
+     *
      * @return an equivalent {@link MessageFormat}
      */
     public MessageFormat toMessageFormat() {
