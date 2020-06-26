@@ -29,11 +29,26 @@ import org.dellroad.stuff.validation.SelfValidating;
 import org.dellroad.stuff.validation.SelfValidationException;
 
 /**
- * POJO representing a {@link MessageFormat} that exposes its structure. Supports arbitrary recursive nesting
- * of {@link MessageFormat} with {@link ChoiceFormat}.
+ * POJO representing a {@link MessageFormat} that models its internal structure.
  *
  * <p>
- * This makes it easier to introspect, bypass nested quoting confusion, (de)serialize instances to/from XML, etc.
+ * Instances support arbitrary recursive nesting of {@link MessageFormat} with {@link ChoiceFormat}.
+ *
+ * <p>
+ * The point of this class is to make it easier to work with {@link MessageFormat} instances, by allowing for
+ * structural introspection, avoidance of string quoting/escaping issues, serialization to/from XML, etc.
+ *
+ * <p>
+ * Instances of {@link MessageFmt} do not retain any associated {@link Locale}; they strictly represent the format structure.
+ * However, some of that structure may implicitly refer to {@link Locale}-provided defaults; for example, a
+ * {@link MessageFmt.CurrencyArgumentSegment} means "format as currency using {@link NumberFormat#getCurrencyInstance(Locale)}",
+ * which produces a different result depending on the {@link Locale}. So, in contrast to {@link MessageFormat}, the {@link Locale}
+ * is always implicit.
+ *
+ * <p>
+ * Having said that, it is possible to create {@link MessageFmt} instances that "capture" any {@link Locale} defaults
+ * at the time of construction and avoid the use of {@link Locale}-dependent segments such as
+ * {@link MessageFmt.CurrencyArgumentSegment}; see {@link #MessageFmt(MessageFormat, boolean)} for details.
  *
  * <p>
  * Instances also support full JSR 303 validation.
@@ -64,15 +79,82 @@ public class MessageFmt implements SelfValidating {
         ARGUMENT_NUMBERS_FIELD.setAccessible(true);
     }
 
-    private Locale locale = Locale.getDefault(Locale.Category.FORMAT);
     private List<Segment> segments = new ArrayList<>();
 
 // Constructors
 
+    /**
+     * Default constructor.
+     *
+     * <p>
+     * Creates an empty instance.
+     */
     public MessageFmt() {
     }
 
+    /**
+     * Create an instance modeling the given {@link MessageFormat}.
+     *
+     * <p>
+     * Equivalent to: {@link #MessageFmt(MessageFormat, boolean) MessageFmt}{@code (format, false)}.
+     *
+     * @param format source message format
+     * @throws IllegalArgumentException if {@code format} is null
+     */
     public MessageFmt(MessageFormat format) {
+        this(format, false);
+    }
+
+    /**
+     * Create an instance modeling the given {@link MessageFormat} with optional capturing of {@link Locale} defaults.
+     *
+     * <p>
+     * The {@code captureLocaleDefaults} parameter controls whether {@link FormatArgumentSegment}s that refer to
+     * {@link Locale} defaults are allowed. Such segments produce different results depending on the locale; see
+     * {@link FormatArgumentSegment#of FormatArgumentSegment.of()}. If {@code captureLocaleDefaults} is true, these
+     * implicit locale-dependent formats are not allowed; instead the actual formats are captured whenever possible.
+     *
+     * <p>
+     * Here's a concrete example:
+     * <blockquote><pre>
+     * final Object[] args = new Object[] { new Date(1590000000000L) };         // May 20, 2020
+     *
+     * final MessageFormat messageFormat = new MessageFormat("date = {0,date,short}", Locale.US);
+     *
+     * System.out.println("messageFormat -&gt; " + messageFormat.format(args));
+     *
+     * final MessageFmt messageFmt1 = new MessageFmt(messageFormat, false);     // leave "date,short" alone; bind to locale later
+     * final MessageFmt messageFmt2 = new MessageFmt(messageFormat, true);      // capture "date,short" in Locale.US
+     *
+     * System.out.println("messageFmt1.toPattern() = " + messageFmt1.toPattern());
+     * System.out.println("messageFmt2.toPattern() = " + messageFmt2.toPattern());
+     *
+     * final MessageFormat messageFormat1 = messageFmt1.toMessageFormat(Locale.FRANCE);
+     * final MessageFormat messageFormat2 = messageFmt2.toMessageFormat(Locale.FRANCE);
+     *
+     * System.out.println("messageFormat1 -&gt; " + messageFormat1.format(args));
+     * System.out.println("messageFormat2 -&gt; " + messageFormat2.format(args));
+     * </pre></blockquote>
+     * This would produce the following output:
+     * <blockquote><pre>
+     * messageFormat -&gt; date = 5/20/20
+     * messageFmt1.toPattern() = date = {0,date,short}
+     * messageFmt2.toPattern() = date = {0,date,M/d/yy}
+     * messageFormat1 -&gt; date = 20/05/20
+     * messageFormat2 -&gt; date = 5/20/20
+     * </pre></blockquote>
+     *
+     * <p>
+     * Note that regardless of {@code captureLocaleDefaults}, some {@link MessageFormat} arguments are always
+     * {@link Locale}-dependent. For example, a simple argument parameter like <code>{0}</code>, when applied
+     * to a numerical argument, is always formatted using the {@link Locale} default number format.
+     *
+     * @param format source message format
+     * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
+     * @throws IllegalArgumentException if {@code format} is null
+     * @see FormatArgumentSegment#of FormatArgumentSegment.of()
+     */
+    public MessageFmt(MessageFormat format, boolean captureLocaleDefaults) {
 
         // Sanity check
         if (format == null)
@@ -94,10 +176,8 @@ public class MessageFmt implements SelfValidating {
             throw new RuntimeException("internal error", e);
         }
 
-        // Get locale
-        this.locale = format.getLocale();
-
         // Extract segments
+        final Locale locale = !captureLocaleDefaults ? format.getLocale() : null;
         int prevOffset = 0;
         for (int i = 0; i <= maxOffset; i++) {
 
@@ -111,7 +191,7 @@ public class MessageFmt implements SelfValidating {
             // Add next ArgumentSegment
             final int argumentNumber = argumentNumbers[i];
             this.segments.add(formats[i] != null ?
-              FormatArgumentSegment.of(formats[i], argumentNumber, this.locale) : new StringArgumentSegment(argumentNumber));
+              FormatArgumentSegment.of(formats[i], argumentNumber, locale) : new DefaultArgumentSegment(argumentNumber));
         }
 
         // Add final TextSegment if needed
@@ -120,19 +200,6 @@ public class MessageFmt implements SelfValidating {
     }
 
 // Properties
-
-    /**
-     * Get the locale associated with this message format.
-     *
-     * @return associated locale
-     */
-    @NotNull
-    public Locale getLocale() {
-        return this.locale;
-    }
-    public void setLocale(final Locale locale) {
-        this.locale = locale;
-    }
 
     /**
      * Get the individual components of this message format.
@@ -151,18 +218,36 @@ public class MessageFmt implements SelfValidating {
 // Methods
 
     /**
-     * Build the {@link MessageFormat} represented by this instance.
+     * Build the {@link MessageFormat} represented by this instance using the default format locale.
      *
      * <p>
      * This method is equivalent to:
      * <blockquote>
-     * {@code new MessageFormat(this.}{@link #toPattern toPattern}{@code (), this.}{@link #toPattern getLocale}{@code ())}.
+     * {@code new MessageFormat(this.}{@link #toPattern toPattern}{@code ())}.
      * </blockquote>
      *
      * @return an equivalent {@link MessageFormat}
+     * @see MessageFormat#MessageFormat(String)
      */
     public MessageFormat toMessageFormat() {
-        return new MessageFormat(this.toPattern(), this.locale);
+        return new MessageFormat(this.toPattern());
+    }
+
+    /**
+     * Build the {@link MessageFormat} represented by this instance using the specified {@link Locale}.
+     *
+     * <p>
+     * This method is equivalent to:
+     * <blockquote>
+     * {@code new MessageFormat(this.}{@link #toPattern toPattern}{@code (), locale)}.
+     * </blockquote>
+     *
+     * @param locale locale for {@link MessageFormat}
+     * @return an equivalent {@link MessageFormat} using the given {@link Locale}
+     * @see MessageFormat#MessageFormat(String, Locale)
+     */
+    public MessageFormat toMessageFormat(Locale locale) {
+        return new MessageFormat(this.toPattern(), locale);
     }
 
     /**
@@ -181,7 +266,7 @@ public class MessageFmt implements SelfValidating {
     @Override
     public void checkValid(ConstraintValidatorContext context) throws SelfValidationException {
         try {
-            this.toMessageFormat();
+            this.toMessageFormat(Locale.getDefault(Locale.Category.FORMAT));
         } catch (IllegalArgumentException e) {
             throw new SelfValidationException("invalid configuration", e);
         }
@@ -192,8 +277,7 @@ public class MessageFmt implements SelfValidating {
     @Override
     public String toString() {
         return this.getClass().getSimpleName()
-          + "[locale=" + this.locale
-          + ",segments=" + this.segments
+          + "[segments=" + this.segments
           + "]";
     }
 
@@ -238,6 +322,9 @@ public class MessageFmt implements SelfValidating {
 
     // Properties
 
+        /**
+         * Get the associated plain text.
+         */
         @NotNull
         public String getString() {
             return this.string;
@@ -329,17 +416,17 @@ public class MessageFmt implements SelfValidating {
         }
     }
 
-// StringArgumentSegment
+// DefaultArgumentSegment
 
     /**
-     * An {@link ArgumentSegment} that simply formats the argument with its {@link String} value.
+     * An {@link ArgumentSegment} that simply formats the argument using the default formatting for its type.
      */
-    public static class StringArgumentSegment extends ArgumentSegment {
+    public static class DefaultArgumentSegment extends ArgumentSegment {
 
-        public StringArgumentSegment() {
+        public DefaultArgumentSegment() {
         }
 
-        public StringArgumentSegment(int argumentNumber) {
+        public DefaultArgumentSegment(int argumentNumber) {
             super(argumentNumber);
         }
 
@@ -373,12 +460,14 @@ public class MessageFmt implements SelfValidating {
          *
          * <p>
          * The optional {@code locale} parameter allows for identification of certain formats
-         * when they equal the locale default. This also produces more concise {@link MessageFormat}
-         * format strings (see {@link MessageFmt#toPattern}).
+         * when they equal the locale default. This also results in more concise {@link MessageFormat}
+         * format strings (see {@link MessageFmt#toPattern}), but makes the result implicitly depend
+         * on the {@link Locale} being used (because different {@link Locale}s have different defaults
+         * for integer, percent, currency, etc).
          *
          * @param format format to be used for argument
          * @param argumentNumber argument number
-         * @param locale assumed locale, or null for none
+         * @param locale assumed locale, or null to not make any locale assumptions
          * @param <T> format type
          * @return an equivalent {@link FormatArgumentSegment}
          * @throws IllegalArgumentException if {@code argumentNumber} is negative
@@ -654,7 +743,7 @@ public class MessageFmt implements SelfValidating {
             for (int i = 0; i < this.options.size(); i++) {
                 final Option option = this.options.get(i);
                 limits[i] = option.getLimit();
-                formats[i] = option.getFormat().toMessageFormat().toPattern();
+                formats[i] = option.getFormat().toPattern();
             }
             return new ChoiceFormat(limits, formats);
         }

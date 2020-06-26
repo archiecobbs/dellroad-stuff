@@ -19,6 +19,26 @@ import org.testng.annotations.Test;
 
 public class MessageFmtTest extends TestSupport {
 
+    @Test
+    public void testLocaleCapture() {
+
+        final Object[] args = new Object[] { new java.util.Date(1590000000000L) };
+
+        final MessageFormat messageFormat = new MessageFormat("date = {0,date,short}", Locale.US);
+
+        final MessageFmt messageFmt1 = new MessageFmt(messageFormat, false);
+        final MessageFmt messageFmt2 = new MessageFmt(messageFormat, true);
+
+        Assert.assertEquals(messageFmt1.toPattern(), "date = {0,date,short}");
+        Assert.assertEquals(messageFmt2.toPattern(), "date = {0,date,M/d/yy}");
+
+        final MessageFormat messageFormat1 = messageFmt1.toMessageFormat(Locale.FRANCE);
+        final MessageFormat messageFormat2 = messageFmt2.toMessageFormat(Locale.FRANCE);
+
+        Assert.assertEquals(messageFormat1.format(args), "date = 20/05/20");
+        Assert.assertEquals(messageFormat2.format(args), "date = 5/20/20");
+    }
+
     @Test(dataProvider = "cases")
     public void testMessageFmt(Locale locale, String format, String expected, List<?> argList) {
 
@@ -32,7 +52,7 @@ public class MessageFmtTest extends TestSupport {
 
         final MessageFmt messageFmt1 = new MessageFmt(messageFormat1);
         this.log.info("testMessageFmt:\n  messageFormat1={}\n  messageFmt1={}", messageFormat1, messageFmt1);
-        final MessageFormat messageFormat2 = messageFmt1.toMessageFormat();
+        final MessageFormat messageFormat2 = messageFmt1.toMessageFormat(locale);
         final String pattern2 = messageFormat2.toPattern();
         final String actual2 = messageFormat2.format(args);
 
