@@ -17,6 +17,7 @@ org.dellroad.stuff.spring
 org.dellroad.stuff.sql
 org.dellroad.stuff.string
 org.dellroad.stuff.test
+org.dellroad.stuff.text
 org.dellroad.stuff.util
 org.dellroad.stuff.vaadin8
 org.dellroad.stuff.validation
