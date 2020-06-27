@@ -70,10 +70,26 @@ public class PersistentFileTransaction {
     /**
      * Get the current XML data. Does not include the XML update list.
      *
+     * <p>
+     * During a schema update the caller may modify the document in place, or invoke {@link #setData} to completely replace it.
+     *
      * @return XML data
      */
     public Document getData() {
         return this.current;
+    }
+
+    /**
+     * Change the current XML data.
+     *
+     * <p>
+     * This would be invoked by a schema update if it wanted to completely replace the XML document,
+     * rather than just modifying it in place.
+     *
+     * @param data new XML data; does not include the XML update list
+     */
+    public void setData(final Document data) {
+        this.current = data;
     }
 
     /**
@@ -97,6 +113,9 @@ public class PersistentFileTransaction {
     /**
      * Apply an XSLT transform to the current XML object in this transaction.
      *
+     * <p>
+     * This is an alternative to modifying the DOM, when XSL is a simpler way to perform the update.
+     *
      * @param transformer XSLT transformer
      * @throws IllegalStateException if the current root object is null
      * @throws PersistentObjectException if an error occurs
@@ -117,7 +136,7 @@ public class PersistentFileTransaction {
         transformer.transform(source, result);
 
         // Save result as the new current value
-        this.current = (Document)result.getNode();
+        this.setData((Document)result.getNode());
     }
 
     private void read(Source input, TransformerFactory transformerFactory) throws IOException, XMLStreamException {
@@ -150,4 +169,3 @@ public class PersistentFileTransaction {
         return this.getClass().getSimpleName() + "[" + this.systemId + "]";
     }
 }
-
