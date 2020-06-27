@@ -330,6 +330,186 @@ public class MessageFmt implements SelfValidating {
         void caseTextSegment(TextSegment segment);
     }
 
+// SegmentSwitchAdapter
+
+    /**
+     * Adapter class for {@link SegmentSwitch} implementations.
+     */
+    public static class SegmentSwitchAdapter implements SegmentSwitch {
+
+        /**
+         * Handle a {@link ChoiceArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void caseChoiceArgumentSegment(ChoiceArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link CurrencyArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void caseCurrencyArgumentSegment(CurrencyArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link DecimalArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void caseDecimalArgumentSegment(DecimalArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link DefaultArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseArgumentSegment}.
+         */
+        @Override
+        public void caseDefaultArgumentSegment(DefaultArgumentSegment segment) {
+            this.caseArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link DefaultNumberFormatSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void caseDefaultNumberFormatArgumentSegment(DefaultNumberFormatArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link IntegerArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void caseIntegerArgumentSegment(IntegerArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link PercentArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         */
+        @Override
+        public void casePercentArgumentSegment(PercentArgumentSegment segment) {
+            this.caseNumberFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link SimpleDateFormatArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         */
+        @Override
+        public void caseSimpleDateFormatArgumentSegment(SimpleDateFormatArgumentSegment segment) {
+            this.caseDateFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link StandardDateFormatArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         */
+        @Override
+        public void caseStandardDateFormatArgumentSegment(StandardDateFormatArgumentSegment segment) {
+            this.caseDateFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link StandardTimeFormatArgumentSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         */
+        @Override
+        public void caseStandardTimeFormatArgumentSegment(StandardTimeFormatArgumentSegment segment) {
+            this.caseDateFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Handle a {@link TextSegment}.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment}.
+         */
+        @Override
+        public void caseTextSegment(TextSegment segment) {
+            this.caseSegment(segment);
+        }
+
+    // Roll-up Methods
+
+        /**
+         * Internal roll-up method.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseFormatArgumentSegment}.
+         */
+        protected <T extends DateFormat> void caseDateFormatArgumentSegment(DateFormatArgumentSegment<T> segment) {
+            this.caseFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Internal roll-up method.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseFormatArgumentSegment}.
+         */
+        protected <T extends NumberFormat> void caseNumberFormatArgumentSegment(NumberFormatArgumentSegment<T> segment) {
+            this.caseFormatArgumentSegment(segment);
+        }
+
+        /**
+         * Internal roll-up method.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseArgumentSegment}.
+         */
+        protected <T extends Format> void caseFormatArgumentSegment(FormatArgumentSegment<T> segment) {
+            this.caseArgumentSegment(segment);
+        }
+
+        /**
+         * Internal roll-up method.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment}.
+         */
+        protected void caseArgumentSegment(ArgumentSegment segment) {
+            this.caseSegment(segment);
+        }
+
+        /**
+         * Internal roll-up method.
+         *
+         * <p>
+         * The implementation in {@link SegmentSwitchAdapter} does nothing.
+         */
+        protected void caseSegment(Segment segment) {
+        }
+    }
+
 // TextSegment
 
     /**
