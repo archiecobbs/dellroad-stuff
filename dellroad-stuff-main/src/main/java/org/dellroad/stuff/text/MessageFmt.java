@@ -912,7 +912,7 @@ public class MessageFmt implements SelfValidating {
 
 // AbstractStandardDateFormatArgumentSegment
 
-    private abstract static class AbstractStandardDateFormatArgumentSegment extends DateFormatArgumentSegment<DateFormat> {
+    abstract static class AbstractStandardDateFormatArgumentSegment extends DateFormatArgumentSegment<DateFormat> {
 
         private DateFormatStandard standard;
 
