@@ -300,6 +300,34 @@ public class MessageFmt implements SelfValidating {
          * @return {@link MessageFormat} pattern string text
          */
         public abstract String toPattern();
+
+        /**
+         * Visit the method of the given switch corresponding to this instance's concrete type.
+         *
+         * @param target visitor pattern target
+         */
+        public abstract void visit(SegmentSwitch target);
+    }
+
+// SegmentSwitch
+
+    /**
+     * Visitor pattern interface for {@link Segment} subclasses.
+     *
+     * @see Segment#visit Segment.visit()
+     */
+    public interface SegmentSwitch {
+        void caseChoiceArgumentSegment(ChoiceArgumentSegment segment);
+        void caseCurrencyArgumentSegment(CurrencyArgumentSegment segment);
+        void caseDecimalArgumentSegment(DecimalArgumentSegment segment);
+        void caseDefaultArgumentSegment(DefaultArgumentSegment segment);
+        void caseDefaultNumberFormatArgumentSegment(DefaultNumberFormatArgumentSegment segment);
+        void caseIntegerArgumentSegment(IntegerArgumentSegment segment);
+        void casePercentArgumentSegment(PercentArgumentSegment segment);
+        void caseSimpleDateFormatArgumentSegment(SimpleDateFormatArgumentSegment segment);
+        void caseStandardDateFormatArgumentSegment(StandardDateFormatArgumentSegment segment);
+        void caseStandardTimeFormatArgumentSegment(StandardTimeFormatArgumentSegment segment);
+        void caseTextSegment(TextSegment segment);
     }
 
 // TextSegment
@@ -340,6 +368,11 @@ public class MessageFmt implements SelfValidating {
             return this.string
               .replaceAll("'", "''")                // escape single quotes
               .replaceAll("\\{+", "'$1'");          // escape runs of opening curly braces
+        }
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseTextSegment(this);
         }
 
     // Object
@@ -435,6 +468,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getArgumentSuffix() {
             return null;
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseDefaultArgumentSegment(this);
         }
     }
 
@@ -558,6 +598,13 @@ public class MessageFmt implements SelfValidating {
         protected String getArgumentSuffix() {
             return "number";
         }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseDefaultNumberFormatArgumentSegment(this);
+        }
     }
 
 // CurrencyArgumentSegment
@@ -582,6 +629,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getArgumentSuffix() {
             return "number,currency";
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseCurrencyArgumentSegment(this);
         }
     }
 
@@ -608,6 +662,13 @@ public class MessageFmt implements SelfValidating {
         protected String getArgumentSuffix() {
             return "number,percent";
         }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.casePercentArgumentSegment(this);
+        }
     }
 
 // IntegerArgumentSegment
@@ -632,6 +693,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getArgumentSuffix() {
             return "number,integer";
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseIntegerArgumentSegment(this);
         }
     }
 
@@ -670,6 +738,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getArgumentSuffix() {
             return "number," + this.pattern;
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseDecimalArgumentSegment(this);
         }
 
     // Validation
@@ -762,6 +837,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getArgumentSuffix() {
             return "choice," + this.toChoiceFormat().toPattern();
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseChoiceArgumentSegment(this);
         }
 
     // Object
@@ -896,6 +978,13 @@ public class MessageFmt implements SelfValidating {
             return "date," + this.pattern;
         }
 
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseSimpleDateFormatArgumentSegment(this);
+        }
+
     // Validation
 
         @Override
@@ -970,6 +1059,13 @@ public class MessageFmt implements SelfValidating {
         protected String getKeyword() {
             return "date";
         }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseStandardDateFormatArgumentSegment(this);
+        }
     }
 
 // StandardTimeFormatArgumentSegment
@@ -994,6 +1090,13 @@ public class MessageFmt implements SelfValidating {
         @Override
         protected String getKeyword() {
             return "time";
+        }
+
+    // Segment
+
+        @Override
+        public void visit(SegmentSwitch target) {
+            target.caseStandardTimeFormatArgumentSegment(this);
         }
     }
 
