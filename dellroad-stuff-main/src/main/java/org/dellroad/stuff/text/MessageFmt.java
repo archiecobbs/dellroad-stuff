@@ -343,6 +343,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseChoiceArgumentSegment(ChoiceArgumentSegment segment) {
@@ -355,6 +357,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseCurrencyArgumentSegment(CurrencyArgumentSegment segment) {
@@ -367,6 +371,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseDecimalArgumentSegment(DecimalArgumentSegment segment) {
@@ -379,6 +385,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseArgumentSegment caseArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseDefaultArgumentSegment(DefaultArgumentSegment segment) {
@@ -386,11 +394,13 @@ public class MessageFmt implements SelfValidating {
         }
 
         /**
-         * Handle a {@link DefaultNumberFormatSegment}.
+         * Handle a {@link DefaultNumberFormatArgumentSegment}.
          *
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseDefaultNumberFormatArgumentSegment(DefaultNumberFormatArgumentSegment segment) {
@@ -398,11 +408,13 @@ public class MessageFmt implements SelfValidating {
         }
 
         /**
-         * Handle a {@link IntegerArgumentSegment}.
+         * Handle an {@link IntegerArgumentSegment}.
          *
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseIntegerArgumentSegment(IntegerArgumentSegment segment) {
@@ -415,6 +427,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void casePercentArgumentSegment(PercentArgumentSegment segment) {
@@ -427,6 +441,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseSimpleDateFormatArgumentSegment(SimpleDateFormatArgumentSegment segment) {
@@ -439,6 +455,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseStandardDateFormatArgumentSegment(StandardDateFormatArgumentSegment segment) {
@@ -451,6 +469,8 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseStandardTimeFormatArgumentSegment(StandardTimeFormatArgumentSegment segment) {
@@ -462,6 +482,8 @@ public class MessageFmt implements SelfValidating {
          *
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment caseSegment()}.
+         *
+         * @param segment visited segment
          */
         @Override
         public void caseTextSegment(TextSegment segment) {
@@ -476,6 +498,9 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseFormatArgumentSegment caseFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
+         * @param <T> date format type
          */
         protected <T extends DateFormat> void caseDateFormatArgumentSegment(DateFormatArgumentSegment<T> segment) {
             this.caseFormatArgumentSegment(segment);
@@ -487,6 +512,9 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseFormatArgumentSegment caseFormatArgumentSegment()}.
+         *
+         * @param segment visited segment
+         * @param <T> number format type
          */
         protected <T extends NumberFormat> void caseNumberFormatArgumentSegment(NumberFormatArgumentSegment<T> segment) {
             this.caseFormatArgumentSegment(segment);
@@ -498,6 +526,9 @@ public class MessageFmt implements SelfValidating {
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to
          * {@link #caseArgumentSegment caseArgumentSegment()}.
+         *
+         * @param segment visited segment
+         * @param <T> format type
          */
         protected <T extends Format> void caseFormatArgumentSegment(FormatArgumentSegment<T> segment) {
             this.caseArgumentSegment(segment);
@@ -508,6 +539,8 @@ public class MessageFmt implements SelfValidating {
          *
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment caseSegment()}.
+         *
+         * @param segment visited segment
          */
         protected void caseArgumentSegment(ArgumentSegment segment) {
             this.caseSegment(segment);
@@ -518,6 +551,8 @@ public class MessageFmt implements SelfValidating {
          *
          * <p>
          * The implementation in {@link SegmentSwitchAdapter} does nothing.
+         *
+         * @param segment visited segment
          */
         protected void caseSegment(Segment segment) {
         }
@@ -545,6 +580,8 @@ public class MessageFmt implements SelfValidating {
 
         /**
          * Get the associated plain text.
+         *
+         * @return segment plain text
          */
         @NotNull
         public String getString() {
