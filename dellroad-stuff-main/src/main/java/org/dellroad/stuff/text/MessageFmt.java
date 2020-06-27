@@ -341,7 +341,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link ChoiceArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void caseChoiceArgumentSegment(ChoiceArgumentSegment segment) {
@@ -352,7 +353,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link CurrencyArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void caseCurrencyArgumentSegment(CurrencyArgumentSegment segment) {
@@ -363,7 +365,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link DecimalArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void caseDecimalArgumentSegment(DecimalArgumentSegment segment) {
@@ -374,7 +377,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link DefaultArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseArgumentSegment caseArgumentSegment()}.
          */
         @Override
         public void caseDefaultArgumentSegment(DefaultArgumentSegment segment) {
@@ -385,7 +389,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link DefaultNumberFormatSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void caseDefaultNumberFormatArgumentSegment(DefaultNumberFormatArgumentSegment segment) {
@@ -396,7 +401,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link IntegerArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void caseIntegerArgumentSegment(IntegerArgumentSegment segment) {
@@ -407,7 +413,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link PercentArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseNumberFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseNumberFormatArgumentSegment caseNumberFormatArgumentSegment()}.
          */
         @Override
         public void casePercentArgumentSegment(PercentArgumentSegment segment) {
@@ -418,7 +425,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link SimpleDateFormatArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
          */
         @Override
         public void caseSimpleDateFormatArgumentSegment(SimpleDateFormatArgumentSegment segment) {
@@ -429,7 +437,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link StandardDateFormatArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
          */
         @Override
         public void caseStandardDateFormatArgumentSegment(StandardDateFormatArgumentSegment segment) {
@@ -440,7 +449,8 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link StandardTimeFormatArgumentSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseDateFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseDateFormatArgumentSegment caseDateFormatArgumentSegment()}.
          */
         @Override
         public void caseStandardTimeFormatArgumentSegment(StandardTimeFormatArgumentSegment segment) {
@@ -451,7 +461,7 @@ public class MessageFmt implements SelfValidating {
          * Handle a {@link TextSegment}.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment caseSegment()}.
          */
         @Override
         public void caseTextSegment(TextSegment segment) {
@@ -464,7 +474,8 @@ public class MessageFmt implements SelfValidating {
          * Internal roll-up method.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseFormatArgumentSegment caseFormatArgumentSegment()}.
          */
         protected <T extends DateFormat> void caseDateFormatArgumentSegment(DateFormatArgumentSegment<T> segment) {
             this.caseFormatArgumentSegment(segment);
@@ -474,7 +485,8 @@ public class MessageFmt implements SelfValidating {
          * Internal roll-up method.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseFormatArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseFormatArgumentSegment caseFormatArgumentSegment()}.
          */
         protected <T extends NumberFormat> void caseNumberFormatArgumentSegment(NumberFormatArgumentSegment<T> segment) {
             this.caseFormatArgumentSegment(segment);
@@ -484,7 +496,8 @@ public class MessageFmt implements SelfValidating {
          * Internal roll-up method.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseArgumentSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to
+         * {@link #caseArgumentSegment caseArgumentSegment()}.
          */
         protected <T extends Format> void caseFormatArgumentSegment(FormatArgumentSegment<T> segment) {
             this.caseArgumentSegment(segment);
@@ -494,7 +507,7 @@ public class MessageFmt implements SelfValidating {
          * Internal roll-up method.
          *
          * <p>
-         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment}.
+         * The implementation in {@link SegmentSwitchAdapter} delegates to {@link #caseSegment caseSegment()}.
          */
         protected void caseArgumentSegment(ArgumentSegment segment) {
             this.caseSegment(segment);
