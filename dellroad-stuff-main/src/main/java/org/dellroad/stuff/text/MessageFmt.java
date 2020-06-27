@@ -1075,6 +1075,42 @@ public class MessageFmt implements SelfValidating {
             }
 
             /**
+             * Get the limit for this {@link ChoiceArgumentSegment} option in string form.
+             *
+             * <p>
+             * This property is just an alternative view of {@link #getLimit} that uses the {@link ChoiceFormat} string syntax,
+             * which includes a trailing {@code "<"} or {@code "#"} character.
+             *
+             * <p>
+             * For example, a limit of {@code 1.0} is described as {@code "1.0#"} while a limit of
+             * {@link ChoiceFormat#nextDouble ChoiceFormat.nextDouble}{@code (1.0)} is described as {@code "1.0<"}.
+             *
+             * @return argument upper bound (inclusive) for this option
+             */
+            public String getLimitDescription() {
+                return new ChoiceFormat(this.limit + "#").toPattern();
+            }
+
+            /**
+             * Set the limit for this {@link ChoiceArgumentSegment} option in string form.
+             *
+             * <p>
+             * If there is no trailing {@code "<"} or {@code "#"} character, then {@code "#"} is assumed.
+             *
+             * @param limitDescription string description of limit
+             */
+            public void setLimitDescription(String limitDescription) {
+                if (limitDescription == null)
+                    throw new IllegalArgumentException("null limitDescription");
+                if (limitDescription.indexOf('#') == -1 && limitDescription.indexOf('<') == -1)
+                    limitDescription += "#";
+                final double[] limits = new ChoiceFormat(limitDescription).getLimits();
+                if (limits.length != 1)
+                    throw new IllegalArgumentException("invalid limitDescription");
+                this.limit = limits[0];
+            }
+
+            /**
              * Get the {@link MessageFmt} for this {@link ChoiceArgumentSegment} option.
              *
              * <p>
