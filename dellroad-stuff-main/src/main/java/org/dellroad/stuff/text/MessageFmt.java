@@ -430,6 +430,8 @@ public class MessageFmt implements SelfValidating {
             super(argumentNumber);
         }
 
+    // ArgumentSegment
+
         @Override
         protected String getArgumentSuffix() {
             return null;
@@ -550,6 +552,8 @@ public class MessageFmt implements SelfValidating {
             super(argumentNumber);
         }
 
+    // ArgumentSegment
+
         @Override
         protected String getArgumentSuffix() {
             return "number";
@@ -572,6 +576,8 @@ public class MessageFmt implements SelfValidating {
         public CurrencyArgumentSegment(int argumentNumber) {
             super(argumentNumber);
         }
+
+    // ArgumentSegment
 
         @Override
         protected String getArgumentSuffix() {
@@ -596,6 +602,8 @@ public class MessageFmt implements SelfValidating {
             super(argumentNumber);
         }
 
+    // ArgumentSegment
+
         @Override
         protected String getArgumentSuffix() {
             return "number,percent";
@@ -618,6 +626,8 @@ public class MessageFmt implements SelfValidating {
         public IntegerArgumentSegment(int argumentNumber) {
             super(argumentNumber);
         }
+
+    // ArgumentSegment
 
         @Override
         protected String getArgumentSuffix() {
@@ -645,6 +655,8 @@ public class MessageFmt implements SelfValidating {
             this.pattern = format.toPattern();
         }
 
+    // Properties
+
         @NotNull
         public String getPattern() {
             return this.pattern;
@@ -652,6 +664,8 @@ public class MessageFmt implements SelfValidating {
         public void setPattern(final String pattern) {
             this.pattern = pattern;
         }
+
+    // ArgumentSegment
 
         @Override
         protected String getArgumentSuffix() {
@@ -725,11 +739,6 @@ public class MessageFmt implements SelfValidating {
             this.options = options;
         }
 
-        @Override
-        protected String getArgumentSuffix() {
-            return "choice," + this.toChoiceFormat().toPattern();
-        }
-
     // Methods
 
         /**
@@ -746,6 +755,13 @@ public class MessageFmt implements SelfValidating {
                 formats[i] = option.getFormat().toPattern();
             }
             return new ChoiceFormat(limits, formats);
+        }
+
+    // ArgumentSegment
+
+        @Override
+        protected String getArgumentSuffix() {
+            return "choice," + this.toChoiceFormat().toPattern();
         }
 
     // Object
@@ -863,6 +879,8 @@ public class MessageFmt implements SelfValidating {
             this.pattern = format.toPattern();
         }
 
+    // Properties
+
         @NotNull
         public String getPattern() {
             return this.pattern;
@@ -870,6 +888,8 @@ public class MessageFmt implements SelfValidating {
         public void setPattern(final String pattern) {
             this.pattern = pattern;
         }
+
+    // ArgumentSegment
 
         @Override
         protected String getArgumentSuffix() {
@@ -904,6 +924,8 @@ public class MessageFmt implements SelfValidating {
             this.standard = standard;
         }
 
+    // Properties
+
         @NotNull
         public DateFormatStandard getStandard() {
             return this.standard;
@@ -911,6 +933,8 @@ public class MessageFmt implements SelfValidating {
         public void setStandard(final DateFormatStandard standard) {
             this.standard = standard;
         }
+
+    // ArgumentSegment
 
         @Override
         protected String getArgumentSuffix() {
@@ -940,6 +964,8 @@ public class MessageFmt implements SelfValidating {
             super(argumentNumber, standard);
         }
 
+    // AbstractStandardDateFormatArgumentSegment
+
         @Override
         protected String getKeyword() {
             return "date";
@@ -962,6 +988,8 @@ public class MessageFmt implements SelfValidating {
         public StandardTimeFormatArgumentSegment(int argumentNumber, DateFormatStandard standard) {
             super(argumentNumber, standard);
         }
+
+    // AbstractStandardDateFormatArgumentSegment
 
         @Override
         protected String getKeyword() {
