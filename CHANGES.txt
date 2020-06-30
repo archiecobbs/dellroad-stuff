@@ -1,4 +1,4 @@
-Version Next
+Version 2.4.4 Released June 30, 3030
 
     - Avoid deadlock in POBJ.getSharedRootSnapshot() if caller already locked
 
