@@ -1,3 +1,7 @@
+Version Next
+
+    - Avoid deadlock in POBJ.getSharedRootSnapshot() if caller already locked
+
 Version 2.4.3 Released June 27, 2020
 
     - Fixed bug where RetryTransactionAspect delay randomness was 1/2 of intended

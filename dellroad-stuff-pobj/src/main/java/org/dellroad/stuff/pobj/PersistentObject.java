@@ -655,6 +655,17 @@ public class PersistentObject<T> {
      * @see #getSharedRoot
      */
     public Snapshot getSharedRootSnapshot() {
+
+        // Caller may have already synchronized on this instance for some reason; if so, avoid lock order reversal deadlock
+        if (Thread.holdsLock(this)) {
+            synchronized (this) {                               // does nothing (already locked); just helps spotbugs understand
+                if (this.sharedRoot == null)
+                    this.sharedRoot = this.getRootSnapshot().getRoot();
+                return new Snapshot(this.sharedRoot, this.version);
+            }
+        }
+
+        // Caller is not synchronized on this instance; use another mutex to prevent duplicate creation of shared snapshot
         synchronized (this.sharedRootMutex) {                   // ensure only one thread does the initial copy
 
             // Snapshot already exists?
