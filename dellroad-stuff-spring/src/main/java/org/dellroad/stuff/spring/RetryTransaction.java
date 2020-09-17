@@ -108,7 +108,24 @@ import java.lang.annotation.Target;
  *      &#64;Transactional
  *      public void doSomething() {
  *          ...
- *          final int attempt = this.retryTransactionProvider.getAttempt();
+ *          final int attempt = this.retryTransactionProvider.getAttemptNumber();
+ *          ...
+ *      }
+ *   </pre></blockquote>
+ *
+ * <p>
+ * You can acquire also the singleton {@link RetryTransactionProvider} instance directly like this:
+ *  <blockquote><pre>
+ *      import org.dellroad.stuff.spring.RetryTransactionAspect;
+ *      import org.dellroad.stuff.spring.RetryTransactionProvider;
+ *      ...
+ *
+ *      &#64;RetryTransaction
+ *      &#64;Transactional
+ *      public void doSomething() {
+ *          ...
+ *          final RetryTransactionProvider rtp = RetryTransactionAspect.aspectOf();
+ *          final int attempt = rtp.getAttemptNumber();
  *          ...
  *      }
  *   </pre></blockquote>
