@@ -659,8 +659,12 @@ public class PersistentObject<T> {
         // Caller may have already synchronized on this instance for some reason; if so, avoid lock order reversal deadlock
         if (Thread.holdsLock(this)) {
             synchronized (this) {                               // does nothing (already locked); just helps spotbugs understand
-                if (this.sharedRoot == null)
-                    this.sharedRoot = this.getRootSnapshot().getRoot();
+                if (this.sharedRoot == null) {
+                    final Snapshot snapshot = this.getRootSnapshot();
+                    if (snapshot == null)
+                        return null;
+                    this.sharedRoot = snapshot.getRoot();
+                }
                 return new Snapshot(this.sharedRoot, this.version);
             }
         }
