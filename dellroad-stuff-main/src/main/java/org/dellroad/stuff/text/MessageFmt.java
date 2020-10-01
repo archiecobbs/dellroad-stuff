@@ -29,29 +29,30 @@ import org.dellroad.stuff.validation.SelfValidating;
 import org.dellroad.stuff.validation.SelfValidationException;
 
 /**
- * POJO representing a {@link MessageFormat} that models its internal structure.
+ * POJO representing a {@link MessageFormat} that models its internal structure, supporting arbitrary recursive
+ * nesting of {@link MessageFormat} with {@link ChoiceFormat}.
  *
  * <p>
- * Instances support arbitrary recursive nesting of {@link MessageFormat} with {@link ChoiceFormat}.
+ * The point of this class is to make it easier to work with {@link MessageFormat} instances by allowing for
+ * structural introspection and eliminating complex quoting/escaping issues.
  *
  * <p>
- * The point of this class is to make it easier to work with {@link MessageFormat} instances, by allowing for
- * structural introspection, easy serialization to/from XML, and eliminating complex quoting/escaping issues.
+ * <b>Locales</b>
  *
  * <p>
- * Instances of {@link MessageFmt} do not retain any associated {@link Locale}; they strictly represent the format structure.
- * However, some of that structure may implicitly refer to {@link Locale}-provided defaults; for example, a
- * {@link MessageFmt.CurrencyArgumentSegment} means "format as currency using {@link NumberFormat#getCurrencyInstance(Locale)}",
- * which produces a different result depending on the {@link Locale}. So, in contrast to {@link MessageFormat}, the {@link Locale}
- * is always implicit.
+ * Unlike the {@link MessageFormat} class, instances of {@link MessageFmt} do not have an associated {@link Locale}; they
+ * represent the structure of the format string only. However, some of that structure may implicitly refer to
+ * {@link Locale}-provided defaults; for example, a {@link MessageFmt.CurrencyArgumentSegment} means "format as currency
+ * using {@link NumberFormat#getCurrencyInstance(Locale)}", which produces a different result depending on the {@link Locale}.
+ * So, in contrast to {@link MessageFormat}, the {@link Locale} to be used is always provided separately.
  *
  * <p>
  * Having said that, it is possible to create {@link MessageFmt} instances that "capture" any {@link Locale} defaults
- * at the time of construction and avoid the use of {@link Locale}-dependent segments such as
+ * at the time of construction and therefore avoid the use of {@link Locale}-dependent segments such as
  * {@link MessageFmt.CurrencyArgumentSegment}; see {@link #MessageFmt(MessageFormat, boolean)} for details.
  *
  * <p>
- * Instances also support full JSR 303 validation.
+ * Classes are annotated to support JSR 303 validation.
  */
 @SelfValidates
 public class MessageFmt implements SelfValidating {
