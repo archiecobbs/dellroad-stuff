@@ -93,6 +93,23 @@ public class MessageFmt implements SelfValidating {
     }
 
     /**
+     * Create an instance from explicitly given {@link Segment}s.
+     *
+     * @param segments message components
+     * @throws IllegalArgumentException if {@code segments} or any element thereof is null
+     */
+    public MessageFmt(Segment... segments) {
+        if (segments == null)
+            throw new IllegalArgumentException("null segments");
+        for (int i = 0; i < segments.length; i++) {
+            final Segment segment = segments[i];
+            if (segment == null)
+                throw new IllegalArgumentException("null segment");
+            this.segments.add(segment);
+        }
+    }
+
+    /**
      * Create an instance modeling the given {@link MessageFormat}.
      *
      * <p>
@@ -1011,6 +1028,33 @@ public class MessageFmt implements SelfValidating {
             this.options = new ArrayList<>(0);
         }
 
+        /**
+         * Create an instance from explicitly given {@link Option}s.
+         *
+         * @param argumentNumber the index of the argument formatted by this segment
+         * @param options choice options
+         * @throws IllegalArgumentException if {@code options} or any element thereof is null
+         */
+        public ChoiceArgumentSegment(int argumentNumber, Option... options) {
+            super(argumentNumber);
+            if (options == null)
+                throw new IllegalArgumentException("null options");
+            this.options = new ArrayList<>(options.length);
+            for (int i = 0; i < options.length; i++) {
+                final Option option = options[i];
+                if (option == null)
+                    throw new IllegalArgumentException("null option");
+                this.options.add(option);
+            }
+        }
+
+        /**
+         * Create an instance modeling the given {@link ChoiceFormat}.
+         *
+         * @param format source format
+         * @throws IllegalArgumentException if {@code format} is null
+         * @see #toChoiceFormat
+         */
         public ChoiceArgumentSegment(int argumentNumber, ChoiceFormat format) {
             super(argumentNumber);
 
