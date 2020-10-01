@@ -36,7 +36,7 @@ import org.dellroad.stuff.validation.SelfValidationException;
  *
  * <p>
  * The point of this class is to make it easier to work with {@link MessageFormat} instances, by allowing for
- * structural introspection, avoidance of string quoting/escaping issues, serialization to/from XML, etc.
+ * structural introspection, easy serialization to/from XML, and eliminating complex quoting/escaping issues.
  *
  * <p>
  * Instances of {@link MessageFmt} do not retain any associated {@link Locale}; they strictly represent the format structure.
@@ -320,11 +320,14 @@ public class MessageFmt implements SelfValidating {
     public abstract static class Segment {
 
         /**
-         * Encode this segment as {@link MessageFormat} pattern text.
+         * Encode this segment as a {@link MessageFormat} pattern fragment.
          *
          * <p>
          * The concatenation of the encoding of the {@link Segment}s in a {@link MessageFmt} produces the
          * corresponding {@link MessageFormat} pattern string.
+         *
+         * <p>
+         * This method is responsible for escaping single quotes and opening curly braces, if necessary.
          *
          * @return {@link MessageFormat} pattern string text
          */
@@ -1024,9 +1027,18 @@ public class MessageFmt implements SelfValidating {
      * An {@link ArgumentSegment} that formats its argument using a {@link ChoiceFormat}.
      *
      * <p>
-     * When a {@link MessageFormat} contains a choice argument, each choice option is itself
-     * treated as a nested {@link MessageFormat} pattern, so recursion is possible; see
-     * {@link ChoiceArgumentSegment.Option}.
+     * When a {@link MessageFormat} executes a nested {@link ChoiceFormat}, if the resulting string contains a '{'
+     * then the string is recursively interpreted again as a {@link MessageFormat} pattern. Therefore, the semantics
+     * of a {@link ChoiceFormat} differ when treated standalone vs. nested in a {@link MessageFormat}.
+     *
+     * <p>
+     * This class models the latter scenario. Each option of the choice is modeled as a new, nested {@link MessageFormat}
+     * (see {@link ChoiceArgumentSegment.Option}) regardless of whether '{' appeared in the original pattern for the choice.
+     * This simplifies the model but als means that if the original pattern for a choice did not contain a '{', then corresponding
+     * {@link MessageFormat} modeling that choice will have an extra level of escaping of single quotes escaped when compared
+     * to the original choice pattern.
+     *
+     * @see ChoiceArgumentSegment.Option
      */
     public static class ChoiceArgumentSegment extends NumberFormatArgumentSegment<ChoiceFormat> {
 
@@ -1072,13 +1084,23 @@ public class MessageFmt implements SelfValidating {
             if (format == null)
                 throw new IllegalArgumentException("null format");
 
+            // When a MessageFormat executes a nested ChoiceFormat, if the resulting string contains a '{' then
+            // the string is recursively interpreted as a MessageFormat pattern. But in the code below, we interpret
+            // all choices as MessageFormat patterns. Therefore, if a nested ChoiceFormat pattern does not contain
+            // a '{', then we apply an extra level of escaping to ensure it remains as plain text when interpreted
+            // as a MessageFormat pattern.
+
             // Get limits and formats
             final double[] limits = format.getLimits();
             final String[] formats = (String[])format.getFormats();
             assert limits.length == formats.length;
             this.options = new ArrayList<>(limits.length);
-            for (int i = 0; i < limits.length; i++)
-                this.options.add(new Option(limits[i], new MessageFmt(new MessageFormat(formats[i]))));
+            for (int i = 0; i < limits.length; i++) {
+                String choice = formats[i];
+                if (choice.indexOf('{') == -1)
+                    choice = MessageFmt.escape(choice);
+                this.options.add(new Option(limits[i], new MessageFmt(new MessageFormat(choice))));
+            }
         }
 
     // Properties
@@ -1112,6 +1134,8 @@ public class MessageFmt implements SelfValidating {
                 final Option option = this.options.get(i);
                 limits[i] = option.getLimit();
                 formats[i] = option.getFormat().toPattern();
+                if (formats[i].indexOf('{') == -1)                  // this is the reverse of the constructor logic (see comment)
+                    formats[i] = MessageFmt.unescape(formats[i]);
             }
             return new ChoiceFormat(limits, formats);
         }
