@@ -65,6 +65,10 @@ public class MessageFmtTest extends TestSupport {
           //messageFmt1, pattern2, actual2, !actual2.equals(expected) ? " *** WRONG ***" : " - correct");
 
         Assert.assertEquals(actual2, expected);
+
+        final MessageFmt messageFmt2 = new MessageFmt(messageFormat2);
+
+        Assert.assertEquals(messageFmt2, messageFmt1);
     }
 
     @DataProvider(name = "cases")

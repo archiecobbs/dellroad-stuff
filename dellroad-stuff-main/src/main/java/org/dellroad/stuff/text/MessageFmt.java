@@ -16,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintValidatorContext;
@@ -320,6 +321,21 @@ public class MessageFmt implements SelfValidating {
 // Object
 
     @Override
+    public boolean equals(Object obj) {
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+        final MessageFmt that = (MessageFmt)obj;
+        return Objects.equals(this.segments, that.segments);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.segments);
+    }
+
+    @Override
     public String toString() {
         return this.getClass().getSimpleName()
           + "[segments=" + this.segments
@@ -355,6 +371,20 @@ public class MessageFmt implements SelfValidating {
          * @param target visitor pattern target
          */
         public abstract void visit(SegmentSwitch target);
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (obj == null || obj.getClass() != this.getClass())
+                return false;
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hashCode(this.getClass());
+        }
     }
 
 // SegmentSwitch
@@ -654,6 +684,21 @@ public class MessageFmt implements SelfValidating {
     // Object
 
         @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final TextSegment that = (TextSegment)obj;
+            return Objects.equals(this.string, that.string);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ Objects.hashCode(this.string);
+        }
+
+        @Override
         public String toString() {
             return this.getClass().getSimpleName()
               + "[string=\"" + this.string + "\""
@@ -715,6 +760,21 @@ public class MessageFmt implements SelfValidating {
         protected abstract String getArgumentSuffix();
 
     // Object
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final ArgumentSegment that = (ArgumentSegment)obj;
+            return this.argumentNumber == that.argumentNumber;
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ this.argumentNumber;
+        }
 
         @Override
         public String toString() {
@@ -1035,6 +1095,23 @@ public class MessageFmt implements SelfValidating {
                 }
             }
         }
+
+    // Object
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final DecimalArgumentSegment that = (DecimalArgumentSegment)obj;
+            return Objects.equals(this.pattern, that.pattern);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ Objects.hashCode(this.pattern);
+        }
     }
 
 // ChoiceArgumentSegment
@@ -1173,6 +1250,21 @@ public class MessageFmt implements SelfValidating {
     // Object
 
         @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final ChoiceArgumentSegment that = (ChoiceArgumentSegment)obj;
+            return Objects.equals(this.options, that.options);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ Objects.hashCode(this.options);
+        }
+
+        @Override
         public String toString() {
             return this.getClass().getSimpleName()
               + "[argumentNumber=" + this.getArgumentNumber()
@@ -1276,6 +1368,22 @@ public class MessageFmt implements SelfValidating {
         // Object
 
             @Override
+            public boolean equals(Object obj) {
+                if (obj == this)
+                    return true;
+                if (obj == null || obj.getClass() != this.getClass())
+                    return false;
+                final Option that = (Option)obj;
+                return Double.compare(this.limit, that.limit) == 0
+                  && Objects.equals(this.format, that.format);
+            }
+
+            @Override
+            public int hashCode() {
+                return Double.hashCode(this.limit) ^ Objects.hashCode(this.format);
+            }
+
+            @Override
             public String toString() {
                 return this.getClass().getSimpleName()
                   + "[limit=" + this.limit
@@ -1357,6 +1465,23 @@ public class MessageFmt implements SelfValidating {
                 }
             }
         }
+
+    // Object
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final SimpleDateFormatArgumentSegment that = (SimpleDateFormatArgumentSegment)obj;
+            return Objects.equals(this.pattern, that.pattern);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ Objects.hashCode(this.pattern);
+        }
     }
 
 // AbstractStandardDateFormatArgumentSegment
@@ -1394,6 +1519,23 @@ public class MessageFmt implements SelfValidating {
         }
 
         protected abstract String getKeyword();
+
+    // Object
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this)
+                return true;
+            if (!super.equals(obj))
+                return false;
+            final AbstractStandardDateFormatArgumentSegment that = (AbstractStandardDateFormatArgumentSegment)obj;
+            return Objects.equals(this.standard, that.standard);
+        }
+
+        @Override
+        public int hashCode() {
+            return super.hashCode() ^ Objects.hashCode(this.standard);
+        }
     }
 
 // StandardDateFormatArgumentSegment
