@@ -278,6 +278,18 @@ public class MessageFmt implements SelfValidating {
           .collect(Collectors.joining());
     }
 
+    private static String escape(String string) {
+        return string
+          .replaceAll("'", "''")                    // escape single quotes by doubling them
+          .replaceAll("\\{+", "'$0'");              // quote runs of opening curly braces
+    }
+
+    private static String unescape(String string) {
+        return string
+          .replaceAll("(?<!')'([^']+)'", "$1")      // remove lone single quotes surrounding text
+          .replaceAll("''", "'");                   // unescape doubled single quote
+    }
+
 // Validation
 
     @Override
@@ -612,9 +624,7 @@ public class MessageFmt implements SelfValidating {
 
         @Override
         public String toPattern() {
-            return this.string
-              .replaceAll("'", "''")                // escape single quotes
-              .replaceAll("\\{+", "'$1'");          // escape runs of opening curly braces
+            return MessageFmt.escape(this.string);
         }
 
         @Override

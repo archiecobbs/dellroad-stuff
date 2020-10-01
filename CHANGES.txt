@@ -1,6 +1,7 @@
 Version Next
 
-    - Fix NPE in POBJ.getSharedRootSnapshot() after empty start
+    - Fixed NPE in POBJ.getSharedRootSnapshot() after empty start
+    - Fixed pattern escaping bugs in MessageFmt
 
 Version 2.4.4 Released June 30, 3030
 
