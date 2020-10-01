@@ -1,4 +1,4 @@
-Version Next
+Version 2.4.5 Released October 1, 2020
 
     - Fixed NPE in POBJ.getSharedRootSnapshot() after empty start
     - Fixed pattern escaping bugs in MessageFmt
