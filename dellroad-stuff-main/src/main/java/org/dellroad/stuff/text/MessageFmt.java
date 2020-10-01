@@ -278,13 +278,28 @@ public class MessageFmt implements SelfValidating {
           .collect(Collectors.joining());
     }
 
-    private static String escape(String string) {
+    /**
+     * Escape {@link MessageFormat} special characters.
+     *
+     * @param string unescaped input string
+     * @return {@code string} with characters {@link MessageFormat} considers special escaped
+     */
+    public static String escape(String string) {
         return string
           .replaceAll("'", "''")                    // escape single quotes by doubling them
           .replaceAll("\\{+", "'$0'");              // quote runs of opening curly braces
     }
 
-    private static String unescape(String string) {
+    /**
+     * Un-escape escaped {@link MessageFormat} special characters.
+     *
+     * <p>
+     * This takes the output from {@link MessageFmt#escape MessageFmt.escape()} and returns the original string.
+     *
+     * @param string escaped input string
+     * @return {@code string} with escaping added by {@link MessageFmt#escape MessageFmt.escape()} reverted
+     */
+    public static String unescape(String string) {
         return string
           .replaceAll("(?<!')'([^']+)'", "$1")      // remove lone single quotes surrounding text
           .replaceAll("''", "'");                   // unescape doubled single quote
