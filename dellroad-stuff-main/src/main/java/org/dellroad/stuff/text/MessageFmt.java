@@ -1042,16 +1042,16 @@ public class MessageFmt implements SelfValidating {
      * An {@link ArgumentSegment} that formats its argument using a {@link ChoiceFormat}.
      *
      * <p>
-     * When a {@link MessageFormat} executes a nested {@link ChoiceFormat}, if the resulting string contains a '{'
+     * When a {@link MessageFormat} executes a nested {@link ChoiceFormat}, if the resulting string contains a <code>'{'</code>
      * then the string is recursively interpreted again as a {@link MessageFormat} pattern. Therefore, the semantics
      * of a {@link ChoiceFormat} differ when treated standalone vs. nested in a {@link MessageFormat}.
      *
      * <p>
      * This class models the latter scenario. Each option of the choice is modeled as a new, nested {@link MessageFormat}
-     * (see {@link ChoiceArgumentSegment.Option}) regardless of whether '{' appeared in the original pattern for the choice.
-     * This simplifies the model but als means that if the original pattern for a choice did not contain a '{', then corresponding
-     * {@link MessageFormat} modeling that choice will have an extra level of escaping of single quotes escaped when compared
-     * to the original choice pattern.
+     * (see {@link ChoiceArgumentSegment.Option}) regardless of whether <code>'{'</code> appeared in the original pattern for the
+     * choice. This simplifies the model but also means that if the original choice pattern didn't contain <code>'{'</code>, then
+     * the {@link MessageFormat} modeling that choice will have {@linkplain #escape escaping} applied to its format string,
+     * preserving the net effect.
      *
      * @see ChoiceArgumentSegment.Option
      */
