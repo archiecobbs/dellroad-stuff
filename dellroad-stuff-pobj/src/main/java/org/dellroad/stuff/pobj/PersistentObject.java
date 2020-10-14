@@ -620,28 +620,18 @@ public class PersistentObject<T> {
      * @throws PersistentObjectException if an error occurs
      * @see #getRoot
      */
-    public Snapshot getRootSnapshot() {
+    public synchronized Snapshot getRootSnapshot() {
 
-        // Grab the current root
-        final T rootToCopy;
-        final long rootVersion;
-        synchronized (this) {
-
-            // Sanity check
-            if (!this.started)
-                throw new IllegalStateException("not started");
-
-            // Grab the root we want to copy
-            rootToCopy = this.root;
-            rootVersion = this.version;
-        }
+        // Sanity check
+        if (!this.started)
+            throw new IllegalStateException("not started");
 
         // Any root set?
-        if (rootToCopy == null)
+        if (this.root == null)
             return null;
 
         // Copy and return it
-        return new Snapshot(this.delegate.copy(rootToCopy), rootVersion);
+        return new Snapshot(this.delegate.copy(this.root), this.version);
     }
 
     /**
@@ -801,10 +791,6 @@ public class PersistentObject<T> {
                 alreadyValidated = true;
             }
 
-            // Copy the new root to make it private, to ensure it can't get modified out from under us after we return
-            if (newRoot != null && newRootCopy == null)
-                newRootCopy = this.delegate.copy(newRoot);
-
             // Do the atomic update
             synchronized (this) {
 
@@ -817,6 +803,10 @@ public class PersistentObject<T> {
                 // Verify that current root & version we used didn't change while we were unsynchronized
                 if (this.root != oldRoot || this.version != oldVersion)
                     continue;                                                           // oops, start over
+
+                // Copy the new root to make it private, to ensure it can't get modified out from under us after we return
+                if (newRoot != null && newRootCopy == null)
+                    newRootCopy = this.delegate.copy(newRoot);
 
                 // Apply the new root and bump the current version
                 this.root = newRootCopy;
