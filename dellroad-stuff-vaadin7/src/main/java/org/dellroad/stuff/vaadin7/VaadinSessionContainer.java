@@ -14,6 +14,7 @@ import com.vaadin.server.VaadinSession;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,6 +117,7 @@ public abstract class VaadinSessionContainer<T extends VaadinSessionInfo> extend
     @Override
     public void disconnect() {
         this.listener.unregister();
+        this.load(Collections.emptyList());             // avoid referencing other sesssions while disconnected
         super.disconnect();
     }
 
