@@ -257,7 +257,7 @@ public final class ParseUtil {
             b.append(minutes).append('m');
         long millis = value;
         if (millis != 0 || b.length() == 0) {
-            if (millis >= 1000 && millis % 1000 == 0)
+            if (millis % 1000 == 0)
                 b.append(String.format("%ds", millis / 1000));
             else
                 b.append(String.format("%.3fs", millis / 1000.0));
