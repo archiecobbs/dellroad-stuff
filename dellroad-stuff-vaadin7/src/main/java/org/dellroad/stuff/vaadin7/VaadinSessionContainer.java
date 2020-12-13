@@ -43,6 +43,8 @@ import org.slf4j.LoggerFactory;
  *  <li>The {@link #connect} and {@link #disconnect} methods must be invoked before and after (respectively)
  *      this container is used; typically these would be invoked in the {@link com.vaadin.ui.Component#attach}
  *      and {@link com.vaadin.ui.Component#detach} methods of a corresponding widget.
+ *  <li>Connected instances retain a strong reference to each {@link VaadinSession} therein.
+ *      Therefore, to avoid leaking closed sessions, instances should be periodically {@linkplain #reload reloaded}.
  * </ul>
  *
  * @param <T> the type of the Java objects that back each {@link com.vaadin.data.Item} in the container
