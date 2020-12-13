@@ -110,8 +110,7 @@ public class EnumComboBox extends ComboBox {
         if (container != null)
             this.setContainerDataSource(container);
         this.setNewItemsAllowed(false);
-        this.setTextInputAllowed(false);
-        this.setFilteringMode(FilteringMode.OFF);
+        this.setFilteringMode(FilteringMode.CONTAINS);
         this.setItemCaptionMode(ItemCaptionMode.PROPERTY);
         this.setItemCaptionPropertyId(displayPropertyName);
 
