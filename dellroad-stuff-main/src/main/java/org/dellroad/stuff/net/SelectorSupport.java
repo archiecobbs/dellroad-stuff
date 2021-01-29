@@ -10,6 +10,7 @@ import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
+import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -72,10 +73,35 @@ public abstract class SelectorSupport {
     public static final int DEFAULT_HOUSEKEEPING_INTERVAL = 1000;
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
+    protected final SelectorProvider provider;
 
     private volatile Selector selector;
     private ServiceThread serviceThread;
     private volatile int housekeepingInterval = DEFAULT_HOUSEKEEPING_INTERVAL;
+
+// Constructors
+
+    /**
+     * Default constructor.
+     *
+     * <p>
+     * This instance will use the default {@link SelectorProvider}.
+     */
+    protected SelectorSupport() {
+        this(SelectorProvider.provider());
+    }
+
+    /**
+     * Primary constructor.
+     *
+     * @param provider the {@link SelectorProvider} that this instance will use
+     * @throws IllegalArgumentException if {@code provider} is null
+     */
+    protected SelectorSupport(SelectorProvider provider) {
+        if (provider == null)
+            throw new IllegalArgumentException("null provider");
+        this.provider = provider;
+    }
 
 // Configuration
 
@@ -106,7 +132,7 @@ public abstract class SelectorSupport {
             return;
         boolean successful = false;
         try {
-            this.selector = Selector.open();
+            this.selector = this.provider.openSelector();
             this.serviceThread = new ServiceThread();
             this.serviceThread.start();
             successful = true;
