@@ -9,17 +9,23 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 
 /**
- * Abstraction layer representing "the network", over which we communicate with other nodes.
+ * Abstraction layer representing a "network" over which a local "node" can communicate with remote nodes.
  *
  * <p>
- * In general, messages may be delayed, dropped or delivered out of order. Specific implementations
- * may provide more strict guarantees.
+ * Communication takes the form of sending and receiving arbitrary packets of data known as "messages".
+ * Messages are simply sequences of zero or more bytes and are represented by {@link ByteBuffer}s.
  *
  * <p>
- * Remote peers are identified by {@link String}s; the interpretation of these {@link String}s is up to the implementation.
+ * In general, messages may be delayed, dropped or delivered out of order; however, some implementations
+ * may provide better guarantees.
  *
  * <p>
- * Notifications are delivered to the specified {@link Handler}.
+ * Remote nodes are identified by {@link String}s; the interpretation of these {@link String}s is up to the implementation,
+ * but typically it is some form of network address.
+ *
+ * <p>
+ * Incoming messages, along with notifications of output queue status, are delivered to a {@link Handler} specified
+ * by the application.
  */
 public interface Network {
 
@@ -75,7 +81,7 @@ public interface Network {
         void handle(String peer, ByteBuffer msg);
 
         /**
-         * Receive notification that a remote peer's output queue has transitioned from a non empty state to an empty state.
+         * Handle notification that a remote peer's output queue has transitioned from a non empty state to an empty state.
          *
          * <p>
          * This notification can be used for flow-control, i.e., to prevent the local output queue for {@code peer}
@@ -86,4 +92,3 @@ public interface Network {
         void outputQueueEmpty(String peer);
     }
 }
-

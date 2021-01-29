@@ -22,12 +22,12 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * Instances must be {@link #start}ed before use. While running, an internal service thread continuously monitors for
- * ready I/O operations, notifying the corresponding {@link IOHandler} when the I/O is ready (or channel closed),
- * and performs periodic housekeeping.
+ * ready I/O operations, notifying the corresponding {@link IOHandler} when the I/O is ready (or channel closed).
+ * The service thread also performs {@linkplain #serviceHousekeeping periodic housekeeping}.
  *
  * <p>
- * Subclasses use {@link #createSelectionKey createSelectionKey()} setup monitoring for a {@link SelectableChannel}, and
- * {@link #selectFor selectFor()} to adjust the I/O operations being monitored.
+ * Subclasses invoke {@link #createSelectionKey createSelectionKey()} to setup monitoring for a {@link SelectableChannel},
+ * and then {@link #selectFor selectFor()} as needed to configure the I/O conditions being monitored.
  * All channels are automatically {@linkplain SelectableChannel#configureBlocking configured} for non-blocking mode.
  *
  * <p><b>Housekeeping</b>
@@ -59,7 +59,8 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * Because these callbacks are only ever invoked from the service thread, subclasses can be written without concern for
- * re-entrancy issues, and subclass methods can use instance synchronization to avoid race conditions from I/O events.
+ * re-entrancy issues, and subclass methods can use instance synchronization on other methods to avoid any race conditions
+ * from asynchronous I/O events.
  */
 public abstract class SelectorSupport {
 
@@ -162,7 +163,7 @@ public abstract class SelectorSupport {
 // Subclass methods
 
     /**
-     * Create a new {@link SelectionKey} by registering the given channel on the given {@link Selector}
+     * Create a new {@link SelectionKey} by registering the given channel on this instance's {@link Selector}
      * and associating the specified {@link IOHandler} to handle I/O ready conditions.
      *
      * <p>
@@ -211,7 +212,7 @@ public abstract class SelectorSupport {
      * Enable or disable listening for the specified I/O operation(s).
      *
      * <p>
-     * The given {@code selectionKey} must have been acquired from {@link #createSelectionKey}.
+     * The given {@code selectionKey} must have been acquired from {@link #createSelectionKey createSelectionKey()}.
      *
      * <p>
      * The change will take effect immediately.
