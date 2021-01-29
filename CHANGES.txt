@@ -1,3 +1,7 @@
+Version Next
+
+    - Allow SelectorSupport to be used with a non-default SelectorProvider.
+
 Version 2.4.6 Released October 14, 2020
 
     - Fixed PersistentObject copy race condition added in 258959e8.
