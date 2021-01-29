@@ -252,7 +252,6 @@ public abstract class SelectorSupport {
      * This method does not acquire the lock on this instance, so it can be invoked at any time from any context.
      */
     protected void wakeup() {
-        assert Thread.holdsLock(this);
         final Selector currentSelector = this.selector;
         if (currentSelector != null) {
             if (this.log.isTraceEnabled())
