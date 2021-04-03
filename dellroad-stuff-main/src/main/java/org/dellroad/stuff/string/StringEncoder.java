@@ -17,8 +17,7 @@ public final class StringEncoder {
      * A regular expression that matches exactly the set of valid {@link #encode encode()}'d strings.
      */
     public static final Pattern ENCODE_PATTERN
-      = Pattern.compile("([\\t\\r\\n\\x20-\\x5b\\x5d-\\ud7ff]|[\\ue000-\\ufffd]"
-        + "|\\\\([\\\\bftrn]|u[\\p{XDigit}]{4}))*");
+      = Pattern.compile("([\\t\\r\\n\\x20-\\x5b\\x5d-\\ud7ff]|[\\ue000-\\ufffd]|\\\\([\\\\bftrn]|u[\\p{XDigit}]{4}))*");
 
     /**
      * A regular expression that matches exactly the set of valid {@link #enquote enquote()}'d strings.
