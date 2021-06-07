@@ -1,3 +1,7 @@
+Version 2.4.8 Released June 7, 2021
+
+    - Fixed another potential race condition when writing new PersistentObject.
+
 Version 2.4.7 Released June 7, 2021
 
     - Allow SelectorSupport to be used with a non-default SelectorProvider.
