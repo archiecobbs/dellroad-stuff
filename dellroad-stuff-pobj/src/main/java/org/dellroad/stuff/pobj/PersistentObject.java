@@ -750,7 +750,8 @@ public class PersistentObject<T> {
         return this.setRoot(newRoot, expectedVersion, false);
     }
 
-    long setRootInternal(T newRoot, long expectedVersion, boolean readingFile, boolean allowNotStarted, boolean alreadyValidated) {
+    long setRootInternal(final T newRoot, final long expectedVersion,
+      final boolean readingFile, final boolean allowNotStarted, boolean alreadyValidated) {
 
         // Sanity check
         if (expectedVersion < 0)
@@ -817,7 +818,7 @@ public class PersistentObject<T> {
 
                 // Schedule file write-back (if not already scheduled)
                 if (!readingFile && newRoot != null) {
-                    this.pendingWriteRoot = newRoot;
+                    this.pendingWriteRoot = newRootCopy;
                     if (this.pendingWrite == null) {
                         this.pendingWrite = this.scheduledExecutor.schedule(
                           this::writeTimeout, this.writeDelay, TimeUnit.MILLISECONDS);
