@@ -73,8 +73,9 @@
         <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
         <maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
         <maven.plugin.tools.version>3.5.1</maven.plugin.tools.version>
-        <maven.project.info.reports.plugin.version>2.9</maven.project.info.reports.plugin.version>
+        <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
         <maven.project.version>3.0-alpha-2</maven.project.version>
+        <maven.site.plugin.version>3.9.1</maven.site.plugin.version>
         <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
         <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
         <maven.wagon.scm.extension.version>3.0.0</maven.wagon.scm.extension.version>
@@ -311,11 +312,16 @@
                 </executions>
             </plugin>
 
-            <!-- Info Reports -->
+            <!-- Site and Info Reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>${maven.project.info.reports.plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${maven.site.plugin.version}</version>
             </plugin>
 
             <!-- Avoid Mac OS X "Launcher" application appearing during build -->
