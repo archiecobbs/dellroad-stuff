@@ -1166,6 +1166,7 @@ public class MessageFmt implements SelfValidating {
         /**
          * Create an instance modeling the given {@link ChoiceFormat}.
          *
+         * @param argumentNumber argument number
          * @param format source format
          * @throws IllegalArgumentException if {@code format} is null
          * @see #toChoiceFormat
