@@ -11,8 +11,8 @@ import org.dellroad.stuff.pobj.PersistentObject;
 import org.dellroad.stuff.vaadin7.AbstractSimpleContainer;
 
 /**
- * Facilitates populating a {@link AbstractSimpleContainer} with data from {@link PersistentObject}
- * and automatically updating it when that {@link PersistentObject} changes.
+ * Facilitates populating an {@link AbstractSimpleContainer} with data from a {@link PersistentObject},
+ * automatically updating it when that {@link PersistentObject} changes.
  *
  * <p>
  * The constructor requires a {@link Generator} to generate, from the {@link PersistentObject}
