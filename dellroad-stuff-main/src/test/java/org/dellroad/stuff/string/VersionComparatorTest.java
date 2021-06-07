@@ -61,7 +61,7 @@ public class VersionComparatorTest extends TestSupport {
             "2.0",
             "99.0",
         };
-        List<String[]> cases = new ArrayList<String[]>();
+        List<String[]> cases = new ArrayList<>();
         boolean[] eq = new boolean[versions.length];
         for (int i = 0; i < versions.length; i++) {
             if (versions[i].length() > 0 && versions[i].charAt(0) == '=') {

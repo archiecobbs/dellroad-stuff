@@ -38,7 +38,7 @@ import org.dellroad.stuff.java.Primitive;
 public class SimpleObjectParser<T> {
 
     private final Class<T> targetClass;
-    private final HashMap<String, PropertyDescriptor> propertyMap = new HashMap<String, PropertyDescriptor>();
+    private final HashMap<String, PropertyDescriptor> propertyMap = new HashMap<>();
 
     /**
      * Constructor.
@@ -104,7 +104,7 @@ public class SimpleObjectParser<T> {
     public T parse(T target, String text, String regex, boolean allowSubstringMatch) {
 
         // Scan regular expression for named sub-groups and parse them out
-        HashMap<Integer, String> patternMap = new HashMap<Integer, String>();
+        HashMap<Integer, String> patternMap = new HashMap<>();
         StringBuilder buf = new StringBuilder(regex.length());
         Pattern namedGroup = Pattern.compile("\\(\\{(\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*)\\}");
         Matcher matcher = namedGroup.matcher(regex);
@@ -178,7 +178,7 @@ public class SimpleObjectParser<T> {
     public T parse(T target, String text, Pattern pattern, Map<Integer, String> patternMap, boolean allowSubstringMatch) {
 
         // Compose given map with target class' property map
-        HashMap<Integer, PropertyDescriptor> subgroupMap = new HashMap<Integer, PropertyDescriptor>();
+        HashMap<Integer, PropertyDescriptor> subgroupMap = new HashMap<>();
         for (Map.Entry<Integer, String> entry : patternMap.entrySet()) {
             String propName = entry.getValue();
             PropertyDescriptor property = this.propertyMap.get(propName);

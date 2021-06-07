@@ -51,9 +51,9 @@ public class ProvidesPropertyScanner<T> {
 
         // Scan for @ProvidesProperty and @ProvidesPropertySort annotations
         final Set<MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyMethods
-          = new MethodAnnotationScanner<T, ProvidesProperty>(type, ProvidesProperty.class).findAnnotatedMethods();
+          = new MethodAnnotationScanner<>(type, ProvidesProperty.class).findAnnotatedMethods();
         final Set<MethodAnnotationScanner<T, ProvidesPropertySort>.MethodInfo> providesPropertySortMethods
-          = new MethodAnnotationScanner<T, ProvidesPropertySort>(type, ProvidesPropertySort.class).findAnnotatedMethods();
+          = new MethodAnnotationScanner<>(type, ProvidesPropertySort.class).findAnnotatedMethods();
 
         // Check for duplicate @ProvidesProperty names
         final HashMap<String, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyNameMap = new HashMap<>();
@@ -217,8 +217,7 @@ public class ProvidesPropertyScanner<T> {
     private <V> AnnotationPropertyDef<V> createAnnotationPropertyDef(String propertyName, Class<V> propertyType,
       Object defaultValue, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo,
       MethodAnnotationScanner<T, ProvidesPropertySort>.MethodInfo sortMethodInfo) {
-        return new AnnotationPropertyDef<V>(propertyName, propertyType,
-          propertyType.cast(defaultValue), methodInfo, sortMethodInfo);
+        return new AnnotationPropertyDef<>(propertyName, propertyType, propertyType.cast(defaultValue), methodInfo, sortMethodInfo);
     }
 
     // Compare two methods to determine which one has the declaring class that is a sub-type of the other's

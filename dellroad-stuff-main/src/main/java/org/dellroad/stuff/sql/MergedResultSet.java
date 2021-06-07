@@ -146,7 +146,7 @@ public class MergedResultSet implements ResultSet {
             System.arraycopy(sortOrders, 0, newSortOrders, 0, Math.min(sortOrders.length, newSortOrders.length));
             sortOrders = newSortOrders;
         }
-        this.resultSets = new ArrayList<ResultSet>(resultSets);
+        this.resultSets = new ArrayList<>(resultSets);
         this.representative = this.resultSets.get(0);
         final boolean[] sortOrders2 = sortOrders;
         this.remaining = new PriorityQueue<ResultSet>(this.resultSets.size(), new Comparator<ResultSet>() {

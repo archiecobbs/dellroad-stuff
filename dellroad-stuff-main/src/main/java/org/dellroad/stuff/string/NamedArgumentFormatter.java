@@ -29,12 +29,12 @@ public class NamedArgumentFormatter {
     /**
      * The list of argument names in the order they are used. This is the inverse mapping of {@link #fieldMap}.
      */
-    protected final ArrayList<String> fieldList = new ArrayList<String>();
+    protected final ArrayList<String> fieldList = new ArrayList<>();
 
     /**
      * Mapping from argument name to argument list index. This is the inverse mapping of {@link #fieldList}.
      */
-    protected final HashMap<String, Integer> fieldMap = new HashMap<String, Integer>();
+    protected final HashMap<String, Integer> fieldMap = new HashMap<>();
 
     /**
      * The original format string provided to the constructor.
@@ -92,7 +92,7 @@ public class NamedArgumentFormatter {
     public String format(Map<String, Object> argMap) {
 
         // Put values into format parameter array
-        ArrayList<Object> parameterList = new ArrayList<Object>(this.fieldList.size());
+        ArrayList<Object> parameterList = new ArrayList<>(this.fieldList.size());
         for (String fieldName : this.fieldList)
             parameterList.add(argMap.get(fieldName));
 

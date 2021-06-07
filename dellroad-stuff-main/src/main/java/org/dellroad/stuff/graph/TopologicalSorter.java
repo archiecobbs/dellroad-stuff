@@ -76,8 +76,8 @@ public class TopologicalSorter<E> {
         Collections.sort(startList, getTieBreaker(true));
 
         // Perform depth-first search through nodes
-        this.visited = new HashMap<E, Boolean>(startList.size());
-        this.ordering = new ArrayList<E>(startList.size());
+        this.visited = new HashMap<>(startList.size());
+        this.ordering = new ArrayList<>(startList.size());
         for (E node : startList)
             visit(node, true);
 
@@ -104,8 +104,8 @@ public class TopologicalSorter<E> {
         Collections.sort(startList, getTieBreaker(false));
 
         // Perform depth-first search through nodes
-        this.visited = new HashMap<E, Boolean>(startList.size());
-        this.ordering = new ArrayList<E>(startList.size());
+        this.visited = new HashMap<>(startList.size());
+        this.ordering = new ArrayList<>(startList.size());
         for (E node : startList)
             visit(node, false);
 
@@ -138,7 +138,7 @@ public class TopologicalSorter<E> {
     }
 
     private Comparator<? super E> getDefaultTieBreaker() {
-        final HashMap<E, Integer> orderMap = new HashMap<E, Integer>(this.nodes.size());
+        final HashMap<E, Integer> orderMap = new HashMap<>(this.nodes.size());
         int posn = 0;
         for (E node : this.nodes)
             orderMap.put(node, posn++);

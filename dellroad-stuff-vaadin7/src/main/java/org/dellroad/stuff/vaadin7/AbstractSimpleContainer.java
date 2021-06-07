@@ -441,7 +441,7 @@ public abstract class AbstractSimpleContainer<I, T> extends AbstractInMemoryCont
      */
     protected BackedItem<T> createBackedItem(T object, Collection<PropertyDef<?>> propertyDefs,
       PropertyExtractor<? super T> propertyExtractor) {
-        return new SimpleItem<T>(object, propertyDefs, propertyExtractor);
+        return new SimpleItem<>(object, propertyDefs, propertyExtractor);
     }
 
  // Container methods

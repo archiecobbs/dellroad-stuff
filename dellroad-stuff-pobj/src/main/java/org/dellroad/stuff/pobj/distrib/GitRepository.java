@@ -131,7 +131,7 @@ public class GitRepository extends AbstractBean {
         }
 
         // Fetch
-        final ArrayList<String> params = new ArrayList<String>(remotes.size() + 2);
+        final ArrayList<String> params = new ArrayList<>(remotes.size() + 2);
         params.add("fetch");
         params.add("--multiple");
         params.addAll(remotes);

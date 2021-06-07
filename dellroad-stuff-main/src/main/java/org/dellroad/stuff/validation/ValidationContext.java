@@ -32,9 +32,9 @@ import org.dellroad.stuff.java.ThreadLocalHolder;
  */
 public class ValidationContext<T> {
 
-    private static final ThreadLocalHolder<ValidationContext<?>> CURRENT = new ThreadLocalHolder<ValidationContext<?>>();
+    private static final ThreadLocalHolder<ValidationContext<?>> CURRENT = new ThreadLocalHolder<>();
 
-    private final HashMap<String, Set<Object>> uniqueDomainMap = new HashMap<String, Set<Object>>();
+    private final HashMap<String, Set<Object>> uniqueDomainMap = new HashMap<>();
     private final T root;
     private final Class<?>[] groups;
 
@@ -178,7 +178,7 @@ public class ValidationContext<T> {
     public Set<Object> getUniqueDomain(String domain) {
         Set<Object> uniqueDomain = this.uniqueDomainMap.get(domain);
         if (uniqueDomain == null) {
-            uniqueDomain = new HashSet<Object>();
+            uniqueDomain = new HashSet<>();
             this.uniqueDomainMap.put(domain, uniqueDomain);
         }
         return uniqueDomain;

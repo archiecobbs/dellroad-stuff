@@ -357,7 +357,7 @@ public class FieldBuilder<T> implements Serializable {
         // Scan getters for FieldBuilder.Binding annotations
         final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();                  // contains @FieldBuilder.Binding's
         final MethodAnnotationScanner<T, Binding> bindingAnnotationScanner
-          = new MethodAnnotationScanner<T, Binding>(this.type, Binding.class);
+          = new MethodAnnotationScanner<>(this.type, Binding.class);
         for (MethodAnnotationScanner<T, Binding>.MethodInfo methodInfo : bindingAnnotationScanner.findAnnotatedMethods()) {
             final String propertyName = inverseGetterMap.get(methodInfo.getMethod().getName());
             bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
@@ -399,8 +399,7 @@ public class FieldBuilder<T> implements Serializable {
     }
 
     private void buildProviderMap(Map<String, Method> providerMap) {
-        final MethodAnnotationScanner<T, ProvidesField> scanner
-          = new MethodAnnotationScanner<T, ProvidesField>(this.type, ProvidesField.class);
+        final MethodAnnotationScanner<T, ProvidesField> scanner = new MethodAnnotationScanner<>(this.type, ProvidesField.class);
         for (MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo : scanner.findAnnotatedMethods())
             this.buildProviderMap(providerMap, methodInfo.getMethod().getDeclaringClass(), methodInfo.getMethod().getName());
     }

@@ -30,7 +30,7 @@ import org.w3c.dom.Document;
 public class PersistentFileTransaction {
 
     private final XMLInputFactory xmlInputFactory = XMLInputFactory.newFactory();
-    private final ArrayList<String> updates = new ArrayList<String>();
+    private final ArrayList<String> updates = new ArrayList<>();
     private final String systemId;
 
     private Document current;

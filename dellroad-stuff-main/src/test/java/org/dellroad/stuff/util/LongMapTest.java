@@ -65,7 +65,7 @@ public class LongMapTest extends TestSupport {
             Assert.assertEquals(actual, expected);
             Assert.assertEquals(actual.keySet(), expected.keySet());
             Assert.assertEquals(actual.entrySet(), expected.entrySet());
-            Assert.assertEquals(new HashSet<Integer>(actual.values()), new HashSet<Integer>(expected.values()));
+            Assert.assertEquals(new HashSet<>(actual.values()), new HashSet<>(expected.values()));
             Assert.assertEquals(actualResult, expectedResult,
               "wrong result: actual=" + actual.debugDump() + " expected=" + expected);
         }

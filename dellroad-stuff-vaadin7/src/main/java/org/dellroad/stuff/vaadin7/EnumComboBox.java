@@ -92,7 +92,7 @@ public class EnumComboBox extends ComboBox {
      * @param <T> enum type
      */
     public <T extends Enum<T>> EnumComboBox(Class<T> enumClass, String displayPropertyName, boolean allowNull) {
-        this(enumClass != null ? new EnumContainer<T>(enumClass) : null, displayPropertyName, allowNull);
+        this(enumClass != null ? new EnumContainer<>(enumClass) : null, displayPropertyName, allowNull);
     }
 
     /**
@@ -128,7 +128,7 @@ public class EnumComboBox extends ComboBox {
      * @throws IllegalArgumentException if {@code enumClass} is null
      */
     public <T extends Enum<T>> void setEnumDataSource(Class<T> enumClass) {
-        this.setContainerDataSource(new EnumContainer<T>(enumClass));
+        this.setContainerDataSource(new EnumContainer<>(enumClass));
         if (!this.isNullSelectionAllowed() && !this.getContainerDataSource().getItemIds().isEmpty())
             this.setValue(this.getContainerDataSource().getItemIds().iterator().next());
     }

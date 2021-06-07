@@ -27,7 +27,7 @@ public class BeanNameComparator implements Comparator<String>, Serializable {
 
     public BeanNameComparator(ListableBeanFactory beanFactory) {
         String[] beanNames = beanFactory.getBeanDefinitionNames();
-        this.beanNameMap = new HashMap<String, Integer>(beanNames.length);
+        this.beanNameMap = new HashMap<>(beanNames.length);
         for (int i = 0; i < beanNames.length; i++)
             this.beanNameMap.put(beanNames[i], i);
         this.factoryName = "" + beanFactory;

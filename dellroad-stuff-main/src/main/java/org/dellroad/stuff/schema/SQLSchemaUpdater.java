@@ -440,7 +440,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      */
     @Override
     protected Set<String> getAppliedUpdateNames(Connection c) throws SQLException {
-        final HashSet<String> updateNames = new HashSet<String>();
+        final HashSet<String> updateNames = new HashSet<>();
         this.apply(c, new SQLCommand("SELECT " + this.getUpdateTableNameColumn() + " FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {

@@ -23,7 +23,7 @@ public class GitCommand {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
     private final File dir;
-    private final List<String> args = new ArrayList<String>();
+    private final List<String> args = new ArrayList<>();
 
     private ProcessRunner runner;
 
@@ -89,7 +89,7 @@ public class GitCommand {
             throw new IllegalStateException("command already executed");
 
         // Sanity check environment
-        final ArrayList<String> vars = new ArrayList<String>();
+        final ArrayList<String> vars = new ArrayList<>();
         for (String var : System.getenv().keySet()) {
             if (var.startsWith("GIT_"))
                 vars.add(var);

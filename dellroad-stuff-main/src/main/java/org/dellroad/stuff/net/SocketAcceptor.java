@@ -34,7 +34,7 @@ public abstract class SocketAcceptor {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final HashSet<SocketInfo> connections = new HashSet<SocketInfo>();
+    private final HashSet<SocketInfo> connections = new HashSet<>();
     private InetAddress address;
     private int backlog = DEFAULT_BACKLOG;
     private int port;

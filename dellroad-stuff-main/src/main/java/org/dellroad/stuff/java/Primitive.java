@@ -273,7 +273,7 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
         this.size = (byte)size;
         this.parsePattern = parsePattern != null ? Pattern.compile(parsePattern) : null;
         if (Primitive.classMap == null)
-            Primitive.classMap = new HashMap<Class<?>, Primitive<?>>();
+            Primitive.classMap = new HashMap<>();
         Primitive.classMap.put(primType, this);
         Primitive.classMap.put(wrapType, this);
     }
@@ -424,7 +424,7 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * @return a modifiable set containing all instances; modifications have no effect on this class
      */
     public static Set<Primitive<?>> values() {
-        return new HashSet<Primitive<?>>(Primitive.classMap.values());
+        return new HashSet<>(Primitive.classMap.values());
     }
 
     /**

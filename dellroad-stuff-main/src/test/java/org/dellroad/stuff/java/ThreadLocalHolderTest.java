@@ -19,7 +19,7 @@ public class ThreadLocalHolderTest extends TestSupport {
 
     // Setup
 
-        final HashSet<Object> destroyed = new HashSet<Object>();
+        final HashSet<Object> destroyed = new HashSet<>();
 
         final ThreadLocalHolder<Object> t = new ThreadLocalHolder<Object>() {
             @Override

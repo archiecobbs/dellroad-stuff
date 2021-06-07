@@ -63,11 +63,11 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
     public Set<MethodInfo> findAnnotatedMethods() {
 
         // Find all methods
-        final HashSet<MethodInfo> set = new HashSet<MethodInfo>();
+        final HashSet<MethodInfo> set = new HashSet<>();
         this.findMethodInfos(this.type, set);
 
         // Remove overridden and duplicate methods
-        final LinkedHashMap<String, HashSet<MethodInfo>> nameSetMap = new LinkedHashMap<String, HashSet<MethodInfo>>();
+        final LinkedHashMap<String, HashSet<MethodInfo>> nameSetMap = new LinkedHashMap<>();
     infoLoop:
         for (MethodInfo methodInfo : set) {
             final String name = methodInfo.getMethod().getName();
@@ -86,7 +86,7 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         }
 
         // Return result
-        final HashSet<MethodInfo> result = new HashSet<MethodInfo>();
+        final HashSet<MethodInfo> result = new HashSet<>();
         for (HashSet<MethodInfo> nameSet : nameSetMap.values())
             result.addAll(nameSet);
         return result;

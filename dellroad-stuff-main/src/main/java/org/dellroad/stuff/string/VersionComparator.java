@@ -53,7 +53,7 @@ public class VersionComparator implements Comparator<String> {
     public int compare(String v1, String v2) {
 
         // Chop up version into parts, where a part is a contiguous all-digit or all-non-digit sequence
-        List<List<String>> partsList = new ArrayList<List<String>>(2);
+        List<List<String>> partsList = new ArrayList<>(2);
         partsList.add(this.separateIntoParts(v1));
         partsList.add(this.separateIntoParts(v2));
 
@@ -90,7 +90,7 @@ public class VersionComparator implements Comparator<String> {
      * @return the parts of the version string
      */
     protected List<String> separateIntoParts(String version) {
-        final ArrayList<String> partsList = new ArrayList<String>();
+        final ArrayList<String> partsList = new ArrayList<>();
         int pos = 0;
         for (Matcher matcher = PART_PATTERN.matcher(version); matcher.find(pos); pos = matcher.end()) {
             final String part = matcher.group();

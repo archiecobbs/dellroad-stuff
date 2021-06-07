@@ -165,7 +165,7 @@ public class SimpleItem<T> implements BackedItem<T> {
      * @throws IllegalArgumentException if {@code propertyDef} is null
      */
     protected <V> Property<V> createProperty(PropertyDef<V> propertyDef) {
-        return new Property<V>(propertyDef);
+        return new Property<>(propertyDef);
     }
 
 // Property

@@ -42,7 +42,7 @@ class SQLUpdateBeanDefinitionParser extends AbstractBeanDefinitionParser {
         String[] predecessors = update.getDependsOn();
         if (predecessors != null) {
             final Object source = parserContext.extractSource(element);
-            ManagedSet<Object> predecessorSet = new ManagedSet<Object>(predecessors.length);
+            ManagedSet<Object> predecessorSet = new ManagedSet<>(predecessors.length);
             predecessorSet.setSource(source);
             for (String predecessor : predecessors) {
                 RuntimeBeanReference beanReference = new RuntimeBeanReference(predecessor, false);

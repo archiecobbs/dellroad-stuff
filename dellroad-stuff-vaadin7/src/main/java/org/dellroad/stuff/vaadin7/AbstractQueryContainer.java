@@ -381,7 +381,7 @@ public abstract class AbstractQueryContainer<T> extends AbstractContainer implem
      */
     protected BackedItem<T> createBackedItem(T object, Collection<PropertyDef<?>> propertyDefs,
       PropertyExtractor<? super T> propertyExtractor) {
-        return new SimpleItem<T>(object, propertyDefs, propertyExtractor);
+        return new SimpleItem<>(object, propertyDefs, propertyExtractor);
     }
 
 // Container

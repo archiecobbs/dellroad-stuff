@@ -152,7 +152,7 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
      * @return associated {@link XAResource}
      */
     public XAResource getXAResource() {
-        return new PersistentObjectXAResource<T>(this);
+        return new PersistentObjectXAResource<>(this);
     }
 
 // Current Instance
@@ -218,7 +218,7 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
     private static HashMap<String, PersistentObjectTransactionManager<?>> getManagerMap(boolean create) {
         HashMap<String, PersistentObjectTransactionManager<?>> managerMap = MANAGER_MAP.get();
         if (managerMap == null && create) {
-            managerMap = new HashMap<String, PersistentObjectTransactionManager<?>>();
+            managerMap = new HashMap<>();
             MANAGER_MAP.set(managerMap);
         }
         return managerMap;

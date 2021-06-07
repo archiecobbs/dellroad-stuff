@@ -304,7 +304,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
             return;
 
         // Read in the new, merged object graph
-        final ArrayList<T> rootList = new ArrayList<T>(1);
+        final ArrayList<T> rootList = new ArrayList<>(1);
         String mergeCommit;
         try {
             mergeCommit = this.git.access(this.branch, new GitRepository.Accessor() {
@@ -352,7 +352,7 @@ public class Synchronizer<T> extends AbstractBean implements PersistentObjectLis
      * @throws PersistentObjectException if the committed root cannot be read
      */
     public synchronized T getCommittedRoot() {
-        final ArrayList<T> rootList = new ArrayList<T>(1);
+        final ArrayList<T> rootList = new ArrayList<>(1);
         this.git.access(this.branch, new GitRepository.Accessor() {
             @Override
             public void accessWorkingCopy(File dir) {

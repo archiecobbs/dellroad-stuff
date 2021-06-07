@@ -18,7 +18,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SimpleObjectParserTest extends TestSupport {
 
-    private final SimpleObjectParser<ParseObj> parser = new SimpleObjectParser<ParseObj>(ParseObj.class);
+    private final SimpleObjectParser<ParseObj> parser = new SimpleObjectParser<>(ParseObj.class);
 
     @Test(dataProvider = "data1")
     public void testParse(String input, String regex, HashMap<Integer, String> patternMap,
@@ -156,7 +156,7 @@ public class SimpleObjectParserTest extends TestSupport {
     }
 
     private HashMap<Integer, String> map(Object... kv) {
-        HashMap<Integer, String> map = new HashMap<Integer, String>(kv.length / 2);
+        HashMap<Integer, String> map = new HashMap<>(kv.length / 2);
         for (int i = 0; i < kv.length; i += 2)
             map.put((Integer)kv[i], (String)kv[i + 1]);
         return map;

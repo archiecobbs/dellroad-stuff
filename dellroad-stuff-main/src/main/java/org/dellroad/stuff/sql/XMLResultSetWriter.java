@@ -90,7 +90,7 @@ public class XMLResultSetWriter {
      */
     public static final Map<Integer, String> TYPE_NAMES;
     static {
-        HashMap<Integer, String> map = new HashMap<Integer, String>();
+        HashMap<Integer, String> map = new HashMap<>();
         for (Field field : Types.class.getDeclaredFields()) {
             if (field.getType() != Integer.TYPE || field.getModifiers() != (Modifier.PUBLIC | Modifier.STATIC | Modifier.FINAL))
                 continue;

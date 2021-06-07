@@ -47,7 +47,7 @@ public class ProvidesPropertyScanner<T> {
 
         // Scan for @ProvidesProperty annotations
         final Set<MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyMethods
-          = new MethodAnnotationScanner<T, ProvidesProperty>(type, ProvidesProperty.class).findAnnotatedMethods();
+          = new MethodAnnotationScanner<>(type, ProvidesProperty.class).findAnnotatedMethods();
 
         // Check for duplicate @ProvidesProperty names
         final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,

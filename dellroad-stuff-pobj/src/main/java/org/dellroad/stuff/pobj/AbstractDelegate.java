@@ -91,7 +91,7 @@ public abstract class AbstractDelegate<T> implements PersistentObjectDelegate<T>
      */
     @Override
     public Set<ConstraintViolation<T>> validate(T obj) {
-        return new ValidationContext<T>(obj).validate();
+        return new ValidationContext<>(obj).validate();
     }
 
     /**

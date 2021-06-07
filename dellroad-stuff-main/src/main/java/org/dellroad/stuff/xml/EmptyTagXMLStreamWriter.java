@@ -16,7 +16,7 @@ import javax.xml.stream.XMLStreamWriter;
  */
 public class EmptyTagXMLStreamWriter extends StreamWriterDelegate {
 
-    private final ArrayList<PendingAction> pendingList = new ArrayList<PendingAction>();
+    private final ArrayList<PendingAction> pendingList = new ArrayList<>();
 
     private int depth;
 

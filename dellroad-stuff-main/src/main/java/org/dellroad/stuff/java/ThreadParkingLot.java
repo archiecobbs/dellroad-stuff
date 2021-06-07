@@ -16,7 +16,7 @@ import java.util.Set;
  */
 public class ThreadParkingLot {
 
-    private final HashSet<Thread> parkedThreads = new HashSet<Thread>();
+    private final HashSet<Thread> parkedThreads = new HashSet<>();
 
     /**
      * Park the current thread on this instance. Execution will halt until {@link #unpark unpark()} is invoked
@@ -70,7 +70,7 @@ public class ThreadParkingLot {
      * @return an unmodifiable {@link Set} containing a snapshot of all threads currently parked on this instance
      */
     public synchronized Set<Thread> getParkedThreads() {
-        return Collections.unmodifiableSet(new HashSet<Thread>(this.parkedThreads));
+        return Collections.unmodifiableSet(new HashSet<>(this.parkedThreads));
     }
 }
 

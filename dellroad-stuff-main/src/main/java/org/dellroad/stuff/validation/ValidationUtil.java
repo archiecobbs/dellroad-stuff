@@ -30,7 +30,7 @@ public final class ValidationUtil {
      * @throws IllegalArgumentException if either paramter is null
      */
     public static <T> Set<ConstraintViolation<T>> validate(T obj, Class<?>... groups) {
-        return new ValidationContext<T>(obj, groups).validate();
+        return new ValidationContext<>(obj, groups).validate();
     }
 
     /**

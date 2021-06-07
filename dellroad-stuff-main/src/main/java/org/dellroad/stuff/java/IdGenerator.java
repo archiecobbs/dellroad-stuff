@@ -35,11 +35,11 @@ import java.util.concurrent.Callable;
  */
 public class IdGenerator {
 
-    private static final ThreadLocalHolder<IdGenerator> CURRENT = new ThreadLocalHolder<IdGenerator>();
+    private static final ThreadLocalHolder<IdGenerator> CURRENT = new ThreadLocalHolder<>();
 
-    private final HashMap<Ref, Long> idMap = new HashMap<Ref, Long>();
-    private final HashMap<Long, Ref> refMap = new HashMap<Long, Ref>();
-    private final ReferenceQueue<Object> queue = new ReferenceQueue<Object>();
+    private final HashMap<Ref, Long> idMap = new HashMap<>();
+    private final HashMap<Long, Ref> refMap = new HashMap<>();
+    private final ReferenceQueue<Object> queue = new ReferenceQueue<>();
 
     private long next = 1;
 

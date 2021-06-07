@@ -19,9 +19,9 @@ import java.util.IdentityHashMap;
  */
 public class GraphCloneRegistry {
 
-    private final IdentityHashMap<Object, Object> map = new IdentityHashMap<Object, Object>();
+    private final IdentityHashMap<Object, Object> map = new IdentityHashMap<>();
 
-    private final ArrayDeque<GraphCloneable> stack = new ArrayDeque<GraphCloneable>();
+    private final ArrayDeque<GraphCloneable> stack = new ArrayDeque<>();
 
     /**
      * Get the unique clone of a given value during a graph clone operation, creating it if necessary.

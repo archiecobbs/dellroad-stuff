@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Company {
 
-    private List<Employee> employees = new ArrayList<Employee>();
+    private List<Employee> employees = new ArrayList<>();
     private Employee employeeOfTheWeek;
 
     public List<Employee> getEmployees() {

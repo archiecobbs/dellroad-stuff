@@ -136,7 +136,7 @@ public class PropertyDef<T> implements Serializable {
      * @return new property
      */
     public ObjectProperty<T> createProperty(T value, boolean readOnly) {
-        return new ObjectProperty<T>(value, this.getType(), readOnly);
+        return new ObjectProperty<>(value, this.getType(), readOnly);
     }
 
     /**

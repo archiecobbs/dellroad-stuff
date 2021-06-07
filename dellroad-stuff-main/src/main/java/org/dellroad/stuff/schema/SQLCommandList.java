@@ -116,7 +116,7 @@ public class SQLCommandList implements DatabaseAction<Connection> {
      * @return list of individual SQL statements
      */
     public List<SQLCommand> split() {
-        ArrayList<SQLCommand> list = new ArrayList<SQLCommand>();
+        ArrayList<SQLCommand> list = new ArrayList<>();
         for (String sql : this.splitSQL())
             list.add(new SQLCommand(sql));
         return list;
@@ -133,7 +133,7 @@ public class SQLCommandList implements DatabaseAction<Connection> {
         if (this.sqlScript == null)
             throw new IllegalArgumentException("no SQL script configured");
         String[] sqls = this.splitPattern != null ? this.sqlScript.split(this.splitPattern) : new String[] { this.sqlScript };
-        ArrayList<String> list = new ArrayList<String>(sqls.length);
+        ArrayList<String> list = new ArrayList<>(sqls.length);
         for (String sql : sqls) {
             sql = sql.trim();
             if (sql.length() == 0)

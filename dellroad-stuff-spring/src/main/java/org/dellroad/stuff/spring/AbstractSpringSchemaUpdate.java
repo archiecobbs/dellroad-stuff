@@ -83,7 +83,7 @@ public abstract class AbstractSpringSchemaUpdate<T> extends AbstractSchemaUpdate
 
         // Find required predecessors defined as Spring dependencies
         String[] predecessorNames = configurableBeanFactory.getDependenciesForBean(this.beanName);
-        HashSet<SchemaUpdate<T>> predecessors = new HashSet<SchemaUpdate<T>>(predecessorNames.length);
+        HashSet<SchemaUpdate<T>> predecessors = new HashSet<>(predecessorNames.length);
         for (String predecessorName : predecessorNames) {
             try {
                 predecessors.add((SchemaUpdate<T>)configurableBeanFactory.getBean(predecessorName, SchemaUpdate.class));

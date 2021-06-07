@@ -84,7 +84,7 @@ public class CSVOutput implements Closeable {
         if (columns == null)
             throw new IllegalArgumentException("null columns");
         this.writer = writer;
-        LinkedHashSet<String> columnSet = new LinkedHashSet<String>();
+        LinkedHashSet<String> columnSet = new LinkedHashSet<>();
         for (String column : columns) {
             if (!columnSet.add(column))
                 throw new IllegalArgumentException("duplicate column name `" + column + "'");
@@ -104,7 +104,7 @@ public class CSVOutput implements Closeable {
     public void writeRow(Map<String, ?> row) {
 
         // Sanity check column names
-        HashSet<String> unknowns = new HashSet<String>(row.keySet());
+        HashSet<String> unknowns = new HashSet<>(row.keySet());
         unknowns.removeAll(Arrays.asList(this.columns));
         if (!unknowns.isEmpty())
             throw new IllegalArgumentException("row contains unknown column(s): " + unknowns);

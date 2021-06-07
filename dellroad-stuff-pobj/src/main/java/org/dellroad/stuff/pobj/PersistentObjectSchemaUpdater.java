@@ -246,7 +246,7 @@ public class PersistentObjectSchemaUpdater<T> extends AbstractSchemaUpdater<Pers
             this.updateNames = transaction.getUpdates();
 
             // Sanity check that all updates were applied
-            final HashSet<String> unappliedUpdates = new HashSet<String>(this.getAllUpdateNames());
+            final HashSet<String> unappliedUpdates = new HashSet<>(this.getAllUpdateNames());
             unappliedUpdates.removeAll(this.updateNames);
             if (!unappliedUpdates.isEmpty())
                 throw new PersistentObjectException("internal inconsistency: unapplied updates remain: " + unappliedUpdates);
@@ -293,7 +293,7 @@ public class PersistentObjectSchemaUpdater<T> extends AbstractSchemaUpdater<Pers
 
     @Override
     protected Set<String> getAppliedUpdateNames(PersistentFileTransaction transaction) throws Exception {
-        return new HashSet<String>(transaction.getUpdates());
+        return new HashSet<>(transaction.getUpdates());
     }
 
     @Override

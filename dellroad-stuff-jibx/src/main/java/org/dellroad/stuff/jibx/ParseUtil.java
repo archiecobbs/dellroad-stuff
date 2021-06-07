@@ -78,7 +78,7 @@ public final class ParseUtil {
      * @see #serializeTimeZone
      */
     public static TimeZone deserializeTimeZone(String string) throws JiBXParseException {
-        if (!new HashSet<String>(Arrays.asList(TimeZone.getAvailableIDs())).contains(string))
+        if (!new HashSet<>(Arrays.asList(TimeZone.getAvailableIDs())).contains(string))
             throw new JiBXParseException("unrecognized time zone", string);
         return TimeZone.getTimeZone(string);
     }

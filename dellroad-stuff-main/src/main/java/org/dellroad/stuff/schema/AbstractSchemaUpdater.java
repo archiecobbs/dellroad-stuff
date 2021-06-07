@@ -287,8 +287,8 @@ public abstract class AbstractSchemaUpdater<D, T> {
      * @throws Exception if an error occurs
      */
     protected List<String> getAllUpdateNames() throws Exception {
-        ArrayList<SchemaUpdate<T>> updateList = new ArrayList<SchemaUpdate<T>>(this.getUpdates());
-        ArrayList<String> updateNameList = new ArrayList<String>(updateList.size());
+        ArrayList<SchemaUpdate<T>> updateList = new ArrayList<>(this.getUpdates());
+        ArrayList<String> updateNameList = new ArrayList<>(updateList.size());
         Collections.sort(updateList, new UpdateByNameComparator());
         for (SchemaUpdate<T> update : updateList)
             updateNameList.addAll(this.getUpdateNames(update));
@@ -347,10 +347,10 @@ public abstract class AbstractSchemaUpdater<D, T> {
         // Sanity check
         if (this.getUpdates() == null)
             throw new IllegalArgumentException("no updates configured");
-        final HashSet<SchemaUpdate<T>> allUpdates = new HashSet<SchemaUpdate<T>>(this.getUpdates());
+        final HashSet<SchemaUpdate<T>> allUpdates = new HashSet<>(this.getUpdates());
 
         // Create mapping from update name to update; multiple updates will have multiple names
-        final TreeMap<String, SchemaUpdate<T>> updateMap = new TreeMap<String, SchemaUpdate<T>>();
+        final TreeMap<String, SchemaUpdate<T>> updateMap = new TreeMap<>();
         for (SchemaUpdate<T> update : allUpdates) {
             for (String updateName : this.getUpdateNames(update)) {
                 if (!isValidUpdateName(updateName))
@@ -372,16 +372,16 @@ public abstract class AbstractSchemaUpdater<D, T> {
         }
 
         // Sort updates in the order we should to apply them
-        List<SchemaUpdate<T>> updateList = new TopologicalSorter<SchemaUpdate<T>>(allUpdates,
+        List<SchemaUpdate<T>> updateList = new TopologicalSorter<>(allUpdates,
           new SchemaUpdateEdgeLister<T>(), this.getOrderingTieBreaker()).sortEdgesReversed();
 
         // Determine which updates have already been applied
-        final HashSet<String> appliedUpdateNames = new HashSet<String>();
+        final HashSet<String> appliedUpdateNames = new HashSet<>();
         this.applyInTransaction(database, tx -> appliedUpdateNames.addAll(this.getAppliedUpdateNames(tx)));
         this.log.debug("these are the already-applied schema updates: " + appliedUpdateNames);
 
         // Check whether any unknown updates have been applied
-        TreeSet<String> unknownUpdateNames = new TreeSet<String>(appliedUpdateNames);
+        TreeSet<String> unknownUpdateNames = new TreeSet<>(appliedUpdateNames);
         unknownUpdateNames.removeAll(updateMap.keySet());
         if (!unknownUpdateNames.isEmpty()) {
             if (!this.isIgnoreUnrecognizedUpdates()) {
@@ -394,7 +394,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
 
         // Remove the already-applied updates
         updateMap.keySet().removeAll(appliedUpdateNames);
-        HashSet<SchemaUpdate<T>> remainingUpdates = new HashSet<SchemaUpdate<T>>(updateMap.values());
+        HashSet<SchemaUpdate<T>> remainingUpdates = new HashSet<>(updateMap.values());
         for (Iterator<SchemaUpdate<T>> i = updateList.iterator(); i.hasNext(); ) {
             if (!remainingUpdates.contains(i.next()))
                 i.remove();
@@ -407,7 +407,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
         }
 
         // Log which updates we're going to apply
-        final LinkedHashSet<String> remainingUpdateNames = new LinkedHashSet<String>(updateMap.size());
+        final LinkedHashSet<String> remainingUpdateNames = new LinkedHashSet<>(updateMap.size());
         for (SchemaUpdate<T> update : updateList) {
             ArrayList<String> updateNames = this.getUpdateNames(update);
             updateNames.removeAll(appliedUpdateNames);
@@ -424,7 +424,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
 
     // Get all update names, expanding multi-updates as necessary
     private ArrayList<String> getUpdateNames(SchemaUpdate<T> update) throws Exception {
-        final ArrayList<String> names = new ArrayList<String>();
+        final ArrayList<String> names = new ArrayList<>();
         UpdateHandler updateHandler = new UpdateHandler(update) {
             @Override
             protected void handleSingleUpdate(T transaction, DatabaseAction<T> action) {

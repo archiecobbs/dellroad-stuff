@@ -141,7 +141,7 @@ public abstract class MainClass {
      * @return {@code args} with the {@code -Dname=value} flags removed
      */
     protected String[] parsePropertyFlags(String[] args) {
-        ArrayList<String> list = new ArrayList<String>(args.length);
+        ArrayList<String> list = new ArrayList<>(args.length);
         boolean done = false;
         for (String arg : args) {
             if (done) {

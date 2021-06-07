@@ -21,7 +21,7 @@ public class TestSchemaUpdater extends SpringSQLSchemaUpdater {
 
     private final TestDatabaseAction databaseInitialization = new TestDatabaseAction();
     private final TestDatabaseAction updateTableInitialization = new TestDatabaseAction();
-    private final ArrayList<String> updatesRecorded = new ArrayList<String>();
+    private final ArrayList<String> updatesRecorded = new ArrayList<>();
 
     private Set<String> previousUpdates;
 

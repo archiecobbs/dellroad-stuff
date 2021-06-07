@@ -30,7 +30,7 @@ public class GraphClonableTest extends TestSupport {
         );
 
         // Check objects are different
-        IdentityHashMap<Object, Void> map = new IdentityHashMap<Object, Void>();
+        IdentityHashMap<Object, Void> map = new IdentityHashMap<>();
         map.put(people1.father, null);
         map.put(people1.mother, null);
         map.put(people1.alice, null);
@@ -161,11 +161,11 @@ public class GraphClonableTest extends TestSupport {
         // Regular fields
         private int age;
         private String name;
-        private List<String> nicknames = new ArrayList<String>();
+        private List<String> nicknames = new ArrayList<>();
 
         // GraphCloneable fields - values may be null and/or even refer back to me
         private Person spouse;
-        private List<Person> friends = new ArrayList<Person>();
+        private List<Person> friends = new ArrayList<>();
 
         public int getAge() {
             return this.age;
@@ -206,9 +206,9 @@ public class GraphClonableTest extends TestSupport {
         public void createGraphClone(GraphCloneRegistry registry) throws CloneNotSupportedException {
             final Person clone = (Person)super.clone();
             registry.setGraphClone(clone);
-            clone.nicknames = new ArrayList<String>(this.nicknames);
+            clone.nicknames = new ArrayList<>(this.nicknames);
             clone.spouse = registry.getGraphClone(this.spouse);
-            clone.friends = new ArrayList<Person>(this.friends.size());
+            clone.friends = new ArrayList<>(this.friends.size());
             for (Person friend : this.friends)
                 clone.friends.add(registry.getGraphClone(friend));
         }

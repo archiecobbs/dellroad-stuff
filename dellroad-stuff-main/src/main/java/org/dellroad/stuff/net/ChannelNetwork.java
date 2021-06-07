@@ -321,7 +321,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     protected void serviceHousekeeping() {
 
         // Perform connection housekeeping
-        for (ChannelConnection connection : new ArrayList<ChannelConnection>(this.connectionMap.values())) {
+        for (ChannelConnection connection : new ArrayList<>(this.connectionMap.values())) {
             try {
                 connection.performHousekeeping();
             } catch (IOException e) {
@@ -337,7 +337,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
 
     @Override
     protected void serviceCleanup() {
-        for (ChannelConnection connection : new ArrayList<ChannelConnection>(this.connectionMap.values()))
+        for (ChannelConnection connection : new ArrayList<>(this.connectionMap.values()))
             connection.close(null);
     }
 }

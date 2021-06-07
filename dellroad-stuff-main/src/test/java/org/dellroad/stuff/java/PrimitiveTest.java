@@ -78,7 +78,7 @@ public class PrimitiveTest extends TestSupport {
 
     @DataProvider(name = "data")
     public Object[][] getData() {
-        final ArrayList<Object[]> list = new ArrayList<Object[]>();
+        final ArrayList<Object[]> list = new ArrayList<>();
         list.add(new Object[] { Primitive.VOID, Collections.<Void>emptySet().iterator() });
         list.add(new Object[] { Primitive.BOOLEAN, Arrays.<Boolean>asList(true, false).iterator() });
         list.add(new Object[] { Primitive.BYTE, new RandomIterator<Byte>(200, Byte.MIN_VALUE, Byte.MAX_VALUE) {
@@ -153,7 +153,7 @@ public class PrimitiveTest extends TestSupport {
         @SuppressWarnings("varargs")
         RandomIterator(int totalRandom, T... values) {
             this.randomRemaining = totalRandom;
-            this.list = new ArrayList<T>(Arrays.<T>asList(values));
+            this.list = new ArrayList<>(Arrays.asList(values));
         }
 
         @Override

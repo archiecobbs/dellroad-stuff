@@ -31,7 +31,7 @@ import javax.xml.stream.util.EventReaderDelegate;
  */
 public class StackXMLEventReader extends EventReaderDelegate {
 
-    private final ArrayList<StartElement> stack = new ArrayList<StartElement>();
+    private final ArrayList<StartElement> stack = new ArrayList<>();
 
     /**
      * Constructor.
@@ -64,7 +64,7 @@ public class StackXMLEventReader extends EventReaderDelegate {
      * @return element stack; the first element in the list is the document element
      */
     public List<StartElement> getElementStack() {
-        return new ArrayList<StartElement>(this.stack);
+        return new ArrayList<>(this.stack);
     }
 
     @Override

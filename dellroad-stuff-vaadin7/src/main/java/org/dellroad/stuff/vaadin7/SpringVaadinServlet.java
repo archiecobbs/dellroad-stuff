@@ -272,7 +272,7 @@ public class SpringVaadinServlet extends VaadinServlet {
      */
     public List<VaadinSession> getSessions() {
         synchronized (this.liveSessions) {
-            return new ArrayList<VaadinSession>(this.liveSessions.keySet());
+            return new ArrayList<>(this.liveSessions.keySet());
         }
     }
 

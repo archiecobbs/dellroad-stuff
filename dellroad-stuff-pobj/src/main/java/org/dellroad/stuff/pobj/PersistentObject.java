@@ -190,7 +190,7 @@ public class PersistentObject<T> {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final HashSet<PersistentObjectListener<T>> listeners = new HashSet<PersistentObjectListener<T>>();
+    private final HashSet<PersistentObjectListener<T>> listeners = new HashSet<>();
     private final Object sharedRootMutex = new Object();    // used to ensure only one shared root creator at a time
 
     private volatile PersistentObjectDelegate<T> delegate;
@@ -1031,13 +1031,13 @@ public class PersistentObject<T> {
     protected void notifyListeners(long newVersion, T oldRoot, T newRoot) {
 
         // Snapshot listeners
-        final ArrayList<PersistentObjectListener<T>> listenersCopy = new ArrayList<PersistentObjectListener<T>>();
+        final ArrayList<PersistentObjectListener<T>> listenersCopy = new ArrayList<>();
         synchronized (this.listeners) {
             listenersCopy.addAll(this.listeners);
         }
 
         // Notify them
-        final PersistentObjectEvent<T> event = new PersistentObjectEvent<T>(this, newVersion, oldRoot, newRoot);
+        final PersistentObjectEvent<T> event = new PersistentObjectEvent<>(this, newVersion, oldRoot, newRoot);
         final ExecutorService executor;
         synchronized (this) {
             executor = this.notifyExecutor;

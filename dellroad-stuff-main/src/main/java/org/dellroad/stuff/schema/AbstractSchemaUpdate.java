@@ -16,14 +16,13 @@ import java.util.Set;
 public abstract class AbstractSchemaUpdate<T> implements SchemaUpdate<T> {
 
     private String name;
-    private Set<SchemaUpdate<T>> requiredPredecessors = new HashSet<SchemaUpdate<T>>();
+    private Set<SchemaUpdate<T>> requiredPredecessors = new HashSet<>();
     private boolean singleAction;
 
     @Override
     public String getName() {
         return this.name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -32,7 +31,6 @@ public abstract class AbstractSchemaUpdate<T> implements SchemaUpdate<T> {
     public Set<SchemaUpdate<T>> getRequiredPredecessors() {
         return this.requiredPredecessors;
     }
-
     public void setRequiredPredecessors(Set<SchemaUpdate<T>> requiredPredecessors) {
         this.requiredPredecessors = requiredPredecessors;
     }
@@ -41,7 +39,6 @@ public abstract class AbstractSchemaUpdate<T> implements SchemaUpdate<T> {
     public boolean isSingleAction() {
         return this.singleAction;
     }
-
     public void setSingleAction(boolean singleAction) {
         this.singleAction = singleAction;
     }
@@ -51,4 +48,3 @@ public abstract class AbstractSchemaUpdate<T> implements SchemaUpdate<T> {
         return this.getClass().getSimpleName() + "[" + this.getName() + "]";
     }
 }
-

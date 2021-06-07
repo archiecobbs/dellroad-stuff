@@ -254,7 +254,7 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
                 // thereby trigging another probe with a smaller offset. This cycle will repeat until the size is found.
                 this.sizeIsKnown = false;
                 this.size = this.getSmallerEstimate(offset);
-                return new AlwaysInvalidQueryList<T>(this.size);
+                return new AlwaysInvalidQueryList<>(this.size);
             }
         }
 
@@ -262,7 +262,7 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
         if (querySize < this.windowSize) {                  // we overlapped the end; now we know the exact size
             this.size = offset + querySize;
             this.sizeIsKnown = true;
-            return new WindowQueryList<T>(offset, window, this.size);
+            return new WindowQueryList<>(offset, window, this.size);
         }
 
         // Handle the case where we are somewhere in the middle
@@ -291,7 +291,7 @@ public abstract class AbstractUnsizedContainer<T> extends AbstractQueryContainer
         }
 
         // Return QueryList based on the window of data we found
-        return new WindowQueryList<T>(offset, window, this.size);
+        return new WindowQueryList<>(offset, window, this.size);
     }
 
     /**

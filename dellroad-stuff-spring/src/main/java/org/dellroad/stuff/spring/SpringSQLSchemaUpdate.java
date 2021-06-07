@@ -94,7 +94,7 @@ public class SpringSQLSchemaUpdate extends AbstractSpringSchemaUpdate<Connection
 
     @Override
     public List<DatabaseAction<Connection>> getDatabaseActions() {
-        return new ArrayList<DatabaseAction<Connection>>(this.getSQLCommandList().split());
+        return new ArrayList<>(this.getSQLCommandList().split());
     }
 }
 

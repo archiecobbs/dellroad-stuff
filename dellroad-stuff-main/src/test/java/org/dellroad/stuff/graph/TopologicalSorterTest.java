@@ -33,7 +33,7 @@ public class TopologicalSorterTest extends TestSupport {
     public void testSort(String setup, Boolean forward, String result, String reversedResult) {
 
         // Create sorter
-        TopologicalSorter<String> sorter = new TopologicalSorter<String>(getNodes(setup), getEdgeLister(setup),
+        TopologicalSorter<String> sorter = new TopologicalSorter<>(getNodes(setup), getEdgeLister(setup),
           forward == null ? null : forward.booleanValue() ? FORWARD_COMPARATOR : BACKWARD_COMPARATOR);
 
         // Test sort using normal edges
@@ -102,7 +102,7 @@ public class TopologicalSorterTest extends TestSupport {
     }
 
     public static Set<String> getNodes(String setup) {
-        LinkedHashSet<String> nodes = new LinkedHashSet<String>();
+        LinkedHashSet<String> nodes = new LinkedHashSet<>();
         for (String relation : setup.split(",")) {
             switch (relation.length()) {
             case 1:
@@ -131,7 +131,7 @@ public class TopologicalSorterTest extends TestSupport {
     public static TopologicalSorter.EdgeLister<String> getEdgeLister(String setup) {
 
         // Build edge map
-        final HashMap<String, HashSet<String>> edgeMap = new HashMap<String, HashSet<String>>();
+        final HashMap<String, HashSet<String>> edgeMap = new HashMap<>();
         for (String relation : setup.split(",")) {
             if (relation.length() != 3)
                 continue;
@@ -140,7 +140,7 @@ public class TopologicalSorterTest extends TestSupport {
             String to = relation.substring(2);
             HashSet<String> targets = edgeMap.get(from);
             if (targets == null) {
-                targets = new HashSet<String>();
+                targets = new HashSet<>();
                 edgeMap.put(from, targets);
             }
             targets.add(to);

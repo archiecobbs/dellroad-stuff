@@ -238,8 +238,7 @@ public class FieldBuilder {
 
     // This method exists solely to bind the generic type
     private <T> void buildProviderMap(Map<String, Method> providerMap, Class<T> type) {
-        final MethodAnnotationScanner<T, ProvidesField> scanner
-          = new MethodAnnotationScanner<T, ProvidesField>(type, ProvidesField.class);
+        final MethodAnnotationScanner<T, ProvidesField> scanner = new MethodAnnotationScanner<>(type, ProvidesField.class);
         for (MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo : scanner.findAnnotatedMethods())
             this.buildProviderMap(providerMap, methodInfo.getMethod().getDeclaringClass(), methodInfo.getMethod().getName());
     }

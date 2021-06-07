@@ -41,7 +41,7 @@ public class UpdatesXMLStreamReader extends AnnotatedXMLStreamReader {
             return false;
 
         // Read updates
-        this.updates = new ArrayList<String>();
+        this.updates = new ArrayList<>();
         while (true) {
 
             // Ignore leading whitespace, comments, and PI's
