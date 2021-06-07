@@ -831,7 +831,7 @@ public class PersistentObject<T> {
         }
 
         // Notify listeners
-        this.notifyListeners(newVersion, oldRoot, newRoot);
+        this.notifyListeners(newVersion, oldRoot, newRootCopy);
 
         // Done
         return newVersion;
