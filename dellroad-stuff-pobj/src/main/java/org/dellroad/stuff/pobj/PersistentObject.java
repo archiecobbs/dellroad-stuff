@@ -204,7 +204,7 @@ public class PersistentObject<T> {
     private ScheduledExecutorService scheduledExecutor;     // used for file checking and delayed write-back
     private ExecutorService notifyExecutor;                 // used to notify listeners
     private ScheduledFuture<?> pendingWrite;                // a pending write-back (this is null iff pendingWriteRoot is null)
-    private T pendingWriteRoot;                             // pending write-back value (this is null iff pendingWrite is null)
+    private volatile T pendingWriteRoot;                    // pending write-back value (this is null iff pendingWrite is null)
     private long version;                                   // current root object version
     private long timestamp;                                 // timestamp of persistent file when we last read it
     private boolean allowEmptyStart;
@@ -818,7 +818,7 @@ public class PersistentObject<T> {
 
                 // Schedule file write-back (if not already scheduled)
                 if (!readingFile && newRoot != null) {
-                    this.pendingWriteRoot = newRootCopy;
+                    this.pendingWriteRoot = newRoot;
                     if (this.pendingWrite == null) {
                         this.pendingWrite = this.scheduledExecutor.schedule(
                           this::writeTimeout, this.writeDelay, TimeUnit.MILLISECONDS);
@@ -831,7 +831,7 @@ public class PersistentObject<T> {
         }
 
         // Notify listeners
-        this.notifyListeners(newVersion, oldRoot, newRootCopy);
+        this.notifyListeners(newVersion, oldRoot, newRoot);
 
         // Done
         return newVersion;

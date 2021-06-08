@@ -1,3 +1,7 @@
+Version Next
+
+    - Improve on previous race condition fixes in PersistentObject.
+
 Version 2.4.8 Released June 7, 2021
 
     - Fixed another potential race condition when writing new PersistentObject.
