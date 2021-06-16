@@ -247,11 +247,12 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     void handleMessage(final ChannelConnection connection, final ByteBuffer msg) {
         assert Thread.holdsLock(this);
         assert this.isServiceThread();
+        final String peer = connection.getPeer();
         this.executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    ChannelNetwork.this.handler.handle(connection.getPeer(), msg);
+                    ChannelNetwork.this.handler.handle(peer, msg);
                 } catch (Throwable t) {
                     ChannelNetwork.this.log.error("exception in callback", t);
                 }
@@ -263,11 +264,12 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     void handleOutputQueueEmpty(final ChannelConnection connection) {
         assert Thread.holdsLock(this);
         assert this.isServiceThread();
+        final String peer = connection.getPeer();
         this.executor.submit(new Runnable() {
             @Override
             public void run() {
                 try {
-                    ChannelNetwork.this.handler.outputQueueEmpty(connection.getPeer());
+                    ChannelNetwork.this.handler.outputQueueEmpty(peer);
                 } catch (Throwable t) {
                     ChannelNetwork.this.log.error("exception in callback", t);
                 }
