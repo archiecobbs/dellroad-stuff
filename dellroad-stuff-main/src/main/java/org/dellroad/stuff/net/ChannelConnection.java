@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Support superclass for {@link ChannelNetwork} connections.
  *
+ * <p>
  * <b>Locking</b>
  *
  * <p>
@@ -120,14 +121,16 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
      * Enqueue an outgoing message on this connection.
      *
      * @param buf outgoing data
-     * @return true if message was enqueued, false if output buffer was full
+     * @return true if message was enqueued, false if output buffer was full or connection closed
      */
-    public boolean output(ByteBuffer buf) {
+    protected boolean output(ByteBuffer buf) {
 
         // Sanity check
         assert Thread.holdsLock(this.network);
         if (buf == null)
             throw new IllegalArgumentException("null buf");
+        if (this.closed)
+            return false;
 
         // Avoid anyone else mucking with my buffer position, etc.
         buf = buf.asReadOnlyBuffer();
