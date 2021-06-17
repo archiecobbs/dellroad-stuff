@@ -78,7 +78,7 @@ public class TCPConnection extends ChannelConnection {
         this.restartIdleTimer();
 
         // Notify client we are open for business
-        this.network.handleOutputQueueEmpty(this);
+        this.handleOutputQueueEmpty();
     }
 
 // Housekeeping

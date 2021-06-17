@@ -309,7 +309,7 @@ public class TCPNetwork extends ChannelNetwork implements Network {
         // Create a new connection from the new incoming connection socket
         final TCPConnection newConnection = new TCPConnection(this, peer, socketChannel);
         this.connectionMap.put(peer, newConnection);
-        this.handleOutputQueueEmpty(newConnection);
+        newConnection.handleOutputQueueEmpty();
     }
 
     // Enable/disable incoming connections

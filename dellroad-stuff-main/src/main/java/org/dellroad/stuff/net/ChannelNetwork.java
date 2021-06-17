@@ -9,10 +9,6 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +49,14 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     public static final long DEFAULT_MAX_OUTPUT_QUEUE_SIZE = 64 * 1024 * 1024;   // 64 MB
 
     /**
+     * Default maximum allowed size of a connection's incoming queue before we start dropping messages
+     * ({@value #DEFAULT_MAX_INPUT_QUEUE_SIZE} bytes).
+     *
+     * @see #getMaxInputQueueSize
+     */
+    public static final long DEFAULT_MAX_INPUT_QUEUE_SIZE = 128 * 1024 * 1024;   // 128 MB
+
+    /**
      * Default minimum buffer size to use a direct buffer.
      *
      * @see #getMinDirectBufferSize
@@ -61,15 +65,17 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    protected final HashMap<String, ChannelConnection> connectionMap = new HashMap<>();
-    protected Network.Handler handler;
-    protected ExecutorService executor;
+    protected final HashMap<String, ChannelConnection> connectionMap = new HashMap<>();     // keys are NORMALIZED peer names
 
     private int maxConnections = DEFAULT_MAX_CONNECTIONS;
     private long maxIdleTime = DEFAULT_MAX_IDLE_TIME;
     private int maxMessageSize = DEFAULT_MAX_MESSAGE_SIZE;
     private long maxOutputQueueSize = DEFAULT_MAX_OUTPUT_QUEUE_SIZE;
+    private long maxInputQueueSize = DEFAULT_MAX_INPUT_QUEUE_SIZE;
     private int minDirectBufferSize = DEFAULT_MIN_DIRECT_BUFFER_SIZE;
+
+    private Network.Handler handler;
+    private HandlerThread handlerThread;
     private String serviceThreadName;
 
 // Public API
@@ -122,6 +128,28 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     }
     public synchronized void setMaxOutputQueueSize(long maxOutputQueueSize) {
         this.maxOutputQueueSize = maxOutputQueueSize;
+        for (ChannelConnection connection : this.connectionMap.values())        // in case output queue empty status changes
+            connection.updateSelection();
+    }
+
+    /**
+     * Get the maximum allowed size of the queue for incoming messages.
+     * Default is {@value #DEFAULT_MAX_INPUT_QUEUE_SIZE} bytes.
+     *
+     * <p>
+     * Messages are considered in the "input queue" if they have been received, but not
+     * yet handled by the {@link Handler}, because the {@link Handler} has not finished
+     * handling one or more earlier messages.
+     *
+     * @return max allowed incomign message queue length in bytes
+     */
+    public synchronized long getMaxInputQueueSize() {
+        return this.maxInputQueueSize;
+    }
+    public synchronized void setMaxInputQueueSize(long maxInputQueueSize) {
+        this.maxInputQueueSize = maxInputQueueSize;
+        for (ChannelConnection connection : this.connectionMap.values())        // in case input queue full status changes
+            connection.updateSelection();
     }
 
     /**
@@ -171,17 +199,10 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
                 return;
             if (this.log.isDebugEnabled())
                 this.log.debug("starting " + this);
-            this.executor = Executors.newSingleThreadExecutor(new ThreadFactory() {
-                @Override
-                public Thread newThread(Runnable r) {
-                    final Thread thread = new Thread(r);
-                    synchronized (ChannelNetwork.this) {
-                        if (ChannelNetwork.this.serviceThreadName != null)
-                            thread.setName(ChannelNetwork.this.serviceThreadName);
-                    }
-                    return thread;
-                }
-            });
+            this.handlerThread = new HandlerThread();
+            if (this.serviceThreadName != null)
+                this.handlerThread.setName(this.serviceThreadName);
+            this.handlerThread.start();
             this.handler = handler;
             successful = true;
         } finally {
@@ -198,16 +219,9 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
                 return;
             if (this.log.isDebugEnabled())
                 this.log.debug("stopping " + this);
-            if (this.executor != null) {
-                this.executor.shutdownNow();
-                try {
-                    this.executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
-                this.executor = null;
-            }
+            this.handlerThread = null;
             this.handler = null;
+            this.notify();              // wakeup HandlerThread so he can notice that we are stopped
         }
     }
 
@@ -243,40 +257,6 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
 
 // Connection API
 
-    // Invoked when a message arrives on a connection
-    void handleMessage(final ChannelConnection connection, final ByteBuffer msg) {
-        assert Thread.holdsLock(this);
-        assert this.isServiceThread();
-        final String peer = connection.getPeer();
-        this.executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ChannelNetwork.this.handler.handle(peer, msg);
-                } catch (Throwable t) {
-                    ChannelNetwork.this.log.error("exception in callback", t);
-                }
-            }
-        });
-    }
-
-    // Invoked a connection's output queue goes empty
-    void handleOutputQueueEmpty(final ChannelConnection connection) {
-        assert Thread.holdsLock(this);
-        assert this.isServiceThread();
-        final String peer = connection.getPeer();
-        this.executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ChannelNetwork.this.handler.outputQueueEmpty(peer);
-                } catch (Throwable t) {
-                    ChannelNetwork.this.log.error("exception in callback", t);
-                }
-            }
-        });
-    }
-
     // Invoked when a connection closes
     void handleConnectionClosed(ChannelConnection connection) {
         assert Thread.holdsLock(this);
@@ -285,8 +265,94 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
             this.log.debug(this + " handling closed connection " + connection);
         final String normalizedPeer = this.normalizePeerName(connection.getPeer());
         this.connectionMap.remove(normalizedPeer);
-        this.handleOutputQueueEmpty(connection);
         this.wakeup();
+    }
+
+// HandlerThread
+
+    /**
+     * Thread that delivers notifications to the {@link Network.Handler}.
+     */
+    private class HandlerThread extends Thread {
+
+        private final Logger log = ChannelNetwork.this.log;
+        private final Network.Handler handler = ChannelNetwork.this.handler;
+
+        @Override
+        public void run() {
+            try {
+                int counter = 0;                            // use this to ensure channels are handled fairly (round-robin)
+                while (true) {
+
+                    // Work we will do
+                    ByteBuffer buf = null;
+                    String peer = null;
+                    boolean outputQueueEmpty = false;
+
+                    // Find next input for handler
+                    synchronized (ChannelNetwork.this) {
+                    workLoop:
+                        while (true) {
+
+                            // Check for shutdown
+                            if (ChannelNetwork.this.handlerThread != this)
+                                return;
+
+                            // Snapshot current channels
+                            final ChannelConnection[] connections = ChannelNetwork.this.connectionMap.values()
+                              .toArray(new ChannelConnection[0]);
+
+                            // Find the first connection with pending notification(s) of some kind
+                            for (int i = 0; i < connections.length; i++) {
+
+                                // Get the next connection (using counter for round-robin)
+                                final ChannelConnection connection = connections[counter++ % connections.length];
+                                counter &= 0x7fffffff;                              // ensure counter stays positive
+
+                                // Get pending output queue empty notification, if any
+                                outputQueueEmpty = connection.pollForOutputQueueEmpty();
+
+                                // Get next input message, if any
+                                buf = connection.pollForInput();
+
+                                // Any notification(s) needed?
+                                if (outputQueueEmpty || buf != null) {
+                                    peer = connection.getPeer();
+                                    break workLoop;
+                                }
+                            }
+
+                            // None of our connections have any pending notifications - sleep until we have more work
+                            ChannelNetwork.this.wait();
+                        }
+                    }
+
+                    // Notify if output queue empty
+                    if (outputQueueEmpty) {
+                        try {
+                            this.handler.outputQueueEmpty(peer);
+                        } catch (Throwable t) {
+                            this.log.error("exception in callback", t);
+                        }
+                    }
+
+                    // Notify of new input
+                    if (buf != null) {
+                        try {
+                            this.handler.handle(peer, buf);
+                        } catch (Throwable t) {
+                            this.log.error("exception in callback", t);
+                        }
+                    }
+                }
+            } catch (Error | RuntimeException t) {
+                this.log.error("unexpected exception in HandlerThread", t);
+                throw t;
+            } catch (Throwable t) {
+                this.log.error("unexpected exception in HandlerThread", t);
+                throw new RuntimeException(t);
+            }
+        }
     }
 
 // Subclass API

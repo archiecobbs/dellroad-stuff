@@ -36,12 +36,21 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
     protected final SelectionKey inputSelectionKey;
     protected final SelectionKey outputSelectionKey;        // same as inputSelectionKey if inputChannel == outputChannel
 
-    private final ArrayDeque<ByteBuffer> output = new ArrayDeque<>();
-
+    // Partially constructed incoming message
     private ByteBuffer inbuf;
-    private long queueSize;                                 // invariant: always equals the total number of bytes in 'output'
-    private long lastActiveTime;
     private boolean readingLength;                          // indicates 'inbuf' is reading the message length (4 bytes)
+
+    // Input queue
+    private final ArrayDeque<ByteBuffer> input = new ArrayDeque<>();
+    private long inputQueueSize;                            // invariant: always equals the total number of bytes in 'input'
+
+    // Output queue
+    private final ArrayDeque<ByteBuffer> output = new ArrayDeque<>();
+    private long outputQueueSize;                           // invariant: always equals the total number of bytes in 'output'
+    private boolean outputQueueEmpty;                       // there is a pending notification that the output queue is empty
+
+    // Misc state
+    private volatile long lastActiveTime;
     private boolean closed;
 
 // Constructors
@@ -138,13 +147,13 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
         // Check output queue capacity
         final int length = buf.remaining();
         final int increment = length + 4;
-        if (this.queueSize + increment > this.network.getMaxOutputQueueSize())
+        if (this.outputQueueSize + increment > this.network.getMaxOutputQueueSize())
             return false;
 
         // Add to queue
         this.output.add((ByteBuffer)ByteBuffer.allocate(4).putInt(length).flip());
         this.output.add(buf);
-        this.queueSize += increment;
+        this.outputQueueSize += increment;
 
         // Ensure we are notified when output is writable
         this.updateSelection();
@@ -191,6 +200,13 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
         } catch (IOException e) {
             // ignore
         }
+        this.inbuf = null;
+        this.readingLength = false;
+        this.input.clear();
+        this.inputQueueSize = 0;
+        this.output.clear();
+        this.outputQueueSize = 0;
+        this.outputQueueEmpty = false;
         this.network.handleConnectionClosed(this);
     }
 
@@ -200,11 +216,11 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
      * Update selected keys.
      *
      * <p>
-     * The implementation in {@link ChannelConnection} selects for read always and write
-     * if the output queue is non-empty.
+     * The implementation in {@link ChannelConnection} selects for read if the input queue is not full,
+     * and write if the output queue is non-empty.
      */
     protected void updateSelection() {
-        this.network.selectFor(this.inputSelectionKey, SelectionKey.OP_READ, true);
+        this.network.selectFor(this.inputSelectionKey, SelectionKey.OP_READ, !this.inputQueueFull());
         this.network.selectFor(this.outputSelectionKey, SelectionKey.OP_WRITE, !this.output.isEmpty());
     }
 
@@ -215,20 +231,106 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
         this.lastActiveTime = System.nanoTime();
     }
 
+// Input Handling
+
+    // Add buffer to input queue
+    private void receiveBuffer(ByteBuffer buf) {
+        assert Thread.holdsLock(this.network);
+
+        // Add buffer to queue
+        final boolean queueWasFull = this.inputQueueFull();
+        final boolean queueWasEmpty = this.input.isEmpty();
+        this.input.add(buf);
+        this.inputQueueSize += buf.remaining();
+
+        // If input queue became full, stop reading to create back-pressure on the network
+        if (!queueWasFull && this.inputQueueFull())
+            this.updateSelection();
+
+        // If input queue became non-empty, wakeup handler thread so input can be delivered
+        if (queueWasEmpty)
+            this.network.notify();
+    }
+
+    /**
+     * Grab the next available input buffer, if any.
+     *
+     * <p>
+     * A special object {@link ChannelNetwork#OUTPUT_QUEUE_EMPTY} may be returned, which indicates that the
+     * handler should be notified the output queue is empty.
+     *
+     * <p>
+     * This method is invoked by {@link ChannelNetwork.HandlerThread}.
+     *
+     * @return next buffer if any, otherwise null
+     */
+    ByteBuffer pollForInput() {
+        assert Thread.holdsLock(this.network);
+
+        // Anything there?
+        final ByteBuffer buf = this.input.pollFirst();
+        if (buf == null)
+            return null;
+
+        // Update total queue length in bytes
+        final boolean queueWasFull = this.inputQueueFull();
+        this.inputQueueSize -= buf.remaining();
+
+        // If the input queue just became no longer full, enable reading again
+        if (queueWasFull && !this.inputQueueFull())
+            this.updateSelection();
+
+        // Done
+        return buf;
+    }
+
+    /**
+     * Determine whether there is a pending notification that the output queue is empty.
+     *
+     * <p>
+     * If this returns true, the pending notification is cleared.
+     *
+     * <p>
+     * This method is invoked by {@link ChannelNetwork.HandlerThread}.
+     */
+    boolean pollForOutputQueueEmpty() {
+        assert Thread.holdsLock(this.network);
+        if (this.outputQueueEmpty) {
+            this.outputQueueEmpty = false;
+            return true;
+        }
+        return false;
+    }
+
+    private boolean inputQueueFull() {
+        assert Thread.holdsLock(this.network);
+        return this.inputQueueSize >= this.network.getMaxInputQueueSize();
+    }
+
 // I/O Ready Conditions
 
     private void handleReadable() throws IOException {
+        assert Thread.holdsLock(this.network);
+        assert this.network.isServiceThread();
+
+        // Channels are non-blocking, so we keep reading until no more data is available or the input queue gets full
         while (true) {
+
+            // If the input queue is full, don't read anything - hopefully the sender will get pushback and stop sending
+            if (this.inputQueueFull()) {
+                this.updateSelection();             // this shouldn't be necessary - but just in case we missed it before somehow
+                break;
+            }
 
             // Update timestamp
             this.restartIdleTimer();
 
-            // Read bytes
+            // Read bytes into input buffer
             final long len = ((ReadableByteChannel)this.inputChannel).read(this.inbuf);
             if (len == -1)
                 throw new EOFException("connection closed");
 
-            // Is the message (or length header) still incomplete?
+            // Is the message (or length header) still incomplete? Then there's no more available data for now
             if (this.inbuf.hasRemaining())
                 break;
 
@@ -251,8 +353,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
                 continue;
             }
 
-            // Deliver the completed message
-            this.network.handleMessage(this, this.inbuf);
+            // Add the completed message to our input queue
+            this.receiveBuffer(this.inbuf);
 
             // Set up for reading next length header
             this.inbuf = ByteBuffer.allocate(4);
@@ -264,6 +366,8 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
     }
 
     private void handleWritable() throws IOException {
+        assert Thread.holdsLock(this.network);
+        assert this.network.isServiceThread();
 
         // Write more data, if present
         boolean queueBecameEmpty = false;
@@ -272,7 +376,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
             // Write data
             final long written = ((GatheringByteChannel)this.outputChannel).write(
               this.output.toArray(new ByteBuffer[this.output.size()]));
-            this.queueSize -= written;
+            this.outputQueueSize -= written;
 
             // Clear away empty buffers
             while (!this.output.isEmpty() && !this.output.peekFirst().hasRemaining())
@@ -291,7 +395,15 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
         // Notify client if queue became empty
         if (queueBecameEmpty)
-            this.network.handleOutputQueueEmpty(this);
+            this.handleOutputQueueEmpty();
+    }
+
+    // Notify handler output queue is empty
+    void handleOutputQueueEmpty() {
+        if (!this.outputQueueEmpty) {
+            this.outputQueueEmpty = true;
+            this.network.notify();
+        }
     }
 
 // Housekeeping
