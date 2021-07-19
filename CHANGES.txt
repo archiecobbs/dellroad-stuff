@@ -1,4 +1,4 @@
-Version Next
+Version 2.4.10 Released July 19, 2021
 
     - Added configurable input queue size limit to ChannelNetwork.
     - Fixed potential race condition with PersistentObject listener notifications.
