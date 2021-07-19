@@ -47,9 +47,25 @@ public class LongMapTest extends TestSupport {
                     iter.remove();
                     expected.remove(id2);
                 }
+            } else if (action < 37) {
+                final boolean actualWasEmpty = actual.isEmpty();
+                final boolean expectedWasEmpty = expected.isEmpty();
+                final Map.Entry<Long, Integer> entry = actual.removeOne();
+                if (entry != null) {
+                    final Long key = entry.getKey();
+                    final Integer aval = entry.getValue();
+                    final Integer eval = expected.remove(key);
+                    Assert.assertFalse(actualWasEmpty);
+                    Assert.assertFalse(expectedWasEmpty);
+                    Assert.assertEquals(aval, eval);
+                } else {
+                    Assert.assertTrue(actualWasEmpty);
+                    Assert.assertTrue(expectedWasEmpty);
+                }
+                actualResult = expectedResult = true;
             } else if (action < 40) {
                 actualResult = !actual.entrySet().equals(expected.entrySet());
-            } else if (action < 45) {
+            } else if (action < 65) {
                 actualResult = value.equals(actual.put(id, value));
                 expectedResult = value.equals(expected.put(id, value));
             } else if (action < 85) {
