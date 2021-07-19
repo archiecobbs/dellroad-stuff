@@ -217,7 +217,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
      *
      * <p>
      * The implementation in {@link ChannelConnection} selects for read if the input queue is not full,
-     * and write if the output queue is non-empty.
+     * and for write if the output queue is non-empty.
      */
     protected void updateSelection() {
         this.network.selectFor(this.inputSelectionKey, SelectionKey.OP_READ, !this.inputQueueFull());
@@ -254,10 +254,6 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     /**
      * Grab the next available input buffer, if any.
-     *
-     * <p>
-     * A special object {@link ChannelNetwork#OUTPUT_QUEUE_EMPTY} may be returned, which indicates that the
-     * handler should be notified the output queue is empty.
      *
      * <p>
      * This method is invoked by {@link ChannelNetwork.HandlerThread}.
