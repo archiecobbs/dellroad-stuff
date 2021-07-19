@@ -142,6 +142,8 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
 
     @Override
     public boolean add(Long value) {
+        if (value == null)
+            throw new IllegalArgumentException("null value");
         return this.add(value.longValue());
     }
 
