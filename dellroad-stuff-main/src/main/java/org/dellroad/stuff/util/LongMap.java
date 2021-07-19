@@ -25,7 +25,7 @@ import java.util.function.UnaryOperator;
  * Equivalent {@link Map} methods taking {@code long} instead of {@code Long} are also provided.
  *
  * <p>
- * Instances do not accept zero values and are not thread safe.
+ * Instances do not accept zero keys and are not thread safe.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Open_addressing">Open addressing</a>
  */
