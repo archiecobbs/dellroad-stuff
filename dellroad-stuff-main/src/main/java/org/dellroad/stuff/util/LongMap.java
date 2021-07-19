@@ -206,7 +206,8 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
         for (int i = 0; i < this.keys.length; i++) {
             final int slot = (offset + i) & mask;
             if (LongMap.this.keys[slot] != 0) {
-                final Entry entry = new Entry(slot);
+                final AbstractMap.SimpleImmutableEntry<Long, V> entry = new AbstractMap.SimpleImmutableEntry<>(
+                  LongMap.this.keys[slot], LongMap.this.values[slot]);
                 this.exsert(slot);
                 return entry;
             }

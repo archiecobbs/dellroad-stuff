@@ -1,7 +1,8 @@
 Version Next
 
-    - Add configurable input queue size limit to ChannelNetwork.
-    - Fix potential race condition with PersistentObject listener notifications.
+    - Added configurable input queue size limit to ChannelNetwork.
+    - Fixed potential race condition with PersistentObject listener notifications.
+    - Fixed bug in LongMap.removeOne() and added new method LongMap.deepClone().
 
 Version 2.4.9 Released June 8, 2021
 
