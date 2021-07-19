@@ -579,52 +579,20 @@ loop:   while (true) {
 // Entry
 
     @SuppressWarnings("serial")
-    class Entry implements Map.Entry<Long, V> {
-
-        private final int modcount = LongMap.this.modcount.get();
-        private final int slot;
+    class Entry extends AbstractMap.SimpleEntry<Long, V> {
 
         Entry(int slot) {
-            this.slot = slot;
-        }
-
-        @Override
-        public Long getKey() {
-            if (this.modcount != LongMap.this.modcount.get())
-                throw new ConcurrentModificationException();
-            return LongMap.this.keys[this.slot];
-        }
-
-        @Override
-        public V getValue() {
-            if (this.modcount != LongMap.this.modcount.get())
-                throw new ConcurrentModificationException();
-            return LongMap.this.values[this.slot];
+            super(LongMap.this.keys[slot], LongMap.this.values != null ? LongMap.this.values[slot] : null);
         }
 
         @Override
         public V setValue(V value) {
-            if (this.modcount != LongMap.this.modcount.get())
-                throw new ConcurrentModificationException();
-            final V oldValue = LongMap.this.values[this.slot];
-            LongMap.this.values[this.slot] = value;
-            return oldValue;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj == this)
-                return true;
-            if (!(obj instanceof Map.Entry))
-                return false;
-            final Map.Entry<?, ?> that = (Map.Entry<?, ?>)obj;
-            return Objects.equals(this.getKey(), that.getKey()) && Objects.equals(this.getValue(), that.getValue());
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hashCode(this.getKey()) ^ Objects.hashCode(this.getValue());
+            assert LongMap.this.values != null;
+            final long key = this.getKey();
+            final int slot = LongMap.this.findSlot(key);
+            if (LongMap.this.keys[slot] == key)
+                LongMap.this.values[slot] = value;
+            return super.setValue(value);
         }
     }
 }
-
