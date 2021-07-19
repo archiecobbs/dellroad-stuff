@@ -482,7 +482,7 @@ loop:   while (true) {
             final V actualValue = LongMap.this.get(key);
             if (actualValue == null && !LongMap.this.containsKey(key))
                 return false;
-            return entry.equals(new AbstractMap.SimpleEntry<Long, V>((Long)key, actualValue));
+            return Objects.equals(entry.getValue(), actualValue);
         }
 
         @Override
@@ -494,7 +494,7 @@ loop:   while (true) {
             final V actualValue = LongMap.this.get(key);
             if (actualValue == null && !LongMap.this.containsKey(key))
                 return false;
-            if (actualValue != null ? actualValue.equals(entry.getValue()) : entry.getValue() == null) {
+            if (Objects.equals(entry.getValue(), actualValue)) {
                 LongMap.this.remove(key);
                 return true;
             }
