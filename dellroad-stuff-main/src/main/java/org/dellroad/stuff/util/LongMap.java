@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.UnaryOperator;
 
 /**
  * A map with non-zero {@code long} keys.
@@ -246,6 +247,28 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
         clone.modcount = new AtomicInteger(clone.modcount.get());
         if (clone.values != null)
             clone.values = clone.values.clone();
+        return clone;
+    }
+
+    /**
+     * Perform a "deep clone" operation, which is a normal {@link #clone} followed by a cloning of each
+     * value using the provided clone function.
+     *
+     * @param valueCloner used to clone the individual values in this map
+     * @return a deeply cloned copy of this instance
+     * @throws IllegalArgumentException if {@code valueCloner} is null
+     */
+    public LongMap<V> deepClone(UnaryOperator<V> valueCloner) {
+        if (valueCloner == null)
+            throw new IllegalArgumentException("null valueCloner");
+        final LongMap<V> clone = this.clone();
+        if (clone.values != null) {
+            for (int i = 0; i < clone.values.length; i++) {
+                final V value = clone.values[i];
+                if (value != null)
+                    clone.values[i] = valueCloner.apply(value);
+            }
+        }
         return clone;
     }
 
