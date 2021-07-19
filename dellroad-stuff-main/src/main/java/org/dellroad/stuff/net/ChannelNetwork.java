@@ -221,7 +221,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
                 this.log.debug("stopping " + this);
             this.handlerThread = null;
             this.handler = null;
-            this.notify();              // wakeup HandlerThread so he can notice that we are stopped
+            this.notifyAll();           // wakeup HandlerThread so he can notice that we are stopped
         }
     }
 

@@ -249,7 +249,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
         // If input queue became non-empty, wakeup handler thread so input can be delivered
         if (queueWasEmpty)
-            this.network.notify();
+            this.network.notifyAll();
     }
 
     /**
@@ -398,7 +398,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
     void handleOutputQueueEmpty() {
         if (!this.outputQueueEmpty) {
             this.outputQueueEmpty = true;
-            this.network.notify();
+            this.network.notifyAll();
         }
     }
 
