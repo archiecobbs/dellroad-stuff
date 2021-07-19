@@ -291,6 +291,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
 
         // Find slot for key
         assert key != 0;
+        assert this.values != null || value == null;
         final int slot = this.findSlot(key);
 
         // Key already exists? Just replace value
