@@ -260,7 +260,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
      *
      * @return next buffer if any, otherwise null
      */
-    ByteBuffer pollForInput() {
+    ByteBuffer pollForInputQueueNotEmpty() {
         assert Thread.holdsLock(this.network);
 
         // Anything there?

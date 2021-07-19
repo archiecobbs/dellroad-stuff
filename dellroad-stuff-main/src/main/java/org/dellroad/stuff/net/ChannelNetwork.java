@@ -313,7 +313,7 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
                                 outputQueueEmpty = connection.pollForOutputQueueEmpty();
 
                                 // Get next input message, if any
-                                buf = connection.pollForInput();
+                                buf = connection.pollForInputQueueNotEmpty();
 
                                 // Any notification(s) needed?
                                 if (outputQueueEmpty || buf != null) {
