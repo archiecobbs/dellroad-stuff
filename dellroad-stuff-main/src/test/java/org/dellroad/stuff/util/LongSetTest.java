@@ -42,7 +42,18 @@ public class LongSetTest extends TestSupport {
                     iter.remove();
                     expected.remove(id2);
                 }
-            } else if (action < 45) {
+            } else if (action < 37) {
+                final boolean actualWasEmpty = actual.isEmpty();
+                final boolean expectedWasEmpty = expected.isEmpty();
+                final long removed = actual.removeOne();
+                if (removed != 0) {
+                    actualResult = true;
+                    expectedResult = expected.remove(removed);
+                } else {
+                    actualResult = false;
+                    expectedResult = expected.remove(removed);
+                }
+            } else if (action < 65) {
                 actualResult = actual.add(id);
                 expectedResult = expected.add(id);
             } else if (action < 85) {
