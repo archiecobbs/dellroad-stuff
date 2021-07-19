@@ -156,10 +156,7 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
 
     @Override
     public boolean remove(Object obj) {
-        if (!this.map.containsKey(obj))
-            return false;
-        this.map.remove(obj);
-        return true;
+        return obj instanceof Long && this.remove(((Long)obj).longValue());
     }
 
     public boolean remove(long value) {
