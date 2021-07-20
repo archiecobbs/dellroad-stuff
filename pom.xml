@@ -58,7 +58,7 @@
         <aspectj.maven-plugin.version>1.11</aspectj.maven-plugin.version>
         <aspectj.version>[1.8.13,1.9)</aspectj.version>
         <guava.version>[21.0,)</guava.version>
-        <hibernate-validator.version>6.0.7.Final</hibernate-validator.version>
+        <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <hibernate.core.version>5.3.5.Final</hibernate.core.version>
         <javax.el.version>3.0.1-b09</javax.el.version>
         <jibx.version>1.3.1</jibx.version>
