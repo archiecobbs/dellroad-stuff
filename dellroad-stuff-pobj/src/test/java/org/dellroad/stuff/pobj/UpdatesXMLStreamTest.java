@@ -76,11 +76,8 @@ public class UpdatesXMLStreamTest extends TestSupport {
 
     private List<String> copy(File file1, boolean readUpdates, File file2, String[] updates)
       throws IOException, XMLStreamException, TransformerException {
-        FileInputStream input = new FileInputStream(file1);
-        try {
+        try (FileInputStream input = new FileInputStream(file1)) {
             return this.copy(input, readUpdates, file2, updates);
-        } finally {
-            input.close();
         }
     }
 

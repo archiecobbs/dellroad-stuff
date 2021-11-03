@@ -185,15 +185,8 @@ public final class JiBXUtil {
      * @throws IOException if an error occurs reading the referenced document
      */
     public static <T> T readObject(Class<T> targetClass, String bindingName, URL url) throws JiBXException, IOException {
-        InputStream in = url.openStream();
-        try {
+        try (InputStream in = url.openStream()) {
             return JiBXUtil.readObject(targetClass, bindingName, in);
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                // ignore
-            }
         }
     }
 

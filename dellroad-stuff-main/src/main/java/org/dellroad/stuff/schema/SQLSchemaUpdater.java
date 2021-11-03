@@ -351,8 +351,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.apply(c, new SQLCommand("SELECT COUNT(*) FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {
-                Statement s = c.createStatement();
-                try {
+                try (Statement s = c.createStatement()) {
                     ResultSet resultSet;
                     try {
                         resultSet = s.executeQuery(this.getSQL());
@@ -368,8 +367,6 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
                         throw new IllegalStateException("zero rows returned by `" + this.getSQL() + "'");
                     SQLSchemaUpdater.this.log.info("detected initialized database, with "
                       + resultSet.getLong(1) + " update(s) already applied");
-                } finally {
-                    s.close();
                 }
             }
         });
@@ -416,15 +413,12 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
           + " (" + this.getUpdateTableNameColumn() + ", " + this.getUpdateTableTimeColumn() + ") VALUES (?, ?)") {
             @Override
             public void apply(Connection c) throws SQLException {
-                PreparedStatement s = c.prepareStatement(this.getSQL());
-                try {
+                try (PreparedStatement s = c.prepareStatement(this.getSQL())) {
                     s.setString(1, updateName);
                     s.setTimestamp(2, new Timestamp(new Date().getTime()));
                     int rows = s.executeUpdate();
                     if (rows != 1)
                         throw new IllegalStateException("got " + rows + " != 1 rows for `" + this.getSQL() + "'");
-                } finally {
-                    s.close();
                 }
             }
         });
@@ -445,12 +439,9 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.apply(c, new SQLCommand("SELECT " + this.getUpdateTableNameColumn() + " FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {
-                Statement s = c.createStatement();
-                try {
+                try (Statement s = c.createStatement()) {
                     for (ResultSet resultSet = s.executeQuery(this.getSQL()); resultSet.next(); )
                         updateNames.add(resultSet.getString(1));
-                } finally {
-                    s.close();
                 }
             }
         });

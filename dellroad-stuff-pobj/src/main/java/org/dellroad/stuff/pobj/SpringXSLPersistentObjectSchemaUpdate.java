@@ -98,13 +98,7 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
     public void apply(PersistentFileTransaction transaction) {
 
         // Get transform source
-        InputStream input;
-        try {
-            input = this.transform.getInputStream();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
+        try (InputStream input = this.transform.getInputStream()) {
 
             // Setup transformer
             TransformerFactory tf = this.transformerFactory;
@@ -129,12 +123,6 @@ public class SpringXSLPersistentObjectSchemaUpdate<T> extends SpringPersistentOb
             if (e.getCause() instanceof TransformerException && e.getCause().getCause() instanceof RuntimeException)
                 e = (RuntimeException)e.getCause().getCause();
             throw e;
-        } finally {
-            try {
-                input.close();
-            } catch (IOException e) {
-                // ignore
-            }
         }
     }
 }

@@ -48,9 +48,8 @@ public class UpdatingDataSource extends AbstractUpdatingDataSource {
             throw new IllegalArgumentException("no SQLCommandList configured");
 
         // Get connection
-        Connection c = dataSource.getConnection();
-        boolean tx = this.transactional;
-        try {
+        try (Connection c = dataSource.getConnection()) {
+            boolean tx = this.transactional;
             try {
 
                 // Open transaction if so configured
@@ -70,8 +69,6 @@ public class UpdatingDataSource extends AbstractUpdatingDataSource {
                 if (tx)
                     c.rollback();
             }
-        } finally {
-            c.close();
         }
     }
 }

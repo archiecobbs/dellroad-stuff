@@ -110,9 +110,7 @@ public abstract class TestSupport {
      * @return contents of resource
      */
     protected String readResource(URL url) {
-        InputStreamReader reader = null;
-        try {
-            reader = new InputStreamReader(url.openStream(), "UTF-8");
+        try (InputStreamReader reader = new InputStreamReader(url.openStream(), "UTF-8")) {
             final StringWriter writer = new StringWriter();
             char[] buf = new char[1024];
             for (int r; (r = reader.read(buf)) != -1; )
@@ -120,14 +118,6 @@ public abstract class TestSupport {
             return writer.toString();
         } catch (IOException e) {
             throw new RuntimeException("error reading from " + url, e);
-        } finally {
-            if (reader != null) {
-                try {
-                    reader.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
         }
     }
 }

@@ -125,16 +125,9 @@ public class SpringPersistentObjectSchemaUpdater<T> extends PersistentObjectSche
         // Use configured XML
         try {
             this.log.info("loading default content from " + this.defaultXML.getURI());
-            InputStream input = this.defaultXML.getInputStream();
-            try {
+            try (InputStream input = this.defaultXML.getInputStream()) {
                 return this.delegate.deserialize(
                   new StreamSource(new BufferedInputStream(input), this.defaultXML.getURI().toString()));
-            } finally {
-                try {
-                    input.close();
-                } catch (IOException e) {
-                    // ignore
-                }
             }
         } catch (RuntimeException e) {
             throw e;
