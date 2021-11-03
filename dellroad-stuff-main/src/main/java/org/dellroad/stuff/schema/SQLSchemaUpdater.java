@@ -14,6 +14,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.sql.DataSource;
 
@@ -343,11 +344,12 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * to distinguish between an exception caused by an uninitialized database and a truly unexpected one.
      *
      * @param c connection to the database
+     * @return true if the database needs initialization, otherwise false
      * @throws SQLException if an unexpected error occurs while accessing the database
      */
     @Override
     protected boolean databaseNeedsInitialization(Connection c) throws SQLException {
-        final boolean[] result = new boolean[1];
+        final AtomicBoolean result = new AtomicBoolean();
         this.apply(c, new SQLCommand("SELECT COUNT(*) FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {
@@ -358,7 +360,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
                     } catch (SQLException e) {
                         if (SQLSchemaUpdater.this.indicatesUninitializedDatabase(c, e)) {
                             SQLSchemaUpdater.this.log.info("detected an uninitialized database");
-                            result[0] = true;
+                            result.set(true);
                             return;
                         }
                         throw e;
@@ -370,7 +372,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
                 }
             }
         });
-        return result[0];
+        return result.get();
     }
 
     /**

@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.Lock;
 
 import org.springframework.scheduling.TaskScheduler;
@@ -226,14 +228,9 @@ public abstract class DelayedAction implements Runnable {
      * @return true if an action is pending
      */
     public boolean isScheduled() {
-        final boolean[] result = new boolean[1];
-        this.runLocked(new Runnable() {
-            @Override
-            public void run() {
-                result[0] = DelayedAction.this.future != null;
-            }
-        });
-        return result[0];
+        final AtomicBoolean result = new AtomicBoolean();
+        this.runLocked(() -> result.set(this.future != null));
+        return result.get();
     }
 
     /**
@@ -242,14 +239,9 @@ public abstract class DelayedAction implements Runnable {
      * @return oustanding action scheduled time, or null if there is no scheduled action
      */
     public Date getScheduledTime() {
-        final Date[] result = new Date[1];
-        this.runLocked(new Runnable() {
-            @Override
-            public void run() {
-                result[0] = DelayedAction.this.futureDate;
-            }
-        });
-        return result[0];
+        final AtomicReference<Date> result = new AtomicReference<>();
+        this.runLocked(() -> result.set(this.futureDate));
+        return result.get();
     }
 
     /**

@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.dellroad.stuff.test.TestSupport;
 import org.testng.Assert;
@@ -24,10 +26,10 @@ public class PipedStreamsTest extends TestSupport {
         final MessageDigest readerDigest = this.newSHA1();
         final MessageDigest writerDigest = this.newSHA1();
 
-        final Throwable[] readerError = new Throwable[1];
-        final Throwable[] writerError = new Throwable[1];
-        final boolean[] readerClosed = new boolean[1];
-        final boolean[] writerClosed = new boolean[1];
+        final AtomicReference<Throwable> readerError = new AtomicReference<>();
+        final AtomicReference<Throwable> writerError = new AtomicReference<>();
+        final AtomicBoolean readerClosed = new AtomicBoolean();
+        final AtomicBoolean writerClosed = new AtomicBoolean();
 
         // Reader
         final Thread writer = new Thread(() -> {
@@ -49,13 +51,13 @@ public class PipedStreamsTest extends TestSupport {
                     if (this.random.nextInt(10) == 7)
                         Thread.sleep(this.random.nextInt(37));
                     if (this.random.nextInt(1000) == 1) {
-                        writerClosed[0] = true;
+                        writerClosed.set(true);
                         break;
                     }
                 }
             } catch (Throwable t) {
                 this.log.info(this.getClass().getSimpleName() + " writer error", t);
-                writerError[0] = t;
+                writerError.set(t);
             }
         }, this.getClass().getSimpleName() + " writer");
 
@@ -81,13 +83,13 @@ public class PipedStreamsTest extends TestSupport {
                     if (this.random.nextInt(10) == 7)
                         Thread.sleep(this.random.nextInt(37));
                     if (this.random.nextInt(1000) == 1) {
-                        readerClosed[0] = true;
+                        readerClosed.set(true);
                         break;
                     }
                 }
             } catch (Throwable t) {
                 this.log.info(this.getClass().getSimpleName() + " reader error", t);
-                readerError[0] = t;
+                readerError.set(t);
             }
         }, this.getClass().getSimpleName() + " reader");
 
@@ -98,12 +100,12 @@ public class PipedStreamsTest extends TestSupport {
         reader.join();
 
         // Check results
-        if (readerError[0] != null) {
-            assert writerClosed[0] : "writer didn't close() but reader got " + readerError[0];
+        if (readerError.get() != null) {
+            assert writerClosed.get() : "writer didn't close() but reader got " + readerError.get();
             return;
         }
-        if (writerError[0] != null) {
-            assert readerClosed[0] : "reader didn't close() but writer got " + readerError[0];
+        if (writerError.get() != null) {
+            assert readerClosed.get() : "reader didn't close() but writer got " + writerError.get();
             return;
         }
         Assert.assertEquals(readerDigest.digest(), writerDigest.digest());
