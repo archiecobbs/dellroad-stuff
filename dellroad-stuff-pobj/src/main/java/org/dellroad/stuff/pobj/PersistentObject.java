@@ -494,7 +494,7 @@ public class PersistentObject<T> {
             } catch (PersistentObjectException e) {
                 if (!this.isAllowEmptyStart())
                     throw e;
-                this.log.warn("empty start: unable to load persistent file `" + this.getFile() + "': " + e);
+                this.log.warn("empty start: unable to load persistent file `" + this.getFile() + "': " + e, e);
             }
         } else {
 
@@ -516,7 +516,7 @@ public class PersistentObject<T> {
                 } catch (PersistentObjectException e) {                             // e.g., validation failure
                     if (!this.isAllowEmptyStart())
                         throw e;
-                    this.log.warn("empty start: unable to apply default value: " + e);
+                    this.log.warn("empty start: unable to apply default value: " + e, e);
                 }
             }
         }
