@@ -353,10 +353,12 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.apply(c, new SQLCommand("SELECT COUNT(*) FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {
+                final long numApplied;
                 try (Statement s = c.createStatement()) {
-                    ResultSet resultSet;
-                    try {
-                        resultSet = s.executeQuery(this.getSQL());
+                    try (ResultSet resultSet = s.executeQuery(this.getSQL())) {
+                        if (!resultSet.next())
+                            throw new IllegalStateException("zero rows returned by `" + this.getSQL() + "'");
+                        numApplied = resultSet.getLong(1);
                     } catch (SQLException e) {
                         if (SQLSchemaUpdater.this.indicatesUninitializedDatabase(c, e)) {
                             SQLSchemaUpdater.this.log.info("detected an uninitialized database");
@@ -365,11 +367,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
                         }
                         throw e;
                     }
-                    if (!resultSet.next())
-                        throw new IllegalStateException("zero rows returned by `" + this.getSQL() + "'");
-                    SQLSchemaUpdater.this.log.info("detected initialized database, with "
-                      + resultSet.getLong(1) + " update(s) already applied");
                 }
+                SQLSchemaUpdater.this.log.info("detected initialized database, with " + numApplied + " update(s) already applied");
             }
         });
         return result.get();
@@ -441,8 +440,8 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.apply(c, new SQLCommand("SELECT " + this.getUpdateTableNameColumn() + " FROM " + this.getUpdateTableName()) {
             @Override
             public void apply(Connection c) throws SQLException {
-                try (Statement s = c.createStatement()) {
-                    for (ResultSet resultSet = s.executeQuery(this.getSQL()); resultSet.next(); )
+                try (Statement s = c.createStatement(); ResultSet resultSet = s.executeQuery(this.getSQL())) {
+                    while (resultSet.next())
                         updateNames.add(resultSet.getString(1));
                 }
             }
