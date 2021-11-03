@@ -590,8 +590,9 @@ loop:   while (true) {
             assert LongMap.this.values != null;
             final long key = this.getKey();
             final int slot = LongMap.this.findSlot(key);
-            if (LongMap.this.keys[slot] == key)
-                LongMap.this.values[slot] = value;
+            if (LongMap.this.keys[slot] != key)
+                throw new IllegalStateException("key no longer exists: " + key);
+            LongMap.this.values[slot] = value;
             return super.setValue(value);
         }
     }
