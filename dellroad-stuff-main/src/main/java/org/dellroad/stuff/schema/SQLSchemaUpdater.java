@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -418,7 +419,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
                 PreparedStatement s = c.prepareStatement(this.getSQL());
                 try {
                     s.setString(1, updateName);
-                    s.setDate(2, new java.sql.Date(new Date().getTime()));
+                    s.setTimestamp(2, new Timestamp(new Date().getTime()));
                     int rows = s.executeUpdate();
                     if (rows != 1)
                         throw new IllegalStateException("got " + rows + " != 1 rows for `" + this.getSQL() + "'");

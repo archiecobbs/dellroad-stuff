@@ -1,3 +1,7 @@
+Version Next
+
+    - Store SQL schema update timestamps as TIMESTAMP rather than DATE.
+
 Version 2.4.10 Released July 19, 2021
 
     - Added configurable input queue size limit to ChannelNetwork.

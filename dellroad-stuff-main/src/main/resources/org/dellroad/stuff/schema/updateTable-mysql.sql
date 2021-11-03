@@ -3,4 +3,3 @@ CREATE TABLE `SchemaUpdate` (
    `updateTime` DATETIME NOT NULL,
    PRIMARY KEY(`updateName`)
 ) ENGINE=InnoDB default charset=utf8 collate=utf8_bin
-

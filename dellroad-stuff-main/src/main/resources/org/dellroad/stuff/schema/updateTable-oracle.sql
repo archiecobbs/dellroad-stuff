@@ -3,4 +3,3 @@ CREATE TABLE SchemaUpdate (
    updateTime TIMESTAMP NOT NULL,
    PRIMARY KEY (updateName)
 )
-
