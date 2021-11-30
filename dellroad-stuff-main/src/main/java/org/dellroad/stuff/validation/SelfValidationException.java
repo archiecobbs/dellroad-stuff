@@ -39,7 +39,7 @@ public class SelfValidationException extends Exception {
     /**
      * Constructor.
      *
-     * @param message validation error message template
+     * @param cause underlying cause of this exception
      */
     public SelfValidationException(Throwable cause) {
         super(cause);
@@ -49,6 +49,7 @@ public class SelfValidationException extends Exception {
      * Constructor.
      *
      * @param message validation error message template
+     * @param cause underlying cause of this exception
      */
     public SelfValidationException(String message, Throwable cause) {
         super(message, cause);
