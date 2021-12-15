@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.stream.LongStream;
 
 /**
  * A set of non-zero {@code long} values.
@@ -94,6 +95,16 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
     public long removeOne() {
         final Map.Entry<Long, ?> entry = this.map.removeOne();
         return entry != null ? entry.getKey() : 0;
+    }
+
+    /**
+     * Returns a sequential {@link LongStream} with this instance as its source.
+     *
+     * @return stream of contents
+     */
+    public LongStream longStream() {
+        return LongStream.of(this.map.getKeys())
+          .filter(value -> value != 0);
     }
 
 // Methods
