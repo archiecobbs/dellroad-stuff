@@ -21,21 +21,6 @@
         </site>
     </distributionManagement>
 
-    <!-- We require the 6.0-SNAPSHOT version of BCEL for JiBX binding to work on Java 8 -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-                <name>Apache Development Snapshot Repository</name>
-                <url>https://repository.apache.org/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
 
         <!-- Sibling JARs -->
@@ -84,7 +69,7 @@
         <plugins>
             <plugin>
                 <groupId>org.jibx</groupId>
-                <artifactId>maven-jibx-plugin</artifactId>
+                <artifactId>jibx-maven-plugin</artifactId>
                 <version>${jibx.version}</version>
                 <executions>
                     <execution>
