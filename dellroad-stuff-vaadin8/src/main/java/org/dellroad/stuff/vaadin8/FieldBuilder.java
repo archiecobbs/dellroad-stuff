@@ -97,7 +97,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  *
  * // Use an enum combo box to edit the gender property
  * <b>&#64;FieldBuilder.EnumComboBox(caption = "Gender:")</b>
- * <b>&#64;FieldBuilder.Binding(required = "Description is mandatory", order = 3.0)</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Gender is mandatory", order = 3.0)</b>
  * public Gender getGender() {
  *     return this.gender;
  * }
