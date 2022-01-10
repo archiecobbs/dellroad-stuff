@@ -26,7 +26,7 @@ import javax.servlet.ServletException;
  * {@link com.vaadin.server.VaadinSession} (aka, "Vaadin application" in the old terminology).
  *
  * <p>
- * The {@code vaadinContextConfigLocation} servlet parameter may be used to specify the Spring XML config
+ * The {@code configLocation} servlet parameter may be used to specify the Spring XML config
  * file location(s). For example:
  *
  * <blockquote><pre>
@@ -55,7 +55,7 @@ import javax.servlet.ServletException;
  * annotation to work.
  *
  * <p>
- * Supported URL parameters:
+ * Supported servlet parameters:
  * <div style="margin-left: 20px;">
  * <table border="1" cellpadding="3" cellspacing="0" summary="Servlet URL Parameters">
  * <tr style="bgcolor:#ccffcc">
