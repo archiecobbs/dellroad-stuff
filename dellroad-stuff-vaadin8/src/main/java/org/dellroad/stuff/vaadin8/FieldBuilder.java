@@ -45,8 +45,11 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
+import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
+import org.dellroad.stuff.java.ReflectUtil;
 
 /**
  * Automatically builds a {@link Binder} and configures and binds fields based on method annotations.
@@ -424,15 +427,15 @@ public class FieldBuilder<T> implements Serializable {
         if (bindingAnnotation.required().length() > 0)
             bindingBuilder = bindingBuilder.asRequired(bindingAnnotation.required());
         if (bindingAnnotation.requiredProvider() != ErrorMessageProvider.class)
-            bindingBuilder = bindingBuilder.asRequired(AnnotationUtil.instantiate(bindingAnnotation.requiredProvider()));
+            bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(bindingAnnotation.requiredProvider()));
         if (bindingAnnotation.converter() != Converter.class)
-            bindingBuilder = bindingBuilder.withConverter(AnnotationUtil.instantiate(bindingAnnotation.converter()));
+            bindingBuilder = bindingBuilder.withConverter(ReflectUtil.instantiate(bindingAnnotation.converter()));
         if (bindingAnnotation.validationStatusHandler() != BindingValidationStatusHandler.class) {
             bindingBuilder = bindingBuilder.withValidationStatusHandler(
-              AnnotationUtil.instantiate(bindingAnnotation.validationStatusHandler()));
+              ReflectUtil.instantiate(bindingAnnotation.validationStatusHandler()));
         }
         if (bindingAnnotation.validator() != Validator.class)
-            bindingBuilder = bindingBuilder.withValidator(AnnotationUtil.instantiate(bindingAnnotation.validator()));
+            bindingBuilder = bindingBuilder.withValidator(ReflectUtil.instantiate(bindingAnnotation.validator()));
         if (!bindingAnnotation.nullRepresentation().equals(STRING_DEFAULT)) {
             try {
                 bindingBuilder = ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(
@@ -507,7 +510,7 @@ public class FieldBuilder<T> implements Serializable {
         // Get comparator that sorts by class hierarchy, narrower types first; note List.sort() is stable,
         // so for any specific annotation type, that annotation on subtype appears before that annotation on supertype.
         final Comparator<AnnotationApplier<?>> comparator = Comparator.comparing(
-          a -> FieldBuilder.getVaadinWidgetType(a.getAnnotation()), AnnotationUtil.getClassComparator(true));
+          a -> FieldBuilder.getVaadinWidgetType(a.getAnnotation()), ReflectUtil.getClassComparator(true));
 
         // Sanity check for duplicates and conflicts
         final ArrayList<AnnotationApplier<?>> applierList = new ArrayList<>(appliers);
@@ -700,14 +703,14 @@ public class FieldBuilder<T> implements Serializable {
                && this.method != null
                && Enum.class.isAssignableFrom(this.method.getReturnType())) {
                 try {
-                    return AnnotationUtil.instantiate(fieldType.getDeclaredConstructor(Class.class), this.method.getReturnType());
+                    return ReflectUtil.instantiate(fieldType.getDeclaredConstructor(Class.class), this.method.getReturnType());
                 } catch (NoSuchMethodException | RuntimeException e) {
                     // ignore
                 }
             }
 
             // Instantiate using zero-arg constructor
-            return AnnotationUtil.instantiate(fieldType);
+            return ReflectUtil.instantiate(fieldType);
         }
 
         @SuppressWarnings("unchecked")
@@ -717,7 +720,7 @@ public class FieldBuilder<T> implements Serializable {
             final A defaults = FieldBuilder.getDefaults(this.annotation);
 
             // Apply non-default annotation values
-            AnnotationUtil.apply(field, this.annotation, defaults, (fieldSetter, propertyName) -> {
+            AnnotationUtil.apply(field, "set", this.annotation, defaults, (fieldSetter, propertyName) -> {
 
                 // Special handling for EnumComboBox
                 if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox
@@ -803,9 +806,25 @@ public class FieldBuilder<T> implements Serializable {
      * Get the original {@code FieldBuilder.Foo} annotation type that corresponds to the given {@code FieldBuilder.Foo} annotation.
      */
     private static <A extends Annotation> Class<A> getFieldBuilderAnnotationType(A annotation) {
-        return AnnotationUtil.getAnnotationType(annotation, type -> type.getDeclaringClass() == FieldBuilder.class
+        return FieldBuilder.getAnnotationType(annotation, type -> type.getDeclaringClass() == FieldBuilder.class
           && !ProvidesField.class.isAssignableFrom(type)
           && !Binding.class.isAssignableFrom(type));
+    }
+
+    /**
+     * Determine the original annotation type that the given annotation (which is likely a proxy object) implements.
+     *
+     * @param annotation the annotation
+     * @param filter additional predicat the annotation type must match
+     */
+    @SuppressWarnings("unchecked")
+    private static <A extends Annotation> Class<A> getAnnotationType(A annotation,
+      Predicate<? super Class<? extends Annotation>> filter) {
+        for (Class<?> iface : annotation.getClass().getInterfaces()) {
+            if (iface.isAnnotation() && filter.test((Class<? extends Annotation>)iface))
+                return (Class<A>)iface;
+        }
+        return null;
     }
 
 // Annotations

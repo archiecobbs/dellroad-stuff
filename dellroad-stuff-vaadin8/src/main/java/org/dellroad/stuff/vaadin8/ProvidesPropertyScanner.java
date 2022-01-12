@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.dellroad.stuff.java.MethodAnnotationScanner;
+import org.dellroad.stuff.java.ReflectUtil;
 
 /**
  * Scans a Java class hierarchy for {@link ProvidesProperty &#64;ProvidesProperty} annotated getter methods and creates
@@ -51,7 +52,7 @@ public class ProvidesPropertyScanner<T> {
 
         // Check for duplicate @ProvidesProperty names
         final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,
-          AnnotationUtil.getClassComparator(false));
+          ReflectUtil.getClassComparator(false));
         final HashMap<String, MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo> providesPropertyNameMap = new HashMap<>();
         for (MethodAnnotationScanner<T, ProvidesProperty>.MethodInfo methodInfo : providesPropertyMethods) {
             final String propertyName = this.getPropertyName(methodInfo);

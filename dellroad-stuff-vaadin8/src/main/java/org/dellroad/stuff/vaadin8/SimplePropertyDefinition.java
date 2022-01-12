@@ -14,6 +14,7 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.dellroad.stuff.java.ReflectUtil;
 import org.dellroad.stuff.java.SerializableMethod;
 
 /**
@@ -91,13 +92,13 @@ public class SimplePropertyDefinition<T, V> implements PropertyDefinition<T, V> 
 
     @Override
     public ValueProvider<T, V> getGetter() {
-        return obj -> this.type.cast(AnnotationUtil.invoke(this.getter.getMethod(), obj));
+        return obj -> this.type.cast(ReflectUtil.invoke(this.getter.getMethod(), obj));
     }
 
     @Override
     public Optional<Setter<T, V>> getSetter() {
         return this.setter != null ?
-          Optional.of((obj, value) -> AnnotationUtil.invoke(this.setter.getMethod(), obj, value)) : Optional.empty();
+          Optional.of((obj, value) -> ReflectUtil.invoke(this.setter.getMethod(), obj, value)) : Optional.empty();
     }
 
 // Object

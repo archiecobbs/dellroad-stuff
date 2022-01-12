@@ -21,7 +21,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 
+import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
+import org.dellroad.stuff.java.ReflectUtil;
 
 /**
  * Scans a Java class hierarchy for {@link GridColumn &#64;GridColumn} annotated getter methods, and auto-generates and
@@ -67,7 +69,7 @@ public class GridColumnScanner<T> {
 
         // Check for duplicate @GridColumn names
         final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,
-          AnnotationUtil.getClassComparator(false));
+          ReflectUtil.getClassComparator(false));
         final HashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> unorderedColumnMap = new HashMap<>();
         for (MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo : gridColumnMethods) {
             final String propertyName = this.getPropertyName(methodInfo);
@@ -161,7 +163,7 @@ public class GridColumnScanner<T> {
             final Grid.Column<T, ?> column = grid.getColumn(propertyName);
 
             // Apply annotation values
-            AnnotationUtil.apply(column, annotation, defaults, (method, name) -> true);
+            AnnotationUtil.apply(column, "set", annotation, defaults, (method, name) -> true);
 
             // Special handling for setRenderer() method with two parameters
             if (annotation.renderer() != defaults.renderer() && annotation.valueProvider() != defaults.valueProvider())
@@ -178,8 +180,8 @@ public class GridColumnScanner<T> {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private <V, P, R extends Renderer, VP extends ValueProvider> void setRenderer(
       Grid.Column<T, V> column, Class<R> rendererType, Class<VP> valueProviderType) {
-        final Renderer<P> renderer = (Renderer<P>)AnnotationUtil.instantiate(rendererType);
-        final ValueProvider<V, P> valueProvider = (ValueProvider<V, P>)AnnotationUtil.instantiate(valueProviderType);
+        final Renderer<P> renderer = (Renderer<P>)ReflectUtil.instantiate(rendererType);
+        final ValueProvider<V, P> valueProvider = (ValueProvider<V, P>)ReflectUtil.instantiate(valueProviderType);
         column.setRenderer(valueProvider, renderer);
     }
 
