@@ -1,4 +1,4 @@
-Version Next
+Version 2.5.0
 
     - Store SQL schema update timestamps as TIMESTAMP rather than DATE.
     - Clarify that SelfValidationException constructor takes a template.
