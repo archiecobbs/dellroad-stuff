@@ -222,7 +222,7 @@
                         <link>https://www.slf4j.org/apidocs/</link>
                         <link>https://vaadin.com/api/platform/${vaadin.javadoc.version}/</link>
                         <link>https://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
-                        <link>https://docs.oracle.com/javaee/7/api/</link>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                 </configuration>
@@ -377,7 +377,7 @@
                         <link>https://www.slf4j.org/apidocs/</link>
                         <link>https://vaadin.com/api/platform/${vaadin.javadoc.version}</link>
                         <link>https://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
-                        <link>https://docs.oracle.com/javaee/7/api/</link>
+                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
