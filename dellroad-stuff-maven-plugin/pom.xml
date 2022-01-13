@@ -25,7 +25,7 @@
         <!-- Siblings -->
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-main</artifactId>
+            <artifactId>dellroad-stuff-main</artifactId>
             <version>${project.version}</version>
         </dependency>
 

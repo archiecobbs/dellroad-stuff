@@ -31,7 +31,7 @@
         <!-- For unit tests -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-test</artifactId>
+            <artifactId>dellroad-stuff-test</artifactId>
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>

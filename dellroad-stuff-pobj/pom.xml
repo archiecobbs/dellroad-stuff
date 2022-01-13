@@ -11,7 +11,7 @@
         <version>2.5.0-SNAPSHOT</version>
     </parent>
     <artifactId>dellroad-stuff-pobj</artifactId>
-    <name>DellRoad Stuff Persistent Object Classes</name>
+    <name>DellRoad Stuff PersistentObject Classes</name>
     <packaging>jar</packaging>
     <description>DellRoad Stuff classes related to PersistenceObject, a very simple XML flat-file object database.</description>
     <distributionManagement>
@@ -20,23 +20,27 @@
             <url>file://${project.basedir}/../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+    <properties>
+        <vaadin7.version>[7.7,8.0)</vaadin7.version>
+        <vaadin8.version>[8.14,9.0)</vaadin8.version>
+    </properties>
 
     <dependencies>
 
         <!-- Sibling JARs -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-main</artifactId>
+            <artifactId>dellroad-stuff-main</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-spring</artifactId>
+            <artifactId>dellroad-stuff-spring</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-vaadin7</artifactId>
+            <artifactId>dellroad-stuff-vaadin7</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>
             <exclusions>
@@ -52,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-vaadin8</artifactId>
+            <artifactId>dellroad-stuff-vaadin8</artifactId>
             <version>${project.version}</version>
             <optional>true</optional>
             <exclusions>
@@ -76,7 +80,7 @@
         <!-- For unit tests -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
-            <artifactId>${project.parent.artifactId}-test</artifactId>
+            <artifactId>dellroad-stuff-test</artifactId>
             <version>${project.parent.version}</version>
             <scope>test</scope>
         </dependency>
