@@ -720,7 +720,7 @@ public class FieldBuilder<T> implements Serializable {
             final A defaults = FieldBuilder.getDefaults(this.annotation);
 
             // Apply non-default annotation values
-            AnnotationUtil.apply(field, "set", this.annotation, defaults, (fieldSetter, propertyName) -> {
+            AnnotationUtil.applyAnnotationValues(field, "set", this.annotation, defaults, (fieldSetter, propertyName) -> {
 
                 // Special handling for EnumComboBox
                 if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox
@@ -729,11 +729,11 @@ public class FieldBuilder<T> implements Serializable {
                   && Enum.class.isAssignableFrom(this.method.getReturnType())) {
                     ((org.dellroad.stuff.vaadin8.EnumComboBox)field).setEnumClass(
                       this.method.getReturnType().asSubclass(Enum.class));
-                    return false;
+                    return null;
                 }
 
                 // Proceed
-                return true;
+                return propertyName;
             });
 
             // Special handling for "styleNames" property

@@ -7,12 +7,12 @@ package org.dellroad.stuff.java;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiPredicate;
+import java.util.function.BiFunction;
 
 /**
  * Annotation utility methods.
@@ -92,33 +92,35 @@ public final class AnnotationUtil {
      * @param bean target bean
      * @param methodPrefix setter method name prefix (typically {@code "set"})
      * @param annotation annotation with properties
-     * @param defaults annotation with defaults; if non-null, values equal to their defaults are skipped
-     * @param filter filter taking method and property name that returns true to proceed, false to skip (or null to accept all)
-     * @throws IllegalArgumentException if {@code bean}, {@link methodPrefix}, or {@code annotation} is null
+     * @param defaults annotation with default values; if non-null, values equal to their defaults are skipped
+     * @param propertyFinder returns the annotation property name for the setter method, or null if none
+     * @throws IllegalArgumentException if a required parameter is null
      * @throws IllegalArgumentException if a bean property is being set more than once
      * @throws RuntimeException if an unexpected error occurs
      */
-    public static <A extends Annotation> void apply(Object bean, String methodPrefix,
-      A annotation, A defaults, BiPredicate<Method, String> filter) {
+    public static <A extends Annotation> void applyAnnotationValues(Object bean, String methodPrefix,
+      A annotation, A defaults, BiFunction<Method, String, String> propertyFinder) {
 
         // Sanity check
         if (bean == null)
             throw new IllegalArgumentException("null bean");
         if (annotation == null)
             throw new IllegalArgumentException("null annotation");
+        if (propertyFinder == null)
+            throw new IllegalArgumentException("null propertyFinder");
 
         // Iterate over property setter methods
-        final HashSet<String> propertiesSet = new HashSet<>();
         ReflectUtil.findPropertySetters(bean.getClass(), methodPrefix).forEach((propertyName, beanSetter) -> {
 
-            // Check filter
-            if (filter != null && !filter.test(beanSetter, propertyName))
+            // Get annotation property name
+            final String annotationPropertyName = propertyFinder.apply(beanSetter, propertyName);
+            if (annotationPropertyName == null)
                 return;
 
             // Find corresponding annotation property, if any
             final Method annotationGetter;
             try {
-                annotationGetter = annotation.getClass().getMethod(propertyName);
+                annotationGetter = annotation.getClass().getMethod(annotationPropertyName);
             } catch (NoSuchMethodException e) {
                 return;
             }
@@ -158,14 +160,11 @@ public final class AnnotationUtil {
                 if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
                     beanSetter.setAccessible(true);
 
-                // Check for duplicate
-                if (!propertiesSet.add(propertyName))
-                    throw new IllegalArgumentException("property \"" + propertyName + "\" has already been set by annotation");
-
-                // Copy over the value
+                // Apply the value
                 beanSetter.invoke(bean, value);
             } catch (Exception e) {
-                throw new RuntimeException("unexpected exception", e);
+                throw new RuntimeException("error applying annotation property \""
+                  + annotationPropertyName + "\" to " + beanSetter, e);
             }
         });
     }
