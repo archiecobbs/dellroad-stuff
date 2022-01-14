@@ -47,7 +47,7 @@ public final class ReflectUtil {
         final List<Method> methods = Arrays.asList(type.getMethods());
 
         // Sort the methods from narrower types (i.e., overriding methods) last so they override supertypes' methods
-        Collections.sort(methods, Comparator.comparing(Method::getDeclaringClass, ReflectUtil.getClassComparator(true).reversed()));
+        Collections.sort(methods, Comparator.comparing(Method::getDeclaringClass, ReflectUtil.getClassComparator().reversed()));
 
         // Identify setters
         final HashMap<String, Method> setterMap = new HashMap<>();
@@ -142,8 +142,21 @@ public final class ReflectUtil {
     }
 
     /**
-     * Get a comparator that partially orders types where narrower types sort first, otherwise, both equal
-     * and non-comparable types compare as equal, so they will not reorder under a stable sort.
+     * Get a comparator that partially orders types where narrower types sort first.
+     *
+     * <p>
+     * Non-comparable types compare as equal, so they will not reorder under a stable sort.
+     */
+    public static Comparator<Class<?>> getClassComparator() {
+        return ReflectUtil.getClassComparator(true);
+    }
+
+    /**
+     * Get a comparator that partially orders types where narrower types sort first.
+     *
+     * <p>
+     * Non-comparable types either compare as equal (so they will not reorder under a stable sort)
+     * if {@code incomparableEqual} is true, or else generate an {@link IllegalArgumentException}.
      *
      * @param incomparableEqual true to return zero for incomparable classes, false to throw {@link IllegalArgumentException}
      */

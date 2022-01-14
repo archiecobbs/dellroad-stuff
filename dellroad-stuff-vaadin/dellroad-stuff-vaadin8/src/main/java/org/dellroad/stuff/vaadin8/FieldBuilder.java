@@ -510,7 +510,7 @@ public class FieldBuilder<T> implements Serializable {
         // Get comparator that sorts by class hierarchy, narrower types first; note List.sort() is stable,
         // so for any specific annotation type, that annotation on subtype appears before that annotation on supertype.
         final Comparator<AnnotationApplier<?>> comparator = Comparator.comparing(
-          a -> FieldBuilder.getVaadinWidgetType(a.getAnnotation()), ReflectUtil.getClassComparator(true));
+          a -> FieldBuilder.getVaadinWidgetType(a.getAnnotation()), ReflectUtil.getClassComparator());
 
         // Sanity check for duplicates and conflicts
         final ArrayList<AnnotationApplier<?>> applierList = new ArrayList<>(appliers);
