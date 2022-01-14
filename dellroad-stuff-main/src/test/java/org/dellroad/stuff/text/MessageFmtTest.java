@@ -6,6 +6,7 @@
 package org.dellroad.stuff.text;
 
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,6 +39,29 @@ public class MessageFmtTest extends TestSupport {
 
         Assert.assertEquals(messageFormat1.format(args), "date = 20/05/20");
         Assert.assertEquals(messageFormat2.format(args), "date = 5/20/20");
+    }
+
+    @Test
+    public void testFormatWithCommas() {
+        final MessageFmt fmt1 = new MessageFmt(
+          new MessageFmt.TextSegment(">>>"),
+          new MessageFmt.SimpleDateFormatArgumentSegment(0, new SimpleDateFormat("EEE, '{foo}' MMM d")),
+          new MessageFmt.TextSegment("<<<"));
+
+        final MessageFmt fmt2 = new MessageFmt(new MessageFormat(fmt1.toPattern()));
+
+        final MessageFormat format1 = fmt1.toMessageFormat();
+        final MessageFormat format2 = fmt2.toMessageFormat();
+
+        final Object[] args = new Object[] { new java.util.Date(1590000000000L) };
+
+        final String text1 = format1.format(args);
+        final String text2 = format2.format(args);
+
+        this.log.info("******* format1=" + format1 + " -> \"" + format1.toPattern() + "\"");
+        this.log.info("******* format2=" + format2 + " -> \"" + format2.toPattern() + "\"");
+
+        Assert.assertEquals(text1, text2);
     }
 
     @Test(dataProvider = "cases")
