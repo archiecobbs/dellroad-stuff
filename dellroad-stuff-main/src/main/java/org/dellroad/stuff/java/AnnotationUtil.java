@@ -154,6 +154,10 @@ public final class AnnotationUtil {
                 if (!parameterType.isInstance(value))
                     return;
 
+                // Workaround JDK bug (JDK-8280013)
+                if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
+                    beanSetter.setAccessible(true);
+
                 // Check for duplicate
                 if (!propertiesSet.add(propertyName))
                     throw new IllegalArgumentException("property \"" + propertyName + "\" has already been set by annotation");
