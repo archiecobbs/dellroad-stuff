@@ -210,7 +210,7 @@
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
                     <validateLinks>true</validateLinks>
-                    <links>
+                    <links combine.children="append">
                         <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
                         <link>https://google.github.io/guava/releases/${guava.javadoc.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>

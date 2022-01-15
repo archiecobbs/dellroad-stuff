@@ -23,6 +23,20 @@
     <properties>
         <vaadin8.version>[8.14,9.0)</vaadin8.version>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <links>
+                        <link>https://vaadin.com/download/release/8.6/8.6.4/docs/api/</link>
+                    </links>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <dependencies>
 
         <!-- Sibling JARs -->
