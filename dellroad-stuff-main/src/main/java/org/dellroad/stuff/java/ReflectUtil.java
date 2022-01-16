@@ -28,9 +28,9 @@ public final class ReflectUtil {
      * Find all setter methods taking the given type as parameter and whose name starts with the given prefix.
      *
      * <p>
-     * Methods from narrower types take precedence.
+     * Methods from narrower types take precedence (i.e., override) matching methods from supertypes.
      *
-     * @param cl target class
+     * @param type type to instrospect
      * @param methodPrefix setter method name prefix (typically {@code "set"})
      * @return mapping from property name to setter method
      * @throws IllegalArgumentException if either parameter is null
@@ -73,6 +73,8 @@ public final class ReflectUtil {
      * Instantiate the given class using its zero-arg constructor.
      *
      * @param type type to instantiate
+     * @param <T> new object type
+     * @return new instance
      * @throws RuntimeException if construction fails
      * @throws IllegalArgumentException if {@code type} is null
      */
@@ -91,8 +93,10 @@ public final class ReflectUtil {
     /**
      * Instantiate the given class using the given constructor.
      *
-     * @param type constructor to invoke
+     * @param constructor constructor to invoke
      * @param params constructor parameters
+     * @param <T> new object type
+     * @return method's return value
      * @throws RuntimeException if construction fails
      * @throws IllegalArgumentException if either parameter is null
      */
@@ -120,6 +124,7 @@ public final class ReflectUtil {
      * @param method method to invoke
      * @param target target object, or null if method is static
      * @param params constructor parameters
+     * @return method's return value
      * @throws RuntimeException if invocation fails
      * @throws IllegalArgumentException if {@code method} or {@code params} is null
      */
@@ -146,19 +151,22 @@ public final class ReflectUtil {
      *
      * <p>
      * Non-comparable types compare as equal, so they will not reorder under a stable sort.
+     *
+     * @return stable ordering of types narrowest first
      */
     public static Comparator<Class<?>> getClassComparator() {
         return ReflectUtil.getClassComparator(true);
     }
 
     /**
-     * Get a comparator that partially orders types where narrower types sort first.
+     * Get a comparator that orders types where narrower types sort first.
      *
      * <p>
-     * Non-comparable types either compare as equal (so they will not reorder under a stable sort)
+     * Non-comparable types will compare as equal (so they will not reorder under a stable sort)
      * if {@code incomparableEqual} is true, or else generate an {@link IllegalArgumentException}.
      *
      * @param incomparableEqual true to return zero for incomparable classes, false to throw {@link IllegalArgumentException}
+     * @return ordering of types narrowest first
      */
     public static Comparator<Class<?>> getClassComparator(boolean incomparableEqual) {
         return (type1, type2) -> {

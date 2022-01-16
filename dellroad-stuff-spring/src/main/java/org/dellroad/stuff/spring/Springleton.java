@@ -10,7 +10,7 @@ import org.springframework.context.support.ApplicationObjectSupport;
 
 /**
  * Global singleton that provides access to the application context in which it is defined from anywhere.
- * Reminiscent of Spring's <a ref="https://www.google.com/search?q=spring+evil+singleton">"evil singleton"</a>
+ * Reminiscent of Spring's <a href="https://www.google.com/search?q=spring+evil+singleton">"evil singleton"</a>
  * from days of yore.
  *
  * <p>
@@ -46,6 +46,7 @@ public class Springleton extends ApplicationObjectSupport {
     /**
      * Get the singleton instance.
      *
+     * @return {@link Springleton} singleton
      * @throws IllegalStateException if no instance has been created yet
      */
     public static Springleton getInstance() {

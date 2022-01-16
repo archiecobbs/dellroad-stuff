@@ -28,6 +28,7 @@ public final class AnnotationUtil {
      * @param methodClass method's declaring class
      * @param methodName method name
      * @param methodParameterTypes method parameter types
+     * @return list of annotations found
      * @throws IllegalArgumentException if method is not found
      * @throws RuntimeException if method cannot be instrospected
      * @throws IllegalArgumentException if any parameter is null
@@ -59,6 +60,8 @@ public final class AnnotationUtil {
      * @param methodClass method's declaring class
      * @param methodName method name
      * @param methodParameterTypes method parameter types
+     * @param <A> annotation type
+     * @return the annotation found
      * @throws IllegalArgumentException if method is not found
      * @throws RuntimeException if method cannot be instrospected
      * @throws IllegalArgumentException if any parameter is null
@@ -94,6 +97,7 @@ public final class AnnotationUtil {
      * @param annotation annotation with properties
      * @param defaults annotation with default values; if non-null, values equal to their defaults are skipped
      * @param propertyFinder returns the annotation property name for the setter method, or null if none
+     * @param <A> annotation type
      * @throws IllegalArgumentException if a required parameter is null
      * @throws IllegalArgumentException if a bean property is being set more than once
      * @throws RuntimeException if an unexpected error occurs

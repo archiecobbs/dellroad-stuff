@@ -59,7 +59,7 @@ public class SelfValidationException extends Exception {
      * Build a {@link SelfValidationException} with the given plain text message.
      *
      * @param message plain message string, or null for none
-     * @throws SelfValidationException always
+     * @return new {@link SelfValidationException}
      * @see #escapeTemplate SelfValidationException.escapeTemplate()
      */
     public static SelfValidationException plain(String message) {

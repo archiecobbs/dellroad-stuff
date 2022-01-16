@@ -373,6 +373,8 @@
                         <link>https://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
                         <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
+                        <!-- Must keep this in sync with dellroad-stuff-vaadin8 pom -->
+                        <link>https://vaadin.com/download/release/8.6/8.6.4/docs/api/</link>
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
                 </configuration>
