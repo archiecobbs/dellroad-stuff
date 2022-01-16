@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-vaadin</artifactId>
+        <version>2.5.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>dellroad-stuff-vaadin22</artifactId>
+    <name>DellRoad Stuff Vaadin 22.x Parent Module</name>
+    <packaging>pom</packaging>
+    <description>DellRoad Stuff classes related to Vaadin 22.x (parent module).</description>
+    <modules>
+        <module>dellroad-stuff-vaadin22-components</module>
+        <module>dellroad-stuff-vaadin22-fieldbuilder</module>
+        <module>dellroad-stuff-vaadin22-grid</module>
+        <module>dellroad-stuff-vaadin22-spring-servlet</module>
+        <module>dellroad-stuff-vaadin22-util</module>
+    </modules>
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}-site</id>
+            <url>file://${project.basedir}/../../site/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    <properties>
+        <vaadin.version>22.0.2</vaadin.version>
+        <servlet-api.version>3.1.0</servlet-api.version>
+        <dellroad.stuff.vaadin22.basedir>${project.basedir}</dellroad.stuff.vaadin22.basedir>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <configuration>
+                    <offlineLinks>
+                        <offlineLink><!-- https://github.com/vaadin/vaadin.com/issues/100 -->
+                            <url>https://vaadin.com/api/platform/${vaadin.version}</url>
+                            <location>${dellroad.stuff.vaadin22.basedir}/src/javadoc/vaadin</location>
+                        </offlineLink>
+                    </offlineLinks>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
+    <dependencyManagement>
+        <dependencies>
+
+            <!-- Vaadin -->
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Servlet API -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

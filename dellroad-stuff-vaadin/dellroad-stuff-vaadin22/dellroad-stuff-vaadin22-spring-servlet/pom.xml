@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-vaadin22</artifactId>
+        <version>2.5.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>dellroad-stuff-vaadin22-spring-servlet</artifactId>
+    <name>DellRoad Stuff Vaadin 22.x Spring Servlet</name>
+    <packaging>jar</packaging>
+    <description>DellRoad Stuff Vaadin 22.x SimpleSpringServlet</description>
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}-site</id>
+            <url>file://${project.basedir}/../../../site/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    <properties>
+        <dellroad.stuff.vaadin22.basedir>${project.basedir}/..</dellroad.stuff.vaadin22.basedir>
+    </properties>
+
+    <!-- Import vaadin-spring-bom, which defaults the versions of all Vaadin dependencies for Vaadin Spring -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-spring-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <!-- Sibling JARs -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>dellroad-stuff-spring</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>dellroad-stuff-vaadin22-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Vaadin -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Vaadin Spring -->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring</artifactId>
+        </dependency>
+
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- For unit tests -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>dellroad-stuff-test</artifactId>
+            <version>${project.parent.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+</project>

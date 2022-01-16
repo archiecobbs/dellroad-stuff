@@ -15,6 +15,8 @@
     <packaging>pom</packaging>
     <description>DellRoad Stuff classes related to Vaadin (parent module).</description>
     <modules>
+        <module>dellroad-stuff-fieldbuilder-plugin</module>
+        <module>dellroad-stuff-vaadin22</module>
         <module>dellroad-stuff-vaadin7</module>
         <module>dellroad-stuff-vaadin8</module>
     </modules>

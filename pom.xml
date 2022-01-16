@@ -377,6 +377,12 @@
                         <link>https://vaadin.com/download/release/8.6/8.6.4/docs/api/</link>
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
+                    <offlineLinks>
+                        <offlineLink><!-- Must keep this in sync with dellroad-stuff-vaadin22 pom -->
+                            <url>https://vaadin.com/api/platform/22.0.2</url>
+                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin22/src/javadoc/vaadin</location>
+                        </offlineLink>
+                    </offlineLinks>
                 </configuration>
                 <reportSets>
                     <reportSet>

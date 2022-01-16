@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-stuff-vaadin22</artifactId>
+        <version>2.5.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>dellroad-stuff-vaadin22-fieldbuilder</artifactId>
+    <name>DellRoad Stuff Vaadin FieldBuider</name>
+    <packaging>jar</packaging>
+    <description>DellRoad Stuff Vaadin FieldBuilder for building Vaadin fields automatically using declarative annotations.</description>
+    <distributionManagement>
+        <site>
+            <id>${project.artifactId}-site</id>
+            <url>file://${project.basedir}/../../../site/${project.artifactId}/</url>
+        </site>
+    </distributionManagement>
+    <properties>
+        <dellroad.stuff.vaadin22.basedir>${project.basedir}/..</dellroad.stuff.vaadin22.basedir>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dellroad</groupId>
+            <artifactId>dellroad-stuff-main</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dellroad</groupId>
+            <artifactId>dellroad-stuff-vaadin22-components</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dellroad</groupId>
+            <artifactId>dellroad-stuff-test</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+
+            <!-- Checkstyle - we need to configure a suppressions file -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven.checkstyle.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-verify</id>
+                        <phase>verify</phase>
+                        <configuration>
+                            <suppressionsLocation>${project.basedir}/src/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Auto-generate the FieldBuilder.Foo annotations -->
+            <plugin>
+                <groupId>org.dellroad</groupId>
+                <artifactId>dellroad-stuff-fieldbuilder-plugin</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate-field-builder</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>${project.build.sourceDirectory}/org/dellroad/stuff/vaadin22/flow/component/fieldbuilder/FieldBuilder.java</sourceFile>
+                            <requiredType>com.vaadin.flow.component.AbstractField</requiredType>
+                            <separatorLine>// EVERYTHING BELOW THIS LINE IS GENERATED</separatorLine>
+                            <implementationPropertyName>implementation</implementationPropertyName>
+                            <packageRoots>
+                                <packageRoot>com.vaadin.flow.component</packageRoot>
+                                <packageRoot>org.dellroad.stuff.vaadin22.flow.component</packageRoot>
+                            </packageRoots>
+                            <customizations>
+                                <customization>
+                                    <methodNamePattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title)\(java\.lang\.String\)</methodNamePattern>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodNamePattern>public default void com\.vaadin\.flow\.component\.HasSize\.set(Min|Max|)(Height|Width)\(java\.lang\.String\)</methodNamePattern>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.component.Focusable.setTabIndex(int)</methodName>
+                                    <defaultValue>0</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.component.HasAriaLabel.setAriaLabel(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.component.HasHelper.setHelperText(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.component.textfield.HasAutocapitalize.setAutocapitalize(com.vaadin.flow.component.textfield.Autocapitalize)</methodName>
+                                    <defaultValue>com.vaadin.flow.component.textfield.Autocapitalize.NONE</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.component.textfield.HasAutocomplete.setAutocomplete(com.vaadin.flow.component.textfield.Autocomplete)</methodName>
+                                    <defaultValue>com.vaadin.flow.component.textfield.Autocomplete.ON</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public default void com.vaadin.flow.data.value.HasValueChangeMode.setValueChangeTimeout(int)</methodName>
+                                    <defaultValue>com.vaadin.flow.data.value.HasValueChangeMode.DEFAULT_CHANGE_TIMEOUT</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.Component.setId(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.checkbox.Checkbox.setAriaLabel(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.checkbox.Checkbox.setLabelAsHtml(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.datepicker.DatePicker.setName(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setDatePlaceholder(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setTimePlaceholder(java.lang.String)</methodName>
+                                    <defaultValue>""</defaultValue>
+                                </customization>
+                                <customization>
+                                    <methodName>public void com.vaadin.flow.component.textfield.AbstractNumberField.setHasControls(boolean)</methodName>
+                                    <defaultValue>false</defaultValue>
+                                </customization>
+                            </customizations>
+                            <excludeMethods>
+                                <excludeMethod>
+                                    <methodName>public default void com.vaadin.flow.component.HasStyle.setClassName(java.lang.String)</methodName>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodName>public default void com.vaadin.flow.component.HasTheme.setThemeName(java.lang.String)</methodName>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodName>public void com.vaadin.flow.component.combobox.ComboBox.setDataProvider(com.vaadin.flow.data.provider.ListDataProvider)</methodName>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setThemeName(java.lang.String)</methodName>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodNamePattern>.*\.setInvalid\(boolean\)</methodNamePattern>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodNamePattern>.*\.setItems\(.*\)</methodNamePattern>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodNamePattern>.*\.setValue\(.*\)</methodNamePattern>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <methodName>public void org.dellroad.stuff.vaadin22.flow.component.EnumComboBox.setEnumClass(java.lang.Class)</methodName>
+                                </excludeMethod>
+                            </excludeMethods>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin</artifactId>
+                        <version>${vaadin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.dellroad</groupId>
+                        <artifactId>dellroad-stuff-vaadin22-components</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.servlet</groupId>
+                        <artifactId>javax.servlet-api</artifactId>
+                        <version>${servlet-api.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>
