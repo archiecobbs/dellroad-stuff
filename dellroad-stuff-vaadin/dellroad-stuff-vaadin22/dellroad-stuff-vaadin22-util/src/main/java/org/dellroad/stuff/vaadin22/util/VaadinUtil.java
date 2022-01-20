@@ -21,16 +21,15 @@ public final class VaadinUtil {
     }
 
     /**
-     * Verify that there is a {@link VaadinSession} associated with the current thread and return it.
+     * Verify that there is a {@link VaadinSession} associated with the current thread.
      *
      * <p>
-     * This method is but equivalent to {@link #getCurrentSession}.
+     * This method is equivalent to {@link #getCurrentSession} but doesn't actually return the session.
      *
-     * @return current {@link VaadinSession}, never null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
-    public static VaadinSession assertCurrentSession() {
-        return VaadinUtil.getCurrentSession();
+    public static void assertCurrentSession() {
+        VaadinUtil.getCurrentSession();
     }
 
     /**
