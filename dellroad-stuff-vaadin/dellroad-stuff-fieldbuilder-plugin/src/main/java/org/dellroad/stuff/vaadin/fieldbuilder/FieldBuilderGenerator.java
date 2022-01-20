@@ -52,6 +52,7 @@ public class FieldBuilderGenerator {
     private Function<? super Method, String> methodPropertyNameFunction;
     private Function<? super Method, String> defaultOverrideFunction;
     private final List<Class<?>> fieldTypes = new ArrayList<>();
+    private String annotationDefaultsMethodName;
     private String implementationPropertyName;
     private String separatorLine;
 
@@ -91,6 +92,10 @@ public class FieldBuilderGenerator {
 
     public void setDefaultOverrideFunction(Function<? super Method, String> defaultOverrideFunction) {
         this.defaultOverrideFunction = defaultOverrideFunction;
+    }
+
+    public void setAnnotationDefaultsMethodName(String annotationDefaultsMethodName) {
+        this.annotationDefaultsMethodName = annotationDefaultsMethodName;
     }
 
     public void setImplementationPropertyName(String implementationPropertyName) {
@@ -184,6 +189,8 @@ public class FieldBuilderGenerator {
             throw new IllegalArgumentException("null output");
         if (separatorLine == null)
             throw new IllegalStateException("null separatorLine");
+        if (this.annotationDefaultsMethodName == null)
+            throw new IllegalStateException("null annotationDefaultsMethodName");
         if (this.methodPropertyNameFunction == null)
             throw new IllegalStateException("null methodPropertyNameFunction");
 
@@ -202,7 +209,7 @@ public class FieldBuilderGenerator {
         this.output.println();
         this.fieldTypes.stream().forEach(cl -> this.lines(1, "@" + cl.getSimpleName()));
         this.lines(1,
-            "private static void defaultsMethod() {",
+            "private static void " + this.annotationDefaultsMethodName + "() {",
             "}");
 
         // Generate annotations for all widget classes

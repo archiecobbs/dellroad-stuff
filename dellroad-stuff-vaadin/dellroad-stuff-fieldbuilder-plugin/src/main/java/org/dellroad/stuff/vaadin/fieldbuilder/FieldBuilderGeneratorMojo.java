@@ -64,6 +64,12 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
     private String separatorLine;
 
     /**
+     * The name of the generated "defaults" method.
+     */
+    @Parameter(defaultValue = "annotationDefaultsMethod", property = "annotationDefaultsMethodName")
+    private String annotationDefaultsMethodName;
+
+    /**
      * The name of the implementing class property, if any (e.g., {@code "implementation"}).
      */
     @Parameter(property = "implementationPropertyName")
@@ -140,6 +146,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 generator.getPackageRoots().addAll(this.packageRoots);
                 generator.setSeparatorLine(this.separatorLine);
                 generator.setLogger(this.getLogger());
+                generator.setAnnotationDefaultsMethodName(this.annotationDefaultsMethodName);
                 generator.setImplementationPropertyName(this.implementationPropertyName);
                 generator.setMethodPropertyNameFunction(methodPropertyNameFunction);
                 generator.setDefaultOverrideFunction(defaultOverrideFunction);
