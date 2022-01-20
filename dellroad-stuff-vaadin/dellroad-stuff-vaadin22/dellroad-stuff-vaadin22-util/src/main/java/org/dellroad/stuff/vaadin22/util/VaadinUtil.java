@@ -131,6 +131,24 @@ public final class VaadinUtil {
     }
 
     /**
+     * Get the {@link UI} associated with the current thread and require that it be found.
+     *
+     * <p>
+     * This is just a wrapper around {@link UI#getCurrent} that throws an exception instead
+     * of returning null when there is no request associated with the current thread.
+     *
+     * @return current {@link UI}, never null
+     *
+     * @throws IllegalStateException if there is no {@link UI} associated with the current thread
+     */
+    public static UI getCurrentUI() {
+        final UI ui = UI.getCurrent();
+        if (ui == null)
+            throw new IllegalStateException("there is no UI associated with the current thread");
+        return ui;
+    }
+
+    /**
      * Invoke {@link #accessUI accessUI()} using the {@link UI} associated with the current thread,
      * but catch and discard any thrown {@link UIDetachedException}'s.
      *
