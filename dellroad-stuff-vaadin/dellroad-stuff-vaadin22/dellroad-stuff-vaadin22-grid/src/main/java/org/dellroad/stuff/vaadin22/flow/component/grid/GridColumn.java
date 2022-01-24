@@ -80,6 +80,7 @@ public @interface GridColumn {
      *
      * @return column renderer class
      * @see Grid#addColumn(Renderer)
+     * @see SelfRenderer
      */
     @SuppressWarnings("rawtypes")
     Class<? extends Renderer> renderer() default Renderer.class;
