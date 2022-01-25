@@ -30,12 +30,20 @@ public class GridColumnTest extends TestSupport {
     public void testGridColumns() throws Exception {
 
         // Build grid
-        final Grid<Foo> grid = new GridColumnScanner<>(Foo.class).buildGrid();
+        final Grid<Foo> grid = new Grid<>(Foo.class);
+
+        // Remove and replace "field1" and "field2" columns with "key" and "field2"
+        grid.removeColumnByKey("field1");
+        grid.removeColumnByKey("field2");
+        new GridColumnScanner<>(Foo.class).addColumnsTo(grid);
 
         // Retrieve columns
         final Grid.Column<Foo> col1 = grid.getColumnByKey("key1");
         final Grid.Column<Foo> col2 = grid.getColumnByKey("field2");
         final Grid.Column<Foo> col3 = grid.getColumnByKey("field3");
+        Assert.assertNotNull(col1);
+        Assert.assertNotNull(col2);
+        Assert.assertNotNull(col3);
 
         // Verify col1
         Assert.assertTrue(col1.getRenderer() instanceof MyRenderer);
@@ -88,7 +96,7 @@ public class GridColumnTest extends TestSupport {
           resizable = true,
           sortable = true,
           sortOrderProvider = MySortOrderProvider.class,
-          sortProperties = { "field1", "field2" },
+          sortProperties = { "key1", "field2" },
           textAlign = ColumnTextAlign.CENTER,
           visible = false,
           width = "100px",

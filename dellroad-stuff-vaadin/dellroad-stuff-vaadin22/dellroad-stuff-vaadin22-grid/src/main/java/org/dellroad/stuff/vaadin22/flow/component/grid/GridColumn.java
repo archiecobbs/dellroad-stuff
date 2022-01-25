@@ -103,6 +103,18 @@ public @interface GridColumn {
     Class<? extends SerializableFunction> classNameGenerator() default SerializableFunction.class;
 
     /**
+     * Get the name of this column's column group.
+     *
+     * <p>
+     * Columns with the same (non-empty) group name will be grouped together under a common super-heading for the group.
+     *
+     * @return column group name, or empty string for none
+     * @see HeaderRow#join
+     */
+    @SuppressWarnings("rawtypes")
+    String columnGroup() default "";
+
+    /**
      * Get the {@link Comparator} class to use for in-memory sorting.
      *
      * <p>
@@ -236,12 +248,26 @@ public @interface GridColumn {
     ColumnTextAlign textAlign() default ColumnTextAlign.START;
 
     /**
-     * Get visible setting.
+     * Get initial visibility setting.
      *
      * @return whether column is visible
+     * @see #visbilityMenu
      * @see Grid.Column#setVisible
      */
     boolean visible() default true;
+
+    /**
+     * Get whether to include this column as one of the columns with configurable visibility by way
+     * of {@link GridColumnScanner#buildVisbilityMenu}.
+     *
+     * <p>
+     * The menu item labels are taken from the {@link #header}, if any, otherwise {@link #key}.
+     *
+     * @return whether column has configurable visibility
+     * @see #visible
+     * @see GridColumnScanner#buildVisbilityMenu
+     */
+    boolean visbilityMenu() default false;
 
     /**
      * Get the width.

@@ -6,6 +6,8 @@
 package org.dellroad.stuff.vaadin22.flow.component.grid;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableFunction;
@@ -24,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -44,6 +48,7 @@ public class GridColumnScanner<T> {
 
     private final Class<T> type;
     private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Grid.Column<T>> visbilityMenuColumns = new LinkedHashMap<>();
 
     /**
      * Scan the given type and all super-types for {@link GridColumn &#64;GridColumn} annotations.
@@ -101,12 +106,15 @@ public class GridColumnScanner<T> {
     }
 
     /**
-     * Create a new {@link Grid} and add all columns auto-generated from {@link GridColumn &#64;GridColumn} annotations.
+     * Create a new {@link Grid} with columns generated from {@link GridColumn &#64;GridColumn} annotations.
+     *
+     * <p>
+     * No columns are included for bean properties that are not annotated.
      *
      * @return newly built {@link Grid} with auto-generated columns
      */
     public Grid<T> buildGrid() {
-        final Grid<T> grid = new Grid<>(this.type);
+        final Grid<T> grid = new Grid<>();
         this.addColumnsTo(grid);
         return grid;
     }
@@ -123,18 +131,70 @@ public class GridColumnScanner<T> {
         if (grid == null)
             throw new IllegalArgumentException("null grid");
 
+        // Inventory any existing columns
+        final List<Grid.Column<T>> existingColumnList = new ArrayList<>(grid.getColumns());
+
         // Get default annotation
         final GridColumn defaults = GridColumnScanner.getDefaults();
 
-        // Get current list of columns to capture current order
-        final List<Grid.Column<T>> columnList = new ArrayList<>(grid.getColumns());
+        // Gather columns in ordered lists, grouped by group name, and track visbilityMenu()
+        final LinkedHashMap<String, List<Grid.Column<T>>> columnGroups = new LinkedHashMap<>();
+        this.visbilityMenuColumns.clear();
+        this.columnMap.forEach((columnKey, methodInfo) -> {
+            final GridColumn annotation = methodInfo.getAnnotation();
+            final Grid.Column<T> column = GridColumnScanner.addColumn(grid, columnKey, methodInfo, defaults);
+            columnGroups.computeIfAbsent(annotation.columnGroup(), columnGroup -> new ArrayList<>()).add(column);
+            if (annotation.visbilityMenu()) {
+                String menuLabel = annotation.header();
+                if (menuLabel.isEmpty())
+                    menuLabel = annotation.key();
+                visbilityMenuColumns.put(menuLabel, column);
+            }
+        });
 
-        // Add new columns to the end of the list
-        this.columnMap.forEach((columnKey, methodInfo) ->
-          columnList.add(GridColumnScanner.addColumn(grid, columnKey, methodInfo, defaults)));
+        // Add a column group header and group columns, if needed
+        if (columnGroups.size() > 1 || (columnGroups.size() == 1 && !columnGroups.keySet().iterator().next().isEmpty())) {
+            columnGroups.forEach(
+              (name, columns) -> grid.prependHeaderRow().join(columns.toArray(new Grid.Column<?>[0])).setText(name));
+        }
 
-        // Update column order (is this really necessary?)
-        grid.setColumnOrder(columnList);
+        // Set column order, respecting any column groupings
+        grid.setColumnOrder(Stream.concat(existingColumnList.stream(), columnGroups.values().stream().flatMap(List::stream))
+          .collect(Collectors.toList()));
+    }
+
+    /**
+     * Build a {@link ContextMenu} with menu items that enable/disable the visibility of individual columns.
+     *
+     * <p>
+     * The menu contains entries for all columns for which {@link GridColumn#visbilityMenu visbilityMenu()} is true.
+     * If there are no such methods (i.e., the menu would be empty), null is returned. The menu item labels are taken
+     * from {@link GridColumn#header header()}, if any, otherwise {@link GridColumn#key key()}.
+     *
+     * <p>
+     * To use the menu, the caller will need to assign it to some target via {@link ContextMenu#setTarget}.
+     *
+     * <p>
+     * This method must be run <i>after</i> {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}, otherwise null is returned.
+     *
+     * @return visibility context menu, or null if there were zero such columns
+     */
+    public ContextMenu buildVisbilityMenu() {
+
+        // Anything to build?
+        if (this.visbilityMenuColumns.isEmpty())
+            return null;
+
+        // Build menu
+        final ContextMenu menu = new ContextMenu();
+        this.visbilityMenuColumns.forEach((label, column) -> {
+            final MenuItem menuItem = menu.addItem(label, e -> column.setVisible(e.getSource().isChecked()));
+            menuItem.setCheckable(true);
+            menuItem.setChecked(column.isVisible());
+        });
+
+        // Done
+        return menu;
     }
 
     /**
@@ -189,11 +249,12 @@ public class GridColumnScanner<T> {
         // Handle annotation properties that we can process automatically
         final HashSet<String> autoProperties = new HashSet<>(Arrays.asList(new String[] {
           "autoWidth", "classNameGenerator", "comparator", "flexGrow", "footer", "frozen", "header",
-          "id", "key", "resizable", "sortOrderProvider", "sortable", "textAlign", "visible", "width" }));
+          "id", "resizable", "sortOrderProvider", "sortable", "textAlign", "visible", "width" }));
         AnnotationUtil.applyAnnotationValues(column, "set", methodInfo.getAnnotation(), defaults,
           (method, name) -> autoProperties.contains(name) ? name : null);
 
         // Handle other annotation properties manually
+        column.setKey(!annotation.key().equals(defaults.key()) ? annotation.key() : methodInfo.getMethodPropertyName());
         if (!annotation.valueProviderComparator().equals(defaults.valueProviderComparator()))
             column.setComparator(ReflectUtil.instantiate(annotation.valueProviderComparator()));
         if (!annotation.editorComponent().equals(defaults.editorComponent())) {
