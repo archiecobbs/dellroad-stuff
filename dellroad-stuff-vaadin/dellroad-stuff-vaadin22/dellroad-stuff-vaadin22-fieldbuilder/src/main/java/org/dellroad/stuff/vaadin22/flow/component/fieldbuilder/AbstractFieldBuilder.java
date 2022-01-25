@@ -340,10 +340,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Apply a {@link Binding &#64;Binding} annotation to the given binding builder.
+     * Apply a {@link Binding &#64;Binding} annotation to the given {@link Binder.BindingBuilder}.
      *
      * @param bindingBuilder binding under construction
      * @param annotation annotation to apply
+     * @return a {@link Binder.BindingBuilder} configured from {@code annotation}
      * @throws IllegalArgumentException if either parameter is null
      */
     @SuppressWarnings("unchecked")
@@ -456,6 +457,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     /**
      * Get an instance of the given widget annotation that has all default values.
      *
+     * @param annotation the annotation to get defautls for
+     * @param <A> annotation type
      * @return default annotation, or null if not a widget annotation
      * @throws IllegalArgumentException if {@code annotation} is not a widget annotation
      * @throws IllegalArgumentException if {@code annotation} is null
@@ -470,6 +473,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     /**
      * Get an instance of the given widget annotation type with all default values.
      *
+     * @param annotationType the annotation type to get defautls for
+     * @param <A> annotation type
      * @return default annotation, or null if not a widget annotation
      * @throws IllegalArgumentException if {@code annotationType} is not a widget annotation type
      * @throws IllegalArgumentException if {@code annotationType} is null
