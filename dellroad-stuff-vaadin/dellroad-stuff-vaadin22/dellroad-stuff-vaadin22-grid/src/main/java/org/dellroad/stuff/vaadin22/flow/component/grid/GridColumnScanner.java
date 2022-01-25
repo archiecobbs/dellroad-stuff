@@ -114,7 +114,7 @@ public class GridColumnScanner<T> {
      * @return newly built {@link Grid} with auto-generated columns
      */
     public Grid<T> buildGrid() {
-        final Grid<T> grid = new Grid<>();
+        final Grid<T> grid = new Grid<>(this.type, false);
         this.addColumnsTo(grid);
         return grid;
     }
