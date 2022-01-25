@@ -122,6 +122,9 @@ public class GridColumnScanner<T> {
     /**
      * Augment the given {@link Grid} with columns auto-generated from {@link GridColumn &#64;GridColumn} annotations.
      *
+     * <p>
+     * Any existing columns with the conflicting column keys will be replaced.
+     *
      * @param grid target grid
      * @throws IllegalArgumentException if {@code grid} is null
      */
@@ -141,9 +144,20 @@ public class GridColumnScanner<T> {
         final LinkedHashMap<String, List<Grid.Column<T>>> columnGroups = new LinkedHashMap<>();
         this.visbilityMenuColumns.clear();
         this.columnMap.forEach((columnKey, methodInfo) -> {
+
+            // Remove any existing column with the same key
+            existingColumnList.removeIf(column -> columnKey.equals(column.getKey()));
+
+            // Get annotation
             final GridColumn annotation = methodInfo.getAnnotation();
+
+            // Add new column
             final Grid.Column<T> column = GridColumnScanner.addColumn(grid, columnKey, methodInfo, defaults);
+
+            // Update column groups
             columnGroups.computeIfAbsent(annotation.columnGroup(), columnGroup -> new ArrayList<>()).add(column);
+
+            // Add column to visibility menu, if desired
             if (annotation.visbilityMenu()) {
                 String menuLabel = annotation.header();
                 if (menuLabel.isEmpty())
