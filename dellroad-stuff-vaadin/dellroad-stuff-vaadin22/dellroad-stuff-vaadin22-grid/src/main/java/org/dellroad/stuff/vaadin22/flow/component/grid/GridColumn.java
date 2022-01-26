@@ -9,6 +9,8 @@ import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.grid.SortOrderProvider;
+import com.vaadin.flow.component.treegrid.TreeGrid;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.ValueProvider;
@@ -181,6 +183,26 @@ public @interface GridColumn {
      * @see Grid.Column#setHeader(String)
      */
     String header() default "";
+
+    /**
+     * Get whether this column is the hierarchy column for a {@link TreeGrid}.
+     *
+     * <p>
+     * This property only affects the contruction of {@link TreeGrid}s. If this property is set, and the {@link Grid}
+     * being configured is a {@link TreeGrid}, then the column is created as an expand/collapse "hierarchy column".
+     *
+     * <p>
+     * How the column is created depends on {@link #renderer}. If a {@link #renderer} class is specified, then it
+     * <i>must</i> subclass {@link ComponentRenderer}, and
+     * {@link TreeGrid#addComponentHierarchyColumn TreeGrid.addComponentHierarchyColumn()} will be used to create the column
+     * using the rendered components. Otherwise, {@link TreeGrid#addHierarchyColumn TreeGrid.addHierarchyColumn()} is used to
+     * create the column, using {@link String#valueOf String.valueOf()} applied to the annotated method's return value.
+     *
+     * @return column debug ID
+     * @see TreeGrid#addHierarchyColumn TreeGrid.addHierarchyColumn()
+     * @see TreeGrid#addComponentHierarchyColumn TreeGrid.addComponentHierarchyColumn()
+     */
+    boolean hierarchyColumn() default false;
 
     /**
      * Get the column debug ID.

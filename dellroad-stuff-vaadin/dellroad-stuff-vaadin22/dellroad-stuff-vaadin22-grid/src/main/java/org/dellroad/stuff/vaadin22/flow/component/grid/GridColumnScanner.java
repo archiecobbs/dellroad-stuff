@@ -9,6 +9,8 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.treegrid.TreeGrid;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.ValueProvider;
@@ -258,7 +260,21 @@ public class GridColumnScanner<T> {
         }
 
         // Create the column, using custom Renderer or else just ValueProvider
-        final Grid.Column<T> column = renderer != null ? grid.addColumn(renderer) : grid.addColumn(valueProvider);
+        final Grid.Column<T> column;
+        if (grid instanceof TreeGrid && annotation.hierarchyColumn()) {
+            final TreeGrid<T> treeGrid = (TreeGrid<T>)grid;
+            if (renderer != null) {
+                if (!(renderer instanceof ComponentRenderer)) {
+                    throw new RuntimeException("non-default renderer type " + renderer.getClass().getName()
+                      + " specified for method " + methodInfo.getMethod() + " does not subclass "
+                      + ComponentRenderer.class.getName()
+                      + ", which is required when configuring a TreeGrid with hierarchyColumn() = true");
+                }
+                column = treeGrid.addComponentHierarchyColumn(((ComponentRenderer)renderer)::createComponent);
+            } else
+                column = treeGrid.addHierarchyColumn(valueProvider);
+        } else
+            column = renderer != null ? grid.addColumn(renderer) : grid.addColumn(valueProvider);
 
         // Handle annotation properties that we can process automatically
         final HashSet<String> autoProperties = new HashSet<>(Arrays.asList(new String[] {
