@@ -47,7 +47,7 @@ import java.util.Comparator;
  * <p>
  * Some details regarding {@link GridColumn &#64;GridColumn} annotations:
  * <ul>
- *  <li>Only "getters" (non-void methods taking zero parameters) are supported; {@link GridColumn &#64;GridColumn}
+ *  <li>Only non-void methods taking zero parameters are supported; {@link GridColumn &#64;GridColumn}
  *      annotations on other methods are ignored</li>
  *  <li>Protected, package private, and private methods are supported.</li>
  *  <li>{@link GridColumn &#64;GridColumn} annotations declared in super-types (including interfaces) are supported</li>
