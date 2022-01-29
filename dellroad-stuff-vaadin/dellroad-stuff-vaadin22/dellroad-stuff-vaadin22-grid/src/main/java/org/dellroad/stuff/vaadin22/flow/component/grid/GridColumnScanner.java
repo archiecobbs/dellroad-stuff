@@ -257,7 +257,8 @@ public class GridColumnScanner<T> {
                   + " because no constructor taking ValueProvider is found", e);
             }
             renderer = (Renderer<T>)ReflectUtil.instantiate(constructor, valueProvider);
-        }
+        } else if (Component.class.isAssignableFrom(methodInfo.getMethod().getReturnType()))
+            renderer = new SelfRenderer<T>((ValueProvider<T, ? extends Component>)valueProvider);
 
         // Create the column, using custom Renderer or else just ValueProvider
         final Grid.Column<T> column;

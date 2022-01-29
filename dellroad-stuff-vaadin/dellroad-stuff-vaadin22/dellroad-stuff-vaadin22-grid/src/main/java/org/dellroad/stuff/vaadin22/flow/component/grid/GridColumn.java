@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin22.flow.component.grid;
 
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
@@ -31,11 +32,17 @@ import java.util.Comparator;
  * // Container backing object class
  * public class User {
  *
+ *     // Default rendering using String value
  *     <b>&#64;GridColumn(header = "Username", width = "50px")</b>
  *     public String getUsername() { ... }
  *
+ *     // Custom rendering using the specified Renderer
  *     <b>&#64;GridColumn(header = "DOB", sortable = true, renderer = MyRenderer.class)</b>
  *     public LocalDate getDateOfBirth() { ... }
+ *
+ *     // Render directly using the returned Component
+ *     <b>&#64;GridColumn(header = "Status")</b>
+ *     public Image getStatus() { ... }
  * }
  *
  * // Build Grid with auto-generated columns
@@ -58,6 +65,8 @@ import java.util.Comparator;
  *      {@linkplain #key column key}, then the declaration in the class which is a sub-type of the other
  *      wins (if the two classes are equal or not comparable, an exception is thrown). This allows subclasses
  *      to "override" which method supplies a given property.</li>
+ *  <li>If the method returns a sub-type of {@link Component}, then by default a {@link SelfRenderer} is assumed.
+ *      This lets you define a method that directly returns the {@link Component} to display.</li>
  *  <li>Columns will be ordered first by {@link #order}, then by property name.</li>
  * </ul>
  *
@@ -80,6 +89,10 @@ public @interface GridColumn {
      * If this property is not specified, {@link Grid#addColumn(ValueProvider)} is used to create the column;
      * If this property is specified, {@link Grid#addColumn(Renderer)} is used to create the column and the
      * specified class must have a constructor taking a {@link ValueProvider} parameter.
+     *
+     * <p>
+     * As a special case, when the annotated method returns a sub-type of {@link Component}, then unless
+     * specified otherwise a {@link SelfRenderer} is assumed here.
      *
      * @return column renderer class
      * @see Grid#addColumn(Renderer)

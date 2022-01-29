@@ -5,9 +5,11 @@
 
 package org.dellroad.stuff.vaadin22.flow.component.grid;
 
+import com.vaadin.flow.component.grid.ColumnPathRenderer;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.SortOrderProvider;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.data.provider.QuerySortOrder;
 import com.vaadin.flow.data.provider.SortDirection;
@@ -32,9 +34,8 @@ public class GridColumnTest extends TestSupport {
         // Build grid
         final Grid<Foo> grid = new Grid<>(Foo.class);
 
-        // Remove and replace "field1" and "field2" columns with "key" and "field2"
+        // Remove and replace "field1" column with "key" and "field2"
         grid.removeColumnByKey("field1");
-        grid.removeColumnByKey("field2");
         new GridColumnScanner<>(Foo.class).addColumnsTo(grid);
 
         // Retrieve columns
@@ -59,19 +60,20 @@ public class GridColumnTest extends TestSupport {
         Assert.assertFalse(col1.isVisible());
         Assert.assertEquals(col1.getWidth(), "100px");
 
-        // Verify defaults - col2 and col3 should be configured the same
-        Assert.assertEquals(col2.getRenderer().getClass(), col3.getRenderer().getClass());
+        // Verify defaults - col2 and col3 should be configured the same except for renderer and sorting
+        Assert.assertEquals(col2.getRenderer().getClass(), SelfRenderer.class);
+        Assert.assertEquals(col3.getRenderer().getClass(), ColumnPathRenderer.class);
         Assert.assertEquals(col2.isAutoWidth(), col3.isAutoWidth());
         Assert.assertEquals(col2.getClassNameGenerator(), col3.getClassNameGenerator());
-        Assert.assertEquals(col2.getComparator(SortDirection.ASCENDING).getClass(),
-          col3.getComparator(SortDirection.ASCENDING).getClass());
+//        Assert.assertEquals(col2.getComparator(SortDirection.ASCENDING).getClass(),
+//          col3.getComparator(SortDirection.ASCENDING).getClass());
         Assert.assertEquals(col2.getEditorComponent(), col3.getEditorComponent());
         Assert.assertEquals(col2.getFlexGrow(), col3.getFlexGrow());
         Assert.assertEquals(col2.isFrozen(), col3.isFrozen());
         Assert.assertFalse(col2.getId().isPresent());
         Assert.assertEquals(col2.getKey(), "field2");
         Assert.assertEquals(col2.isResizable(), col3.isResizable());
-        Assert.assertEquals(col2.isSortable(), col3.isSortable());
+//        Assert.assertEquals(col2.isSortable(), col3.isSortable());
         Assert.assertEquals(col2.getTextAlign(), col3.getTextAlign());
         Assert.assertEquals(col2.isVisible(), col3.isVisible());
         Assert.assertEquals(col2.getWidth(), col3.getWidth());
@@ -104,9 +106,8 @@ public class GridColumnTest extends TestSupport {
         public abstract String getField1();
         public abstract void setField1(String field1);
 
-        @GridColumn(order = 1)
-        public abstract String getField2();
-        public abstract void setField2(String field2);
+        @GridColumn(key = "field2", order = 1)
+        public abstract Image buildField2();
 
         public abstract String getField3();
         public abstract void setField3(String field3);
