@@ -125,7 +125,7 @@ public class GridColumnScanner<T> {
      * Augment the given {@link Grid} with columns auto-generated from {@link GridColumn &#64;GridColumn} annotations.
      *
      * <p>
-     * Any existing columns with the conflicting column keys will be replaced.
+     * Any existing columns with conflicting column keys will be replaced.
      *
      * @param grid target grid
      * @throws IllegalArgumentException if {@code grid} is null
