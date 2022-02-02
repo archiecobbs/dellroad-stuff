@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -57,9 +57,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     private static final long serialVersionUID = -3091638771700394722L;
 
     private final Class<T> type;
-    private final LinkedHashSet<String> propertyNames = new LinkedHashSet<>();
-
-    private Binder<T> binder;
+    private final LinkedHashMap<String, Binder.BindingBuilder<? extends T, ?>> bindings = new LinkedHashMap<>();
 
     /**
      * Constructor.
@@ -83,19 +81,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Get the binder associated with this instance.
-     *
-     * @return binder
-     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
-     */
-    public Binder<T> getBinder() {
-        if (this.binder == null)
-            throw new IllegalStateException("buildAndBind() not invoked yet");
-        return this.binder;
-    }
-
-    /**
-     * Get the names of all properties discovered and bound by the most recent invocation of {@link #buildAndBind buildAndBind()}.
+     * Get the names of all properties discovered and bound by the most recent invocation of {@link #bindFields bindFields()}.
      *
      * <p>
      * This will be the subset of all of the {@link Binder}'s properties containing those for which the getter method
@@ -106,51 +92,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * values, then by name.
      *
      * @return field names
-     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
+     * @throws IllegalStateException if {@link #bindFields bindFields()} has not yet been invoked
      */
     public Set<String> getPropertyNames() {
-        if (this.binder == null)
-            throw new IllegalStateException("buildAndBind() not invoked yet");
-        return Collections.unmodifiableSet(this.propertyNames);
-    }
-
-    /**
-     * Introspect for defined widget and {@link ProvidesField &#64;ProvidesField} annotations on methods of the configured class,
-     * create and configure corresponding fields, configure bindings for the fields from any {@link Binding &#64;Binding}
-     * annotations, and bind those fields to a newly created {@link Binder}.
-     *
-     * <p>
-     * Note that non-static {@link ProvidesField &#64;ProvidesField} annotations on instance methods are ignored, because
-     * there is no bean instance provided; use {@link #buildAndBind(Object)} instead of this method to include them.
-     *
-     * @return this instance
-     * @throws IllegalArgumentException if an invalid use of a widget annotation is encountered
-     */
-    @SuppressWarnings("unchecked")
-    public S buildAndBind() {
-        this.doBuildAndBind(null);
-        return (S)this;
-    }
-
-    /**
-     * Invokes {@link #buildAndBind()} using the given bean's class and then binds the given bean to the
-     * {@link Binder} via {@link Binder#setBean}.
-     *
-     * <p>
-     * When this method is used, {@link ProvidesField &#64;ProvidesField} annotations are detected on non-static methods.
-     *
-     * @param bean bean to introspect and bind
-     * @return this instance
-     * @throws IllegalArgumentException if an invalid use of a widget annotation is encountered
-     * @throws IllegalArgumentException if {@code bean} is null
-     */
-    @SuppressWarnings("unchecked")
-    public S buildAndBind(T bean) {
-        if (bean == null)
-            throw new IllegalArgumentException("null bean");
-        this.doBuildAndBind(bean);
-        binder.setBean(bean);
-        return (S)this;
+        return Collections.unmodifiableSet(this.bindings.keySet());
     }
 
     /**
@@ -160,32 +105,49 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * This method invokes {@link Grid.Column#setEditorComponent(Component)} for each binding for which the {@link Grid}
      * has a column whose column key matches the binding property name.
      *
+     * <p>
+     * This method does nothing if {@link #bindFields bindFields()} has not been invoked yet.
+     *
      * @param grid {@link Grid} for editor bindings
-     * @throws IllegalStateException if {@link #buildAndBind buildAndBind()} has not yet been invoked
      * @throws IllegalArgumentException if {@code grid} is null
      * @see Grid.Column#setEditorComponent(Component)
      */
     public void setEditorComponents(Grid<T> grid) {
-        if (this.binder == null)
-            throw new IllegalStateException("buildAndBind() not invoked yet");
         if (grid == null)
             throw new IllegalArgumentException("null grid");
-        for (String propertyName : this.propertyNames) {
+        this.bindings.forEach((propertyName, builder) -> {
             final Grid.Column<T> gridColumn = grid.getColumnByKey(propertyName);
             if (gridColumn == null)
-                continue;
-            this.binder.getBinding(propertyName)
-              .map(Binder.Binding::getField)
-              .filter(Component.class::isInstance)
-              .map(Component.class::cast)
-              .ifPresent(gridColumn::setEditorComponent);
-        }
+                return;
+            final HasValue<?, ?> field = builder.getField();
+            if (!(field instanceof Component))
+                return;
+            gridColumn.setEditorComponent((Component)field);
+        });
     }
 
-    protected void doBuildAndBind(T bean) {
+    /**
+     * Introspect the configured class for defined {@link FieldBuilder &#64;FieldBuilder.Foo} and
+     * {@link ProvidesField &#64;ProvidesField} method annotations, create and configure corresponding fields,
+     * configure bindings for those fields using any {@link Binding &#64;Binding} annotations, and bind those
+     * fields into the given {@link Binder}.
+     *
+     * <p>
+     * If the {@code binder} does not have a bean currently bound to it, then non-static {@link ProvidesField &#64;ProvidesField}
+     * annotations on instance methods will be ignored.
+     *
+     * @throws IllegalArgumentException if an invalid use of a widget annotation is encountered
+     * @throws IllegalArgumentException if {@code binder} is null
+     */
+    public void bindFields(Binder<? extends T> binder) {
 
-        // Reset
-        this.binder = new Binder<>(this.type);
+        // Sanity check
+        if (binder == null)
+            throw new IllegalArgumentException("null binder");
+
+        // Start with an empty list of bindings
+        final LinkedHashMap<String, Binder.BindingBuilder<? extends T, ?>> newBindings = new LinkedHashMap<>();
+        final HashMap<String, MethodAnnotationScanner<T, ?>.MethodInfo> methodInfoMap = new HashMap<>(); // for building exceptions
 
         // Look for all bean property getter methods
         BeanInfo beanInfo;
@@ -204,8 +166,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         // Scan getters for widget annotations and create corresponding fields, also checking for conflicts
-        final HashMap<String, Binder.BindingBuilder<T, ?>> bindingBuilderMap = new HashMap<>();     // maps property name to field
-        final HashMap<String, MethodAnnotationScanner<T, ?>.MethodInfo> infoMap = new HashMap<>();  // to help with debugging
         this.getWidgetAnnotationTypes().forEach(annotationType -> {
             final Set<? extends MethodAnnotationScanner<T, ?>.MethodInfo> methodInfos = this.findAnnotatedMethods(annotationType);
             for (MethodAnnotationScanner<T, ?>.MethodInfo methodInfo : methodInfos) {
@@ -219,7 +179,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 }
 
                 // Check for conflicting annotations
-                final MethodAnnotationScanner<T, ?>.MethodInfo previousInfo = infoMap.get(propertyName);
+                final MethodAnnotationScanner<T, ?>.MethodInfo previousInfo = methodInfoMap.putIfAbsent(propertyName, methodInfo);
                 if (previousInfo != null) {
                     throw new IllegalArgumentException(String.format(
                       "method %s.%s() has conflicting %s.* annotations: @%s on %s and @%s on %s",
@@ -230,8 +190,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 // Create field
                 final HasValue<?, ?> field = this.buildField(methodInfo);
 
-                // Add binding builder
-                bindingBuilderMap.put(propertyName, this.binder.forField(field));
+                // Create binding
+                newBindings.put(propertyName, binder.forField(field));
             }
         });
 
@@ -243,15 +203,16 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         for (Map.Entry<String, Method> entry : providerMap.entrySet()) {
             final String propertyName = entry.getKey();
             final Method method = entry.getValue();
+            final T bean = binder.getBean();
 
             // Skip instance methods if there is no bean
             if ((method.getModifiers() & Modifier.STATIC) == 0 && bean == null)
                 continue;
 
             // Verify field is not already defined
-            if (bindingBuilderMap.containsKey(propertyName)) {
-                throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName + "': annotation @"
-                  + ProvidesField.class.getName() + " on method " + method
+            if (newBindings.containsKey(propertyName)) {
+                throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName
+                  + "': annotation @" + ProvidesField.class.getSimpleName() + " on method " + method
                   + " cannot be combined with other @" + this.getClass().getSimpleName() + ".* annotation types");
             }
 
@@ -269,8 +230,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                   + " annotation on method " + method, e);
             }
 
-            // Save field
-            bindingBuilderMap.put(propertyName, this.binder.forField(field));
+            // Create binding
+            newBindings.put(propertyName, binder.forField(field));
         }
 
         // Scan getters for @Binding annotations
@@ -282,17 +243,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
         }
 
-        // Get all binding builders
-        final List<Map.Entry<String, Binder.BindingBuilder<T, ?>>> builderList = new ArrayList<>(bindingBuilderMap.entrySet());
-
-        // Collect corresponding ordering values
+        // Gather bindings in a list so we can order them via @Binding.order()
+        final List<Map.Entry<String, Binder.BindingBuilder<? extends T, ?>>> builderList = new ArrayList<>(newBindings.entrySet());
         final HashMap<String, Double> orderMap = new HashMap<>(builderList.size());
 
-        // Apply @Binding annotations (if any) and bind fields
-        for (int i = 0; i < builderList.size(); i++) {
-            final Map.Entry<String, Binder.BindingBuilder<T, ?>> entry = builderList.get(i);
+        // Apply @Binding annotations (if any) and bind fields, and extract the order() values for sorting
+        for (Map.Entry<String, Binder.BindingBuilder<? extends T, ?>> entry : builderList) {
             final String propertyName = entry.getKey();
-            Binder.BindingBuilder<T, ?> bindingBuilder = entry.getValue();
+            Binder.BindingBuilder<? extends T, ?> bindingBuilder = entry.getValue();
 
             // Apply @Binding annotation, if any
             final Binding bindingAnnotation = bindingAnnotationMap.get(propertyName);
@@ -302,19 +260,19 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 orderMap.put(propertyName, bindingAnnotation.order());
             }
 
-            // Bind field
+            // Complete the binding
             bindingBuilder.bind(propertyName);
         }
 
         // Sort builders
         builderList.sort(Comparator
-          .<Map.Entry<String, Binder.BindingBuilder<T, ?>>>comparingDouble(e -> orderMap.getOrDefault(e.getKey(), 0.0))
+          .<Map.Entry<String, Binder.BindingBuilder<? extends T, ?>>>comparingDouble(e -> orderMap.getOrDefault(e.getKey(), 0.0))
           .thenComparing(Map.Entry::getKey));
 
-        // Rebuild property names set
-        this.propertyNames.clear();
-        for (Map.Entry<String, Binder.BindingBuilder<T, ?>> entry : builderList)
-            this.propertyNames.add(entry.getKey());
+        // Build binding map, preserving binding order
+        this.bindings.clear();
+        for (Map.Entry<String, Binder.BindingBuilder<? extends T, ?>> entry : builderList)
+            this.bindings.put(entry.getKey(), entry.getValue());
     }
 
     private <A extends Annotation> Set<MethodAnnotationScanner<T, A>.MethodInfo> findAnnotatedMethods(Class<A> annotationType) {
@@ -350,7 +308,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @throws IllegalArgumentException if either parameter is null
      */
     @SuppressWarnings("unchecked")
-    protected Binder.BindingBuilder<T, ?> applyBindingAnnotation(Binder.BindingBuilder<T, ?> bindingBuilder, Binding annotation) {
+    protected Binder.BindingBuilder<? extends T, ?> applyBindingAnnotation(Binder.BindingBuilder<? extends T, ?> bindingBuilder,
+      Binding annotation) {
         if (bindingBuilder == null)
             throw new IllegalArgumentException("null bindingBuilder");
         if (annotation == null)
@@ -432,7 +391,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Instantiate and configure an {@link HasValue} according to the given scanned annotation.
+     * Instantiate and configure a {@link HasValue} according to the given scanned annotation.
      *
      * @param methodInfo annotated method info
      * @param <A> annotation type

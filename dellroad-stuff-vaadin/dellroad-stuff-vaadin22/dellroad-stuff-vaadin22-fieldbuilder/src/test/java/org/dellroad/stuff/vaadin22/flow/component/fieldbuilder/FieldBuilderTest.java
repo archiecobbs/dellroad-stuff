@@ -38,7 +38,8 @@ public class FieldBuilderTest extends TestSupport {
 
     @Test
     public void test1() throws Exception {
-        final Binder<Foo> binder = new FieldBuilder<>(Foo.class).buildAndBind().getBinder();
+        final Binder<Foo> binder = new Binder<>(Foo.class);
+        new FieldBuilder<>(Foo.class).bindFields(binder);
 
     // Check field1
 

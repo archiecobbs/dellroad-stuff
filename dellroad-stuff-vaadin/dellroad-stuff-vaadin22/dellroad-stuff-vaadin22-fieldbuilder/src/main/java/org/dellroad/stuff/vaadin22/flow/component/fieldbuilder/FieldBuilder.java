@@ -42,8 +42,8 @@ import java.lang.annotation.Target;
  * <p>
  * {@link ProvidesField &#64;ProvidesField} provides a more general approach, but it requires writing code. Use
  * {@link ProvidesField &#64;ProvidesField} on a method that itself knows how to build a field suitable for editing
- * the named property. The method should return a {@link HasValue}. Both instance and static methods are supported,
- * but annotations on instance methods are only handled by {@link #buildAndBind(Object) FieldBuiler.buildAndBind(T bean)}.
+ * the named property. The method should return a {@link HasValue}. Both instance and static methods are supported;
+ * instance methods require that the {@link Binder} has a bound bean.
  *
  * <p>
  * In all cases, an annotation on a subclass method will override the same annotation on the corresponding superclass method.
@@ -80,18 +80,16 @@ import java.lang.annotation.Target;
  *
  * <p><b>Building the Form</b>
  * <p>
- * Use {@link #buildAndBind FieldBuilder.buildAndBind()} to automatically detect, instantiate, configure, and bind fields
- * to a {@link Binder} and then add the bound fields to a form, all in one line:
+ * Use {@link #bindFields FieldBuilder.bindFields()} to automatically detect, instantiate, configure, and bind fields
+ * to a {@link Binder}, then add the bound fields to your form in order:
  * <blockquote><pre>
- * // Create some object to edit
- * Person joe = new Person("Joe Smith", Gender.MALE);
+ * // Create a Binder and bind fields
+ * Binder&lt;Person&gt; binder = new Binder&lt;&gt;(Person.class);
+ * <b>new FieldBuilder(Person.class).bindFields(binder)</b>;
  *
- * // Create form layout and add to my component
+ * // Create form and add fields to it
  * FormLayout myForm = new FormLayout();
- * myComoponent.add(myForm);
- *
- * // Do the magic
- * <b>new FieldBuilder(Person.class).buildAndBind(joe).getBinder().getFields().forEach(myForm::addFormItem)</b>;
+ * binder.getFields().forEach(myForm::addFormItem);
  * </pre></blockquote>
  *
  * <p><b>Use with Grid</b>
@@ -131,7 +129,7 @@ import java.lang.annotation.Target;
  * @see EnumComboBox
  * @see org.dellroad.stuff.vaadin22.flow.component.grid.GridColumn
  */
-public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> implements Serializable {
+public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
 
     private static final long serialVersionUID = -4876472481099484174L;
 
