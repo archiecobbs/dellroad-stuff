@@ -133,7 +133,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * fields into the given {@link Binder}.
      *
      * <p>
-     * If the {@code binder} does not have a bean currently bound to it, then non-static {@link ProvidesField &#64;ProvidesField}
+     * If the {@code binder} does not have a bean currently bound to it, then {@link ProvidesField &#64;ProvidesField}
      * annotations on instance methods will be ignored.
      *
      * @throws IllegalArgumentException if an invalid use of a widget annotation is encountered
