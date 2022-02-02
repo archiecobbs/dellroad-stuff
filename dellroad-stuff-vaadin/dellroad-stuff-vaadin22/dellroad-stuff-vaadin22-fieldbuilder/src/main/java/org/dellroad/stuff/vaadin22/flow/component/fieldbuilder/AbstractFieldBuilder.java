@@ -244,6 +244,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             final String propertyName = entry.getKey();
             final Method method = entry.getValue();
 
+            // Skip instance methods if there is no bean
+            if ((method.getModifiers() & Modifier.STATIC) == 0 && bean == null)
+                continue;
+
             // Verify field is not already defined
             if (bindingBuilderMap.containsKey(propertyName)) {
                 throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName + "': annotation @"
@@ -252,14 +256,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
 
             // Invoke method to create field, if possible
-            if ((method.getModifiers() & Modifier.STATIC) != 0 && bean == null)
-                continue;
-            HasValue<?, ?> field;
             try {
                 method.setAccessible(true);
             } catch (Exception e) {
                 // ignore
             }
+            final HasValue<?, ?> field;
             try {
                 field = (HasValue<?, ?>)method.invoke(bean);
             } catch (Exception e) {
