@@ -44,7 +44,6 @@ import org.dellroad.stuff.java.ReflectUtil;
  *
  * @param <T> Java class to be introspected
  * @see GridColumn &#64;GridColumn
- * @see org.dellroad.stuff.vaadin22.flow.component.fieldbuilder.FieldBuilder#setEditorComponents
  */
 public class GridColumnScanner<T> {
 

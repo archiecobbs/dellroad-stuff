@@ -7,12 +7,12 @@ package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
-import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BindingValidationStatusHandler;
 import com.vaadin.flow.data.binder.ErrorMessageProvider;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
+import com.vaadin.flow.shared.util.SharedUtil;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -34,7 +34,9 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
@@ -45,6 +47,9 @@ import org.dellroad.stuff.vaadin22.flow.component.AutoBuildAware;
 
 /**
  * Provides the machinery for auto-generated {@link FieldBuilder}-like classes.
+ *
+ * <p>
+ * See {@link FieldBuilder} for details.
  *
  * @see FieldBuilder
  */
@@ -57,18 +62,19 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     private static final long serialVersionUID = -3091638771700394722L;
 
     private final Class<T> type;
-    private final LinkedHashMap<String, Binder.BindingBuilder<? extends T, ?>> bindings = new LinkedHashMap<>();
+    private final LinkedHashMap<String, BindingInfo> bindingInfoMap = new LinkedHashMap<>();
 
     /**
      * Constructor.
      *
      * @param type backing object type
-     * @throws IllegalStateException if {@code type} is null
+     * @throws IllegalArgumentException if {@code type} is null
      */
     protected AbstractFieldBuilder(Class<T> type) {
         if (type == null)
             throw new IllegalArgumentException("null type");
         this.type = type;
+        this.scanForAnnotations();
     }
 
     /**
@@ -84,89 +90,108 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * Get the names of all properties discovered and bound by the most recent invocation of {@link #bindFields bindFields()}.
      *
      * <p>
-     * This will be the subset of all of the {@link Binder}'s properties containing those for which the getter method
-     * had defined widget annotations.
-     *
-     * <p>
-     * The returned {@link Set} will iterate fields in order by {@link Binding#order &#64;Binding.order()}
-     * values, then by name.
+     * The returned {@link List} is ordered by {@link FormLayout#order &#64;FieldBuilder.FormLayout.order()}
+     * values (if any; default zero), then by property name.
      *
      * @return field names
-     * @throws IllegalStateException if {@link #bindFields bindFields()} has not yet been invoked
      */
     public Set<String> getPropertyNames() {
-        return Collections.unmodifiableSet(this.bindings.keySet());
+        return Collections.unmodifiableSet(this.bindingInfoMap.keySet());
     }
 
     /**
-     * Assign this instance's fields as editor bindings for the corresponding columns in the given {@link Grid}.
+     * Create, configure, and bind fields into the given {@link Binder}.
      *
      * <p>
-     * This method invokes {@link Grid.Column#setEditorComponent(Component)} for each binding for which the {@link Grid}
-     * has a column whose column key matches the binding property name.
+     * If the {@code binder} does not have a bean currently bound to it, then any {@link ProvidesField &#64;ProvidesField}
+     * annotations on instance methods will generate errors.
      *
-     * <p>
-     * This method does nothing if {@link #bindFields bindFields()} has not been invoked yet.
-     *
-     * @param grid {@link Grid} for editor bindings
-     * @throws IllegalArgumentException if {@code grid} is null
-     * @see Grid.Column#setEditorComponent(Component)
-     */
-    public void setEditorComponents(Grid<T> grid) {
-        if (grid == null)
-            throw new IllegalArgumentException("null grid");
-        this.bindings.forEach((propertyName, builder) -> {
-            final Grid.Column<T> gridColumn = grid.getColumnByKey(propertyName);
-            if (gridColumn == null)
-                return;
-            final HasValue<?, ?> field = builder.getField();
-            if (!(field instanceof Component))
-                return;
-            gridColumn.setEditorComponent((Component)field);
-        });
-    }
-
-    /**
-     * Introspect the configured class for defined {@link FieldBuilder &#64;FieldBuilder.Foo} and
-     * {@link ProvidesField &#64;ProvidesField} method annotations, create and configure corresponding fields,
-     * configure bindings for those fields using any {@link Binding &#64;Binding} annotations, and bind those
-     * fields into the given {@link Binder}.
-     *
-     * <p>
-     * If the {@code binder} does not have a bean currently bound to it, then {@link ProvidesField &#64;ProvidesField}
-     * annotations on instance methods will be ignored.
-     *
+     * @param binder target binder
      * @throws IllegalArgumentException if an invalid use of a widget annotation is encountered
      * @throws IllegalArgumentException if {@code binder} is null
      */
     public void bindFields(Binder<? extends T> binder) {
+        this.bindingInfoMap.values().forEach(info -> info.bind(binder));
+    }
+
+    /**
+     * Add fields bound to the given {@link Binder} by this instance to the given
+     * {@link com.vaadin.flow.component.formlayout.FormLayout}.
+     *
+     * <p>
+     * The {@link Binder} should have already had {@link #bindFields bindFields()} invoked on it.
+     *
+     * @param binder target binder
+     * @param formLayout target layout
+     * @throws IllegalArgumentException if either parameter is null
+     * @throws IllegalArgumentException if {@code binder} is missing a field we expect to find
+     */
+    public void addFields(Binder<? extends T> binder, com.vaadin.flow.component.formlayout.FormLayout formLayout) {
 
         // Sanity check
         if (binder == null)
             throw new IllegalArgumentException("null binder");
+        if (formLayout == null)
+            throw new IllegalArgumentException("null formLayout");
 
-        // Start with an empty list of bindings
-        final LinkedHashMap<String, Binder.BindingBuilder<? extends T, ?>> newBindings = new LinkedHashMap<>();
-        final HashMap<String, MethodAnnotationScanner<T, ?>.MethodInfo> methodInfoMap = new HashMap<>(); // for building exceptions
+        // Extract included fields from the binder and add them to the layout
+        this.bindingInfoMap.values().stream()
+          .filter(BindingInfo::isIncluded)
+          .forEach(info -> {
+            final HasValue<?, ?> field = binder.getBinding(info.getPropertyName())
+              .map(Binder.Binding::getField)
+              .orElseThrow(() -> new IllegalArgumentException("binder is missing binding for \"" + info.getPropertyName() + "\""));
+            info.addField(field, formLayout);
+          });
+    }
 
-        // Look for all bean property getter methods
-        BeanInfo beanInfo;
+    /**
+     * Introspect the configured class for defined {@link FieldBuilder &#64;FieldBuilder.Foo},
+     * {@link ProvidesField &#64;ProvidesField}, {@link Binding &#64;Binding}, and
+     * {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
+     *
+     * <p>
+     * Note: this method is invoked from the {@link AbstractFieldBuilder} constructor.
+     *
+     * @throws IllegalArgumentException if an invalid use of an annotation is encountered
+     */
+    protected void scanForAnnotations() {
+
+        // Reset state
+        this.bindingInfoMap.clear();
+
+        // Identify all bean property getter methods
+        final BeanInfo beanInfo;
         try {
             beanInfo = Introspector.getBeanInfo(this.type);
         } catch (IntrospectionException e) {
             throw new RuntimeException("unexpected exception", e);
         }
-        final HashMap<String, String> getter2propertyMap = new HashMap<>();       // mapping from getter name -> property name
+        final HashMap<String, String> getter2propertyMap = new HashMap<>();                 // method name -> property name
         for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
             final Method method = this.workAroundIntrospectorBug(propertyDescriptor.getReadMethod());
-
-            // Add getter, if appropriate
             if (method != null && method.getReturnType() != void.class && method.getParameterTypes().length == 0)
                 getter2propertyMap.put(method.getName(), propertyDescriptor.getName());
         }
 
-        // Scan getters for widget annotations and create corresponding fields, also checking for conflicts
-        this.getWidgetAnnotationTypes().forEach(annotationType -> {
+        // Scan getter methods for @Binding annotations
+        final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();
+        this.findAnnotatedMethods(Binding.class).forEach(methodInfo -> {
+            final String propertyName = getter2propertyMap.get(methodInfo.getMethod().getName());
+            if (propertyName != null)
+                bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
+        });
+
+        // Scan getter methods for @FormLayout annotations
+        final HashMap<String, FormLayout> formLayoutAnnotationMap = new HashMap<>();
+        this.findAnnotatedMethods(FormLayout.class).forEach(methodInfo -> {
+            final String propertyName = getter2propertyMap.get(methodInfo.getMethod().getName());
+            if (propertyName != null)
+                formLayoutAnnotationMap.put(propertyName, methodInfo.getAnnotation());
+        });
+
+        // Scan getter methods for @FieldBuilder.Foo annotations for all "Foo"
+        this.getDeclarativeAnnotationTypes().forEach(annotationType -> {
             final Set<? extends MethodAnnotationScanner<T, ?>.MethodInfo> methodInfos = this.findAnnotatedMethods(annotationType);
             for (MethodAnnotationScanner<T, ?>.MethodInfo methodInfo : methodInfos) {
                 final Method method = methodInfo.getMethod();
@@ -178,111 +203,56 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                       + " annotation on non-getter method " + method.getName());
                 }
 
-                // Check for conflicting annotations
-                final MethodAnnotationScanner<T, ?>.MethodInfo previousInfo = methodInfoMap.putIfAbsent(propertyName, methodInfo);
+                // Create new binding info and check for conflict
+                final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
+                  bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName),
+                  bean -> this.buildDeclarativeField(methodInfo));
+                final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
                 if (previousInfo != null) {
-                    throw new IllegalArgumentException(String.format(
-                      "method %s.%s() has conflicting %s.* annotations: @%s on %s and @%s on %s",
-                      this.type.getName(), method.getName(), this.getClass().getSimpleName(), annotationType.getSimpleName(),
-                      method, previousInfo.getAnnotation().annotationType().getSimpleName(), previousInfo.getMethod()));
+                    throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
+                      propertyName, previousInfo.getOrigin(), bindingInfo.getOrigin()));
                 }
-
-                // Create field
-                final HasValue<?, ?> field = this.buildField(methodInfo);
-
-                // Create binding
-                newBindings.put(propertyName, binder.forField(field));
             }
         });
 
-        // Scan all methods for @ProvidesField annotations
-        final HashMap<String, Method> providerMap = new HashMap<>();            // contains @ProvidesField methods
-        this.buildProviderMap(providerMap);
+        // Scan all zero-arg, non-void methods for @ProvidesField annotations
+        this.findAnnotatedMethods(ProvidesField.class).forEach(methodInfo -> {
 
-        // Check for conflicts between @ProvidesField and other annotations and add fields to map
-        for (Map.Entry<String, Method> entry : providerMap.entrySet()) {
-            final String propertyName = entry.getKey();
-            final Method method = entry.getValue();
-            final T bean = binder.getBean();
+            // Get method and annotation
+            final Method method = methodInfo.getMethod();
+            final ProvidesField providesField = methodInfo.getAnnotation();
+            final String propertyName = providesField.value();
 
-            // Skip instance methods if there is no bean
-            if ((method.getModifiers() & Modifier.STATIC) == 0 && bean == null)
-                continue;
-
-            // Verify field is not already defined
-            if (newBindings.containsKey(propertyName)) {
-                throw new IllegalArgumentException("conflicting annotations exist for property `" + propertyName
-                  + "': annotation @" + ProvidesField.class.getSimpleName() + " on method " + method
-                  + " cannot be combined with other @" + this.getClass().getSimpleName() + ".* annotation types");
+            // Validate method return type is compatible with Field
+            if (!HasValue.class.isAssignableFrom(method.getReturnType())) {
+                throw new IllegalArgumentException(String.format(
+                  "invalid @%s annotation on method %s: return type %s is not a subtype of %s",
+                  ProvidesField.class.getName(), method, method.getReturnType().getName(), HasValue.class.getName()));
             }
 
-            // Invoke method to create field, if possible
-            try {
-                method.setAccessible(true);
-            } catch (Exception e) {
-                // ignore
+            // Create new binding info and check for conflict
+            final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, providesField,
+              bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName),
+              bean -> this.buildProvidedField(methodInfo, bean));
+            final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
+            if (previousInfo != null) {
+                throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
+                  propertyName, previousInfo.getOrigin(), bindingInfo.getOrigin()));
             }
-            final HasValue<?, ?> field;
-            try {
-                field = (HasValue<?, ?>)method.invoke(bean);
-            } catch (Exception e) {
-                throw new RuntimeException("error invoking @" + ProvidesField.class.getName()
-                  + " annotation on method " + method, e);
-            }
+        });
 
-            // Create binding
-            newBindings.put(propertyName, binder.forField(field));
-        }
-
-        // Scan getters for @Binding annotations
-        final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();                  // contains @Binding's
-        final MethodAnnotationScanner<T, Binding> bindingAnnotationScanner
-          = new MethodAnnotationScanner<>(this.type, Binding.class);
-        for (MethodAnnotationScanner<T, Binding>.MethodInfo methodInfo : bindingAnnotationScanner.findAnnotatedMethods()) {
-            final String propertyName = getter2propertyMap.get(methodInfo.getMethod().getName());
-            bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
-        }
-
-        // Gather bindings in a list so we can order them via @Binding.order()
-        final List<Map.Entry<String, Binder.BindingBuilder<? extends T, ?>>> builderList = new ArrayList<>(newBindings.entrySet());
-        final HashMap<String, Double> orderMap = new HashMap<>(builderList.size());
-
-        // Apply @Binding annotations (if any) and bind fields, and extract the order() values for sorting
-        for (Map.Entry<String, Binder.BindingBuilder<? extends T, ?>> entry : builderList) {
-            final String propertyName = entry.getKey();
-            Binder.BindingBuilder<? extends T, ?> bindingBuilder = entry.getValue();
-
-            // Apply @Binding annotation, if any
-            final Binding bindingAnnotation = bindingAnnotationMap.get(propertyName);
-            if (bindingAnnotation != null) {
-                bindingBuilder = this.applyBindingAnnotation(bindingBuilder, bindingAnnotation);
-                entry.setValue(bindingBuilder);
-                orderMap.put(propertyName, bindingAnnotation.order());
-            }
-
-            // Complete the binding
-            bindingBuilder.bind(propertyName);
-        }
-
-        // Sort builders
-        builderList.sort(Comparator
-          .<Map.Entry<String, Binder.BindingBuilder<? extends T, ?>>>comparingDouble(e -> orderMap.getOrDefault(e.getKey(), 0.0))
-          .thenComparing(Map.Entry::getKey));
-
-        // Build binding map, preserving binding order
-        this.bindings.clear();
-        for (Map.Entry<String, Binder.BindingBuilder<? extends T, ?>> entry : builderList)
-            this.bindings.put(entry.getKey(), entry.getValue());
+        // Sort infos by FormLayout.order() then property name
+        final Comparator<Map.Entry<String, BindingInfo>> comparator
+          = Comparator.<Map.Entry<String, BindingInfo>>comparingDouble(entry -> entry.getValue().getSortOrder())
+            .thenComparing(Map.Entry::getKey);
+        final ArrayList<Map.Entry<String, BindingInfo>> infoList = new ArrayList<>(this.bindingInfoMap.entrySet());
+        infoList.sort(comparator);
+        this.bindingInfoMap.clear();
+        infoList.forEach(entry -> this.bindingInfoMap.put(entry.getKey(), entry.getValue()));
     }
 
     private <A extends Annotation> Set<MethodAnnotationScanner<T, A>.MethodInfo> findAnnotatedMethods(Class<A> annotationType) {
         return new MethodAnnotationScanner<T, A>(this.type, annotationType).findAnnotatedMethods();
-    }
-
-    private void buildProviderMap(Map<String, Method> providerMap) {
-        final MethodAnnotationScanner<T, ProvidesField> scanner = new MethodAnnotationScanner<>(this.type, ProvidesField.class);
-        for (MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo : scanner.findAnnotatedMethods())
-            this.buildProviderMap(providerMap, methodInfo.getMethod().getDeclaringClass(), methodInfo.getMethod().getName());
     }
 
     private Method workAroundIntrospectorBug(Method method) {
@@ -300,104 +270,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Apply a {@link Binding &#64;Binding} annotation to the given {@link Binder.BindingBuilder}.
-     *
-     * @param bindingBuilder binding under construction
-     * @param annotation annotation to apply
-     * @return a {@link Binder.BindingBuilder} configured from {@code annotation}
-     * @throws IllegalArgumentException if either parameter is null
-     */
-    @SuppressWarnings("unchecked")
-    protected Binder.BindingBuilder<? extends T, ?> applyBindingAnnotation(Binder.BindingBuilder<? extends T, ?> bindingBuilder,
-      Binding annotation) {
-        if (bindingBuilder == null)
-            throw new IllegalArgumentException("null bindingBuilder");
-        if (annotation == null)
-            throw new IllegalArgumentException("null annotation");
-        if (annotation.requiredValidator() != Validator.class)
-            bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(annotation.requiredValidator()));
-        else if (annotation.requiredProvider() != ErrorMessageProvider.class)
-            bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(annotation.requiredProvider()));
-        else if (annotation.required().length() > 0)
-            bindingBuilder = bindingBuilder.asRequired(annotation.required());
-        if (annotation.converter() != Converter.class)
-            bindingBuilder = bindingBuilder.withConverter(ReflectUtil.instantiate(annotation.converter()));
-        if (annotation.validationStatusHandler() != BindingValidationStatusHandler.class) {
-            bindingBuilder = bindingBuilder.withValidationStatusHandler(
-              ReflectUtil.instantiate(annotation.validationStatusHandler()));
-        }
-        if (annotation.validator() != Validator.class)
-            bindingBuilder = bindingBuilder.withValidator(ReflectUtil.instantiate(annotation.validator()));
-        if (!annotation.nullRepresentation().equals(STRING_DEFAULT)) {
-            try {
-                bindingBuilder = ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(
-                  annotation.nullRepresentation());
-            } catch (ClassCastException e) {
-                // ignore
-            }
-        }
-        return bindingBuilder;
-    }
-
-    // Used by buildBeanPropertyFields() to validate @ProvidesField annotations
-    private void buildProviderMap(Map<String, Method> providerMap, Class<?> type, String methodName) {
-
-        // Terminate recursion
-        if (type == null)
-            return;
-
-        // Check the method in this class
-        do {
-
-            // Get method
-            Method method;
-            try {
-                method = type.getDeclaredMethod(methodName);
-            } catch (NoSuchMethodException e) {
-                break;
-            }
-
-            // Get annotation
-            final ProvidesField providesField = method.getAnnotation(ProvidesField.class);
-            if (providesField == null)
-                break;
-
-            // Validate method return type is compatible with Field
-            if (!HasValue.class.isAssignableFrom(method.getReturnType())) {
-                throw new IllegalArgumentException("invalid @" + ProvidesField.class.getName() + " annotation on method " + method
-                  + ": return type " + method.getReturnType().getName() + " is not a subtype of " + HasValue.class.getName());
-            }
-
-            // Check for two methods declaring fields for the same property
-            final String propertyName = providesField.value();
-            final Method otherMethod = providerMap.get(propertyName);
-            if (otherMethod != null && !otherMethod.getName().equals(methodName)) {
-                throw new IllegalArgumentException("conflicting @" + ProvidesField.class.getName()
-                  + " annotations exist for property `" + propertyName + "': both method "
-                  + otherMethod + " and method " + method + " are specified");
-            }
-
-            // Save method
-            if (otherMethod == null)
-                providerMap.put(propertyName, method);
-        } while (false);
-
-        // Recurse on interfaces
-        for (Class<?> iface : type.getInterfaces())
-            this.buildProviderMap(providerMap, iface, methodName);
-
-        // Recurse on superclass
-        this.buildProviderMap(providerMap, type.getSuperclass(), methodName);
-    }
-
-    /**
-     * Instantiate and configure a {@link HasValue} according to the given scanned annotation.
+     * Construct and configure a field based on a {@code @FieldBuilder.Foo} declarative annotation.
      *
      * @param methodInfo annotated method info
      * @param <A> annotation type
      * @return new field
      */
-    protected <A extends Annotation> HasValue<?, ?> buildField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
+    protected <A extends Annotation> HasValue<?, ?> buildDeclarativeField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
+
+        // Sanity check
+        if (methodInfo == null)
+            throw new IllegalArgumentException("null methodInfo");
 
         // Create annotation value applier
         final Method method = methodInfo.getMethod();
@@ -413,6 +296,41 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
         // Done
         return field;
+    }
+
+    /**
+     * Construct a field using a {@link ProvidesField &#64;ProvidesField} annotated method.
+     *
+     * @param methodInfo annotated method info
+     * @param bean binder bean, or null if none
+     * @return new field
+     */
+    protected HasValue<?, ?> buildProvidedField(MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo, Object bean) {
+
+        // Sanity check
+        if (methodInfo == null)
+            throw new IllegalArgumentException("null methodInfo");
+
+        // Sanity check bean vs. method
+        final Method method = methodInfo.getMethod();
+        if ((method.getModifiers() & Modifier.STATIC) != 0)
+            bean = null;
+        else if ((method.getModifiers() & Modifier.STATIC) == 0 && bean == null) {
+            throw new IllegalArgumentException("@" + ProvidesField.class.getName() + " annotated method " + method
+              + " is an instance method but the Binder has no bound bean");
+        }
+
+        // Invoke method
+        try {
+            method.setAccessible(true);
+        } catch (Exception e) {
+            // ignore
+        }
+        try {
+            return (HasValue<?, ?>)method.invoke(bean);
+        } catch (Exception e) {
+            throw new RuntimeException("error @" + ProvidesField.class.getName() + " annotated method " + method, e);
+        }
     }
 
     /**
@@ -464,10 +382,27 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * @return widget annotation types
      */
-    protected Stream<Class<? extends Annotation>> getWidgetAnnotationTypes() {
+    protected Stream<Class<? extends Annotation>> getDeclarativeAnnotationTypes() {
         return AnnotationUtil.getAnnotations(this.getClass(), this.getAnnotationDefaultsMethodName())
           .stream()
           .map(Annotation::annotationType);
+    }
+
+    /**
+     * Create a {@link BindingInfo}.
+     *
+     * @param method annotated method
+     * @param propertyName property name
+     * @param annotation annotation found on {@code method}
+     * @param binding associated {@link Binding &#64;Binding} annotation, if any
+     * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
+     * @param fieldBuilder field constructor
+     * @return new {@link BindingInfo}
+     * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
+     */
+    protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
+      Binding binding, FormLayout formLayout, Function<? super T, HasValue<?, ?>> fieldBuilder) {
+        return new BindingInfo(method, propertyName, annotation, binding, formLayout, fieldBuilder);
     }
 
     /**
@@ -480,6 +415,229 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     protected String getAnnotationDefaultsMethodName() {
         return DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME;
+    }
+
+// BindingInfo
+
+    /**
+     * Holds information gathered for one bean property based on {@link FieldBuilder &#64;FieldBuilder.Foo},
+     * {@link ProvidesField &#64;ProvidesField}, {@link Binding &#64;Binding}, and
+     * {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
+     *
+     * <p>
+     * Instances are immutable.
+     */
+    public class BindingInfo {
+
+        private final Method method;
+        private final String propertyName;
+        private final Annotation annotation;
+        private final Binding binding;
+        private final FormLayout formLayout;
+        private final Function<? super T, HasValue<?, ?>> fieldBuilder;
+
+        /**
+         * Constructor.
+         *
+         * @param method annotated method
+         * @param propertyName property name
+         * @param annotation annotation found on {@code method}
+         * @param binding associated {@link Binding &#64;Binding} annotation, if any
+         * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
+         * @param fieldBuilder field constructor
+         * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation},
+         *  or {@code fieldBuilder} is null
+         */
+        public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
+          FormLayout formLayout, Function<? super T, HasValue<?, ?>> fieldBuilder) {
+            if (method == null)
+                throw new IllegalArgumentException("null method");
+            if (propertyName == null)
+                throw new IllegalArgumentException("null propertyName");
+            if (annotation == null)
+                throw new IllegalArgumentException("null annotation");
+            if (fieldBuilder == null)
+                throw new IllegalArgumentException("null fieldBuilder");
+            this.method = method;
+            this.propertyName = propertyName;
+            this.annotation = annotation;
+            this.binding = binding;
+            this.formLayout = formLayout;
+            this.fieldBuilder = fieldBuilder;
+        }
+
+        /**
+         * Return the annotated method associated with this instance.
+         *
+         * @return associated method
+         */
+        public Method getMethod() {
+            return this.method;
+        }
+
+        /**
+         * Return the property name associated with this instance.
+         *
+         * @return associated property name
+         */
+        public String getPropertyName() {
+            return this.propertyName;
+        }
+
+        /**
+         * Get the ({@link FieldBuilder &#64;FieldBuilder.Foo} or {@link ProvidesField &#64;ProvidesField})
+         * annotation that annotates the method from which this instance originated.
+         *
+         * @return associated annotation type
+         */
+        public Annotation getAnnotation() {
+            return this.annotation;
+        }
+
+        /**
+         * Get the associated {@link Binding &#64;Binding} annotation, if any.
+         *
+         * @return associated {@link Binding &#64;Binding} annotation, or null if none
+         */
+        public Binding getBinding() {
+            return this.binding;
+        }
+
+        /**
+         * Get the associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any.
+         *
+         * @return associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, or null if none
+         */
+        public FormLayout getFormLayout() {
+            return this.formLayout;
+        }
+
+        /**
+         * Generate a sorting value for this field.
+         *
+         * @return sort order value
+         */
+        public double getSortOrder() {
+            return Optional.ofNullable(this.formLayout)
+              .map(FormLayout::order)
+              .orElse(0.0);
+        }
+
+        /**
+         * Get whether to include this field in a {@link com.vaadin.flow.component.formlayout.FormLayout} by default.
+         *
+         * @return true to include field, otherwise false
+         */
+        public boolean isIncluded() {
+            return Optional.ofNullable(this.formLayout)
+              .map(FormLayout::included)
+              .orElse(true);
+        }
+
+        /**
+         * Get a description of the origin of this instance (method and annotation).
+         *
+         * @return origin description
+         */
+        public String getOrigin() {
+            return String.format("@%s on method %s", this.annotation.annotationType().getName(), this.method);
+        }
+
+        /**
+         * Create and bind a field to the given {@link Binder}.
+         *
+         * @param binder binder to bind new field to
+         * @return the new binding
+         * @throws IllegalArgumentException if {@code binder} is null
+         */
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        public Binder.Binding<? extends T, ?> bind(Binder<? extends T> binder) {
+
+            // Sanity check
+            if (binder == null)
+                throw new IllegalArgumentException("null binder");
+
+            // Create BindingBuilder
+            Binder.BindingBuilder<? extends T, ?> bindingBuilder = this.createBindingBuilder(binder);
+
+            // Configure BindingBuilder using @Binding annotation, if any
+            if (this.binding != null) {
+                if (this.binding.requiredValidator() != Validator.class)
+                    bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(this.binding.requiredValidator()));
+                else if (this.binding.requiredProvider() != ErrorMessageProvider.class)
+                    bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(this.binding.requiredProvider()));
+                else if (this.binding.required().length() > 0)
+                    bindingBuilder = bindingBuilder.asRequired(this.binding.required());
+                if (this.binding.converter() != Converter.class)
+                    bindingBuilder = bindingBuilder.withConverter(ReflectUtil.instantiate(this.binding.converter()));
+                if (this.binding.validationStatusHandler() != BindingValidationStatusHandler.class) {
+                    bindingBuilder = bindingBuilder.withValidationStatusHandler(
+                      ReflectUtil.instantiate(this.binding.validationStatusHandler()));
+                }
+                for (Class<? extends Validator> validatorClass : this.binding.validators())
+                    bindingBuilder = bindingBuilder.withValidator(ReflectUtil.instantiate(validatorClass));
+                if (!this.binding.nullRepresentation().equals(STRING_DEFAULT)) {
+                    try {
+                        bindingBuilder = ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(
+                          this.binding.nullRepresentation());
+                    } catch (ClassCastException e) {
+                        // ignore
+                    }
+                }
+            }
+
+            // Complete the binding
+            return bindingBuilder.bind(this.propertyName);
+        }
+
+        /**
+         * Add the given field to the given {@link com.vaadin.flow.component.formlayout.FormLayout} according to this instance.
+         *
+         * @param field field to add
+         * @param formLayout target layout
+         * @throws IllegalArgumentException if either parameter is null
+         * @throws IllegalArgumentException if {@code field} is not a {@link Component}
+         */
+        public void addField(HasValue<?, ?> field, com.vaadin.flow.component.formlayout.FormLayout formLayout) {
+
+            // Sanity check
+            if (field == null)
+                throw new IllegalArgumentException("null field");
+            if (!(field instanceof Component)) {
+                throw new IllegalArgumentException("field type " + field.getClass().getName()
+                  + " is not a sub-type of " + Component.class);
+            }
+            if (formLayout == null)
+                throw new IllegalArgumentException("null formLayout");
+
+            // Get label
+            final String label = Optional.ofNullable(this.formLayout)
+              .map(FormLayout::label)
+              .filter(value -> !value.isEmpty())
+              .orElseGet(() -> SharedUtil.camelCaseToHumanFriendly(this.propertyName));
+
+            // Add field to form
+            final com.vaadin.flow.component.formlayout.FormLayout.FormItem formItem
+              = formLayout.addFormItem((Component)field, label);
+
+            // Set colspan, if any
+            Optional.ofNullable(this.formLayout)
+              .map(FormLayout::colspan)
+              .filter(colspan -> colspan > 0)
+              .ifPresent(colspan -> formLayout.setColspan(formItem, colspan));
+        }
+
+        protected Binder.BindingBuilder<? extends T, ?> createBindingBuilder(Binder<? extends T> binder) {
+            if (binder == null)
+                throw new IllegalArgumentException("null binder");
+            return binder.forField(this.createField(binder));
+        }
+
+        protected HasValue<?, ?> createField(Binder<? extends T> binder) {
+            if (binder == null)
+                throw new IllegalArgumentException("null binder");
+            return this.fieldBuilder.apply(binder.getBean());
+        }
     }
 
 // AnnotationApplier
@@ -544,12 +702,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 // Annotations
 
     /**
-     * Specifies that the annotated method will return an {@link HasValue} suitable for editing the specified property.
+     * Specifies that the annotated method will create a {@link HasValue} suitable for editing the specified property.
      *
      * <p>
      * Annotated methods must take zero arguments and return a type compatible with {@link HasValue}.
      *
-     * @see AbstractFieldBuilder
+     * @see AbstractFieldBuilder#bindFields FieldBuilder.bindFields()
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
@@ -557,7 +715,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     public @interface ProvidesField {
 
         /**
-         * The name of the property that the annotated method's return value edits.
+         * The bean property that the annotated method's return value edits.
          *
          * @return property name
          */
@@ -570,20 +728,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * Properties correspond to methods in {@link Binder.BindingBuilder}.
      *
-     * @see AbstractFieldBuilder
+     * @see AbstractFieldBuilder#bindFields FieldBuilder.bindFields()
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     @Documented
     public @interface Binding {
-
-        /**
-         * Get the ordering value for this field.
-         *
-         * @return field order value
-         * @see AbstractFieldBuilder#getPropertyNames
-         */
-        double order() default 0;
 
         /**
          * Get "as required" error message.
@@ -652,12 +802,64 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         Class<? extends BindingValidationStatusHandler> validationStatusHandler() default BindingValidationStatusHandler.class;
 
         /**
-         * Get the validator class.
+         * Get the validator class(es).
          *
-         * @return validator class
+         * @return zero or more validator classes
          * @see Binder.BindingBuilder#withValidator(Validator)
          */
         @SuppressWarnings("rawtypes")
-        Class<? extends Validator> validator() default Validator.class;
+        Class<? extends Validator>[] validators() default {};
+    }
+
+    /**
+     * Configures how {@link AbstractFieldBuilder FieldBuilder.addFields()}
+     * adds a generated field to a {@link com.vaadin.flow.component.formlayout.FormLayout}.
+     *
+     * @see AbstractFieldBuilder#addFields FieldBuilder.addFields()
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface FormLayout {
+
+        /**
+         * Specify the column span of the associated field.
+         *
+         * @return field column span
+         * @see com.vaadin.flow.component.formlayout.FormLayout#setColspan
+         */
+        int colspan() default 0;
+
+        /**
+         * Determine whether the associated field should be added to the {@link FormLayout}.
+         *
+         * <p>
+         * This property can be used (for example) to elide a field in a subclass with an annotation on the overridden method.
+         *
+         * @return whether to include field in {@link com.vaadin.flow.component.formlayout.FormLayout}
+         */
+        boolean included() default true;
+
+        /**
+         * Specify a label for the associated field.
+         *
+         * <p>
+         * By default, we delegate to {@link SharedUtil#camelCaseToHumanFriendly SharedUtil.SharedUtil.camelCaseToHumanFriendly()}
+         * using the associated property name.
+         *
+         * @return field label
+         * @see com.vaadin.flow.component.formlayout.FormLayout#addFormItem(Component, String) FormLayout.addFormItem()
+         */
+        String label() default "";
+
+        /**
+         * Get the ordering value for the associated field.
+         *
+         * <p>
+         * This value determines the order in which fields are added to the {@link com.vaadin.flow.component.formlayout.FormLayout}.
+         *
+         * @return field ordering value
+         */
+        double order() default 0.0;
     }
 }

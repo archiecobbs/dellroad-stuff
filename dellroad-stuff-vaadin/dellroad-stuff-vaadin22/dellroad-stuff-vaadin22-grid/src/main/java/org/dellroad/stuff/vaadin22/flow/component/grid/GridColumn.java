@@ -70,11 +70,6 @@ import java.util.Comparator;
  *  <li>Columns will be ordered first by {@link #order}, then by property name.</li>
  * </ul>
  *
- * <p>
- * You can also configure grid column editor components automatically using
- * {@link org.dellroad.stuff.vaadin22.flow.component.fieldbuilder.FieldBuilder &#64;FieldBuilder.Foo} annotations;
- * see {@link org.dellroad.stuff.vaadin22.flow.component.fieldbuilder.FieldBuilder#setEditorComponents}.
- *
  * @see GridColumnScanner
  */
 @Retention(RetentionPolicy.RUNTIME)

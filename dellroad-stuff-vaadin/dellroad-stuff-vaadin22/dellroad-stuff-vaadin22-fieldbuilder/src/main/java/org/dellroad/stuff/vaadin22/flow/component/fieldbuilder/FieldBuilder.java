@@ -5,14 +5,12 @@
 
 package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
 
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
-import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
 
-import java.io.Serializable;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,86 +18,93 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Automatically build a {@link Binder} and configure and bind fields declaratively using method annotations.
+ * Automatically configures and bind fields using declarative method annotations.
  *
  * <p>
  * {@link FieldBuilder} annotations allow for the automatic construction and configuration of fields for editing a bean.
- * Annotations on "getter" methods specify how the fields that edit the corresponding bean properties should be automatically
- * constructed, configured, and bound to a {@link Binder}. This allows all information about how to edit a Java type
- * to be specified declaratively.
+ * Annotations on "getter" methods specify how the fields that edit the corresponding bean property should be constructed,
+ * configured, and bound to a {@link Binder}. This allows all information about how to edit a Java type
+ * to be specified declaratively. Annotations are also provided to configure how to add the geenrated fields to a
+ * {@link FormLayout}.
  *
  * <p><b>{@code @FieldBuilder.Foo} vs. {@code @ProvidesField}</b>
  *
  * <p>
- * {@link FieldBuilder} supports two types of annotations from which it infers how to construct and configure fields.
+ * {@link FieldBuilder} supports two types of annotations from which it infers how to construct and configure a field
+ * for editing an associated bean property.
  *
  * <p>
  * The various {@code @FieldBuilder.Foo} annotations are the purely declarative way to specify how to construct a field.
- * Each annotation corresponds to a specific widget class (e.g., {@link TextField &#64;FieldBuilder.TextField} configures
- * a {@link com.vaadin.flow.component.textfield.TextField}), and the annotation's properties specify how to construct,
- * configure, and bind the corresponding field. The annotation annotates the "getter" method of the property it should edit.
+ * Each annotation corresponds to a specific widget class (e.g., {@link TextField &#64;FieldBuilder.TextField}
+ * configures a {@link com.vaadin.flow.component.textfield.TextField}), and the annotation's properties specify how to construct,
+ * configure, and bind the corresponding field. The annotation annotates the bean property's "getter" method.
  *
  * <p>
- * {@link ProvidesField &#64;ProvidesField} provides a more general approach, but it requires writing code. Use
- * {@link ProvidesField &#64;ProvidesField} on a method that itself knows how to build a field suitable for editing
- * the named property. The method should return a {@link HasValue}. Both instance and static methods are supported;
- * instance methods require that the {@link Binder} has a bound bean.
+ * {@link AbstractFieldBuilder.ProvidesField &#64;ProvidesField} provides a more general approach, but it requires writing code.
+ * Use {@link AbstractFieldBuilder.ProvidesField &#64;ProvidesField} on a method that itself knows how to build a field suitable
+ * for editing the named property. The method should return a {@link HasValue}. Both instance and static methods are supported;
+ * instance methods require that the {@link Binder} being used has a bound bean.
  *
  * <p>
  * In all cases, an annotation on a subclass method will override the same annotation on the corresponding superclass method.
  *
  * <p><b>Configuring the Binding</b>
  * <p>
- * In addition to constructing and configuring the fields associated with each bean property in the {@link Binder},
- * you may also want to configure the binding itself, for example, to specify a {@link Converter} or {@link Validator}.
- * The {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} annotation allows you to configure the
- * binding, using properties corresponding to {@link Binder.BindingBuilder}.
+ * In addition to constructing and configuring the fields associated with each bean property into the {@link Binder},
+ * you may also want to configure the bindings themselves, for example, to specify a {@link Converter} or {@link Validator}.
+ * The {@link AbstractFieldBuilder.Binding &#64;FieldBuilder.Binding} annotation allows you to configure the
+ * binding using properties corresponding to methods in {@link Binder.BindingBuilder}.
  *
+ * <p><b>Adding Fields to a {@link FormLayout}</b>
  * <p>
- * {@link FieldBuilder.Binding &#64;FieldBuilder.Binding} also allows you to control field ordering via
- * {@link FieldBuilder.Binding#order order()}.
+ * The {@link FieldBuilder.FormLayout &#64;FieldBuilder.FormLayout} annotation allows you to configure field labels,
+ * column span, and ordering of fields when adding fields to a {@link FormLayout} via {@link #addFields FieldBuilder.addFields()}.
  *
  * <p><b>Example</b>
  * <p>
  * A simple example shows how these annotations are used:
  * <blockquote><pre>
- * <b>&#64;FieldBuilder.TextField(label = "Name:", maxLength = 64)</b>
- * <b>&#64;FieldBuilder.Binding(required = "Name is mandatory", validator = MyValidator.class)</b>
+ * <b>&#64;FieldBuilder.TextField(placeholder = "Enter your name...", maxLength = 64)</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Name is mandatory", validators = MyValidator.class)</b>
+ * <b>&#64;FieldBuilder.FormLayout(label = "Name:", colspan = 2, order = 1)</b>
+ * &#64;NotNull
  * public String getName() { ... }
  *
- * <b>&#64;FieldBuilder.EnumComboBox(caption = "Gender:")</b>
- * <b>&#64;FieldBuilder.Binding(required = "Gender is mandatory", order = 2)</b>
- * public Gender getGender() { ... }
+ * <b>&#64;FieldBuilder.EnumComboBox</b>
+ * <b>&#64;FieldBuilder.Binding(required = "Status is mandatory")</b>
+ * <b>&#64;FieldBuilder.FormLayout(label = "Status:", order = 2)</b>
+ * &#64;NotNull
+ * public Status getStatus() { ... }
  *
- * // Use my own custom field to edit the "foobar" property - see below
+ * // A property that can't be edited with existing widgets
  * public Foobar getFoobar() { ... }
  *
+ * // Instead, use my own custom field to edit "foobar"
  * <b>&#64;FieldBuilder.ProvidesField("foobar")</b>
- * private static MyCustomField createFoobarField() { ... }
+ * <b>&#64;FieldBuilder.FormLayout(label = "Your Foobar:", order = 3)</b>
+ * private static CustomField&lt;Foobar&gt; createFoobarField() { ... }
  * </pre></blockquote>
  *
  * <p><b>Building the Form</b>
  * <p>
- * Use {@link #bindFields FieldBuilder.bindFields()} to automatically detect, instantiate, configure, and bind fields
- * to a {@link Binder}, then add the bound fields to your form in order:
+ * First, use {@link #bindFields FieldBuilder.bindFields()} to automatically detect, instantiate, configure, and bind fields
+ * into a {@link Binder}:
+ *
  * <blockquote><pre>
  * // Create a Binder and bind fields
  * Binder&lt;Person&gt; binder = new Binder&lt;&gt;(Person.class);
- * <b>new FieldBuilder(Person.class).bindFields(binder)</b>;
- *
- * // Create form and add fields to it
- * FormLayout myForm = new FormLayout();
- * binder.getFields().forEach(myForm::addFormItem);
+ * <b>FieldBuilder&lt;Person&gt; fieldBuilder = new FieldBuilder&lt;&gt;(Person.class);</b>
+ * <b>fieldBuilder.bindFields(binder)</b>;
  * </pre></blockquote>
  *
- * <p><b>Use with Grid</b>
  * <p>
- * You can also use the generated fields as {@linkplain Grid.Column#setEditorComponent(Component) editor components} for a
- * {@link Grid}; see {@link #setEditorComponents setEditorComponents()}.
+ * Then use {@link #addFields FieldBuilder.addFields()} to add and configure those fields into a {@link FormLayout}:
  *
- * <p>
- * For declarative configuration of {@link Grid} columns, see
- * {@link org.dellroad.stuff.vaadin22.flow.component.grid.GridColumn &#64;GridColumn}.
+ * <blockquote><pre>
+ * // Create form and add fields to it
+ * FormLayout form = new FormLayout();
+ * <b>fieldBuilder.addFields(binder, form);</b>
+ * </pre></blockquote>
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
@@ -127,7 +132,6 @@ import java.lang.annotation.Target;
  * @see TextField
  * @see TimePicker
  * @see EnumComboBox
- * @see org.dellroad.stuff.vaadin22.flow.component.grid.GridColumn
  */
 public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
 
