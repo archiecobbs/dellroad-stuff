@@ -5,7 +5,6 @@
 
 package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
 
-import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.GridVariant;
@@ -54,11 +53,14 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * <p>
  * {@link AbstractFieldBuilder.ProvidesField &#64;ProvidesField} provides a more general approach, but it requires writing code.
  * Use {@link AbstractFieldBuilder.ProvidesField &#64;ProvidesField} on a method that itself knows how to build a field suitable
- * for editing the named property. The method should return a {@link HasValue}. Both instance and static methods are supported;
- * instance methods require that the {@link Binder} being used has a bound bean.
+ * for editing the named property. The method should return a component for editing the property. Both instance and static
+ * methods are supported; instance methods require that the {@link Binder} being used has a bound bean.
  *
  * <p>
  * In all cases, an annotation on a subclass method will override the same annotation on the corresponding superclass method.
+ *
+ * <p>
+ * Fields defined from these annotations are created, configured, and bound via {@link #bindFields bindFields()}.
  *
  * <p><b>Configuring the Binding</b>
  * <p>
@@ -70,7 +72,10 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * <p><b>Adding Fields to a {@link FormLayout}</b>
  * <p>
  * The {@link FieldBuilder.FormLayout &#64;FieldBuilder.FormLayout} annotation allows you to configure field labels,
- * column span, and ordering of fields when adding fields to a {@link FormLayout} via {@link #addFields FieldBuilder.addFields()}.
+ * column span, and ordering of fields in a {@link FormLayout}.
+ *
+ * <p>
+ * Fields are added to a {@link FormLayout} via {@link #addFields addFields()}.
  *
  * <p><b>Example</b>
  * <p>
@@ -99,24 +104,32 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  *
  * <p><b>Building the Form</b>
  * <p>
- * First, use {@link #bindFields FieldBuilder.bindFields()} to automatically detect, instantiate, configure, and bind fields
- * into a {@link Binder}:
+ * First, use {@link #bindFields bindFields()} to create and configure a new set of fields, and bind them into a {@link Binder}:
  *
  * <blockquote><pre>
+ * // Create a FieldBuilder
+ * <b>FieldBuilder&lt;Person&gt; fieldBuilder = new FieldBuilder&lt;&gt;(Person.class);</b>
+ *
  * // Create a Binder and bind fields
  * Binder&lt;Person&gt; binder = new Binder&lt;&gt;(Person.class);
- * <b>FieldBuilder&lt;Person&gt; fieldBuilder = new FieldBuilder&lt;&gt;(Person.class);</b>
  * <b>fieldBuilder.bindFields(binder)</b>;
  * </pre></blockquote>
  *
  * <p>
- * Then use {@link #addFields FieldBuilder.addFields()} to add and configure those fields into a {@link FormLayout}:
+ * Then (optionally) use {@link #addFields addFields()} to add and configure those fields into a {@link FormLayout}:
  *
  * <blockquote><pre>
  * // Create form and add fields to it
  * FormLayout form = new FormLayout();
- * <b>fieldBuilder.addFields(binder, form);</b>
+ * <b>fieldBuilder.addFields(form);</b>
  * </pre></blockquote>
+ *
+ * <p>
+ * You can also access the fields directly via {@link #getFields getFields()}.
+ *
+ * <p>
+ * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked a new set
+ * of fields is created.
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
@@ -462,7 +475,7 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
 
     // Add special handling for @GridSingleSelect and @GridMultiSelect
     @Override
-    protected <A extends Annotation> HasValue<?, ?> buildDeclarativeField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
+    protected <A extends Annotation> FormField buildDeclarativeField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
 
         // Gather info
         final Method method = methodInfo.getMethod();
@@ -473,12 +486,12 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         if (annotationType.equals(GridSingleSelect.class)) {
             final Grid<?> grid = this.buildGrid(method, annotation, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-            return grid.asSingleSelect();
+            return new FormField(grid.asSingleSelect(), grid);
         }
         if (annotationType.equals(GridMultiSelect.class)) {
             final Grid<?> grid = this.buildGrid(method, annotation, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.MULTI);
-            return grid.asMultiSelect();
+            return new FormField(grid.asMultiSelect(), grid);
         }
 
         // Do the normal thing
