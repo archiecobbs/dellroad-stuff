@@ -672,11 +672,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             if (component == null)
                 throw new IllegalArgumentException("null component");
 
-            // Get label
+            // Get label: (a) from @FormLayout.label(); (b) from component.getLabel(); (c) derive from property name
             final String label = Optional.ofNullable(this.formLayout)
               .map(FormLayout::label)
               .filter(value -> !value.isEmpty())
-              .orElseGet(() -> SharedUtil.camelCaseToHumanFriendly(this.propertyName));
+              .orElseGet(() -> Optional.ofNullable(this.getLabel(component))
+                                .orElseGet(() -> SharedUtil.camelCaseToHumanFriendly(this.propertyName)));
 
             // Add component to form
             final com.vaadin.flow.component.formlayout.FormLayout.FormItem formItem = formLayout.addFormItem(component, label);
@@ -686,6 +687,19 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               .map(FormLayout::colspan)
               .filter(colspan -> colspan > 0)
               .ifPresent(colspan -> formLayout.setColspan(formItem, colspan));
+        }
+
+        /**
+         * Find a public zero-arg method {@code getLabel} returning {@link String} and invoke it, if it exists.
+         *
+         * @return the returned label, or null on failure
+         */
+        protected String getLabel(Object obj) {
+            try {
+                return (String)obj.getClass().getMethod("getLabel").invoke(obj);
+            } catch (ReflectiveOperationException | SecurityException | ClassCastException | IllegalArgumentException e) {
+                return null;
+            }
         }
     }
 
