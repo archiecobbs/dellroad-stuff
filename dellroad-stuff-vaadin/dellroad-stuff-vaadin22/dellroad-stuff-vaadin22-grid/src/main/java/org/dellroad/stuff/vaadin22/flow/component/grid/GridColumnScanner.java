@@ -284,7 +284,7 @@ public class GridColumnScanner<T> {
           (method, name) -> autoProperties.contains(name) ? name : null);
 
         // Handle other annotation properties manually
-        column.setKey(!annotation.key().equals(defaults.key()) ? annotation.key() : methodInfo.getMethodPropertyName());
+        column.setKey(key);
         if (!annotation.valueProviderComparator().equals(defaults.valueProviderComparator()))
             column.setComparator(ReflectUtil.instantiate(annotation.valueProviderComparator()));
         if (!annotation.editorComponent().equals(defaults.editorComponent())) {
