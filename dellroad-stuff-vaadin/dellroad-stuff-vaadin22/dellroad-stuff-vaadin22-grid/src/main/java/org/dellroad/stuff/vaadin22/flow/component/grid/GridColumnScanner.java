@@ -149,11 +149,14 @@ public class GridColumnScanner<T> {
             // Remove any existing column with the same key
             existingColumnList.removeIf(column -> columnKey.equals(column.getKey()));
 
-            // Get annotation
+            // Get method and annotation
+            final Method method = methodInfo.getMethod();
             final GridColumn annotation = methodInfo.getAnnotation();
 
             // Add new column
-            final Grid.Column<T> column = GridColumnScanner.addColumn(grid, columnKey, methodInfo, defaults);
+            final boolean selfRendering = Component.class.isAssignableFrom(method.getReturnType());
+            final Grid.Column<T> column = GridColumnScanner.addColumn(grid, columnKey, annotation,
+              "method " + method, bean -> ReflectUtil.invoke(method, bean), selfRendering, defaults);
 
             // Update column groups
             columnGroups.computeIfAbsent(annotation.columnGroup(), columnGroup -> new ArrayList<>()).add(column);
@@ -215,38 +218,40 @@ public class GridColumnScanner<T> {
     /**
      * Add and configure a single column to the given {@link Grid}.
      *
-     * @param key the column's unique column key
      * @param grid target {@link Grid}
-     * @param methodInfo method's {@link GridColumn &#64;GridColumn} annotation info
+     * @param key the column's unique column key
+     * @param annotation {@link GridColumn &#64;GridColumn} annotation
+     * @param description description of what we're configuring (for debug purposes)
+     * @param valueProvider value provider for the column
+     * @param selfRendering true if {@code valueProvider} returns a {@link Component}
      * @param <T> underlying bean type
      * @return newly added column
      * @throws IllegalArgumentException if any parameter is null
      */
-    public static <T> Grid.Column<T> addColumn(Grid<T> grid, String key,
-      MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo) {
-        return GridColumnScanner.addColumn(grid, key, methodInfo, GridColumnScanner.getDefaults());
+    public static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
+      String description, ValueProvider<T, ?> valueProvider, boolean selfRendering) {
+        return GridColumnScanner.addColumn(grid, key, annotation,
+          description, valueProvider, selfRendering, GridColumnScanner.getDefaults());
     }
 
     @SuppressWarnings("unchecked")
-    private static <T> Grid.Column<T> addColumn(Grid<T> grid, String key,
-      MethodAnnotationScanner<T, GridColumn>.MethodInfo methodInfo, GridColumn defaults) {
+    private static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
+      String description, ValueProvider<T, ?> valueProvider, boolean selfRendering, GridColumn defaults) {
 
         // Sanity check
         if (grid == null)
             throw new IllegalArgumentException("null grid");
         if (key == null)
             throw new IllegalArgumentException("null key");
-        if (methodInfo == null)
-            throw new IllegalArgumentException("null methodInfo");
+        if (annotation == null)
+            throw new IllegalArgumentException("null annotation");
+        if (valueProvider == null)
+            throw new IllegalArgumentException("null valueProvider");
         if (defaults == null)
             throw new IllegalArgumentException("null defaults");
 
-        // Create ValueProvider for this property
-        final ValueProvider<T, ?> valueProvider = bean -> ReflectUtil.invoke(methodInfo.getMethod(), bean);
-
         // Create custom Renderer, if any
         Renderer<T> renderer = null;
-        final GridColumn annotation = methodInfo.getAnnotation();
         if (!annotation.renderer().equals(defaults.renderer())) {
             final Constructor<? extends Renderer<?>> constructor;
             try {
@@ -256,7 +261,7 @@ public class GridColumnScanner<T> {
                   + " because no constructor taking ValueProvider is found", e);
             }
             renderer = (Renderer<T>)ReflectUtil.instantiate(constructor, valueProvider);
-        } else if (Component.class.isAssignableFrom(methodInfo.getMethod().getReturnType()))
+        } else if (selfRendering)
             renderer = new SelfRenderer<T>((ValueProvider<T, ? extends Component>)valueProvider);
 
         // Create the column, using custom Renderer or else just ValueProvider
@@ -266,8 +271,7 @@ public class GridColumnScanner<T> {
             if (renderer != null) {
                 if (!(renderer instanceof ComponentRenderer)) {
                     throw new RuntimeException("non-default renderer type " + renderer.getClass().getName()
-                      + " specified for method " + methodInfo.getMethod() + " does not subclass "
-                      + ComponentRenderer.class.getName()
+                      + " specified for " + description + " does not subclass " + ComponentRenderer.class.getName()
                       + ", which is required when configuring a TreeGrid with hierarchyColumn() = true");
                 }
                 column = treeGrid.addComponentHierarchyColumn(((ComponentRenderer)renderer)::createComponent);
@@ -280,7 +284,7 @@ public class GridColumnScanner<T> {
         final HashSet<String> autoProperties = new HashSet<>(Arrays.asList(new String[] {
           "autoWidth", "classNameGenerator", "comparator", "flexGrow", "footer", "frozen", "header",
           "id", "resizable", "sortOrderProvider", "sortable", "textAlign", "visible", "width" }));
-        AnnotationUtil.applyAnnotationValues(column, "set", methodInfo.getAnnotation(), defaults,
+        AnnotationUtil.applyAnnotationValues(column, "set", annotation, defaults,
           (method, name) -> autoProperties.contains(name) ? name : null);
 
         // Handle other annotation properties manually
