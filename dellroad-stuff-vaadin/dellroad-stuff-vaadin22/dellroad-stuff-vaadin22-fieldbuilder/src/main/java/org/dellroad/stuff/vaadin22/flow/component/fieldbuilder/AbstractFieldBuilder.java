@@ -812,7 +812,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         protected String getLabel(Object obj) {
             try {
                 return (String)obj.getClass().getMethod("getLabel").invoke(obj);
-            } catch (ReflectiveOperationException | SecurityException | ClassCastException | IllegalArgumentException e) {
+            } catch (ReflectiveOperationException | ClassCastException | IllegalArgumentException e) {
                 return null;
             }
         }
