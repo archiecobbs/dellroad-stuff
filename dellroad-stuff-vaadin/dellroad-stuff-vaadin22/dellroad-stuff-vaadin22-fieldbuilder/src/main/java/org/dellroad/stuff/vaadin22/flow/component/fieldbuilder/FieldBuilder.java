@@ -106,6 +106,17 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * private static CustomField&lt;Foobar&gt; createFoobarField() { ... }
  * </pre></blockquote>
  *
+ * <p>
+ * All of the declarative {@code @FieldBuilder.Foo} annotations have an {@code implementation()} property that allows you
+ * to specify a custom implementation. So a slightly different way to specify a custom field to edit the {@code "foobar"}
+ * property would be:
+ *
+ * <blockquote><pre>
+ * // Use my own custom FoobarField to edit "foobar"
+ * <b>&#64;FieldBuilder.CustomField(label = "Your Foobar:", implementation = FoobarField.class)</b>
+ * public Foobar getFoobar() { ... }
+ * </pre></blockquote>
+ *
  * <p><b>Building the Form</b>
  *
  * <p>
