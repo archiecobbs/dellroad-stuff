@@ -141,10 +141,10 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
      *
      * <p>
      * The implementation in {@link MethodAnnotationScanner} returns true if {@code method} takes zero parameters
-     * and returns anything other than void, otherwise false.
+     * and returns anything other than void, otherwise false. Note that this will include static methods.
      *
      * <p>
-     * Subclasses may apply different tests and optionally throw an exception if a method is improperly annotated.
+     * Subclasses may apply different tests and/or throw an exception if a method is improperly annotated.
      *
      * @param method method to check
      * @param annotation method's annotation
@@ -159,12 +159,16 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
      * Determine if one method strictly overrides another.
      *
      * <p>
+     * Both methods must be instance methods with the same name, and {@code override}'s
+     * declaring class must be assignable to {@code original}'s declaring class.
+     *
+     * <p>
      * If both methods are in the same class, then {@code override} must have a narrower return type than {@code original}.
      * This would normally indicate that {@code original} is a bridge method.
      *
      * @param override possible overriding method (i.e., subclass method)
      * @param original possible overriding method (i.e., superclass method)
-     * @return true if {@code override} overrides {@code original}, otherwise false;
+     * @return true if {@code override} strictly overrides {@code original}, otherwise false;
      *  if {@code override} equals {@code original}, false is returned
      */
     public static boolean overrides(Method override, Method original) {
@@ -325,4 +329,3 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         }
     }
 }
-
