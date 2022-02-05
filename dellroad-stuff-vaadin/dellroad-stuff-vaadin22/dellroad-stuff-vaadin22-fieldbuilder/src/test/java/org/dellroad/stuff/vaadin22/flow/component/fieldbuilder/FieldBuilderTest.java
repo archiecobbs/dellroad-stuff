@@ -86,6 +86,11 @@ public class FieldBuilderTest extends TestSupport {
         Assert.assertEquals(field2.getEnumClass(), MyEnum.class);
         Assert.assertEquals(field2.getPlaceholder(), "bleh");
         Assert.assertTrue(field2.getItemLabelGenerator() instanceof MyItemLabelGenerator);
+
+    // Check field3
+
+        final ComboBox<?> field3 = (ComboBox<?>)binder.getBinding("field3").get().getField();
+        Assert.assertTrue(field3.getItemLabelGenerator() instanceof MyItemLabelGenerator);
     }
 
 // Classes
@@ -137,6 +142,19 @@ public class FieldBuilderTest extends TestSupport {
           itemLabelGenerator = MyItemLabelGenerator.class)
         public abstract MyEnum getField2();
         public abstract void setField2(MyEnum x);
+
+        @FieldBuilder.ComboBox
+        public abstract Bar getField3();
+        public abstract void setField3(Bar x);
+    }
+
+    @SuppressWarnings("serial")
+    public static class Bar {
+
+        @FieldBuilder.Default("itemLabelGenerator")
+        private static MyItemLabelGenerator<Bar> buildItemLabelGenerator() {
+            return new MyItemLabelGenerator<>();
+        }
     }
 
     @SuppressWarnings("serial")

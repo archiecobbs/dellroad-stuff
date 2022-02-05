@@ -136,6 +136,30 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked a new set
  * of fields is created.
  *
+ * <p><b>Alternate Defaults</b>
+ *
+ * <p>
+ * You can override the default value for specific field properties on a per-property-name basis by annotating static methods
+ * in the edited model class with {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default}. For example:
+ *
+ * <blockquote><pre>
+ * public class Person {
+ *     public String getFirstName() { ... }
+ *     public String getLastName() { ... }
+ *
+ *     <b>@FieldBuilder.Default("itemLabelGenerator")</b>
+ *     private static ItemLabelGenerator&lt;Person&gt; buildPersonILG() {
+ *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
+ *     }
+ * }
+ * </pre></blockquote>
+ *
+ * <p>
+ * These defaults can be accessed via {@link #getScannedFieldDefaults getScannedFieldDefaults()}.
+ *
+ * <p>
+ * See {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} for details.
+ *
  * <p><b>Homebrew Your Own</b>
  * <p>
  * You can create your own version of this class containing auto-generated annotations for whatever classes you want

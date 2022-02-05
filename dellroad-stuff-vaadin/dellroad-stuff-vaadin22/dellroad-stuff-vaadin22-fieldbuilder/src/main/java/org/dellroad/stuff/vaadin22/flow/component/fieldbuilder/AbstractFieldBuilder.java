@@ -31,6 +31,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,11 +39,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
+import org.dellroad.stuff.java.Primitive;
 import org.dellroad.stuff.java.ReflectUtil;
 
 import org.dellroad.stuff.vaadin22.flow.component.AutoBuildAware;
@@ -65,6 +68,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     private final Class<T> type;
     private final LinkedHashMap<String, BindingInfo<T>> bindingInfoMap = new LinkedHashMap<>(); // info from scanned annotations
+    private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @Default's
 
     private LinkedHashMap<String, BoundField> boundFieldMap;                                    // most recently built fields
 
@@ -104,6 +108,23 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     public Map<String, BindingInfo<T>> getScannedProperties() {
         return Collections.unmodifiableMap(this.bindingInfoMap);
+    }
+
+    /**
+     * Get the default values discovered by this instance from scanned
+     * {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     *
+     * <p>
+     * The returned map is keyed by the return types of methods found with
+     * {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations.
+     *
+     * <p>
+     * This represents static information gathered by this instance by scanning the class hierarchy during construction.
+     *
+     * @return unmodifiable mapping from model class to field defaults keyed by field property name
+     */
+    public Map<Class<?>, Map<String, DefaultInfo>> getScannedFieldDefaults() {
+        return Collections.unmodifiableMap(this.defaultInfoMap);
     }
 
     /**
@@ -259,6 +280,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
         });
 
+        // Inspect model types and scan them for static methods with @Default annotations
+        this.bindingInfoMap.values().stream()
+          .map(BindingInfo::getMethod)
+          .map(Method::getReturnType)
+          .distinct()                                                               // avoid redundant scans
+          .forEach(modelType -> {
+            final Map<String, DefaultInfo> defaultInfo = this.scanForDefaultAnnotations(modelType);
+            if (!defaultInfo.isEmpty())
+                this.defaultInfoMap.put(modelType, defaultInfo);
+          });
+
         // Scan all zero-arg, non-void methods for @ProvidesField annotations
         this.findAnnotatedMethods(ProvidesField.class).forEach(methodInfo -> {
 
@@ -297,6 +329,58 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         infoList.sort(comparator);
         this.bindingInfoMap.clear();
         infoList.forEach(entry -> this.bindingInfoMap.put(entry.getKey(), entry.getValue()));
+    }
+
+    /**
+     * Scan the given model type for {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     *
+     * @param modelType model type for some edited property
+     * @param <M> model type
+     * @return mapping from field property name to default info for that property (possibly empty)
+     * @throws IllegalArgumentException if {@code modelType} is null
+     */
+    protected <M> Map<String, DefaultInfo> scanForDefaultAnnotations(Class<M> modelType) {
+
+        // Sanity check
+        if (modelType == null)
+            throw new IllegalArgumentException("null modelType");
+
+        // Scan type for @Default annotations
+        final HashMap<String, DefaultInfo> defaultMap = new HashMap<>();
+        new MethodAnnotationScanner<M, Default>(modelType, Default.class) {
+
+            // We only want non-void, zero-arg static methods
+            @Override
+            protected boolean includeMethod(Method method, Default annotation) {
+                return super.includeMethod(method, annotation) && (method.getModifiers() & Modifier.STATIC) != 0;
+            }
+        }.findAnnotatedMethods().forEach(methodInfo -> {
+
+            // Get method and annotation
+            final Method method = methodInfo.getMethod();
+            final Default defaultAnnotation = methodInfo.getAnnotation();
+            final String propertyName = defaultAnnotation.value();
+
+            // Create new default info and check for conflict
+            defaultMap.merge(propertyName, new DefaultInfo(method, propertyName), (info1, info2) -> {
+
+                // Choose the method declared in the narrower type, if possible
+                final int diff = ReflectUtil.getClassComparator().compare(
+                  info1.getMethod().getDeclaringClass(), info2.getMethod().getDeclaringClass());
+                if (diff < 0)
+                    return info1;
+                if (diff > 0)
+                    return info2;
+
+                // Declaring types are not comparable, so we don't know which one to pick
+                throw new IllegalArgumentException(String.format(
+                  "conflicting @%s annotations for field property \"%s\" on methods %s and %s",
+                  Default.class.getName(), propertyName, info1.getMethod(), info2.getMethod()));
+            });
+        });
+
+        // Done
+        return Collections.unmodifiableMap(defaultMap);
     }
 
     private <A extends Annotation> Set<MethodAnnotationScanner<T, A>.MethodInfo> findAnnotatedMethods(Class<A> annotationType) {
@@ -343,11 +427,40 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               + " annotation on method " + method + " is not a sub-type of " + Component.class);
         }
 
+        // Apply any applicable @Default annotations
+        this.applyDefaultAnnotations(field, method.getReturnType());
+
         // Configure field from annotation
         applier.configureField(field);
 
         // Done
         return new BoundField(field, (Component)field);
+    }
+
+    /**
+     * Apply defaults derived from {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations
+     * to the given field.
+     *
+     * @param field the field being configured
+     * @param modelType the type of the property edited by {@code field}
+     * @throws IllegalArgumentException if either parameter is null
+     */
+    protected void applyDefaultAnnotations(HasValue<?, ?> field, Class<?> modelType) {
+
+        // Sanity check
+        if (field == null)
+            throw new IllegalArgumentException("null field");
+        if (modelType == null)
+            throw new IllegalArgumentException("null modelType");
+
+        // Find the narrowest type compatible with modelType that has default info, and apply all those defaults
+        this.defaultInfoMap.entrySet().stream()
+          .filter(entry -> entry.getKey().isAssignableFrom(modelType))
+          .reduce(BinaryOperator.minBy(Map.Entry.comparingByKey(ReflectUtil.getClassComparator())))
+          .map(Map.Entry::getValue)
+          .map(Map::values)
+          .map(Collection::stream)
+          .ifPresent(stream -> stream.forEach(info -> info.applyTo(field)));
     }
 
     /**
@@ -705,6 +818,105 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
     }
 
+// DefaultInfo
+
+    /**
+     * Holds static information gathered from scanning {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     *
+     * <p>
+     * Instances are immutable.
+     */
+    public static class DefaultInfo {
+
+        private Method method;
+        private String propertyName;
+
+        /**
+         * Constructor.
+         *
+         * @param method the annotated method that provides the alternate default value
+         * @param propertyName the name of the field property provided by {@code method}
+         * @throws IllegalArgumentException if either parameter is null
+         */
+        public DefaultInfo(Method method, String propertyName) {
+            if (method == null)
+                throw new IllegalArgumentException("null method");
+            if (propertyName == null)
+                throw new IllegalArgumentException("null propertyName");
+            this.method = method;
+            this.propertyName = propertyName;
+        }
+
+        /**
+         * Get the annotated method that provides the alternate default value.
+         *
+         * @return default providing method
+         */
+        public Method getMethod() {
+            return this.method;
+        }
+
+        /**
+         * Get the name of the field property provided.
+         *
+         * @return provided property name
+         */
+        public String getPropertyName() {
+            return this.propertyName;
+        }
+
+        /**
+         * Apply the alternate default value to the configured property in the given field, if possible.
+         *
+         * @param field field to update
+         * @return true if successful, false if no such setter method exists, value is incompatible, etc.
+         * @throws IllegalArgumentException if {@code field} is null
+         */
+        public boolean applyTo(HasValue<?, ?> field) {
+
+            // Sanity check
+            if (field == null)
+                throw new IllegalArgumentException("null field");
+            if (this.propertyName.isEmpty())
+                return false;
+
+            // Invoke annotated method
+            final Object defaultValue;
+            try {
+                method.setAccessible(true);
+                defaultValue = method.invoke(null);
+            } catch (ReflectiveOperationException e) {
+                return false;
+            }
+            if (defaultValue == null)
+                return false;
+
+            // Find best candidate setter method in field
+            final String methodName = "set" + this.propertyName.substring(0, 1).toUpperCase() + this.propertyName.substring(1);
+            final Method setter = Stream.of(field.getClass().getMethods())
+              .filter(method -> method.getName().equals(methodName))                    // name must match
+              .filter(method -> (method.getModifiers() & Modifier.STATIC) == 0)         // must not be static
+              .filter(method -> method.getParameterTypes().length == 1)                 // must take exactly one parameter
+              .filter(method -> Primitive.wrap(method.getParameterTypes()[0]).isInstance(defaultValue))    // param is compatible
+              .reduce(BinaryOperator.minBy(Comparator.comparing(
+                method -> Primitive.unwrap(method.getParameterTypes()[0]),
+                ReflectUtil.getClassComparator())))                                     // prefer method w/ narrowest parameter type
+              .orElse(null);
+            if (setter == null)
+                return false;
+
+            // Invoke field setter method to set default value
+            try {
+                setter.invoke(field, defaultValue);
+            } catch (ReflectiveOperationException e) {
+                return false;
+            }
+
+            // Done
+            return true;
+        }
+    }
+
 // BoundField
 
     /**
@@ -928,6 +1140,74 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          */
         @SuppressWarnings("rawtypes")
         Class<? extends Validator>[] validators() default {};
+    }
+
+    /**
+     * Annotates methods returning alternate default values for some property of the various fields constructed
+     * by a {@link FieldBuilder} from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations.
+     *
+     * <p>
+     * A {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotation annotates a static method in an
+     * edited model class that returns an alternate default value for some field property. The property is specified by
+     * name and works for all fields with a corresponding setter method whose parameter type is compatible with the
+     * annotated method's return value.
+     * For example:
+     *
+     * <blockquote><pre>
+     * // This is one of our data model classes
+     * public class <b>Person</b> {
+     *     public String getFirstName() { ... }
+     *     public String getLastName() { ... }
+     *
+     *     <b>&#64;FieldBuilder.Default("itemLabelGenerator")</b>
+     *     private static ItemLabelGenerator&lt;Person&gt; myCustomLabel() {
+     *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
+     *     }
+     * }
+     *
+     * // This is a class we want to edit using {@link FieldBuilder}-generated fields
+     * public class Vehicle {
+     *
+     *     &#64;FieldBuilder.ComboBox          // Does not use any special ItemLabelGenerator
+     *     public Model getModel() { ... }
+     *
+     *     &#64;FieldBuilder.ComboBox(         // Uses an instance of AnotherClass as ItemLabelGenerator
+     *       itemLabelGenerator = AnotherClass.class)
+     *     public Person getOwner() { ... }
+     *
+     *     <b>&#64;FieldBuilder.ComboBox</b>          // Uses ItemLabelGenerator from Person.myCustomLabel()
+     *     public <b>Person</b> getOwner() { ... }
+     *
+     *     <b>&#64;FieldBuilder.CheckboxGroup</b>     // Uses ItemLabelGenerator from Person.myCustomLabel()
+     *     public <b>Person</b> getPassengers() { ... }
+     * }
+     * </pre></blockquote>
+     *
+     * <p><b>Details</b>
+     *
+     * <p>
+     * The annotated method must be static, take zero parameters, and have a return type compatible with the named field property,
+     * or else the annotation is ignored. Public, package-private, protected, and private methods are supported.
+     *
+     * <p>
+     * If the same field property is named by multiple methods, the method declared in the narrower class wins. If neither
+     * declaring class is narrower, and exception is thrown.
+     *
+     * <p>
+     * These annotations only affect fields created from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations;
+     * fields returned by {@link ProvidesField &#64;ProvidesField} methods are not affected.
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface Default {
+
+        /**
+         * The name of the field property that the annotated method will provide.
+         *
+         * @return field property name
+         */
+        String value();
     }
 
     /**
