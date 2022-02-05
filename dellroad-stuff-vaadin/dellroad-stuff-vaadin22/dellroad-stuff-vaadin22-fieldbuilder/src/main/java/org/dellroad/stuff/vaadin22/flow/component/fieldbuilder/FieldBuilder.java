@@ -46,9 +46,10 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  *
  * <p>
  * The various {@code @FieldBuilder.Foo} annotations are the purely declarative way to specify how to construct a field.
- * Each annotation corresponds to a specific widget class (e.g., {@link TextField &#64;FieldBuilder.TextField}
- * configures a {@link com.vaadin.flow.component.textfield.TextField}), and the annotation's properties specify how to construct,
- * configure, and bind the corresponding field. The annotation annotates the bean property's "getter" method.
+ * Each annotation corresponds to a specific field class (e.g., {@link TextField &#64;FieldBuilder.TextField}
+ * configures a {@link com.vaadin.flow.component.textfield.TextField}). The annotation's properties parallel the
+ * properties of the field and specify how to construct, configure, and bind an instance of the field.
+ * The annotation annotates the bean property's "getter" method.
  *
  * <p>
  * {@link AbstractFieldBuilder.ProvidesField &#64;ProvidesField} provides a more general approach, but it requires writing code.
@@ -63,6 +64,7 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * Fields defined from these annotations are created, configured, and bound via {@link #bindFields bindFields()}.
  *
  * <p><b>Configuring the Binding</b>
+ *
  * <p>
  * In addition to constructing and configuring the fields associated with each bean property into the {@link Binder},
  * you may also want to configure the bindings themselves, for example, to specify a {@link Converter} or {@link Validator}.
@@ -70,14 +72,16 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * binding using properties corresponding to methods in {@link Binder.BindingBuilder}.
  *
  * <p><b>Adding Fields to a {@link FormLayout}</b>
+ *
  * <p>
  * The {@link FieldBuilder.FormLayout &#64;FieldBuilder.FormLayout} annotation allows you to configure field labels,
  * column span, and ordering of fields in a {@link FormLayout}.
  *
  * <p>
- * Fields are added to a {@link FormLayout} via {@link #addFields addFields()}.
+ * Fields are added to a {@link FormLayout} via {@link #addBoundFields addBoundFields()}.
  *
  * <p><b>Example</b>
+ *
  * <p>
  * A simple example shows how these annotations are used:
  * <blockquote><pre>
@@ -93,7 +97,7 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * &#64;NotNull
  * public Status getStatus() { ... }
  *
- * // A property that can't be edited with existing widgets
+ * // A property that can't be edited with existing fields
  * public Foobar getFoobar() { ... }
  *
  * // Instead, use my own custom field to edit "foobar"
@@ -103,6 +107,7 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * </pre></blockquote>
  *
  * <p><b>Building the Form</b>
+ *
  * <p>
  * First, use {@link #bindFields bindFields()} to create and configure a new set of fields, and bind them into a {@link Binder}:
  *
@@ -116,16 +121,16 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * </pre></blockquote>
  *
  * <p>
- * Then (optionally) use {@link #addFields addFields()} to add and configure those fields into a {@link FormLayout}:
+ * Then (optionally) use {@link #addBoundFields addBoundFields()} to add and configure those fields into a {@link FormLayout}:
  *
  * <blockquote><pre>
  * // Create form and add fields to it
  * FormLayout form = new FormLayout();
- * <b>fieldBuilder.addFields(form);</b>
+ * <b>fieldBuilder.addBoundFields(form);</b>
  * </pre></blockquote>
  *
  * <p>
- * You can also access the fields directly via {@link #getFields getFields()}.
+ * You can also access the fields directly via {@link #getBoundFields getBoundFields()}.
  *
  * <p>
  * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked a new set
@@ -133,7 +138,7 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
- * You can create your own version of this class containing auto-generated annotations for whatever widgets classes you want
+ * You can create your own version of this class containing auto-generated annotations for whatever classes you want
  * simply by subclassing {@link AbstractFieldBuilder} and applying a Maven plugin. See source code for details.
  *
  * @param <T> backing object type
@@ -475,7 +480,7 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
 
     // Add special handling for @GridSingleSelect and @GridMultiSelect
     @Override
-    protected <A extends Annotation> FormField buildDeclarativeField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
+    protected <A extends Annotation> BoundField buildDeclarativeField(MethodAnnotationScanner<T, A>.MethodInfo methodInfo) {
 
         // Gather info
         final Method method = methodInfo.getMethod();
@@ -486,12 +491,12 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         if (annotationType.equals(GridSingleSelect.class)) {
             final Grid<?> grid = this.buildGrid(method, annotation, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-            return new FormField(grid.asSingleSelect(), grid);
+            return new BoundField(grid.asSingleSelect(), grid);
         }
         if (annotationType.equals(GridMultiSelect.class)) {
             final Grid<?> grid = this.buildGrid(method, annotation, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.MULTI);
-            return new FormField(grid.asMultiSelect(), grid);
+            return new BoundField(grid.asMultiSelect(), grid);
         }
 
         // Do the normal thing
