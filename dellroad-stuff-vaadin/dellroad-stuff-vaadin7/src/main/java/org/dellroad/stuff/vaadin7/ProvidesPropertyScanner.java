@@ -88,9 +88,7 @@ public class ProvidesPropertyScanner<T> {
             final String propertyName = this.getSortPropertyName(methodInfo);
 
             // Verify the method's return type (or wrapper type if primitive) implements Comparable or Comparator
-            Class<?> methodType = methodInfo.getMethod().getReturnType();
-            if (methodType.isPrimitive())
-                methodType = Primitive.get(methodType).getWrapperType();
+            final Class<?> methodType = Primitive.wrap(methodInfo.getMethod().getReturnType());
             if (!Comparable.class.isAssignableFrom(methodType) && !Comparator.class.isAssignableFrom(methodType)) {
                 throw new IllegalArgumentException("invalid @" + ProvidesPropertySort.class.getSimpleName()
                   + " declaration for property `" + propertyName + "': method " + methodInfo.getMethod()

@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -438,6 +439,36 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
         return Primitive.classMap.get(c);
     }
 
+    /**
+     * Unwrap the given type into its primitive type if it's a primitive wrapper type.
+     *
+     * @param type given type
+     * @return primitive type corresponding to {@code type}, or {@code type}
+     *  if {@code type} is not a primitive wrapper type, or null if {@code type} is null
+     */
+    public static Class<?> unwrap(Class<?> type) {
+        if (type == null)
+            return null;
+        return Optional.ofNullable(Primitive.get(type))
+          .<Class<?>>map(Primitive::getType)
+          .orElse(type);
+    }
+
+    /**
+     * Wrap the given primitive type into its wrapper type if it's a primitive type.
+     *
+     * @param type given type
+     * @return primitive wrapper type corresponding to {@code type}, or {@code type}
+     *  if {@code type} is not a primitive type, or null if {@code type} is null
+     */
+    public static Class<?> wrap(Class<?> type) {
+        if (type == null)
+            return null;
+        return Optional.ofNullable(Primitive.get(type))
+          .<Class<?>>map(Primitive::getWrapperType)
+          .orElse(type);
+    }
+
     // This is put into an inner class to avoid initialization ordering problems
     private static final class DoubleFormat {
 
@@ -488,4 +519,3 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
         return this.wrapType.getSimpleName().toUpperCase();
     }
 }
-

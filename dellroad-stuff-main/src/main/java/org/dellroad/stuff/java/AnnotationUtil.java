@@ -11,7 +11,6 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
@@ -147,10 +146,7 @@ public final class AnnotationUtil {
                     value = ReflectUtil.instantiate((Class<?>)value);
 
                 // Get parameter type (wrapper type if primitive)
-                Class<?> parameterType = beanSetter.getParameterTypes()[0];
-                parameterType = Optional.ofNullable(Primitive.get(parameterType))
-                  .<Class<?>>map(Primitive::getWrapperType)
-                  .orElse(parameterType);
+                final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
 
                 // Special case for converting array values into lists (if needed)
                 if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))

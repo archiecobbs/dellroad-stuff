@@ -401,7 +401,7 @@ public class FieldBuilderGenerator {
 
         // Initialize
         final Class<?> ptype = method.getParameterTypes()[0];
-        final Class<?> wtype = ptype.isPrimitive() ? Primitive.get(ptype).getWrapperType() : ptype;
+        final Class<?> wtype = Primitive.wrap(ptype);
         final Object unknown = new Object();
         Object actualDefault = unknown;
 
