@@ -172,11 +172,11 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * See {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} for details.
  *
  * <p><b>Linking Binders</b>
- * <p>
  *
+ * <p>
  * To facilitate nesting/recursion, if any field created by this class implements {@link HasBinder}, then the returned
  * {@link Binder} will be checked for validation as part of object validation for the whole bean. This allows for more
- * modularity with respect to validation when nested types are in use.
+ * modularity with respect to validation when nested types are in use. See also {@link GeneratedCustomField}.
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
@@ -225,7 +225,7 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
      *
      * <p>
      * Only the static information gathered by this instance by scanning for annotations is copied.
-     * Any previously built fields are not copied.
+     * Any previously bound fields are not copied.
      *
      * @param original original instance
      * @throws IllegalArgumentException if {@code original} is null
