@@ -56,6 +56,8 @@ import org.dellroad.stuff.vaadin22.flow.component.AutoBuildAware;
  * <p>
  * See {@link FieldBuilder} for details.
  *
+ * @param <S> subclass type
+ * @param <T> edited model type
  * @see FieldBuilder
  */
 public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>, T> implements Serializable {
@@ -83,6 +85,24 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             throw new IllegalArgumentException("null type");
         this.type = type;
         this.scanForAnnotations();
+    }
+
+    /**
+     * Static information copy constructor.
+     *
+     * <p>
+     * Only the static information gathered by this instance by scanning for annotations is copied.
+     * Any previously built fields are not copied.
+     *
+     * @param original original instance
+     * @throws IllegalArgumentException if {@code original} is null
+     */
+    protected AbstractFieldBuilder(AbstractFieldBuilder<?, T> original) {
+        if (original == null)
+            throw new IllegalArgumentException("null original");
+        this.type = original.type;
+        this.bindingInfoMap.putAll(original.bindingInfoMap);
+        this.defaultInfoMap.putAll(original.defaultInfoMap);
     }
 
     /**

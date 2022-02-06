@@ -214,6 +214,20 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
     }
 
     /**
+     * Static information copy constructor.
+     *
+     * <p>
+     * Only the static information gathered by this instance by scanning for annotations is copied.
+     * Any previously built fields are not copied.
+     *
+     * @param original original instance
+     * @throws IllegalArgumentException if {@code original} is null
+     */
+    public FieldBuilder(FieldBuilder<T> original) {
+        super(original);
+    }
+
+    /**
      * Specifies how a Java bean property should be edited using a {@link Grid}
      * converted to a single-select field via {@link Grid#asSingleSelect}.
      *
