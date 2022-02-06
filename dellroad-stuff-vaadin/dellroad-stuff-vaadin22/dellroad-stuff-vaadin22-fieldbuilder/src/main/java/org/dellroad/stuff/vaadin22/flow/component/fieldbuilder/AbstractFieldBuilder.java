@@ -11,8 +11,10 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.BindingValidationStatusHandler;
 import com.vaadin.flow.data.binder.ErrorMessageProvider;
+import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.shared.util.SharedUtil;
@@ -786,6 +788,21 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                         // ignore
                     }
                 }
+            }
+
+            // Add validation from any chained Binders
+            if (field instanceof HasBinder) {
+                bindingBuilder = bindingBuilder.withValidator((bean, ctx) -> {
+                    final Binder<?> fieldBinder = ((HasBinder<?>)field).getBinder();
+                    if (fieldBinder == null)
+                        return ValidationResult.ok();
+                    final BinderValidationStatus<?> status = fieldBinder.validate();
+                    if (status.isOk())
+                        return ValidationResult.ok();
+                    if (!status.getBeanValidationErrors().isEmpty())
+                        return ValidationResult.error(status.getBeanValidationErrors().get(0).getErrorMessage());
+                    return ValidationResult.error(status.getValidationErrors().get(0).getErrorMessage());
+                });
             }
 
             // Complete the binding
