@@ -16,6 +16,8 @@ public interface HasBinder<T> {
 
     /**
      * Get the {@link Binder} associated with this instance.
+     *
+     * @return associated {@link Binder}
      */
     Binder<T> getBinder();
 }

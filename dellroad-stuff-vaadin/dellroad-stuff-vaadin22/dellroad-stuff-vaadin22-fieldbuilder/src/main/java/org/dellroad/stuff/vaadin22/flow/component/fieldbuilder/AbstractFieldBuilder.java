@@ -892,7 +892,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         /**
          * Find a public zero-arg method {@code getLabel} returning {@link String} and invoke it, if it exists.
          *
-         * @param object target object
+         * @param obj target object
          * @return the returned label, or null on failure
          */
         protected String getLabel(Object obj) {

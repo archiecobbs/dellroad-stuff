@@ -195,7 +195,6 @@ import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
  * @see ListBox
  * @see MultiSelectListBox
  * @see RadioButtonGroup
- * @see RichTextEditor
  * @see Select
  * @see BigDecimalField
  * @see EmailField

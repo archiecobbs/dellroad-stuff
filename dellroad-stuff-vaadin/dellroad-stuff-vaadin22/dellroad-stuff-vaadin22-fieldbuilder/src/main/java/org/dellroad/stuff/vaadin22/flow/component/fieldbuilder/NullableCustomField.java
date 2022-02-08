@@ -119,6 +119,8 @@ public class NullableCustomField<T> extends CustomField<T> {
      * <p>
      * The implementation in {@link NullableCustomField} updates the checkbox and enables/disabled the component
      * accordingly (assuming it implements {@link HasEnabled}).
+     *
+     * @param nullified if field should be null and the nested components disabled
      */
     protected void setNullified(boolean nullified) {
         this.checkbox.setValue(!nullified);
