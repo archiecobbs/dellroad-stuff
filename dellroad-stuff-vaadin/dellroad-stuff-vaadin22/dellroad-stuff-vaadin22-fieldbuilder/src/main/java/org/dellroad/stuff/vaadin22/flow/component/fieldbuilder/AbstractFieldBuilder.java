@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
@@ -38,6 +39,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -290,9 +292,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                       + " annotation on non-getter method " + method.getName());
                 }
 
+                // Get @NullifyCheckbox, if any
+                final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
+
                 // Create new binding info and check for conflict
                 final BindingInfo<T> bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
-                  bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName),
+                  bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
                   bean -> this.buildDeclarativeField(methodInfo));
                 final BindingInfo<T> previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
                 if (previousInfo != null) {
@@ -332,9 +337,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 });
             }
 
+            // Get @NullifyCheckbox, if any
+            final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
+
             // Create new binding info and check for conflict
             final BindingInfo<T> bindingInfo = this.createBindingInfo(method, propertyName, providesField,
-              bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName),
+              bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
               bean -> this.buildProvidedField(methodInfo, bean));
             final BindingInfo<T> previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
             if (previousInfo != null) {
@@ -557,11 +565,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             throw new IllegalArgumentException("null annotationType");
 
         // Find corresponding annotation on our defaultsMethod()
-        return AnnotationUtil.getAnnotations(this.getClass(), this.getAnnotationDefaultsMethodName())
-          .stream()
-          .filter(candidate -> candidate.annotationType().equals(annotationType))
-          .map(annotationType::cast)
-          .findFirst()
+        return Optional.ofNullable(this.getAnnotationDefaultsMethod().getAnnotation(annotationType))
           .orElseThrow(() -> new IllegalArgumentException(annotationType + " is not a defined widget annotation type"));
     }
 
@@ -574,10 +578,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * @return widget annotation types
      */
+    @SuppressWarnings("unchecked")
     protected Stream<Class<? extends Annotation>> getDeclarativeAnnotationTypes() {
-        return AnnotationUtil.getAnnotations(this.getClass(), this.getAnnotationDefaultsMethodName())
-          .stream()
-          .map(Annotation::annotationType);
+        return ((List<Class<? extends Annotation>>)ReflectUtil.invoke(this.getAnnotationDefaultsMethod(), null)).stream();
     }
 
     /**
@@ -588,13 +591,30 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param annotation annotation found on {@code method}
      * @param binding associated {@link Binding &#64;Binding} annotation, if any
      * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
+     * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
      * @param fieldBuilder builds the field
      * @return new {@link BindingInfo}
      * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
      */
     protected BindingInfo<T> createBindingInfo(Method method, String propertyName, Annotation annotation,
-      Binding binding, FormLayout formLayout, Function<? super T, BoundField> fieldBuilder) {
-        return new BindingInfo<>(method, propertyName, annotation, binding, formLayout, fieldBuilder);
+      Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, Function<? super T, BoundField> fieldBuilder) {
+        return new BindingInfo<>(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
+    }
+
+    /**
+     * Get the method in this class that has all of the widget annotations (with default values) applied to it.
+     *
+     * @return defaults method name, never null
+     */
+    protected Method getAnnotationDefaultsMethod() {
+        final Method method;
+        try {
+            method = this.getClass().getDeclaredMethod(this.getAnnotationDefaultsMethodName());
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("internal error: method " + this.getAnnotationDefaultsMethodName() + "() not found");
+        }
+        method.setAccessible(true);
+        return method;
     }
 
     /**
@@ -626,6 +646,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         private final Annotation annotation;
         private final Binding binding;
         private final FormLayout formLayout;
+        private final NullifyCheckbox nullifyCheckbox;
         private final Function<? super T, BoundField> fieldBuilder;
 
         /**
@@ -634,14 +655,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @param method annotated method
          * @param propertyName property name
          * @param annotation annotation found on {@code method}
-         * @param binding associated {@link Binding &#64;Binding} annotation, if any
+         * @param binding associated {@link Binding &#64;FieldBuilder.Binding} annotation, if any
          * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
+         * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
          * @param fieldBuilder builds the field
          * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation},
          *  or {@code fieldBuilder} is null
          */
         public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
-          FormLayout formLayout, Function<? super T, BoundField> fieldBuilder) {
+          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, Function<? super T, BoundField> fieldBuilder) {
             if (method == null)
                 throw new IllegalArgumentException("null method");
             if (propertyName == null)
@@ -655,6 +677,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             this.annotation = annotation;
             this.binding = binding;
             this.formLayout = formLayout;
+            this.nullifyCheckbox = nullifyCheckbox;
             this.fieldBuilder = fieldBuilder;
         }
 
@@ -705,6 +728,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         /**
+         * Get the associated {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox} annotation, if any.
+         *
+         * @return associated {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox} annotation, or null if none
+         */
+        public NullifyCheckbox getNullifyCheckbox() {
+            return this.nullifyCheckbox;
+        }
+
+        /**
          * Generate a sorting value for this field.
          *
          * @return sort order value
@@ -743,7 +775,23 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @throws IllegalArgumentException if a bean instance is required but {@code bean} is null
          */
         public BoundField createBoundField(T bean) {
-            return this.fieldBuilder.apply(bean);
+            BoundField boundField = this.fieldBuilder.apply(bean);
+            if (this.nullifyCheckbox != null) {
+                final NullableCustomField<?> nullableCustomField
+                  = this.wrapInNullableCustomField(boundField.getField(), boundField.getComponent());
+                boundField = new BoundField(nullableCustomField, nullableCustomField);
+            }
+            return boundField;
+        }
+
+        protected <T> NullableCustomField<T> wrapInNullableCustomField(HasValue<?, T> field, Component component) {
+            if (field == null)
+                throw new IllegalArgumentException("null field");
+            if (component == null)
+                throw new IllegalArgumentException("null component");
+            if (this.nullifyCheckbox == null)
+                throw new IllegalStateException("no nullifyCheckbox");
+            return new NullableCustomField<>(field, component, new Checkbox(this.nullifyCheckbox.value()));
         }
 
         /**
@@ -1061,9 +1109,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
             // Apply non-default annotation values
             AnnotationUtil.applyAnnotationValues(field, "set", this.annotation, this.defaults,
-              (fieldSetter, propertyName) -> propertyName);
+              (methodList, propertyName) -> propertyName);
             AnnotationUtil.applyAnnotationValues(field, "add", this.annotation, this.defaults,
-              (fieldSetter, propertyName) -> fieldSetter.getName());
+              (methodList, propertyName) -> methodList.get(0).getName());
         }
     }
 
@@ -1298,5 +1346,42 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @return field ordering value
          */
         double order() default 0.0;
+    }
+
+    /**
+     * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableCustomField}.
+     *
+     * <p>
+     * For example:
+     *
+     * <blockquote><pre>
+     * // This is one of our data model classes
+     * public class FoodItem {
+     *
+     *     // This field is mandatory
+     *     &#64;FieldBuilder.TextField
+     *     &#64;NotNull
+     *     public String getName() { ... }
+     *
+     *     // This field is optional
+     *     <b>&#64;FieldBuilder.NullifyCheckbox("This item expires on:")</b>
+     *     &#64;FieldBuilder.DatePicker
+     *     public LocalDate getExpirationDate() { ... }
+     * }
+     * </pre></blockquote>
+     *
+     * @see NullableCustomField
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface NullifyCheckbox {
+
+        /**
+         * The label for the checkbox.
+         *
+         * @return checkbox label
+         */
+        String value();
     }
 }

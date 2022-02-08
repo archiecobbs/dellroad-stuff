@@ -565,8 +565,9 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         final Grid<?> grid = new Grid<>(method.getReturnType());
 
         // Apply annotation values
-        AnnotationUtil.applyAnnotationValues(grid, "set", annotation, null, (fieldSetter, propertyName) -> propertyName);
-        AnnotationUtil.applyAnnotationValues(grid, "add", annotation, null, (fieldSetter, propertyName) -> fieldSetter.getName());
+        AnnotationUtil.applyAnnotationValues(grid, "set", annotation, null, (methodList, propertyName) -> propertyName);
+        AnnotationUtil.applyAnnotationValues(grid, "add", annotation, null,
+          (methodList, propertyName) -> methodList.get(0).getName());
 
         // Add a single column configured via @GridColumn
         final String description = "@" + annotation.annotationType().getSimpleName() + ".column() on method " + method;
@@ -581,13 +582,13 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
     @Checkbox
     @CheckboxGroup
     @ComboBox
+    @CustomField(implementation = com.vaadin.flow.component.customfield.CustomField.class)
     @DatePicker
     @DateTimePicker
     @Input
     @ListBox
     @MultiSelectListBox
     @RadioButtonGroup
-    @RichTextEditor
     @Select
     @BigDecimalField
     @EmailField
@@ -598,7 +599,29 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
     @TextField
     @TimePicker
     @EnumComboBox
-    private static void annotationDefaultsMethod() {
+    private static java.util.List<Class<? extends java.lang.annotation.Annotation>> annotationDefaultsMethod() {
+        return java.util.Arrays.asList(
+            Checkbox.class,
+            CheckboxGroup.class,
+            ComboBox.class,
+            CustomField.class,
+            DatePicker.class,
+            DateTimePicker.class,
+            Input.class,
+            ListBox.class,
+            MultiSelectListBox.class,
+            RadioButtonGroup.class,
+            Select.class,
+            BigDecimalField.class,
+            EmailField.class,
+            IntegerField.class,
+            NumberField.class,
+            PasswordField.class,
+            TextArea.class,
+            TextField.class,
+            TimePicker.class,
+            EnumComboBox.class
+        );
     }
 
     /**
@@ -881,6 +904,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
 
         /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
          * Get the value desired for the {@code label} property.
          *
          * @return desired {@code label} property value
@@ -1110,6 +1142,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
 
         /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBox#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
          * Get the value desired for the {@code label} property.
          *
          * @return desired {@code label} property value
@@ -1245,6 +1286,161 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          * @see com.vaadin.flow.component.combobox.ComboBox#addThemeVariants(com.vaadin.flow.component.combobox.ComboBoxVariant[])
          */
         com.vaadin.flow.component.combobox.ComboBoxVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code visible} property.
+         *
+         * @return desired {@code visible} property value
+         * @see com.vaadin.flow.component.Component#setVisible(boolean)
+         */
+        boolean visible() default true;
+
+        /**
+         * Get the value desired for the {@code width} property.
+         *
+         * @return desired {@code width} property value
+         * @see com.vaadin.flow.component.HasSize#setWidth(String)
+         */
+        String width() default "";
+    }
+
+    /**
+     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.customfield.CustomField}.
+     *
+     * @see FieldBuilder
+     * @see com.vaadin.flow.component.customfield.CustomField
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface CustomField {
+
+        /**
+         * Get the sub-type of {@link com.vaadin.flow.component.customfield.CustomField} that will edit the property.
+         *
+         * <p>
+         * This property is required because {@link com.vaadin.flow.component.customfield.CustomField} is an abstract class.
+         *
+         * <p>
+         * The specified type must have a public no-arg constructor.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.customfield.CustomField> implementation();
+
+        /**
+         * Get the value desired for the {@code enabled} property.
+         *
+         * @return desired {@code enabled} property value
+         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
+         */
+        boolean enabled() default true;
+
+        /**
+         * Get the value desired for the {@code errorMessage} property.
+         *
+         * @return desired {@code errorMessage} property value
+         * @see com.vaadin.flow.component.customfield.CustomField#setErrorMessage(String)
+         */
+        String errorMessage() default "";
+
+        /**
+         * Get the value desired for the {@code height} property.
+         *
+         * @return desired {@code height} property value
+         * @see com.vaadin.flow.component.HasSize#setHeight(String)
+         */
+        String height() default "";
+
+        /**
+         * Get the class to instantiate for the {@code helperComponent} property.
+         *
+         * @return desired {@code helperComponent} property value type
+         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code helperText} property.
+         *
+         * @return desired {@code helperText} property value
+         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
+         */
+        String helperText() default "";
+
+        /**
+         * Get the value desired for the {@code id} property.
+         *
+         * @return desired {@code id} property value
+         * @see com.vaadin.flow.component.Component#setId(String)
+         */
+        String id() default "";
+
+        /**
+         * Get the value desired for the {@code label} property.
+         *
+         * @return desired {@code label} property value
+         * @see com.vaadin.flow.component.customfield.CustomField#setLabel(String)
+         */
+        String label() default "";
+
+        /**
+         * Get the value desired for the {@code maxHeight} property.
+         *
+         * @return desired {@code maxHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
+         */
+        String maxHeight() default "";
+
+        /**
+         * Get the value desired for the {@code maxWidth} property.
+         *
+         * @return desired {@code maxWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
+         */
+        String maxWidth() default "";
+
+        /**
+         * Get the value desired for the {@code minHeight} property.
+         *
+         * @return desired {@code minHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
+         */
+        String minHeight() default "";
+
+        /**
+         * Get the value desired for the {@code minWidth} property.
+         *
+         * @return desired {@code minWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
+         */
+        String minWidth() default "";
+
+        /**
+         * Get the value desired for the {@code readOnly} property.
+         *
+         * @return desired {@code readOnly} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
+         */
+        boolean readOnly() default false;
+
+        /**
+         * Get the value desired for the {@code requiredIndicatorVisible} property.
+         *
+         * @return desired {@code requiredIndicatorVisible} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         */
+        boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code tabIndex} property.
+         *
+         * @return desired {@code tabIndex} property value
+         * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
+         */
+        int tabIndex() default 0;
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -2029,6 +2225,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         Class<? extends com.vaadin.flow.function.SerializablePredicate> itemEnabledProvider() default com.vaadin.flow.function.SerializablePredicate.class;
 
         /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.listbox.ListBoxBase#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
          * Get the value desired for the {@code maxHeight} property.
          *
          * @return desired {@code maxHeight} property value
@@ -2168,6 +2373,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.function.SerializablePredicate> itemEnabledProvider() default com.vaadin.flow.function.SerializablePredicate.class;
+
+        /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.listbox.ListBoxBase#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
 
         /**
          * Get the value desired for the {@code maxHeight} property.
@@ -2344,6 +2558,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
         Class<? extends com.vaadin.flow.function.SerializablePredicate> itemEnabledProvider() default com.vaadin.flow.function.SerializablePredicate.class;
 
         /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.radiobutton.RadioButtonGroup#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
          * Get the value desired for the {@code label} property.
          *
          * @return desired {@code label} property value
@@ -2431,169 +2654,6 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          * @see com.vaadin.flow.component.radiobutton.GeneratedVaadinRadioGroup#addThemeVariants(com.vaadin.flow.component.radiobutton.RadioGroupVariant[])
          */
         com.vaadin.flow.component.radiobutton.RadioGroupVariant[] addThemeVariants() default {};
-
-        /**
-         * Get the value desired for the {@code visible} property.
-         *
-         * @return desired {@code visible} property value
-         * @see com.vaadin.flow.component.Component#setVisible(boolean)
-         */
-        boolean visible() default true;
-
-        /**
-         * Get the value desired for the {@code width} property.
-         *
-         * @return desired {@code width} property value
-         * @see com.vaadin.flow.component.HasSize#setWidth(String)
-         */
-        String width() default "";
-    }
-
-    /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.richtexteditor.RichTextEditor}.
-     *
-     * @see FieldBuilder
-     * @see com.vaadin.flow.component.richtexteditor.RichTextEditor
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    @Documented
-    public @interface RichTextEditor {
-
-        /**
-         * Get the sub-type of {@link com.vaadin.flow.component.richtexteditor.RichTextEditor} that will edit the property.
-         *
-         * <p>
-         * This property allows custom widget subclasses to be used.
-         *
-         * <p>
-         * The specified type must have a public no-arg constructor.
-         *
-         * @return field type
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.richtexteditor.RichTextEditor> implementation() default com.vaadin.flow.component.richtexteditor.RichTextEditor.class;
-
-        /**
-         * Add the specified class names.
-         *
-         * @return zero or more class names to add
-         * @see com.vaadin.flow.component.HasStyle#addClassNames(String[])
-         */
-        String[] addClassNames() default {};
-
-        /**
-         * Get the value desired for the {@code enabled} property.
-         *
-         * @return desired {@code enabled} property value
-         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
-         */
-        boolean enabled() default true;
-
-        /**
-         * Get the value desired for the {@code height} property.
-         *
-         * @return desired {@code height} property value
-         * @see com.vaadin.flow.component.HasSize#setHeight(String)
-         */
-        String height() default "";
-
-        /**
-         * Get the class to instantiate for the {@code i18n} property.
-         *
-         * @return desired {@code i18n} property value type
-         * @see com.vaadin.flow.component.richtexteditor.RichTextEditor#setI18n(com.vaadin.flow.component.richtexteditor.RichTextEditor.RichTextEditorI18n)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.richtexteditor.RichTextEditor.RichTextEditorI18n> i18n() default com.vaadin.flow.component.richtexteditor.RichTextEditor.RichTextEditorI18n.class;
-
-        /**
-         * Get the value desired for the {@code id} property.
-         *
-         * @return desired {@code id} property value
-         * @see com.vaadin.flow.component.Component#setId(String)
-         */
-        String id() default "";
-
-        /**
-         * Get the value desired for the {@code maxHeight} property.
-         *
-         * @return desired {@code maxHeight} property value
-         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
-         */
-        String maxHeight() default "";
-
-        /**
-         * Get the value desired for the {@code maxWidth} property.
-         *
-         * @return desired {@code maxWidth} property value
-         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
-         */
-        String maxWidth() default "";
-
-        /**
-         * Get the value desired for the {@code minHeight} property.
-         *
-         * @return desired {@code minHeight} property value
-         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
-         */
-        String minHeight() default "";
-
-        /**
-         * Get the value desired for the {@code minWidth} property.
-         *
-         * @return desired {@code minWidth} property value
-         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
-         */
-        String minWidth() default "";
-
-        /**
-         * Get the value desired for the {@code readOnly} property.
-         *
-         * @return desired {@code readOnly} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
-         */
-        boolean readOnly() default false;
-
-        /**
-         * Get the value desired for the {@code requiredIndicatorVisible} property.
-         *
-         * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
-         */
-        boolean requiredIndicatorVisible() default false;
-
-        /**
-         * Add the specified theme names.
-         *
-         * @return zero or more theme names to add
-         * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
-         */
-        String[] addThemeNames() default {};
-
-        /**
-         * Add the specified theme variants.
-         *
-         * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.richtexteditor.GeneratedVaadinRichTextEditor#addThemeVariants(com.vaadin.flow.component.richtexteditor.RichTextEditorVariant[])
-         */
-        com.vaadin.flow.component.richtexteditor.RichTextEditorVariant[] addThemeVariants() default {};
-
-        /**
-         * Get the value desired for the {@code valueChangeMode} property.
-         *
-         * @return desired {@code valueChangeMode} property value
-         * @see com.vaadin.flow.component.richtexteditor.RichTextEditor#setValueChangeMode(com.vaadin.flow.data.value.ValueChangeMode)
-         */
-        com.vaadin.flow.data.value.ValueChangeMode valueChangeMode() default com.vaadin.flow.data.value.ValueChangeMode.ON_CHANGE;
-
-        /**
-         * Get the value desired for the {@code valueChangeTimeout} property.
-         *
-         * @return desired {@code valueChangeTimeout} property value
-         * @see com.vaadin.flow.data.value.HasValueChangeMode#setValueChangeTimeout(int)
-         */
-        int valueChangeTimeout() default com.vaadin.flow.data.value.HasValueChangeMode.DEFAULT_CHANGE_TIMEOUT;
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -2744,6 +2804,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
+
+        /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.select.Select#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
 
         /**
          * Get the value desired for the {@code label} property.
@@ -5420,6 +5489,15 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
+
+        /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBox#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
 
         /**
          * Get the value desired for the {@code label} property.

@@ -91,91 +91,126 @@
                                 <packageRoot>org.dellroad.stuff.vaadin22.flow.component</packageRoot>
                             </packageRoots>
                             <customizations>
+
+                                <!-- Configure the default values for some properties that aren't properly handled automatically -->
                                 <customization>
-                                    <methodNamePattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title)\(java\.lang\.String\)</methodNamePattern>
+                                    <methodPattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title)\(java\.lang\.String\)</methodPattern>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodNamePattern>public default void com\.vaadin\.flow\.component\.HasSize\.set(Min|Max|)(Height|Width)\(java\.lang\.String\)</methodNamePattern>
+                                    <methodPattern>public default void com\.vaadin\.flow\.component\.HasSize\.set(Min|Max|)(Height|Width)\(java\.lang\.String\)</methodPattern>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.component.Focusable.setTabIndex(int)</methodName>
+                                    <method>public default void com.vaadin.flow.component.Focusable.setTabIndex(int)</method>
                                     <defaultValue>0</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.component.HasAriaLabel.setAriaLabel(java.lang.String)</methodName>
+                                    <method>public default void com.vaadin.flow.component.HasAriaLabel.setAriaLabel(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.component.HasHelper.setHelperText(java.lang.String)</methodName>
+                                    <method>public default void com.vaadin.flow.component.HasHelper.setHelperText(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.component.textfield.HasAutocapitalize.setAutocapitalize(com.vaadin.flow.component.textfield.Autocapitalize)</methodName>
+                                    <method>public default void com.vaadin.flow.component.textfield.HasAutocapitalize.setAutocapitalize(com.vaadin.flow.component.textfield.Autocapitalize)</method>
                                     <defaultValue>com.vaadin.flow.component.textfield.Autocapitalize.NONE</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.component.textfield.HasAutocomplete.setAutocomplete(com.vaadin.flow.component.textfield.Autocomplete)</methodName>
+                                    <method>public default void com.vaadin.flow.component.textfield.HasAutocomplete.setAutocomplete(com.vaadin.flow.component.textfield.Autocomplete)</method>
                                     <defaultValue>com.vaadin.flow.component.textfield.Autocomplete.ON</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public default void com.vaadin.flow.data.value.HasValueChangeMode.setValueChangeTimeout(int)</methodName>
+                                    <method>public default void com.vaadin.flow.data.value.HasValueChangeMode.setValueChangeTimeout(int)</method>
                                     <defaultValue>com.vaadin.flow.data.value.HasValueChangeMode.DEFAULT_CHANGE_TIMEOUT</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.Component.setId(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.Component.setId(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.checkbox.Checkbox.setAriaLabel(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.checkbox.Checkbox.setAriaLabel(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.checkbox.Checkbox.setLabelAsHtml(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.checkbox.Checkbox.setLabelAsHtml(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.datepicker.DatePicker.setName(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.datepicker.DatePicker.setName(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setDatePlaceholder(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setDatePlaceholder(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setTimePlaceholder(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setTimePlaceholder(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
                                 </customization>
                                 <customization>
-                                    <methodName>public void com.vaadin.flow.component.textfield.AbstractNumberField.setHasControls(boolean)</methodName>
+                                    <method>public void com.vaadin.flow.component.textfield.AbstractNumberField.setHasControls(boolean)</method>
                                     <defaultValue>false</defaultValue>
                                 </customization>
+
+                                <!-- Customizations needed for CustomField because it's abstract -->
+                                <customization>
+                                    <className>com.vaadin.flow.component.customfield.CustomField</className>
+                                    <method>public default void com.vaadin.flow.component.HasEnabled.setEnabled(boolean)</method>
+                                    <defaultValue>true</defaultValue>
+                                </customization>
+                                <customization>
+                                    <className>com.vaadin.flow.component.customfield.CustomField</className>
+                                    <method>public default void com.vaadin.flow.component.HasValueAndElement.setReadOnly(boolean)</method>
+                                    <defaultValue>false</defaultValue>
+                                </customization>
+                                <customization>
+                                    <className>com.vaadin.flow.component.customfield.CustomField</className>
+                                    <method>public default void com.vaadin.flow.component.HasValueAndElement.setRequiredIndicatorVisible(boolean)</method>
+                                    <defaultValue>false</defaultValue>
+                                </customization>
+                                <customization>
+                                    <className>com.vaadin.flow.component.customfield.CustomField</className>
+                                    <method>public void com.vaadin.flow.component.Component.setVisible(boolean)</method>
+                                    <defaultValue>true</defaultValue>
+                                </customization>
                             </customizations>
+
+                            <!-- Exclude the GeneratedFoo classes and the commercial widgets -->
+                            <excludeClasses>
+                            </excludeClasses>
+                            <excludeClasses>
+                                <excludeClass>
+                                    <classNamePattern>com\.vaadin\.flow\.component\..*\.Generated[\p{Alpha}]+</classNamePattern>
+                                </excludeClass>
+                                <excludeClass>
+                                    <className>com.vaadin.flow.component.richtexteditor.RichTextEditor</className>
+                                </excludeClass>
+                            </excludeClasses>
+
+                            <!-- Exclude certain methods that don't work or conflict with (i.e., have the same name as) other methods we want to use -->
                             <excludeMethods>
                                 <excludeMethod>
-                                    <methodName>public default void com.vaadin.flow.component.HasStyle.setClassName(java.lang.String)</methodName>
+                                    <method>public default void com.vaadin.flow.component.HasTheme.setThemeName(java.lang.String)</method>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodName>public default void com.vaadin.flow.component.HasTheme.setThemeName(java.lang.String)</methodName>
+                                    <method>public void com.vaadin.flow.component.combobox.ComboBox.setDataProvider(com.vaadin.flow.data.provider.ListDataProvider)</method>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodName>public void com.vaadin.flow.component.combobox.ComboBox.setDataProvider(com.vaadin.flow.data.provider.ListDataProvider)</methodName>
+                                    <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setThemeName(java.lang.String)</method>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodName>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setThemeName(java.lang.String)</methodName>
+                                    <methodPattern>.*\.setInvalid\(boolean\)</methodPattern>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodNamePattern>.*\.setInvalid\(boolean\)</methodNamePattern>
+                                    <methodPattern>.*\.setItems\((java\.util\.stream\.Stream|java\.util\.Collection|java.lang.Object\[\]|com\.vaadin\.flow\.data\.provider\.CallbackDataProvider\$FetchCallback)\)</methodPattern>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodNamePattern>.*\.setItems\(.*\)</methodNamePattern>
+                                    <methodPattern>.*\.setValue\(.*\)</methodPattern>
                                 </excludeMethod>
                                 <excludeMethod>
-                                    <methodNamePattern>.*\.setValue\(.*\)</methodNamePattern>
-                                </excludeMethod>
-                                <excludeMethod>
-                                    <methodName>public void org.dellroad.stuff.vaadin22.flow.component.EnumComboBox.setEnumClass(java.lang.Class)</methodName>
+                                    <method>public void org.dellroad.stuff.vaadin22.flow.component.EnumComboBox.setEnumClass(java.lang.Class)</method>
                                 </excludeMethod>
                             </excludeMethods>
                         </configuration>
