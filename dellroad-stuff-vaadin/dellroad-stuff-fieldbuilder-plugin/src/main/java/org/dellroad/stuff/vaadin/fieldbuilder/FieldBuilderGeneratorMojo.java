@@ -13,15 +13,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
-import java.util.function.Function;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -76,6 +79,16 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
     private String implementationPropertyName;
 
     /**
+     * Whether to include abstract classes.
+     *
+     * <p>
+     * For abstract classes, the implementing class property (see {@link implementationPropertyName})
+     * is generated with no default value.
+     */
+    @Parameter(defaultValue = "true", property = "includeAbstractClasses")
+    private boolean includeAbstractClasses;
+
+    /**
      * Methods to customize.
      */
     @Parameter
@@ -86,6 +99,12 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
      */
     @Parameter
     private List<Customization> excludeMethods;
+
+    /**
+     * Classes to exclude.
+     */
+    @Parameter
+    private List<Customization> excludeClasses;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -108,27 +127,42 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
             throw new MojoExecutionException("failed to create temporary file in directory " + this.sourceFile.getParentFile(), e);
         }
 
+        // Build class -> whether included predicate
+        final Predicate<? super Class<?>> classInclusionPredicate = cl -> {
+
+            // Are we including abstract classes?
+            if (!this.includeAbstractClasses && (cl.getModifiers() & Modifier.ABSTRACT) != 0)
+                return false;
+
+            // Does configuration allow it?
+            if (this.isExcluded(cl))
+                return false;
+
+            // OK
+            return true;
+        };
+
         // Build method -> property name function
-        final Function<? super Method, String> methodPropertyNameFunction = method -> {
+        final BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction = (cl, method) -> {
 
             // Is method excluded?
-            if (this.isExcluded(method))
+            if (this.isExcluded(cl, method))
                 return null;
 
             // Is method property name customized?
-            return this.findCustomization(method)
+            return this.findCustomization(cl, method)
               .map(Customization::getPropertyName)
               .orElseGet(() -> this.defaultPropertyNameFor(method));
         };
 
         // Build default value override function
-        final Function<? super Method, String> defaultOverrideFunction = method -> {
+        final BiFunction<? super Class<?>, ? super Method, String> defaultOverrideFunction = (cl, method) -> {
 
             // Method should not be excluded at this point
-            assert !this.isExcluded(method);
+            assert !this.isExcluded(cl, method);
 
             // Is method default value customized?
-            return this.findCustomization(method)
+            return this.findCustomization(cl, method)
               .map(Customization::getDefaultValue)
               .orElse(null);
         };
@@ -145,9 +179,10 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 final FieldBuilderGenerator generator = new FieldBuilderGenerator(requiredTypeClass);
                 generator.getPackageRoots().addAll(this.packageRoots);
                 generator.setSeparatorLine(this.separatorLine);
-                generator.setLogger(this.getLogger());
+                generator.setLogger(this.buildLogger());
                 generator.setAnnotationDefaultsMethodName(this.annotationDefaultsMethodName);
                 generator.setImplementationPropertyName(this.implementationPropertyName);
+                generator.setClassInclusionPredicate(classInclusionPredicate);
                 generator.setMethodPropertyNameFunction(methodPropertyNameFunction);
                 generator.setDefaultOverrideFunction(defaultOverrideFunction);
 
@@ -155,7 +190,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 generator.findFieldClasses();
                 if (generator.getFieldTypes().isEmpty())
                     throw new MojoExecutionException("No field classes found assignable to " + this.requiredType + "");
-                this.getLog().info("Found these sub-types of " + requiredTypeClass + ":");
+                this.getLog().info("Found these sub-types of " + requiredTypeClass.getName() + ":");
                 generator.getFieldTypes().forEach(type -> this.getLog().info("  " + type.getName()));
 
                 // Execute generator
@@ -172,78 +207,116 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
         }
     }
 
-    protected BiConsumer<? super Integer, ? super String> getLogger() {
-        return (level, line) -> {
+    protected FieldBuilderGenerator.Logger buildLogger() {
+        return (level, format, params) -> {
+            final Log log = this.getLog();
+            final BiConsumer<Log, String> dest;
             switch (level) {
-            case FieldBuilderGenerator.LOG_WARN:
-                this.getLog().warn(line);
+            case FieldBuilderGenerator.Logger.INFO:
+                if (!log.isInfoEnabled())
+                    return;
+                dest = Log::info;
                 break;
-            case FieldBuilderGenerator.LOG_ERROR:
-                this.getLog().error(line);
+            case FieldBuilderGenerator.Logger.WARN:
+                if (!log.isWarnEnabled())
+                    return;
+                dest = Log::warn;
                 break;
+            case FieldBuilderGenerator.Logger.ERROR:
+                if (!log.isErrorEnabled())
+                    return;
+                dest = Log::error;
+                break;
+            case FieldBuilderGenerator.Logger.DEBUG:
             default:
-                this.getLog().info(line);
+                if (!log.isDebugEnabled())
+                    return;
+                dest = Log::debug;
                 break;
             }
+            dest.accept(log, String.format(format, params));
         };
     }
 
-    protected boolean isExcluded(Method method) {
-        return this.findCustomization(this.excludeMethods, method) != null;
+    protected boolean isExcluded(Class<?> cl) {
+        return this.findCustomization(this.excludeClasses, cl, null) != null;
     }
 
-    protected Optional<Customization> findCustomization(Method method) {
-        return Optional.ofNullable(this.findCustomization(this.customizations, method));
+    protected boolean isExcluded(Class<?> cl, Method method) {
+        return this.findCustomization(this.excludeMethods, cl, method) != null;
+    }
+
+    protected Optional<Customization> findCustomization(Class<?> cl, Method method) {
+        return Optional.ofNullable(this.findCustomization(this.customizations, cl, method));
     }
 
     protected String defaultPropertyNameFor(Method method) {
         return Introspector.decapitalize(method.getName().substring(3));          // skip the "set" or "add"
     }
 
-    private Customization findCustomization(List<Customization> list, Method method) {
+    private Customization findCustomization(List<Customization> list, Class<?> cl, Method method) {
         if (list == null)
             return null;
-        final String description = method.toString();
-        for (Customization customization : list) {
-            if (description.equals(customization.getMethodName()))
-                return customization;
-            final Pattern pattern = customization.getCompiledMethodNamePattern();
-            if (pattern != null && pattern.matcher(description).matches())
-                return customization;
-        }
-        return null;
+        return list.stream()
+          .filter(customization -> customization.matches(cl, method))
+          .findFirst()
+          .orElse(null);
     }
 
 // Customization
 
     public static class Customization {
 
-        private String methodName;
-        private String methodNamePattern;
+        private String className;
+        private String classNamePattern;
+        private String method;
+        private String methodPattern;
         private String propertyName;
         private String defaultValue;
-        private Pattern compiledMethodNamePattern;
 
-        // Method toString() to match exactly
-        public String getMethodName() {
-            return this.methodName;
-        }
-        public void setMethodName(final String methodName) {
-            this.methodName = methodName;
-        }
+        private Pattern compiledClassNamePattern;
+        private Pattern compiledMethodPattern;
 
-        // Method toString() to match by regex (complete match)
-        public String getMethodNamePattern() {
-            return this.methodNamePattern;
+        // Class name to match exactly (if configured)
+        public String getClassName() {
+            return this.className;
         }
-        public void setMethodNamePattern(final String methodNamePattern) {
-            this.methodNamePattern = methodNamePattern;
+        public void setClassName(final String className) {
+            this.className = className;
         }
 
-        public Pattern getCompiledMethodNamePattern() {
-            if (this.methodNamePattern != null && this.compiledMethodNamePattern == null)
-                this.compiledMethodNamePattern = Pattern.compile(this.methodNamePattern);
-            return this.compiledMethodNamePattern;
+        // Class name to match by regex (if configured)
+        public String getClassNamePattern() {
+            return this.classNamePattern;
+        }
+        public void setClassNamePattern(final String classNamePattern) {
+            this.classNamePattern = classNamePattern;
+        }
+
+        private void compileClassNamePattern() {
+            if (this.classNamePattern != null && this.compiledClassNamePattern == null)
+                this.compiledClassNamePattern = Pattern.compile(this.classNamePattern);
+        }
+
+        // Method toString() to match exactly - option #1 for matching method
+        public String getMethod() {
+            return this.method;
+        }
+        public void setMethod(final String method) {
+            this.method = method;
+        }
+
+        // Method toString() to match by regex (if configured) - option #2 for matching method
+        public String getMethodPattern() {
+            return this.methodPattern;
+        }
+        public void setMethodPattern(final String methodPattern) {
+            this.methodPattern = methodPattern;
+        }
+
+        private void compileMethodPattern() {
+            if (this.methodPattern != null && this.compiledMethodPattern == null)
+                this.compiledMethodPattern = Pattern.compile(this.methodPattern);
         }
 
         // Annotation property name
@@ -260,6 +333,31 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
         }
         public void setDefaultValue(final String defaultValue) {
             this.defaultValue = defaultValue;
+        }
+
+        public boolean matches(Class<?> cl, Method method) {
+
+            // Target class specification, if any, must match
+            if (this.className != null && !this.className.equals(cl.getName()))
+                return false;
+            this.compileClassNamePattern();
+            if (this.compiledClassNamePattern != null && !this.compiledClassNamePattern.matcher(cl.getName()).matches())
+                return false;
+
+            // If we're just checking class name, we're done
+            if (method == null)
+                return true;
+
+            // Either method name or method description must match
+            final String description = method.toString();
+            if (description.equals(this.method))
+                return true;
+            this.compileMethodPattern();
+            if (this.compiledMethodPattern != null && this.compiledMethodPattern.matcher(description).matches())
+                return true;
+
+            // No match
+            return false;
         }
     }
 }

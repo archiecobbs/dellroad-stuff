@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin.fieldbuilder;
 
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
@@ -17,15 +18,18 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.dellroad.stuff.java.Primitive;
+import org.dellroad.stuff.java.ReflectUtil;
 import org.dellroad.stuff.string.StringEncoder;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -37,10 +41,6 @@ import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
  */
 public class FieldBuilderGenerator {
 
-    public static final int LOG_ERROR = 0;
-    public static final int LOG_WARN = 1;
-    public static final int LOG_INFO = 2;
-
     private static final String TAB = "    ";
 
     private final Class<?> requiredType;
@@ -48,9 +48,10 @@ public class FieldBuilderGenerator {
     private final HashSet<Method> warnedAboutDefault = new HashSet<>();
     private final HashSet<Method> warnedAboutWrongType = new HashSet<>();
 
-    private BiConsumer<? super Integer, ? super String> logger = this.getDefaultLogger();
-    private Function<? super Method, String> methodPropertyNameFunction;
-    private Function<? super Method, String> defaultOverrideFunction;
+    private Logger log = this.getDefaultLogger();
+    private BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction;
+    private BiFunction<? super Class<?>, ? super Method, String> defaultOverrideFunction;
+    private Predicate<? super Class<?>> classInclusionPredicate;
     private final List<Class<?>> fieldTypes = new ArrayList<>();
     private String annotationDefaultsMethodName;
     private String implementationPropertyName;
@@ -82,15 +83,15 @@ public class FieldBuilderGenerator {
         return this.packageRoots;
     }
 
-    public void setLogger(BiConsumer<? super Integer, ? super String> logger) {
-        this.logger = Optional.ofNullable(logger).orElse((level, line) -> { });
+    public void setLogger(Logger log) {
+        this.log = Optional.ofNullable(log).orElse((level, format, params) -> { });
     }
 
-    public void setMethodPropertyNameFunction(Function<? super Method, String> methodPropertyNameFunction) {
+    public void setMethodPropertyNameFunction(BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction) {
         this.methodPropertyNameFunction = methodPropertyNameFunction;
     }
 
-    public void setDefaultOverrideFunction(Function<? super Method, String> defaultOverrideFunction) {
+    public void setDefaultOverrideFunction(BiFunction<? super Class<?>, ? super Method, String> defaultOverrideFunction) {
         this.defaultOverrideFunction = defaultOverrideFunction;
     }
 
@@ -102,8 +103,17 @@ public class FieldBuilderGenerator {
         this.implementationPropertyName = implementationPropertyName;
     }
 
-    protected BiConsumer<? super Integer, ? super String> getDefaultLogger() {
-        return (level, line) -> (level <= LOG_WARN ? System.err : System.out).println(line);
+    public void setClassInclusionPredicate(Predicate<? super Class<?>> classInclusionPredicate) {
+        this.classInclusionPredicate = classInclusionPredicate;
+    }
+
+    protected Logger getDefaultLogger() {
+        return (level, format, params) -> {
+            if (level >= Logger.DEBUG)
+                return;
+            final PrintStream dest = level <= Logger.WARN ? System.err : System.out;
+            dest.println(String.format(format, params));
+        };
     }
 
     /**
@@ -123,12 +133,12 @@ public class FieldBuilderGenerator {
         this.packageRoots.forEach(packageRoot -> {
 
             // Build resource path
-            this.logger.accept(LOG_INFO, "Searching under " + packageRoot);
+            this.log.log(Logger.INFO, "Searching under %s", packageRoot);
             final String resourcePath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX
               + packageRoot.replace('.', '/') + "/" + "**/*.class";
-            //this.logger.accept(LOG_INFO, "Searching for " + resourcePath);
 
             // Find classes under this package root that subtype our required type
+            this.log.log(Logger.DEBUG, "Searching for resources matching \"%s\"", resourcePath);
             try {
                 for (Resource resource : resourceLoader.getResources(resourcePath)) {
 
@@ -136,6 +146,7 @@ public class FieldBuilderGenerator {
                     final String uriString = resource.getURI().toString();
                     if (!resource.getURI().toString().endsWith(".class"))
                         continue;
+                    this.log.log(Logger.DEBUG, "Checking resource: %s", uriString);
                     final String className = metadataReaderFactory.getMetadataReader(resource).getClassMetadata().getClassName();
 
                     // Load class
@@ -148,17 +159,23 @@ public class FieldBuilderGenerator {
                     }
 
                     // Check it has the rigth type and is instantiable with zero-arg constructor
-                    if (!this.requiredType.isAssignableFrom(cl))
+                    if (!this.requiredType.isAssignableFrom(cl)) {
+                        this.log.log(Logger.DEBUG, "--> %s is not assignable to %s", cl, this.requiredType);
                         continue;
-                    if ((cl.getModifiers() & Modifier.ABSTRACT) != 0)
+                    }
+                    if (this.classInclusionPredicate != null && !this.classInclusionPredicate.test(cl)) {
+                        this.log.log(Logger.DEBUG, "--> %s is explicity not included", cl);
                         continue;
+                    }
                     try {
                         cl.getConstructor();
                     } catch (NoSuchMethodException e) {
+                        this.log.log(Logger.DEBUG, "--> %s has no default constructor", cl);
                         continue;
                     }
 
                     // Add class to our list
+                    this.log.log(Logger.DEBUG, "--> %s matched", cl);
                     this.fieldTypes.add(cl);
                 }
             } catch (IOException e) {
@@ -207,16 +224,32 @@ public class FieldBuilderGenerator {
 
         // Generate method having the default annotation for all generated annotations
         this.output.println();
-        this.fieldTypes.stream().forEach(cl -> this.lines(1, "@" + cl.getSimpleName()));
-        this.lines(1,
-            "private static void " + this.annotationDefaultsMethodName + "() {",
-            "}");
+        this.fieldTypes.stream().forEach(this::generateDefaultAnnotation);
+        this.lines(1, "private static java.util.List<Class<? extends java.lang.annotation.Annotation>> "
+          + this.annotationDefaultsMethodName + "() {");
+        this.lines(2, "return java.util.Arrays.asList(");
+        for (int i = 0; i < this.fieldTypes.size(); i++) {
+            final String comma = i < this.fieldTypes.size() - 1 ? "," : "";
+            this.lines(3, this.fieldTypes.get(i).getSimpleName() + ".class" + comma);
+        }
+        this.lines(2, ");");
+        this.lines(1, "}");
 
         // Generate annotations for all widget classes
         this.fieldTypes.stream().forEach(this::generateAnnotationClass);
 
         // Output final stuff
         this.lines(0, "}");
+    }
+
+    private void generateDefaultAnnotation(Class<?> cl) {
+
+        // For abstract classes, we have to provide a value for the required implementation property
+        final String propertiesText = this.implementationPropertyName != null && (cl.getModifiers() & Modifier.ABSTRACT) != 0 ?
+          String.format("(%s = %s.class)", this.implementationPropertyName, cl.getName()) : "";
+
+        // Output annotation
+        this.lines(1, String.format("@%s%s", cl.getSimpleName(), propertiesText));
     }
 
     private void generateAnnotationClass(Class<?> cl) {
@@ -241,14 +274,23 @@ public class FieldBuilderGenerator {
           "public @interface " + name + " {");
 
         // Output implementation() property
+        final boolean isabstract = (cl.getModifiers() & Modifier.ABSTRACT) != 0;
         if (this.implementationPropertyName != null) {
+
+            // Tweak property depending on whether class is abstract
+            final String blurb = !isabstract ?
+              "This property allows custom widget subclasses to be used." :
+              "This property is required because {@link " + longName + "} is an abstract class.";
+            final String defaultClause = !isabstract ? " default " + longName + ".class" : "";
+
+            // Output property
             this.lines(2,
               "",
               "/**",
               " * Get the sub-type of {@link " + longName + "} that will edit the property.",
               " *",
               " * <p>",
-              " * This property allows custom widget subclasses to be used.",
+              " * " + blurb,
               " *",
               " * <p>",
               " * The specified type must have a public no-arg constructor.",
@@ -256,7 +298,10 @@ public class FieldBuilderGenerator {
               " * @return field type",
               " */",
               "@SuppressWarnings(\"rawtypes\")",
-              "Class<? extends " + longName + "> " + this.implementationPropertyName + "() default " + longName + ".class;");
+              "Class<? extends " + longName + "> " + this.implementationPropertyName + "()" + defaultClause + ";");
+        } else if (isabstract) {
+            throw new IllegalArgumentException("An implementationPropertyName is required to handle abstract classes such as "
+              + cl.getName());
         }
 
         // Scan for qualifying setFoo() and addFoo() methods and key them by the desired annotation property name
@@ -289,7 +334,7 @@ public class FieldBuilderGenerator {
                 defaultValue = this.getDefaultValue(cl, method);
             } catch (IllegalArgumentException e) {
                 if (this.warnedAboutDefault.add(method))
-                    this.logger.accept(LOG_ERROR, "No default value possible for " + method + ": " + e.getMessage());
+                    this.log.log(Logger.ERROR, "No default value possible for %s: %s", method, e.getMessage());
                 return;
             }
 
@@ -354,6 +399,9 @@ public class FieldBuilderGenerator {
 
     private void findPropertySetters(Class<?> type, String methodPrefix, Map<String, Method> setterMap) {
 
+        // Debug
+        this.log.log(Logger.DEBUG, "Looking for %s*() setters in %s", methodPrefix, type);
+
         // Get all setter methods
         final ArrayList<Method> methodList = new ArrayList<>();
         for (Method method : type.getMethods()) {
@@ -372,29 +420,60 @@ public class FieldBuilderGenerator {
             // Add to list
             methodList.add(method);
         }
-
-        // Sort the methods by name
-        methodList.sort(Comparator.comparing(Method::getName));
+        this.log.log(Logger.DEBUG, "Found these %s*() setters in %s:\n  %s", methodPrefix, type,
+          methodList.stream().map(Object::toString).collect(Collectors.joining("\n  ")));
 
         // Map methods to property name and check for conflicts
+        final HashMap<String, List<Method>> settersMap = new HashMap<>();
         for (Method method : methodList) {
 
             // Get property name for this method (or null to skip)
-            final String propertyName = this.methodPropertyNameFunction.apply(method);
-            if (propertyName == null)
+            final String propertyName = this.methodPropertyNameFunction.apply(type, method);
+            if (propertyName == null) {
+                this.log.log(Logger.DEBUG, "--> Setter %s is to be skipped", method);
                 continue;
+            }
+            this.log.log(Logger.DEBUG, "--> Setter %s gets property name \"%s\"", method, propertyName);
 
-            // Verify there's no conflict
+            // Verify property name is allowed
             if (propertyName.equals(this.implementationPropertyName)) {
                 throw new IllegalArgumentException("conflicting property name "
                   + propertyName + "() used for implemenation methods and " + method);
             }
-            final Method conflict = setterMap.put(propertyName, method);
-            if (conflict != null) {
-                throw new IllegalArgumentException("conflicting property name "
-                  + propertyName + "() used for both [" + conflict + "] and [" + method + "]");
-            }
+
+            // Add to the list of methods for this property name
+            settersMap.computeIfAbsent(propertyName, n -> new ArrayList<>()).add(method);
         }
+
+        // Sort methods with narrower parameter types first
+        settersMap.values().forEach(propertyMethodList ->
+          propertyMethodList.sort(Comparator.comparing(method -> method.getParameterTypes()[0], ReflectUtil.getClassComparator())));
+
+        // For property names that map to multiple methods with the same name, we pick
+        // the last method, with the widest parameter type, as the representative method.
+        // But all other methods must have parameters that are sub-types of it.
+        settersMap.forEach((propertyName, propertyMethodList) -> {
+
+            // Get preferred method from the end of the list
+            final Method method = propertyMethodList.get(propertyMethodList.size() - 1);
+
+            // Verify all other methods have comparable (and therefore narrower) types
+            final Class<?> paramType = method.getParameterTypes()[0];
+            for (Method otherMethod : propertyMethodList) {
+                if (otherMethod == method)
+                    continue;
+                final Class<?> otherParamType = otherMethod.getParameterTypes()[0];
+                if (!paramType.isAssignableFrom(otherParamType)) {
+                    throw new IllegalArgumentException("conflicting property name " + propertyName
+                      + "() used for methods [" + method + "] and [" + otherMethod + "] having"
+                      + " incomparable parameter types - METHOD LIST: " + propertyMethodList);
+                }
+            }
+
+            // Map property to method
+            this.log.log(Logger.DEBUG, "Mapping property name \"%s\" to %s", propertyName, method);
+            setterMap.put(propertyName, method);
+        });
     }
 
     private String getDefaultValue(Class<?> cl, Method method) {
@@ -407,7 +486,7 @@ public class FieldBuilderGenerator {
 
         // Check for an explicitly provided default
         if (this.defaultOverrideFunction != null) {
-            final String explicitDefault = this.defaultOverrideFunction.apply(method);
+            final String explicitDefault = this.defaultOverrideFunction.apply(cl, method);
             if (explicitDefault != null)
                 return explicitDefault;
         }
@@ -439,8 +518,8 @@ public class FieldBuilderGenerator {
         // Verify default value has the right type
         if (actualDefault != null && actualDefault != unknown && !wtype.isInstance(actualDefault)) {
             if (this.warnedAboutWrongType.add(method)) {
-                this.logger.accept(LOG_WARN, "Default value for " + method + " has type "
-                  + actualDefault.getClass().getName() + " which is incompatible with " + wtype);
+                this.log.log(Logger.WARN, "Default value for %s has type %s which is incompatible with %s",
+                  method, actualDefault.getClass().getName(), wtype);
             }
             actualDefault = null;
         }
@@ -568,5 +647,28 @@ public class FieldBuilderGenerator {
         return type.getName()
           .replaceAll("\\$", ".")
           .replaceAll("^java\\.lang\\.([A-Z].*)$", "$1");
+    }
+
+// Logger
+
+    /**
+     * Callback logging interface used by {@link FieldBuilderGenerator}.
+     */
+    @FunctionalInterface
+    public interface Logger {
+
+        int ERROR = 0;
+        int WARN = 1;
+        int INFO = 2;
+        int DEBUG = 3;
+
+        /**
+         * Format the log message using {@link String#format String.format()} and log it at the given level.
+         *
+         * @param level log level, one of {@link #ERROR}, {@link #WARN}, {@link #INFO}, or {@link #DEBUG}
+         * @param format format string
+         * @param params format string parameters
+         */
+        void log(int level, String format, Object... params);
     }
 }
