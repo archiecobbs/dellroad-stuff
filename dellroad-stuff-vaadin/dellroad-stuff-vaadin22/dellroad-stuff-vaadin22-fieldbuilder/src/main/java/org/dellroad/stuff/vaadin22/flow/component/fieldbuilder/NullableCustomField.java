@@ -12,6 +12,7 @@ import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.customfield.CustomField;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 /**
@@ -108,6 +109,7 @@ public class NullableCustomField<T> extends CustomField<T> {
      */
     protected void buildLayout() {
         final HorizontalLayout layout = new HorizontalLayout();
+        layout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.BASELINE);
         layout.add(this.checkbox);
         layout.add(this.component);
         this.add(layout);
