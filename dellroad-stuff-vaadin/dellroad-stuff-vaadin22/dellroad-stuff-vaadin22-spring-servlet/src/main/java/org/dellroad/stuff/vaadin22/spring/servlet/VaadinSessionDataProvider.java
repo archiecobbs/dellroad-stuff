@@ -21,6 +21,10 @@ import java.util.stream.Stream;
 /**
  * A {@link DataProvider} that contains all live {@link VaadinSession}s.
  *
+ * <p>
+ * The sessions are retrieved from the {@link SimpleSpringServlet}, which must be configured
+ * with session tracking enabled.
+ *
  * @see SimpleSpringServlet
  */
 @SuppressWarnings("serial")

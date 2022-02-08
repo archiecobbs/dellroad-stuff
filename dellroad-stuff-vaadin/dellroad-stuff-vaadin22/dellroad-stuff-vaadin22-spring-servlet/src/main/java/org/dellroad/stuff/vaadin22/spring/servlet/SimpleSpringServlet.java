@@ -12,6 +12,8 @@ import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.server.VaadinServletService;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.spring.SpringVaadinServletService;
+import com.vaadin.flow.spring.VaadinScopesConfig;
+import com.vaadin.flow.spring.annotation.EnableVaadin;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -31,12 +33,37 @@ import org.springframework.web.context.ContextLoaderListener;
 
 /**
  * A variant of {@link com.vaadin.flow.spring.SpringServlet} that doesn't require Spring Boot, supports traditional
- * {@code web.xml} configuration, and adds support for tracking and limiting sessions.
+ * XML configuration for Spring and servlets via {@code web.xml}, and adds support for tracking and limiting sessions.
  *
  * <p>
  * This class needs a way to find the {@link ApplicationContext}; this is done by {@link #findApplicationContext}.
- * The implementation in this class obtains the {@link ApplicationContext} from the {@link Springleton} bean, which
- * must be declared therein. Subclasses may override for other strategies.
+ * The implementation in this class obtains the {@link ApplicationContext} from the
+ * a {@link Springleton} bean which must be declared within it.
+ *
+ * <p>
+ * In addition, your {@link ApplicationContext} may need to have a bean with an {@link EnableVaadin &#64;EnableVaadin}
+ * annotation, in order to bring in other beans required by Vaadin Spring, such as {@link VaadinScopesConfig}.
+ *
+ * <p>
+ * You can accomplish both of these tasks by including a class like this in your application context:
+ *
+ * <blockquote><pre>
+ * import com.vaadin.flow.spring.annotation.EnableVaadin;
+ * import org.dellroad.stuff.spring.Springleton;
+ *
+ * &#64;EnableVaadin
+ * public class MySpringleton extends Springleton {
+ *
+ *     public static MySpringleton getInstance() {
+ *         return (MySpringleton)Springleton.getInstance();
+ *     }
+ * }
+ * </pre></blockquote>
+ * and then including it in your {@code applicationContext.xml}:
+ *
+ * <blockquote><pre>
+ *     &lt;bean id="springleton" class="com.mypackate.MySpringleton"/&gt;
+ * </pre></blockquote>
  *
  * <p>
  * The {@link ApplicationContext} can be created however you want; traditionally, this is done via {@link ContextLoaderListener}.
@@ -49,7 +76,7 @@ import org.springframework.web.context.ContextLoaderListener;
  * The servlet associated with the current thread can be found via {@link #forCurrentSession}.
  *
  * <p>
- * Supported servlet parameters:
+ * Additional supported servlet parameters:
  * <div style="margin-left: 20px;">
  * <table border="1" cellpadding="3" cellspacing="0" summary="Servlet URL Parameters">
  * <tr style="bgcolor:#ccffcc">
