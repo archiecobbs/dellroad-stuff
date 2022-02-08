@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin22.util;
 
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.UIDetachedException;
+import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.server.Command;
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinSession;
@@ -214,5 +215,18 @@ public final class VaadinUtil {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Get the {@link Page} associated with the current {@link UI}.
+     *
+     * @return current {@link Page}, never null
+     * @throws IllegalStateException if there is no {@link UI} associated with the current thread
+     */
+    public static Page getCurrentPage() {
+        final Page page = VaadinUtil.getCurrentUI().getPage();
+        if (page == null)
+            throw new IllegalStateException("there is no Page associated with the current UI");
+        return page;
     }
 }
