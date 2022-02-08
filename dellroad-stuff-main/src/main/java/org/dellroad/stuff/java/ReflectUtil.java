@@ -9,8 +9,8 @@ import java.beans.Introspector;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -25,17 +25,19 @@ public final class ReflectUtil {
     }
 
     /**
-     * Find all setter methods taking the given type as parameter and whose name starts with the given prefix.
+     * Find all setter methods in the given class whose name starts with the given prefix.
      *
      * <p>
-     * Methods from narrower types take precedence (i.e., override) matching methods from supertypes.
+     * A setter method is any public method taking exactly one parameter. Multiple setter methods
+     * could have the same name, if they have a different parameter type and/or return type, though
+     * method will filter out {@linkplain Method#isBridge bridge methods}.
      *
-     * @param type type to instrospect
+     * @param type type to introspect
      * @param methodPrefix setter method name prefix (typically {@code "set"})
-     * @return mapping from property name to setter method
+     * @return mapping from property name to setter methods, with those having narrower parameter types first
      * @throws IllegalArgumentException if either parameter is null
      */
-    public static Map<String, Method> findPropertySetters(Class<?> type, String methodPrefix) {
+    public static Map<String, List<Method>> findPropertySetters(Class<?> type, String methodPrefix) {
 
         // Sanity check
         if (type == null)
@@ -46,14 +48,13 @@ public final class ReflectUtil {
         // Get all methods
         final List<Method> methods = Arrays.asList(type.getMethods());
 
-        // Sort the methods from narrower types (i.e., overriding methods) last so they override supertypes' methods
-        Collections.sort(methods, Comparator.comparing(Method::getDeclaringClass, ReflectUtil.getClassComparator().reversed()));
-
         // Identify setters
-        final HashMap<String, Method> setterMap = new HashMap<>();
+        final HashMap<String, List<Method>> setterMap = new HashMap<>();
         for (Method method : methods) {
 
-            // Set if method is a setter method
+            // Set if method is a (non-bridge) setter method with matching name prefix
+            if (method.isBridge())
+                continue;
             if (!method.getName().startsWith(methodPrefix) || method.getName().length() <= methodPrefix.length())
                 continue;
             final Class<?>[] parameterTypes = method.getParameterTypes();
@@ -61,9 +62,16 @@ public final class ReflectUtil {
                 continue;
             final String propertyName = Introspector.decapitalize(method.getName().substring(methodPrefix.length()));
 
-            // Found one (if key already exists, this is an overriding method in a sub-type)
-            setterMap.put(propertyName, method);
+            // Found one
+            setterMap.computeIfAbsent(propertyName, n -> new ArrayList<>(3)).add(method);
         }
+
+        // Sort method lists
+        final Comparator<Method> narrowerParameterTypesFirst = Comparator.<Method, Class<?>>comparing(
+            method -> method.getParameterTypes()[0], ReflectUtil.getClassComparator())
+          .thenComparing(Method::getDeclaringClass, ReflectUtil.getClassComparator());
+        setterMap.values()
+          .forEach(list -> list.sort(narrowerParameterTypesFirst));
 
         // Done
         return setterMap;

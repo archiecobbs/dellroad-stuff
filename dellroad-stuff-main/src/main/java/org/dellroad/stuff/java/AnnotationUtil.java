@@ -77,7 +77,8 @@ public final class AnnotationUtil {
     }
 
     /**
-     * Read annotation values and apply non-default values to the corresponding properties of the given bean.
+     * Read annotation values from the given annotation and apply those values to the corresponding properties
+     * of the given bean.
      *
      * <p>
      * For example, if the annotation has a {@code foo()} property of type {@code int}, and bean has
@@ -89,20 +90,29 @@ public final class AnnotationUtil {
      * actually has type {@link Class}.
      *
      * <p>
-     * Non-primitive array properties are converted into {@link List}s if necessary.
+     * The {@code propertyFinder} allows the caller to specify which annotation property should be
+     * used for the given setter method(s). In cases where there are multiple methods with the same name,
+     * all avilable methods are listed with those taking narrower parameter types listed first.
+     * If {@code propertyFinder} returns a non-null annotation property name, that value will be
+     * set using the first method in the list that accepts it.
+     *
+     * <p>
+     * Non-primitive array values are converted into {@link List}s if necessary.
      *
      * @param bean target bean
      * @param methodPrefix setter method name prefix (typically {@code "set"})
      * @param annotation annotation with properties
-     * @param defaults annotation with default values; if non-null, values equal to their defaults are skipped
-     * @param propertyFinder returns the annotation property name for the setter method, or null if none
+     * @param defaults annotation with default values; if non-null, values in {@code annotation}
+     *  equal to their default are skipped
+     * @param propertyFinder returns the annotation property name for given setter method
+     *  with the given bean property name, or null if none
      * @param <A> annotation type
      * @throws IllegalArgumentException if a required parameter is null
      * @throws IllegalArgumentException if a bean property is being set more than once
      * @throws RuntimeException if an unexpected error occurs
      */
     public static <A extends Annotation> void applyAnnotationValues(Object bean, String methodPrefix,
-      A annotation, A defaults, BiFunction<Method, String, String> propertyFinder) {
+      A annotation, A defaults, BiFunction<? super List<Method>, String, String> propertyFinder) {
 
         // Sanity check
         if (bean == null)
@@ -113,10 +123,10 @@ public final class AnnotationUtil {
             throw new IllegalArgumentException("null propertyFinder");
 
         // Iterate over property setter methods
-        ReflectUtil.findPropertySetters(bean.getClass(), methodPrefix).forEach((propertyName, beanSetter) -> {
+        ReflectUtil.findPropertySetters(bean.getClass(), methodPrefix).forEach((propertyName, methodList) -> {
 
             // Get annotation property name
-            final String annotationPropertyName = propertyFinder.apply(beanSetter, propertyName);
+            final String annotationPropertyName = propertyFinder.apply(methodList, propertyName);
             if (annotationPropertyName == null)
                 return;
 
@@ -145,26 +155,33 @@ public final class AnnotationUtil {
                 if (value instanceof Class)
                     value = ReflectUtil.instantiate((Class<?>)value);
 
-                // Get parameter type (wrapper type if primitive)
-                final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
+                // Try methods in order
+                for (Method beanSetter : methodList) {
 
-                // Special case for converting array values into lists (if needed)
-                if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))
-                    value = Arrays.asList((Object[])value);
+                    // Get parameter type (wrapper type if primitive)
+                    final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
 
-                // If value is not compatible with method parameter, then this must be the wrong (overloaded) method
-                if (!parameterType.isInstance(value))
-                    return;
+                    // Special case for converting array values into lists (if needed)
+                    if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))
+                        value = Arrays.asList((Object[])value);
 
-                // Workaround JDK bug (JDK-8280013)
-                if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
-                    beanSetter.setAccessible(true);
+                    // If value is not compatible with method parameter, then this must be the wrong (overloaded) method
+                    if (!parameterType.isInstance(value))
+                        continue;
 
-                // Apply the value
-                beanSetter.invoke(bean, value);
+                    // Workaround JDK bug (JDK-8280013)
+                    if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
+                        beanSetter.setAccessible(true);
+
+                    // Apply the value
+                    beanSetter.invoke(bean, value);
+
+                    // Stop after the first method that works
+                    break;
+                }
             } catch (Exception e) {
                 throw new RuntimeException("error applying annotation property \""
-                  + annotationPropertyName + "\" to " + beanSetter, e);
+                  + annotationPropertyName + "\" to " + methodList, e);
             }
         });
     }

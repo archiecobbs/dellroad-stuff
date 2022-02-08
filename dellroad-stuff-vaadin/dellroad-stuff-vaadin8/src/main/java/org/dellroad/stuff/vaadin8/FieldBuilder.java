@@ -720,7 +720,7 @@ public class FieldBuilder<T> implements Serializable {
             final A defaults = FieldBuilder.getDefaults(this.annotation);
 
             // Apply non-default annotation values
-            AnnotationUtil.applyAnnotationValues(field, "set", this.annotation, defaults, (fieldSetter, propertyName) -> {
+            AnnotationUtil.applyAnnotationValues(field, "set", this.annotation, defaults, (methodList, propertyName) -> {
 
                 // Special handling for EnumComboBox
                 if (field instanceof org.dellroad.stuff.vaadin8.EnumComboBox

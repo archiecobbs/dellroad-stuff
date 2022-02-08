@@ -163,7 +163,7 @@ public class GridColumnScanner<T> {
             final Grid.Column<T, ?> column = grid.getColumn(propertyName);
 
             // Apply annotation values
-            AnnotationUtil.applyAnnotationValues(column, "set", annotation, defaults, (method, name) -> name);
+            AnnotationUtil.applyAnnotationValues(column, "set", annotation, defaults, (methodList, name) -> name);
 
             // Special handling for setRenderer() method with two parameters
             if (annotation.renderer() != defaults.renderer() && annotation.valueProvider() != defaults.valueProvider())
