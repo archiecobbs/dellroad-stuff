@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
+package org.dellroad.stuff.vaadin22.fieldbuilder;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
@@ -52,7 +52,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
 import org.dellroad.stuff.java.Primitive;
 import org.dellroad.stuff.java.ReflectUtil;
 
-import org.dellroad.stuff.vaadin22.flow.component.AutoBuildAware;
+import org.dellroad.stuff.vaadin22.component.AutoBuildAware;
 
 /**
  * Provides the machinery for auto-generated {@link FieldBuilder}-like classes.

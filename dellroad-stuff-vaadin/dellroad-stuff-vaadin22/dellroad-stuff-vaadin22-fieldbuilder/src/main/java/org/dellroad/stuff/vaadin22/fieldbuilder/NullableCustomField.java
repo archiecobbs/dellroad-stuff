@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
+package org.dellroad.stuff.vaadin22.fieldbuilder;
 
 import com.google.common.base.Preconditions;
 import com.vaadin.flow.component.AbstractField;

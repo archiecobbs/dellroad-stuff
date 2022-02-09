@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component;
+package org.dellroad.stuff.vaadin22.component;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 
@@ -15,7 +15,7 @@ import java.util.EnumSet;
  * {@link ComboBox} that chooses an {@link Enum} value.
  *
  * <p>
- * When instances are created by {@link org.dellroad.stuff.vaadin22.flow.component.fieldbuilder.FieldBuilder},
+ * When instances are created by {@link org.dellroad.stuff.vaadin22.component.fieldbuilder.FieldBuilder},
  * the {@link #setEnumClass} method will be configured automatically using the return type of the annotated
  * getter method (this happens via {@link #onAutoBuild}).
  *

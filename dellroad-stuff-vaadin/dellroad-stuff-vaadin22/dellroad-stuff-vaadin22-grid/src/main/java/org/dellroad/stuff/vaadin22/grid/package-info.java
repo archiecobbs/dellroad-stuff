@@ -6,4 +6,4 @@
 /**
  * Classes relating to Vaadin {@link com.vaadin.flow.component.grid.Grid}.
  */
-package org.dellroad.stuff.vaadin22.flow.component.grid;
+package org.dellroad.stuff.vaadin22.grid;

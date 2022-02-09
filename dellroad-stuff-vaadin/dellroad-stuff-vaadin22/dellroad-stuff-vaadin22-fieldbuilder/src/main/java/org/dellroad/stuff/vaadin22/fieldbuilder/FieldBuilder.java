@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component.fieldbuilder;
+package org.dellroad.stuff.vaadin22.fieldbuilder;
 
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -25,8 +25,8 @@ import java.lang.reflect.Method;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
-import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumn;
-import org.dellroad.stuff.vaadin22.flow.component.grid.GridColumnScanner;
+import org.dellroad.stuff.vaadin22.grid.GridColumn;
+import org.dellroad.stuff.vaadin22.grid.GridColumnScanner;
 
 /**
  * Automatically configures and bind fields using declarative method annotations.
@@ -5358,10 +5358,10 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link org.dellroad.stuff.vaadin22.flow.component.EnumComboBox}.
+     * Specifies how a Java bean property should be edited using a {@link org.dellroad.stuff.vaadin22.component.EnumComboBox}.
      *
      * @see FieldBuilder
-     * @see org.dellroad.stuff.vaadin22.flow.component.EnumComboBox
+     * @see org.dellroad.stuff.vaadin22.component.EnumComboBox
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
@@ -5369,7 +5369,7 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
     public @interface EnumComboBox {
 
         /**
-         * Get the sub-type of {@link org.dellroad.stuff.vaadin22.flow.component.EnumComboBox} that will edit the property.
+         * Get the sub-type of {@link org.dellroad.stuff.vaadin22.component.EnumComboBox} that will edit the property.
          *
          * <p>
          * This property allows custom widget subclasses to be used.
@@ -5380,7 +5380,7 @@ public class FieldBuilder<T> extends AbstractFieldBuilder<FieldBuilder<T>, T> {
          * @return field type
          */
         @SuppressWarnings("rawtypes")
-        Class<? extends org.dellroad.stuff.vaadin22.flow.component.EnumComboBox> implementation() default org.dellroad.stuff.vaadin22.flow.component.EnumComboBox.class;
+        Class<? extends org.dellroad.stuff.vaadin22.component.EnumComboBox> implementation() default org.dellroad.stuff.vaadin22.component.EnumComboBox.class;
 
         /**
          * Get the value desired for the {@code allowCustomValue} property.

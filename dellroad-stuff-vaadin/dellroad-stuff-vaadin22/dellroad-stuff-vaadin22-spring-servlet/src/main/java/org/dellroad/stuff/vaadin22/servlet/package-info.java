@@ -3,4 +3,4 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.spring.servlet;
+package org.dellroad.stuff.vaadin22.servlet;

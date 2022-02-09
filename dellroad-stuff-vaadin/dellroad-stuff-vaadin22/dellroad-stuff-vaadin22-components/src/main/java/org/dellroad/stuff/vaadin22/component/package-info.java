@@ -6,4 +6,4 @@
 /**
  * Vaadin flow components.
  */
-package org.dellroad.stuff.vaadin22.flow.component;
+package org.dellroad.stuff.vaadin22.component;

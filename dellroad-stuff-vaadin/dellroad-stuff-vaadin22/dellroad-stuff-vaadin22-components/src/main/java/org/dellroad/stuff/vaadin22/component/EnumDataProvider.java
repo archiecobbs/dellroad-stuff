@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component;
+package org.dellroad.stuff.vaadin22.component;
 
 import com.vaadin.flow.data.provider.ListDataProvider;
 

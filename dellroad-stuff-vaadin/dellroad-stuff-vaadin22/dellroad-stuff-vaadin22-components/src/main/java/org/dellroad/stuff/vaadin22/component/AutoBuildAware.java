@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.flow.component;
+package org.dellroad.stuff.vaadin22.component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -17,7 +17,7 @@ public interface AutoBuildAware {
     /**
      * Notify that this instance was instantiated automatically based on an annotated method.
      *
-     * @param builder notifier (likely {@link org.dellroad.stuff.vaadin22.flow.component.fieldbuilder.FieldBuilder})
+     * @param builder notifier (likely {@link org.dellroad.stuff.vaadin22.component.fieldbuilder.FieldBuilder})
      * @param method the method that was annotated
      * @param annotation the annotation that was found on the method
      */
