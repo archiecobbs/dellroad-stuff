@@ -53,8 +53,8 @@ public final class ReflectUtil {
         for (Method method : methods) {
 
             // Set if method is a (non-bridge) setter method with matching name prefix
-            if (method.isBridge())
-                continue;
+//            if (method.isBridge())
+//                continue;
             if (!method.getName().startsWith(methodPrefix) || method.getName().length() <= methodPrefix.length())
                 continue;
             final Class<?>[] parameterTypes = method.getParameterTypes();

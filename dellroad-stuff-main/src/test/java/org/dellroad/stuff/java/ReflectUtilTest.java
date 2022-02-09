@@ -36,11 +36,13 @@ public class ReflectUtilTest extends TestSupport {
           "public void " + Class1.class.getName() + ".setFoo(java.lang.Object)");
 
         final List<Method> barList = map.get("bar");
-        Assert.assertEquals(barList.size(), 2);
+        Assert.assertEquals(barList.size(), 3);
         Assert.assertEquals(barList.get(0).toString(),
           "public void " + Class2.class.getName() + ".setBar(java.lang.Integer)");
         Assert.assertEquals(barList.get(1).toString(),
           "public void " + Class2.class.getName() + ".setBar(java.lang.Number)");
+        Assert.assertEquals(barList.get(2).toString(),
+          "public void " + Class2.class.getName() + ".setBar(java.lang.Object)");
     }
 
     private static class Class1<FOO> {
