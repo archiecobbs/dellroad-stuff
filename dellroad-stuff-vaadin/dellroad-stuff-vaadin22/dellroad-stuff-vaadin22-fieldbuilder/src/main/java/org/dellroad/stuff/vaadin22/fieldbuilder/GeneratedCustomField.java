@@ -143,6 +143,9 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
         this.binder = this.createBinder();
         this.fieldBuilder.bindFields(this.binder);
         this.layoutComponents();
+
+        // When any bound sub-field changes, recalculate this field's value
+        this.binder.addValueChangeListener(e -> this.updateValue());
     }
 
     /**
