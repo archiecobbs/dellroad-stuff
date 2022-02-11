@@ -12,10 +12,8 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.BinderValidationStatus;
 import com.vaadin.flow.data.binder.BindingValidationStatusHandler;
 import com.vaadin.flow.data.binder.ErrorMessageProvider;
-import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.shared.util.SharedUtil;
@@ -799,11 +797,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *
          * @param binder binder to bind new field to
          * @param field field to bind
+         * @param <S> field value type
          * @return the new binding
          * @throws IllegalArgumentException if either parameter is null
          */
         @SuppressWarnings({ "unchecked", "rawtypes" })
-        public Binder.Binding<? extends T, ?> bind(Binder<? extends T> binder, HasValue<?, ?> field) {
+        public <V> Binder.Binding<? extends T, ?> bind(Binder<? extends T> binder, HasValue<?, V> field) {
 
             // Sanity check
             if (binder == null)
@@ -812,7 +811,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null field");
 
             // Create and configure BindingBuilder using @Binding annotation, if any
-            Binder.BindingBuilder<? extends T, ?> bindingBuilder = binder.forField(field);
+            Binder.BindingBuilder<? extends T, V> bindingBuilder = binder.forField(field);
             if (this.binding != null) {
                 if (this.binding.requiredValidator() != Validator.class)
                     bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(this.binding.requiredValidator()));
@@ -830,28 +829,16 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                     bindingBuilder = bindingBuilder.withValidator(ReflectUtil.instantiate(validatorClass));
                 if (!this.binding.nullRepresentation().equals(STRING_DEFAULT)) {
                     try {
-                        bindingBuilder = ((Binder.BindingBuilder<T, String>)bindingBuilder).withNullRepresentation(
-                          this.binding.nullRepresentation());
+                        bindingBuilder = bindingBuilder.withNullRepresentation((V)this.binding.nullRepresentation());
                     } catch (ClassCastException e) {
                         // ignore
                     }
                 }
             }
 
-            // Add validation from any chained Binders
-            if (field instanceof HasBinder) {
-                bindingBuilder = bindingBuilder.withValidator((bean, ctx) -> {
-                    final Binder<?> fieldBinder = ((HasBinder<?>)field).getBinder();
-                    if (fieldBinder == null)
-                        return ValidationResult.ok();
-                    final BinderValidationStatus<?> status = fieldBinder.validate();
-                    if (status.isOk())
-                        return ValidationResult.ok();
-                    if (!status.getBeanValidationErrors().isEmpty())
-                        return ValidationResult.error(status.getBeanValidationErrors().get(0).getErrorMessage());
-                    return ValidationResult.error(status.getValidationErrors().get(0).getErrorMessage());
-                });
-            }
+            // Add internal validator, if any
+            if (field instanceof HasInternalValidator)
+                bindingBuilder = bindingBuilder.withValidator(((HasInternalValidator<?, V>)field).getInternalValidator());
 
             // Complete the binding
             return bindingBuilder.bind(this.propertyName);

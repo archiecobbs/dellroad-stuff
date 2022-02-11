@@ -5,9 +5,17 @@
 
 package org.dellroad.stuff.vaadin22.fieldbuilder;
 
+import com.google.common.base.Preconditions;
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.BinderValidationStatus;
+import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.Validator;
+
+import java.util.Optional;
 
 /**
  * Support superclass that mostly automates the creation of {@link CustomField}s for editing any model type
@@ -16,13 +24,17 @@ import com.vaadin.flow.data.binder.Binder;
  * <p>
  * This field uses a {@link FieldBuilder} to generate sub-fields for the annotated properties of a user-supplied model class.
  * As with any other {@link CustomField}, this allows editing instances of the model class as a single property within
- * some containing class. The containing class could then specify this class as the editor for the corresponding property
- * using a {@link FieldBuilder.CustomField &#64;FieldBuilder.CustomField} annotation.
+ * some containing class. The containing class could then specify this class as the editor for that property with a
+ * {@link FieldBuilder.CustomField &#64;FieldBuilder.CustomField} annotation.
  *
  * <p>
- * Internally each {@link GeneratedCustomField} contains a separate {@link Binder} for its sub-fields. This "inner" {@link Binder}
- * is linked for validation to the "outer" {@link Binder} for the containing class by way of this class implementing
- * {@link HasBinder} (see {@link FieldBuilder} for details).
+ * Each {@link GeneratedCustomField} contains an internal {@link Binder} to which its sub-fields are bound. Subclasses can
+ * customize the {@link Binder}, e.g., to add additional cross-field validation, etc. Subclasses can also customize
+ * the layout of the sub-fields via {@link #layoutComponents}.
+ *
+ * <p>
+ * This class also implements {@link HasInternalValidator}, which facilitates for recursive validation when this field
+ * is used within an outer {@link FieldBuilder}; see {@link FieldBuilder} for details.
  *
  * <p>
  * Put another way, this class provides the glue that allows {@link FieldBuilder} to work recursively, while also
@@ -67,15 +79,23 @@ import com.vaadin.flow.data.binder.Binder;
  *     &#64;Override
  *     protected Binder&lt;DateInterval&gt; createBinder() {
  *         return super.createBinder().withValidator(i -&gt; i.getStartDate().isBefore(i.getEndDate()) ?
- *             ValidationResult.ok() : ValidationResult.error("Start date must be before end date"));
+ *             ValidationResult.ok() : ValidationResult.error("Dates out-of-order"));
  *     }
  *
  *     // Customize how we want to layout the subfields
  *     &#64;Override
  *     protected void layoutComponents() {
- *         this.add(this.fieldBuilder.getBoundFields().get("startDate").getComponent());
- *         this.add(new Text(" - "));
- *         this.add(this.fieldBuilder.getBoundFields().get("endDate").getComponent());
+ *
+ *         // Get sub-fields
+ *         final FieldBuilder.BoundField startDateField = this.fieldBuilder.getBoundFields().get("startDate");
+ *         final FieldBuilder.BoundField endDateField = this.fieldBuilder.getBoundFields().get("endDate");
+ *
+ *         // Layout sub-fields
+ *         final HorizontalLayout layout = new HorizontalLayout();
+ *         layout.add(startDateField.getComponent());
+ *         layout.add(new Text("-"));
+ *         layout.add(endDateField.getComponent());
+ *         this.add(layout);
  *     }
  * }
  *
@@ -103,7 +123,8 @@ import com.vaadin.flow.data.binder.Binder;
  * @param <T> field value type
  */
 @SuppressWarnings("serial")
-public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder<T> {
+public class GeneratedCustomField<T> extends CustomField<T>
+  implements HasInternalValidator<AbstractField.ComponentValueChangeEvent<CustomField<T>, T>, T> {
 
     /**
      * The field value type.
@@ -116,7 +137,7 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
     protected final AbstractFieldBuilder<?, T> fieldBuilder;
 
     /**
-     * The binder for this instance's sub-fields.
+     * The binder that is bound to this instance's sub-fields.
      */
     protected final Binder<T> binder;
 
@@ -165,7 +186,7 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
      *
      * <p>
      * The implementation in {@link GeneratedCustomField} delegates to {@link Binder#Binder(Class)}.
-     * Subclasses can override this method to add additional validators, etc.
+     * Subclasses can override this method to substitute {@link BeanValidationBinder}, add additional validators, etc.
      *
      * @return field builder
      */
@@ -189,11 +210,62 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
           .forEach(layout::add);
     }
 
-// HasBinder
+    /**
+     * Create a new/empty instance of the bean model class.
+     *
+     * <p>
+     * This value is used to initialize fields to their default values.
+     *
+     * <p>
+     * The implementation in {@link GeneratedCustomField} attempts to invoke a default constructor for the bean class.
+     *
+     * @return new empty bean
+     */
+    protected T createNewBean() {
+        try {
+            return this.modelType.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("unexpected error invoking " + this.modelType + " constructor", e);
+        }
+    }
+
+// HasInternalValidator
 
     @Override
-    public Binder<T> getBinder() {
-        return this.binder;
+    public Validator<T> getInternalValidator() {
+
+        // Create an entirely separate binder and set of fields just for validation
+        final AbstractFieldBuilder<?, T> validationFieldBuilder = this.createFieldBuilder();
+        final Binder<T> validationBinder = this.createBinder();
+        validationFieldBuilder.bindFields(validationBinder);
+
+        // Return Validator that uses them
+        return (bean, ctx) -> {
+            if (bean == null)
+                return ValidationResult.ok();               // if null is an invalid value, presumably that's handled elsewhere
+            validationBinder.setBean(bean);
+            try {
+                return this.buildValidationResult(validationBinder.validate());
+            } finally {
+                validationBinder.removeBean();
+            }
+        };
+    }
+
+    /**
+     * Build a {@link ValidationResult} from the given {@link BinderValidationStatus}s.
+     *
+     * <p>
+     * The implementation in {@code GeneratedCustomField} simply returns an "Invalid" result if the given
+     * status contains any errors, otherwise {@link ValidationResult#ok}.
+     *
+     * @param status validation status from internal binder
+     * @return {@link ValidationResult} encapsulating {@code status} to be forwarded to the outer binder
+     * @throws IllegalArgumentException if {@code status} is null
+     */
+    protected ValidationResult buildValidationResult(BinderValidationStatus<T> status) {
+        Preconditions.checkArgument(status != null, "null status");
+        return status.isOk() ? ValidationResult.ok() : ValidationResult.error("Invalid");
     }
 
 // CustomField
@@ -202,12 +274,7 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
     protected T generateModelValue() {
 
         // Create a new bean instance
-        final T bean;
-        try {
-            bean = modelType.getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("unexpected error invoking " + this.modelType + " constructor", e);
-        }
+        final T bean = this.createNewBean();
 
         // Write fields into bean where possible
         this.binder.writeBeanAsDraft(bean);
@@ -218,6 +285,7 @@ public class GeneratedCustomField<T> extends CustomField<T> implements HasBinder
 
     @Override
     protected void setPresentationValue(T value) {
-        this.binder.setBean(value);
+        final T target = Optional.ofNullable(value).orElseGet(this::createNewBean);
+        this.binder.readBean(target);
     }
 }

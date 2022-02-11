@@ -14,6 +14,8 @@ import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.Validator;
 
 /**
  * A {@link CustomField} that wraps an inner field and sticks an enablement checkbox in front of it which explicitly
@@ -22,9 +24,14 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  * <p>
  * When the checkbox is checked, the inner field functions normally. When the checkbox is unchecked, the inner field
  * is completely disabled and the value of this field is null.
+ *
+ * <p>
+ * Implements {@link HasInternalValidator}, delegating to the inner field (for non-null values only) if it also
+ * implements {@link HasInternalValidator}.
  */
 @SuppressWarnings("serial")
-public class NullableCustomField<T> extends CustomField<T> {
+public class NullableCustomField<T> extends CustomField<T>
+  implements HasInternalValidator<AbstractField.ComponentValueChangeEvent<CustomField<T>, T>, T> {
 
     protected final HasValue<?, T> innerField;
     protected final Component component;
@@ -86,7 +93,7 @@ public class NullableCustomField<T> extends CustomField<T> {
 
 // Public methods
 
-    public HasValue<?, ?> getInnerField() {
+    public HasValue<?, T> getInnerField() {
         return this.innerField;
     }
 
@@ -96,6 +103,16 @@ public class NullableCustomField<T> extends CustomField<T> {
 
     public Checkbox getCheckbox() {
         return this.checkbox;
+    }
+
+// HasInternalValidator
+
+    @Override
+    public Validator<T> getInternalValidator() {
+        if (!(this.innerField instanceof HasInternalValidator))
+            return (bean, ctx) -> ValidationResult.ok();
+        final Validator<? super T> validator = ((HasInternalValidator<?, T>)this.innerField).getInternalValidator();
+        return (bean, ctx) -> bean != null ? validator.apply(bean, ctx) : ValidationResult.ok();
     }
 
 // Subclass methods
@@ -142,7 +159,6 @@ public class NullableCustomField<T> extends CustomField<T> {
     @Override
     protected void setPresentationValue(T value) {
         this.setNullified(value == null);
-        if (value != null)
-            this.innerField.setValue(value);
+        this.innerField.setValue(value);
     }
 }
