@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin22.servlet;
 
+import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.function.DeploymentConfiguration;
 import com.vaadin.flow.server.ServiceException;
 import com.vaadin.flow.server.VaadinRequest;
@@ -59,11 +60,9 @@ import org.springframework.web.context.ContextLoaderListener;
  *     }
  * }
  * </pre></blockquote>
- * and then including it in your {@code applicationContext.xml}:
  *
- * <blockquote><pre>
- *     &lt;bean id="springleton" class="com.mypackate.MySpringleton"/&gt;
- * </pre></blockquote>
+ * <p>
+ * You may also need to include an {@link AppShellConfigurator} bean with the appropriate application-wide annotations.
  *
  * <p>
  * The {@link ApplicationContext} can be created however you want; traditionally, this is done via {@link ContextLoaderListener}.
