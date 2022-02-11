@@ -19,6 +19,12 @@ org.dellroad.stuff.string
 org.dellroad.stuff.test
 org.dellroad.stuff.text
 org.dellroad.stuff.util
+org.dellroad.stuff.vaadin.fieldbuilder
+org.dellroad.stuff.vaadin22.component
+org.dellroad.stuff.vaadin22.fieldbuilder
+org.dellroad.stuff.vaadin22.grid
+org.dellroad.stuff.vaadin22.servlet
+org.dellroad.stuff.vaadin22.util
 org.dellroad.stuff.vaadin8
 org.dellroad.stuff.validation
 org.dellroad.stuff.xml
