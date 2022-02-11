@@ -797,7 +797,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *
          * @param binder binder to bind new field to
          * @param field field to bind
-         * @param <S> field value type
+         * @param <V> field value type
          * @return the new binding
          * @throws IllegalArgumentException if either parameter is null
          */

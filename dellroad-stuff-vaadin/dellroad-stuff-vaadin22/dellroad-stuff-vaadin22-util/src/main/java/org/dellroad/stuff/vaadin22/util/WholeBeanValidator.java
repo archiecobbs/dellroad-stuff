@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import javax.validation.Path;
 import javax.validation.TraversableResolver;
+import javax.validation.groups.Default;
 
 /**
  * Applies JSR 303 bean validation constraints that are attached to the bean as a whole (not to an individual property).

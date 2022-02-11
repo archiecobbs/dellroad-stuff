@@ -29,9 +29,9 @@ import com.vaadin.flow.data.binder.Validator;
 public interface HasInternalValidator<E extends HasValue.ValueChangeEvent<V>, V> extends HasValue<E, V> {
 
     /**
-     * Provide {@link Validators} to be used when this field is bound into a {@link Binder}.
+     * Provide {@link Validator}'s to be used when this field is bound into a {@link Binder}.
      *
-     * @return zero or more {@link Validators}
+     * @return zero or more {@link Validator}'s
      */
     Validator<? super V> getInternalValidator();
 }

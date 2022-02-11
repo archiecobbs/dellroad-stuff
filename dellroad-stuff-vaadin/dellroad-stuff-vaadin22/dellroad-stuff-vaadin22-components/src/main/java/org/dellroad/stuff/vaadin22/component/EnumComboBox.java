@@ -15,7 +15,7 @@ import java.util.EnumSet;
  * {@link ComboBox} that chooses an {@link Enum} value.
  *
  * <p>
- * When instances are created by {@link org.dellroad.stuff.vaadin22.component.fieldbuilder.FieldBuilder},
+ * When instances are created by {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder},
  * the {@link #setEnumClass} method will be configured automatically using the return type of the annotated
  * getter method (this happens via {@link #onAutoBuild}).
  *

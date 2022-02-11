@@ -17,7 +17,7 @@ public interface AutoBuildAware {
     /**
      * Notify that this instance was instantiated automatically based on an annotated method.
      *
-     * @param builder notifier (likely {@link org.dellroad.stuff.vaadin22.component.fieldbuilder.FieldBuilder})
+     * @param builder notifier (likely {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder})
      * @param method the method that was annotated
      * @param annotation the annotation that was found on the method
      */
