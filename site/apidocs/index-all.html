@@ -163,14 +163,15 @@
 <dd>
 <div class="block">Holds a bound field and its corresponding component.</div>
 </dd>
-<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.Default</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
+<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.DefaultInfo</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
+<dd>
+<div class="block">Holds static information gathered from scanning <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a>
+ annotations.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.FieldDefault</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
 <dd>
 <div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
  by a <a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> from <a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
-</dd>
-<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.DefaultInfo</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
-<dd>
-<div class="block">Holds static information gathered from scanning <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.FormLayout</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
 <dd>
@@ -179,7 +180,7 @@
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.NullifyCheckbox</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
 <dd>
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>NullableCustomField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component"><code>NullableField</code></a>.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">AbstractFieldBuilder.ProvidesField</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
 <dd>
@@ -440,9 +441,9 @@
 <div class="block">Read annotation values from the given annotation and apply those values to the corresponding properties
  of the given bean.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#applyDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyDefaultAnnotations(HasValue&lt;?, ?&gt;, Class&lt;?&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#applyFieldDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyFieldDefaultAnnotations(HasValue&lt;?, ?&gt;, Class&lt;?&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
-<div class="block">Apply defaults derived from <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations
+<div class="block">Apply defaults derived from <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations
  to the given field.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html#applyInTransaction-D-org.dellroad.stuff.schema.DatabaseAction-">applyInTransaction(D, DatabaseAction&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.schema.<a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a></dt>
@@ -564,9 +565,17 @@
 <dd>
 <div class="block">Bind the given field to the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> according to this instance.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#binder">binder</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#binder">binder</a></span> - Variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
 <dd>
 <div class="block">The binder that is bound to this instance's sub-fields.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component"><span class="typeNameLink">BinderCustomField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="type parameter in BinderCustomField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/component/package-summary.html">org.dellroad.stuff.vaadin22.component</a></dt>
+<dd>
+<div class="block">Support superclass for <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s containing sub-fields that are managed by an internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#BinderCustomField-java.lang.Class-">BinderCustomField(Class&lt;T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dd>
+<div class="block">Constructor.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#bindFields-com.vaadin.flow.data.binder.Binder-">bindFields(Binder&lt;? extends T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
@@ -589,6 +598,10 @@
 <div class="block">Boolean type.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html#BoundField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">BoundField(HasValue&lt;?, ?&gt;, Component)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BoundField</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html#BoundField-com.vaadin.flow.component.AbstractField-">BoundField(AbstractField&lt;?, ?&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BoundField</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
@@ -665,10 +678,8 @@
 <div class="block">Build a <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/ui/Grid.html?is-external=true" title="class or interface in com.vaadin.ui"><code>Grid</code></a> with columns auto-generated from introspected <a href="org/dellroad/stuff/vaadin8/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin8"><code>&#64;GridColumn</code></a> annotations,
  using the given function to instantiate the <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/ui/Grid.html?is-external=true" title="class or interface in com.vaadin.ui"><code>Grid</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#buildLayout--">buildLayout()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
-<dd>
-<div class="block">Build the layout for this field.</div>
-</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#buildLayout--">buildLayout()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#buildLogger--">buildLogger()</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGeneratorMojo</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#buildProvidedField-org.dellroad.stuff.java.MethodAnnotationScanner.MethodInfo-java.lang.Object-">buildProvidedField(MethodAnnotationScanner&lt;T, AbstractFieldBuilder.ProvidesField&gt;.MethodInfo, Object)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
@@ -686,10 +697,6 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/dao/TypedQueryCallback.html#buildQuery-javax.persistence.EntityManager-">buildQuery(EntityManager)</a></span> - Method in class org.dellroad.stuff.dao.<a href="org/dellroad/stuff/dao/TypedQueryCallback.html" title="class in org.dellroad.stuff.dao">TypedQueryCallback</a></dt>
 <dd>
 <div class="block">Build the query as a <code>TypedQuery</code>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#buildValidationResult-com.vaadin.flow.data.binder.BinderValidationStatus-">buildValidationResult(BinderValidationStatus&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
-<dd>
-<div class="block">Build a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValidationResult.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>ValidationResult</code></a> from the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/BinderValidationStatus.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>BinderValidationStatus</code></a>s.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#buildVisbilityMenu--">buildVisbilityMenu()</a></span> - Method in class org.dellroad.stuff.vaadin22.grid.<a href="org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html" title="class in org.dellroad.stuff.vaadin22.grid">GridColumnScanner</a></dt>
 <dd>
@@ -913,8 +920,6 @@
 <dd>
 <div class="block">Character type.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#checkbox">checkbox</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/IdleTimeoutInputStream.html#checkConnection--">checkConnection()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/IdleTimeoutInputStream.html" title="class in org.dellroad.stuff.io">IdleTimeoutInputStream</a></dt>
 <dd>
 <div class="block">Check the status of the underlying <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
@@ -1077,7 +1082,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/string/VersionPartComparator.html#compare-java.lang.String-java.lang.String-">compare(String, String)</a></span> - Method in class org.dellroad.stuff.string.<a href="org/dellroad/stuff/string/VersionPartComparator.html" title="class in org.dellroad.stuff.string">VersionPartComparator</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#component">component</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#component">component</a></span> - Variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/dao/CriteriaCallback.html#configureQuery-javax.persistence.criteria.CriteriaQuery-javax.persistence.criteria.CriteriaBuilder-">configureQuery(CriteriaQuery&lt;T&gt;, CriteriaBuilder)</a></span> - Method in class org.dellroad.stuff.dao.<a href="org/dellroad/stuff/dao/CriteriaCallback.html" title="class in org.dellroad.stuff.dao">CriteriaCallback</a></dt>
 <dd>
@@ -1160,11 +1165,19 @@
 <dd>
 <div class="block">Make a deep copy of the given object.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#createAndBindFields--">createAndBindFields()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dd>
+<div class="block">Create this field's sub-fields and bind them to <a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#binder"><code>BinderCustomField.binder</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html#createAndBindFields--">createAndBindFields()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a></dt>
+<dd>
+<div class="block">Create this field's sub-fields and bind them to <a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#binder"><code>BinderCustomField.binder</code></a>.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/AbstractBeanDefinitionParser.html#createBeanDefinition-java.lang.Class-org.w3c.dom.Element-org.springframework.beans.factory.xml.ParserContext-">createBeanDefinition(Class&lt;?&gt;, Element, ParserContext)</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/AbstractBeanDefinitionParser.html" title="class in org.dellroad.stuff.spring">AbstractBeanDefinitionParser</a></dt>
 <dd>
 <div class="block">Create a new bean definition.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#createBinder--">createBinder()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#createBinder--">createBinder()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
 <dd>
 <div class="block">Create a new <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> for the given type.</div>
 </dd>
@@ -1192,7 +1205,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/TCPNetwork.html#createConnection-java.lang.String-">createConnection(String)</a></span> - Method in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#createFieldBuilder--">createFieldBuilder()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html#createFieldBuilder--">createFieldBuilder()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a></dt>
 <dd>
 <div class="block">Create a new <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>AbstractFieldBuilder</code></a> for the given type.</div>
 </dd>
@@ -1206,9 +1219,9 @@
 <dd>
 <div class="block">Create a new <a href="org/dellroad/stuff/java/MethodAnnotationScanner.MethodInfo.html" title="class in org.dellroad.stuff.java"><code>MethodAnnotationScanner.MethodInfo</code></a> instance corresponding to the given annotated method.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#createNewBean--">createNewBean()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#createNewBean--">createNewBean()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
 <dd>
-<div class="block">Create a new/empty instance of the bean model class.</div>
+<div class="block">Create a new instance of the bean model class.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/PersistentObject.html#createResult-java.io.OutputStream-java.io.File-">createResult(OutputStream, File)</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a></dt>
 <dd>
@@ -1350,6 +1363,8 @@
 <dd>
 <div class="block">Default connect timeout for outgoing connections (20000L milliseconds).</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#DEFAULT_ENABLED_BUT_NULL_ERROR">DEFAULT_ENABLED_BUT_NULL_ERROR</a></span> - Static variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html#DEFAULT_ENCODING">DEFAULT_ENCODING</a></span> - Static variable in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html" title="class in org.dellroad.stuff.xml">IndentXMLStreamWriter</a></dt>
 <dd>
 <div class="block">Initial value for the <a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html#setDefaultEncoding-java.lang.String-">default character encoding</a>.</div>
@@ -1697,6 +1712,13 @@
 <dd>
 <div class="block">Constructor.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#enabledButNullValidationResult--">enabledButNullValidationResult()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>
+<div class="block">Build a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValidationResult.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>ValidationResult</code></a> to be returned by <a href="org/dellroad/stuff/vaadin22/component/NullableField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-"><code>validate()</code></a> in the situation
+ where the checkbox is checked, but the inner field is returning a value of null.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#enabledField">enabledField</a></span> - Variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/string/ByteArrayEncoder.html#encode-byte:A-">encode(byte[])</a></span> - Static method in class org.dellroad.stuff.string.<a href="org/dellroad/stuff/string/ByteArrayEncoder.html" title="class in org.dellroad.stuff.string">ByteArrayEncoder</a></dt>
 <dd>
 <div class="block">Encode a <code>byte[]</code> array as a <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>String</code></a>.</div>
@@ -1943,7 +1965,7 @@
 <dd>
 <div class="block">Static information copy constructor.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#fieldBuilder">fieldBuilder</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html#fieldBuilder">fieldBuilder</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a></dt>
 <dd>
 <div class="block">The field builder that builds this instance's sub-fields.</div>
 </dd>
@@ -2137,6 +2159,15 @@
 <dd>
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/timepicker/TimePicker.html?is-external=true" title="class or interface in com.vaadin.flow.component.timepicker"><code>TimePicker</code></a>.</div>
 </dd>
+<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">FieldBuilderCustomField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="type parameter in FieldBuilderCustomField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
+<dd>
+<div class="block">Support superclass that mostly automates the creation of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s for editing any model type
+ using sub-fields automatically generated from <a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> annotations.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html#FieldBuilderCustomField-java.lang.Class-">FieldBuilderCustomField(Class&lt;T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
 <dt><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder"><span class="typeNameLink">FieldBuilderGenerator</span></a> - Class in <a href="org/dellroad/stuff/vaadin/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin.fieldbuilder</a></dt>
 <dd>
 <div class="block">Generates <code>FieldBuilder</code> source files.</div>
@@ -2310,18 +2341,8 @@
 <dl>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html#generate-java.io.Reader-java.io.Writer-">generate(Reader, Writer)</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">GeneratedCustomField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="type parameter in GeneratedCustomField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
-<dd>
-<div class="block">Support superclass that mostly automates the creation of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s for editing any model type
- having <a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> annotations, using automatically generated sub-fields.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#GeneratedCustomField-java.lang.Class-">GeneratedCustomField(Class&lt;T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
-<dd>
-<div class="block">Constructor.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#generateModelValue--">generateModelValue()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#generateModelValue--">generateModelValue()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#generateModelValue--">generateModelValue()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#generateModelValue--">generateModelValue()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html#generateMultiUpdateName-org.dellroad.stuff.schema.SchemaUpdate-int-">generateMultiUpdateName(SchemaUpdate&lt;T&gt;, int)</a></span> - Method in class org.dellroad.stuff.schema.<a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a></dt>
 <dd>
@@ -2550,8 +2571,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getCharacterStream-java.lang.String-">getCharacterStream(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#getCheckbox--">getCheckbox()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/PersistentObject.html#getCheckInterval--">getCheckInterval()</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a></dt>
 <dd>
 <div class="block">Get the delay time between periodic checks for changes in the underlying persistent file.</div>
@@ -2584,12 +2603,12 @@
 <dd>
 <div class="block">Read the persistent object root value that is currently committed to our local branch.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#getComponent--">getComponent()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html#getComponent--">getComponent()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BoundField</a></dt>
 <dd>
 <div class="block">Get the component to be displayed.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#getComponent--">getComponent()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getConcurrency--">getConcurrency()</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/schema/AbstractUpdatingDataSource.html#getConnection--">getConnection()</a></span> - Method in class org.dellroad.stuff.schema.<a href="org/dellroad/stuff/schema/AbstractUpdatingDataSource.html" title="class in org.dellroad.stuff.schema">AbstractUpdatingDataSource</a></dt>
@@ -2694,11 +2713,11 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html#getDefaultLogger--">getDefaultLogger()</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaults-A-">getDefaults(A)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaultsFor-A-">getDefaultsFor(A)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
 <div class="block">Get an instance of the given widget annotation that has all default values.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaults-java.lang.Class-">getDefaults(Class&lt;A&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaultsFor-java.lang.Class-">getDefaultsFor(Class&lt;A&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
 <div class="block">Get an instance of the given widget annotation type with all default values.</div>
 </dd>
@@ -2751,6 +2770,8 @@
 <div class="block">Get the entire stack of <a href="https://docs.oracle.com/javase/8/docs/api/javax/xml/stream/events/StartElement.html?is-external=true" title="class or interface in javax.xml.stream.events"><code>StartElement</code></a>s.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/StackXMLEventReader.html#getElementText--">getElementText()</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/StackXMLEventReader.html" title="class in org.dellroad.stuff.xml">StackXMLEventReader</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#getEnabledField--">getEnabledField()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/AbstractDAO.html#getEntityManager--">getEntityManager()</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/AbstractDAO.html" title="class in org.dellroad.stuff.spring">AbstractDAO</a></dt>
 <dd>
@@ -2876,7 +2897,7 @@
 <dd>
 <div class="block">Get the underlying <a href="https://docs.oracle.com/javase/8/docs/api/javax/sql/DataSource.html?is-external=true" title="class or interface in javax.sql"><code>DataSource</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#getInnerField--">getInnerField()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#getInnerField--">getInnerField()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/string/ParseContext.html#getInput--">getInput()</a></span> - Method in class org.dellroad.stuff.string.<a href="org/dellroad/stuff/string/ParseContext.html" title="class in org.dellroad.stuff.string">ParseContext</a></dt>
 <dd>
@@ -2903,14 +2924,6 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getInt-int-">getInt(int)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getInt-java.lang.String-">getInt(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#getInternalValidator--">getInternalValidator()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html#getInternalValidator--">getInternalValidator()</a></span> - Method in interface org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="interface in org.dellroad.stuff.vaadin22.fieldbuilder">HasInternalValidator</a></dt>
-<dd>
-<div class="block">Provide <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a>'s to be used when this field is bound into a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#getInternalValidator--">getInternalValidator()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html#getIsolation--">getIsolation()</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html" title="class in org.dellroad.stuff.spring">HibernateIsolationJpaDialect.TransactionDataWrapper</a></dt>
 <dd>&nbsp;</dd>
@@ -3328,8 +3341,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getScannedFieldDefaults--">getScannedFieldDefaults()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
-<div class="block">Get the default values discovered by this instance from scanned
- <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<div class="block">Get the default values discovered by this instance (if any) from scanned
+ <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getScannedProperties--">getScannedProperties()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
@@ -3888,10 +3901,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin8/SimplePropertySet.html#hashCode--">hashCode()</a></span> - Method in class org.dellroad.stuff.vaadin8.<a href="org/dellroad/stuff/vaadin8/SimplePropertySet.html" title="class in org.dellroad.stuff.vaadin8">SimplePropertySet</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="interface in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">HasInternalValidator</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="type parameter in HasInternalValidator">E</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;<a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="type parameter in HasInternalValidator">V</a>&gt;,<a href="org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="type parameter in HasInternalValidator">V</a>&gt; - Interface in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
-<dd>
-<div class="block">Implemented by fields that provide their own <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> to use whenever they are bound into a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/PersistentObject.html#hasRoot--">hasRoot()</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a></dt>
 <dd>
 <div class="block">Determine whether this instance has a non-null root object.</div>
@@ -4061,7 +4070,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/schema/SQLSchemaUpdater.html#initializeDatabase-java.sql.Connection-">initializeDatabase(Connection)</a></span> - Method in class org.dellroad.stuff.schema.<a href="org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema">SQLSchemaUpdater</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#innerField">innerField</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#innerField">innerField</a></span> - Variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/ChannelConnection.html#inputChannel">inputChannel</a></span> - Variable in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/ChannelConnection.html" title="class in org.dellroad.stuff.net">ChannelConnection</a></dt>
 <dd>&nbsp;</dd>
@@ -4168,10 +4177,6 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html#isIgnoreUnrecognizedUpdates--">isIgnoreUnrecognizedUpdates()</a></span> - Method in class org.dellroad.stuff.schema.<a href="org/dellroad/stuff/schema/AbstractSchemaUpdater.html" title="class in org.dellroad.stuff.schema">AbstractSchemaUpdater</a></dt>
 <dd>
 <div class="block">Determine whether unrecognized updates are ignored or cause an exception.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#isIncluded--">isIncluded()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BindingInfo</a></dt>
-<dd>
-<div class="block">Get whether to include this field in a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a> by default.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#isLast--">isLast()</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
@@ -4312,7 +4317,11 @@
 <dl>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#last--">last()</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#layoutComponents--">layoutComponents()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#layoutComponents--">layoutComponents()</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dd>
+<div class="block">Layout components required for this field.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html#layoutComponents--">layoutComponents()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a></dt>
 <dd>
 <div class="block">Layout components required for this field.</div>
 </dd>
@@ -4652,7 +4661,7 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/IPv4Util.html#MIN_VALID_NETMASK_WIDTH">MIN_VALID_NETMASK_WIDTH</a></span> - Static variable in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/IPv4Util.html" title="class in org.dellroad.stuff.net">IPv4Util</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#modelType">modelType</a></span> - Variable in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#modelType">modelType</a></span> - Variable in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
 <dd>
 <div class="block">The field value type.</div>
 </dd>
@@ -4740,22 +4749,22 @@
 <dd>
 <div class="block">Notify listeners of a change in value.</div>
 </dd>
-<dt><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><span class="typeNameLink">NullableCustomField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="type parameter in NullableCustomField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/fieldbuilder/package-summary.html">org.dellroad.stuff.vaadin22.fieldbuilder</a></dt>
+<dt><a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component"><span class="typeNameLink">NullableField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/component/package-summary.html">org.dellroad.stuff.vaadin22.component</a></dt>
 <dd>
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and sticks an enablement checkbox in front of it which explicitly
+<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends an checkbox in front of it which
  controls whether the value is null or not.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#NullableCustomField-com.vaadin.flow.component.AbstractField-java.lang.String-">NullableCustomField(AbstractField&lt;?, T&gt;, String)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#NullableField-com.vaadin.flow.component.AbstractField-java.lang.String-">NullableField(AbstractField&lt;?, T&gt;, String)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>
-<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and a new checkbox with given label.</div>
+<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and a new <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> with the given label.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#NullableCustomField-com.vaadin.flow.component.AbstractField-com.vaadin.flow.component.checkbox.Checkbox-">NullableCustomField(AbstractField&lt;?, T&gt;, Checkbox)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#NullableField-com.vaadin.flow.component.AbstractField-com.vaadin.flow.component.HasValue-">NullableField(AbstractField&lt;?, T&gt;, HasValue&lt;?, Boolean&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>
-<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given checkbox.</div>
+<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#NullableCustomField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-com.vaadin.flow.component.checkbox.Checkbox-">NullableCustomField(HasValue&lt;?, T&gt;, Component, Checkbox)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#NullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-com.vaadin.flow.component.HasValue-">NullableField(HasValue&lt;?, T&gt;, Component, HasValue&lt;?, Boolean&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>
-<div class="block">Create an instance using the given field, component, and checkbox.</div>
+<div class="block">Create an instance using the given field, component, and <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io"><span class="typeNameLink">NullModemInputStream</span></a> - Class in <a href="org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
 <dd>
@@ -5633,12 +5642,12 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForAnnotations--">scanForAnnotations()</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
 <div class="block">Introspect the configured class for defined <a href="org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a>,
- <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;ProvidesField</code></a>, <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;Binding</code></a>, and
- <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
+ <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.ProvidesField</code></a>, <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Binding</code></a>,
+ and <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForDefaultAnnotations-java.lang.Class-">scanForDefaultAnnotations(Class&lt;M&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForFieldDefaultAnnotations-java.lang.Class-">scanForFieldDefaultAnnotations(Class&lt;M&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a></dt>
 <dd>
-<div class="block">Scan the given model type for <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<div class="block">Scan the given model type for <a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/DelayedAction.html#schedule-java.util.Date-">schedule(Date)</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/DelayedAction.html" title="class in org.dellroad.stuff.spring">DelayedAction</a></dt>
 <dd>
@@ -5906,6 +5915,8 @@
 <div class="block">Set whether to use the SQL column labels as the XML element names for the data columns
  instead of <code>&lt;column&gt;</code>.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#setComponentEnabled-boolean-">setComponentEnabled(boolean)</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/TCPNetwork.html#setConnectTimeout-long-">setConnectTimeout(long)</a></span> - Method in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/TCPNetwork.html" title="class in org.dellroad.stuff.net">TCPNetwork</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/ant/JPASchemaGeneratorTask.html#setCreate-boolean-">setCreate(boolean)</a></span> - Method in class org.dellroad.stuff.ant.<a href="org/dellroad/stuff/ant/JPASchemaGeneratorTask.html" title="class in org.dellroad.stuff.ant">JPASchemaGeneratorTask</a></dt>
@@ -6114,10 +6125,6 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/StreamWriterDelegate.html#setNamespaceContext-javax.xml.namespace.NamespaceContext-">setNamespaceContext(NamespaceContext)</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/StreamWriterDelegate.html" title="class in org.dellroad.stuff.xml">StreamWriterDelegate</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#setNullified-boolean-">setNullified(boolean)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
-<dd>
-<div class="block">Set whether the field is nullified or not.</div>
-</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/FileStreamRepository.html#setNumBackups-int-">setNumBackups(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io">FileStreamRepository</a></dt>
 <dd>
 <div class="block">Change the number of backup files to maintain.</div>
@@ -6170,9 +6177,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/StreamWriterDelegate.html#setPrefix-java.lang.String-java.lang.String-">setPrefix(String, String)</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/StreamWriterDelegate.html" title="class in org.dellroad.stuff.xml">StreamWriterDelegate</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html#setPresentationValue-T-">setPresentationValue(T)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html#setPresentationValue-T-">setPresentationValue(T)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#setPresentationValue-T-">setPresentationValue(T)</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#setPresentationValue-T-">setPresentationValue(T)</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/servlet/OpenTransactionInViewFilter.html#setPropagation-java.lang.String-">setPropagation(String)</a></span> - Method in class org.dellroad.stuff.servlet.<a href="org/dellroad/stuff/servlet/OpenTransactionInViewFilter.html" title="class in org.dellroad.stuff.servlet">OpenTransactionInViewFilter</a></dt>
 <dd>&nbsp;</dd>
@@ -7305,6 +7311,16 @@
 <dd>
 <div class="block">Validate the given instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-">validate(T, ValueContext)</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component">BinderCustomField</a></dt>
+<dd>
+<div class="block">Validate this instance.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/NullableField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-">validate(T, ValueContext)</a></span> - Method in class org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html#validate-V-com.vaadin.flow.data.binder.ValueContext-">validate(V, ValueContext)</a></span> - Method in interface org.dellroad.stuff.vaadin22.component.<a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component">ValidatingField</a></dt>
+<dd>
+<div class="block">Validate this instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/validation/ValidationContext.html#validate--">validate()</a></span> - Method in class org.dellroad.stuff.validation.<a href="org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation">ValidationContext</a></dt>
 <dd>
 <div class="block">Validate this instance's root object.</div>
@@ -7317,6 +7333,10 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/validation/ValidationUtil.html#validate-T-java.lang.Class...-">validate(T, Class&lt;?&gt;...)</a></span> - Static method in class org.dellroad.stuff.validation.<a href="org/dellroad/stuff/validation/ValidationUtil.html" title="class in org.dellroad.stuff.validation">ValidationUtil</a></dt>
 <dd>
 <div class="block">Validate the given object.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component"><span class="typeNameLink">ValidatingField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="type parameter in ValidatingField">E</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;<a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt;,<a href="org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt; - Interface in <a href="org/dellroad/stuff/vaadin22/component/package-summary.html">org.dellroad.stuff.vaadin22.component</a></dt>
+<dd>
+<div class="block">Implemented by fields that are also capable of validating field values.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation"><span class="typeNameLink">ValidationContext</span></a>&lt;<a href="org/dellroad/stuff/validation/ValidationContext.html" title="type parameter in ValidationContext">T</a>&gt; - Class in <a href="org/dellroad/stuff/validation/package-summary.html">org.dellroad.stuff.validation</a></dt>
 <dd>
@@ -7445,19 +7465,6 @@ the order they are declared.</div>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#wasNull--">wasNull()</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html" title="class in org.dellroad.stuff.vaadin22.util"><span class="typeNameLink">WholeBeanValidationBinder</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html" title="type parameter in WholeBeanValidationBinder">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/util/package-summary.html">org.dellroad.stuff.vaadin22.util</a></dt>
-<dd>
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/BeanValidationBinder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>BeanValidationBinder</code></a> which also validates any bean validation constraints imposed on the bean itself
- (not to an individual property).</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html#WholeBeanValidationBinder-java.lang.Class-">WholeBeanValidationBinder(Class&lt;T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.util.<a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html" title="class in org.dellroad.stuff.vaadin22.util">WholeBeanValidationBinder</a></dt>
-<dd>
-<div class="block">Constructor.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html#WholeBeanValidationBinder-java.lang.Class-boolean-">WholeBeanValidationBinder(Class&lt;T&gt;, boolean)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.util.<a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidationBinder.html" title="class in org.dellroad.stuff.vaadin22.util">WholeBeanValidationBinder</a></dt>
-<dd>
-<div class="block">Constructor.</div>
-</dd>
 <dt><a href="org/dellroad/stuff/vaadin22/util/WholeBeanValidator.html" title="class in org.dellroad.stuff.vaadin22.util"><span class="typeNameLink">WholeBeanValidator</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/util/package-summary.html">org.dellroad.stuff.vaadin22.util</a></dt>
 <dd>
 <div class="block">Applies JSR 303 bean validation constraints that are attached to the bean as a whole (not to an individual property).</div>
@@ -7478,7 +7485,7 @@ the order they are declared.</div>
 <dd>
 <div class="block">Wrap the given primitive type into its wrapper type if it's a primitive type.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#wrapInNullableCustomField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">wrapInNullableCustomField(HasValue&lt;?, T&gt;, Component)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BindingInfo</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#wrapInNullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">wrapInNullableField(HasValue&lt;?, T&gt;, Component)</a></span> - Method in class org.dellroad.stuff.vaadin22.fieldbuilder.<a href="org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.BindingInfo</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org/dellroad/stuff/vaadin8/WritableResource.html" title="class in org.dellroad.stuff.vaadin8"><span class="typeNameLink">WritableResource</span></a> - Class in <a href="org/dellroad/stuff/vaadin8/package-summary.html">org.dellroad.stuff.vaadin8</a></dt>
 <dd>

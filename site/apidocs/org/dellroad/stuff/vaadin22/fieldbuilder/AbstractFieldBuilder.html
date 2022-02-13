@@ -128,7 +128,12 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <div class="block">Provides the machinery for auto-generated <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a>-like classes.
 
  <p>
- See <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> for details.</div>
+ The annotation classes defined in this class, which are common to all <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a>-like classes, may
+ be referenced using the concrete subclass name for consistency. For example, code can reference
+ <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Binding</code></a> instead of <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;AbstractFieldBuilder.Binding</code></a>.
+
+ <p>
+ See <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> for details and the standard implementation.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a>, 
@@ -173,16 +178,17 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><code>static interface&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.Default</a></span></code>
-<div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
- by a <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
+<td class="colFirst"><code>static class&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a></span></code>
+<div class="block">Holds static information gathered from scanning <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a>
+ annotations.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><code>static class&nbsp;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a></span></code>
-<div class="block">Holds static information gathered from scanning <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.FieldDefault</a></span></code>
+<div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
+ by a <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -195,7 +201,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <tr class="altColor">
 <td class="colFirst"><code>static interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.NullifyCheckbox</a></span></code>
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>NullableCustomField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component"><code>NullableField</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -274,9 +280,9 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#applyDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyDefaultAnnotations</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,?&gt;&nbsp;field,
-                       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;modelType)</code>
-<div class="block">Apply defaults derived from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#applyFieldDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyFieldDefaultAnnotations</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,?&gt;&nbsp;field,
+                            <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;modelType)</code>
+<div class="block">Apply defaults derived from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations
  to the given field.</div>
 </td>
 </tr>
@@ -337,21 +343,21 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>protected &lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;<br>A</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaults-A-">getDefaults</a></span>(A&nbsp;annotation)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaultsFor-A-">getDefaultsFor</a></span>(A&nbsp;annotation)</code>
 <div class="block">Get an instance of the given widget annotation that has all default values.</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>protected &lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;<br>A</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaults-java.lang.Class-">getDefaults</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;A&gt;&nbsp;annotationType)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getDefaultsFor-java.lang.Class-">getDefaultsFor</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;A&gt;&nbsp;annotationType)</code>
 <div class="block">Get an instance of the given widget annotation type with all default values.</div>
 </td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#getScannedFieldDefaults--">getScannedFieldDefaults</a></span>()</code>
-<div class="block">Get the default values discovered by this instance from scanned
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<div class="block">Get the default values discovered by this instance (if any) from scanned
+ <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.</div>
 </td>
 </tr>
 <tr id="i13" class="rowColor">
@@ -370,14 +376,14 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <td class="colFirst"><code>protected void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForAnnotations--">scanForAnnotations</a></span>()</code>
 <div class="block">Introspect the configured class for defined <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a>,
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;ProvidesField</code></a>, <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;Binding</code></a>, and
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
+ <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.ProvidesField</code></a>, <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Binding</code></a>,
+ and <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
 </td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>protected &lt;M&gt;&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForDefaultAnnotations-java.lang.Class-">scanForDefaultAnnotations</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;M&gt;&nbsp;modelType)</code>
-<div class="block">Scan the given model type for <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html#scanForFieldDefaultAnnotations-java.lang.Class-">scanForFieldDefaultAnnotations</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;M&gt;&nbsp;modelType)</code>
+<div class="block">Scan the given model type for <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.</div>
 </td>
 </tr>
 </table>
@@ -509,8 +515,8 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <li class="blockList">
 <h4>getScannedFieldDefaults</h4>
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a>&gt;&gt;&nbsp;getScannedFieldDefaults()</pre>
-<div class="block">Get the default values discovered by this instance from scanned
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.
+<div class="block">Get the default values discovered by this instance (if any) from scanned
+ <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.
 
  <p>
  The returned map is keyed by the return types of methods found with
@@ -580,9 +586,6 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
  to the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a>.
 
  <p>
- Fields with <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html#included--"><code>&#64;FieldBuilder.FormLayout.included()</code></a> equal to false are omitted.
-
- <p>
  The field components are added in order of <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html#order--"><code>&#64;FieldBuilder.FormLayout.order()</code></a>,
  then by property name.</div>
 <dl>
@@ -604,8 +607,8 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <h4>scanForAnnotations</h4>
 <pre>protected&nbsp;void&nbsp;scanForAnnotations()</pre>
 <div class="block">Introspect the configured class for defined <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a>,
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;ProvidesField</code></a>, <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;Binding</code></a>, and
- <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.
+ <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.ProvidesField</code></a>, <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Binding</code></a>,
+ and <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.
 
  <p>
  Note: this method is invoked from the <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>AbstractFieldBuilder</code></a> constructor.</div>
@@ -615,14 +618,14 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </dl>
 </li>
 </ul>
-<a name="scanForDefaultAnnotations-java.lang.Class-">
+<a name="scanForFieldDefaultAnnotations-java.lang.Class-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>scanForDefaultAnnotations</h4>
-<pre>protected&nbsp;&lt;M&gt;&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a>&gt;&nbsp;scanForDefaultAnnotations(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;M&gt;&nbsp;modelType)</pre>
-<div class="block">Scan the given model type for <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<h4>scanForFieldDefaultAnnotations</h4>
+<pre>protected&nbsp;&lt;M&gt;&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a>&gt;&nbsp;scanForFieldDefaultAnnotations(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;M&gt;&nbsp;modelType)</pre>
+<div class="block">Scan the given model type for <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>M</code> - model type</dd>
@@ -653,15 +656,15 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </dl>
 </li>
 </ul>
-<a name="applyDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">
+<a name="applyFieldDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>applyDefaultAnnotations</h4>
-<pre>protected&nbsp;void&nbsp;applyDefaultAnnotations(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,?&gt;&nbsp;field,
-                                       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;modelType)</pre>
-<div class="block">Apply defaults derived from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations
+<h4>applyFieldDefaultAnnotations</h4>
+<pre>protected&nbsp;void&nbsp;applyFieldDefaultAnnotations(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,?&gt;&nbsp;field,
+                                            <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;modelType)</pre>
+<div class="block">Apply defaults derived from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a> annotations
  to the given field.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -690,15 +693,15 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </dl>
 </li>
 </ul>
-<a name="getDefaults-java.lang.annotation.Annotation-">
+<a name="getDefaultsFor-java.lang.annotation.Annotation-">
 <!--   -->
-</a><a name="getDefaults-A-">
+</a><a name="getDefaultsFor-A-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getDefaults</h4>
-<pre>protected&nbsp;&lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;&nbsp;A&nbsp;getDefaults(A&nbsp;annotation)</pre>
+<h4>getDefaultsFor</h4>
+<pre>protected&nbsp;&lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;&nbsp;A&nbsp;getDefaultsFor(A&nbsp;annotation)</pre>
 <div class="block">Get an instance of the given widget annotation that has all default values.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -713,13 +716,13 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </dl>
 </li>
 </ul>
-<a name="getDefaults-java.lang.Class-">
+<a name="getDefaultsFor-java.lang.Class-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getDefaults</h4>
-<pre>protected&nbsp;&lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;&nbsp;A&nbsp;getDefaults(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;A&gt;&nbsp;annotationType)</pre>
+<h4>getDefaultsFor</h4>
+<pre>protected&nbsp;&lt;A extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&gt;&nbsp;A&nbsp;getDefaultsFor(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;A&gt;&nbsp;annotationType)</pre>
 <div class="block">Get an instance of the given widget annotation type with all default values.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>

@@ -80,23 +80,6 @@
 <div class="contentContainer">
 <ul class="blockList">
 <li class="blockList">
-<table class="typeSummary" border="0" cellpadding="3" cellspacing="0" summary="Interface Summary table, listing interfaces, and an explanation">
-<caption><span>Interface Summary</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Interface</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/HasInternalValidator.html" title="interface in org.dellroad.stuff.vaadin22.fieldbuilder">HasInternalValidator</a>&lt;E extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;V&gt;,V&gt;</td>
-<td class="colLast">
-<div class="block">Implemented by fields that provide their own <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> to use whenever they are bound into a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.</div>
-</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList">
 <table class="typeSummary" border="0" cellpadding="3" cellspacing="0" summary="Class Summary table, listing classes, and an explanation">
 <caption><span>Class Summary</span><span class="tabEnd">&nbsp;</span></caption>
 <tr>
@@ -127,7 +110,8 @@
 <tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.DefaultInfo</a></td>
 <td class="colLast">
-<div class="block">Holds static information gathered from scanning <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Default</code></a> annotations.</div>
+<div class="block">Holds static information gathered from scanning <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.FieldDefault</code></a>
+ annotations.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -137,17 +121,10 @@
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/GeneratedCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">GeneratedCustomField</a>&lt;T&gt;</td>
+<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">FieldBuilderCustomField</a>&lt;T&gt;</td>
 <td class="colLast">
 <div class="block">Support superclass that mostly automates the creation of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s for editing any model type
- having <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> annotations, using automatically generated sub-fields.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a>&lt;T&gt;</td>
-<td class="colLast">
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and sticks an enablement checkbox in front of it which explicitly
- controls whether the value is null or not.</div>
+ using sub-fields automatically generated from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> annotations.</div>
 </td>
 </tr>
 </tbody>
@@ -168,7 +145,7 @@
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.Default.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.Default</a></td>
+<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.FieldDefault</a></td>
 <td class="colLast">
 <div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
  by a <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
@@ -184,7 +161,7 @@
 <tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder.NullifyCheckbox</a></td>
 <td class="colLast">
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>NullableCustomField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component"><code>NullableField</code></a>.</div>
 </td>
 </tr>
 <tr class="altColor">

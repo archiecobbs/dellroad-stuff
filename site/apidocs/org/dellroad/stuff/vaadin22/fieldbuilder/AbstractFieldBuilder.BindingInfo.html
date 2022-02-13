@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -107,6 +107,10 @@ var activeTableTab = "activeTableTab";
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>T</code> - edited model type</dd>
+</dl>
 <dl>
 <dt>Enclosing class:</dt>
 <dd><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">S</a> extends <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">AbstractFieldBuilder</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">S</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&gt;,<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&gt;</dd>
@@ -240,15 +244,9 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#isIncluded--">isIncluded</a></span>()</code>
-<div class="block">Get whether to include this field in a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a> by default.</div>
-</td>
-</tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><code>protected &lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#wrapInNullableCustomField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">wrapInNullableCustomField</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
-                         <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</code>&nbsp;</td>
+<td class="colFirst"><code>protected &lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a>&lt;T&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/AbstractFieldBuilder.BindingInfo.html#wrapInNullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">wrapInNullableField</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
+                   <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -408,20 +406,6 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
-<a name="isIncluded--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>isIncluded</h4>
-<pre>public&nbsp;boolean&nbsp;isIncluded()</pre>
-<div class="block">Get whether to include this field in a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a> by default.</div>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>true to include field, otherwise false</dd>
-</dl>
-</li>
-</ul>
 <a name="getOrigin--">
 <!--   -->
 </a>
@@ -456,14 +440,14 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
-<a name="wrapInNullableCustomField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">
+<a name="wrapInNullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>wrapInNullableCustomField</h4>
-<pre>protected&nbsp;&lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/NullableCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder">NullableCustomField</a>&lt;T&gt;&nbsp;wrapInNullableCustomField(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
-                                                               <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</pre>
+<h4>wrapInNullableField</h4>
+<pre>protected&nbsp;&lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="class in org.dellroad.stuff.vaadin22.component">NullableField</a>&lt;T&gt;&nbsp;wrapInNullableField(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
+                                                   <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</pre>
 </li>
 </ul>
 <a name="bind-com.vaadin.flow.data.binder.Binder-com.vaadin.flow.component.HasValue-">
