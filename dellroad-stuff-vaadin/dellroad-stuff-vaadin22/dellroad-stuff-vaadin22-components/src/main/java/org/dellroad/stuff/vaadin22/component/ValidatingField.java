@@ -1,0 +1,40 @@
+
+/*
+ * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
+ */
+
+package org.dellroad.stuff.vaadin22.component;
+
+import com.vaadin.flow.component.HasValue;
+import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.Validator;
+import com.vaadin.flow.data.binder.ValueContext;
+
+/**
+ * Implemented by fields that are also capable of validating field values.
+ *
+ * <p>
+ * This interface would typically be implemented by complex fields composed from sub-fields, for which some
+ * overall validation needs to be performed. See {@link BinderCustomField} for an example.
+ *
+ * <p>
+ * {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder} recognizes fields implementing this interface
+ * and automatically registers them as an additional {@link Validator} when binding the field.
+ *
+ * @param <E> value change event type
+ * @param <V> internal binder bean type
+ * @see org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder
+ * @see org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilderCustomField
+ * @see org.dellroad.stuff.vaadin22.util.WholeBeanValidator
+ */
+public interface ValidatingField<E extends HasValue.ValueChangeEvent<V>, V> extends HasValue<E, V> {
+
+    /**
+     * Validate this instance.
+     *
+     * @param value field value to validate
+     * @param context the value context for validation
+     * @return the validation result
+     */
+    ValidationResult validate(V value, ValueContext context);
+}

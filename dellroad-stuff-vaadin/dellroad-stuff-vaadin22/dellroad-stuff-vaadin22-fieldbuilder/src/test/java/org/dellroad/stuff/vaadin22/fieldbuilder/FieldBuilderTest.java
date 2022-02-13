@@ -151,7 +151,7 @@ public class FieldBuilderTest extends TestSupport {
     @SuppressWarnings("serial")
     public static class Bar {
 
-        @FieldBuilder.Default("itemLabelGenerator")
+        @FieldBuilder.FieldDefault("itemLabelGenerator")
         private static MyItemLabelGenerator<Bar> buildItemLabelGenerator() {
             return new MyItemLabelGenerator<>();
         }

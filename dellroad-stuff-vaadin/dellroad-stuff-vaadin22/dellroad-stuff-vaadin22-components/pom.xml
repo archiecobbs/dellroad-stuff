@@ -29,5 +29,10 @@
             <artifactId>vaadin</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.dellroad</groupId>
+            <artifactId>dellroad-stuff-vaadin22-util</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

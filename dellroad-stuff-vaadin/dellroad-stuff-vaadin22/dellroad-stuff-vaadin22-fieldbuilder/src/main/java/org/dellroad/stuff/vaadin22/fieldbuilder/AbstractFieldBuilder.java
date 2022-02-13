@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin22.fieldbuilder;
 
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -51,12 +52,19 @@ import org.dellroad.stuff.java.Primitive;
 import org.dellroad.stuff.java.ReflectUtil;
 
 import org.dellroad.stuff.vaadin22.component.AutoBuildAware;
+import org.dellroad.stuff.vaadin22.component.NullableField;
+import org.dellroad.stuff.vaadin22.component.ValidatingField;
 
 /**
  * Provides the machinery for auto-generated {@link FieldBuilder}-like classes.
  *
  * <p>
- * See {@link FieldBuilder} for details.
+ * The annotation classes defined in this class, which are common to all {@link FieldBuilder}-like classes, may
+ * be referenced using the concrete subclass name for consistency. For example, code can reference
+ * {@link Binding &#64;FieldBuilder.Binding} instead of {@link Binding &#64;AbstractFieldBuilder.Binding}.
+ *
+ * <p>
+ * See {@link FieldBuilder} for details and the standard implementation.
  *
  * @param <S> subclass type
  * @param <T> edited model type
@@ -72,7 +80,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     private final Class<T> type;
     private final LinkedHashMap<String, BindingInfo<T>> bindingInfoMap = new LinkedHashMap<>(); // info from scanned annotations
-    private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @Default's
+    private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @FieldDefault's
 
     private LinkedHashMap<String, BoundField> boundFieldMap;                                    // most recently built fields
 
@@ -133,8 +141,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Get the default values discovered by this instance from scanned
-     * {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     * Get the default values discovered by this instance (if any) from scanned
+     * {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotations.
      *
      * <p>
      * The returned map is keyed by the return types of methods found with
@@ -204,9 +212,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * to the given {@link com.vaadin.flow.component.formlayout.FormLayout}.
      *
      * <p>
-     * Fields with {@link FormLayout#included &#64;FieldBuilder.FormLayout.included()} equal to false are omitted.
-     *
-     * <p>
      * The field components are added in order of {@link FormLayout#order &#64;FieldBuilder.FormLayout.order()},
      * then by property name.
      *
@@ -225,16 +230,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             throw new IllegalStateException("bindFields() must be invoked first");
 
         // Extract included fields from the binder and add them to the layout
-        this.bindingInfoMap.forEach((propertyName, info) -> {
-            if (info.isIncluded())
-                info.addField(formLayout, this.boundFieldMap.get(propertyName).getComponent());
-        });
+        this.bindingInfoMap.forEach(
+          (propertyName, info) -> info.addField(formLayout, this.boundFieldMap.get(propertyName).getComponent()));
     }
 
     /**
      * Introspect the configured class for defined {@link FieldBuilder &#64;FieldBuilder.Foo},
-     * {@link ProvidesField &#64;ProvidesField}, {@link Binding &#64;Binding}, and
-     * {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
+     * {@link ProvidesField &#64;FieldBuilder.ProvidesField}, {@link Binding &#64;FieldBuilder.Binding},
+     * and {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
      *
      * <p>
      * Note: this method is invoked from the {@link AbstractFieldBuilder} constructor.
@@ -305,13 +308,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
         });
 
-        // Inspect model types and scan them for static methods with @Default annotations
+        // Inspect model types and scan them for static methods with @FieldDefault annotations
         this.bindingInfoMap.values().stream()
           .map(BindingInfo::getMethod)
           .map(Method::getReturnType)
           .distinct()                                                               // avoid redundant scans
           .forEach(modelType -> {
-            final Map<String, DefaultInfo> defaultInfo = this.scanForDefaultAnnotations(modelType);
+            final Map<String, DefaultInfo> defaultInfo = this.scanForFieldDefaultAnnotations(modelType);
             if (!defaultInfo.isEmpty())
                 this.defaultInfoMap.put(modelType, defaultInfo);
           });
@@ -360,33 +363,33 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Scan the given model type for {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     * Scan the given model type for {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotations.
      *
      * @param modelType model type for some edited property
      * @param <M> model type
      * @return mapping from field property name to default info for that property (possibly empty)
      * @throws IllegalArgumentException if {@code modelType} is null
      */
-    protected <M> Map<String, DefaultInfo> scanForDefaultAnnotations(Class<M> modelType) {
+    protected <M> Map<String, DefaultInfo> scanForFieldDefaultAnnotations(Class<M> modelType) {
 
         // Sanity check
         if (modelType == null)
             throw new IllegalArgumentException("null modelType");
 
-        // Scan type for @Default annotations
+        // Scan type for @FieldDefault annotations
         final HashMap<String, DefaultInfo> defaultMap = new HashMap<>();
-        new MethodAnnotationScanner<M, Default>(modelType, Default.class) {
+        new MethodAnnotationScanner<M, FieldDefault>(modelType, FieldDefault.class) {
 
             // We only want non-void, zero-arg static methods
             @Override
-            protected boolean includeMethod(Method method, Default annotation) {
+            protected boolean includeMethod(Method method, FieldDefault annotation) {
                 return super.includeMethod(method, annotation) && (method.getModifiers() & Modifier.STATIC) != 0;
             }
         }.findAnnotatedMethods().forEach(methodInfo -> {
 
             // Get method and annotation
             final Method method = methodInfo.getMethod();
-            final Default defaultAnnotation = methodInfo.getAnnotation();
+            final FieldDefault defaultAnnotation = methodInfo.getAnnotation();
             final String propertyName = defaultAnnotation.value();
 
             // Create new default info and check for conflict
@@ -403,7 +406,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 // Declaring types are not comparable, so we don't know which one to pick
                 throw new IllegalArgumentException(String.format(
                   "conflicting @%s annotations for field property \"%s\" on methods %s and %s",
-                  Default.class.getName(), propertyName, info1.getMethod(), info2.getMethod()));
+                  FieldDefault.class.getName(), propertyName, info1.getMethod(), info2.getMethod()));
             });
         });
 
@@ -445,7 +448,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Create annotation value applier
         final Method method = methodInfo.getMethod();
         final A annotation = methodInfo.getAnnotation();
-        final A defaults = this.getDefaults(annotation);
+        final A defaults = this.getDefaultsFor(annotation);
         final AnnotationApplier<A> applier = new AnnotationApplier<>(method, annotation, defaults);
 
         // Instantiate field
@@ -455,8 +458,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               + " annotation on method " + method + " is not a sub-type of " + Component.class);
         }
 
-        // Apply any applicable @Default annotations
-        this.applyDefaultAnnotations(field, method.getReturnType());
+        // Apply any applicable @FieldDefault annotations
+        this.applyFieldDefaultAnnotations(field, method.getReturnType());
 
         // Configure field from annotation
         applier.configureField(field);
@@ -466,14 +469,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Apply defaults derived from {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations
+     * Apply defaults derived from {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotations
      * to the given field.
      *
      * @param field the field being configured
      * @param modelType the type of the property edited by {@code field}
      * @throws IllegalArgumentException if either parameter is null
      */
-    protected void applyDefaultAnnotations(HasValue<?, ?> field, Class<?> modelType) {
+    protected void applyFieldDefaultAnnotations(HasValue<?, ?> field, Class<?> modelType) {
 
         // Sanity check
         if (field == null)
@@ -541,10 +544,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @throws IllegalArgumentException if {@code annotation} is null
      */
     @SuppressWarnings("unchecked")
-    protected <A extends Annotation> A getDefaults(A annotation) {
+    protected <A extends Annotation> A getDefaultsFor(A annotation) {
         if (annotation == null)
             throw new IllegalArgumentException("null annotation");
-        return (A)this.getDefaults(annotation.annotationType());
+        return (A)this.getDefaultsFor(annotation.annotationType());
     }
 
     /**
@@ -556,7 +559,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @throws IllegalArgumentException if {@code annotationType} is not a widget annotation type
      * @throws IllegalArgumentException if {@code annotationType} is null
      */
-    protected <A extends Annotation> A getDefaults(Class<A> annotationType) {
+    protected <A extends Annotation> A getDefaultsFor(Class<A> annotationType) {
 
         // Sanity check
         if (annotationType == null)
@@ -636,6 +639,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * <p>
      * Instances are immutable.
+     *
+     * @param <T> edited model type
      */
     public static class BindingInfo<T> {
 
@@ -746,17 +751,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         /**
-         * Get whether to include this field in a {@link com.vaadin.flow.component.formlayout.FormLayout} by default.
-         *
-         * @return true to include field, otherwise false
-         */
-        public boolean isIncluded() {
-            return Optional.ofNullable(this.formLayout)
-              .map(FormLayout::included)
-              .orElse(true);
-        }
-
-        /**
          * Get a description of the origin of this instance (method and annotation).
          *
          * @return origin description
@@ -775,21 +769,20 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         public BoundField createBoundField(T bean) {
             BoundField boundField = this.fieldBuilder.apply(bean);
             if (this.nullifyCheckbox != null) {
-                final NullableCustomField<?> nullableCustomField
-                  = this.wrapInNullableCustomField(boundField.getField(), boundField.getComponent());
-                boundField = new BoundField(nullableCustomField, nullableCustomField);
+                final NullableField<?> nullableField = this.wrapInNullableField(boundField.getField(), boundField.getComponent());
+                boundField = new BoundField(nullableField);
             }
             return boundField;
         }
 
-        protected <T> NullableCustomField<T> wrapInNullableCustomField(HasValue<?, T> field, Component component) {
+        protected <T> NullableField<T> wrapInNullableField(HasValue<?, T> field, Component component) {
             if (field == null)
                 throw new IllegalArgumentException("null field");
             if (component == null)
                 throw new IllegalArgumentException("null component");
             if (this.nullifyCheckbox == null)
                 throw new IllegalStateException("no nullifyCheckbox");
-            return new NullableCustomField<>(field, component, new Checkbox(this.nullifyCheckbox.value()));
+            return new NullableField<>(field, component, new Checkbox(this.nullifyCheckbox.value()));
         }
 
         /**
@@ -836,9 +829,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 }
             }
 
-            // Add internal validator, if any
-            if (field instanceof HasInternalValidator)
-                bindingBuilder = bindingBuilder.withValidator(((HasInternalValidator<?, V>)field).getInternalValidator());
+            // Add recursive validation if field implements ValidatingField
+            if (field instanceof ValidatingField)
+                bindingBuilder = bindingBuilder.withValidator(((ValidatingField<?, V>)field)::validate);
 
             // Complete the binding
             return bindingBuilder.bind(this.propertyName);
@@ -894,7 +887,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 // DefaultInfo
 
     /**
-     * Holds static information gathered from scanning {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotations.
+     * Holds static information gathered from scanning {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault}
+     * annotations.
      *
      * <p>
      * Instances are immutable.
@@ -1022,6 +1016,16 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null component");
             this.field = field;
             this.component = component;
+        }
+
+        /**
+         * Constructor.
+         *
+         * @param field field to bind to {@link Binder}
+         * @throws IllegalArgumentException if {@code field} is null
+         */
+        public BoundField(AbstractField<?, ?> field) {
+            this(field, field);
         }
 
         /**
@@ -1220,10 +1224,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * by a {@link FieldBuilder} from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations.
      *
      * <p>
-     * A {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} annotation annotates a static method in an
-     * edited model class that returns an alternate default value for some field property. The property is specified by
-     * name and works for all fields with a corresponding setter method whose parameter type is compatible with the
-     * annotated method's return value.
+     * A {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotation annotates a static method in an
+     * edited model class that returns an alternate default value for some field configuration property (for example,
+     * {@code "itemLabelGenerator"}. The property is specified by name and works for all field types having a corresponding
+     * setter method with parameter type compatible with the annotated method's return value.
+     *
+     * <p>
      * For example:
      *
      * <blockquote><pre>
@@ -1232,7 +1238,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *     public String getFirstName() { ... }
      *     public String getLastName() { ... }
      *
-     *     <b>&#64;FieldBuilder.Default("itemLabelGenerator")</b>
+     *     <b>&#64;FieldBuilder.FieldDefault("itemLabelGenerator")</b>
      *     private static ItemLabelGenerator&lt;Person&gt; myCustomLabel() {
      *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
      *     }
@@ -1263,8 +1269,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * or else the annotation is ignored. Public, package-private, protected, and private methods are supported.
      *
      * <p>
-     * If the same field property is named by multiple methods, the method declared in the narrower class wins. If neither
-     * declaring class is narrower, and exception is thrown.
+     * These method may be declared in the edited model class, or any superclass thereof. If the same property is named
+     * by multiple methods, the method declared in the narrower declaring class wins. If neither declaring class is narrower,
+     * an exception is thrown.
      *
      * <p>
      * These annotations only affect fields created from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations;
@@ -1273,7 +1280,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     @Documented
-    public @interface Default {
+    public @interface FieldDefault {
 
         /**
          * The name of the field property that the annotated method will provide.
@@ -1303,16 +1310,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         int colspan() default 0;
 
         /**
-         * Determine whether the associated field should be added to the {@link FormLayout}.
-         *
-         * <p>
-         * This property can be used (for example) to elide a field in a subclass with an annotation on the overridden method.
-         *
-         * @return whether to include field in {@link com.vaadin.flow.component.formlayout.FormLayout}
-         */
-        boolean included() default true;
-
-        /**
          * Specify a label for the associated field.
          *
          * <p>
@@ -1336,7 +1333,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableCustomField}.
+     * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableField}.
      *
      * <p>
      * For example:
@@ -1357,7 +1354,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * }
      * </pre></blockquote>
      *
-     * @see NullableCustomField
+     * @see NullableField
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)

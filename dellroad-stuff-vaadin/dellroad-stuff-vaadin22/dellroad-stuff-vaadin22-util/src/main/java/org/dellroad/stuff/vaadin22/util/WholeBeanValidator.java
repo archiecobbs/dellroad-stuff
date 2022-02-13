@@ -28,8 +28,6 @@ import javax.validation.groups.Default;
  * This is a bean-level validator, so any {@link Binder} using this validator must have an actual bean bound to it to validate
  * (via {@link Binder#setBean Binder.setBean()}), otherwise you'll get an {@link IllegalStateException} with
  * <i>bean level validators have been configured but no bean is currently set</i>.
- *
- * @see WholeBeanValidationBinder
  */
 @SuppressWarnings("serial")
 public class WholeBeanValidator extends BeanValidator {

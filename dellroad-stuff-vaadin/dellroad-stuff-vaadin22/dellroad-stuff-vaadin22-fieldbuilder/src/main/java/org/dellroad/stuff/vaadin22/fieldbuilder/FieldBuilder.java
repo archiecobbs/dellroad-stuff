@@ -25,6 +25,7 @@ import java.lang.reflect.Method;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
+import org.dellroad.stuff.vaadin22.component.ValidatingField;
 import org.dellroad.stuff.vaadin22.grid.GridColumn;
 import org.dellroad.stuff.vaadin22.grid.GridColumnScanner;
 
@@ -151,14 +152,17 @@ import org.dellroad.stuff.vaadin22.grid.GridColumnScanner;
  *
  * <p>
  * You can override the default value for specific field properties on a per-property-name basis by annotating static methods
- * in the edited model class with {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default}. For example:
+ * in the edited model class with {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault}.
+ *
+ * <p>
+ * For example:
  *
  * <blockquote><pre>
  * public class Person {
  *     public String getFirstName() { ... }
  *     public String getLastName() { ... }
  *
- *     <b>@FieldBuilder.Default("itemLabelGenerator")</b>
+ *     <b>@FieldBuilder.FieldDefault("itemLabelGenerator")</b>
  *     private static ItemLabelGenerator&lt;Person&gt; buildPersonILG() {
  *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
  *     }
@@ -169,15 +173,15 @@ import org.dellroad.stuff.vaadin22.grid.GridColumnScanner;
  * These defaults can be accessed via {@link #getScannedFieldDefaults getScannedFieldDefaults()}.
  *
  * <p>
- * See {@link AbstractFieldBuilder.Default &#64;FieldBuilder.Default} for details.
+ * See {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} for details.
  *
  * <p><b>Recursive Validation</b>
  *
  * <p>
- * To facilitate nesting/recursion of fields, fields that implement {@link HasInternalValidator} will have their {@link Validator}
- * automatically registered by {@link #bindFields bindFields()} with the field is bound. This allows for more modularity
- * with respect to validation when nested types with sub-fields are in use. See also {@link GeneratedCustomField} which relies
- * on this mechanism.
+ * To facilitate nesting/recursion of fields, fields that implement {@link ValidatingField} will be automatically registered
+ * as a field {@link Validator} by {@link #bindFields bindFields()} when the field is bound. This allows for more modularity
+ * with respect to validation when nested types having sub-fields are in use. See also {@link FieldBuilderCustomField}, which
+ * relies on this mechanism.
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
