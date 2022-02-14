@@ -182,7 +182,9 @@ public class NullableField<T> extends CustomField<T>
 
     @Override
     protected void setPresentationValue(T value) {
-        this.setComponentEnabled(value != null);
-        this.innerField.setValue(value != null ? value : this.innerField.getEmptyValue());
+        final boolean enabled = value != null;
+        this.enabledField.setValue(enabled);
+        this.setComponentEnabled(enabled);
+        this.innerField.setValue(enabled ? value : this.innerField.getEmptyValue());
     }
   }
