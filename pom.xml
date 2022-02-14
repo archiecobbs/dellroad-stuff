@@ -362,6 +362,7 @@
                 <inherited>false</inherited>
                 <configuration>
                     <notimestamp>true</notimestamp>
+                    <doclint>-html</doclint><!-- to allow <video> tags -->
                     <validateLinks>true</validateLinks>
                     <aggregate>true</aggregate>
                     <links>
