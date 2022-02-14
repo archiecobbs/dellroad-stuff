@@ -14,8 +14,12 @@ import com.vaadin.flow.data.binder.ValueContext;
  * Implemented by fields that are also capable of validating field values.
  *
  * <p>
- * This interface would typically be implemented by complex fields composed from sub-fields, for which some
- * overall validation needs to be performed. See {@link BinderCustomField} for an example.
+ * The main purpose of doing things this way is modularity: it allows a field to define its own validation logic,
+ * rather than relying on some external component to do so.
+ *
+ * <p>
+ * This interface would typically be implemented by complex fields composed from sub-fields, for which some overall validation
+ * needs to be performed. See {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilderCustomField} for a motivating example.
  *
  * <p>
  * {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder} recognizes fields implementing this interface

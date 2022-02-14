@@ -16,8 +16,8 @@ import java.util.EnumSet;
  *
  * <p>
  * When instances are created by {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder},
- * the {@link #setEnumClass} method will be configured automatically using the return type of the annotated
- * getter method (this happens via {@link #onAutoBuild}).
+ * the {@link #setEnumClass setEnumClass()} method will be configured automatically using the return type
+ * of the annotated getter method (this happens via {@link #onAutoBuild onAutoBuild()}).
  *
  * @param <T> enum type
  */

@@ -18,15 +18,23 @@ import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.ValueContext;
 
 /**
- * A {@link CustomField} that wraps an inner field and prepends an checkbox in front of it which
- * controls whether the value is null or not.
+ * A {@link CustomField} that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
+ * which controls whether the value is null or not.
  *
  * <p>
- * When the checkbox is checked, the inner field functions normally and provides the value of this field.
- * When the checkbox is unchecked, the inner field is completely disabled and the value of this field is null.
+ * When the checkbox is checked, the inner field functions normally and provides the field value.
+ * When the checkbox is unchecked, the inner field is completely disabled and the field value is null.
  *
  * <p>
- * Implements {@link ValidatingField}, delegating to the inner field (for non-null values only) if it also
+ * <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
+ *  <source src="doc-files/NullableFieldAnimation.webm" type="video/webm">
+ *  <span>[Video not supported]</span>
+ * </video>
+ *
+ * <p><b>Validation</b>
+ *
+ * <p>
+ * This class implements {@link ValidatingField}, delegating to the inner field (for non-null values only) if it also
  * implements {@link ValidatingField}.
  *
  * @param <T> field value type
@@ -37,8 +45,19 @@ public class NullableField<T> extends CustomField<T>
 
     public static final String DEFAULT_ENABLED_BUT_NULL_ERROR = "Required value";
 
+    /**
+     * The inner field.
+     */
     protected final HasValue<?, T> innerField;
+
+    /**
+     * The checkbox (or other boolean field).
+     */
     protected final HasValue<?, Boolean> enabledField;
+
+    /**
+     * The inner field component.
+     */
     protected final Component component;
 
 // Constructors
@@ -54,7 +73,7 @@ public class NullableField<T> extends CustomField<T>
     }
 
     /**
-     * Create an instance using the given {@link AbstractField} and the given {@link Checkbox} or other enablement field.
+     * Create an instance using the given {@link AbstractField} and the given enablement field.
      *
      * @param innerField the inner field
      * @param enabledField field that controls nullability
@@ -66,7 +85,7 @@ public class NullableField<T> extends CustomField<T>
     }
 
     /**
-     * Create an instance using the given field, component, and {@link Checkbox} or other enablement field.
+     * Create an instance using the given field, component, and enablement field.
      *
      * @param innerField the inner field
      * @param component the component corresponding to {@link innerField} (typically this is same object)

@@ -55,8 +55,14 @@ import org.dellroad.stuff.vaadin22.util.WholeBeanValidator;
  * mentioned above.
  *
  * <p>
- * However, for this to work some code must register the field as a validator in the outer binding (this happens
- * automatically when the field is created by a {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder}).
+ * However, for this to work some code must register the field as a validator in the outer binding. Note, this happens
+ * automatically when the field is created by a {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilder}.
+ *
+ * <p>
+ * <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
+ *  <source src="doc-files/CustomFieldAnimation.webm" type="video/webm">
+ *  <span>[Video not supported]</span>
+ * </video>
  *
  * <p><b>Layout</b>
  *
@@ -66,6 +72,7 @@ import org.dellroad.stuff.vaadin22.util.WholeBeanValidator;
  *
  * <p><b>Example</b>
  *
+ * <p>
  * See {@link org.dellroad.stuff.vaadin22.fieldbuilder.FieldBuilderCustomField} for an example.
  *
  * @param <T> field value type
