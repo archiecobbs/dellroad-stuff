@@ -119,8 +119,12 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/componen
 <div class="block">Implemented by fields that are also capable of validating field values.
 
  <p>
- This interface would typically be implemented by complex fields composed from sub-fields, for which some
- overall validation needs to be performed. See <a href="../../../../../org/dellroad/stuff/vaadin22/component/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.component"><code>BinderCustomField</code></a> for an example.
+ The main purpose of doing things this way is modularity: it allows a field to define its own validation logic,
+ rather than relying on some external component to do so.
+
+ <p>
+ This interface would typically be implemented by complex fields composed from sub-fields, for which some overall validation
+ needs to be performed. See <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilderCustomField</code></a> for a motivating example.
 
  <p>
  <a href="../../../../../org/dellroad/stuff/vaadin22/fieldbuilder/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.fieldbuilder"><code>FieldBuilder</code></a> recognizes fields implementing this interface

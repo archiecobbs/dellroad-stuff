@@ -135,15 +135,23 @@ var activeTableTab = "activeTableTab";
 <pre>public class <span class="typeNameLabel">NullableField&lt;T&gt;</span>
 extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield">CustomField</a>&lt;T&gt;
 implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component">ValidatingField</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.ComponentValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField.ComponentValueChangeEvent</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield">CustomField</a>&lt;T&gt;,T&gt;,T&gt;</pre>
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends an checkbox in front of it which
- controls whether the value is null or not.
+<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
+ which controls whether the value is null or not.
 
  <p>
- When the checkbox is checked, the inner field functions normally and provides the value of this field.
- When the checkbox is unchecked, the inner field is completely disabled and the value of this field is null.
+ When the checkbox is checked, the inner field functions normally and provides the field value.
+ When the checkbox is unchecked, the inner field is completely disabled and the field value is null.
 
  <p>
- Implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component"><code>ValidatingField</code></a>, delegating to the inner field (for non-null values only) if it also
+ <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
+  <source src="doc-files/NullableFieldAnimation.webm" type="video/webm">
+  <span>[Video not supported]</span>
+ </video>
+
+ <p><b>Validation</b>
+
+ <p>
+ This class implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component"><code>ValidatingField</code></a>, delegating to the inner field (for non-null values only) if it also
  implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.component"><code>ValidatingField</code></a>.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
@@ -205,7 +213,9 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#component">component</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#component">component</a></span></code>
+<div class="block">The inner field component.</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
@@ -213,11 +223,15 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#enabledField">enabledField</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#enabledField">enabledField</a></span></code>
+<div class="block">The checkbox (or other boolean field).</div>
+</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>protected <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#innerField">innerField</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#innerField">innerField</a></span></code>
+<div class="block">The inner field.</div>
+</td>
 </tr>
 </table>
 </li>
@@ -236,7 +250,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#NullableField-com.vaadin.flow.component.AbstractField-com.vaadin.flow.component.HasValue-">NullableField</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt;&nbsp;innerField,
              <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;enabledField)</code>
-<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
+<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given enablement field.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -249,7 +263,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html#NullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-com.vaadin.flow.component.HasValue-">NullableField</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt;&nbsp;innerField,
              <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component,
              <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;enabledField)</code>
-<div class="block">Create an instance using the given field, component, and <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
+<div class="block">Create an instance using the given field, component, and enablement field.</div>
 </td>
 </tr>
 </table>
@@ -449,6 +463,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <li class="blockList">
 <h4>innerField</h4>
 <pre>protected final&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt; innerField</pre>
+<div class="block">The inner field.</div>
 </li>
 </ul>
 <a name="enabledField">
@@ -458,6 +473,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <li class="blockList">
 <h4>enabledField</h4>
 <pre>protected final&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt; enabledField</pre>
+<div class="block">The checkbox (or other boolean field).</div>
 </li>
 </ul>
 <a name="component">
@@ -467,6 +483,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <li class="blockList">
 <h4>component</h4>
 <pre>protected final&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a> component</pre>
+<div class="block">The inner field component.</div>
 </li>
 </ul>
 </li>
@@ -501,7 +518,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <h4>NullableField</h4>
 <pre>public&nbsp;NullableField(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt;&nbsp;innerField,
                      <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;enabledField)</pre>
-<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
+<div class="block">Create an instance using the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a> and the given enablement field.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>innerField</code> - the inner field</dd>
@@ -521,7 +538,7 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/component/Validat
 <pre>public&nbsp;NullableField(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/component/NullableField.html" title="type parameter in NullableField">T</a>&gt;&nbsp;innerField,
                      <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component,
                      <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Boolean.html?is-external=true" title="class or interface in java.lang">Boolean</a>&gt;&nbsp;enabledField)</pre>
-<div class="block">Create an instance using the given field, component, and <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> or other enablement field.</div>
+<div class="block">Create an instance using the given field, component, and enablement field.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>innerField</code> - the inner field</dd>
