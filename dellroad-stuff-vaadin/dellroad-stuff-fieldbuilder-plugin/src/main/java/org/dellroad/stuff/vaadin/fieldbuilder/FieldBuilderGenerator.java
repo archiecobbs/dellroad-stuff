@@ -25,7 +25,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.dellroad.stuff.java.Primitive;
@@ -41,7 +43,8 @@ import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
  */
 public class FieldBuilderGenerator {
 
-    private static final String TAB = "    ";
+    private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*");
+    private static final String INDENT = "    ";
 
     private final Class<?> requiredType;
     private final List<String> packageRoots = new ArrayList<>();
@@ -49,6 +52,7 @@ public class FieldBuilderGenerator {
     private final HashSet<Method> warnedAboutWrongType = new HashSet<>();
 
     private Logger log = this.getDefaultLogger();
+    private Function<? super Class<?>, String> annotationNameFunction;
     private BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction;
     private BiFunction<? super Class<?>, ? super Method, String> defaultOverrideFunction;
     private Predicate<? super Class<?>> classInclusionPredicate;
@@ -85,6 +89,10 @@ public class FieldBuilderGenerator {
 
     public void setLogger(Logger log) {
         this.log = Optional.ofNullable(log).orElse((level, format, params) -> { });
+    }
+
+    public void setAnnotationNameFunction(Function<? super Class<?>, String> annotationNameFunction) {
+        this.annotationNameFunction = annotationNameFunction;
     }
 
     public void setMethodPropertyNameFunction(BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction) {
@@ -230,7 +238,7 @@ public class FieldBuilderGenerator {
         this.lines(2, "return java.util.Arrays.asList(");
         for (int i = 0; i < this.fieldTypes.size(); i++) {
             final String comma = i < this.fieldTypes.size() - 1 ? "," : "";
-            this.lines(3, this.fieldTypes.get(i).getSimpleName() + ".class" + comma);
+            this.lines(3, this.getAnnotationName(this.fieldTypes.get(i)) + ".class" + comma);
         }
         this.lines(2, ");");
         this.lines(1, "}");
@@ -249,15 +257,15 @@ public class FieldBuilderGenerator {
           String.format("(%s = %s.class)", this.implementationPropertyName, cl.getName()) : "";
 
         // Output annotation
-        this.lines(1, String.format("@%s%s", cl.getSimpleName(), propertiesText));
+        this.lines(1, String.format("@%s%s", this.getAnnotationName(cl), propertiesText));
     }
 
     private void generateAnnotationClass(Class<?> cl) {
 
         // Get info
-        final String name = cl.getSimpleName();
         final String longName = cl.getName();
-        final String a = cl.getSimpleName().charAt(0) == 'A' ? "an" : "a";
+        final String a = longName.charAt(0) == 'A' ? "an" : "a";
+        final String annotationName = this.getAnnotationName(cl);
 
         // Output initial stuff
         this.lines(1,
@@ -271,7 +279,7 @@ public class FieldBuilderGenerator {
           "@Retention(RetentionPolicy.RUNTIME)",
           "@Target(ElementType.METHOD)",
           "@Documented",
-          "public @interface " + name + " {");
+          "public @interface " + annotationName + " {");
 
         // Output implementation() property
         final boolean isabstract = (cl.getModifiers() & Modifier.ABSTRACT) != 0;
@@ -476,6 +484,15 @@ public class FieldBuilderGenerator {
         });
     }
 
+    private String getAnnotationName(Class<?> cl) {
+        if (this.annotationNameFunction == null)
+            return cl.getSimpleName();
+        final String annotationName = this.annotationNameFunction.apply(cl);
+        if (annotationName == null || !IDENTIFIER_PATTERN.matcher(annotationName).matches())
+            throw new IllegalArgumentException("invalid result from annotation name function for " + cl + ": " + annotationName);
+        return annotationName;
+    }
+
     private String getDefaultValue(Class<?> cl, Method method) {
 
         // Initialize
@@ -635,7 +652,7 @@ public class FieldBuilderGenerator {
         for (String line : lines) {
             if (!line.isEmpty()) {
                 for (int i = 0; i < indent; i++)
-                    this.output.print(TAB);
+                    this.output.print(INDENT);
             }
             this.output.println(line);
         }

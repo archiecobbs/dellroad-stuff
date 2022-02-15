@@ -19,8 +19,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -79,7 +82,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
     private String implementationPropertyName;
 
     /**
-     * Whether to include abstract classes.
+     * Specify whether to include any abstract classes.
      *
      * <p>
      * For abstract classes, the implementing class property (see {@link implementationPropertyName})
@@ -89,19 +92,42 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
     private boolean includeAbstractClasses;
 
     /**
-     * Methods to customize.
+     * Specify customizations to the generated annotation names.
+     *
+     * <p>
+     * Match classes using {@code &lt;className&gt;} or {@code &lt;classNamePattern&gt;} and specify
+     * the corresponding annotation names using {@code &lt;annotationName&gt;}
      */
     @Parameter
-    private List<Customization> customizations;
+    private List<Customization> annotationNameCustomizations;
 
     /**
-     * Methods to exclude.
+     * Specify customizations to specific annotation properties.
+     *
+     * <p>
+     * Match {@link Method#toString} descriptions using {@code &lt;method&gt;} or {@code &lt;methodPattern&gt;}.
+     * Optionally, also limit the affected widget classes using {@code &lt;className&gt;} or {@code &lt;classNamePattern&gt;}.
+     * Then specify an alternate property name via {@code &lt;propertyName&gt;} and/or default value via
+     * {@code &lt;defaultValue&gt;}.
+     */
+    @Parameter
+    private List<Customization> propertyCustomizations;
+
+    /**
+     * Specify widget properties to exclude.
+     *
+     * <p>
+     * Match {@link Method#toString} descriptions using {@code &lt;method&gt;} or {@code &lt;methodPattern&gt;}.
+     * Optionally, also limit the affected widget classes using {@code &lt;className&gt;} or {@code &lt;classNamePattern&gt;}.
      */
     @Parameter
     private List<Customization> excludeMethods;
 
     /**
-     * Classes to exclude.
+     * Specify widget classes to exclude.
+     *
+     * <p>
+     * Match widget classes using {@code &lt;className&gt;} or {@code &lt;classNamePattern&gt;}.
      */
     @Parameter
     private List<Customization> excludeClasses;
@@ -135,22 +161,29 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 return false;
 
             // Does configuration allow it?
-            if (this.isExcluded(cl))
+            if (this.isExcludedClass(cl))
                 return false;
 
             // OK
             return true;
         };
 
+        // Build class -> annotation name function
+        final Function<? super Class<?>, String> annotationNameFunction = cl -> {
+            return this.findCustomization(this.annotationNameCustomizations, cl, null)
+              .map(Customization::getAnnotationName)
+              .orElseGet(cl::getSimpleName);
+        };
+
         // Build method -> property name function
         final BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction = (cl, method) -> {
 
             // Is method excluded?
-            if (this.isExcluded(cl, method))
+            if (this.isExcludedMethod(cl, method))
                 return null;
 
             // Is method property name customized?
-            return this.findCustomization(cl, method)
+            return this.findCustomization(this.propertyCustomizations, cl, method)
               .map(Customization::getPropertyName)
               .orElseGet(() -> this.defaultPropertyNameFor(method));
         };
@@ -159,10 +192,10 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
         final BiFunction<? super Class<?>, ? super Method, String> defaultOverrideFunction = (cl, method) -> {
 
             // Method should not be excluded at this point
-            assert !this.isExcluded(cl, method);
+            assert !this.isExcludedMethod(cl, method);
 
             // Is method default value customized?
-            return this.findCustomization(cl, method)
+            return this.findCustomization(this.propertyCustomizations, cl, method)
               .map(Customization::getDefaultValue)
               .orElse(null);
         };
@@ -183,6 +216,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 generator.setAnnotationDefaultsMethodName(this.annotationDefaultsMethodName);
                 generator.setImplementationPropertyName(this.implementationPropertyName);
                 generator.setClassInclusionPredicate(classInclusionPredicate);
+                generator.setAnnotationNameFunction(annotationNameFunction);
                 generator.setMethodPropertyNameFunction(methodPropertyNameFunction);
                 generator.setDefaultOverrideFunction(defaultOverrideFunction);
 
@@ -238,29 +272,24 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
         };
     }
 
-    protected boolean isExcluded(Class<?> cl) {
-        return this.findCustomization(this.excludeClasses, cl, null) != null;
+    protected boolean isExcludedClass(Class<?> cl) {
+        return this.findCustomization(this.excludeClasses, cl, null).isPresent();
     }
 
-    protected boolean isExcluded(Class<?> cl, Method method) {
-        return this.findCustomization(this.excludeMethods, cl, method) != null;
-    }
-
-    protected Optional<Customization> findCustomization(Class<?> cl, Method method) {
-        return Optional.ofNullable(this.findCustomization(this.customizations, cl, method));
+    protected boolean isExcludedMethod(Class<?> cl, Method method) {
+        return this.findCustomization(this.excludeMethods, cl, method).isPresent();
     }
 
     protected String defaultPropertyNameFor(Method method) {
         return Introspector.decapitalize(method.getName().substring(3));          // skip the "set" or "add"
     }
 
-    private Customization findCustomization(List<Customization> list, Class<?> cl, Method method) {
+    private Optional<Customization> findCustomization(List<Customization> list, Class<?> cl, Method method) {
         if (list == null)
-            return null;
+            return Optional.empty();
         return list.stream()
           .filter(customization -> customization.matches(cl, method))
-          .findFirst()
-          .orElse(null);
+          .findFirst();
     }
 
 // Customization
@@ -271,6 +300,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
         private String classNamePattern;
         private String method;
         private String methodPattern;
+        private String annotationName;
         private String propertyName;
         private String defaultValue;
 
@@ -319,6 +349,14 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 this.compiledMethodPattern = Pattern.compile(this.methodPattern);
         }
 
+        // Annotation name
+        public String getAnnotationName() {
+            return this.annotationName;
+        }
+        public void setAnnotationName(final String annotationName) {
+            this.annotationName = annotationName;
+        }
+
         // Annotation property name
         public String getPropertyName() {
             return this.propertyName;
@@ -358,6 +396,23 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
 
             // No match
             return false;
+        }
+
+        @Override
+        public String toString() {
+            final String properties = Stream.of(new String[][] {
+              { "className",          this.className },
+              { "classNamePattern",   this.classNamePattern },
+              { "method",             this.method },
+              { "methodPattern",      this.methodPattern },
+              { "annotationName",     this.annotationName },
+              { "propertyName",       this.propertyName },
+              { "defaultValue",       this.defaultValue }
+            })
+              .filter(pair -> pair[1] != null)
+              .map(pair -> String.format("%s=\"%s\"", pair[0], pair[1]))
+              .collect(Collectors.joining(","));
+            return "Customization[" + properties + "]";
         }
     }
 }

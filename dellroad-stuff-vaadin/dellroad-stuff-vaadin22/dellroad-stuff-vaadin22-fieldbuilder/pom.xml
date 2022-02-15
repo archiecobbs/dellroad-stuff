@@ -95,96 +95,94 @@
                                 <packageRoot>com.vaadin.flow.component</packageRoot>
                                 <packageRoot>org.dellroad.stuff.vaadin22.component</packageRoot>
                             </packageRoots>
-                            <customizations>
+                            <propertyCustomizations>
 
                                 <!-- Configure the default values for some properties that aren't properly handled automatically -->
-                                <customization>
+                                <propertyCustomization>
                                     <methodPattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title)\(java\.lang\.String\)</methodPattern>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <methodPattern>public default void com\.vaadin\.flow\.component\.HasSize\.set(Min|Max|)(Height|Width)\(java\.lang\.String\)</methodPattern>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.component.Focusable.setTabIndex(int)</method>
                                     <defaultValue>0</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.component.HasAriaLabel.setAriaLabel(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.component.HasHelper.setHelperText(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.component.textfield.HasAutocapitalize.setAutocapitalize(com.vaadin.flow.component.textfield.Autocapitalize)</method>
                                     <defaultValue>com.vaadin.flow.component.textfield.Autocapitalize.NONE</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.component.textfield.HasAutocomplete.setAutocomplete(com.vaadin.flow.component.textfield.Autocomplete)</method>
                                     <defaultValue>com.vaadin.flow.component.textfield.Autocomplete.ON</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public default void com.vaadin.flow.data.value.HasValueChangeMode.setValueChangeTimeout(int)</method>
                                     <defaultValue>com.vaadin.flow.data.value.HasValueChangeMode.DEFAULT_CHANGE_TIMEOUT</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.Component.setId(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.checkbox.Checkbox.setAriaLabel(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.checkbox.Checkbox.setLabelAsHtml(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.datepicker.DatePicker.setName(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setDatePlaceholder(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setTimePlaceholder(java.lang.String)</method>
                                     <defaultValue>""</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.textfield.AbstractNumberField.setHasControls(boolean)</method>
                                     <defaultValue>false</defaultValue>
-                                </customization>
+                                </propertyCustomization>
 
                                 <!-- Customizations needed for CustomField because it's abstract -->
-                                <customization>
+                                <propertyCustomization>
                                     <className>com.vaadin.flow.component.customfield.CustomField</className>
                                     <method>public default void com.vaadin.flow.component.HasEnabled.setEnabled(boolean)</method>
                                     <defaultValue>true</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <className>com.vaadin.flow.component.customfield.CustomField</className>
                                     <method>public default void com.vaadin.flow.component.HasValueAndElement.setReadOnly(boolean)</method>
                                     <defaultValue>false</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <className>com.vaadin.flow.component.customfield.CustomField</className>
                                     <method>public default void com.vaadin.flow.component.HasValueAndElement.setRequiredIndicatorVisible(boolean)</method>
                                     <defaultValue>false</defaultValue>
-                                </customization>
-                                <customization>
+                                </propertyCustomization>
+                                <propertyCustomization>
                                     <className>com.vaadin.flow.component.customfield.CustomField</className>
                                     <method>public void com.vaadin.flow.component.Component.setVisible(boolean)</method>
                                     <defaultValue>true</defaultValue>
-                                </customization>
-                            </customizations>
+                                </propertyCustomization>
+                            </propertyCustomizations>
 
                             <!-- Exclude the GeneratedFoo classes and the commercial widgets -->
-                            <excludeClasses>
-                            </excludeClasses>
                             <excludeClasses>
                                 <excludeClass>
                                     <classNamePattern>com\.vaadin\.flow\.component\..*\.Generated[\p{Alpha}]+</classNamePattern>
