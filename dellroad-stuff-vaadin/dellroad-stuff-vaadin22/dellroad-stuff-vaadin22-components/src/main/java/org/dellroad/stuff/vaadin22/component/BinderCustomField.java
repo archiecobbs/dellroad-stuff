@@ -37,7 +37,7 @@ import org.dellroad.stuff.vaadin22.util.WholeBeanValidator;
  * <p>
  * The value of a {@link BinderCustomField} is created by applying the values of these sub-fields to a
  * {@linkplain #createNewBean a newly created bean}. However, the value of a {@link BinderCustomField} remains
- * {@linkplain #getEmptyValue the empty value} as long as internal {@link Binder} remains invalid.
+ * {@linkplain #getEmptyValue the empty value} as long as the internal {@link Binder} remains invalid.
  *
  * <p>
  * To create new instances, the value type must have a public zero-arg constructor; otherwise, override {@link #createNewBean}.
@@ -120,6 +120,9 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      * The implementation in {@link BinderCustomField} delegates to {@link Binder#Binder(Class)}.
      * Subclasses can override this method to substitute {@link BeanValidationBinder}, configure additional validators, etc.
      *
+     * <p>
+     * Note: this method is invoked from the constructor.
+     *
      * @return field builder
      */
     protected Binder<T> createBinder() {
@@ -128,6 +131,9 @@ public abstract class BinderCustomField<T> extends CustomField<T>
 
     /**
      * Create this field's sub-fields and bind them to {@link #binder}.
+     *
+     * <p>
+     * Note: this method is invoked from the constructor.
      */
     protected abstract void createAndBindFields();
 
@@ -141,6 +147,9 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      *
      * <p>
      * Subclasses can override this method to add decoration and/or layout differently.
+     *
+     * <p>
+     * Note: this method is invoked from the constructor.
      */
     protected void layoutComponents() {
         final HorizontalLayout layout = new HorizontalLayout();

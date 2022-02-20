@@ -634,8 +634,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     /**
      * Holds static information gathered for one bean property based on {@link FieldBuilder &#64;FieldBuilder.Foo},
-     * {@link ProvidesField &#64;ProvidesField}, {@link Binding &#64;Binding}, and
-     * {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
+     * {@link ProvidesField &#64;FieldBuilder.ProvidesField}, {@link Binding &#64;FieldBuilder.Binding},
+     * {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}, and {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
      *
      * <p>
      * Instances are immutable.

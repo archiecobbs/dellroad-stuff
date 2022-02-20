@@ -30,8 +30,6 @@ import org.dellroad.stuff.vaadin22.grid.GridColumnScanner;
  *
  * <p>
  * These annotations require special handling because they are not normal fields.
- *
- * @see EnumComboBox
  */
 public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, T> extends AbstractFieldBuilder<S, T> {
 
