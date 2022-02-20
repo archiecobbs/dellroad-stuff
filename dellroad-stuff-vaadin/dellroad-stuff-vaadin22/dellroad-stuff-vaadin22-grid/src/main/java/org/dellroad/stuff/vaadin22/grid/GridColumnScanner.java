@@ -285,7 +285,7 @@ public class GridColumnScanner<T> {
           "autoWidth", "classNameGenerator", "comparator", "flexGrow", "footer", "frozen", "header",
           "id", "resizable", "sortOrderProvider", "sortable", "textAlign", "visible", "width" }));
         AnnotationUtil.applyAnnotationValues(column, "set", annotation, defaults,
-          (method, name) -> autoProperties.contains(name) ? name : null);
+          (method, name) -> autoProperties.contains(name) ? name : null, ReflectUtil::instantiate);
 
         // Handle other annotation properties manually
         column.setKey(key);

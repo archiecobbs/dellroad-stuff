@@ -1100,9 +1100,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
             // Apply non-default annotation values
             AnnotationUtil.applyAnnotationValues(field, "set", this.annotation, this.defaults,
-              (methodList, propertyName) -> propertyName);
+              (methodList, propertyName) -> propertyName, this::instantiate);
             AnnotationUtil.applyAnnotationValues(field, "add", this.annotation, this.defaults,
-              (methodList, propertyName) -> methodList.get(0).getName());
+              (methodList, propertyName) -> methodList.get(0).getName(), this::instantiate);
+        }
+
+        public <T> T instantiate(Class<T> type) {
+            return ReflectUtil.instantiate(type);
         }
     }
 

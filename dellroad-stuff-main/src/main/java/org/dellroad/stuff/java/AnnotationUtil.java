@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * Annotation utility methods.
@@ -106,13 +107,15 @@ public final class AnnotationUtil {
      *  equal to their default are skipped
      * @param propertyFinder returns the annotation property name for given setter method
      *  with the given bean property name, or null if none
+     * @param instantiator used to instantiate new instances when annotation property has type {@link Class}
      * @param <A> annotation type
      * @throws IllegalArgumentException if a required parameter is null
      * @throws IllegalArgumentException if a bean property is being set more than once
      * @throws RuntimeException if an unexpected error occurs
      */
     public static <A extends Annotation> void applyAnnotationValues(Object bean, String methodPrefix,
-      A annotation, A defaults, BiFunction<? super List<Method>, String, String> propertyFinder) {
+      A annotation, A defaults, BiFunction<? super List<Method>, String, String> propertyFinder,
+      Function<? super Class<?>, ?> instantiator) {
 
         // Sanity check
         if (bean == null)
@@ -153,7 +156,7 @@ public final class AnnotationUtil {
 
                 // Special case for Class<?> values: instantiate the class
                 if (value instanceof Class)
-                    value = ReflectUtil.instantiate((Class<?>)value);
+                    value = instantiator.apply((Class<?>)value);
 
                 // Try methods in order
                 for (Method beanSetter : methodList) {

@@ -734,7 +734,7 @@ public class FieldBuilder<T> implements Serializable {
 
                 // Proceed
                 return propertyName;
-            });
+            }, ReflectUtil::instantiate);
 
             // Special handling for "styleNames" property
             final Method styleNamesGetter;

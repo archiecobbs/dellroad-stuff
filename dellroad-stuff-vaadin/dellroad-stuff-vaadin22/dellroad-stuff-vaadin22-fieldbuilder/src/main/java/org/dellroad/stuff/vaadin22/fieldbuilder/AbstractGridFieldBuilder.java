@@ -390,10 +390,14 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
         // Create grid
         final Grid<?> grid = new Grid<>(method.getReturnType());
 
+        // Create instantiator
+        final Function<Class<?>, Object> instantiator = ReflectUtil::instantiate;
+
         // Apply annotation values
-        AnnotationUtil.applyAnnotationValues(grid, "set", annotation, null, (methodList, propertyName) -> propertyName);
+        AnnotationUtil.applyAnnotationValues(grid, "set", annotation, null,
+          (methodList, propertyName) -> propertyName, instantiator);
         AnnotationUtil.applyAnnotationValues(grid, "add", annotation, null,
-          (methodList, propertyName) -> methodList.get(0).getName());
+          (methodList, propertyName) -> methodList.get(0).getName(), instantiator);
 
         // Add a single column configured via @GridColumn
         final String description = "@" + annotation.annotationType().getSimpleName() + ".column() on method " + method;
