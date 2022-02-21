@@ -17,6 +17,7 @@ import com.vaadin.flow.data.binder.ValueContext;
 
 import java.util.Objects;
 
+import org.dellroad.stuff.vaadin22.util.VaadinUtil;
 import org.dellroad.stuff.vaadin22.util.WholeBeanValidator;
 
 /**
@@ -106,11 +107,26 @@ public abstract class BinderCustomField<T> extends CustomField<T>
         // Initialize
         this.modelType = modelType;
         this.binder = this.createBinder();
-        this.createAndBindFields();
-        this.layoutComponents();
+        this.initialize();
 
         // When any bound sub-field changes, recalculate this field's value
         this.binder.addValueChangeListener(e -> this.updateValue());
+    }
+
+    /**
+     * Initialize this instance.
+     *
+     * <p>
+     * The implementation in {@link BinderCustomField} invokes {@link #createAndBindFields} and then {@link #layoutComponents}.
+     *
+     * <p>
+     * Note: this method is invoked from the constructor, so any subclass constructor initialization will not have been done yet.
+     * Subclasses can fix this by overriding this method and invoking
+     * {@link VaadinUtil#accessSession VaadinUtil.accessSession}{@code (() -> super.initialize())}.
+     */
+    protected void initialize() {
+        this.createAndBindFields();
+        this.layoutComponents();
     }
 
     /**
@@ -131,9 +147,6 @@ public abstract class BinderCustomField<T> extends CustomField<T>
 
     /**
      * Create this field's sub-fields and bind them to {@link #binder}.
-     *
-     * <p>
-     * Note: this method is invoked from the constructor.
      */
     protected abstract void createAndBindFields();
 
@@ -147,9 +160,6 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      *
      * <p>
      * Subclasses can override this method to add decoration and/or layout differently.
-     *
-     * <p>
-     * Note: this method is invoked from the constructor.
      */
     protected void layoutComponents() {
         final HorizontalLayout layout = new HorizontalLayout();
