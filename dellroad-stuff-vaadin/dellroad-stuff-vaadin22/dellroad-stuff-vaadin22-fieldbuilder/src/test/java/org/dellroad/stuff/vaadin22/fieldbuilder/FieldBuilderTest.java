@@ -32,7 +32,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import org.dellroad.stuff.vaadin22.component.EnumComboBox;
+import org.dellroad.stuff.vaadin22.component.EnumDataProvider;
 
 public class FieldBuilderTest extends TestSupport {
 
@@ -82,8 +82,9 @@ public class FieldBuilderTest extends TestSupport {
 
     // Check field2
 
-        final EnumComboBox<?> field2 = (EnumComboBox<?>)binder.getBinding("field2").get().getField();
-        Assert.assertEquals(field2.getEnumClass(), MyEnum.class);
+        final ComboBox<?> field2 = (ComboBox<?>)binder.getBinding("field2").get().getField();
+        final EnumDataProvider<?> dp2 = (EnumDataProvider<?>)field2.getDataProvider();
+        Assert.assertEquals(dp2.getEnumType(), MyEnum.class);
         Assert.assertEquals(field2.getPlaceholder(), "bleh");
         Assert.assertTrue(field2.getItemLabelGenerator() instanceof MyItemLabelGenerator);
 
@@ -137,8 +138,9 @@ public class FieldBuilderTest extends TestSupport {
         public abstract String getField1();
         public abstract void setField1(String x);
 
-        @FieldBuilder.EnumComboBox(
+        @FieldBuilder.ComboBox(
           placeholder = "bleh",
+          items = EnumDataProvider.class,
           itemLabelGenerator = MyItemLabelGenerator.class)
         public abstract MyEnum getField2();
         public abstract void setField2(MyEnum x);

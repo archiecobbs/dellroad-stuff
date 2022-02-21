@@ -56,7 +56,7 @@
         <ant.version>1.10.2</ant.version>
         <aspectj.maven-plugin.version>1.11</aspectj.maven-plugin.version>
         <aspectj.version>[1.8.13,1.9)</aspectj.version>
-        <guava.javadoc.version>24.0-jre</guava.javadoc.version>
+        <guava.javadoc.version>29.0-jre</guava.javadoc.version>
         <guava.version>[29.0,)</guava.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <hibernate.core.version>5.3.5.Final</hibernate.core.version>
@@ -212,7 +212,7 @@
                     <validateLinks>true</validateLinks>
                     <links combine.children="append">
                         <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
-                        <link>https://google.github.io/guava/releases/${guava.javadoc.version}/api/docs/</link>
+                        <link>https://guava.dev/releases/${guava.javadoc.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
@@ -367,7 +367,7 @@
                     <aggregate>true</aggregate>
                     <links>
                         <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
-                        <link>https://google.github.io/guava/releases/${guava.javadoc.version}/api/docs/</link>
+                        <link>https://guava.dev/releases/${guava.javadoc.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>
                         <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>https://www.slf4j.org/apidocs/</link>

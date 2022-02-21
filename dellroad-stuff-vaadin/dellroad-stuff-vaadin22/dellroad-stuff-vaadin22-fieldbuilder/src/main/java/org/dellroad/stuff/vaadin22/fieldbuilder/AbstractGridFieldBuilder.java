@@ -18,6 +18,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
+import java.util.function.Function;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
@@ -54,7 +55,7 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
      * @param original original instance
      * @throws IllegalArgumentException if {@code original} is null
      */
-    protected AbstractGridFieldBuilder(AbstractGridFieldBuilder<?, T> original) {
+    protected AbstractGridFieldBuilder(AbstractGridFieldBuilder<S, T> original) {
         super(original);
     }
 
@@ -385,11 +386,14 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
 
     protected Grid<?> buildGrid(Method method, Annotation annotation, GridColumn column) {
 
+        // Determine grid model type
+        final Class<?> modelType = new AutoBuildContextImpl(method, annotation).inferDataType();
+
         // Create grid
-        final Grid<?> grid = new Grid<>(method.getReturnType());
+        final Grid<?> grid = new Grid<>(modelType);
 
         // Create instantiator
-        final Function<Class<?>, Object> instantiator = ReflectUtil::instantiate;
+        final Function<Class<?>, Object> instantiator = cl -> this.instantiate(cl, method, annotation);
 
         // Apply annotation values
         AnnotationUtil.applyAnnotationValues(grid, "set", annotation, null,

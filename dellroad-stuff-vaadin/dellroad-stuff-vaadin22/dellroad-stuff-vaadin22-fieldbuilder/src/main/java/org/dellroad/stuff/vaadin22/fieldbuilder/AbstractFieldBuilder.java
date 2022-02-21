@@ -30,6 +30,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -51,7 +52,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
 import org.dellroad.stuff.java.Primitive;
 import org.dellroad.stuff.java.ReflectUtil;
 
-import org.dellroad.stuff.vaadin22.component.AutoBuildAware;
+import org.dellroad.stuff.vaadin22.component.AutoBuildContext;
 import org.dellroad.stuff.vaadin22.component.NullableField;
 import org.dellroad.stuff.vaadin22.component.ValidatingField;
 
@@ -72,6 +73,7 @@ import org.dellroad.stuff.vaadin22.component.ValidatingField;
  */
 public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>, T> implements Serializable {
 
+    public static final String DEFAULT_IMPLEMENTATION_PROPERTY_NAME = "implementation";
     public static final String DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME = "annotationDefaultsMethod";
 
     private static final String STRING_DEFAULT = "<FieldBuilderStringDefault>";
@@ -79,7 +81,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     private static final long serialVersionUID = -3091638771700394722L;
 
     private final Class<T> type;
-    private final LinkedHashMap<String, BindingInfo<T>> bindingInfoMap = new LinkedHashMap<>(); // info from scanned annotations
+    private final LinkedHashMap<String, BindingInfo> bindingInfoMap = new LinkedHashMap<>();    // info from scanned annotations
     private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @FieldDefault's
 
     private LinkedHashMap<String, BoundField> boundFieldMap;                                    // most recently built fields
@@ -107,7 +109,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param original original instance
      * @throws IllegalArgumentException if {@code original} is null
      */
-    protected AbstractFieldBuilder(AbstractFieldBuilder<?, T> original) {
+    protected AbstractFieldBuilder(AbstractFieldBuilder<S, T> original) {
         if (original == null)
             throw new IllegalArgumentException("null original");
         this.type = original.type;
@@ -136,7 +138,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * @return unmodifiable mapping of scanned properties keyed by property name
      */
-    public Map<String, BindingInfo<T>> getScannedProperties() {
+    public Map<String, BindingInfo> getScannedProperties() {
         return Collections.unmodifiableMap(this.bindingInfoMap);
     }
 
@@ -297,10 +299,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
                 // Create new binding info and check for conflict
-                final BindingInfo<T> bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
+                final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
                   bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
                   bean -> this.buildDeclarativeField(methodInfo));
-                final BindingInfo<T> previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
+                final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
                 if (previousInfo != null) {
                     throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
                       propertyName, previousInfo.getOrigin(), bindingInfo.getOrigin()));
@@ -342,10 +344,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
             // Create new binding info and check for conflict
-            final BindingInfo<T> bindingInfo = this.createBindingInfo(method, propertyName, providesField,
+            final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, providesField,
               bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
               bean -> this.buildProvidedField(methodInfo, bean));
-            final BindingInfo<T> previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
+            final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
             if (previousInfo != null) {
                 throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
                   propertyName, previousInfo.getOrigin(), bindingInfo.getOrigin()));
@@ -353,10 +355,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         });
 
         // Sort infos by FormLayout.order() then property name
-        final Comparator<Map.Entry<String, BindingInfo<T>>> comparator
-          = Comparator.<Map.Entry<String, BindingInfo<T>>>comparingDouble(entry -> entry.getValue().getSortOrder())
+        final Comparator<Map.Entry<String, BindingInfo>> comparator
+          = Comparator.<Map.Entry<String, BindingInfo>>comparingDouble(entry -> entry.getValue().getSortOrder())
             .thenComparing(Map.Entry::getKey);
-        final ArrayList<Map.Entry<String, BindingInfo<T>>> infoList = new ArrayList<>(this.bindingInfoMap.entrySet());
+        final ArrayList<Map.Entry<String, BindingInfo>> infoList = new ArrayList<>(this.bindingInfoMap.entrySet());
         infoList.sort(comparator);
         this.bindingInfoMap.clear();
         infoList.forEach(entry -> this.bindingInfoMap.put(entry.getKey(), entry.getValue()));
@@ -449,10 +451,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         final Method method = methodInfo.getMethod();
         final A annotation = methodInfo.getAnnotation();
         final A defaults = this.getDefaultsFor(annotation);
-        final AnnotationApplier<A> applier = new AnnotationApplier<>(method, annotation, defaults);
+        final AnnotationApplier<A> applier = this.new AnnotationApplier<>(method, annotation, defaults);
 
         // Instantiate field
-        final HasValue<?, ?> field = applier.createField(this);
+        final HasValue<?, ?> field = applier.createField();
         if (!(field instanceof Component)) {
             throw new RuntimeException("internal error: field type generated from @" + annotation.annotationType().getName()
               + " annotation on method " + method + " is not a sub-type of " + Component.class);
@@ -597,9 +599,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @return new {@link BindingInfo}
      * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
      */
-    protected BindingInfo<T> createBindingInfo(Method method, String propertyName, Annotation annotation,
+    protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
       Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, Function<? super T, BoundField> fieldBuilder) {
-        return new BindingInfo<>(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
+        return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
     }
 
     /**
@@ -630,6 +632,97 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         return DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME;
     }
 
+    /**
+     * Get the name of the annotation property that specifies the implementation class.
+     *
+     * <p>
+     * The implementation in {@link AbstractFieldBuilder} returns {@value #DEFAULT_IMPLEMENTATION_PROPERTY_NAME}.
+     *
+     * @return implementation property name, never null
+     */
+    protected String getImplementationPropertyName() {
+        return DEFAULT_IMPLEMENTATION_PROPERTY_NAME;
+    }
+
+    /**
+     * Instantiate a field (or whatever) from the given {@link Class}-valued annotation property.
+     *
+     * <p>
+     * We use the {@link AutoBuildContext} constructor if available, otherwise default constructor.
+     *
+     * @param expectedType expected type of thing we're instantiating
+     * @param method annotated method
+     * @param annotation method annotation
+     * @param propertyName annotation property name having type {@link Class}
+     */
+    protected <T> T instantiate(Class<T> expectedType, Method method, Annotation annotation, String propertyName) {
+
+        // Sanity check
+        if (expectedType == null)
+            throw new IllegalArgumentException("null expectedType");
+        if (propertyName == null)
+            throw new IllegalArgumentException("null propertyName");
+
+        // Determine the class to instantiate
+        final Class<? extends T> implType;
+        try {
+            implType = ((Class<?>)annotation.annotationType().getMethod(propertyName).invoke(annotation)).asSubclass(expectedType);
+        } catch (Exception e) {
+            throw new RuntimeException("unexpected exception", e);
+        }
+
+        // Instantiate
+        return this.instantiate(implType, method, annotation);
+    }
+
+    /**
+     * Instantiate a field (or whatever) from the given {@link Class}.
+     *
+     * <p>
+     * We use the {@link AutoBuildContext} constructor if available, otherwise default constructor.
+     *
+     * @param expectedType expected type of thing we're instantiating
+     * @param method annotated method
+     * @param annotation method annotation
+     * @param propertyName annotation property name having type {@link Class}
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    protected <T> T instantiate(Class<T> type, Method method, Annotation annotation) {
+
+        // Sanity check
+        if (type == null)
+            throw new IllegalArgumentException("null type");
+        if (method == null)
+            throw new IllegalArgumentException("null method");
+        if (annotation == null)
+            throw new IllegalArgumentException("null annotation");
+
+        // Use AutoBuildContext constructor if available, otherwise default
+        Constructor<? extends T> constructor;
+        try {
+            constructor = type.getConstructor(AutoBuildContext.class);
+        } catch (NoSuchMethodException e) {
+            constructor = null;
+        }
+        return constructor != null ?
+          ReflectUtil.instantiate(constructor, this.newAutoBuildContext(method, annotation)) :
+          ReflectUtil.instantiate(type);
+    }
+
+    /**
+     * Create an {@link AutoBuildContext} from the given method and annotation.
+     *
+     * <p>
+     * The implementation in {@link AbstractFieldBuilder} creates an {@link AutoBuildContextImpl}.
+     *
+     * @param method annotated method
+     * @param annotation method annotation
+     * @throws IllegalArgumentException if any parameter is null
+     */
+    protected AutoBuildContext newAutoBuildContext(Method method, Annotation annotation) {
+        return this.new AutoBuildContextImpl(method, annotation);
+    }
+
 // BindingInfo
 
     /**
@@ -639,10 +732,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * <p>
      * Instances are immutable.
-     *
-     * @param <T> edited model type
      */
-    public static class BindingInfo<T> {
+    public class BindingInfo {
 
         private final Method method;
         private final String propertyName;
@@ -682,6 +773,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             this.formLayout = formLayout;
             this.nullifyCheckbox = nullifyCheckbox;
             this.fieldBuilder = fieldBuilder;
+        }
+
+        /**
+         * Return the {@link AbstractFieldBuilder} that created this instance.
+         *
+         * @return associated field builder
+         */
+        public AbstractFieldBuilder<S, T> getFieldBuilder() {
+            return AbstractFieldBuilder.this;
         }
 
         /**
@@ -760,6 +860,18 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         /**
+         * Instantiate a field (or whatever) from the given {@link Class}.
+         *
+         * <p>
+         * We use the {@link AutoBuildContext} constructor if available, otherwise default constructor.
+         *
+         * @param type expected type of thing we're instantiating
+         */
+        protected <T> T instantiate(Class<T> type) {
+            return AbstractFieldBuilder.this.instantiate(type, this.method, this.annotation);
+        }
+
+        /**
          * Instantiate a new field and associated component according to this instance.
          *
          * @param bean instance bean, or null if none available
@@ -807,19 +919,19 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             Binder.BindingBuilder<? extends T, V> bindingBuilder = binder.forField(field);
             if (this.binding != null) {
                 if (this.binding.requiredValidator() != Validator.class)
-                    bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(this.binding.requiredValidator()));
+                    bindingBuilder = bindingBuilder.asRequired(this.instantiate(this.binding.requiredValidator()));
                 else if (this.binding.requiredProvider() != ErrorMessageProvider.class)
-                    bindingBuilder = bindingBuilder.asRequired(ReflectUtil.instantiate(this.binding.requiredProvider()));
+                    bindingBuilder = bindingBuilder.asRequired(this.instantiate(this.binding.requiredProvider()));
                 else if (this.binding.required().length() > 0)
                     bindingBuilder = bindingBuilder.asRequired(this.binding.required());
                 if (this.binding.converter() != Converter.class)
-                    bindingBuilder = bindingBuilder.withConverter(ReflectUtil.instantiate(this.binding.converter()));
+                    bindingBuilder = bindingBuilder.withConverter(this.instantiate(this.binding.converter()));
                 if (this.binding.validationStatusHandler() != BindingValidationStatusHandler.class) {
                     bindingBuilder = bindingBuilder.withValidationStatusHandler(
-                      ReflectUtil.instantiate(this.binding.validationStatusHandler()));
+                      this.instantiate(this.binding.validationStatusHandler()));
                 }
                 for (Class<? extends Validator> validatorClass : this.binding.validators())
-                    bindingBuilder = bindingBuilder.withValidator(ReflectUtil.instantiate(validatorClass));
+                    bindingBuilder = bindingBuilder.withValidator(this.instantiate(validatorClass));
                 if (!this.binding.nullRepresentation().equals(STRING_DEFAULT)) {
                     try {
                         bindingBuilder = bindingBuilder.withNullRepresentation((V)this.binding.nullRepresentation());
@@ -1052,7 +1164,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     /**
      * Class that knows how to apply annotation properties to a corresponding component.
      */
-    static class AnnotationApplier<A extends Annotation> {
+    private class AnnotationApplier<A extends Annotation> {
 
         protected final Method method;
         protected final A annotation;
@@ -1070,29 +1182,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             this.defaults = defaults;
         }
 
-        public final Method getMethod() {
+        public Method getMethod() {
             return this.method;
         }
 
-        public final A getAnnotation() {
+        public A getAnnotation() {
             return this.annotation;
         }
 
-        @SuppressWarnings("unchecked")
-        public Class<? extends HasValue<?, ?>> getFieldType() {
-            try {
-                final Class<?> type = (Class<?>)this.annotation.getClass().getMethod("implementation").invoke(this.annotation);
-                return (Class<? extends HasValue<?, ?>>)type.asSubclass(HasValue.class);
-            } catch (Exception e) {
-                throw new RuntimeException("unexpected exception", e);
-            }
-        }
-
-        public HasValue<?, ?> createField(AbstractFieldBuilder<?, ?> fieldBuilder) {
-            final HasValue<?, ?> field = ReflectUtil.instantiate(this.getFieldType());
-            if (field instanceof AutoBuildAware)
-                ((AutoBuildAware)field).onAutoBuild(fieldBuilder, this.method, this.annotation);
-            return field;
+        public HasValue<?, ?> createField() {
+            return AbstractFieldBuilder.this.instantiate(HasValue.class,
+              this.method, this.annotation, AbstractFieldBuilder.this.getImplementationPropertyName());
         }
 
         @SuppressWarnings("unchecked")
@@ -1106,7 +1206,44 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         public <T> T instantiate(Class<T> type) {
-            return ReflectUtil.instantiate(type);
+            return AbstractFieldBuilder.this.instantiate(type, this.method, this.annotation);
+        }
+    }
+
+// AutoBuildContextImpl
+
+    protected class AutoBuildContextImpl implements AutoBuildContext {
+
+        protected final Method method;
+        protected final Annotation annotation;
+
+        public AutoBuildContextImpl(Method method, Annotation annotation) {
+            if (method == null)
+                throw new IllegalArgumentException("null method");
+            if (annotation == null)
+                throw new IllegalArgumentException("null annotation");
+            this.method = method;
+            this.annotation = annotation;
+        }
+
+        @Override
+        public AbstractFieldBuilder<S, T> getBuilder() {
+            return AbstractFieldBuilder.this;
+        }
+
+        @Override
+        public Class<?> getBeanType() {
+            return AbstractFieldBuilder.this.type;
+        }
+
+        @Override
+        public Method getMethod() {
+            return this.method;
+        }
+
+        @Override
+        public Annotation getAnnotation() {
+            return this.annotation;
         }
     }
 

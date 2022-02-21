@@ -142,6 +142,7 @@ public final class AnnotationUtil {
             }
 
             // Apply value if appropriate
+            Object failTarget = methodList;
             try {
 
                 // Get value from annotation
@@ -160,6 +161,9 @@ public final class AnnotationUtil {
 
                 // Try methods in order
                 for (Method beanSetter : methodList) {
+
+                    // For debugging
+                    failTarget = beanSetter;
 
                     // Get parameter type (wrapper type if primitive)
                     final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
@@ -184,7 +188,7 @@ public final class AnnotationUtil {
                 }
             } catch (Exception e) {
                 throw new RuntimeException("error applying annotation property \""
-                  + annotationPropertyName + "\" to " + methodList, e);
+                  + annotationPropertyName + "\" to " + failTarget, e);
             }
         });
     }

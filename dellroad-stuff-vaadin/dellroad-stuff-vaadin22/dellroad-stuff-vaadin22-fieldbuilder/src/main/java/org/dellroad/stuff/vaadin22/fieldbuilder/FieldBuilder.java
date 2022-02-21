@@ -81,7 +81,7 @@ import org.dellroad.stuff.vaadin22.component.ValidatingField;
  * &#64;NotNull
  * public String getName() { ... }
  *
- * <b>&#64;FieldBuilder.EnumComboBox</b>
+ * <b>&#64;FieldBuilder.ComboBox(items = EnumDataProvider.class)</b>
  * <b>&#64;FieldBuilder.Binding(required = "Status is mandatory")</b>
  * <b>&#64;FieldBuilder.FormLayout(label = "Status:", order = 2)</b>
  * &#64;NotNull
@@ -164,6 +164,19 @@ import org.dellroad.stuff.vaadin22.component.ValidatingField;
  * <p>
  * See {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} for details.
  *
+ * <p><b>Providing Context via AutoBuildContext</b>
+ *
+ * All classes instantiated by {@link FieldBuilder} (fields, data providers, converters, validatiors, etc.) are instantiated
+ * using the default constructor, unless a constructor taking a {@link AutoBuildContext} exists, in which case it will
+ * be used instead. In this latter case, the new object can do further introspection of the method and/or annotation
+ * for the purpose of doing additional automated self-configuration.
+ *
+ * <p>
+ * For example, a {@link ComboBox &#64;FieldBuilder.ComboBox} annotation might specify a general purpose
+ * {@link com.vaadin.flow.data.provider.DataProvider} implementation that determines which object type to provide from
+ * the method's return type. This is in fact how {@link org.dellroad.stuff.vaadin22.component.EnumDataProvider}
+ * is able to automatically infer which {@link Enum} type to use and populate itself.
+ *
  * <p><b>Recursive Validation</b>
  *
  * <p>
@@ -198,7 +211,6 @@ import org.dellroad.stuff.vaadin22.component.ValidatingField;
  * @see TextArea
  * @see TextField
  * @see TimePicker
- * @see EnumComboBox
  */
 public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T> {
 
@@ -248,7 +260,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     @TextArea
     @TextField
     @TimePicker
-    @EnumComboBox
     private static java.util.List<Class<? extends java.lang.annotation.Annotation>> annotationDefaultsMethod() {
         return java.util.Arrays.asList(
             Checkbox.class,
@@ -269,8 +280,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
             PasswordField.class,
             TextArea.class,
             TextField.class,
-            TimePicker.class,
-            EnumComboBox.class
+            TimePicker.class
         );
     }
 
@@ -292,7 +302,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -462,7 +473,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -677,7 +689,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -972,7 +985,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property is required because {@link com.vaadin.flow.component.customfield.CustomField} is an abstract class.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -1127,7 +1141,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -1407,7 +1422,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -1655,7 +1671,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -1825,7 +1842,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -1975,7 +1993,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -2125,7 +2144,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -2340,7 +2360,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -2589,7 +2610,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -2875,7 +2897,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -3184,7 +3207,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -3493,7 +3517,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -3834,7 +3859,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -4159,7 +4185,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -4460,7 +4487,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -4777,7 +4805,8 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * This property allows custom widget subclasses to be used.
          *
          * <p>
-         * The specified type must have a public no-arg constructor.
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code AutoBuildContext}.
          *
          * @return field type
          */
@@ -4990,301 +5019,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
          */
         int tabIndex() default 0;
-
-        /**
-         * Get the value desired for the {@code visible} property.
-         *
-         * @return desired {@code visible} property value
-         * @see com.vaadin.flow.component.Component#setVisible(boolean)
-         */
-        boolean visible() default true;
-
-        /**
-         * Get the value desired for the {@code width} property.
-         *
-         * @return desired {@code width} property value
-         * @see com.vaadin.flow.component.HasSize#setWidth(String)
-         */
-        String width() default "";
-    }
-
-    /**
-     * Specifies how a Java bean property should be edited using a {@link org.dellroad.stuff.vaadin22.component.EnumComboBox}.
-     *
-     * @see FieldBuilder
-     * @see org.dellroad.stuff.vaadin22.component.EnumComboBox
-     */
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    @Documented
-    public @interface EnumComboBox {
-
-        /**
-         * Get the sub-type of {@link org.dellroad.stuff.vaadin22.component.EnumComboBox} that will edit the property.
-         *
-         * <p>
-         * This property allows custom widget subclasses to be used.
-         *
-         * <p>
-         * The specified type must have a public no-arg constructor.
-         *
-         * @return field type
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends org.dellroad.stuff.vaadin22.component.EnumComboBox> implementation() default org.dellroad.stuff.vaadin22.component.EnumComboBox.class;
-
-        /**
-         * Get the value desired for the {@code allowCustomValue} property.
-         *
-         * @return desired {@code allowCustomValue} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAllowCustomValue(boolean)
-         */
-        boolean allowCustomValue() default false;
-
-        /**
-         * Get the value desired for the {@code autoOpen} property.
-         *
-         * @return desired {@code autoOpen} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAutoOpen(boolean)
-         */
-        boolean autoOpen() default true;
-
-        /**
-         * Get the value desired for the {@code autofocus} property.
-         *
-         * @return desired {@code autofocus} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAutofocus(boolean)
-         */
-        boolean autofocus() default false;
-
-        /**
-         * Add the specified class names.
-         *
-         * @return zero or more class names to add
-         * @see com.vaadin.flow.component.HasStyle#addClassNames(String[])
-         */
-        String[] addClassNames() default {};
-
-        /**
-         * Get the value desired for the {@code clearButtonVisible} property.
-         *
-         * @return desired {@code clearButtonVisible} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setClearButtonVisible(boolean)
-         */
-        boolean clearButtonVisible() default false;
-
-        /**
-         * Get the class to instantiate for the {@code dataProvider} property.
-         *
-         * @return desired {@code dataProvider} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setDataProvider(com.vaadin.flow.data.provider.DataProvider)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.data.provider.DataProvider> dataProvider() default com.vaadin.flow.data.provider.DataProvider.class;
-
-        /**
-         * Get the value desired for the {@code enabled} property.
-         *
-         * @return desired {@code enabled} property value
-         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
-         */
-        boolean enabled() default true;
-
-        /**
-         * Get the value desired for the {@code errorMessage} property.
-         *
-         * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setErrorMessage(String)
-         */
-        String errorMessage() default "";
-
-        /**
-         * Get the value desired for the {@code height} property.
-         *
-         * @return desired {@code height} property value
-         * @see com.vaadin.flow.component.HasSize#setHeight(String)
-         */
-        String height() default "";
-
-        /**
-         * Get the class to instantiate for the {@code helperComponent} property.
-         *
-         * @return desired {@code helperComponent} property value type
-         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
-
-        /**
-         * Get the value desired for the {@code helperText} property.
-         *
-         * @return desired {@code helperText} property value
-         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
-         */
-        String helperText() default "";
-
-        /**
-         * Get the value desired for the {@code id} property.
-         *
-         * @return desired {@code id} property value
-         * @see com.vaadin.flow.component.Component#setId(String)
-         */
-        String id() default "";
-
-        /**
-         * Get the class to instantiate for the {@code itemLabelGenerator} property.
-         *
-         * @return desired {@code itemLabelGenerator} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setItemLabelGenerator(com.vaadin.flow.component.ItemLabelGenerator)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
-
-        /**
-         * Get the class to instantiate for the {@code items} property.
-         *
-         * @return desired {@code items} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setItems(com.vaadin.flow.data.provider.DataProvider)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
-
-        /**
-         * Get the value desired for the {@code label} property.
-         *
-         * @return desired {@code label} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setLabel(String)
-         */
-        String label() default "";
-
-        /**
-         * Get the value desired for the {@code maxHeight} property.
-         *
-         * @return desired {@code maxHeight} property value
-         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
-         */
-        String maxHeight() default "";
-
-        /**
-         * Get the value desired for the {@code maxWidth} property.
-         *
-         * @return desired {@code maxWidth} property value
-         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
-         */
-        String maxWidth() default "";
-
-        /**
-         * Get the value desired for the {@code minHeight} property.
-         *
-         * @return desired {@code minHeight} property value
-         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
-         */
-        String minHeight() default "";
-
-        /**
-         * Get the value desired for the {@code minWidth} property.
-         *
-         * @return desired {@code minWidth} property value
-         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
-         */
-        String minWidth() default "";
-
-        /**
-         * Get the value desired for the {@code opened} property.
-         *
-         * @return desired {@code opened} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setOpened(boolean)
-         */
-        boolean opened() default false;
-
-        /**
-         * Get the value desired for the {@code pageSize} property.
-         *
-         * @return desired {@code pageSize} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPageSize(int)
-         */
-        int pageSize() default 50;
-
-        /**
-         * Get the value desired for the {@code pattern} property.
-         *
-         * @return desired {@code pattern} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPattern(String)
-         */
-        String pattern() default "";
-
-        /**
-         * Get the value desired for the {@code placeholder} property.
-         *
-         * @return desired {@code placeholder} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPlaceholder(String)
-         */
-        String placeholder() default "";
-
-        /**
-         * Get the value desired for the {@code preventInvalidInput} property.
-         *
-         * @return desired {@code preventInvalidInput} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPreventInvalidInput(boolean)
-         */
-        boolean preventInvalidInput() default false;
-
-        /**
-         * Get the value desired for the {@code readOnly} property.
-         *
-         * @return desired {@code readOnly} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
-         */
-        boolean readOnly() default false;
-
-        /**
-         * Get the class to instantiate for the {@code renderer} property.
-         *
-         * @return desired {@code renderer} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRenderer(com.vaadin.flow.data.renderer.Renderer)
-         */
-        @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.data.renderer.Renderer> renderer() default com.vaadin.flow.data.renderer.Renderer.class;
-
-        /**
-         * Get the value desired for the {@code required} property.
-         *
-         * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRequired(boolean)
-         */
-        boolean required() default false;
-
-        /**
-         * Get the value desired for the {@code requiredIndicatorVisible} property.
-         *
-         * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRequiredIndicatorVisible(boolean)
-         */
-        boolean requiredIndicatorVisible() default false;
-
-        /**
-         * Get the value desired for the {@code tabIndex} property.
-         *
-         * @return desired {@code tabIndex} property value
-         * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
-         */
-        int tabIndex() default 0;
-
-        /**
-         * Add the specified theme names.
-         *
-         * @return zero or more theme names to add
-         * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
-         */
-        String[] addThemeNames() default {};
-
-        /**
-         * Add the specified theme variants.
-         *
-         * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.combobox.ComboBox#addThemeVariants(com.vaadin.flow.component.combobox.ComboBoxVariant[])
-         */
-        com.vaadin.flow.component.combobox.ComboBoxVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code visible} property.
