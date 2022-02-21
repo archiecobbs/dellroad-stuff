@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9};
+var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -146,7 +146,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/stuff/java/ReflectUtil.html#getClassComparator-boolean-">getClassComparator</a></span>(boolean&nbsp;incomparableEqual)</code>
-<div class="block">Get a comparator that orders types where narrower types sort first.</div>
+<div class="block">Get a comparator that calculates which type is narrower, if possible.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -168,6 +168,19 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>&nbsp;target,
       <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a>...&nbsp;params)</code>
 <div class="block">Invoke the given method, rethrowing any checked exceptions.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/stuff/java/ReflectUtil.html#sortByType-java.util.List-">sortByType</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;&nbsp;list)</code>
+<div class="block">Sort the given list so narrower types always appear before wider types.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>static &lt;T&gt;&nbsp;void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../org/dellroad/stuff/java/ReflectUtil.html#sortByType-java.util.List-java.util.function.Function-">sortByType</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;T&gt;&nbsp;list,
+          <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super T,? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;&nbsp;typer)</code>
+<div class="block">Sort the given list so items with narrower types always appear before items with wider types.</div>
 </td>
 </tr>
 </table>
@@ -284,6 +297,42 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
+<a name="sortByType-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sortByType</h4>
+<pre>public static&nbsp;void&nbsp;sortByType(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;&nbsp;list)</pre>
+<div class="block">Sort the given list so narrower types always appear before wider types.
+
+ <p>
+ This is a stable sort. Algorithm is O(n<super>2</super>) however.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>list</code> - list of types</dd>
+</dl>
+</li>
+</ul>
+<a name="sortByType-java.util.List-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sortByType</h4>
+<pre>public static&nbsp;&lt;T&gt;&nbsp;void&nbsp;sortByType(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;T&gt;&nbsp;list,
+                                  <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super T,? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;&nbsp;typer)</pre>
+<div class="block">Sort the given list so items with narrower types always appear before items with wider types.
+
+ <p>
+ This is a stable sort. Algorithm is O(n<super>2</super>) however.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>list</code> - list of items</dd>
+<dd><code>typer</code> - associates a type with each item</dd>
+</dl>
+</li>
+</ul>
 <a name="getClassComparator--">
 <!--   -->
 </a>
@@ -308,11 +357,15 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>getClassComparator</h4>
 <pre>public static&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html?is-external=true" title="class or interface in java.util">Comparator</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&gt;&nbsp;getClassComparator(boolean&nbsp;incomparableEqual)</pre>
-<div class="block">Get a comparator that orders types where narrower types sort first.
+<div class="block">Get a comparator that calculates which type is narrower, if possible.
 
  <p>
- Non-comparable types will compare as equal (so they will not reorder under a stable sort)
- if <code>incomparableEqual</code> is true, or else generate an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang"><code>IllegalArgumentException</code></a>.</div>
+ Non-comparable types will compare as equal if <code>incomparableEqual</code> is true,
+ or else generate an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang"><code>IllegalArgumentException</code></a>.
+
+ <p>
+ <b>Warning:</b> use this comparator for simple comparisons only; it will not work
+ for sorting because it is not transitive for "equality"; use <a href="../../../../org/dellroad/stuff/java/ReflectUtil.html#sortByType-java.util.List-"><code>sortByType()</code></a> instead.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>incomparableEqual</code> - true to return zero for incomparable classes, false to throw <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang"><code>IllegalArgumentException</code></a></dd>

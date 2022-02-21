@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -206,18 +206,13 @@ extends <a href="https://maven.apache.org/ref/3.3.9/apidocs/org/apache/maven/plu
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#execute--">execute</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.Customization.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGeneratorMojo.Customization</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#findCustomization-java.lang.Class-java.lang.reflect.Method-">findCustomization</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
-                 <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</code>&nbsp;</td>
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#isExcludedClass-java.lang.Class-">isExcludedClass</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#isExcluded-java.lang.Class-">isExcluded</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)</code>&nbsp;</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#isExcluded-java.lang.Class-java.lang.reflect.Method-">isExcluded</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
-          <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.html#isExcludedMethod-java.lang.Class-java.lang.reflect.Method-">isExcludedMethod</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
+                <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -288,33 +283,23 @@ extends <a href="https://maven.apache.org/ref/3.3.9/apidocs/org/apache/maven/plu
 <pre>protected&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.Logger.html" title="interface in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator.Logger</a>&nbsp;buildLogger()</pre>
 </li>
 </ul>
-<a name="isExcluded-java.lang.Class-">
+<a name="isExcludedClass-java.lang.Class-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>isExcluded</h4>
-<pre>protected&nbsp;boolean&nbsp;isExcluded(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)</pre>
+<h4>isExcludedClass</h4>
+<pre>protected&nbsp;boolean&nbsp;isExcludedClass(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl)</pre>
 </li>
 </ul>
-<a name="isExcluded-java.lang.Class-java.lang.reflect.Method-">
+<a name="isExcludedMethod-java.lang.Class-java.lang.reflect.Method-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>isExcluded</h4>
-<pre>protected&nbsp;boolean&nbsp;isExcluded(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
-                             <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</pre>
-</li>
-</ul>
-<a name="findCustomization-java.lang.Class-java.lang.reflect.Method-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>findCustomization</h4>
-<pre>protected&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html?is-external=true" title="class or interface in java.util">Optional</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.Customization.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGeneratorMojo.Customization</a>&gt;&nbsp;findCustomization(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
-                                                                              <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</pre>
+<h4>isExcludedMethod</h4>
+<pre>protected&nbsp;boolean&nbsp;isExcludedMethod(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;?&gt;&nbsp;cl,
+                                   <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method)</pre>
 </li>
 </ul>
 <a name="defaultPropertyNameFor-java.lang.reflect.Method-">
