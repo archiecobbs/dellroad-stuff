@@ -41,7 +41,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  * }
  *
  * // This is the corresponding custom field
- * public class DateIntervalField extends FieldBuilderCustomField&lt;DateInterval&gt;
+ * public class DateIntervalField extends FieldBuilderCustomField&lt;DateInterval&gt; {
  *
  *     public DateIntervalField() {
  *         super(DateInterval.class);
