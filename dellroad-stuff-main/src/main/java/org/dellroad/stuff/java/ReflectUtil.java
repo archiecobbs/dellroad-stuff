@@ -15,6 +15,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * Reflection utility methods.
@@ -66,12 +67,8 @@ public final class ReflectUtil {
             setterMap.computeIfAbsent(propertyName, n -> new ArrayList<>(3)).add(method);
         }
 
-        // Sort method lists
-        final Comparator<Method> narrowerParameterTypesFirst = Comparator.<Method, Class<?>>comparing(
-            method -> method.getParameterTypes()[0], ReflectUtil.getClassComparator())
-          .thenComparing(Method::getDeclaringClass, ReflectUtil.getClassComparator());
-        setterMap.values()
-          .forEach(list -> list.sort(narrowerParameterTypesFirst));
+        // Sort method lists so narrower parameter types are first
+        setterMap.values().forEach(list -> ReflectUtil.sortByType(list, method -> method.getParameterTypes()[0]));
 
         // Done
         return setterMap;
@@ -155,6 +152,55 @@ public final class ReflectUtil {
     }
 
     /**
+     * Sort the given list so narrower types always appear before wider types.
+     *
+     * <p>
+     * This is a stable sort. Algorithm is O(n<super>2</super>) however.
+     *
+     * @param list list of types
+     */
+    public static void sortByType(List<? extends Class<?>> list) {
+        ReflectUtil.sortByType(list, Function.identity());
+    }
+
+    /**
+     * Sort the given list so items with narrower types always appear before items with wider types.
+     *
+     * <p>
+     * This is a stable sort. Algorithm is O(n<super>2</super>) however.
+     *
+     * @param list list of items
+     * @param typer associates a type with each item
+     */
+    public static <T> void sortByType(List<T> list, Function<? super T, ? extends Class<?>> typer) {
+
+        // Sanity check
+        if (list == null)
+            throw new IllegalArgumentException("null list");
+        if (typer == null)
+            throw new IllegalArgumentException("null typer");
+
+        // Get comparator
+        final Comparator<T> comparator = Comparator.comparing(typer, ReflectUtil.getClassComparator());
+
+        // Do swap sort
+        for (int targetIndex = 0; targetIndex < list.size() - 1; targetIndex++) {
+            final T targetItem = list.get(targetIndex);
+            int bestIndex = targetIndex;
+            T bestItem = targetItem;
+            for (int nextIndex = targetIndex + 1; nextIndex < list.size(); nextIndex++) {
+                final T nextItem = list.get(nextIndex);
+                if (comparator.compare(bestItem, nextItem) > 0) {
+                    bestItem = nextItem;
+                    bestIndex = nextIndex;
+                }
+            }
+            list.set(targetIndex, bestItem);
+            list.set(bestIndex, targetItem);
+        }
+    }
+
+    /**
      * Get a comparator that partially orders types where narrower types sort first.
      *
      * <p>
@@ -167,22 +213,24 @@ public final class ReflectUtil {
     }
 
     /**
-     * Get a comparator that orders types where narrower types sort first.
+     * Get a comparator that calculates which type is narrower, if possible.
      *
      * <p>
-     * Non-comparable types will compare as equal (so they will not reorder under a stable sort)
-     * if {@code incomparableEqual} is true, or else generate an {@link IllegalArgumentException}.
+     * Non-comparable types will compare as equal if {@code incomparableEqual} is true,
+     * or else generate an {@link IllegalArgumentException}.
+     *
+     * <p>
+     * <b>Warning:</b> use this comparator for simple comparisons only; it will not work
+     * for sorting because it is not transitive for "equality"; use {@link #sortByType(List) sortByType()} instead.
      *
      * @param incomparableEqual true to return zero for incomparable classes, false to throw {@link IllegalArgumentException}
      * @return ordering of types narrowest first
      */
     public static Comparator<Class<?>> getClassComparator(boolean incomparableEqual) {
         return (type1, type2) -> {
-            if (type1 == type2)
-                return 0;
-            if (type1.isAssignableFrom(type2))
+            if (type1.isAssignableFrom(type2) && !type2.isAssignableFrom(type1))
                 return 1;
-            if (type2.isAssignableFrom(type1))
+            if (!type1.isAssignableFrom(type2) && type2.isAssignableFrom(type1))
                 return -1;
             if (incomparableEqual)
                 return 0;

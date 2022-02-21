@@ -455,8 +455,7 @@ public class FieldBuilderGenerator {
         }
 
         // Sort methods with narrower parameter types first
-        settersMap.values().forEach(propertyMethodList ->
-          propertyMethodList.sort(Comparator.comparing(method -> method.getParameterTypes()[0], ReflectUtil.getClassComparator())));
+        settersMap.values().forEach(list -> ReflectUtil.sortByType(list, method -> method.getParameterTypes()[0]));
 
         // For property names that map to multiple methods with the same name, we pick
         // the last method, with the widest parameter type, as the representative method.

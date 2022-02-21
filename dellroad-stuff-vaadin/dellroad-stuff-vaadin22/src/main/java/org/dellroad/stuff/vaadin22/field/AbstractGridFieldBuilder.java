@@ -68,6 +68,7 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
      *
      * @return widget annotation types
      */
+    @Override
     @SuppressWarnings("unchecked")
     protected Stream<Class<? extends Annotation>> getDeclarativeAnnotationTypes() {
         return Stream.concat(super.getDeclarativeAnnotationTypes(), Stream.of(GridSingleSelect.class, GridMultiSelect.class));

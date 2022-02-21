@@ -108,8 +108,7 @@ public class FieldBuilderTest extends TestSupport {
         Assert.assertTrue(grid4.getDataProvider() instanceof EnumDataProvider);
         final EnumDataProvider<?> dp4 = (EnumDataProvider<?>)grid4.getDataProvider();
         Assert.assertEquals(dp4.getEnumType(), MyEnum.class);
-        final Grid.Column<?> column4 = grid4.getColumns().get(0);
-        Assert.assertEquals(column4.getKey(), "mykey");
+        final Grid.Column<?> column4 = grid4.getColumnByKey("mykey");
         Assert.assertTrue(column4.getRenderer() instanceof MyEnumRenderer);
     }
 

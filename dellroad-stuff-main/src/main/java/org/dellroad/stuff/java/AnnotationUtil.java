@@ -141,54 +141,68 @@ public final class AnnotationUtil {
                 return;
             }
 
-            // Apply value if appropriate
-            Object failTarget = methodList;
+            // Get value from annotation
+            Object value;
             try {
+                value = annotationGetter.invoke(annotation);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("error reading annotation property \"" + annotationPropertyName + "\"", e);
+            }
 
-                // Get value from annotation
-                Object value = annotationGetter.invoke(annotation);
-
-                // If annotation value is same as default, don't do anything
-                if (defaults != null) {
-                    final Object defaultValue = annotationGetter.invoke(defaults);
-                    if (Objects.deepEquals(value, defaultValue))
-                        return;
+            // If annotation value is same as default, don't do anything
+            if (defaults != null) {
+                final Object defaultValue;
+                try {
+                    defaultValue = annotationGetter.invoke(defaults);
+                } catch (ReflectiveOperationException e) {
+                    throw new RuntimeException("error reading annotation property \"" + annotationPropertyName + "\"", e);
                 }
+                if (Objects.deepEquals(value, defaultValue))
+                    return;
+            }
 
-                // Special case for Class<?> values: instantiate the class
-                if (value instanceof Class)
-                    value = instantiator.apply((Class<?>)value);
+            // Special case for Class<?> values: instantiate the class
+            if (value instanceof Class)
+                value = instantiator.apply((Class<?>)value);
 
-                // Try methods in order
-                for (Method beanSetter : methodList) {
+            // Try methods in order
+            Object failTarget = null;
+            Exception lastException = null;
+            for (Method beanSetter : methodList) {
 
-                    // For debugging
-                    failTarget = beanSetter;
+                // For debugging
+                failTarget = beanSetter;
 
-                    // Get parameter type (wrapper type if primitive)
-                    final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
+                // Get parameter type (wrapper type if primitive)
+                final Class<?> parameterType = Primitive.wrap(beanSetter.getParameterTypes()[0]);
 
-                    // Special case for converting array values into lists (if needed)
-                    if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))
-                        value = Arrays.asList((Object[])value);
+                // Special case for converting array values into lists (if needed)
+                if (value instanceof Object[] && List.class.isAssignableFrom(parameterType))
+                    value = Arrays.asList((Object[])value);
 
-                    // If value is not compatible with method parameter, then this must be the wrong (overloaded) method
-                    if (!parameterType.isInstance(value))
-                        continue;
+                // If value is not compatible with method parameter, then this must be the wrong (overloaded) method
+                if (!parameterType.isInstance(value))
+                    continue;
 
-                    // Workaround JDK bug (JDK-8280013)
-                    if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
-                        beanSetter.setAccessible(true);
+                // Workaround JDK bug (JDK-8280013)
+                if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
+                    beanSetter.setAccessible(true);
 
-                    // Apply the value
+                // Try to apply the value
+                try {
                     beanSetter.invoke(bean, value);
-
-                    // Stop after the first method that works
-                    break;
+                } catch (ReflectiveOperationException | UnsupportedOperationException e) {
+                    lastException = e;
+                    continue;
                 }
-            } catch (Exception e) {
+
+                // Stop after the first method that works
+                lastException = null;
+                break;
+            }
+            if (lastException != null) {
                 throw new RuntimeException("error applying annotation property \""
-                  + annotationPropertyName + "\" to " + failTarget, e);
+                  + annotationPropertyName + "\" to " + failTarget, lastException);
             }
         });
     }
