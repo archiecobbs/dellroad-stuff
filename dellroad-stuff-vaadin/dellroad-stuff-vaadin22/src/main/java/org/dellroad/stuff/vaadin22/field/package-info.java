@@ -4,6 +4,6 @@
  */
 
 /**
- * Vaadin flow components.
+ * Classes relating to Vaadin fields, including {@link org.dellroad.stuff.vaadin22.field.FieldBuilder}.
  */
 package org.dellroad.stuff.vaadin22.field;
