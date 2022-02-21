@@ -408,7 +408,7 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
         final Class<?> modelType = this.newFieldBuilderContext(bindingInfo).inferDataType();
 
         // Create grid
-        final Grid<?> grid = new Grid<>(modelType);
+        final Grid<?> grid = new Grid<>(modelType, false);
 
         // Create instantiator
         final Function<Class<?>, Object> instantiator = cl -> this.instantiate(cl, bindingInfo);
