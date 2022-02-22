@@ -21,7 +21,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -350,9 +349,12 @@ public class GridColumnScanner<T> {
     /**
      * Get the annotations found through introspection keyed by property name.
      *
+     * <p>
+     * The returned map is mutable, e.g., if you need to delete some unwanted entries.
+     *
      * @return columns keyed by property name and sorted based on {@link GridColumn#order}, then property name
      */
     public Map<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> getColumnMap() {
-        return Collections.unmodifiableMap(this.columnMap);
+        return this.columnMap;
     }
 }
