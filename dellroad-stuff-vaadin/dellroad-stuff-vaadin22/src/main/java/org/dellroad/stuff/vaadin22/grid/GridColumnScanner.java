@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin22.grid;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
+import com.vaadin.flow.component.contextmenu.HasMenuItems;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.grid.HeaderRow;
@@ -50,7 +51,7 @@ public class GridColumnScanner<T> {
 
     private final Class<T> type;
     private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
-    private final LinkedHashMap<String, Grid.Column<T>> visbilityMenuColumns = new LinkedHashMap<>();
+    private final LinkedHashMap<String, Grid.Column<?>> visbilityMenuColumns = new LinkedHashMap<>();
 
     /**
      * Scan the given type and all super-types for {@link GridColumn &#64;GridColumn} annotations.
@@ -125,25 +126,35 @@ public class GridColumnScanner<T> {
      * Augment the given {@link Grid} with columns auto-generated from {@link GridColumn &#64;GridColumn} annotations.
      *
      * <p>
+     * This method applies to target {@link Grid}s with any model type and gracefully handles mismatches: annotated
+     * methods declared in Java types that are not supertype of {@code grid}'s model type always "return" null.
+     * This allws populating a {@link Grid} with columns that only some subtypes of the model type provide values.
+     *
+     * <p>
      * Any existing columns with conflicting column keys will be replaced.
      *
      * @param grid target grid
      * @throws IllegalArgumentException if {@code grid} is null
      */
-    public void addColumnsTo(Grid<T> grid) {
+    public void addColumnsTo(Grid<?> grid) {
+        this.addColumnsTo2(grid);
+    }
+
+    // This method is split from addColumnsTo() simply in order to bind type variable "S"
+    private <S> void addColumnsTo2(Grid<S> grid) {
 
         // Sanity check
         if (grid == null)
             throw new IllegalArgumentException("null grid");
 
         // Inventory any existing columns
-        final List<Grid.Column<T>> existingColumnList = new ArrayList<>(grid.getColumns());
+        final List<Grid.Column<S>> existingColumnList = new ArrayList<>(grid.getColumns());
 
         // Get default annotation
         final GridColumn defaults = GridColumnScanner.getDefaults();
 
         // Gather columns in ordered lists, grouped by group name, and track visbilityMenu()
-        final LinkedHashMap<String, List<Grid.Column<T>>> columnGroups = new LinkedHashMap<>();
+        final LinkedHashMap<String, List<Grid.Column<S>>> columnGroups = new LinkedHashMap<>();
         this.visbilityMenuColumns.clear();
         this.columnMap.forEach((columnKey, methodInfo) -> {
 
@@ -154,10 +165,17 @@ public class GridColumnScanner<T> {
             final Method method = methodInfo.getMethod();
             final GridColumn annotation = methodInfo.getAnnotation();
 
+            // Build a bean -> ReflectUtil.invoke(method, bean) that gracefully handles type mismatches
+            final Class<?> requiredBeanType = method.getDeclaringClass();
+            final ValueProvider<S, ?> valueProvider = bean -> Optional.ofNullable(bean)
+                                                                .filter(requiredBeanType::isInstance)
+                                                                .map(obj -> ReflectUtil.invoke(method, obj))
+                                                                .orElse(null);
+
             // Add new column
             final boolean selfRendering = Component.class.isAssignableFrom(method.getReturnType());
-            final Grid.Column<T> column = GridColumnScanner.addColumn(grid, columnKey, annotation,
-              "method " + method, bean -> ReflectUtil.invoke(method, bean), selfRendering, defaults);
+            final Grid.Column<S> column = GridColumnScanner.addColumn(grid, columnKey,
+              annotation, "method " + method, valueProvider, selfRendering, defaults);
 
             // Update column groups
             columnGroups.computeIfAbsent(annotation.columnGroup(), columnGroup -> new ArrayList<>()).add(column);
@@ -183,37 +201,32 @@ public class GridColumnScanner<T> {
     }
 
     /**
-     * Build a {@link ContextMenu} with menu items that enable/disable the visibility of individual columns.
+     * Add menu items that enable/disable the visibility of individual columns to the given menu.
      *
      * <p>
-     * The menu contains entries for all columns for which {@link GridColumn#visbilityMenu visbilityMenu()} is true.
-     * If there are no such methods (i.e., the menu would be empty), null is returned. The menu item labels are taken
-     * from {@link GridColumn#header header()}, if any, otherwise {@link GridColumn#key key()}.
+     * This method adds menu items for all columns for which {@link GridColumn#visbilityMenu visbilityMenu()} was true
+     * in the most recent call to {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}.
+     * The menu item labels are taken from {@link GridColumn#header header()}, if any, otherwise {@link GridColumn#key key()}.
      *
      * <p>
-     * To use the menu, the caller will need to assign it to some target via {@link ContextMenu#setTarget}.
+     * To use the menu, the caller will need to assign it to some target, e.g., via {@link ContextMenu#setTarget}.
      *
-     * <p>
-     * This method must be run <i>after</i> {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}, otherwise null is returned.
-     *
+     * @param menu the menu to add visibility items to
      * @return visibility context menu, or null if there were zero such columns
+     * @throws IllegalArgumentException if {@code menu} is null
      */
-    public ContextMenu buildVisbilityMenu() {
+    public void addVisbilityMenuItems(HasMenuItems menu) {
 
-        // Anything to build?
-        if (this.visbilityMenuColumns.isEmpty())
-            return null;
+        // Sanity check
+        if (menu == null)
+            throw new IllegalArgumentException("null menu");
 
-        // Build menu
-        final ContextMenu menu = new ContextMenu();
+        // Add menu items
         this.visbilityMenuColumns.forEach((label, column) -> {
             final MenuItem menuItem = menu.addItem(label, e -> column.setVisible(e.getSource().isChecked()));
             menuItem.setCheckable(true);
             menuItem.setChecked(column.isVisible());
         });
-
-        // Done
-        return menu;
     }
 
     /**
