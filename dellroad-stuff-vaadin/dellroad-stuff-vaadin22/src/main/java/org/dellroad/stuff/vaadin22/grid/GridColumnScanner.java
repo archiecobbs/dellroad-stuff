@@ -9,6 +9,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.contextmenu.ContextMenu;
 import com.vaadin.flow.component.contextmenu.MenuItem;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
@@ -170,10 +171,10 @@ public class GridColumnScanner<T> {
             }
         });
 
-        // Add a column group header and group columns, if needed
+        // Add a column group header row and group columns, if needed
         if (columnGroups.size() > 1 || (columnGroups.size() == 1 && !columnGroups.keySet().iterator().next().isEmpty())) {
-            columnGroups.forEach(
-              (name, columns) -> grid.prependHeaderRow().join(columns.toArray(new Grid.Column<?>[0])).setText(name));
+            final HeaderRow headerRow = grid.prependHeaderRow();
+            columnGroups.forEach((name, columns) -> headerRow.join(columns.toArray(new Grid.Column<?>[0])).setText(name));
         }
 
         // Set column order, respecting any column groupings
