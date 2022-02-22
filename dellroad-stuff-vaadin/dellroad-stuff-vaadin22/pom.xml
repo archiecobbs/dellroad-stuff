@@ -254,9 +254,6 @@
                             <!-- Exclude certain methods that don't work or conflict with (i.e., have the same name as) other methods we want to use -->
                             <excludeMethods>
                                 <excludeMethod>
-                                    <methodPattern>public .+ com\.vaadin\.flow\.component\.combobox\.ComboBox\.setItems\(com\.vaadin\.flow\.data\.provider\.InMemoryDataProvider\)</methodPattern>
-                                </excludeMethod>
-                                <excludeMethod>
                                     <method>public default void com.vaadin.flow.component.HasTheme.setThemeName(java.lang.String)</method>
                                 </excludeMethod>
                                 <excludeMethod>
