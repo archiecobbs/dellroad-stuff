@@ -128,7 +128,10 @@ public class GridColumnScanner<T> {
      * <p>
      * This method applies to target {@link Grid}s with any model type and gracefully handles mismatches: annotated
      * methods declared in Java types that are not supertype of {@code grid}'s model type always "return" null.
-     * This allws populating a {@link Grid} with columns that only some subtypes of the model type provide values.
+     *
+     * <p>
+     * This allows populating a {@link Grid} with columns even when only some subtypes of the model type can actually
+     * provide values for those columns.
      *
      * <p>
      * Any existing columns with conflicting column keys will be replaced.
