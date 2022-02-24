@@ -376,7 +376,7 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
 
     // Add special handling for @GridSingleSelect and @GridMultiSelect
     @Override
-    protected BoundField buildDeclarativeField(BindingInfo bindingInfo) {
+    protected BoundField<?> buildDeclarativeField(BindingInfo bindingInfo) {
 
         // Sanity check
         if (bindingInfo == null)
@@ -390,12 +390,12 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
         if (annotationType.equals(GridSingleSelect.class)) {
             final Grid<?> grid = this.buildGrid(bindingInfo, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.SINGLE);
-            return new BoundField(grid.asSingleSelect(), grid);
+            return new BoundField<>(grid.asSingleSelect(), grid);
         }
         if (annotationType.equals(GridMultiSelect.class)) {
             final Grid<?> grid = this.buildGrid(bindingInfo, ((GridMultiSelect)annotation).column());
             grid.setSelectionMode(Grid.SelectionMode.MULTI);
-            return new BoundField(grid.asMultiSelect(), grid);
+            return new BoundField<>(grid.asMultiSelect(), grid);
         }
 
         // Do the normal thing

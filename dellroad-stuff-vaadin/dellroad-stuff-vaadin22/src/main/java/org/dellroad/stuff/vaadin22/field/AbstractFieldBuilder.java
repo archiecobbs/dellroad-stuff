@@ -80,7 +80,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     private final LinkedHashMap<String, BindingInfo> bindingInfoMap = new LinkedHashMap<>();    // info from scanned annotations
     private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @FieldDefault's
 
-    private LinkedHashMap<String, BoundField> boundFieldMap;                                    // most recently built fields
+    private LinkedHashMap<String, BoundField<?>> boundFieldMap;                                 // most recently built fields
 
     /**
      * Constructor.
@@ -179,7 +179,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Create and bind new fields and save associated components
         this.boundFieldMap = new LinkedHashMap<>();
         this.bindingInfoMap.forEach((propertyName, info) -> {
-            final BoundField boundField = info.createBoundField(binder.getBean());
+            final BoundField<?> boundField = info.createBoundField(binder.getBean());
             info.bind(binder, boundField.getField());
             this.boundFieldMap.put(propertyName, boundField);
         });
@@ -195,7 +195,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @return unmodifiable mapping from property name to field/component
      * @throws IllegalStateException if {@link #bindFields bindFields()} has not yet been invoked
      */
-    public Map<String, BoundField> getBoundFields() {
+    public Map<String, BoundField<?>> getBoundFields() {
 
         // Sanity check
         if (this.boundFieldMap == null)
@@ -454,7 +454,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param bindingInfo field binding context
      * @return new field
      */
-    protected BoundField buildDeclarativeField(BindingInfo bindingInfo) {
+    protected BoundField<?> buildDeclarativeField(BindingInfo bindingInfo) {
 
         // Sanity check
         if (bindingInfo == null)
@@ -478,7 +478,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         applier.configureField(field);
 
         // Done
-        return new BoundField(field, (Component)field);
+        return new BoundField<>(field, (Component)field);
     }
 
     /**
@@ -515,7 +515,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param bean binder bean, or null if none
      * @return new field
      */
-    protected BoundField buildProvidedField(BindingInfo bindingInfo,
+    protected BoundField<?> buildProvidedField(BindingInfo bindingInfo,
       MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo, Object bean) {
 
         // Sanity check
@@ -545,8 +545,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             if (field == null)
                 throw new IllegalArgumentException("null value returned");
             if (field instanceof BoundField)
-                return (BoundField)field;
-            return new BoundField((HasValue<?, ?>)field, (Component)field);
+                return (BoundField<?>)field;
+            return new BoundField<>((HasValue<?, ?>)field, (Component)field);
         } catch (Exception e) {
             throw new RuntimeException("error invoking @" + ProvidesField.class.getName() + " annotated method " + method, e);
         }
@@ -617,7 +617,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
       Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox,
-      BiFunction<BindingInfo, ? super T, BoundField> fieldBuilder) {
+      BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder) {
         return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
     }
 
@@ -756,7 +756,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         private final Binding binding;
         private final FormLayout formLayout;
         private final NullifyCheckbox nullifyCheckbox;
-        private final BiFunction<BindingInfo, ? super T, BoundField> fieldBuilder;
+        private final BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder;
 
         /**
          * Constructor.
@@ -772,7 +772,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *  or {@code fieldBuilder} is null
          */
         public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
-          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, BiFunction<BindingInfo, ? super T, BoundField> fieldBuilder) {
+          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder) {
             if (method == null)
                 throw new IllegalArgumentException("null method");
             if (propertyName == null)
@@ -899,12 +899,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @return new field and associated component
          * @throws IllegalArgumentException if a bean instance is required but {@code bean} is null
          */
-        public BoundField createBoundField(T bean) {
-            BoundField boundField = this.fieldBuilder.apply(this, bean);
-            if (this.nullifyCheckbox != null) {
-                final NullableField<?> nullableField = this.wrapInNullableField(boundField.getField(), boundField.getComponent());
-                boundField = new BoundField(nullableField);
-            }
+        public BoundField<?> createBoundField(T bean) {
+            BoundField<?> boundField = this.fieldBuilder.apply(this, bean);
+            if (this.nullifyCheckbox != null)
+                boundField = new BoundField<>(this.wrapInNullableField(boundField.getField(), boundField.getComponent()));
             return boundField;
         }
 
@@ -1136,15 +1134,18 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * Holds a bound field and its corresponding component.
      *
      * <p>
-     * Usually, but not always, these are the same object - for example, {@link ComboBox} or {@link TextField}.
+     * Usually, but not always, these are the same object - for example, with subclasses of {@link AbstractField}
+     * like {@link ComboBox} and {@link TextField}.
      *
      * <p>
      * An example of when they are not the same is when a {@link Grid} is used as the visual component for a single select
      * single select field created via {@link Grid#asSingleSelect} or multi-select field created via {@link Grid#asMultiSelect}.
+     *
+     * @param <V> field value type
      */
-    public static class BoundField {
+    public static class BoundField<V> {
 
-        private final HasValue<?, ?> field;
+        private final HasValue<?, V> field;
         private final Component component;
 
         /**
@@ -1155,7 +1156,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *  (typically the same object as {@code field})
          * @throws IllegalArgumentException if either parameter is null
          */
-        public BoundField(HasValue<?, ?> field, Component component) {
+        public BoundField(HasValue<?, V> field, Component component) {
             if (field == null)
                 throw new IllegalArgumentException("null field");
             if (component == null)
@@ -1170,7 +1171,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @param field field to bind to {@link Binder}
          * @throws IllegalArgumentException if {@code field} is null
          */
-        public BoundField(AbstractField<?, ?> field) {
+        public BoundField(AbstractField<?, V> field) {
             this(field, field);
         }
 
@@ -1179,7 +1180,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *
          * @return bound field
          */
-        public HasValue<?, ?> getField() {
+        public HasValue<?, V> getField() {
             return this.field;
         }
 
