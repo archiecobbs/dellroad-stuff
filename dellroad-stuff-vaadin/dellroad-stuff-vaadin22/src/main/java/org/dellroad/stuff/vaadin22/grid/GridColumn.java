@@ -196,8 +196,8 @@ public @interface GridColumn {
      * Get whether this column is the hierarchy column for a {@link TreeGrid}.
      *
      * <p>
-     * This property only affects the contruction of {@link TreeGrid}s. If this property is set, and the {@link Grid}
-     * being configured is a {@link TreeGrid}, then the column is created as an expand/collapse "hierarchy column".
+     * If this property is set, and the {@link Grid} being configured is a {@link TreeGrid}, then the column is created
+     * as an expand/collapse "hierarchy column".
      *
      * <p>
      * How the column is created depends on {@link #renderer}. If a {@link #renderer} class is specified, then it
@@ -205,6 +205,9 @@ public @interface GridColumn {
      * {@link TreeGrid#addComponentHierarchyColumn TreeGrid.addComponentHierarchyColumn()} will be used to create the column
      * using the rendered components. Otherwise, {@link TreeGrid#addHierarchyColumn TreeGrid.addHierarchyColumn()} is used to
      * create the column, using {@link String#valueOf String.valueOf()} applied to the annotated method's return value.
+     *
+     * <p>
+     * If the {@link Grid} being configured is not a {@link TreeGrid}, this column is ignored.
      *
      * @return column debug ID
      * @see TreeGrid#addHierarchyColumn TreeGrid.addHierarchyColumn()
