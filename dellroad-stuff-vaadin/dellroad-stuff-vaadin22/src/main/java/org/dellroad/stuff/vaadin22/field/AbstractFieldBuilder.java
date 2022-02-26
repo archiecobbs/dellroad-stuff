@@ -5,13 +5,9 @@
 
 package org.dellroad.stuff.vaadin22.field;
 
-import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
-import com.vaadin.flow.component.combobox.ComboBox;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.BindingValidationStatusHandler;
 import com.vaadin.flow.data.binder.ErrorMessageProvider;
@@ -76,11 +72,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     private static final long serialVersionUID = -3091638771700394722L;
 
+    // Static info
     private final Class<T> type;
     private final LinkedHashMap<String, BindingInfo> bindingInfoMap = new LinkedHashMap<>();    // info from scanned annotations
     private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @FieldDefault's
 
-    private LinkedHashMap<String, BoundField<?>> boundFieldMap;                                 // most recently built fields
+    // Info updated by bindFields()
+    private LinkedHashMap<String, FieldComponent<?>> fieldComponentMap;                         // most recently built fields
 
     /**
      * Constructor.
@@ -163,8 +161,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * {@link ProvidesField &#64;FieldBuilder.ProvidesField} annotations on instance methods will generate an error.
      *
      * <p>
-     * After this method completes, the associated components can be obtained via {@link #getBoundFields getBoundFields()}
-     * or added to a {@link com.vaadin.flow.component.formlayout.FormLayout} via {@link #addBoundFields addBoundFields()}.
+     * After this method completes, the associated components can be obtained via {@link #getFieldComponents getFieldComponents()}
+     * or added to a {@link com.vaadin.flow.component.formlayout.FormLayout} via {@link #addFieldComponents addFieldComponents()}.
      *
      * @param binder target binder
      * @throws IllegalArgumentException if invalid annotation use is encountered
@@ -177,11 +175,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             throw new IllegalArgumentException("null binder");
 
         // Create and bind new fields and save associated components
-        this.boundFieldMap = new LinkedHashMap<>();
+        this.fieldComponentMap = new LinkedHashMap<>();
         this.bindingInfoMap.forEach((propertyName, info) -> {
-            final BoundField<?> boundField = info.createBoundField(binder.getBean());
-            info.bind(binder, boundField.getField());
-            this.boundFieldMap.put(propertyName, boundField);
+            final FieldComponent<?> fieldComponent = info.createFieldComponent(binder.getBean());
+            info.bind(binder, fieldComponent.getField());
+            this.fieldComponentMap.put(propertyName, fieldComponent);
         });
     }
 
@@ -195,14 +193,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @return unmodifiable mapping from property name to field/component
      * @throws IllegalStateException if {@link #bindFields bindFields()} has not yet been invoked
      */
-    public Map<String, BoundField<?>> getBoundFields() {
+    public Map<String, FieldComponent<?>> getFieldComponents() {
 
         // Sanity check
-        if (this.boundFieldMap == null)
+        if (this.fieldComponentMap == null)
             throw new IllegalStateException("bindFields() must be invoked first");
 
         // Return mapping
-        return Collections.unmodifiableMap(this.boundFieldMap);
+        return Collections.unmodifiableMap(this.fieldComponentMap);
     }
 
     /**
@@ -219,17 +217,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @throws IllegalStateException if this method is invoked twice in a row without an intervening call to
      *  {@link #bindFields bindFields()}
      */
-    public void addBoundFields(com.vaadin.flow.component.formlayout.FormLayout formLayout) {
+    public void addFieldComponents(com.vaadin.flow.component.formlayout.FormLayout formLayout) {
 
         // Sanity check
         if (formLayout == null)
             throw new IllegalArgumentException("null formLayout");
-        if (this.boundFieldMap == null)
+        if (this.fieldComponentMap == null)
             throw new IllegalStateException("bindFields() must be invoked first");
 
         // Extract included fields from the binder and add them to the layout
         this.bindingInfoMap.forEach(
-          (propertyName, info) -> info.addField(formLayout, this.boundFieldMap.get(propertyName).getComponent()));
+          (propertyName, info) -> info.addField(formLayout, this.fieldComponentMap.get(propertyName).getComponent()));
     }
 
     /**
@@ -246,7 +244,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
         // Reset state
         this.bindingInfoMap.clear();
-        this.boundFieldMap = null;
+        this.fieldComponentMap = null;
 
         // Identify all bean property getter methods
         final BeanInfo beanInfo;
@@ -324,7 +322,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             protected boolean includeMethod(Method method, ProvidesField annotation) {
                 final Class<?> returnType = method.getReturnType();
                 if (!(HasValue.class.isAssignableFrom(returnType) && Component.class.isAssignableFrom(returnType))
-                  && !BoundField.class.isAssignableFrom(returnType)) {
+                  && !FieldComponent.class.isAssignableFrom(returnType)) {
                     throw new IllegalArgumentException("incompatible return type for @ProvidesField annotation on method "
                       + method);
                 }
@@ -343,8 +341,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             final ProvidesField providesField = methodInfo.getAnnotation();
             final String propertyName = providesField.value();
 
-            // Validate method return type is compatible with BoundField OR (HasValue AND Component)
-            if (!BoundField.class.isAssignableFrom(method.getReturnType())) {
+            // Validate method return type is compatible with FieldComponent OR (HasValue AND Component)
+            if (!FieldComponent.class.isAssignableFrom(method.getReturnType())) {
                 Stream.of(HasValue.class, Component.class).forEach(requiredType -> {
                     if (!requiredType.isAssignableFrom(method.getReturnType())) {
                         throw new IllegalArgumentException(String.format(
@@ -454,7 +452,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param bindingInfo field binding context
      * @return new field
      */
-    protected BoundField<?> buildDeclarativeField(BindingInfo bindingInfo) {
+    protected FieldComponent<?> buildDeclarativeField(BindingInfo bindingInfo) {
 
         // Sanity check
         if (bindingInfo == null)
@@ -478,7 +476,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         applier.configureField(field);
 
         // Done
-        return new BoundField<>(field, (Component)field);
+        return new FieldComponent<>(field, (Component)field);
     }
 
     /**
@@ -515,7 +513,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param bean binder bean, or null if none
      * @return new field
      */
-    protected BoundField<?> buildProvidedField(BindingInfo bindingInfo,
+    protected FieldComponent<?> buildProvidedField(BindingInfo bindingInfo,
       MethodAnnotationScanner<T, ProvidesField>.MethodInfo methodInfo, Object bean) {
 
         // Sanity check
@@ -544,9 +542,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               method.invoke(bean, this.newFieldBuilderContext(bindingInfo)) : method.invoke(bean);
             if (field == null)
                 throw new IllegalArgumentException("null value returned");
-            if (field instanceof BoundField)
-                return (BoundField<?>)field;
-            return new BoundField<>((HasValue<?, ?>)field, (Component)field);
+            if (field instanceof FieldComponent)
+                return (FieldComponent<?>)field;
+            return new FieldComponent<>((HasValue<?, ?>)field, (Component)field);
         } catch (Exception e) {
             throw new RuntimeException("error invoking @" + ProvidesField.class.getName() + " annotated method " + method, e);
         }
@@ -617,7 +615,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
       Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox,
-      BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder) {
+      BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
         return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
     }
 
@@ -756,7 +754,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         private final Binding binding;
         private final FormLayout formLayout;
         private final NullifyCheckbox nullifyCheckbox;
-        private final BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder;
+        private final BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder;
 
         /**
          * Constructor.
@@ -771,8 +769,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation},
          *  or {@code fieldBuilder} is null
          */
-        public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
-          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, BiFunction<BindingInfo, ? super T, BoundField<?>> fieldBuilder) {
+        public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding, FormLayout formLayout,
+          NullifyCheckbox nullifyCheckbox, BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
             if (method == null)
                 throw new IllegalArgumentException("null method");
             if (propertyName == null)
@@ -899,21 +897,20 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @return new field and associated component
          * @throws IllegalArgumentException if a bean instance is required but {@code bean} is null
          */
-        public BoundField<?> createBoundField(T bean) {
-            BoundField<?> boundField = this.fieldBuilder.apply(this, bean);
+        public FieldComponent<?> createFieldComponent(T bean) {
+            FieldComponent<?> fieldComponent = this.fieldBuilder.apply(this, bean);
             if (this.nullifyCheckbox != null)
-                boundField = new BoundField<>(this.wrapInNullableField(boundField.getField(), boundField.getComponent()));
-            return boundField;
+                fieldComponent = new FieldComponent<>(this.wrapInNullableField(fieldComponent));
+            return fieldComponent;
         }
 
-        protected <T> NullableField<T> wrapInNullableField(HasValue<?, T> field, Component component) {
-            if (field == null)
-                throw new IllegalArgumentException("null field");
-            if (component == null)
-                throw new IllegalArgumentException("null component");
+        protected <T> NullableField<T> wrapInNullableField(FieldComponent<T> fieldComponent) {
+            if (fieldComponent == null)
+                throw new IllegalArgumentException("null fieldComponent");
             if (this.nullifyCheckbox == null)
                 throw new IllegalStateException("no nullifyCheckbox");
-            return new NullableField<>(field, component, new Checkbox(this.nullifyCheckbox.value()));
+            return new NullableField<>(fieldComponent.getField(),
+              fieldComponent.getComponent(), new Checkbox(this.nullifyCheckbox.value()));
         }
 
         /**
@@ -1128,78 +1125,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
     }
 
-// BoundField
-
-    /**
-     * Holds a bound field and its corresponding component.
-     *
-     * <p>
-     * Usually, but not always, these are the same object - for example, with subclasses of {@link AbstractField}
-     * like {@link ComboBox} and {@link TextField}.
-     *
-     * <p>
-     * An example of when they are not the same is when a {@link Grid} is used as the visual component for a single select
-     * single select field created via {@link Grid#asSingleSelect} or multi-select field created via {@link Grid#asMultiSelect}.
-     *
-     * @param <V> field value type
-     */
-    public static class BoundField<V> {
-
-        private final HasValue<?, V> field;
-        private final Component component;
-
-        /**
-         * Constructor.
-         *
-         * @param field field to bind to {@link Binder}
-         * @param component component to add to a {@link com.vaadin.flow.component.formlayout.FormLayout}
-         *  (typically the same object as {@code field})
-         * @throws IllegalArgumentException if either parameter is null
-         */
-        public BoundField(HasValue<?, V> field, Component component) {
-            if (field == null)
-                throw new IllegalArgumentException("null field");
-            if (component == null)
-                throw new IllegalArgumentException("null component");
-            this.field = field;
-            this.component = component;
-        }
-
-        /**
-         * Constructor.
-         *
-         * @param field field to bind to {@link Binder}
-         * @throws IllegalArgumentException if {@code field} is null
-         */
-        public BoundField(AbstractField<?, V> field) {
-            this(field, field);
-        }
-
-        /**
-         * Get the field bound into the {@link Binder}.
-         *
-         * @return bound field
-         */
-        public HasValue<?, V> getField() {
-            return this.field;
-        }
-
-        /**
-         * Get the component to be displayed.
-         *
-         * @return field's component
-         */
-        public Component getComponent() {
-            return this.component;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s[field=%s%s]", this.getClass().getSimpleName(), this.getField(),
-              (this.getComponent() != this.getField() ? ",component=" + this.getComponent() : ""));
-        }
-    }
-
 // AnnotationApplier
 
     /**
@@ -1279,7 +1204,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * Annotated methods must either take no parameters, or one {@link FieldBuilderContext} parameter,
      * and have a return type that is (a) a sub-type of both {@link HasValue} and {@link Component},
-     * or (b) a sub-type of {@link BoundField}.
+     * or (b) a sub-type of {@link FieldComponent}.
      *
      * @see AbstractFieldBuilder#bindFields FieldBuilder.bindFields()
      */
@@ -1457,10 +1382,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Configures how {@link AbstractFieldBuilder FieldBuilder.addBoundFields()}
+     * Configures how {@link AbstractFieldBuilder FieldBuilder.addFieldComponents()}
      * adds a generated field to a {@link com.vaadin.flow.component.formlayout.FormLayout}.
      *
-     * @see AbstractFieldBuilder#addBoundFields FieldBuilder.addBoundFields()
+     * @see AbstractFieldBuilder#addFieldComponents FieldBuilder.addFieldComponents()
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)

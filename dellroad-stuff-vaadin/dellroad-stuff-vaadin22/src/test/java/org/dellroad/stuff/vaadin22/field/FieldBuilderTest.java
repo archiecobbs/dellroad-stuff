@@ -104,7 +104,7 @@ public class FieldBuilderTest extends TestSupport {
     // Check field4
 
         final MultiSelect<?, ?> field4 = (MultiSelect<?, ?>)binder.getBinding("field4").get().getField();
-        final Grid<?> grid4 = (Grid<?>)fieldBuilder.getBoundFields().get("field4").getComponent();
+        final Grid<?> grid4 = (Grid<?>)fieldBuilder.getFieldComponents().get("field4").getComponent();
         Assert.assertTrue(grid4.getDataProvider() instanceof EnumDataProvider);
         final EnumDataProvider<?> dp4 = (EnumDataProvider<?>)grid4.getDataProvider();
         Assert.assertEquals(dp4.getEnumType(), MyEnum.class);

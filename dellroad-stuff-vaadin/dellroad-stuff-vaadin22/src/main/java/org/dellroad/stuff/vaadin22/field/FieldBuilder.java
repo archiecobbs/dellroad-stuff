@@ -66,7 +66,7 @@ import java.lang.annotation.Target;
  * column span, and ordering of fields in a {@link FormLayout}.
  *
  * <p>
- * Fields are added to a {@link FormLayout} via {@link #addBoundFields addBoundFields()}.
+ * Fields are added to a {@link FormLayout} via {@link #addFieldComponents addFieldComponents()}.
  *
  * <p><b>Example</b>
  *
@@ -120,16 +120,17 @@ import java.lang.annotation.Target;
  * </pre></blockquote>
  *
  * <p>
- * Then (optionally) use {@link #addBoundFields addBoundFields()} to add and configure those fields into a {@link FormLayout}:
+ * Then (optionally) use {@link #addFieldComponents addFieldComponents()} to add and configure those fields into a
+ * {@link FormLayout}:
  *
  * <blockquote><pre>
  * // Create form and add fields to it
  * FormLayout form = new FormLayout();
- * <b>fieldBuilder.addBoundFields(form);</b>
+ * <b>fieldBuilder.addFieldComponents(form);</b>
  * </pre></blockquote>
  *
  * <p>
- * You can also access the fields directly via {@link #getBoundFields getBoundFields()}.
+ * You can also access the fields directly via {@link #getFieldComponents getFieldComponents()}.
  *
  * <p>
  * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked a new set

@@ -52,8 +52,8 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  *     protected void layoutComponents() {
  *
  *         // Get sub-fields
- *         final FieldBuilder.BoundField startDateField = this.fieldBuilder.getBoundFields().get("startDate");
- *         final FieldBuilder.BoundField endDateField = this.fieldBuilder.getBoundFields().get("endDate");
+ *         final FieldBuilder.FieldComponent startDateField = this.fieldBuilder.getFieldComponents().get("startDate");
+ *         final FieldBuilder.FieldComponent endDateField = this.fieldBuilder.getFieldComponents().get("endDate");
  *
  *         // Layout sub-fields
  *         final HorizontalLayout layout = new HorizontalLayout();
@@ -141,8 +141,8 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
     protected void layoutComponents() {
         final HorizontalLayout layout = new HorizontalLayout();
         this.add(layout);
-        this.fieldBuilder.getBoundFields().values().stream()
-          .map(FieldBuilder.BoundField::getComponent)
+        this.fieldBuilder.getFieldComponents().values().stream()
+          .map(FieldComponent::getComponent)
           .forEach(layout::add);
     }
 }
