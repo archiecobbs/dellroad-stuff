@@ -539,6 +539,39 @@
 <li class="blockList">
 <h2 title="Package">Package&nbsp;org.dellroad.stuff.vaadin22.data</h2>
 <ul class="blockList">
+<li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.AsyncDataProvider">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.AsyncDataProvider</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ListDataProvider</a>&lt;<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="type parameter in AsyncDataProvider">T</a>&gt; implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>session</h4>
+<pre><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a> session</pre>
+<div class="block">The <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> with which this instance is associated.</div>
+</li>
+<li class="blockList">
+<h4>listeners</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html?is-external=true" title="class or interface in java.util">HashSet</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashSet.html?is-external=true" title="class or interface in java.util">E</a>&gt; listeners</pre>
+</li>
+<li class="blockList">
+<h4>executor</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">T</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">R</a>&gt; executor</pre>
+</li>
+<li class="blockList">
+<h4>currentFuture</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">V</a>&gt; currentFuture</pre>
+</li>
+<li class="blockListLast">
+<h4>currentId</h4>
+<pre>long currentId</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.EnumDataProvider">
 <!--   -->
 </a>
@@ -554,6 +587,51 @@
 </ul>
 </li>
 </ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.MapPropertySet">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.MapPropertySet</a> extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockListLast">
+<h4>propertyMap</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">Map</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">K</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util">V</a>&gt; propertyMap</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.MapPropertySet.Definition">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.Definition.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.MapPropertySet.Definition</a> extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>name</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> name</pre>
+</li>
+<li class="blockList">
+<h4>type</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">T</a>&gt; type</pre>
+</li>
+<li class="blockListLast">
+<h4>caption</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a> caption</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.MapPropertySet.Definition.Getter">
+<!--   -->
+</a>
+<h3>Class <a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.Definition.Getter.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.MapPropertySet.Definition.Getter</a> extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a> implements Serializable</h3>
 </li>
 <li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider">
 <!--   -->
@@ -590,8 +668,8 @@
 <pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">HashMap</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">K</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html?is-external=true" title="class or interface in java.util">V</a>&gt; defaultInfoMap</pre>
 </li>
 <li class="blockListLast">
-<h4>boundFieldMap</h4>
-<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">LinkedHashMap</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">K</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">V</a>&gt; boundFieldMap</pre>
+<h4>fieldComponentMap</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">LinkedHashMap</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">K</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/LinkedHashMap.html?is-external=true" title="class or interface in java.util">V</a>&gt; fieldComponentMap</pre>
 </li>
 </ul>
 </li>

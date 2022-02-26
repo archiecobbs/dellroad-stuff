@@ -127,7 +127,7 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
  <p>
  Some details regarding <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin22.grid"><code>&#64;GridColumn</code></a> annotations:
  <ul>
-  <li>Only non-void methods taking zero parameters are supported; <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin22.grid"><code>&#64;GridColumn</code></a>
+  <li>Only non-void instance methods taking zero parameters are supported; <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin22.grid"><code>&#64;GridColumn</code></a>
       annotations on other methods are ignored</li>
   <li>Protected, package private, and private methods are supported.</li>
   <li><a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin22.grid"><code>&#64;GridColumn</code></a> annotations declared in super-types (including interfaces) are supported</li>
@@ -288,7 +288,7 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#visbilityMenu--">visbilityMenu</a></span></code>
 <div class="block">Get whether to include this column as one of the columns with configurable visibility by way
- of <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#buildVisbilityMenu--"><code>GridColumnScanner.buildVisbilityMenu()</code></a>.</div>
+ of <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#addVisbilityMenuItems-com.vaadin.flow.component.contextmenu.HasMenuItems-"><code>GridColumnScanner.addVisbilityMenuItems(com.vaadin.flow.component.contextmenu.HasMenuItems)</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -602,15 +602,18 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
 <div class="block">Get whether this column is the hierarchy column for a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid</code></a>.
 
  <p>
- This property only affects the contruction of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid</code></a>s. If this property is set, and the <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true" title="class or interface in com.vaadin.flow.component.grid"><code>Grid</code></a>
- being configured is a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid</code></a>, then the column is created as an expand/collapse "hierarchy column".
+ If this property is set, and the <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true" title="class or interface in com.vaadin.flow.component.grid"><code>Grid</code></a> being configured is a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid</code></a>, then the column is created
+ as an expand/collapse "hierarchy column".
 
  <p>
  How the column is created depends on <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#renderer--"><code>renderer()</code></a>. If a <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#renderer--"><code>renderer()</code></a> class is specified, then it
  <i>must</i> subclass <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/renderer/ComponentRenderer.html?is-external=true" title="class or interface in com.vaadin.flow.data.renderer"><code>ComponentRenderer</code></a>, and
  <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true#addComponentHierarchyColumn-com.vaadin.flow.function.ValueProvider-" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid.addComponentHierarchyColumn()</code></a> will be used to create the column
  using the rendered components. Otherwise, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true#addHierarchyColumn-com.vaadin.flow.function.ValueProvider-" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid.addHierarchyColumn()</code></a> is used to
- create the column, using <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#valueOf-java.lang.Object-" title="class or interface in java.lang"><code>String.valueOf()</code></a> applied to the annotated method's return value.</div>
+ create the column, using <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true#valueOf-java.lang.Object-" title="class or interface in java.lang"><code>String.valueOf()</code></a> applied to the annotated method's return value.
+
+ <p>
+ If the <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true" title="class or interface in com.vaadin.flow.component.grid"><code>Grid</code></a> being configured is not a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/treegrid/TreeGrid.html?is-external=true" title="class or interface in com.vaadin.flow.component.treegrid"><code>TreeGrid</code></a>, this column is ignored.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>column debug ID</dd>
@@ -829,7 +832,7 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
 <h4>visbilityMenu</h4>
 <pre>public abstract&nbsp;boolean&nbsp;visbilityMenu</pre>
 <div class="block">Get whether to include this column as one of the columns with configurable visibility by way
- of <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#buildVisbilityMenu--"><code>GridColumnScanner.buildVisbilityMenu()</code></a>.
+ of <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#addVisbilityMenuItems-com.vaadin.flow.component.contextmenu.HasMenuItems-"><code>GridColumnScanner.addVisbilityMenuItems(com.vaadin.flow.component.contextmenu.HasMenuItems)</code></a>.
 
  <p>
  The menu item labels are taken from the <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#header--"><code>header()</code></a>, if any, otherwise <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#key--"><code>key()</code></a>.</div>
@@ -838,7 +841,7 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
 <dd>whether column has configurable visibility</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#visible--"><code>visible()</code></a>, 
-<a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#buildVisbilityMenu--"><code>GridColumnScanner.buildVisbilityMenu()</code></a></dd>
+<a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#addVisbilityMenuItems-com.vaadin.flow.component.contextmenu.HasMenuItems-"><code>GridColumnScanner.addVisbilityMenuItems(com.vaadin.flow.component.contextmenu.HasMenuItems)</code></a></dd>
 </dl>
 <dl>
 <dt>Default:</dt>

@@ -50,7 +50,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" target="_top">Frames</a></li>
@@ -145,7 +145,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
            <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>&nbsp;binding,
            <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>&nbsp;formLayout,
            <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>&nbsp;nullifyCheckbox,
-           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BoundField</a>&gt;&nbsp;fieldBuilder)</code>
+           <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;&gt;&nbsp;fieldBuilder)</code>
 <div class="block">Constructor.</div>
 </td>
 </tr>
@@ -179,8 +179,8 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BoundField</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#createBoundField-T-">createBoundField</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&nbsp;bean)</code>
+<td class="colFirst"><code><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#createFieldComponent-T-">createFieldComponent</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&nbsp;bean)</code>
 <div class="block">Instantiate a new field and associated component according to this instance.</div>
 </td>
 </tr>
@@ -257,8 +257,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>protected &lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a>&lt;T&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#wrapInNullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">wrapInNullableField</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
-                   <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#wrapInNullableField-org.dellroad.stuff.vaadin22.field.FieldComponent-">wrapInNullableField</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;T&gt;&nbsp;fieldComponent)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -294,7 +293,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
                    <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>&nbsp;binding,
                    <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>&nbsp;formLayout,
                    <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>&nbsp;nullifyCheckbox,
-                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BoundField</a>&gt;&nbsp;fieldBuilder)</pre>
+                   <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;&gt;&nbsp;fieldBuilder)</pre>
 <div class="block">Constructor.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -469,15 +468,15 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
-<a name="createBoundField-java.lang.Object-">
+<a name="createFieldComponent-java.lang.Object-">
 <!--   -->
-</a><a name="createBoundField-T-">
+</a><a name="createFieldComponent-T-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>createBoundField</h4>
-<pre>public&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BoundField</a>&nbsp;createBoundField(<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&nbsp;bean)</pre>
+<h4>createFieldComponent</h4>
+<pre>public&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;&nbsp;createFieldComponent(<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>&nbsp;bean)</pre>
 <div class="block">Instantiate a new field and associated component according to this instance.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -489,14 +488,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 </dl>
 </li>
 </ul>
-<a name="wrapInNullableField-com.vaadin.flow.component.HasValue-com.vaadin.flow.component.Component-">
+<a name="wrapInNullableField-org.dellroad.stuff.vaadin22.field.FieldComponent-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>wrapInNullableField</h4>
-<pre>protected&nbsp;&lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a>&lt;T&gt;&nbsp;wrapInNullableField(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,T&gt;&nbsp;field,
-                                                   <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;component)</pre>
+<pre>protected&nbsp;&lt;T&gt;&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a>&lt;T&gt;&nbsp;wrapInNullableField(<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;T&gt;&nbsp;fieldComponent)</pre>
 </li>
 </ul>
 <a name="bind-com.vaadin.flow.data.binder.Binder-com.vaadin.flow.component.HasValue-">
@@ -597,7 +595,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BoundField.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" target="_top">Frames</a></li>

@@ -50,7 +50,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderContext.html" title="interface in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?org/dellroad/stuff/vaadin22/field/FieldBuilderCustomField.html" target="_top">Frames</a></li>
@@ -171,7 +171,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
  }
 
  // This is the corresponding custom field
- public class DateIntervalField extends FieldBuilderCustomField&lt;DateInterval&gt;
+ public class DateIntervalField extends FieldBuilderCustomField&lt;DateInterval&gt; {
 
      public DateIntervalField() {
          super(DateInterval.class);
@@ -182,8 +182,8 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
      protected void layoutComponents() {
 
          // Get sub-fields
-         final FieldBuilder.BoundField startDateField = this.fieldBuilder.getBoundFields().get("startDate");
-         final FieldBuilder.BoundField endDateField = this.fieldBuilder.getBoundFields().get("endDate");
+         final FieldBuilder.FieldComponent startDateField = this.fieldBuilder.getFieldComponents().get("startDate");
+         final FieldBuilder.FieldComponent endDateField = this.fieldBuilder.getFieldComponents().get("endDate");
 
          // Layout sub-fields
          final HorizontalLayout layout = new HorizontalLayout();
@@ -589,7 +589,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderContext.html" title="interface in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?org/dellroad/stuff/vaadin22/field/FieldBuilderCustomField.html" target="_top">Frames</a></li>
