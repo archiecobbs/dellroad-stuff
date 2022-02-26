@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin22.data;
 
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.PropertyDefinition;
 import com.vaadin.flow.data.binder.PropertySet;
 import com.vaadin.flow.data.binder.Setter;
@@ -54,10 +55,34 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
         return newDefinition;
     }
 
+    /**
+     * Recover the property name associated with given binding, assuming the {@link Binder} was created
+     * using a {@link MapPropertySet}.
+     *
+     * @param binding {@link Binder} binding
+     * @return binding's property name
+     * @throws IllegalArgumentException if the associated {@link Binder} does not use a {@link MapPropertySet}
+     * @throws IllegalArgumentException if {@code binding} is null
+     */
+    public static String propertyNameForBinding(Binder.Binding<?, ?> binding) {
+        if (binding == null)
+            throw new IllegalArgumentException("null binding");
+        return Optional.ofNullable(binding.getGetter())
+          .filter(Definition.Getter.class::isInstance)
+          .map(Definition.Getter.class::cast)
+          .map(Definition<?>.Getter::getDefinition)
+          .map(Definition::getName)
+          .orElseThrow(() -> new IllegalArgumentException("binding's binder does not use MapPropertySet"));
+    }
+
 // Definition
 
     /**
      * A {@link PropertyDefinition} within a {@link MapPropertySet}.
+     *
+     * <p>
+     * Instances use {@link Getter}s that allow recovery of the property name; see
+     * {@link MapPropertySet#propertyNameForBinding MapPropertySet.propertyNameForBinding()}.
      *
      * @param <V> property value type
      */
@@ -86,8 +111,8 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
         }
 
         @Override
-        public ValueProvider<Map<String, Object>, V> getGetter() {
-            return this::get;
+        public Getter getGetter() {
+            return new Getter();
         }
 
         @Override
@@ -120,16 +145,6 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
             return this.type;
         }
 
-        private V get(Map<String, Object> map) {
-            if (map == null)
-                throw new IllegalArgumentException("null map");
-            try {
-                return this.type.cast(map.get(this.name));
-            } catch (ClassCastException e) {
-                throw new IllegalArgumentException("wrong type for \"" + this.name + "\" in map", e);
-            }
-        }
-
         private void set(Map<String, Object> map, V value) {
             if (map == null)
                 throw new IllegalArgumentException("null map");
@@ -137,6 +152,27 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
                 map.put(this.name, this.type.cast(value));
             } catch (ClassCastException e) {
                 throw new IllegalArgumentException("wrong type for \"" + this.name + "\" in map", e);
+            }
+        }
+
+    // Getter
+
+        @SuppressWarnings("serial")
+        public class Getter implements ValueProvider<Map<String, Object>, V> {
+
+            public Definition<V> getDefinition() {
+                return Definition.this;
+            }
+
+            @Override
+            public V apply(Map<String, Object> map) {
+                if (map == null)
+                    throw new IllegalArgumentException("null map");
+                try {
+                    return Definition.this.type.cast(map.get(Definition.this.name));
+                } catch (ClassCastException e) {
+                    throw new IllegalArgumentException("wrong type for \"" + Definition.this.name + "\" in map", e);
+                }
             }
         }
     }
