@@ -12,9 +12,9 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.vaadin22.util.VaadinUtil;
@@ -54,7 +54,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
 
     private final HashSet<LoadListener> listeners = new HashSet<>();
 
-    private ExecutorService executorService;
+    private Function<? super Runnable, ? extends Future<?>> executor;
 
     private Future<?> currentFuture;                                    // non-null iff some task is running AND not canceled
     private long currentId;                                             // non-zero iff some task is running AND not canceled
@@ -65,7 +65,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * Constructor.
      *
      * <p>
-     * Caller still must configure an {@link ExecutorService} via {@link #setExecutorService setExecutorService()}.
+     * Caller still must configure an async executor via {@link #setAsyncExecutor setAsyncExecutor()}.
      *
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
@@ -76,32 +76,23 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Constructor.
      *
-     * @param executorService the {@link ExecutorService} used to execute async load tasks
+     * @param executor the executor used to execute async load tasks
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
-    public AsyncDataProvider(ExecutorService executorService) {
+    public AsyncDataProvider(Function<? super Runnable, ? extends Future<?>> executor) {
         this();
-        this.setExecutorService(executorService);
+        this.setAsyncExecutor(executor);
     }
 
 // Public Methods
 
     /**
-     * Get the {@link ExecutorService} used for async tasks.
+     * Configure the executor used for async tasks.
      *
-     * @return the {@link ExecutorService} that this instance will use to execute async load tasks
+     * @param executor the thing that launches background tasks
      */
-    public ExecutorService getExecutorService() {
-        return this.executorService;
-    }
-
-    /**
-     * Configure the {@link ExecutorService} used for async tasks.
-     *
-     * @param executorService the {@link ExecutorService} used to execute async load tasks
-     */
-    public void setExecutorService(final ExecutorService executorService) {
-        this.executorService = executorService;
+    public void setAsyncExecutor(final Function<? super Runnable, ? extends Future<?>> executor) {
+        this.executor = executor;
     }
 
     /**
@@ -117,7 +108,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * @param loader performs the load operation
      * @return unique ID for this load attempt
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
-     * @throws IllegalStateException if there is no {@link ExecutorService} configured
+     * @throws IllegalStateException if there is no executor configured
      * @throws IllegalArgumentException if either parameter is null
      */
     public long load(Loader<? extends T> loader) {
@@ -125,8 +116,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         // Sanity check
         Preconditions.checkArgument(loader != null, "null loader");
         VaadinUtil.assertCurrentSession(this.session);
-        final ExecutorService executor = this.getExecutorService();
-        Preconditions.checkState(executor != null, "no ExecutorService");
+        Preconditions.checkState(this.executor != null, "no executor");
 
         // Cancel existing task, if any
         this.cancel();
@@ -138,7 +128,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         this.notifyListeners(id, LoadListener.STARTED, null);
 
         // Start task and update state
-        this.currentFuture = executor.submit(() -> this.performLoad(id, loader));
+        this.currentFuture = this.executor.apply((Runnable)() -> this.performLoad(id, loader));
         this.currentId = id;
 
         // Done
