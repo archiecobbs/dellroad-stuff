@@ -56,22 +56,21 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
     }
 
     /**
-     * Recover the property name associated with given binding, assuming the {@link Binder} was created
-     * using a {@link MapPropertySet}.
+     * Recover the {@link Definition} from the given binding, assuming the associated {@link Binder}
+     * was created using a {@link MapPropertySet}.
      *
      * @param binding {@link Binder} binding
-     * @return binding's property name
+     * @return binding's associated property definition
      * @throws IllegalArgumentException if the associated {@link Binder} does not use a {@link MapPropertySet}
      * @throws IllegalArgumentException if {@code binding} is null
      */
-    public static String propertyNameForBinding(Binder.Binding<?, ?> binding) {
+    public static Definition<?> propertyDefinitionForBinding(Binder.Binding<?, ?> binding) {
         if (binding == null)
             throw new IllegalArgumentException("null binding");
         return Optional.ofNullable(binding.getGetter())
           .filter(Definition.Getter.class::isInstance)
           .map(Definition.Getter.class::cast)
           .map(Definition<?>.Getter::getDefinition)
-          .map(Definition::getName)
           .orElseThrow(() -> new IllegalArgumentException("binding's binder does not use MapPropertySet"));
     }
 
@@ -81,8 +80,8 @@ public class MapPropertySet implements PropertySet<Map<String, Object>> {
      * A {@link PropertyDefinition} within a {@link MapPropertySet}.
      *
      * <p>
-     * Instances use {@link Getter}s that allow recovery of the property name; see
-     * {@link MapPropertySet#propertyNameForBinding MapPropertySet.propertyNameForBinding()}.
+     * Instances provide {@link Getter}s that allow recovery of the originating instance; see
+     * {@link MapPropertySet#propertyDefinitionForBinding MapPropertySet.propertyDefinitionForBinding()}.
      *
      * @param <V> property value type
      */
