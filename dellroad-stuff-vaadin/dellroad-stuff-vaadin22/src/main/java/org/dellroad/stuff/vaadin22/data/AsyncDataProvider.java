@@ -11,6 +11,7 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
@@ -240,7 +241,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * This is invoked in the async background thread.
      *
      * <p>
-     * When done, this method should invoke {@link #applyLoad applyLoa()}
+     * When done, this method should invoke {@link #applyLoad applyLoad()}
      * with {@linkplain #session this instance's session} locked.
      *
      * @param id task ID
@@ -276,7 +277,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     }
 
     /**
-     * Apply the results of a load operation.
+     * Apply the outcome of a load operation in whatever way is appropriate.
      *
      * <p>
      * This is invoked with {@linkplain #session this instance's session} locked.
@@ -307,11 +308,34 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         this.notifyListeners(id, error != null ? LoadListener.FAILED : LoadListener.COMPLETED, error);
 
         // Update data if successful
-        if (error == null) {
-            this.getItems().clear();
-            stream.forEach(this.getItems()::add);
-            this.refreshAll();
-        }
+        if (error == null)
+            this.updateFromLoad(id, stream);
+    }
+
+    /**
+     * Update this data provider's internal list of items using the new data from a successful load operation
+     * and fire a refresh notification.
+     *
+     * <p>
+     * This is invoked with {@linkplain #session this instance's session} locked.
+     *
+     * @param id task ID
+     * @param stream load results
+     * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
+     * @throws IllegalArgumentException if {@code stream} is null
+     */
+    protected void updateFromLoad(long id, final Stream<? extends T> stream) {
+
+        // Sanity check
+        VaadinUtil.assertCurrentSession(this.session);
+        Preconditions.checkArgument(id != 0, "zero id");
+        Preconditions.checkArgument(stream != null, "null stream");
+
+        // Update
+        final Collection<T> items = this.getItems();
+        items.clear();
+        stream.forEach(items::add);
+        this.refreshAll();
     }
 
     /**
