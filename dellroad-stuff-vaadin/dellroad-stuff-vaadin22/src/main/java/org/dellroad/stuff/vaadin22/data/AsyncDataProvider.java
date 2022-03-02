@@ -380,6 +380,14 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
          * In cases where this matters (e.g., the data is gathered in a per-thread transactions), this method
          * may need to proactively pull the data into memory ahead of time.
          *
+         * <p>
+         * This method may cancel itself by throwing {@link InterruptedException} unprompted; a {@link LoadListener#CANCELED}
+         * event will be reported.
+         *
+         * <p>
+         * If this method returns null, the load fails with an {@link IllegalArgumentException} and
+         * {@link LoadListener#FAILED} is reported).
+         *
          * @param id unique ID for this load attempt
          * @return stream of data items
          * @throws InterruptedException if the current thread is interrupted
