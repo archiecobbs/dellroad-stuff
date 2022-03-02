@@ -310,6 +310,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.checkbox.Checkbox> implementation() default com.vaadin.flow.component.checkbox.Checkbox.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code ariaLabel} property.
          *
          * @return desired {@code ariaLabel} property value
@@ -479,6 +491,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.checkbox.CheckboxGroup> implementation() default com.vaadin.flow.component.checkbox.CheckboxGroup.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Add the specified class names.
@@ -695,6 +719,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.combobox.ComboBox> implementation() default com.vaadin.flow.component.combobox.ComboBox.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code allowCustomValue} property.
@@ -1149,6 +1185,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.datepicker.DatePicker> implementation() default com.vaadin.flow.component.datepicker.DatePicker.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code autoOpen} property.
          *
          * @return desired {@code autoOpen} property value
@@ -1430,6 +1478,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.datetimepicker.DateTimePicker> implementation() default com.vaadin.flow.component.datetimepicker.DateTimePicker.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code autoOpen} property.
          *
          * @return desired {@code autoOpen} property value
@@ -1677,6 +1737,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.html.Input> implementation() default com.vaadin.flow.component.html.Input.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code ariaLabel} property.
@@ -2152,6 +2224,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.radiobutton.RadioButtonGroup> implementation() default com.vaadin.flow.component.radiobutton.RadioButtonGroup.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Add the specified class names.
          *
          * @return zero or more class names to add
@@ -2366,6 +2450,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.select.Select> implementation() default com.vaadin.flow.component.select.Select.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autofocus} property.
@@ -2616,6 +2712,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.textfield.BigDecimalField> implementation() default com.vaadin.flow.component.textfield.BigDecimalField.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -2903,6 +3011,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.textfield.EmailField> implementation() default com.vaadin.flow.component.textfield.EmailField.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -3215,6 +3335,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.textfield.IntegerField> implementation() default com.vaadin.flow.component.textfield.IntegerField.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code autocapitalize} property.
          *
          * @return desired {@code autocapitalize} property value
@@ -3523,6 +3655,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.textfield.NumberField> implementation() default com.vaadin.flow.component.textfield.NumberField.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -3867,6 +4011,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.textfield.PasswordField> implementation() default com.vaadin.flow.component.textfield.PasswordField.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code autocapitalize} property.
          *
          * @return desired {@code autocapitalize} property value
@@ -4193,6 +4349,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.component.textfield.TextArea> implementation() default com.vaadin.flow.component.textfield.TextArea.class;
 
         /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
          * Get the value desired for the {@code autocapitalize} property.
          *
          * @return desired {@code autocapitalize} property value
@@ -4493,6 +4661,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.textfield.TextField> implementation() default com.vaadin.flow.component.textfield.TextField.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -4811,6 +4991,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.timepicker.TimePicker> implementation() default com.vaadin.flow.component.timepicker.TimePicker.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
 
         /**
          * Get the value desired for the {@code autoOpen} property.

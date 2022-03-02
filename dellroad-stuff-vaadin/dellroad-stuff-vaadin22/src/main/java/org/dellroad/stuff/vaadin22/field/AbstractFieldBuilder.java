@@ -6,6 +6,7 @@
 package org.dellroad.stuff.vaadin22.field;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.data.binder.Binder;
@@ -13,6 +14,7 @@ import com.vaadin.flow.data.binder.BindingValidationStatusHandler;
 import com.vaadin.flow.data.binder.ErrorMessageProvider;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.shared.util.SharedUtil;
 
 import java.beans.BeanInfo;
@@ -1134,6 +1136,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
         protected final BindingInfo bindingInfo;
         protected final A defaults;
+        protected final Method stylePropertiesMethod;
 
         AnnotationApplier(BindingInfo bindingInfo, A defaults) {
             if (bindingInfo == null)
@@ -1142,6 +1145,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null defaults");
             this.bindingInfo = bindingInfo;
             this.defaults = defaults;
+
+            // Identify styleProperties() annotation property method, if any
+            Method method = null;
+            try {
+                method = this.bindingInfo.getAnnotation().getClass().getMethod("styleProperties");
+            } catch (NoSuchMethodException e) {
+                // ignore
+            }
+            this.stylePropertiesMethod = method;
         }
 
         public HasValue<?, ?> createField() {
@@ -1157,6 +1169,32 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               (methodList, propertyName) -> propertyName, this::instantiate);
             AnnotationUtil.applyAnnotationValues(field, "add", this.bindingInfo.getAnnotation(), this.defaults,
               (methodList, propertyName) -> methodList.get(0).getName(), this::instantiate);
+
+            // Apply any custom logic
+            this.configureFieldCustom(field);
+        }
+
+        protected void configureFieldCustom(HasValue<?, ?> field) {
+
+            // Handle styleProperties()
+            if (this.stylePropertiesMethod != null && field instanceof HasStyle) {
+
+                // Get name, value pairs
+                String[] styleProperties = null;
+                try {
+                    styleProperties = (String[])this.stylePropertiesMethod.invoke(this.bindingInfo.getAnnotation());
+                } catch (ReflectiveOperationException e) {
+                    // ignore
+                }
+
+                // Apply them if found
+                if (styleProperties != null) {
+                    final Style style = ((HasStyle)field).getStyle();
+                    int i = 0;
+                    while (i < styleProperties.length - 1)
+                        style.set(styleProperties[i++], styleProperties[i++]);
+                }
+            }
         }
 
         public <T> T instantiate(Class<T> type) {

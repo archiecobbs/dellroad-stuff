@@ -43,6 +43,9 @@ import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
  */
 public class FieldBuilderGenerator {
 
+    private static final String HAS_STYLE_CLASS_NAME = "com.vaadin.flow.component.HasStyle";
+    private static final String STYLE_CLASS_NAME = "com.vaadin.flow.dom.Style";
+
     private static final Pattern IDENTIFIER_PATTERN = Pattern.compile("\\p{javaJavaIdentifierStart}\\p{javaJavaIdentifierPart}*");
     private static final String INDENT = "    ";
 
@@ -60,6 +63,7 @@ public class FieldBuilderGenerator {
     private String annotationDefaultsMethodName;
     private String implementationPropertyName;
     private String separatorLine;
+    private boolean includeStyleProperties;
 
     // Runtime info
     private Reader input;
@@ -113,6 +117,10 @@ public class FieldBuilderGenerator {
 
     public void setClassInclusionPredicate(Predicate<? super Class<?>> classInclusionPredicate) {
         this.classInclusionPredicate = classInclusionPredicate;
+    }
+
+    public void setIncludeStyleProperties(boolean includeStyleProperties) {
+        this.includeStyleProperties = includeStyleProperties;
     }
 
     protected Logger getDefaultLogger() {
@@ -313,6 +321,23 @@ public class FieldBuilderGenerator {
               + cl.getName());
         }
 
+        // Output styleProperties() if enabled
+        if (this.includeStyleProperties && this.hasStyle(cl)) {
+            this.lines(2,
+              "",
+              "/**",
+              " * Specify CSS properties to be set via {@link " + STYLE_CLASS_NAME + "#set Style.set()}.",
+              " *",
+              " * <p>",
+              " * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.",
+              " *",
+              " * @return zero or more style property name, value pairs",
+              " * @see " + STYLE_CLASS_NAME,
+              " * @see " + HAS_STYLE_CLASS_NAME,
+              " */",
+              "String[] styleProperties() default {};");
+        }
+
         // Scan for qualifying setFoo() and addFoo() methods and key them by the desired annotation property name
         final TreeMap<String, Method> setterMap = new TreeMap<>();
         this.findPropertySetters(cl, "set", setterMap);
@@ -482,6 +507,16 @@ public class FieldBuilderGenerator {
             this.log.log(Logger.DEBUG, "Mapping property name \"%s\" to %s", propertyName, method);
             setterMap.put(propertyName, method);
         });
+    }
+
+    private boolean hasStyle(Class<?> cl) {
+        final Class<?> hasStyleClass;
+        try {
+            hasStyleClass = Thread.currentThread().getContextClassLoader().loadClass(HAS_STYLE_CLASS_NAME);
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+        return hasStyleClass.isAssignableFrom(cl);
     }
 
     private String getAnnotationName(Class<?> cl) {

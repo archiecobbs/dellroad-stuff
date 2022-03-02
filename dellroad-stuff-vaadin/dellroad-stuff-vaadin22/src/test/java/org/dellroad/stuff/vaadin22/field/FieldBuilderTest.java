@@ -86,6 +86,7 @@ public class FieldBuilderTest extends TestSupport {
         Assert.assertTrue(field1.getClassNames().contains("def"));
         Assert.assertTrue(field1.getThemeNames().contains("ghi"));
         Assert.assertTrue(field1.getThemeNames().contains("jkl"));
+        Assert.assertEquals(field1.getStyle().get("overflow-y"), "auto");
 
     // Check field2
 
@@ -148,6 +149,7 @@ public class FieldBuilderTest extends TestSupport {
           width = "60px",
           prefixComponent = Label.class,
           helperComponent = Label.class,
+          styleProperties = { "overflow-y", "auto", "dummy-ignored" },
           maxLength = 55,
           addClassNames = { "abc", "def" },
           addThemeNames = { "ghi", "jkl" },

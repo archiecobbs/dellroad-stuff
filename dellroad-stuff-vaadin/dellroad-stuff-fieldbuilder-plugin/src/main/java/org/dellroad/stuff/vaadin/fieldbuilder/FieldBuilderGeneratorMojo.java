@@ -92,6 +92,15 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
     private boolean includeAbstractClasses;
 
     /**
+     * Specify whether to add {@code styleProperties()} annotation properties for widget classes that implement {@code HasStyle}.
+     *
+     * <p>
+     * This enables special case logic for the purpose of making it easy to configure CSS properties declaratively.
+     */
+    @Parameter(defaultValue = "true", property = "includeStyleProperties")
+    private boolean includeStyleProperties;
+
+    /**
      * Specify customizations to the generated annotation names.
      *
      * <p>
@@ -213,6 +222,7 @@ public class FieldBuilderGeneratorMojo extends AbstractMojo {
                 generator.getPackageRoots().addAll(this.packageRoots);
                 generator.setSeparatorLine(this.separatorLine);
                 generator.setLogger(this.buildLogger());
+                generator.setIncludeStyleProperties(this.includeStyleProperties);
                 generator.setAnnotationDefaultsMethodName(this.annotationDefaultsMethodName);
                 generator.setImplementationPropertyName(this.implementationPropertyName);
                 generator.setClassInclusionPredicate(classInclusionPredicate);
