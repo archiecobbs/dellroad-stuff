@@ -89,14 +89,7 @@ public class NullModemOutputStream extends FilterOutputStream {
         // Create other end of pipe
         final PipedInputStream input;
         try {
-            input = new PipedInputStream(this.getPipedOutputStream()) {
-
-                @Override
-                public void close() throws IOException {
-                    super.close();
-                    NullModemOutputStream.this.error.compareAndSet(null, new IOException("input side was closed"));
-                }
-            };
+            input = new PipedInputStream(this.getPipedOutputStream());
         } catch (IOException e) {
             throw new RuntimeException("unexpected exception", e);
         }
@@ -121,27 +114,32 @@ public class NullModemOutputStream extends FilterOutputStream {
 
     @Override
     public void write(int b) throws IOException {
+        NullUtil.checkError(this.error);
         NullUtil.wrap(this.error, () -> super.write(b));
     }
 
     @Override
     public void write(byte[] b) throws IOException {
+        NullUtil.checkError(this.error);
         NullUtil.wrap(this.error, () -> super.write(b));
     }
 
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
+        NullUtil.checkError(this.error);
         NullUtil.wrap(this.error, () -> super.write(b, off, len));
     }
 
     @Override
     public void flush() throws IOException {
+        NullUtil.checkError(this.error);
         NullUtil.wrap(this.error, super::flush);
     }
 
     @Override
     public void close() throws IOException {
-        NullUtil.wrap(this.error, super::close);
+        this.error.set(null);                       // avoid redundant exception being thrown by flush()
+        super.close();
     }
 
 // Subclass Methods

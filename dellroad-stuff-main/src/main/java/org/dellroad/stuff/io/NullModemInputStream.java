@@ -114,38 +114,44 @@ public class NullModemInputStream extends FilterInputStream {
 
     @Override
     public int read() throws IOException {
+        NullUtil.checkError(this.error);
         return NullUtil.wrapInt(this.error, super::read);
     }
 
     @Override
     public int read(byte[] b) throws IOException {
+        NullUtil.checkError(this.error);
         return NullUtil.wrapInt(this.error, () -> super.read(b));
     }
 
     @Override
     public int read(byte[] b, int off, int len) throws IOException {
+        NullUtil.checkError(this.error);
         return NullUtil.wrapInt(this.error, () -> super.read(b, off, len));
     }
 
     @Override
     public long skip(long n) throws IOException {
+        NullUtil.checkError(this.error);
         return NullUtil.wrapLong(this.error, () -> super.skip(n));
     }
 
     @Override
     public int available() throws IOException {
+        NullUtil.checkError(this.error);
         return NullUtil.wrapInt(this.error, super::available);
     }
 
     @Override
-    public void close() throws IOException {
-        NullUtil.wrap(this.error, super::close);
-        this.error.compareAndSet(null, new IOException("input side was closed"));
+    public void reset() throws IOException {
+        NullUtil.checkError(this.error);
+        NullUtil.wrap(this.error, super::reset);
     }
 
     @Override
-    public void reset() throws IOException {
-        NullUtil.wrap(this.error, super::reset);
+    public void close() throws IOException {
+        this.error.set(null);                       // avoid redundant exception being thrown by flush()
+        super.close();
     }
 
 // Internal Methods

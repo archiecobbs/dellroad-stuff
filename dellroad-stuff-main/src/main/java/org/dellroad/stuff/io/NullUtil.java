@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.dellroad.stuff.java.ThrowableUtil;
-
 /**
  * Utility methods for {@link NullModemInputStream} and {@link NullModemOutputStream}.
  */
@@ -23,10 +21,7 @@ final class NullUtil {
         try {
             io.run();
         } catch (IOException e) {
-            final Throwable cause = error.get();
-            if (cause != null)
-                ThrowableUtil.prependCurrentStackTrace(e);
-            throw e;
+            throw NullUtil.initCauseFromError(e, error);
         }
     }
 
@@ -34,10 +29,7 @@ final class NullUtil {
         try {
             return io.run();
         } catch (IOException e) {
-            final Throwable cause = error.get();
-            if (cause != null)
-                ThrowableUtil.prependCurrentStackTrace(e);
-            throw e;
+            throw NullUtil.initCauseFromError(e, error);
         }
     }
 
@@ -45,11 +37,21 @@ final class NullUtil {
         try {
             return io.run();
         } catch (IOException e) {
-            final Throwable cause = error.get();
-            if (cause != null)
-                ThrowableUtil.prependCurrentStackTrace(e);
-            throw e;
+            throw NullUtil.initCauseFromError(e, error);
         }
+    }
+
+    public static void checkError(AtomicReference<Throwable> error) throws IOException {
+        final Throwable e = error.get();
+        if (e != null)
+            throw new IOException("exception thrown in callback", e);
+    }
+
+    private static IOException initCauseFromError(IOException e, AtomicReference<Throwable> error) {
+        final Throwable cause = error.get();
+        if (cause != null && e.getCause() == null)
+            e.initCause(cause);
+        return e;
     }
 
     /**
