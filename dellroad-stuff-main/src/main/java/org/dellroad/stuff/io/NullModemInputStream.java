@@ -7,41 +7,85 @@ package org.dellroad.stuff.io;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.dellroad.stuff.java.ThrowableUtil;
 
 /**
- * Presents an {@link java.io.InputStream} interface given a {@link WriteCallback} that can write to an
- * {@link java.io.OutputStream}. A separate thread is created to perform the actual writing.
+ * Presents an {@link InputStream} interface given a {@link WriteCallback} that can write to an {@link OutputStream}.
  *
  * <p>
- * At construction time, a background thread is created and invokes {@link WriteCallback#writeTo WriteCallback.writeTo()}
- * on the configured {@link WriteCallback}. The data written by that method to the provided {@link java.io.OutputStream}
- * is then made available for reading on this instance.
+ * A background process, initated by a provided {@link Executor}, invokes the {@link WriteCallback} to write
+ * to an {@link OutputStream} that relays whatever is written to this {@link InputStream}.
+ *
+ * <p><b>Exceptions</b>
+ *
+ * <p>
+ * Regarding this {@link InputStream}:
+ *
+ * <ul>
+ *  <li>If the {@link WriteCallback} throws an {@link IOException}, any subsequent read from this {@link InputStream}
+ *      will throw an {@link IOException}, with the original {@linkplain ThrowableUtil#appendStackFrames appended to it}.
+ * </ul>
+ *
+ * <p>
+ * Regarding the {@link OutputStream} provided to the {@link WriteCallback}:
+ *
+ * <ul>
+ *  <li>If this {@link InputStream} is {@link InputStream#close close()}'ed, any subsequent write to the {@link OutputStream}
+ *      by the {@link WriteCallback} will generate an {@link IOException}.
+ * </ul>
+ *
+ * <p>
+ * Note: This class uses {@link PipedInputStream} and {@link PipedOutputStream} under the covers, so instances should not
+ * be shared by multiple threads or they might be considered "broken".
  *
  * @since 1.0.74
  */
 public class NullModemInputStream extends FilterInputStream {
 
+    private final AtomicReference<Throwable> error = new AtomicReference<>();
     private final PipedOutputStream output;
+
+    /**
+     * Constructor that uses a background thread for writing.
+     *
+     * <p>
+     * Delegates to {@link #NullModemInputStream(WriteCallback, Executor)},
+     * passing an executor that creates a dedicated daemon {@link Thread} with the given name.
+     *
+     * @param reader callback that writes the data to be read
+     * @param threadName name for the background thread to be created
+     */
+    public NullModemInputStream(WriteCallback writer, String threadName) {
+        this(writer, NullUtil.newThreadExecutor(threadName));
+    }
 
     /**
      * Constructor.
      *
      * <p>
      * The {@code writer}'s {@link WriteCallback#writeTo writeTo()} method will be invoked (once)
-     * asynchronously in a dedicated writer thread. The {@link java.io.OutputStream} provided to it will
-     * relay the bytes that are then read from this instance.
+     * asynchronously in a dedicated writer thread. This instance will produce whatever data is
+     * written by {@code writer} to the provided {@link java.io.OutputStream}.
      *
-     * @param writer    {@link java.io.OutputStream} writer callback
-     * @param name      name for this instance; used to create the name of the background thread
+     * @param writer callback that writes the data to be read
+     * @param executor executes writing process in the background
+     * @throws IllegalArgumentException if any parameter is null
      */
-    public NullModemInputStream(final WriteCallback writer, String name) {
+    public NullModemInputStream(WriteCallback writer, Executor executor) {
         super(new PipedInputStream());
 
         // Sanity check
         if (writer == null)
             throw new IllegalArgumentException("null writer");
+        if (executor == null)
+            throw new IllegalArgumentException("null executor");
 
         // Create other end of pipe
         try {
@@ -50,11 +94,61 @@ public class NullModemInputStream extends FilterInputStream {
             throw new RuntimeException("unexpected exception", e);
         }
 
-        // Launch writer thread
-        Thread thread = new WriterThread(writer, this.output, name);
-        thread.setDaemon(true);
-        thread.start();
+        // Launch writer task
+        executor.execute(() -> {
+            try {
+                writer.writeTo(output);
+            } catch (Throwable t) {
+                this.error.compareAndSet(null, t);
+            } finally {
+                try {
+                    output.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+        });
     }
+
+// Wrapper Methods
+
+    @Override
+    public int read() throws IOException {
+        return NullUtil.wrapInt(this.error, super::read);
+    }
+
+    @Override
+    public int read(byte[] b) throws IOException {
+        return NullUtil.wrapInt(this.error, () -> super.read(b));
+    }
+
+    @Override
+    public int read(byte[] b, int off, int len) throws IOException {
+        return NullUtil.wrapInt(this.error, () -> super.read(b, off, len));
+    }
+
+    @Override
+    public long skip(long n) throws IOException {
+        return NullUtil.wrapLong(this.error, () -> super.skip(n));
+    }
+
+    @Override
+    public int available() throws IOException {
+        return NullUtil.wrapInt(this.error, super::available);
+    }
+
+    @Override
+    public void close() throws IOException {
+        NullUtil.wrap(this.error, super::close);
+        this.error.compareAndSet(null, new IOException("input side was closed"));
+    }
+
+    @Override
+    public void reset() throws IOException {
+        NullUtil.wrap(this.error, super::reset);
+    }
+
+// Internal Methods
 
     /**
      * Get the wrapped stream cast as a {@link PipedInputStream}.
@@ -84,35 +178,4 @@ public class NullModemInputStream extends FilterInputStream {
             super.finalize();
         }
     }
-
-    /**
-     * Writer thread. This is designed to not hold a reference to the {@link NullModemInputStream}.
-     */
-    private static class WriterThread extends Thread {
-
-        private final WriteCallback writer;
-        private final PipedOutputStream output;
-
-        WriterThread(WriteCallback writer, PipedOutputStream output, String name) {
-            super(name);
-            this.writer = writer;
-            this.output = output;
-        }
-
-        @Override
-        public void run() {
-            try {
-                this.writer.writeTo(this.output);
-            } catch (IOException e) {
-                // ignore - reader will get another IOException because pipe is about to be broken
-            } finally {
-                try {
-                    this.output.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-    }
 }
-

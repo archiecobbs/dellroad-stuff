@@ -7,56 +7,144 @@ package org.dellroad.stuff.io;
 
 import java.io.FilterOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
+import java.util.concurrent.Executor;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.dellroad.stuff.java.ThrowableUtil;
 
 /**
- * Presents an {@link java.io.OutputStream} interface given a {@link ReadCallback} that can read from an
- * {@link java.io.InputStream}. A separate thread is created to perform the actual reading.
+ * Presents an {@link OutputStream} interface given a {@link ReadCallback} that can read from an {@link InputStream}.
  *
  * <p>
- * At construction time, a background thread is created and invokes {@link ReadCallback#readFrom ReadCallback.readFrom()}
- * on the configured {@link ReadCallback}. The data read by that method from the provided {@link java.io.InputStream}
- * will be whatever is written to this instance.
+ * A background process, initated by a provided {@link Executor}, invokes the {@link ReadCallback} to read
+ * from an {@link InputStream} which receives whatever is written to this {@link OutputStream}.
+ *
+ * <p><b>Exceptions</b>
  *
  * <p>
- * If data is written beyond what the reader is willing to consume, an {@link IOException} is thrown.
+ * Regarding this {@link OutputStream}:
+ *
+ * <ul>
+ *  <li>If the {@link ReadCallback} throws an {@link IOException}, any subsequent write to this {@link OutputStream}
+ *      will throw an {@link IOException}, with the original {@linkplain ThrowableUtil#appendStackFrames appended to it}.
+ *  <li>If the {@link ReadCallback} {@link InputStream#close close()}'es the {@link InputStream}, any subsequent write to this
+ *      {@link OutputStream} will generate an {@link IOException}.
+ * </ul>
+ *
+ * <p>
+ * The {@link InputStream} provided to the {@link ReadCallback} should never throw any {@link IOException}, as long as
+ * it is still open.
+ *
+ * <p>
+ * Note: This class uses {@link PipedInputStream} and {@link PipedOutputStream} under the covers, so instances should not
+ * be shared by multiple threads or they might be considered "broken".
  *
  * @since 1.0.82
  */
 public class NullModemOutputStream extends FilterOutputStream {
+
+    private final AtomicReference<Throwable> error = new AtomicReference<>();
+
+// Constructors
+
+    /**
+     * Constructor that uses a background thread for reading.
+     *
+     * <p>
+     * Delegates to {@link #NullModemOutputStream(ReadCallback, Executor)},
+     * passing an executor that creates a dedicated daemon {@link Thread} with the given name.
+     *
+     * @param reader callback that reads the data written
+     * @param threadName name for the background thread to be created
+     */
+    public NullModemOutputStream(ReadCallback reader, String threadName) {
+        this(reader, NullUtil.newThreadExecutor(threadName));
+    }
 
     /**
      * Constructor.
      *
      * <p>
      * The {@code reader}'s {@link ReadCallback#readFrom readFrom()} method will be invoked (once)
-     * asynchronously in a dedicated reader thread. The {@link java.io.InputStream} provided to it will
-     * relay the bytes that are written to this instance.
+     * in an asynchronous thread created by {@code executor}. The {@link InputStream}
+     * provided to it will produce whatever data is written to this instance.
      *
-     * @param reader    {@link java.io.InputStream} reader callback
-     * @param name      name for this instance; used to create the name of the background thread
+     * @param reader callback that reads the data written
+     * @param executor executes reading process in the background
+     * @throws IllegalArgumentException if any parameter is null
      */
-    public NullModemOutputStream(final ReadCallback reader, String name) {
+    public NullModemOutputStream(ReadCallback reader, Executor executor) {
         super(new PipedOutputStream());
 
         // Sanity check
         if (reader == null)
             throw new IllegalArgumentException("null reader");
+        if (executor == null)
+            throw new IllegalArgumentException("null executor");
 
         // Create other end of pipe
-        PipedInputStream input;
+        final PipedInputStream input;
         try {
-            input = new PipedInputStream(this.getPipedOutputStream());
+            input = new PipedInputStream(this.getPipedOutputStream()) {
+
+                @Override
+                public void close() throws IOException {
+                    super.close();
+                    NullModemOutputStream.this.error.compareAndSet(null, new IOException("input side was closed"));
+                }
+            };
         } catch (IOException e) {
             throw new RuntimeException("unexpected exception", e);
         }
 
-        // Launch reader thread
-        Thread thread = new ReaderThread(reader, input, name);
-        thread.setDaemon(true);
-        thread.start();
+        // Launch reader task
+        executor.execute(() -> {
+            try {
+                reader.readFrom(input);
+            } catch (Throwable t) {
+                this.error.compareAndSet(null, t);
+            } finally {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+        });
     }
+
+// Wrapper Methods
+
+    @Override
+    public void write(int b) throws IOException {
+        NullUtil.wrap(this.error, () -> super.write(b));
+    }
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        NullUtil.wrap(this.error, () -> super.write(b));
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        NullUtil.wrap(this.error, () -> super.write(b, off, len));
+    }
+
+    @Override
+    public void flush() throws IOException {
+        NullUtil.wrap(this.error, super::flush);
+    }
+
+    @Override
+    public void close() throws IOException {
+        NullUtil.wrap(this.error, super::close);
+    }
+
+// Subclass Methods
 
     /**
      * Get the wrapped stream cast as a {@link PipedOutputStream}.
@@ -86,35 +174,4 @@ public class NullModemOutputStream extends FilterOutputStream {
             super.finalize();
         }
     }
-
-    /**
-     * Reader thread. This is designed to not hold a reference to the {@link NullModemOutputStream}.
-     */
-    private static class ReaderThread extends Thread {
-
-        private final ReadCallback reader;
-        private final PipedInputStream input;
-
-        ReaderThread(ReadCallback reader, PipedInputStream input, String name) {
-            super(name);
-            this.reader = reader;
-            this.input = input;
-        }
-
-        @Override
-        public void run() {
-            try {
-                this.reader.readFrom(this.input);
-            } catch (IOException e) {
-                // ignore - writer will get another IOException because pipe is about to be broken
-            } finally {
-                try {
-                    this.input.close();
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-    }
 }
-
