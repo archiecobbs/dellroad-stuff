@@ -6,6 +6,8 @@
 package org.dellroad.stuff.xml;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -48,6 +50,8 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     private int lastEvent = -1;
     private int depth;
 
+// Constructors
+
     /**
      * Default constructor. Sets the indent to {@link #DEFAULT_INDENT}.
      * The parent must be configured via {@link #setParent setParent()}.
@@ -78,6 +82,8 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         super(writer);
         this.indent = indent;
     }
+
+// Config Properties
 
     /**
      * Set whether to add an XML declaration, if missing.
@@ -128,6 +134,8 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     public void setDefaultEncoding(String defaultEncoding) {
         this.defaultEncoding = defaultEncoding;
     }
+
+// XMLStreamWriter
 
     @Override
     public void writeStartDocument(String encoding, String version) throws XMLStreamException {
@@ -186,8 +194,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
 
     @Override
     public void writeComment(String data) throws XMLStreamException {
-        this.handleOther(XMLStreamConstants.COMMENT);
-        super.writeComment(data);
+        this.handleComment(data);
     }
 
     @Override
@@ -243,16 +250,15 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     public void writeEndElement() throws XMLStreamException {
         this.depth--;
         if (this.lastEvent == XMLStreamConstants.END_ELEMENT)
-            this.indent();
+            this.reindent();
         this.handleOther(XMLStreamConstants.END_ELEMENT);
         super.writeEndElement();
     }
 
+// Internal Methods
+
     private void handleStartElement(boolean selfClosing) throws XMLStreamException {
-        this.writeStartDocumentIfNecessary();
-        if (this.lastEvent == XMLStreamConstants.START_ELEMENT || this.lastEvent == XMLStreamConstants.END_ELEMENT
-          || (this.indentAfterXmlDeclaration && this.lastEvent == XMLStreamConstants.START_DOCUMENT))
-            this.indent();
+        this.reindentIfNecessary();
         this.handleOther(selfClosing ? XMLStreamConstants.END_ELEMENT : XMLStreamConstants.START_ELEMENT);
         if (!selfClosing)
             this.depth++;
@@ -269,13 +275,62 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         }
     }
 
+    private void handleComment(String comment) throws XMLStreamException {
+
+        // If no newline precedes the comment, don't try to reformat anything
+        if (this.newlinesInWhitespaceBuffer() == 0) {
+            this.handleOther(XMLStreamConstants.COMMENT);
+            super.writeComment(comment);
+        }
+
+        // Do the same reformatting we do with elements
+        this.reindentIfNecessary();
+
+        // Handle a one line comment
+        if (comment.indexOf('\n') == -1) {
+            super.writeComment(comment);
+            return;
+        }
+
+        // Handle multi-line comment
+        final String indentation = this.indentString(this.depth + 1);
+        final String[] lines = comment.split("\\r?\\n");
+        final int num = lines.length;
+        for (int i = 0; i < num; i++)                           // trim all lines
+            lines[i] = lines[i].trim();
+        if (lines.length > 0 && !lines[0].isEmpty())            // add space after "<!--" if needed
+            lines[0] = " " + lines[0];
+        if (lines.length > 0 && !lines[num - 1].isEmpty())      // add space before "-->" if needed
+            lines[num - 1] = lines[0] + " ";
+        for (int i = 1; i < num - 1; i++)                       // indent all but first & last line to depth + 1
+            lines[i] = indentation + lines[i];
+        if (num > 1)                                            // indent the last only to depth
+            lines[num - 1] = this.indentString(this.depth) + lines[num - 1];
+        comment = Stream.of(lines).collect(Collectors.joining("\n"));
+        super.writeComment(comment);
+    }
+
     private void handleOther(int eventType) throws XMLStreamException {
         this.writeStartDocumentIfNecessary();
+        this.flushWitespace();
+        this.lastEvent = eventType;
+    }
+
+    private void reindentIfNecessary() throws XMLStreamException {
+        this.writeStartDocumentIfNecessary();
+        if (this.lastEvent == XMLStreamConstants.START_ELEMENT
+          || this.lastEvent == XMLStreamConstants.END_ELEMENT
+          || (this.lastEvent == XMLStreamConstants.START_DOCUMENT && this.indentAfterXmlDeclaration)) {
+            this.reindent();
+            this.flushWitespace();
+        }
+    }
+
+    private void flushWitespace() throws XMLStreamException {
         if (this.whitespaceBuffer.length() > 0) {
             super.writeCharacters(this.whitespaceBuffer.toString());
             this.whitespaceBuffer.setLength(0);
         }
-        this.lastEvent = eventType;
     }
 
     private void writeStartDocumentIfNecessary() throws XMLStreamException {
@@ -286,7 +341,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     /**
      * Replace existing content of whitespaceBuffer with newline(s) followed by indentation to the current depth.
      */
-    private void indent() {
+    private void reindent() {
 
         // Are we doing any indenting?
         if (this.indent < 0) {
@@ -295,6 +350,16 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         }
 
         // Count how many initial newlines there were in the original stream
+        int newlines = this.newlinesInWhitespaceBuffer();
+
+        // Add back that many newline(s) (at least one) followed by indent
+        this.whitespaceBuffer.setLength(0);
+        this.whitespaceBuffer.append(this.repeatString('\n', Math.max(newlines, 1)));
+        this.whitespaceBuffer.append(this.indentString(this.depth));
+    }
+
+    // Count how many newlines there are in the current whitespace buffer
+    private int newlinesInWhitespaceBuffer() {
         int newlines = 0;
         for (int i = 0; i < this.whitespaceBuffer.length(); i++) {
             if (this.whitespaceBuffer.charAt(i) == '\n'
@@ -305,14 +370,16 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
             }
             break;
         }
-        this.whitespaceBuffer.setLength(0);
+        return newlines;
+    }
 
-        // Add back that many newline(s) (at least one) followed by indent
-        newlines = Math.max(newlines, 1);
-        final char[] buf = new char[newlines + Math.max(this.depth, 0) * this.indent];
-        Arrays.fill(buf, 0, newlines, '\n');
-        Arrays.fill(buf, newlines, buf.length, ' ');
-        this.whitespaceBuffer.append(buf);
+    private String indentString(int count) {
+        return this.repeatString(' ', Math.max(count, 0) * this.indent);
+    }
+
+    private String repeatString(char ch, int count) {
+        final char[] buf = new char[count];
+        Arrays.fill(buf, ch);
+        return new String(buf);
     }
 }
-

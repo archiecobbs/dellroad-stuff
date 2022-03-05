@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JanFoo>
+
+    <!-- Comment1 -->
+    <variable name="language">
+        <choose>
+            <when test="1 = 2">
+                <value-of select="'blah'"/>
+            </when>
+            <when test="3 = 4">
+                <value-of select="'blah'"/>
+            </when>
+        </choose>
+    </variable>
+
+    <!--
+        Comment2 blah blah
+        Comment2 blah blah blah
+        Comment2 blah blah b-blah blah
+    -->
+    <variable name="eventId" select="'1234'"/>
+
+    <!-- Comment 3-->
+    <variable name="code" select="$foobar"/>
+    <variable name="location">
+        <choose>
+            <when test="1 = 2">
+                <value-of select="'blah'"/>
+            </when>
+            <when test="3 = 4">
+                <value-of select="'blah'"/>
+            </when>
+        </choose>
+    </variable>
+
+    <!-- Blah Blah -->
+    <ScheduledEventAnnotations>
+
+        <!-- Blah Blah-->
+        <AnnotationSet>
+            <name>fleebo</name>
+            <value>true</value>
+        </AnnotationSet>
+
+        <!-- Blah Blah-->
+        <if test="5 = 6">
+            <Flubber>
+                <name>blob</name>
+                <value>blob2</value>
+            </Flubber>
+        </if>
+    </ScheduledEventAnnotations>
+
+</JanFoo>

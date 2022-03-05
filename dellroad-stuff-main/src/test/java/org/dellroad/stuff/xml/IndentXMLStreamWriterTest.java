@@ -28,16 +28,26 @@ public class IndentXMLStreamWriterTest extends TestSupport {
 
     @Test(dataProvider = "files")
     public void testIndent(String inputResource, String expectedResource, boolean emptyTag,
-      boolean addMissingXmlDeclaration, boolean indentAfterXmlDecl) throws Exception {
+      boolean addMissingXmlDeclaration, boolean indentAfterXmlDecl, String nestedTagName) throws Exception {
+
+        // Read original XML
         final File actualFile = File.createTempFile("test1.", "xml");
-        final String input = this.readResource(inputResource);
+        String input = this.readResource(inputResource);
+
+        // Extract nested XML
+        if (nestedTagName != null) {
+            final String pattern = String.format("(?s)^(<\\?xml[^>]+\\?>).*(<%s>.*</%s>).*$", nestedTagName, nestedTagName);
+            input = input.replaceAll(pattern, "$1\n$2");
+        }
+
+        // Reformat XML
         this.indent(input, actualFile, emptyTag, addMissingXmlDeclaration, indentAfterXmlDecl);
+
+        // Compare actual vs. expected
         final String actual = this.readResource(actualFile);
+        actualFile.delete();
         final String expected = this.readResource(expectedResource);
         Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\n"), expected.trim());
-
-        // Clean up
-        actualFile.delete();
     }
 
     private void indent(String input, File outputFile, boolean emptyTag,
@@ -56,14 +66,14 @@ public class IndentXMLStreamWriterTest extends TestSupport {
     @DataProvider(name = "files")
     public Object[][] generateFiles() {
         return new Object[][] {
-            new Object[] { "input1.xml", "output1.xml",     false,  true,   true    },
-            new Object[] { "input2.xml", "output2.xml",     false,  true,   true    },
-            new Object[] { "input3.xml", "output3.xml",     false,  true,   true    },
-            new Object[] { "input6.xml", "output6.xml",     false,  true,   true    },
-            new Object[] { "input6.xml", "output6a.xml",    true,   true,   true    },
-            new Object[] { "input6.xml", "output6b.xml",    false,  true,   false   },
-            new Object[] { "input7.xml", "output7.xml",     false,  true,   true    },
+            new Object[] { "input1.xml", "output1.xml",     false,  true,   true,   null        },
+            new Object[] { "input2.xml", "output2.xml",     false,  true,   true,   null        },
+            new Object[] { "input3.xml", "output3.xml",     false,  true,   true,   null        },
+            new Object[] { "input6.xml", "output6.xml",     false,  true,   true,   null        },
+            new Object[] { "input6.xml", "output6a.xml",    true,   true,   true,   null        },
+            new Object[] { "input6.xml", "output6b.xml",    false,  true,   false,  null        },
+            new Object[] { "input7.xml", "output7.xml",     false,  true,   true,   null        },
+            new Object[] { "input8.xml", "output8.xml",     true,   true,   true,   "JanFoo"    },
         };
     }
 }
-
