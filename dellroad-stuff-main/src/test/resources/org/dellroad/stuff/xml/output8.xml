@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<JanFoo>
+<JanFoo><!-- comment directly after opening tag -->
 
     <!-- Comment1 -->
     <variable name="language">

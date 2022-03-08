@@ -13,7 +13,7 @@
                     <param name="foobar"/>
 
                     <template match="/*">
-                        <JanFoo>
+                        <JanFoo><!-- comment directly after opening tag -->
 
                             <!-- Comment1 -->
                             <variable name="language">

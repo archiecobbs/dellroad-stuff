@@ -267,8 +267,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
 
     private void handleCharacters(String text) throws XMLStreamException {
         this.writeStartDocumentIfNecessary();
-        if ((this.lastEvent == XMLStreamConstants.START_ELEMENT || this.lastEvent == XMLStreamConstants.END_ELEMENT)
-          && text.trim().length() == 0)
+        if (this.lastEventTriggersReindent() && text.trim().length() == 0)
             this.whitespaceBuffer.append(text);
         else {
             this.handleOther(XMLStreamConstants.CHARACTERS);
@@ -282,6 +281,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         if (this.newlinesInWhitespaceBuffer() == 0) {
             this.handleOther(XMLStreamConstants.COMMENT);
             super.writeComment(comment);
+            return;
         }
 
         // Do the same reformatting we do with elements
@@ -358,9 +358,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
 
     private void reindentIfNecessary() throws XMLStreamException {
         this.writeStartDocumentIfNecessary();
-        if (this.lastEvent == XMLStreamConstants.START_ELEMENT
-          || this.lastEvent == XMLStreamConstants.END_ELEMENT
-          || (this.lastEvent == XMLStreamConstants.START_DOCUMENT && this.indentAfterXmlDeclaration)) {
+        if (this.lastEventTriggersReindent()) {
             this.reindent();
             this.flushWitespace();
         }
@@ -376,6 +374,13 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     private void writeStartDocumentIfNecessary() throws XMLStreamException {
         if (!this.started && this.addMissingXmlDeclaration)
             this.writeStartDocument();
+    }
+
+    private boolean lastEventTriggersReindent() throws XMLStreamException {
+        return this.lastEvent == XMLStreamConstants.START_ELEMENT
+          || this.lastEvent == XMLStreamConstants.END_ELEMENT
+          || this.lastEvent == XMLStreamConstants.COMMENT
+          || (this.lastEvent == XMLStreamConstants.START_DOCUMENT && this.indentAfterXmlDeclaration);
     }
 
     /**
