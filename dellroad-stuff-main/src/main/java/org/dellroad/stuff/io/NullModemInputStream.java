@@ -150,12 +150,6 @@ public class NullModemInputStream extends FilterInputStream {
         NullUtil.wrap(this.error, super::reset);
     }
 
-    @Override
-    public void close() throws IOException {
-        this.error.set(null);                       // avoid redundant exception being thrown by flush()
-        super.close();
-    }
-
 // Internal Methods
 
     /**
