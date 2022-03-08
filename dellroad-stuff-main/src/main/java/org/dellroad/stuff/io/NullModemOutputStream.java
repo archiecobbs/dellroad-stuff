@@ -100,6 +100,7 @@ public class NullModemOutputStream extends FilterOutputStream {
                 reader.readFrom(input);
             } catch (Throwable t) {
                 this.error.compareAndSet(null, t);
+                throw ThrowableUtil.<RuntimeException>maskException(t);
             } finally {
                 try {
                     input.close();

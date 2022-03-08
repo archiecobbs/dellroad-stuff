@@ -102,6 +102,7 @@ public class NullModemInputStream extends FilterInputStream {
                 output.close();
             } catch (Throwable t) {
                 this.error.compareAndSet(null, t);
+                throw ThrowableUtil.<RuntimeException>maskException(t);
             } finally {
                 try {
                     output.close();
