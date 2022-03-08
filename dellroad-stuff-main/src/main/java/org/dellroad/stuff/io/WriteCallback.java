@@ -17,9 +17,11 @@ public interface WriteCallback {
     /**
      * Write the output to the given output stream.
      *
+     * <p>
+     * This method should not {@link OutputStream#close close()} the given {@code output}.
+     *
      * @param output output stream
      * @throws IOException if an I/O error occurs
      */
     void writeTo(OutputStream output) throws IOException;
 }
-
