@@ -98,6 +98,8 @@ public class NullModemInputStream extends FilterInputStream {
         executor.execute(() -> {
             try {
                 writer.writeTo(output);
+                output.flush();
+                output.close();
             } catch (Throwable t) {
                 this.error.compareAndSet(null, t);
             } finally {
