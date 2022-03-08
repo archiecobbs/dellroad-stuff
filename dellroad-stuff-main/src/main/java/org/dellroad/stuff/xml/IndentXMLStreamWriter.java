@@ -6,6 +6,7 @@
 package org.dellroad.stuff.xml;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -293,21 +294,60 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         }
 
         // Handle multi-line comment
+
+        // Trim all lines
+        List<String> lines = Arrays.asList(comment.split("\\r?\\n"));
+
+        // Eliminate empty first & last lines (i.e. empty lines containing opening and closing comment markers).
+        // If first line is not empty, trim leading whitespace; we will shift it down one line.
+        int firstLineToIgnoreLeadingSpace = 1;
+        if (!lines.isEmpty()) {
+            final String firstLine = lines.get(0);
+            if (firstLine.trim().isEmpty()) {
+                lines = lines.subList(1, lines.size());
+                firstLineToIgnoreLeadingSpace = 0;
+            } else
+                lines.set(0, firstLine.replaceAll("^\\s+", ""));
+        }
+        if (!lines.isEmpty() && lines.get(lines.size() - 1).trim().isEmpty())
+            lines = lines.subList(0, lines.size() - 1);
+
+        // Trim trailing whitespace
+        for (int i = 0; i < lines.size(); i++)
+            lines.set(i, lines.get(i).replaceAll("\\s+$", ""));
+
+        // Find the the space prefix that is common to all lines
+        final int spacePrefixLen = lines.stream()
+          .skip(firstLineToIgnoreLeadingSpace)
+          .mapToInt(this::spacePrefixLen)
+          .min()
+          .orElse(0);
+
+        // Trim leading whitespace that is common to all lines
+        if (spacePrefixLen > 0) {
+            for (int i = firstLineToIgnoreLeadingSpace; i < lines.size(); i++) {
+                final String line = lines.get(i);
+                lines.set(i, line.substring(spacePrefixLen, line.length()));
+            }
+        }
+
+        // Rebuild comment
         final String indentation = this.indentString(this.depth + 1);
-        final String[] lines = comment.split("\\r?\\n");
-        final int num = lines.length;
-        for (int i = 0; i < num; i++)                           // trim all lines
-            lines[i] = lines[i].trim();
-        if (lines.length > 0 && !lines[0].isEmpty())            // add space after "<!--" if needed
-            lines[0] = " " + lines[0];
-        if (lines.length > 0 && !lines[num - 1].isEmpty())      // add space before "-->" if needed
-            lines[num - 1] = lines[0] + " ";
-        for (int i = 1; i < num - 1; i++)                       // indent all but first & last line to depth + 1
-            lines[i] = indentation + lines[i];
-        if (num > 1)                                            // indent the last only to depth
-            lines[num - 1] = this.indentString(this.depth) + lines[num - 1];
-        comment = Stream.of(lines).collect(Collectors.joining("\n"));
+        comment = Stream.of(
+            Stream.of(""),
+            lines.stream()
+              .map(line -> indentation + line),
+            Stream.of(this.indentString(this.depth)))
+          .flatMap(s -> s)
+          .collect(Collectors.joining("\n"));
         super.writeComment(comment);
+    }
+
+    private int spacePrefixLen(String s) {
+        int prefixLen = 0;
+        while (prefixLen < s.length() && s.charAt(prefixLen) == ' ')
+            prefixLen++;
+        return prefixLen;
     }
 
     private void handleOther(int eventType) throws XMLStreamException {
