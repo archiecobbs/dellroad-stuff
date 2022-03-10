@@ -86,7 +86,7 @@ public class BOMReader extends Reader {
 // Methods
 
     /**
-     * Report the {@link BOM} found at the beginning of the input.
+     * Get the {@link BOM} found at the beginning of the input.
      *
      * <p>
      * If no input has been read yet, this method will trigger the reading of the first few bytes.
@@ -96,6 +96,19 @@ public class BOMReader extends Reader {
     public BOM getBOM() throws IOException {
         this.getReader();
         return this.bom;
+    }
+
+    /**
+     * Get the actual character encoding used.
+     *
+     * <p>
+     * If no input has been read yet, this method will trigger the reading of the first few bytes.
+     *
+     * @return the character encoding chosen to decode the data, never null
+     */
+    public Charset getCharset() throws IOException {
+        this.getReader();
+        return this.deriveCharset();
     }
 
 // Reader
@@ -188,9 +201,7 @@ public class BOMReader extends Reader {
             this.input.reset();
 
         // Build an appropriate decoder
-        final CharsetDecoder decoder = Optional.ofNullable(this.bom)
-          .map(BOM::getCharset)
-          .orElse(this.defaultCharset)
+        final CharsetDecoder decoder = this.deriveCharset()
           .newDecoder()
           .onMalformedInput(this.errorAction);
 
@@ -199,5 +210,11 @@ public class BOMReader extends Reader {
 
         // Done
         return this.reader;
+    }
+
+    private Charset deriveCharset() {
+        return Optional.ofNullable(this.bom)
+          .map(BOM::getCharset)
+          .orElse(this.defaultCharset);
     }
 }
