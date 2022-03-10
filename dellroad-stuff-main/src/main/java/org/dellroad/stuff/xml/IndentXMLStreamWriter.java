@@ -316,18 +316,27 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         for (int i = 0; i < lines.size(); i++)
             lines.set(i, lines.get(i).replaceAll("\\s+$", ""));
 
-        // Find the the space prefix that is common to all lines
+        // Replace lines that are all spaces with empty links - no need to indent for nothing
+        for (int i = 0; i < lines.size(); i++) {
+            final String line = lines.get(i);
+            if (this.spacePrefixLen(line) == line.length())
+                lines.set(i, "");
+        }
+
+        // Find the the space prefix that is common to all non-empty lines
         final int spacePrefixLen = lines.stream()
           .skip(firstLineToIgnoreLeadingSpace)
+          .filter(line -> !line.isEmpty())
           .mapToInt(this::spacePrefixLen)
           .min()
           .orElse(0);
 
-        // Trim leading whitespace that is common to all lines
+        // Trim leading whitespace that is common to all lines which aren't empty
         if (spacePrefixLen > 0) {
             for (int i = firstLineToIgnoreLeadingSpace; i < lines.size(); i++) {
                 final String line = lines.get(i);
-                lines.set(i, line.substring(spacePrefixLen, line.length()));
+                if (!line.isEmpty())
+                    lines.set(i, line.substring(spacePrefixLen, line.length()));
             }
         }
 
@@ -336,7 +345,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         comment = Stream.of(
             Stream.of(""),
             lines.stream()
-              .map(line -> indentation + line),
+              .map(line -> !line.isEmpty() ? indentation + line : line),
             Stream.of(this.indentString(this.depth)))
           .flatMap(s -> s)
           .collect(Collectors.joining("\n"));

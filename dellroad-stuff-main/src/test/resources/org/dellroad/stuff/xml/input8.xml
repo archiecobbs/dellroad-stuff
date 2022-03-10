@@ -33,6 +33,7 @@
                                     This line is indented some
                                 This line is not indented
                                     This line is also indented some
+
                                 Comment2 blah blah b-blah blah
                             -->
                             <variable name="eventId" select="'1234'"/>
