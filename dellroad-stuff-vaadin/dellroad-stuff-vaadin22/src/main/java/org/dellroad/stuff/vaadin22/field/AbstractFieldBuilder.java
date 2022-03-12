@@ -741,9 +741,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 // BindingInfo
 
     /**
-     * Holds static information gathered for one bean property based on {@link FieldBuilder &#64;FieldBuilder.Foo},
-     * {@link ProvidesField &#64;FieldBuilder.ProvidesField}, {@link Binding &#64;FieldBuilder.Binding},
-     * {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}, and {@link FormLayout &#64;FieldBuilder.FormLayout} annotations.
+     * {@link FieldBuilder} static configuration information for one bean property.
+     *
+     * <p>
+     * This class captures the information gathered from these annotations for some bean property:
+     * <ul>
+     *  <li>{@link FieldBuilder &#64;FieldBuilder.Foo} (for some widget class {@code Foo})
+     *  <li>{@link ProvidesField &#64;FieldBuilder.ProvidesField}
+     *  <li>{@link Binding &#64;FieldBuilder.Binding},
+     *  <li>{@link FormLayout &#64;FieldBuilder.FormLayout}
+     *  <li>{@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
+     * </ul>
      *
      * <p>
      * Instances are immutable.

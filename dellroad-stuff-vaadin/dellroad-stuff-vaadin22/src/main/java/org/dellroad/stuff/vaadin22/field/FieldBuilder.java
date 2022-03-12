@@ -16,6 +16,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
+
 /**
  * Automatically configures and bind fields using declarative method annotations.
  *
@@ -173,8 +175,7 @@ import java.lang.annotation.Target;
  * <p>
  * For example, a {@link ComboBox &#64;FieldBuilder.ComboBox} annotation might specify a general purpose
  * {@link com.vaadin.flow.data.provider.DataProvider} implementation that determines which object type to provide from
- * the method's return type. This is in fact how {@link org.dellroad.stuff.vaadin22.component.EnumDataProvider}
- * is able to automatically infer which {@link Enum} type to use and populate itself.
+ * the method's return type. This is how {@link EnumDataProvider} automatically infers the {@link Enum} type to use.
  *
  * <p><b>Recursive Validation</b>
  *
