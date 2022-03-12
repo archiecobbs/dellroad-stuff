@@ -6,6 +6,7 @@
 package org.dellroad.stuff.vaadin22.field;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasEnabled;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
@@ -39,10 +40,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
@@ -183,6 +186,22 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             info.bind(binder, fieldComponent.getField());
             this.fieldComponentMap.put(propertyName, fieldComponent);
         });
+
+        // Wire up and initialize @EnabledBy dependencies
+        this.bindingInfoMap.forEach((propertyName, info) ->
+          Optional.ofNullable(info.getEnabledBy())
+            .flatMap(binder::getBinding)
+            .map(Binder.Binding::getField)
+            .ifPresent(field -> this.setEnabledBy(this.fieldComponentMap.get(propertyName).getComponent(), field)));
+    }
+
+    private <V> void setEnabledBy(Component component, HasValue<?, V> field) {
+        if (!(component instanceof HasEnabled))
+            return;
+        final Predicate<V> enabledPredicate = value -> Boolean.TRUE.equals(value) || !Objects.equals(value, field.getEmptyValue());
+        final HasEnabled hasEnabled = (HasEnabled)component;
+        field.addValueChangeListener(e -> hasEnabled.setEnabled(enabledPredicate.test(e.getValue())));
+        hasEnabled.setEnabled(enabledPredicate.test(field.getValue()));
     }
 
     /**
@@ -294,9 +313,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 // Get @NullifyCheckbox, if any
                 final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
+                // Get @EnabledBy, if any
+                final String enabledBy = Optional.ofNullable(method.getAnnotation(EnabledBy.class))
+                  .map(EnabledBy::value)
+                  .orElse(null);
+
                 // Create new binding info and check for conflict
                 final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
-                  bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
+                  bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox, enabledBy,
                   (info, bean) -> this.buildDeclarativeField(info));
                 final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
                 if (previousInfo != null) {
@@ -357,10 +381,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             // Get @NullifyCheckbox, if any
             final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
+            // Get @EnabledBy, if any
+            final String enabledBy = Optional.ofNullable(method.getAnnotation(EnabledBy.class))
+              .map(EnabledBy::value)
+              .orElse(null);
+
             // Create new binding info and check for conflict
             final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, providesField,
               bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
-              (info, bean) -> this.buildProvidedField(info, methodInfo, bean));
+              enabledBy, (info, bean) -> this.buildProvidedField(info, methodInfo, bean));
             final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
             if (previousInfo != null) {
                 throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
@@ -611,14 +640,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param binding associated {@link Binding &#64;FieldBuilder.Binding} annotation, if any
      * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
      * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
+     * @param enabledBy other property name which controls the enablement of this property's field, or null for none
      * @param fieldBuilder builds the field
      * @return new {@link BindingInfo}
      * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
      */
     protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
-      Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox,
+      Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, String enabledBy,
       BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
-        return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, fieldBuilder);
+        return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, enabledBy, fieldBuilder);
     }
 
     /**
@@ -751,6 +781,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *  <li>{@link Binding &#64;FieldBuilder.Binding},
      *  <li>{@link FormLayout &#64;FieldBuilder.FormLayout}
      *  <li>{@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
+     *  <li>{@link EnabledBy &#64;FieldBuilder.EnabledBy}
      * </ul>
      *
      * <p>
@@ -764,6 +795,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         private final Binding binding;
         private final FormLayout formLayout;
         private final NullifyCheckbox nullifyCheckbox;
+        private final String enabledBy;
         private final BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder;
 
         /**
@@ -775,12 +807,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @param binding associated {@link Binding &#64;FieldBuilder.Binding} annotation, if any
          * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
          * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
+         * @param enabledBy other property name which controls the enablement of this property's field, or null for none
          * @param fieldBuilder builds the field
          * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation},
          *  or {@code fieldBuilder} is null
          */
-        public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding, FormLayout formLayout,
-          NullifyCheckbox nullifyCheckbox, BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
+        public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
+          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, String enabledBy,
+          BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
             if (method == null)
                 throw new IllegalArgumentException("null method");
             if (propertyName == null)
@@ -791,6 +825,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null fieldBuilder");
             this.method = method;
             this.propertyName = propertyName;
+            this.enabledBy = enabledBy;
             this.annotation = annotation;
             this.binding = binding;
             this.formLayout = formLayout;
@@ -829,6 +864,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          */
         public String getPropertyName() {
             return this.propertyName;
+        }
+
+        /**
+         * Return the property name which should control the enablement of this instance's field.
+         *
+         * @return property name controlling enablement, or null for none
+         */
+        public String getEnabledBy() {
+            return this.enabledBy;
         }
 
         /**
@@ -1492,6 +1536,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * </pre></blockquote>
      *
      * @see NullableField
+     * @see EnabledBy &#64;FieldBuilder.EnabledBy
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
@@ -1499,9 +1544,54 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     public @interface NullifyCheckbox {
 
         /**
-         * The label for the checkbox.
+         * The label for the auto-generated {@link Checkbox}.
          *
          * @return checkbox label
+         */
+        String value();
+    }
+
+    /**
+     * Causes the generated field to be automatically enabled or disabled based on the value of some other field.
+     *
+     * <p>
+     * Typically the other field is a {@link Checkbox}, but any type of field is supported.
+     * The target field will be enabled whenever the other field's value is not equal to its
+     * {@linkplain HasValue#getEmptyValue empty value}.
+     *
+     * <p>
+     * If the named property does not exist in the {@link Binder}, or the target field's {@link Component}
+     * doesn't implement {@link HasEnabled}, then this annotation has no effect.
+     *
+     * <p>
+     * Example:
+     *
+     * <blockquote><pre>
+     * public class GroceryItem {
+     *
+     *     // Is this item perishable?
+     *     &#64;FieldBuilder.Checkbox(label = "Perishable food item")
+     *     public boolean isPerishable() { ... }
+     *
+     *     // This field is only used for perishable items
+     *     &#64;FieldBuilder.DatePicker
+     *     <b>&#64;FieldBuilder.EnabledBy("perishable")</b>
+     *     &#64;FieldBuilder.FormLayout("Expiration Date:")
+     *     public LocalDate getExpirationDate() { ... }
+     * }
+     * </pre></blockquote>
+     *
+     * @see NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface EnabledBy {
+
+        /**
+         * The name of another property in the form that should control enablement.
+         *
+         * @return controlling property name
          */
         String value();
     }
