@@ -45,7 +45,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
-import java.util.function.Predicate;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
@@ -190,18 +190,31 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Wire up and initialize @EnabledBy dependencies
         this.bindingInfoMap.forEach((propertyName, info) ->
           Optional.ofNullable(info.getEnabledBy())
+            .map(EnabledBy::value)
             .flatMap(binder::getBinding)
             .map(Binder.Binding::getField)
-            .ifPresent(field -> this.setEnabledBy(this.fieldComponentMap.get(propertyName).getComponent(), field)));
+            .ifPresent(field ->
+              this.setEnablement(field, this.fieldComponentMap.get(propertyName), info.getEnabledBy().resetOnDisable())));
     }
 
-    private <V> void setEnabledBy(Component component, HasValue<?, V> field) {
-        if (!(component instanceof HasEnabled))
+    private <V> void setEnablement(HasValue<?, V> field, FieldComponent<?> fieldComponent, boolean resetOnDisable) {
+        final Component component = fieldComponent.getComponent();
+        final HasEnabled hasEnabled = component instanceof HasEnabled ? (HasEnabled)component : null;
+        if (hasEnabled == null && !resetOnDisable)                          // nothing to do
             return;
-        final Predicate<V> enabledPredicate = value -> Boolean.TRUE.equals(value) || !Objects.equals(value, field.getEmptyValue());
-        final HasEnabled hasEnabled = (HasEnabled)component;
-        field.addValueChangeListener(e -> hasEnabled.setEnabled(enabledPredicate.test(e.getValue())));
-        hasEnabled.setEnabled(enabledPredicate.test(field.getValue()));
+        final Consumer<V> newValueHandler = value -> {
+            final boolean enabled = !Objects.equals(value, field.getEmptyValue());
+            if (!enabled && resetOnDisable)
+                this.resetField(fieldComponent.getField());
+            if (hasEnabled != null)
+                hasEnabled.setEnabled(enabled);
+        };
+        field.addValueChangeListener(e -> newValueHandler.accept(e.getValue()));
+        newValueHandler.accept(field.getValue());
+    }
+
+    private <V> void resetField(HasValue<?, V> field) {
+        field.setValue(field.getEmptyValue());
     }
 
     /**
@@ -314,9 +327,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
                 // Get @EnabledBy, if any
-                final String enabledBy = Optional.ofNullable(method.getAnnotation(EnabledBy.class))
-                  .map(EnabledBy::value)
-                  .orElse(null);
+                final EnabledBy enabledBy = method.getAnnotation(EnabledBy.class);
 
                 // Create new binding info and check for conflict
                 final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
@@ -382,9 +393,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             final NullifyCheckbox nullifyCheckbox = method.getAnnotation(NullifyCheckbox.class);
 
             // Get @EnabledBy, if any
-            final String enabledBy = Optional.ofNullable(method.getAnnotation(EnabledBy.class))
-              .map(EnabledBy::value)
-              .orElse(null);
+            final EnabledBy enabledBy = method.getAnnotation(EnabledBy.class);
 
             // Create new binding info and check for conflict
             final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, providesField,
@@ -639,14 +648,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param annotation annotation found on {@code method}
      * @param binding associated {@link Binding &#64;FieldBuilder.Binding} annotation, if any
      * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
-     * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
-     * @param enabledBy other property name which controls the enablement of this property's field, or null for none
+     * @param nullifyCheckbox associated from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}, if any
+     * @param enabledBy associated from {@link EnabledBy &#64;FieldBuilder.EnabledBy}, if any
      * @param fieldBuilder builds the field
      * @return new {@link BindingInfo}
      * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
      */
     protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
-      Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, String enabledBy,
+      Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, EnabledBy enabledBy,
       BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
         return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, enabledBy, fieldBuilder);
     }
@@ -795,7 +804,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         private final Binding binding;
         private final FormLayout formLayout;
         private final NullifyCheckbox nullifyCheckbox;
-        private final String enabledBy;
+        private final EnabledBy enabledBy;
         private final BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder;
 
         /**
@@ -806,14 +815,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @param annotation annotation found on {@code method}
          * @param binding associated {@link Binding &#64;FieldBuilder.Binding} annotation, if any
          * @param formLayout associated {@link FormLayout &#64;FieldBuilder.FormLayout} annotation, if any
-         * @param nullifyCheckbox checkbox from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
-         * @param enabledBy other property name which controls the enablement of this property's field, or null for none
+         * @param nullifyCheckbox associated {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}, if any
+         * @param enabledBy associated from {@link EnabledBy &#64;FieldBuilder.EnabledBy}, if any
          * @param fieldBuilder builds the field
          * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation},
          *  or {@code fieldBuilder} is null
          */
         public BindingInfo(Method method, String propertyName, Annotation annotation, Binding binding,
-          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, String enabledBy,
+          FormLayout formLayout, NullifyCheckbox nullifyCheckbox, EnabledBy enabledBy,
           BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
             if (method == null)
                 throw new IllegalArgumentException("null method");
@@ -825,11 +834,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null fieldBuilder");
             this.method = method;
             this.propertyName = propertyName;
-            this.enabledBy = enabledBy;
             this.annotation = annotation;
             this.binding = binding;
             this.formLayout = formLayout;
             this.nullifyCheckbox = nullifyCheckbox;
+            this.enabledBy = enabledBy;
             this.fieldBuilder = fieldBuilder;
         }
 
@@ -867,15 +876,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         /**
-         * Return the property name which should control the enablement of this instance's field.
-         *
-         * @return property name controlling enablement, or null for none
-         */
-        public String getEnabledBy() {
-            return this.enabledBy;
-        }
-
-        /**
          * Get the ({@link FieldBuilder &#64;FieldBuilder.Foo} or {@link ProvidesField &#64;FieldBuilder.ProvidesField})
          * annotation that annotates {@linkplain #getMethod the method from which this instance originated}.
          *
@@ -910,6 +910,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          */
         public NullifyCheckbox getNullifyCheckbox() {
             return this.nullifyCheckbox;
+        }
+
+        /**
+         * Get the associated {@link EnabledBy &#64;FieldBuilder.EnabledBy} annotation, if any.
+         *
+         * @return associated {@link EnabledBy &#64;FieldBuilder.EnabledBy} annotation, or null if none
+         */
+        public EnabledBy getEnabledBy() {
+            return this.enabledBy;
         }
 
         /**
@@ -1594,5 +1603,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @return controlling property name
          */
         String value();
+
+        /**
+         * Whether the value of this field should be automatically reset to its {@linkplain HasValue#getEmptyValue empty value}
+         * when the field is disabled by its controlling field.
+         *
+         * @return whether to reset when disabled
+         */
+        boolean resetOnDisable() default false;
     }
 }
