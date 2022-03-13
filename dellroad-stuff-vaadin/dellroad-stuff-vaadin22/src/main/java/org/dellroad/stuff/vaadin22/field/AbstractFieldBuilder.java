@@ -1413,6 +1413,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * Annotates methods returning alternate default values for some property of the various fields constructed
      * by a {@link FieldBuilder} from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations.
      *
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+     * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+     *
      * <p>
      * A {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotation annotates a static method in an
      * edited model class that returns an alternate default value for some field configuration property (for example,
@@ -1422,7 +1426,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * For example:
      *
-     * <blockquote><pre>
+     * <pre><code class="language-java">
      * // This is one of our data model classes
      * public class <b>Person</b> {
      *     public String getFirstName() { ... }
@@ -1450,7 +1454,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *     <b>&#64;FieldBuilder.CheckboxGroup</b>     // Uses ItemLabelGenerator from Person.myCustomLabel()
      *     public <b>Person</b> getPassengers() { ... }
      * }
-     * </pre></blockquote>
+     * </code></pre>
      *
      * <p><b>Details</b>
      *
@@ -1525,10 +1529,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     /**
      * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableField}.
      *
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+     * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+     *
      * <p>
      * For example:
      *
-     * <blockquote><pre>
+     * <pre><code class="language-java">
      * // This is one of our data model classes
      * public class FoodItem {
      *
@@ -1542,7 +1550,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *     &#64;FieldBuilder.DatePicker
      *     public LocalDate getExpirationDate() { ... }
      * }
-     * </pre></blockquote>
+     * </code></pre>
      *
      * @see NullableField
      * @see EnabledBy &#64;FieldBuilder.EnabledBy
@@ -1563,6 +1571,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     /**
      * Causes the generated field to be automatically enabled or disabled based on the value of some other field.
      *
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+     * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+     * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+     *
      * <p>
      * Typically the other field is a {@link Checkbox}, but any type of field is supported.
      * The target field will be enabled whenever the other field's value is not equal to its
@@ -1575,7 +1587,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * Example:
      *
-     * <blockquote><pre>
+     * <pre><code class="language-java">
      * public class GroceryItem {
      *
      *     // Is this item perishable?
@@ -1588,7 +1600,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *     &#64;FieldBuilder.FormLayout("Expiration Date:")
      *     public LocalDate getExpirationDate() { ... }
      * }
-     * </pre></blockquote>
+     * </code></pre>
      *
      * @see NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox
      */

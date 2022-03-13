@@ -12,6 +12,10 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  * Support superclass that mostly automates the creation of {@link CustomField}s for editing any model type
  * using sub-fields automatically generated from {@link FieldBuilder} annotations.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This class is just a {@link BinderCustomField} that uses a {@link FieldBuilder} to generate the sub-fields.
  *
@@ -27,7 +31,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  * <p>
  * For example:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // This is complex type that we wish to edit with a single CustomField
  * public class DateInterval {
  *
@@ -84,7 +88,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  *     public DateInterval getTerm() { ... }
  *     public void setTerm(DateInterval term) { ... }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * @param <T> field value type
  */

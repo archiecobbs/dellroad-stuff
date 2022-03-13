@@ -21,6 +21,10 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
 /**
  * Automatically configures and bind fields using declarative method annotations.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * {@link FieldBuilder} annotations allow for the automatic construction and configuration of fields for editing a bean.
  * Annotations on "getter" methods specify how the fields that edit the corresponding bean property should be constructed,
@@ -74,7 +78,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  *
  * <p>
  * A simple example shows how these annotations are used:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * <b>&#64;FieldBuilder.TextField(placeholder = "Enter your name...", maxLength = 64)</b>
  * <b>&#64;FieldBuilder.Binding(required = "Name is mandatory", validators = MyValidator.class)</b>
  * <b>&#64;FieldBuilder.FormLayout(label = "Name:", colspan = 2, order = 1)</b>
@@ -94,42 +98,42 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * <b>&#64;FieldBuilder.ProvidesField("foobar")</b>
  * <b>&#64;FieldBuilder.FormLayout(label = "Your Foobar:", order = 3)</b>
  * private static CustomField&lt;Foobar&gt; createFoobarField() { ... }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * All of the declarative {@code @FieldBuilder.Foo} annotations have an {@code implementation()} property that allows you
  * to specify a custom implementation. So a slightly different way to specify a custom field to edit the {@code "foobar"}
  * property would be:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Use my own custom FoobarField to edit "foobar"
  * <b>&#64;FieldBuilder.CustomField(label = "Your Foobar:", implementation = FoobarField.class)</b>
  * public Foobar getFoobar() { ... }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p><b>Building the Form</b>
  *
  * <p>
  * First, use {@link #bindFields bindFields()} to create and configure a new set of fields, and bind them into a {@link Binder}:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Create a FieldBuilder
  * <b>FieldBuilder&lt;Person&gt; fieldBuilder = new FieldBuilder&lt;&gt;(Person.class);</b>
  *
  * // Create a Binder and bind fields
  * Binder&lt;Person&gt; binder = new Binder&lt;&gt;(Person.class);
  * <b>fieldBuilder.bindFields(binder)</b>;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Then (optionally) use {@link #addFieldComponents addFieldComponents()} to add and configure those fields into a
  * {@link FormLayout}:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Create form and add fields to it
  * FormLayout form = new FormLayout();
  * <b>fieldBuilder.addFieldComponents(form);</b>
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * You can also access the fields directly via {@link #getFieldComponents getFieldComponents()}.
@@ -147,7 +151,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * <p>
  * For example:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * public class Person {
  *     public String getFirstName() { ... }
  *     public String getLastName() { ... }
@@ -157,7 +161,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
  *     }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * These defaults can be accessed via {@link #getScannedFieldDefaults getScannedFieldDefaults()}.

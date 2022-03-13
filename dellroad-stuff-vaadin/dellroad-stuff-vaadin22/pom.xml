@@ -127,6 +127,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
+                    <additionalJOption>--allow-script-in-comments</additionalJOption>
                     <offlineLinks>
                         <offlineLink><!-- https://github.com/vaadin/vaadin.com/issues/100 -->
                             <url>https://vaadin.com/api/platform/${vaadin.version}</url>
