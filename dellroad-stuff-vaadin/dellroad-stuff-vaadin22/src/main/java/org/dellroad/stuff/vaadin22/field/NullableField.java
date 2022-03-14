@@ -19,17 +19,24 @@ import com.vaadin.flow.data.binder.ValueContext;
 
 /**
  * A {@link CustomField} that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
- * which controls whether the value is null or not.
+ * that controls whether the value is null or not.
  *
  * <p>
- * When the checkbox is checked, the inner field functions normally and provides the field value.
- * When the checkbox is unchecked, the inner field is completely disabled and the field value is null.
+ * When the checkbox is checked, the inner field functions normally and provides this field's value.
+ * When the checkbox is unchecked, the inner field is completely disabled and this field's value is null.
  *
  * <p>
  * <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
  *  <source src="doc-files/NullableFieldAnimation.webm" type="video/webm">
  *  <span>[Video not supported]</span>
  * </video>
+ *
+ * <p><b>Resetting On Disable</b>
+ *
+ * <p>
+ * When the checkbox is unchecked, by default the inner (wrapped) field is automatically reset to its
+ * {@linkplain HasValue#getEmptyValue empty value}. To have the inner field retain its value instead,
+ * so the value reappears if the checkbox is unchecked, use {@link #setResetOnDisable setResetOnDisable(false)}.
  *
  * <p><b>Validation</b>
  *
@@ -59,6 +66,8 @@ public class NullableField<T> extends CustomField<T>
      * The inner field component.
      */
     protected final Component component;
+
+    private boolean resetOnDisable = true;
 
 // Constructors
 
@@ -108,17 +117,15 @@ public class NullableField<T> extends CustomField<T>
         // Build layout
         this.buildLayout();
 
-        // Update value when checkbox or inner field changes
-        this.enabledField.addValueChangeListener(e -> this.updateValue());
-        this.innerField.addValueChangeListener(e -> this.updateValue());
-
-        // Start tracking checkbox state
+        // Start tracking checkbox and inner field state
         this.setComponentEnabled(this.enabledField.getValue());
-        this.enabledField.addValueChangeListener(event -> {
-            this.setComponentEnabled(event.getValue());
-            if (!event.getValue())
+        this.enabledField.addValueChangeListener(e -> {
+            if (this.resetOnDisable && !e.getValue())
                 this.innerField.setValue(this.innerField.getEmptyValue());
+            this.setComponentEnabled(e.getValue());
+            this.updateValue();
         });
+        this.innerField.addValueChangeListener(e -> this.updateValue());
     }
 
 // Public methods
@@ -133,6 +140,22 @@ public class NullableField<T> extends CustomField<T>
 
     public Component getComponent() {
         return this.component;
+    }
+
+    /**
+     * Determine whether the inner field forgets its value when the checkbox is unchecked.
+     *
+     * @return true if the inner field is reset when the checkbox is unchecked
+     */
+    public boolean isResetOnDisable() {
+        return this.resetOnDisable;
+    }
+    public void setResetOnDisable(final boolean resetOnDisable) {
+        if (this.resetOnDisable == resetOnDisable)
+            return;
+        this.resetOnDisable = resetOnDisable;
+        if (this.resetOnDisable && !this.enabledField.getValue())
+            this.innerField.setValue(this.innerField.getEmptyValue());
     }
 
 // ValidatingField
@@ -206,4 +229,4 @@ public class NullableField<T> extends CustomField<T>
         this.setComponentEnabled(enabled);
         this.innerField.setValue(enabled ? value : this.innerField.getEmptyValue());
     }
-  }
+}
