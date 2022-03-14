@@ -18,13 +18,17 @@ import java.util.Comparator;
  * Defines a Vaadin property, having a name, which is also the property ID, and its type.
  * This class provides a mechanism for the explicit naming and identification of Vaadin properties.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * For a given instance, <code>def.{@link #getPropertyId getPropertyId()}</code> is the property ID
  * and you can access the value using <code>def.{@link #read read(item)}</code>.
  *
  * <p>
  * Example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *  PropertyDef&lt;Integer&gt; def = new PropertyDef&lt;Integer&gt;("age", Integer.class, -1);
  *  def.addTo(container);
  *  def.addTo(item, property);
@@ -32,7 +36,7 @@ import java.util.Comparator;
  *  int age = def.read(item);
  *  ...
  *  Property prop = this.get(container, itemId);
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Instances are serializable if the default value is.

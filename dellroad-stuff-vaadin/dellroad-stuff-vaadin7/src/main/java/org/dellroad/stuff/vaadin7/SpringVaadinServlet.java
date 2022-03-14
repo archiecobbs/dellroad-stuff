@@ -25,11 +25,15 @@ import javax.servlet.ServletException;
  * {@link org.springframework.web.context.ConfigurableWebApplicationContext} with each
  * {@link com.vaadin.server.VaadinSession} (aka, "Vaadin application" in the old terminology).
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * The {@code configLocation} servlet parameter may be used to specify the Spring XML config
  * file location(s). For example:
  *
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  * &lt;servlet&gt;
  *     &lt;servlet-name&gt;My Vaadin App&lt;/servlet-name&gt;
  *     &lt;servlet-class&gt;org.dellroad.stuff.vaadin7.SpringVaadinServlet&lt;/servlet-class&gt;
@@ -42,7 +46,7 @@ import javax.servlet.ServletException;
  *         &lt;param-value&gt;classpath:com/example/MyApplicationContext.xml&lt;/param-value&gt;
  *     &lt;/init-param&gt;
  * &lt;/servlet&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * The main function of this servlet is to create and register a {@link SpringVaadinSessionListener} as a listener on the

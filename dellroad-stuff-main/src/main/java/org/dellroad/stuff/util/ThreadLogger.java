@@ -14,6 +14,10 @@ import org.apache.log4j.WriterAppender;
  * A Log4J appender that can be configured on a per-thread basis to direct the log messages
  * to an arbitrary {@link Writer} destination.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * Normally this appender does nothing. However, if a thread invokes {@link #setLogDestination setLogDestination()}
  * with a non-null {@link Writer}, then any messages logged by <i>that particular thread</i> will go to that {@link Writer}.
@@ -22,7 +26,7 @@ import org.apache.log4j.WriterAppender;
  * <p>
  * Configure this appender just as you would any other. For example:
  *
- *  <blockquote><pre>
+ *  <pre><code class="language-xml">
  *  &lt;!-- Per-thread logger --&gt;
  *  &lt;appender name="threadlog" class="org.dellroad.stuff.util.ThreadLogger"&gt;
  *      &lt;param name="Threshold" value="debug"/&gt;
@@ -37,7 +41,7 @@ import org.apache.log4j.WriterAppender;
  *      ...
  *      &lt;appender-ref ref="threadlog"&gt;
  *  &lt;/root&gt;
- *  </pre></blockquote>
+ *  </code></pre>
  */
 public class ThreadLogger extends WriterAppender {
 

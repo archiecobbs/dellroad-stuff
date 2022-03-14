@@ -22,6 +22,11 @@ import org.springframework.core.io.Resource;
 
 /**
  * {@link PersistentObjectSchemaUpdater} optimized for use with Spring:
+ *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <ul>
  * <li>{@link #getOrderingTieBreaker} is overridden to break ties by ordering updates in the same order
  *  as they are defined in the bean factory.</li>
@@ -34,7 +39,7 @@ import org.springframework.core.io.Resource;
  *
  * <p>
  * An example of how this class can be combined with custom XML to define an updater and all its updates:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;beans xmlns="http://www.springframework.org/schema/beans"
  *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  *    xmlns:p="http://www.springframework.org/schema/p"
@@ -75,7 +80,7 @@ import org.springframework.core.io.Resource;
  *      &lt;!-- Add more schema updates over time as needed and everything just works... --&gt;
  *
  *  &lt;/beans&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * @param <T> type of the root persistent object
  */

@@ -16,6 +16,10 @@ import java.lang.annotation.Target;
  * should be used to determine property sort ordering in a Java class whose instances back the items in a
  * {@link com.vaadin.data.Container}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * {@link ProvidesProperty &#64;ProvidesProperty} and {@link ProvidesPropertySort &#64;ProvidesPropertySort} method annotations
  * can be used to automatically generate a list of {@link PropertyDef}s and a {@link PropertyExtractor} using a
@@ -44,7 +48,7 @@ import java.lang.annotation.Target;
  * <p>
  * To address this problem, define a {@link ProvidesPropertySort &#64;ProvidesPropertySort}-annotated method that
  * provides a properly sorting {@link Comparable} value corresponding to the associated property. For example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Container backing object class
  * public class User {
  *
@@ -62,12 +66,12 @@ import java.lang.annotation.Target;
  *     private Label birthdayProperty() {
  *         return new Label(new SimpleDateFormat("MM/dd/yyyy").format(this.birthday));
  *     }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Alternately, have the {@link ProvidesPropertySort &#64;ProvidesPropertySort}-annotated method return
  * a {@link java.util.Comparator}, for example, if you wanted to sort {@code null} values last instead of first:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *     <b>&#64;ProvidesPropertySort("birthday")</b>
  *     private static Comparator&lt;User&gt; birthdayComparator() {
  *         return new Comparator&lt;User&gt;(User user1, User user2) {
@@ -82,7 +86,7 @@ import java.lang.annotation.Target;
  *              return date1.compareTo(date2);
  *         };
  *     }
- * </pre></blockquote>
+ * </code></pre>
  * Note that the returned {@link java.util.Comparator} compares <i>backing instances</i>, not property values,
  * and that methods returning {@link java.util.Comparator} may be declared {@code static}. The returned
  * {@link java.util.Comparator} may be cached by the implementation.

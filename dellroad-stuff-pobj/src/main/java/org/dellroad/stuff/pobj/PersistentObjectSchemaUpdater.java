@@ -28,6 +28,10 @@ import org.dellroad.stuff.schema.UnrecognizedUpdateException;
  * A {@link PersistentObjectDelegate} that is also a {@link AbstractSchemaUpdater} that automatically
  * applies needed updates to the persistent XML file.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * To use this class, wrap your normal delegate in an instance of this class. This will augment
  * the serialization and deserialization process to keep track of which updates have been applied to the XML structure,
@@ -39,7 +43,7 @@ import org.dellroad.stuff.schema.UnrecognizedUpdateException;
  * and any missing updates are applied automatically.
  * In this way the document and its set of applied updates always travel together. For example:
  *
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;MyConfig&gt;
  *      <b>&lt;pobj:updates xmlns:pobj="http://dellroad-stuff.googlecode.com/ns/persistentObject"&gt;
  *          &lt;pobj:update&gt;some-update-name-1&lt;/pobj:update&gt;
@@ -48,7 +52,7 @@ import org.dellroad.stuff.schema.UnrecognizedUpdateException;
  *      &lt;username&gt;admin&lt;/username&gt;
  *      &lt;password&gt;secret&lt;/password&gt;
  *  &lt;/MyConfig&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * For Spring applications, {@link SpringPersistentObjectSchemaUpdater} provides a convenient declarative way

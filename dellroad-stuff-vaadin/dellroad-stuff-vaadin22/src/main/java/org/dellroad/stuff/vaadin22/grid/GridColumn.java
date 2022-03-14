@@ -26,9 +26,13 @@ import java.util.Comparator;
 /**
  * Provides the information necessary to auto-generate a {@link Grid.Column} based on annotated getter methods.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * Example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Container backing object class
  * public class User {
  *
@@ -49,7 +53,7 @@ import java.util.Comparator;
  * final Grid&lt;User&gt; grid = new GridColumnScanner&lt;&gt;(User.class).buildGrid();
  * ...
  *
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Some details regarding {@link GridColumn &#64;GridColumn} annotations:

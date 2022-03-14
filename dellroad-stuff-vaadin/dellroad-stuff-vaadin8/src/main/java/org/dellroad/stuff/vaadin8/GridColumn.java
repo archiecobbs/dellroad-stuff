@@ -22,9 +22,13 @@ import java.lang.annotation.Target;
  * Provides the information necessary to auto-generate a {@link com.vaadin.ui.Grid.Column} and a field for editing
  * values, based on annotated getter methods.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * Example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Container backing object class
  * public class User {
  *
@@ -56,7 +60,7 @@ import java.lang.annotation.Target;
  * // Build Grid with auto-generated columns
  * Grid&lt;User&gt; grid = new GridColumnScanner(User.class).buildGrid();
  * ...
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Some details regarding {@link GridColumn &#64;GridColumn} annotations:

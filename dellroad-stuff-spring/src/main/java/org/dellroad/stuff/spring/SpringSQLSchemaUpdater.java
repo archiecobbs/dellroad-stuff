@@ -23,6 +23,11 @@ import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 
 /**
  * {@link SQLSchemaUpdater} optimized for use with Spring.
+ *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <ul>
  * <li>{@link #apply(Connection, DatabaseAction) apply()} is overridden so Spring {@link DataAccessException}s are thrown.</li>
  * <li>{@link #indicatesUninitializedDatabase indicatesUninitializedDatabase()} is overridden to examine exceptions
@@ -37,7 +42,7 @@ import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
  * <p>
  * An example of how this class can be combined with custom XML to define an updater, all its updates,
  * and a {@link org.dellroad.stuff.schema.SchemaUpdatingDataSource} that automatically updates the database schema:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;beans xmlns="http://www.springframework.org/schema/beans"
  *    <b>xmlns:dellroad-stuff="http://dellroad-stuff.googlecode.com/schema/dellroad-stuff"</b>
  *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -84,7 +89,7 @@ import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
  *      &lt;!-- Add more schema updates over time as needed and everything just works... --&gt;
  *
  *  &lt;/beans&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * In the case no schema updates are explicitly configured, it is required that this updater and all of its

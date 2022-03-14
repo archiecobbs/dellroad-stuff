@@ -18,6 +18,11 @@ import java.lang.annotation.Target;
  * is one that Spring would translate into a
  * {@link org.springframework.dao.TransientDataAccessException TransientDataAccessException}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This automatic retry logic is very handy for solving the problem of transient deadlocks that can occur in complex Java/ORM
  * applications. Due to the ORM layer hiding the details of the underlying data access patterns, it's often difficult
@@ -71,20 +76,20 @@ import java.lang.annotation.Target;
  *      <p>
  *      The simplest way to do this is to include the aspect in your Spring application context, for example:
  *
- *      <pre>
+ *      <pre><code class="language-xml">
  *      &lt;bean class="org.dellroad.stuff.spring.RetryTransactionAspect" factory-method="aspectOf"
  *        p:persistenceExceptionTranslator-ref="myJpaDialect"/&gt;
- *      </pre>
+ *      </code></pre>
  *
  *      <p>
  *      This also gives you the opportunity to change the default values for {@link #maxRetries}, {@link #initialDelay},
  *      and {@link #maximumDelay}, which are applied when not explicitly overridden in the annotation, for example:
  *
- *      <pre>
+ *      <pre><code class="language-xml">
  *      &lt;bean class="org.dellroad.stuff.spring.RetryTransactionAspect" factory-method="aspectOf"
  *        p:persistenceExceptionTranslator-ref="myJpaDialect" p:maxRetriesDefault="2"
  *        p:initialDelayDefault="25" p:maximumDelayDefault="5000"/&gt;
- *      </pre>
+ *      </code></pre>
  *  </li>
  * </ul>
  *
@@ -96,7 +101,7 @@ import java.lang.annotation.Target;
  * Transactional code can determine the transaction attempt number using the {@link RetryTransactionProvider} interface
  * implemented by the aspect. {@link RetryTransactionProvider#getAttemptNumber} method returns the current attempt number
  * (1, 2, 3...), or zero if the current thread is not executing within activated retry logic:
- *  <blockquote><pre>
+ *  <pre><code class="language-java">
  *      import org.dellroad.stuff.spring.RetryTransactionProvider;
  *      ...
  *
@@ -111,11 +116,11 @@ import java.lang.annotation.Target;
  *          final int attempt = this.retryTransactionProvider.getAttemptNumber();
  *          ...
  *      }
- *   </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * You can acquire also the singleton {@link RetryTransactionProvider} instance directly like this:
- *  <blockquote><pre>
+ *  <pre><code class="language-java">
  *      import org.dellroad.stuff.spring.RetryTransactionAspect;
  *      import org.dellroad.stuff.spring.RetryTransactionProvider;
  *      ...
@@ -128,7 +133,7 @@ import java.lang.annotation.Target;
  *          final int attempt = rtp.getAttemptNumber();
  *          ...
  *      }
- *   </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * You can also invoke the retry logic directly (i.e., without going through a method woven with the aspect); see

@@ -35,6 +35,10 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * Manages an associated Spring {@link WebApplicationContext} with each {@link VaadinSession} (aka, "Vaadin application").
  * Typically created implicitly via {@link SpringVaadinServlet}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <h3>Overview</h3>
  *
  * <p>
@@ -66,9 +70,9 @@ import org.springframework.web.context.support.XmlWebApplicationContext;
  * The {@link VaadinSession} instance representing the "Vaadin application" can be exposed in the associated Spring
  * application context and therefore made available for autowiring, etc. Simply add a bean definition that invokes
  * {@link VaadinUtil#getCurrentSession}:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;bean id="vaadinSession" class="org.dellroad.stuff.vaadin7.VaadinUtil" factory-method="getCurrentSession"/&gt;
- * </pre></blockquote>
+ * </code></pre>
  * This bean can then be autowired into application-specific "backend" beans, allowing them to use e.g.
  * {@link VaadinUtil#invoke VaadinUtil.invoke()}, which performs the locking necessary to avoid race conditions.
  * But see also {@link VaadinApplication} for a convenience class that makes this process a little cleaner.

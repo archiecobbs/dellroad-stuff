@@ -48,6 +48,11 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
 
 /**
  * Automatically builds and binds fields for a Java bean annotated with {@link FieldBuilder} annotations.
+ *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * The various nested {@link FieldBuilder} annotation types annotate Java bean property "getter" methods and specify
  * how the the bean properties of that class should be edited using {@link AbstractField}s. This allows all information
  * about how to edit a Java model class to stay contained within that class.
@@ -71,7 +76,8 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  *
  * <p>
  * A simple example shows how these annotations are used:
- * <blockquote><pre>
+ *
+ * <pre><code class="language-java">
  * // Use a 10x40 TextArea to edit the "description" property
  * <b>&#64;FieldBuilder.AbstractField(caption = "Description:")</b>
  * <b>&#64;FieldBuilder.TextArea(columns = 40, rows = 10)</b>
@@ -84,11 +90,12 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * private MyCustomField createFoobarField() {
  *     ...
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * A {@link FieldBuilder} instance will read these annotations and build the fields automatically. For example:
- * <blockquote><pre>
+ *
+ * <pre><code class="language-java">
  * // Create fields based on FieldGroup.* annotations
  * Person person = new Person("Joe Smith", 100);
  * BeanFieldGroup&lt;Person&gt; fieldGroup = <b>FieldBuilder.buildFieldGroup(person)</b>;
@@ -97,7 +104,7 @@ import org.dellroad.stuff.java.MethodAnnotationScanner;
  * FormLayout layout = new FormLayout();
  * for (Field&lt;?&gt; field : fieldGroup.getFields())
  *     layout.addComponent(field);
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * For all annotations in the {@link FieldBuilder.AbstractField &#64;FieldBuilder.AbstractField} hierarchy, leaving properties

@@ -33,6 +33,10 @@ import org.dellroad.stuff.validation.SelfValidationException;
  * POJO representing a {@link MessageFormat} that models its internal structure, supporting arbitrary recursive
  * nesting of {@link MessageFormat} with {@link ChoiceFormat}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * The point of this class is to make it easier to work with {@link MessageFormat} instances by allowing for
  * structural introspection and eliminating complex quoting/escaping issues.
@@ -135,7 +139,7 @@ public class MessageFmt implements SelfValidating {
      *
      * <p>
      * Here's a concrete example:
-     * <blockquote><pre>
+     * <pre><code class="language-java">
      * final Object[] args = new Object[] { new Date(1590000000000L) };         // May 20, 2020
      *
      * final MessageFormat messageFormat = new MessageFormat("date = {0,date,short}", Locale.US);
@@ -153,7 +157,7 @@ public class MessageFmt implements SelfValidating {
      *
      * System.out.println("messageFormat1 -&gt; " + messageFormat1.format(args));
      * System.out.println("messageFormat2 -&gt; " + messageFormat2.format(args));
-     * </pre></blockquote>
+     * </code></pre>
      * This would produce the following output:
      * <blockquote><pre>
      * messageFormat -&gt; date = 5/20/20

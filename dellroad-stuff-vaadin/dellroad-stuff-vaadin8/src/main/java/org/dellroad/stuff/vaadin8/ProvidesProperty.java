@@ -15,6 +15,10 @@ import java.lang.annotation.Target;
  * Provides the information necessary to auto-generate a {@link com.vaadin.data.PropertyDefinition} based on the
  * annotated getter method.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * {@link ProvidesProperty &#64;ProvidesProperty} method annotations can be used to automatically generate a
  * {@link com.vaadin.data.PropertySet}'s using a {@link ProvidesPropertyScanner}. The resulting
@@ -27,7 +31,7 @@ import java.lang.annotation.Target;
  *
  * <p>
  * For example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Container backing object class
  * public class User {
  *
@@ -62,7 +66,7 @@ import java.lang.annotation.Target;
  * Grid&lt;User&gt; grid = Grid.withPropertySet(new ProvidesPropertyScanner(User.class).getPropertySet());
  * grid.setVisibleColumns(User.USERNAME_PROPERTY, User.REAL_NAME_PROPERTY);
  * ...
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Some details regarding {@link ProvidesProperty &#64;ProvidesProperty} annotations:

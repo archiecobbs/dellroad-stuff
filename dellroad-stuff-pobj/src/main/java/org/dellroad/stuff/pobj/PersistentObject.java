@@ -36,6 +36,10 @@ import org.slf4j.LoggerFactory;
 /**
  * Main class for Simple XML Persistence Objects (POBJ).
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <h3>Overview</h3>
  *
  * <p>
@@ -88,13 +92,13 @@ import org.slf4j.LoggerFactory;
  * <p>
  * To implement a truly atomic read-modify-write operation without the possibility of locking failure, simply
  * synchronize on this instance, e.g.:
- *  <blockquote><pre>
+ *  <pre><code class="language-java">
  *  synchronized (pobj) {
  *      MyRoot root = pboj.getRoot();
  *      root.setFoobar("new value");    // or whatever else we want to modify
  *      pobj.setRoot(root);
  *  }
- *  </pre></blockquote>
+ *  </code></pre>
  *
  * <p>
  * Instances can also be configured to automatically preserve one or more backup copies of the persistent file on systems that

@@ -10,6 +10,10 @@ import java.util.concurrent.Callable;
 /**
  * Manages a thread local whose lifetime matches the duration of some method call.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This class is useful for this common pattern:
  * <ul>
@@ -23,7 +27,7 @@ import java.util.concurrent.Callable;
  *
  * <p>
  * Example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * public class Activity {
  *
  *     private static final ThreadLocalHolder&lt;Activity&gt; CURRENT_ACTIVITY = new ThreadLocalHolder&lt;Activity&gt;();
@@ -46,7 +50,7 @@ import java.util.concurrent.Callable;
  *         return CURRENT_ACTIVITY.require();
  *     }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * @param <T> the type of the thread local variable
  */

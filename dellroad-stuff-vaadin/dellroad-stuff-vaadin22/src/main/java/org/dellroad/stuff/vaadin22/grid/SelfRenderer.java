@@ -16,10 +16,14 @@ import java.util.Optional;
 /**
  * A "do nothing" {@link ComponentRenderer} used to render property values that are already {@link Component}'s.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This becomes the default {@link GridColumn#renderer renderer()} for {@link GridColumn &#64;GridColumn} annotations
  * on methods that return sub-types of {@link Component}:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * public class User {
  *
  *     // Render username normally - no special Renderer is used
@@ -34,7 +38,7 @@ import java.util.Optional;
  *     <b>&#64;GridColumn(header = "Status", width = "64px")</b>
  *     public Image getStatus() { ... }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * This class adds graceful handling of null values; null values are converted into empty {@link Text} components.

@@ -209,6 +209,7 @@
                 <configuration>
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
+                    <additionalJOption>--allow-script-in-comments</additionalJOption>
                     <validateLinks>true</validateLinks>
                     <links combine.children="append">
                         <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
@@ -363,6 +364,7 @@
                 <configuration>
                     <notimestamp>true</notimestamp>
                     <doclint>-html</doclint><!-- to allow <video> tags -->
+                    <additionalJOption>--allow-script-in-comments</additionalJOption>
                     <validateLinks>true</validateLinks>
                     <aggregate>true</aggregate>
                     <links>

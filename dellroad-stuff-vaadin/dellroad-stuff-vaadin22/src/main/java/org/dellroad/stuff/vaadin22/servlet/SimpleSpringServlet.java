@@ -36,6 +36,10 @@ import org.springframework.web.context.ContextLoaderListener;
  * A variant of {@link com.vaadin.flow.spring.SpringServlet} that doesn't require Spring Boot, supports traditional
  * XML configuration for Spring and servlets via {@code web.xml}, and adds support for tracking and limiting sessions.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This class needs a way to find the {@link ApplicationContext}; this is done by {@link #findApplicationContext}.
  * The implementation in this class obtains the {@link ApplicationContext} from the
@@ -48,7 +52,7 @@ import org.springframework.web.context.ContextLoaderListener;
  * <p>
  * You can accomplish both of these tasks by including a class like this in your application context:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * import com.vaadin.flow.spring.annotation.EnableVaadin;
  * import org.dellroad.stuff.spring.Springleton;
  *
@@ -59,7 +63,7 @@ import org.springframework.web.context.ContextLoaderListener;
  *         return (MySpringleton)Springleton.getInstance();
  *     }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * You may also need to include an {@link AppShellConfigurator} bean with the appropriate application-wide annotations.

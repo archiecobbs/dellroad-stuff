@@ -14,10 +14,15 @@ import org.jibx.runtime.JiBXParseException;
  * Utility class that makes it slightly easier to model {@link Map} properties in JiBX.
  * This class can be used to represent entries in the map, each of which is modeled in XML as a separate XML element.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * For example, suppose you have a class {@code Company} and want to add a {@code directory} property that has
  * type {@code Map<String, Person>}:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * public class Company {
  *     private Map&lt;String, Person&gt; directory = new HashMap&lt;String, Person&gt;();
  *
@@ -29,13 +34,13 @@ import org.jibx.runtime.JiBXParseException;
  *         this.directory = directory;
  *     }
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Because the JiBX binding process modifies class files, you first need to create your own subclass of {@link MapEntry}
  * that can be modified. In this example, we'll use an inner class of {@code Company}. In addition, you also need to add
  * JiBX "add-method" and "iter-method" helper methods. The resulting new code might look like this:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *     // JiBX holder for a single entry in the Directory map
  *     public static class DirectoryEntry extends MapEntry&lt;String, Person&gt; {
  *        public String getKey()   { return super.getKey();   }   // JiBX requires exact return types
@@ -51,11 +56,11 @@ import org.jibx.runtime.JiBXParseException;
  *     Iterator&lt;DirectoryEntry&gt; iterateDirectoryEntries() {
  *         return MapEntry.iterate(this.directory, DirectoryEntry.class);
  *     }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Then in your JiBX binding definition, you would do something like this:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  * &lt;binding package="com.example"&gt;
  *
  *     &lt;!-- Include XML mapping definition for a Person object (having type-name "person") --&gt;
@@ -76,10 +81,10 @@ import org.jibx.runtime.JiBXParseException;
  *         &lt;!-- other properties... --&gt;
  *     &lt;/mapping&gt;
  * &lt;/binding&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * Then the resulting XML would end up looking something like this:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  * &lt;Company&gt;
  *     &lt;Directory&gt;
  *         &lt;DirectoryEntry name="George Washington"&gt;
@@ -95,7 +100,7 @@ import org.jibx.runtime.JiBXParseException;
  *     &lt;/Directory&gt;
  *     &lt;!-- other properties... --&gt;
  * &lt;/Company&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Note that during unmarshalling, the <code>Map</code> itself is not created; it is expected to already exist

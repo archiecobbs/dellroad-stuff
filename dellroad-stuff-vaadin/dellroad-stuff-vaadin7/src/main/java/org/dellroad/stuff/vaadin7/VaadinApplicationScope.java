@@ -19,6 +19,10 @@ import org.springframework.beans.factory.config.Scope;
 /**
  * A Spring custom {@link Scope} for Vaadin applications.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This scopes beans to the lifetime of the {@link VaadinSession} (formerly known as "Vaadin application").
  * Spring {@linkplain org.springframework.beans.factory.DisposableBean#destroy destroy-methods}
@@ -26,10 +30,10 @@ import org.springframework.beans.factory.config.Scope;
  *
  * <p>
  * To enable this scope, simply add this bean to your application context as a singleton (it will register itself):
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;!-- Enable the "vaadinApplication" custom scope --&gt;
  *  &lt;bean class="org.dellroad.stuff.vaadin7.VaadinApplicationScope"/&gt;
- * </pre></blockquote>
+ * </code></pre>
  * Then declare scoped beans normally using the scope name {@code "vaadinApplication"}.
  */
 @SuppressWarnings("serial")

@@ -14,6 +14,10 @@ import java.util.regex.Pattern;
 /**
  * Holds and executes a configured SQL script, possibly containing multiple statements.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * If the script contains multiple SQL statements, individual statements will be executed individually, in order, by
  * {@link #apply apply()}; however, this requires proper configuration of the {@linkplain #setSplitPattern split pattern}.
@@ -26,7 +30,7 @@ import java.util.regex.Pattern;
  *
  * <p>
  * For example:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;beans xmlns="http://www.springframework.org/schema/beans"
  *    <b>xmlns:dellroad-stuff="http://dellroad-stuff.googlecode.com/schema/dellroad-stuff"</b>
  *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -45,7 +49,7 @@ import java.util.regex.Pattern;
  *      &lt;!-- other beans... --&gt;
  *
  *  &lt;/beans&gt;
- * </pre></blockquote>
+ * </code></pre>
  */
 public class SQLCommandList implements DatabaseAction<Connection> {
 

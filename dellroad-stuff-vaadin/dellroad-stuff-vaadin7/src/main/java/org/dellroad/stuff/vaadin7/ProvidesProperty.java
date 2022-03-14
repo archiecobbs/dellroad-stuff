@@ -15,6 +15,10 @@ import java.lang.annotation.Target;
  * Declares that a Java method provides a read-only Vaadin {@link com.vaadin.data.Property} value in a Java class
  * whose instances back the items in a {@link com.vaadin.data.Container}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * {@link ProvidesProperty &#64;ProvidesProperty} and {@link ProvidesPropertySort &#64;ProvidesPropertySort} method annotations
  * can be used to automatically generate a list of {@link PropertyDef}s and a {@link PropertyExtractor} using a
@@ -28,7 +32,7 @@ import java.lang.annotation.Target;
  *
  * <p>
  * For example:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Container backing object class
  * public class User {
  *
@@ -85,7 +89,7 @@ import java.lang.annotation.Target;
  * // Select user "jsmith" in the table
  * table.setValue("jsmith");
  * ...
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Some details regarding {@link ProvidesProperty &#64;ProvidesProperty} annotations on methods:

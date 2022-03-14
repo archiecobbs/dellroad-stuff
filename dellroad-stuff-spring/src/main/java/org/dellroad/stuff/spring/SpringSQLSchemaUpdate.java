@@ -15,6 +15,10 @@ import org.dellroad.stuff.schema.SQLCommandList;
 /**
  * Spring-enabled SQL {@link org.dellroad.stuff.schema.SchemaUpdate}.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * The {@link #setSQLCommandList sqlCommandList} property is required.
  *
@@ -25,7 +29,7 @@ import org.dellroad.stuff.schema.SQLCommandList;
  *
  * <p>
  * For example:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;beans xmlns="http://www.springframework.org/schema/beans"
  *    <b>xmlns:dellroad-stuff="http://dellroad-stuff.googlecode.com/schema/dellroad-stuff"</b>
  *    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -44,17 +48,18 @@ import org.dellroad.stuff.schema.SQLCommandList;
  *      &lt;!-- more beans... --&gt;
  *
  *  &lt;/beans&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * A multi-statement SQL script is normally treated as a set of individual updates. For example:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *      <b>&lt;dellroad-stuff:sql-update id="renameColumn"&gt;
  *          ALTER TABLE User ADD newName VARCHAR(64);
  *          ALTER TABLE User SET newName = oldName;
  *          ALTER TABLE User DROP oldName;
  *      &lt;/dellroad-stuff:sql-update&gt;</b>
- * </pre></blockquote>
+ * </code></pre>
+ *
  * This will create three separate update beans named <code>renameColumn-00001</code>, <code>renameColumn-00002</code>, and
  * <code>renameColumn-00003</code>. You can disable this behavior by adding the attribute <code>single-action="true"</code>,
  * in which case all three of the statements will be executed together in the same transaction and recorded under the name

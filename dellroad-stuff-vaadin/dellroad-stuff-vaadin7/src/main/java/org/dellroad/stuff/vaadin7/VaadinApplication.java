@@ -19,6 +19,10 @@ import org.slf4j.LoggerFactory;
 /**
  * A globally accessible "Vaadin application" singleton.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * At most one instance is associated with each {@link VaadinSession} (attempting to create more than one will result in
  * an exception). This singleton instance is then always accessible from any Vaadin thread via {@link #get()}.
@@ -27,9 +31,9 @@ import org.slf4j.LoggerFactory;
  * Although this class does not require Spring, the singleton instance can be declared as a bean in the Spring XML
  * application context created by a {@link SpringVaadinSessionListener}, which allows other beans and widgets
  * in the Vaadin application context to autowire it and have access to the methods provided here:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;bean class="org.dellroad.stuff.vaadin7.VaadinApplication"/&gt;
- * </pre></blockquote>
+ * </code></pre>
  * If your {@link VaadinApplication} instance allocates any resources on startup, be sure to configure it so
  * that it cleans them up on application context shutdown, for example, by specifying {@code destroy-method="..."}.
  *

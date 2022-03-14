@@ -54,6 +54,10 @@ import org.dellroad.stuff.java.ReflectUtil;
 /**
  * Automatically builds a {@link Binder} and configures and binds fields based on method annotations.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * {@link FieldBuilder} annotations allow for the automatic construction of forms for editing the annotated bean type.
  * Annotations specify how bean properties should be edited in a form. As a result, all information about how to edit a Java
@@ -89,7 +93,7 @@ import org.dellroad.stuff.java.ReflectUtil;
  * <p><b>Example</b>
  * <p>
  * A simple example shows how these annotations are used:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Use a 10 row TextArea to edit the "description" property
  * <b>&#64;FieldBuilder.AbstractComponent(caption = "Description:")</b>
  * <b>&#64;FieldBuilder.TextArea(rows = 10)</b>
@@ -113,13 +117,13 @@ import org.dellroad.stuff.java.ReflectUtil;
  * private static MyCustomField createFoobarField() {
  *     ...
  * }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p><b>Building the Form</b>
  * <p>
  * Use {@link #buildAndBind FieldBuilder.buildAndBind()} to setup the {@link Binder}, and then add the bound
  * fields to your form:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  * // Create fields based on FieldBuilder.* annotations
  * Binder&lt;Person&gt; binder = <b>new FieldBuilder(Person.class).buildAndBind().getBinder()</b>;
  *
@@ -132,7 +136,7 @@ import org.dellroad.stuff.java.ReflectUtil;
  * // Bind a value
  * Person person = new Person("Joe Smith", 100);
  * binder.setBean(person);
- * </pre></blockquote>
+ * </code></pre>
  *
  *
  * <p>

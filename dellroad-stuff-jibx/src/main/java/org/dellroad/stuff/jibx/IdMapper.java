@@ -18,6 +18,11 @@ import org.jibx.runtime.impl.MarshallingContext;
  * JiBX Marshaller/Unmarshaller that assigns unique ID's to each object and
  * replaces duplicate appearances of the same object with an IDREF reference.
  *
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+ *
  * <p>
  * This class allows for easy ID/IDREF handling for existing classes, with minimal
  * modifications to those classes and no custom (un)marshaller subclasses.
@@ -31,7 +36,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  * <p>
  * First add the following two pseudo-bean property methods to the classes:
  *
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *  import org.dellroad.stuff.jibx.IdMapper;
  *
  *  public class Person {
@@ -53,23 +58,23 @@ import org.jibx.runtime.impl.MarshallingContext;
  *          // do nothing
  *      }</b>
  *  }
- * </pre></blockquote>
+ * </code></pre>
  * Note: if you subclass {@code Person.java} from a different sub-package, you may need
  * to change the access privileges of those methods from {@code private} to {@code protected}.
  *
  * <p>
  * Next, define a concrete mapping for {@code Person.java} and add the {@code id} attribute:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;mapping name="Person" class="com.example.Person"&gt;
  *      <b>&lt;value name="id" style="attribute" ident="def"
  *        get-method="getJiBXId" set-method="setJiBXId"/&gt;</b>
  *      &lt;value name="name" field="name"/&gt;
  *  &lt;/mapping&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Finally, use {@link IdMapper} as the custom marshaller and unmarshaller wherever a {@code Person} appears, e.g.:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;mapping name="Company" class="com.example.Company"&gt;
  *      &lt;collection name="Employees" field="employees" create-type="java.util.ArrayList"&gt;
  *          &lt;structure name="Person" type="com.example.Person"
@@ -82,7 +87,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *            unmarshaller="org.dellroad.stuff.jibx.IdMapper"</b>/&gt;
  *      &lt;/structure&gt;
  *  &lt;/mapping&gt;
- * </pre></blockquote>
+ * </code></pre>
  * Note the {@code EmployeeOfTheWeek} "wrapper" element for the {@code employeeOfTheWeek} field; this is required
  * in order to use an XML name for this field other than {@code Person} (see limitations below).
  *
@@ -94,7 +99,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *
  * <p>
  * So the resulting XML might look like:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;Company&gt;
  *      &lt;Employees&gt;
  *          &lt;Person id="N00001"&gt;
@@ -109,7 +114,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *          &lt;Person idref="N00001"/&gt;
  *      &lt;/EmployeeOfTheWeek&gt;
  *  &lt;/Company&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <h3>Limitations</h3>
  *
@@ -137,7 +142,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  * <p>
  * First, replace the <code>// do nothing</code> in the example above with call to {@link IdMapper#setId IdMapper.setId()},
  * and add a custom deserializer delegating to {@link ParseUtil#deserializeReference ParseUtil.deserializeReference()} to
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *      private void setJiBXId(String id) {
  *          IdMapper.setId(this, id);
  *      }
@@ -145,7 +150,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *      public static Employee deserializeEmployeeReference(String string) throws JiBXParseException {
  *          return ParseUtil.deserializeReference(string, Employee.class);
  *      }
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * Then, map the first occurrence of an object exactly as in the concrete mapping above, exposing the <code>JiBXId</code> property.
@@ -155,7 +160,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *
  * <p>
  * For example, the following binding would yeild the same XML encoding as before:
- * <blockquote><pre>
+ * <pre><code class="language-xml">
  *  &lt;mapping abstract="true" type-name="person" class="com.example.Person"&gt;
  *      <b>&lt;value name="id" style="attribute" get-method="getJiBXId" set-method="setJiBXId"/&gt;</b>
  *      &lt;value name="name" field="name"/&gt;
@@ -173,15 +178,16 @@ import org.jibx.runtime.impl.MarshallingContext;
  *          &lt;/structure&gt;
  *      &lt;/structure&gt;
  *  &lt;/mapping&gt;
- * </pre></blockquote>
+ * </code></pre>
  *
  * <p>
  * If you want the reference to be optionally <code>null</code>, then you'll also need to add a <code>test-method</code>:
- * <blockquote><pre>
+ * <pre><code class="language-java">
  *      <b>private boolean hasEmployeeOfTheWeek() {
  *          return this.getEmployeeOfTheWeek() != null;
  *      }</b>
- *
+ * </code></pre>
+ * <pre><code class="language-xml">
  *      &lt;structure name="EmployeeOfTheWeek" <b>usage="optional" test-method="hasEmployeeOfTheWeek"</b>&gt;
  *          &lt;structure name="Person"&gt;
  *              &lt;value name="idref" style="attribute" field="employeeOfTheWeek"
@@ -189,7 +195,7 @@ import org.jibx.runtime.impl.MarshallingContext;
  *                deserializer="com.example.Employee.deserializeEmployeeReference"/&gt;
  *          &lt;/structure&gt;
  *      &lt;/structure&gt;
- * </pre></blockquote>
+ * </code></pre>
  * This approach causes the whole <code>&lt;EmployeeOfTheWeek&gt;</code> element to disappear when there is no
  * such employee. Alternately, you can avoid the need for the <code>test-method</code> if you want to allow
  * just the attribute to disappear, or you could even change from <code>style="attribute"</code> to <code>style="element"</code>;
