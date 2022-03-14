@@ -1583,6 +1583,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * {@linkplain HasValue#getEmptyValue empty value}.
      *
      * <p>
+     * When the generated field is disabled, by default it is automatically reset to its
+     * {@linkplain HasValue#getEmptyValue empty value}. To have it retain its previous value instead,
+     * so the value reappears if the checkbox is unchecked, set {@link #resetOnDisable} to false.
+     *
+     * <p>
      * If the named property does not exist in the {@link Binder}, or the target field's {@link Component}
      * doesn't implement {@link HasEnabled}, then this annotation has no effect.
      *
@@ -1620,10 +1625,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
         /**
          * Whether the value of this field should be automatically reset to its {@linkplain HasValue#getEmptyValue empty value}
-         * when the field is disabled by its controlling field.
+         * when this field is disabled by its controlling field.
          *
          * @return whether to reset when disabled
          */
-        boolean resetOnDisable() default false;
+        boolean resetOnDisable() default true;
     }
 }
