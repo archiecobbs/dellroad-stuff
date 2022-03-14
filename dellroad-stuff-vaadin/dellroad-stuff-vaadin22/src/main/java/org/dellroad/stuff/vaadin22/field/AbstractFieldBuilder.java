@@ -1529,7 +1529,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableField}.
+     * Causes the field that would otherwise be used for a property to be wrapped in a {@link NullableField},
+     * which adds a {@link Checkbox} that controls whether the value is null or not.
      *
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
@@ -1568,6 +1569,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @return checkbox label
          */
         String value();
+
+        /**
+         * Whether the value of the inner field should be automatically reset to its {@linkplain HasValue#getEmptyValue empty value}
+         * when the {@link Checkbox} is unchecked.
+         *
+         * @return whether to reset when disabled
+         * @see NullableField#isResetOnDisable
+         */
+        boolean resetOnDisable() default true;
     }
 
     /**
