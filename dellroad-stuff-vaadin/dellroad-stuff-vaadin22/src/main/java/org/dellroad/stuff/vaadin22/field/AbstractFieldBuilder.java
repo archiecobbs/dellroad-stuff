@@ -1021,8 +1021,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
 
             // Add recursive validation if field implements ValidatingField
-            if (field instanceof ValidatingField)
-                bindingBuilder = bindingBuilder.withValidator(((ValidatingField<?, V>)field)::validate);
+            if (field instanceof ValidatingField) {
+                final ValidatingField<?, V> validatingField = (ValidatingField<?, V>)field;
+                bindingBuilder = validatingField.addValidation(bindingBuilder);
+            }
 
             // Complete the binding
             return bindingBuilder.bind(this.propertyName);
