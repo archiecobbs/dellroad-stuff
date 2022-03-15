@@ -181,6 +181,10 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * {@link com.vaadin.flow.data.provider.DataProvider} implementation that determines which object type to provide from
  * the method's return type. This is how {@link EnumDataProvider} automatically infers the {@link Enum} type to use.
  *
+ * <p>
+ * Override {@link #newFieldBuilderContext newFieldBuilderContext()} if you wish to pass a custom context; the constructor
+ * chosen will be the one with the narrowest type compatible with the actual {@link FieldBuilderContext} in use.
+ *
  * <p><b>Recursive Validation</b>
  *
  * <p>

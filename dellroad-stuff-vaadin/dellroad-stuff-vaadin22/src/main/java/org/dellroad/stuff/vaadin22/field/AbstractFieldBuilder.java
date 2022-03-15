@@ -29,7 +29,6 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -752,16 +751,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         if (bindingInfo == null)
             throw new IllegalArgumentException("null bindingInfo");
 
-        // Use FieldBuilderContext constructor if available, otherwise default
-        Constructor<? extends T> constructor;
-        try {
-            constructor = type.getConstructor(FieldBuilderContext.class);
-        } catch (NoSuchMethodException e) {
-            constructor = null;
-        }
-        return constructor != null ?
-          ReflectUtil.instantiate(constructor, this.newFieldBuilderContext(bindingInfo)) :
-          ReflectUtil.instantiate(type);
+        // Create FieldBuilderContext "context" so we know its type
+        final FieldBuilderContext context = this.newFieldBuilderContext(bindingInfo);
+
+        // Find the best (narrowest) matching constructor for "context", if any, else fall back to default constructor
+        return Stream.of(type.getConstructors())
+          .filter(c -> c.getParameterCount() == 1)
+          .filter(c -> c.getParameterTypes()[0].isInstance(context))
+          .min(Comparator.comparing(c -> c.getParameterTypes()[0], ReflectUtil.getClassComparator()))
+          .map(constructor -> ReflectUtil.instantiate(constructor, context))
+          .map(type::cast)      // because type.getConstructors() returns Constructor<?>[] instead of Constructor<T>[]
+          .orElseGet(() -> ReflectUtil.instantiate(type));
     }
 
     /**
