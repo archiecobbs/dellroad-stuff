@@ -74,6 +74,19 @@ public class FieldComponent<V> {
         return this.component;
     }
 
+    /**
+     * Get this instance's field as an {@link AbstractField}, assuming that's what it is.
+     *
+     * @return this instance's field
+     * @throws IllegalArgumentException if this instance's field is not an {@link AbstractField}
+     */
+    @SuppressWarnings("unchecked")
+    public AbstractField<?, V> getAbstractField() {
+        if (this.field instanceof AbstractField)
+            return (AbstractField<?, V>)this.field;
+        throw new IllegalArgumentException(this.field.getClass() + " is not a subtype of AbstractField");
+    }
+
     @Override
     public String toString() {
         return String.format("%s[field=%s%s]", this.getClass().getSimpleName(), this.getField(),
