@@ -154,6 +154,7 @@ public class SimpleSpringServlet extends VaadinServlet {
      *
      * @return live tracked sessions, or an empty collection if session tracking is not enabled
      * @see VaadinSessionDataProvider
+     * @throws IllegalStateException if this servlet instance has been serialized
      */
     public List<VaadinSession> getSessions() {
         if (this.liveSessions == null)
