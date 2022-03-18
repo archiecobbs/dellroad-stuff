@@ -5,138 +5,218 @@
 
 package org.dellroad.stuff.vaadin22.data;
 
-import com.vaadin.flow.data.provider.CallbackDataProvider;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.Query;
+import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.server.VaadinServletService;
 import com.vaadin.flow.server.VaadinSession;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 
 import org.dellroad.stuff.vaadin22.servlet.SimpleSpringServlet;
+import org.dellroad.stuff.vaadin22.util.VaadinUtil;
 
 /**
- * A {@link DataProvider} that contains all live {@link VaadinSession}s.
+ * A {@link DataProvider} that provides an object corresponding to each live {@link VaadinSession}.
  *
  * <p>
- * The sessions are retrieved from the {@link SimpleSpringServlet}, which must be configured
- * with session tracking enabled.
+ * The sessions are retrieved from the {@link SimpleSpringServlet}, which must be configured with session tracking enabled.
+ *
+ * <p>
+ * Sessions are represented by {@link SessionInfo}, which may be subclassed to add application-specific information
+ * (e.g., currently logged-in user).
+ *
+ * <p>
+ * Sessions are orderded by reverse creation time (newest first).
  *
  * @see SimpleSpringServlet
  */
 @SuppressWarnings("serial")
-public class VaadinSessionDataProvider extends CallbackDataProvider<VaadinSession, Predicate<? super VaadinSession>> {
+public class VaadinSessionDataProvider<T extends SessionInfo> extends ListDataProvider<T> {
+
+    protected final VaadinSession session;
+    protected final SimpleSpringServlet servlet;
+    protected final Function<? super VaadinSession, T> infoCreator;
+
+    private AtomicReference<Future<?>> currentReloadToken;
 
     /**
      * Create an instance from the current {@link VaadinSession}.
      *
+     * <p>
+     * The {@link infoCreator} gathers whatever information is needed by this instance from the given session,
+     * and may assume that the given session is locked.
+     *
+     * <p>
+     * If {@link infoCreator} returns null, the session is omitted.
+     *
+     * @param infoCreator extracts data provider information from each session
      * @throws IllegalStateException if there is no current {@link VaadinSession} associated with the current thread
      * @throws IllegalArgumentException if the associated {@link VaadinService} is not a {@link VaadinServletService}.
      * @throws IllegalArgumentException if the associated {@link VaadinServlet} is not a {@link SimpleSpringServlet}.
+     * @throws IllegalArgumentException if {@code infoCreator} is null
      */
-    public VaadinSessionDataProvider() {
-        this(SimpleSpringServlet.forCurrentSession());
+    public VaadinSessionDataProvider(Function<? super VaadinSession, T> infoCreator) {
+        this(VaadinUtil.getCurrentSession(), infoCreator);
     }
 
     /**
      * Create an instance from the provided {@link VaadinSession}.
      *
+     * <p>
+     * The {@link infoCreator} gathers whatever information is needed by this instance from the given session,
+     * and may assume that the given session is locked.
+     *
+     * <p>
+     * If {@link infoCreator} returns null, the session is omitted.
+     *
      * @param session Vaadin session
+     * @param infoCreator extracts data provider information from each session
      * @throws IllegalArgumentException if the associated {@link VaadinService} is not a {@link VaadinServletService}.
      * @throws IllegalArgumentException if the associated {@link VaadinServlet} is not a {@link SimpleSpringServlet}.
-     * @throws IllegalArgumentException if {@code session} is null
+     * @throws IllegalArgumentException if either parameter is null
      */
-    public VaadinSessionDataProvider(VaadinSession session) {
-        this(SimpleSpringServlet.forSession(session));
+    public VaadinSessionDataProvider(VaadinSession session, Function<? super VaadinSession, T> infoCreator) {
+        super(new ArrayList<>());
+        if (session == null)
+            throw new IllegalArgumentException("null session");
+        if (infoCreator == null)
+            throw new IllegalArgumentException("null infoCreator");
+        this.session = session;
+        this.servlet = SimpleSpringServlet.forSession(this.session);
+        this.infoCreator = infoCreator;
     }
 
     /**
-     * Create an instance from the provided {@link SimpleSpringServlet}.
-     *
-     * @param servlet servlet to extract sessions from
-     * @throws IllegalArgumentException if {@code servlet} is null
+     * Get the {@link SessionInfo}'s currently in this container.
      */
-    public VaadinSessionDataProvider(final SimpleSpringServlet servlet) {
-        super(new Fetcher(servlet), new Counter(servlet));
+    @Override
+    public List<T> getItems() {
+        return (List<T>)super.getItems();
     }
 
-// Fetcher
-
-    @SuppressWarnings("serial")
-    private static class Fetcher implements CallbackDataProvider.FetchCallback<VaadinSession, Predicate<? super VaadinSession>> {
-
-        private final SimpleSpringServlet servlet;
-
-        Fetcher(SimpleSpringServlet servlet) {
-            if (servlet == null)
-                throw new IllegalArgumentException("null servlet");
-            this.servlet = servlet;
-        }
-
-        @Override
-        public Stream<VaadinSession> fetch(Query<VaadinSession, Predicate<? super VaadinSession>> query) {
-
-            // Sanity check
-            if (query == null)
-                throw new IllegalArgumentException("null query");
-
-            // Get sessions
-            List<VaadinSession> sessionList = this.servlet.getSessions();
-
-            // Apply filtering
-            if (query.getFilter().isPresent()) {
-                sessionList = sessionList.stream()
-                  .filter(query.getFilter().get())
-                  .collect(Collectors.toList());
-            }
-
-            // Apply sorting
-            if (query.getInMemorySorting() != null)
-                sessionList.sort(query.getInMemorySorting());
-
-            // Apply offset & limit
-            final int minIndex = Math.max(0, Math.min(sessionList.size(), query.getOffset()));
-            final int maxIndex = Math.max(0, Math.min(sessionList.size(), query.getRequestedRangeEnd()));
-
-            // Done
-            return sessionList.subList(minIndex, maxIndex).stream();
-        }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The implementation in {@code VaadinSessionDataProvider} returns {@code item.getVaadinSession().getSession().getId()}.
+     */
+    @Override
+    public String getId(T item) {
+        return item.getVaadinSession().getSession().getId();
     }
 
-// Counter
+    /**
+     * Reload this data provider using the given asynchronous executor.
+     *
+     * <p>
+     * If a previous reload operation is still in progress, an {@link IllegalStateException} exception is thrown;
+     * {@link #isReloading} can be checked to avoid that from happening.
+     *
+     * @param executor asynchronous executor
+     * @throws IllegalArgumentException if {@code executor} is null
+     * @throws IllegalArgumentException if {@code executor} returns a null {@link Future}
+     * @throws IllegalStateException if this instance is already in the process of reloading
+     * @throws IllegalStateException if this instance's {@link VaadinSession} is not locked
+     */
+    public void reload(Function<? super Runnable, ? extends Future<?>> executor) {
 
-    @SuppressWarnings("serial")
-    private static class Counter implements CallbackDataProvider.CountCallback<VaadinSession, Predicate<? super VaadinSession>> {
+        // Sanity check
+        if (executor == null)
+            throw new IllegalArgumentException("null executor");
+        VaadinUtil.assertCurrentSession(this.session);
+        if (this.currentReloadToken != null)
+            throw new IllegalArgumentException("already reloading");
 
-        private final SimpleSpringServlet servlet;
+        // Initiate reload
+        final AtomicReference<Future<?>> reloadToken = new AtomicReference<>();
+        final Future<?> future = executor.apply((Runnable)() -> this.reload(reloadToken));
+        if (future == null)
+            throw new IllegalArgumentException("internal error: executor returned a null Future");
+        reloadToken.set(future);
+        this.currentReloadToken = reloadToken;
+    }
 
-        Counter(SimpleSpringServlet servlet) {
-            if (servlet == null)
-                throw new IllegalArgumentException("null servlet");
-            this.servlet = servlet;
+    /**
+     * Cancel any outstanding reload operation.
+     *
+     * @return true if an outstanding reload was canceled, false if nothing happened
+     * @throws IllegalStateException if this instance's {@link VaadinSession} is not locked
+     */
+    public boolean cancel() {
+        VaadinUtil.assertCurrentSession(this.session);
+        if (this.currentReloadToken != null) {
+            this.currentReloadToken.get().cancel(true);
+            this.currentReloadToken = null;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Determine if there is any outstanding asynchronous reload operation in progress.
+     *
+     * @return true if an outstanding reload is happening, otherwise false
+     * @throws IllegalStateException if this instance's {@link VaadinSession} is not locked
+     */
+    public boolean isReloading() {
+        VaadinUtil.assertCurrentSession(this.session);
+        return this.currentReloadToken != null;
+    }
+
+    /**
+     * Reload this data provider.
+     *
+     * <p>
+     * This method must <b>not</b> be invoked while holding a {@link VaadinSession} lock. Instead, use {@link #reload(Function)}
+     * to trigger an asynchronous reload.
+     *
+     * @param reloadToken token representing a particular reload operation
+     * @throws IllegalStateException if there is any {@link VaadinSession} associated with the current thread
+     */
+    protected void reload(final AtomicReference<Future<?>> reloadToken) {
+
+        // Sanity check
+        if (VaadinSession.getCurrent() != null)
+            throw new IllegalArgumentException("do not invoke me within the context of any VaadinSession");
+
+        // Grab list of live sessions from servlet
+        final List<VaadinSession> sessionList = this.servlet.getSessions();
+
+        // Sort by reverse creation time
+        sessionList.sort(Comparator.<VaadinSession>
+           comparingLong(otherSession -> otherSession.getSession().getCreationTime()).reversed()
+          .thenComparing(otherSession -> otherSession.getSession().getId()));
+
+        // Extract session info, locking each session while we do it
+        final ArrayList<T> sessionInfoList = new ArrayList<>(sessionList.size());
+        final AtomicReference<T> sessionInfoRef = new AtomicReference<>();
+        for (VaadinSession otherSession : sessionList) {
+            if (Thread.interrupted())                       // we got canceled
+                return;
+            otherSession.accessSynchronously(() -> sessionInfoRef.set(infoCreator.apply(otherSession)));
+            final T sessionInfo = sessionInfoRef.get();
+            if (sessionInfo != null)
+                sessionInfoList.add(sessionInfo);
         }
 
-        @Override
-        public int count(Query<VaadinSession, Predicate<? super VaadinSession>> query) {
+        // Update this instance
+        VaadinUtil.accessSession(this.session, () -> {
 
-            // Sanity check
-            if (query == null)
-                throw new IllegalArgumentException("null query");
+            // Handle cancel() race condition
+            if (this.currentReloadToken != reloadToken)
+                return;
+            this.currentReloadToken = null;
 
-            // Get sessions
-            Stream<VaadinSession> sessionStream = this.servlet.getSessions().stream();
-
-            // Apply filtering, if any
-            if (query.getFilter().isPresent())
-                sessionStream = sessionStream.filter(query.getFilter().get());
-
-            // Done
-            return (int)sessionStream.count();
-        }
+            // Update items
+            this.getItems().clear();
+            this.getItems().addAll(sessionInfoList);
+            this.refreshAll();
+        });
     }
 }

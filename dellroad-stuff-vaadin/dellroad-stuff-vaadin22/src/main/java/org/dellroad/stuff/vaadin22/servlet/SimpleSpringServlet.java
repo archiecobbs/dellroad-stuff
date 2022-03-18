@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.dellroad.stuff.spring.Springleton;
+import org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider;
 import org.dellroad.stuff.vaadin22.util.VaadinUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -110,6 +111,7 @@ import org.springframework.web.context.ContextLoaderListener;
  * </table>
  * </div>
  *
+ * @see VaadinSessionDataProvider
  * @see <a href="https://github.com/vaadin/spring/issues/560">vaadin-spring issue #560</a>
  */
 @SuppressWarnings("serial")
