@@ -963,17 +963,19 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         public FieldComponent<?> createFieldComponent(T bean) {
             FieldComponent<?> fieldComponent = this.fieldBuilder.apply(this, bean);
             if (this.nullifyCheckbox != null)
-                fieldComponent = new FieldComponent<>(this.wrapInNullableField(fieldComponent));
+                fieldComponent = this.addNullifyCheckbox(fieldComponent);
             return fieldComponent;
         }
 
-        protected <T> NullableField<T> wrapInNullableField(FieldComponent<T> fieldComponent) {
+        protected <T> FieldComponent<T> addNullifyCheckbox(FieldComponent<T> fieldComponent) {
             if (fieldComponent == null)
                 throw new IllegalArgumentException("null fieldComponent");
             if (this.nullifyCheckbox == null)
                 throw new IllegalStateException("no nullifyCheckbox");
-            return new NullableField<>(fieldComponent.getField(),
+            final NullableField<T> field = new NullableField<>(fieldComponent.getField(),
               fieldComponent.getComponent(), new Checkbox(this.nullifyCheckbox.value()));
+            field.setResetOnDisable(this.nullifyCheckbox.resetOnDisable());
+            return new FieldComponent<>(field);
         }
 
         /**
