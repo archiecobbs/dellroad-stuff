@@ -665,12 +665,17 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @return defaults method name, never null
      */
     protected Method getAnnotationDefaultsMethod() {
-        final Method method;
-        try {
-            method = this.getClass().getDeclaredMethod(this.getAnnotationDefaultsMethodName());
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException("internal error: method " + this.getAnnotationDefaultsMethodName() + "() not found");
+        Method method = null;
+        for (Class<?> type = this.getClass(); type != null; type = type.getSuperclass()) {
+            try  {
+                method = type.getDeclaredMethod(this.getAnnotationDefaultsMethodName());
+            } catch (NoSuchMethodException e) {
+                continue;
+            }
+            break;
         }
+        if (method == null)
+            throw new RuntimeException("internal error: method " + this.getAnnotationDefaultsMethodName() + "() not found");
         method.setAccessible(true);
         return method;
     }
