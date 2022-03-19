@@ -211,12 +211,32 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends ListDataPr
             // Handle cancel() race condition
             if (this.currentReloadToken != reloadToken)
                 return;
+
+            // Mark this reload complete
             this.currentReloadToken = null;
 
-            // Update items
-            this.getItems().clear();
-            this.getItems().addAll(sessionInfoList);
-            this.refreshAll();
+            // Apply updates
+            this.applyUpdates(sessionInfoList);
         });
+    }
+
+    /**
+     * Reload this data provider's items after a successful reload operation.
+     *
+     * <p>
+     * The implementation in {@link VaadinSessionDataProvider} reloads this instance's {@linkplain items #getItems}
+     * and then invokes {@link #refreshAll}.
+     *
+     * <p>
+     * This instance's session lock will be held.
+     *
+     * @param sessionInfoList updated sessions info
+     */
+    protected void applyUpdates(List<T> sessionInfoList) {
+        if (sessionInfoList == null)
+            throw new IllegalArgumentException("null list");
+        this.getItems().clear();
+        this.getItems().addAll(sessionInfoList);
+        this.refreshAll();
     }
 }
