@@ -709,9 +709,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param bindingInfo binding context
      * @param annotation annotation with {@link Class}-valued property
      * @param propertyName annotation property name having type {@link Class}
+     * @param <F> field type
      * @throws IllegalArgumentException if any parameter is null
      */
-    protected <T> T instantiate(Class<T> expectedType, BindingInfo bindingInfo, Annotation annotation, String propertyName) {
+    protected <F> F instantiate(Class<F> expectedType, BindingInfo bindingInfo, Annotation annotation, String propertyName) {
 
         // Sanity check
         if (expectedType == null)
@@ -722,7 +723,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             throw new IllegalArgumentException("null propertyName");
 
         // Determine the class to instantiate
-        final Class<? extends T> implType;
+        final Class<? extends F> implType;
         try {
             implType = ((Class<?>)annotation.annotationType().getMethod(propertyName).invoke(annotation)).asSubclass(expectedType);
         } catch (Exception e) {
