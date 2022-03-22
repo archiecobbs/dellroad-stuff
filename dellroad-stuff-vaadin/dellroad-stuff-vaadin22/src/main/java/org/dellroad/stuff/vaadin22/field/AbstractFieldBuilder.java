@@ -666,9 +666,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     protected Method getAnnotationDefaultsMethod() {
         Method method = null;
-        for (Class<?> type = this.getClass(); type != null; type = type.getSuperclass()) {
+        for (Class<?> stype = this.getClass(); stype != null; stype = stype.getSuperclass()) {
             try  {
-                method = type.getDeclaredMethod(this.getAnnotationDefaultsMethodName());
+                method = stype.getDeclaredMethod(this.getAnnotationDefaultsMethodName());
             } catch (NoSuchMethodException e) {
                 continue;
             }
