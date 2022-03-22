@@ -5,12 +5,13 @@
 
 package org.dellroad.stuff.vaadin22.field;
 
+import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 
 /**
  * Support superclass that mostly automates the creation of {@link CustomField}s for editing any model type
- * using sub-fields automatically generated from {@link FieldBuilder} annotations.
+ * using sub-fields automatically generated from {@link FieldBuilder} annotations to arbitrary recursion depth.
  *
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
@@ -54,30 +55,24 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  *     // Customize how we want to layout the subfields
  *     &#64;Override
  *     protected void layoutComponents() {
- *
- *         // Get sub-fields
- *         final FieldBuilder.FieldComponent startDateField = this.fieldBuilder.getFieldComponents().get("startDate");
- *         final FieldBuilder.FieldComponent endDateField = this.fieldBuilder.getFieldComponents().get("endDate");
- *
- *         // Layout sub-fields
- *         final HorizontalLayout layout = new HorizontalLayout();
- *         layout.add(new Text("From"));
- *         layout.add(startDateField.getComponent());
- *         layout.add(new Text("to"));
- *         layout.add(endDateField.getComponent());
- *         this.add(layout);
+ *        this.add(new HorizontalLayout(
+ *          new Text("From"), this.getField("startDate")), new Text("to"), this.getField("endDate"));
  *     }
  *
- *     // ValidatingField: Ensure end date is after start date
+ *     // Bean level validation: ensure end date is after start date
  *     &#64;Override
  *     public ValidationResult validate(DateInterval dates, ValueContext ctx) {
  *         if (dates.getStartDate().isAfter(dates.getEndDate())
  *             return ValidationResult.error("Dates out-of-order"));
- *         return super.validate(dates, ctx);           // ensure superclass contraints still apply
+ *         return super.validate(dates, ctx);           // always ensure superclass contraints apply also
  *     }
  * }
+ * </code></pre>
  *
- * // Now FieldBuilder works recursively for this multi-level class
+ * <p>
+ * Once that's done, using {@link FieldBuilder} works recursively and automatically for this multi-level class:
+ *
+ * <pre><code class="language-java">
  * public class Contract {
  *
  *     &#64;FieldBuilder.CheckBox(label = "Approved?")
@@ -148,5 +143,40 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
         this.fieldBuilder.getFieldComponents().values().stream()
           .map(FieldComponent::getComponent)
           .forEach(layout::add);
+    }
+
+    /**
+     * Get the {@link FieldComponent} sub-field corresponding to the given field name.
+     *
+     * @param name field name
+     * @return corresponding {@link FieldComponent}
+     * @throws IllegalArgumentException if {@code name} is not found
+     * @throws IllegalArgumentException if {@code name} is null
+     */
+    protected AbstractField<?, ?> getField(String name) {
+        final FieldComponent<?> fieldComponent = this.getFieldComponent(name);
+        try {
+            return (AbstractField<?, ?>)fieldComponent.getField();
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException("not an AbstractField: " + name);
+        }
+    }
+
+    /**
+     * Get the {@link AbstractField} sub-field corresponding to the given field name.
+     *
+     * @param name field name
+     * @return corresponding {@link AbstractField}
+     * @throws IllegalArgumentException if {@code name} is not found
+     * @throws IllegalArgumentException if {@code name}'s {@linkplain FieldComponent#getField field} is not an {@link AbstractField}
+     * @throws IllegalArgumentException if {@code name} is null
+     */
+    protected FieldComponent<?> getFieldComponent(String name) {
+        if (name == null)
+            throw new IllegalArgumentException("null name");
+        final FieldComponent<?> fieldComponent = this.fieldBuilder.getFieldComponents().get(name);
+        if (fieldComponent == null)
+            throw new IllegalArgumentException("no such field: " + name);
+        return fieldComponent;
     }
 }

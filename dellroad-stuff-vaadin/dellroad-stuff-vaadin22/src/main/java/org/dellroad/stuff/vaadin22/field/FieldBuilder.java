@@ -170,6 +170,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  *
  * <p><b>Providing Context via FieldBuilderContext</b>
  *
+ * <p>
  * All classes instantiated by {@link FieldBuilder} (fields, data providers, converters, validatiors, etc.) are instantiated
  * using the default constructor, unless a constructor taking a {@link FieldBuilderContext} exists, in which case it will
  * be used instead. In this latter case, the new object can do further introspection of the method and/or annotation
