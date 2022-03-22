@@ -16,6 +16,7 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.ValueProvider;
+import com.vaadin.flow.shared.util.SharedUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -29,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -50,7 +52,6 @@ public class GridColumnScanner<T> {
 
     private final Class<T> type;
     private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
-    private final LinkedHashMap<String, Grid.Column<?>> visbilityMenuColumns = new LinkedHashMap<>();
 
     /**
      * Scan the given type and all super-types for {@link GridColumn &#64;GridColumn} annotations.
@@ -157,7 +158,6 @@ public class GridColumnScanner<T> {
 
         // Gather columns in ordered lists, grouped by group name, and track visbilityMenu()
         final LinkedHashMap<String, List<Grid.Column<S>>> columnGroups = new LinkedHashMap<>();
-        this.visbilityMenuColumns.clear();
         this.columnMap.forEach((columnKey, methodInfo) -> {
 
             // Remove any existing column with the same key
@@ -181,14 +181,6 @@ public class GridColumnScanner<T> {
 
             // Update column groups
             columnGroups.computeIfAbsent(annotation.columnGroup(), columnGroup -> new ArrayList<>()).add(column);
-
-            // Add column to visibility menu, if desired
-            if (annotation.visbilityMenu()) {
-                String menuLabel = annotation.header();
-                if (menuLabel.isEmpty())
-                    menuLabel = annotation.key();
-                visbilityMenuColumns.put(menuLabel, column);
-            }
         });
 
         // Add a column group header row and group columns, if needed
@@ -203,32 +195,60 @@ public class GridColumnScanner<T> {
     }
 
     /**
-     * Add menu items that enable/disable the visibility of individual columns to the given menu.
+     * Add menu items that enable/disable the visibility of individual columns for for which
+     * {@link GridColumn#visbilityMenu visbilityMenu()} was true to the given menu.
      *
      * <p>
-     * This method adds menu items for all columns for which {@link GridColumn#visbilityMenu visbilityMenu()} was true
-     * in the most recent call to {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}.
-     * The menu item labels are taken from {@link GridColumn#header header()}, if any, otherwise {@link GridColumn#key key()}.
+     * This method adds menu items for all columns in the given grid for which {@link GridColumn#visbilityMenu visbilityMenu()}
+     * was true, according to the most recent call to {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}.
+     *
+     * <p>
+     * The menu item labels come from {@link GridColumn#header header()}, if any, otherwise {@link GridColumn#key key()}
+     * via {@link SharedUtil#camelCaseToHumanFriendly SharedUtil.camelCaseToHumanFriendly()}.
      *
      * <p>
      * To use the menu, the caller will need to assign it to some target, e.g., via {@link ContextMenu#setTarget}.
      *
+     * @param grid grid containing previously scanned columns
      * @param menu the menu to add visibility items to
-     * @return visibility context menu, or null if there were zero such columns
-     * @throws IllegalArgumentException if {@code menu} is null
+     * @return true if any menu items were added, otherwise false
+     * @throws IllegalArgumentException if either parameter is null
      */
-    public void addVisbilityMenuItems(HasMenuItems menu) {
+    public boolean addVisbilityMenuItems(Grid<?> grid, HasMenuItems menu) {
 
         // Sanity check
+        if (grid == null)
+            throw new IllegalArgumentException("null grid");
         if (menu == null)
             throw new IllegalArgumentException("null menu");
 
         // Add menu items
-        this.visbilityMenuColumns.forEach((label, column) -> {
-            final MenuItem menuItem = menu.addItem(label, e -> column.setVisible(e.getSource().isChecked()));
+        final AtomicBoolean menuItemsAdded = new AtomicBoolean();
+        this.columnMap.forEach((columnKey, methodInfo) -> {
+
+            // In visibility menu?
+            final GridColumn annotation = methodInfo.getAnnotation();
+            if (!annotation.visbilityMenu())
+                return;
+
+            // Find corresponding column
+            final Grid.Column<?> column = grid.getColumnByKey(columnKey);
+            if (column == null)
+                return;
+
+            // Get menu label
+            final String menuLabel = !annotation.header().isEmpty() ?
+              annotation.header() : SharedUtil.camelCaseToHumanFriendly(annotation.key());
+
+            // Add menu item
+            final MenuItem menuItem = menu.addItem(menuLabel, e -> column.setVisible(e.getSource().isChecked()));
             menuItem.setCheckable(true);
             menuItem.setChecked(column.isVisible());
+            menuItemsAdded.set(true);
         });
+
+        // Done
+        return menuItemsAdded.get();
     }
 
     /**
@@ -347,12 +367,12 @@ public class GridColumnScanner<T> {
     }
 
     /**
-     * Get the annotations found through introspection keyed by property name.
+     * Get the annotations found through introspection indexed by {@linkplain GridColumn#key column key}.
      *
      * <p>
      * The returned map is mutable, e.g., if you need to delete some unwanted entries.
      *
-     * @return columns keyed by property name and sorted based on {@link GridColumn#order}, then property name
+     * @return annotations keyed by {@linkplain GridColumn#key column key}, and sorted based on {@link GridColumn#order}, then key
      */
     public Map<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> getColumnMap() {
         return this.columnMap;
