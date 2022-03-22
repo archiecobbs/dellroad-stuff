@@ -100,9 +100,13 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
 <div class="block">Provides the information necessary to auto-generate a <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/ui/Grid.Column.html?is-external=true" title="class or interface in com.vaadin.ui"><code>Grid.Column</code></a> and a field for editing
  values, based on annotated getter methods.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  Example:
- <blockquote><pre>
+ <pre><code class="language-java">
  // Container backing object class
  public class User {
 
@@ -134,7 +138,7 @@ public @interface <span class="memberNameLabel">GridColumn</span></pre>
  // Build Grid with auto-generated columns
  Grid&lt;User&gt; grid = new GridColumnScanner(User.class).buildGrid();
  ...
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Some details regarding <a href="../../../../org/dellroad/stuff/vaadin8/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin8"><code>&#64;GridColumn</code></a> annotations:

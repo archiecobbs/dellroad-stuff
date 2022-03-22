@@ -125,6 +125,10 @@
 extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractGridFieldBuilder</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">FieldBuilder</a>&lt;T&gt;,T&gt;</pre>
 <div class="block">Automatically configures and bind fields using declarative method annotations.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> annotations allow for the automatic construction and configuration of fields for editing a bean.
  Annotations on "getter" methods specify how the fields that edit the corresponding bean property should be constructed,
@@ -178,7 +182,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
 
  <p>
  A simple example shows how these annotations are used:
- <blockquote><pre>
+ <pre><code class="language-java">
  <b>&#64;FieldBuilder.TextField(placeholder = "Enter your name...", maxLength = 64)</b>
  <b>&#64;FieldBuilder.Binding(required = "Name is mandatory", validators = MyValidator.class)</b>
  <b>&#64;FieldBuilder.FormLayout(label = "Name:", colspan = 2, order = 1)</b>
@@ -198,42 +202,41 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
  <b>&#64;FieldBuilder.ProvidesField("foobar")</b>
  <b>&#64;FieldBuilder.FormLayout(label = "Your Foobar:", order = 3)</b>
  private static CustomField&lt;Foobar&gt; createFoobarField() { ... }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  All of the declarative <code>@FieldBuilder.Foo</code> annotations have an <code>implementation()</code> property that allows you
- to specify a custom implementation. So a slightly different way to specify a custom field to edit the <code>"foobar"</code>
- property would be:
+ to specify a custom implementation. So a more consistent way to customize the <code>"foobar"</code> component would be:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  // Use my own custom FoobarField to edit "foobar"
  <b>&#64;FieldBuilder.CustomField(label = "Your Foobar:", implementation = FoobarField.class)</b>
  public Foobar getFoobar() { ... }
- </pre></blockquote>
+ </code></pre>
 
  <p><b>Building the Form</b>
 
  <p>
- First, use <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#bindFields-com.vaadin.flow.data.binder.Binder-"><code>bindFields()</code></a> to create and configure a new set of fields, and bind them into a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>:
+ First, use <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#bindFields-com.vaadin.flow.data.binder.Binder-"><code>bindFields()</code></a> to create a new set of fields, configure them, and bind them into a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  // Create a FieldBuilder
  <b>FieldBuilder&lt;Person&gt; fieldBuilder = new FieldBuilder&lt;&gt;(Person.class);</b>
 
  // Create a Binder and bind fields
  Binder&lt;Person&gt; binder = new Binder&lt;&gt;(Person.class);
  <b>fieldBuilder.bindFields(binder)</b>;
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Then (optionally) use <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#addFieldComponents-com.vaadin.flow.component.formlayout.FormLayout-"><code>addFieldComponents()</code></a> to add and configure those fields into a
  <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a>:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  // Create form and add fields to it
  FormLayout form = new FormLayout();
  <b>fieldBuilder.addFieldComponents(form);</b>
- </pre></blockquote>
+ </code></pre>
 
  <p>
  You can also access the fields directly via <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getFieldComponents--"><code>getFieldComponents()</code></a>.
@@ -251,7 +254,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
  <p>
  For example:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  public class Person {
      public String getFirstName() { ... }
      public String getLastName() { ... }
@@ -261,7 +264,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
          return person -&gt; person.getLastName() + ", " + person.getFirstName();
      }
  }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  These defaults can be accessed via <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getScannedFieldDefaults--"><code>getScannedFieldDefaults()</code></a>.
@@ -279,8 +282,11 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
  <p>
  For example, a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.ComboBox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.ComboBox</code></a> annotation might specify a general purpose
  <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/DataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider"><code>DataProvider</code></a> implementation that determines which object type to provide from
- the method's return type. This is in fact how <code>org.dellroad.stuff.vaadin22.component.EnumDataProvider</code>
- is able to automatically infer which <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang"><code>Enum</code></a> type to use and populate itself.
+ the method's return type. This is how <a href="../../../../../org/dellroad/stuff/vaadin22/data/EnumDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><code>EnumDataProvider</code></a> automatically infers the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Enum.html?is-external=true" title="class or interface in java.lang"><code>Enum</code></a> type to use.
+
+ <p>
+ Override <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#newFieldBuilderContext-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-"><code>newFieldBuilderContext()</code></a> if you wish to pass a custom context; the constructor
+ chosen will be the one with the narrowest type compatible with the actual <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderContext.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>FieldBuilderContext</code></a> in use.
 
  <p><b>Recursive Validation</b>
 
@@ -463,7 +469,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
 <!--   -->
 </a>
 <h3>Nested classes/interfaces inherited from class&nbsp;org.dellroad.stuff.vaadin22.field.<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></h3>
-<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.DefaultInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldBuilderContextImpl.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldBuilderContextImpl</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldDefault</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.ProvidesField</a></code></li>
+<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.DefaultInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.EnabledBy</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldBuilderContextImpl.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldBuilderContextImpl</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldDefault</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.ProvidesField</a></code></li>
 </ul>
 </li>
 </ul>
@@ -524,7 +530,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFi
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;org.dellroad.stuff.vaadin22.field.<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></h3>
-<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#addFieldComponents-com.vaadin.flow.component.formlayout.FormLayout-">addFieldComponents</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#applyFieldDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyFieldDefaultAnnotations</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#bindFields-com.vaadin.flow.data.binder.Binder-">bindFields</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#buildProvidedField-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-org.dellroad.stuff.java.MethodAnnotationScanner.MethodInfo-java.lang.Object-">buildProvidedField</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-java.util.function.BiFunction-">createBindingInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getAnnotationDefaultsMethod--">getAnnotationDefaultsMethod</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getAnnotationDefaultsMethodName--">getAnnotationDefaultsMethodName</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getDefaultsFor-A-">getDefaultsFor</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getDefaultsFor-java.lang.Class-">getDefaultsFor</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getFieldComponents--">getFieldComponents</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getImplementationPropertyName--">getImplementationPropertyName</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getScannedFieldDefaults--">getScannedFieldDefaults</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getScannedProperties--">getScannedProperties</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getType--">getType</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">instantiate</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#newFieldBuilderContext-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">newFieldBuilderContext</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#scanForAnnotations--">scanForAnnotations</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#scanForFieldDefaultAnnotations-java.lang.Class-">scanForFieldDefaultAnnotations</a></code></li>
+<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#addFieldComponents-com.vaadin.flow.component.formlayout.FormLayout-">addFieldComponents</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#applyFieldDefaultAnnotations-com.vaadin.flow.component.HasValue-java.lang.Class-">applyFieldDefaultAnnotations</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#bindFields-com.vaadin.flow.data.binder.Binder-">bindFields</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#buildProvidedField-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-org.dellroad.stuff.java.MethodAnnotationScanner.MethodInfo-java.lang.Object-">buildProvidedField</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.EnabledBy-java.util.function.BiFunction-">createBindingInfo</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getAnnotationDefaultsMethod--">getAnnotationDefaultsMethod</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getAnnotationDefaultsMethodName--">getAnnotationDefaultsMethodName</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getDefaultsFor-A-">getDefaultsFor</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getDefaultsFor-java.lang.Class-">getDefaultsFor</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getFieldComponents--">getFieldComponents</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getImplementationPropertyName--">getImplementationPropertyName</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getScannedFieldDefaults--">getScannedFieldDefaults</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getScannedProperties--">getScannedProperties</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#getType--">getType</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">instantiate</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#newFieldBuilderContext-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">newFieldBuilderContext</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#scanForAnnotations--">scanForAnnotations</a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#scanForFieldDefaultAnnotations-java.lang.Class-">scanForFieldDefaultAnnotations</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">

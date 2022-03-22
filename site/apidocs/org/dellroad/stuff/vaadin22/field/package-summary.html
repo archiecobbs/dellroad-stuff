@@ -96,7 +96,7 @@
 <tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a>&lt;E extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;V&gt;,V&gt;</td>
 <td class="colLast">
-<div class="block">Implemented by fields that are also capable of validating field values.</div>
+<div class="block">Implemented by fields that are themselves capable of validating field values.</div>
 </td>
 </tr>
 </tbody>
@@ -159,7 +159,7 @@
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a>&lt;T&gt;</td>
 <td class="colLast">
 <div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
- which controls whether the value is null or not.</div>
+ that controls whether the value is null or not.</div>
 </td>
 </tr>
 </tbody>
@@ -180,154 +180,161 @@
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.EnabledBy</a></td>
+<td class="colLast">
+<div class="block">Causes the generated field to be automatically enabled or disabled based on the value of some other field.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldDefault</a></td>
 <td class="colLast">
 <div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
  by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a></td>
 <td class="colLast">
 <div class="block">Configures how <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder.addFieldComponents()</code></a>
  adds a generated field to a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a></td>
 <td class="colLast">
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>,
+ which adds a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> that controls whether the value is null or not.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.ProvidesField</a></td>
 <td class="colLast">
 <div class="block">Specifies that the annotated method will create a field suitable for editing the specified property.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFieldBuilder.GridMultiSelect.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractGridFieldBuilder.GridMultiSelect</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true" title="class or interface in com.vaadin.flow.component.grid"><code>Grid</code></a>
  converted to a multi-select field via <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true#asMultiSelect--" title="class or interface in com.vaadin.flow.component.grid"><code>Grid.asMultiSelect()</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractGridFieldBuilder.GridSingleSelect.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractGridFieldBuilder.GridSingleSelect</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true" title="class or interface in com.vaadin.flow.component.grid"><code>Grid</code></a>
  converted to a single-select field via <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/grid/Grid.html?is-external=true#asSingleSelect--" title="class or interface in com.vaadin.flow.component.grid"><code>Grid.asSingleSelect()</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.BigDecimalField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.BigDecimalField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/BigDecimalField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>BigDecimalField</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.Checkbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.Checkbox</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.CheckboxGroup.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.CheckboxGroup</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/CheckboxGroup.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>CheckboxGroup</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.ComboBox.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.ComboBox</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/combobox/ComboBox.html?is-external=true" title="class or interface in com.vaadin.flow.component.combobox"><code>ComboBox</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.CustomField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.CustomField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.DatePicker.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.DatePicker</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/datepicker/DatePicker.html?is-external=true" title="class or interface in com.vaadin.flow.component.datepicker"><code>DatePicker</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.DateTimePicker.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.DateTimePicker</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/datetimepicker/DateTimePicker.html?is-external=true" title="class or interface in com.vaadin.flow.component.datetimepicker"><code>DateTimePicker</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.EmailField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.EmailField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/EmailField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>EmailField</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.Input.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.Input</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/html/Input.html?is-external=true" title="class or interface in com.vaadin.flow.component.html"><code>Input</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.IntegerField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.IntegerField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/IntegerField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>IntegerField</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.ListBox.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.ListBox</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/listbox/ListBox.html?is-external=true" title="class or interface in com.vaadin.flow.component.listbox"><code>ListBox</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.MultiSelectListBox.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.MultiSelectListBox</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/listbox/MultiSelectListBox.html?is-external=true" title="class or interface in com.vaadin.flow.component.listbox"><code>MultiSelectListBox</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.NumberField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.NumberField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/NumberField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>NumberField</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.PasswordField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.PasswordField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/PasswordField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>PasswordField</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.RadioButtonGroup.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.RadioButtonGroup</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/radiobutton/RadioButtonGroup.html?is-external=true" title="class or interface in com.vaadin.flow.component.radiobutton"><code>RadioButtonGroup</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.Select.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.Select</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/select/Select.html?is-external=true" title="class or interface in com.vaadin.flow.component.select"><code>Select</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.TextArea.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.TextArea</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/TextArea.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>TextArea</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.TextField.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.TextField</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/textfield/TextField.html?is-external=true" title="class or interface in com.vaadin.flow.component.textfield"><code>TextField</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.TimePicker.html" title="annotation in org.dellroad.stuff.vaadin22.field">FieldBuilder.TimePicker</a></td>
 <td class="colLast">
 <div class="block">Specifies how a Java bean property should be edited using a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/timepicker/TimePicker.html?is-external=true" title="class or interface in com.vaadin.flow.component.timepicker"><code>TimePicker</code></a>.</div>

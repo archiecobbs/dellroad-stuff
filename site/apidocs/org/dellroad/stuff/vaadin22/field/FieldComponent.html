@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -168,18 +168,24 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="type parameter in FieldComponent">V</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html#getAbstractField--">getAbstractField</a></span>()</code>
+<div class="block">Get this instance's field as an <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a>, assuming that's what it is.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html#getComponent--">getComponent</a></span>()</code>
 <div class="block">Get the component to be displayed.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="type parameter in FieldComponent">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html#getField--">getField</a></span>()</code>
 <div class="block">Get the field bound into the <code>Binder</code>.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html#toString--">toString</a></span>()</code>&nbsp;</td>
 </tr>
@@ -272,6 +278,22 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>field's component</dd>
+</dl>
+</li>
+</ul>
+<a name="getAbstractField--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getAbstractField</h4>
+<pre>public&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField</a>&lt;?,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="type parameter in FieldComponent">V</a>&gt;&nbsp;getAbstractField()</pre>
+<div class="block">Get this instance's field as an <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a>, assuming that's what it is.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>this instance's field</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if this instance's field is not an <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a></dd>
 </dl>
 </li>
 </ul>

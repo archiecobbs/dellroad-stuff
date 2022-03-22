@@ -636,7 +636,30 @@
 <li class="blockList"><a name="org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider">
 <!--   -->
 </a>
-<h3>Class <a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&gt;&gt; implements Serializable</h3>
+<h3>Class <a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ListDataProvider</a>&lt;<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a> extends <a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt; implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockList">
+<h4>session</h4>
+<pre><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a> session</pre>
+</li>
+<li class="blockList">
+<h4>servlet</h4>
+<pre><a href="org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a> servlet</pre>
+</li>
+<li class="blockList">
+<h4>infoCreator</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">T</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">R</a>&gt; infoCreator</pre>
+</li>
+<li class="blockListLast">
+<h4>currentReloadToken</h4>
+<pre><a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html?is-external=true" title="class or interface in java.util.concurrent.atomic">AtomicReference</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html?is-external=true" title="class or interface in java.util.concurrent.atomic">V</a>&gt; currentReloadToken</pre>
+</li>
+</ul>
+</li>
+</ul>
 </li>
 </ul>
 </li>
@@ -750,10 +773,14 @@
 <pre><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">E</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">V</a>&gt;,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">V</a>&gt; enabledField</pre>
 <div class="block">The checkbox (or other boolean field).</div>
 </li>
-<li class="blockListLast">
+<li class="blockList">
 <h4>component</h4>
 <pre><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a> component</pre>
 <div class="block">The inner field component.</div>
+</li>
+<li class="blockListLast">
+<h4>resetOnDisable</h4>
+<pre>boolean resetOnDisable</pre>
 </li>
 </ul>
 </li>

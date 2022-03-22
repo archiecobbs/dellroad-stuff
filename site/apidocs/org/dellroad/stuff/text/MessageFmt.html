@@ -120,6 +120,10 @@ implements <a href="../../../../org/dellroad/stuff/validation/SelfValidating.htm
 <div class="block">POJO representing a <a href="https://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html?is-external=true" title="class or interface in java.text"><code>MessageFormat</code></a> that models its internal structure, supporting arbitrary recursive
  nesting of <a href="https://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html?is-external=true" title="class or interface in java.text"><code>MessageFormat</code></a> with <a href="https://docs.oracle.com/javase/8/docs/api/java/text/ChoiceFormat.html?is-external=true" title="class or interface in java.text"><code>ChoiceFormat</code></a>.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  The point of this class is to make it easier to work with <a href="https://docs.oracle.com/javase/8/docs/api/java/text/MessageFormat.html?is-external=true" title="class or interface in java.text"><code>MessageFormat</code></a> instances by allowing for
  structural introspection and eliminating complex quoting/escaping issues.
@@ -474,7 +478,7 @@ implements <a href="../../../../org/dellroad/stuff/validation/SelfValidating.htm
 
  <p>
  Here's a concrete example:
- <blockquote><pre>
+ <pre><code class="language-java">
  final Object[] args = new Object[] { new Date(1590000000000L) };         // May 20, 2020
 
  final MessageFormat messageFormat = new MessageFormat("date = {0,date,short}", Locale.US);
@@ -492,7 +496,7 @@ implements <a href="../../../../org/dellroad/stuff/validation/SelfValidating.htm
 
  System.out.println("messageFormat1 -&gt; " + messageFormat1.format(args));
  System.out.println("messageFormat2 -&gt; " + messageFormat2.format(args));
- </pre></blockquote>
+ </code></pre>
  This would produce the following output:
  <blockquote><pre>
  messageFormat -&gt; date = 5/20/20

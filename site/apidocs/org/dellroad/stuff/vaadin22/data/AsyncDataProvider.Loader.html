@@ -176,7 +176,15 @@ public static interface <span class="typeNameLabel">AsyncDataProvider.Loader&lt;
  This method returns a <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream"><code>Stream</code></a> but the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream"><code>Stream</code></a> is not actually read in the background thread;
  that operation occurs later, with the <code>VaadinSesion</code> locked, and possibly in a different thread.
  In cases where this matters (e.g., the data is gathered in a per-thread transactions), this method
- may need to proactively pull the data into memory ahead of time.</div>
+ may need to proactively pull the data into memory ahead of time.
+
+ <p>
+ This method may cancel itself by throwing <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/InterruptedException.html?is-external=true" title="class or interface in java.lang"><code>InterruptedException</code></a> unprompted; a <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.LoadListener.html#CANCELED"><code>AsyncDataProvider.LoadListener.CANCELED</code></a>
+ event will be reported.
+
+ <p>
+ If this method returns null, the load fails with an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang"><code>IllegalArgumentException</code></a> and
+ <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.LoadListener.html#FAILED"><code>AsyncDataProvider.LoadListener.FAILED</code></a> is reported).</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>id</code> - unique ID for this load attempt</dd>

@@ -142,6 +142,10 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
 <div class="block">Support superclass that mostly automates the creation of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s for editing any model type
  using sub-fields automatically generated from <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> annotations.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  This class is just a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> that uses a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> to generate the sub-fields.
 
@@ -157,7 +161,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
  <p>
  For example:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  // This is complex type that we wish to edit with a single CustomField
  public class DateInterval {
 
@@ -214,7 +218,7 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
      public DateInterval getTerm() { ... }
      public void setTerm(DateInterval term) { ... }
  }
- </pre></blockquote></div>
+ </code></pre></div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../serialized-form.html#org.dellroad.stuff.vaadin22.field.FieldBuilderCustomField">Serialized Form</a></dd>
@@ -373,6 +377,13 @@ extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomFi
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
 <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#equals-java.lang.Object-" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#finalize--" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#getClass--" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#hashCode--" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notify--" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notifyAll--" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang">toString</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait--" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-int-" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.org.dellroad.stuff.vaadin22.field.ValidatingField">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.dellroad.stuff.vaadin22.field.<a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a></h3>
+<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">addValidation</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.component.HasValue">

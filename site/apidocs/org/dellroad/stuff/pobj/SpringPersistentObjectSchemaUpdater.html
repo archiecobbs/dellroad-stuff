@@ -131,6 +131,11 @@ var activeTableTab = "activeTableTab";
 extends <a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj">PersistentObjectSchemaUpdater</a>&lt;T&gt;
 implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/beans/factory/BeanFactoryAware.html?is-external=true" title="class or interface in org.springframework.beans.factory">BeanFactoryAware</a>, <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true" title="class or interface in org.springframework.beans.factory">InitializingBean</a></pre>
 <div class="block"><a href="../../../../org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> optimized for use with Spring:
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <ul>
  <li><a href="../../../../org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdater.html#getOrderingTieBreaker--"><code>getOrderingTieBreaker()</code></a> is overridden to break ties by ordering updates in the same order
   as they are defined in the bean factory.</li>
@@ -143,7 +148,7 @@ implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api
 
  <p>
  An example of how this class can be combined with custom XML to define an updater and all its updates:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:p="http://www.springframework.org/schema/p"
@@ -184,7 +189,7 @@ implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api
       &lt;!-- Add more schema updates over time as needed and everything just works... --&gt;
 
   &lt;/beans&gt;
- </pre></blockquote></div>
+ </code></pre></div>
 </li>
 </ul>
 </div>

@@ -142,67 +142,89 @@
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></td>
+<td class="colLast">
+<div class="block">A <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io"><code>Reader</code></a> that wraps an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, detects and strips the byte order mark, and then converts
+ bytes into characters accordingly.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></td>
 <td class="colLast">
 <div class="block">Provides an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> view of a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio"><code>ByteBuffer</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/ByteBufferOutputStream.html" title="class in org.dellroad.stuff.io">ByteBufferOutputStream</a></td>
 <td class="colLast">
 <div class="block">Provides an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> view of a <a href="https://docs.oracle.com/javase/8/docs/api/java/nio/ByteBuffer.html?is-external=true" title="class or interface in java.nio"><code>ByteBuffer</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/CSVOutput.html" title="class in org.dellroad.stuff.io">CSVOutput</a></td>
 <td class="colLast">
 <div class="block">CSV file output stream that ensures values are matched to the correct columns.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/FileStreamRepository.html" title="class in org.dellroad.stuff.io">FileStreamRepository</a></td>
 <td class="colLast">
 <div class="block">Provides a file-based implementation of the <a href="../../../../org/dellroad/stuff/io/StreamRepository.html" title="interface in org.dellroad.stuff.io"><code>StreamRepository</code></a> interface with
  the added feature of automated backups.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/IdleTimeoutInputStream.html" title="class in org.dellroad.stuff.io">IdleTimeoutInputStream</a></td>
 <td class="colLast">
 <div class="block">Wraps an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> and enforces a maximum time limit on how long any <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true#read--" title="class or interface in java.io"><code>read()</code></a>
  operation may block.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/InputStreamReader.html" title="class in org.dellroad.stuff.io">InputStreamReader</a></td>
 <td class="colLast">
 <div class="block">Reads zero or more <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>s serialized inside an underlying <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> by an <a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io"><code>OutputStreamWriter</code></a>.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></td>
 <td class="colLast">
-<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> interface given a <a href="../../../../org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io"><code>WriteCallback</code></a> that can write to an
- <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
+<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> interface given a <a href="../../../../org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io"><code>WriteCallback</code></a> that can write to an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></td>
+<td class="colLast">
+<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> interface given a <a href="../../../../org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io"><code>ReadCallback</code></a> that can read from an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
 </td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></td>
-<td class="colLast">
-<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> interface given a <a href="../../../../org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io"><code>ReadCallback</code></a> that can read from an
- <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
-</td>
-</tr>
-<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io">OutputStreamWriter</a></td>
 <td class="colLast">
 <div class="block">Serializes zero or more <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>s inside a single underlying <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><a href="../../../../org/dellroad/stuff/io/PipedStreams.html" title="class in org.dellroad.stuff.io">PipedStreams</a></td>
 <td class="colLast">
 <div class="block">A better piped input/output stream pair.</div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li class="blockList">
+<table class="typeSummary" border="0" cellpadding="3" cellspacing="0" summary="Enum Summary table, listing enums, and an explanation">
+<caption><span>Enum Summary</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Enum</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colFirst"><a href="../../../../org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io">BOM</a></td>
+<td class="colLast">
+<div class="block">Catalog of common byte order marks.</div>
 </td>
 </tr>
 </tbody>

@@ -125,10 +125,14 @@
 extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/renderer/ComponentRenderer.html?is-external=true" title="class or interface in com.vaadin.flow.data.renderer">ComponentRenderer</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>,T&gt;</pre>
 <div class="block">A "do nothing" <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/renderer/ComponentRenderer.html?is-external=true" title="class or interface in com.vaadin.flow.data.renderer"><code>ComponentRenderer</code></a> used to render property values that are already <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>Component</code></a>'s.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  This becomes the default <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html#renderer--"><code>renderer()</code></a> for <a href="../../../../../org/dellroad/stuff/vaadin22/grid/GridColumn.html" title="annotation in org.dellroad.stuff.vaadin22.grid"><code>&#64;GridColumn</code></a> annotations
  on methods that return sub-types of <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>Component</code></a>:
- <blockquote><pre>
+ <pre><code class="language-java">
  public class User {
 
      // Render username normally - no special Renderer is used
@@ -143,7 +147,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/ren
      <b>&#64;GridColumn(header = "Status", width = "64px")</b>
      public Image getStatus() { ... }
  }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  This class adds graceful handling of null values; null values are converted into empty <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Text.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>Text</code></a> components.</div>

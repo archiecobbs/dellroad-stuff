@@ -114,10 +114,15 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <div class="block">Utility class that makes it slightly easier to model <a href="https://docs.oracle.com/javase/8/docs/api/java/util/Map.html?is-external=true" title="class or interface in java.util"><code>Map</code></a> properties in JiBX.
  This class can be used to represent entries in the map, each of which is modeled in XML as a separate XML element.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  For example, suppose you have a class <code>Company</code> and want to add a <code>directory</code> property that has
  type <code>Map&lt;String, Person&gt;</code>:
- <blockquote><pre>
+ <pre><code class="language-java">
  public class Company {
      private Map&lt;String, Person&gt; directory = new HashMap&lt;String, Person&gt;();
 
@@ -129,13 +134,13 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
          this.directory = directory;
      }
  }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Because the JiBX binding process modifies class files, you first need to create your own subclass of <a href="../../../../org/dellroad/stuff/jibx/MapEntry.html" title="class in org.dellroad.stuff.jibx"><code>MapEntry</code></a>
  that can be modified. In this example, we'll use an inner class of <code>Company</code>. In addition, you also need to add
  JiBX "add-method" and "iter-method" helper methods. The resulting new code might look like this:
- <blockquote><pre>
+ <pre><code class="language-java">
      // JiBX holder for a single entry in the Directory map
      public static class DirectoryEntry extends MapEntry&lt;String, Person&gt; {
         public String getKey()   { return super.getKey();   }   // JiBX requires exact return types
@@ -151,11 +156,11 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
      Iterator&lt;DirectoryEntry&gt; iterateDirectoryEntries() {
          return MapEntry.iterate(this.directory, DirectoryEntry.class);
      }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Then in your JiBX binding definition, you would do something like this:
- <blockquote><pre>
+ <pre><code class="language-xml">
  &lt;binding package="com.example"&gt;
 
      &lt;!-- Include XML mapping definition for a Person object (having type-name "person") --&gt;
@@ -176,10 +181,10 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
          &lt;!-- other properties... --&gt;
      &lt;/mapping&gt;
  &lt;/binding&gt;
- </pre></blockquote>
+ </code></pre>
 
  Then the resulting XML would end up looking something like this:
- <blockquote><pre>
+ <pre><code class="language-xml">
  &lt;Company&gt;
      &lt;Directory&gt;
          &lt;DirectoryEntry name="George Washington"&gt;
@@ -195,7 +200,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
      &lt;/Directory&gt;
      &lt;!-- other properties... --&gt;
  &lt;/Company&gt;
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Note that during unmarshalling, the <code>Map</code> itself is not created; it is expected to already exist

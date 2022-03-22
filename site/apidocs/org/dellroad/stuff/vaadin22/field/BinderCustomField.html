@@ -142,46 +142,61 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingF
 <div class="block">Support superclass for <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>s containing sub-fields that are managed by an internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.
 
  <p>
- As with many <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>'s, this class this allows editing instances of a complex value type having multiple
- distinct properties as a single bound property within some larger containing class. The main purpose of this class
- is to add an internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> so both the individual sub-fields and the overall value can be properly validated.
-
- <p><b>Binding</b>
+ As with many <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a>'s, this class this allows editing a complex value type as a single bound
+ property using multiple sub-fields. A common example is a date range value, which is a composite of two <a href="https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html?is-external=true" title="class or interface in java.time"><code>LocalDate</code></a>
+ values representing start and end date.
 
  <p>
- Although a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> may be bound to a property in some larger containing class' <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>,
- each <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> also contains its own internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> to which its private sub-fields are bound.
- Subclasses can customize this <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> by overriding <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createBinder--"><code>createBinder()</code></a>.
-
- <p>
- The value of a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> is created by applying the values of these sub-fields to a
- <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createNewBean--">a newly created bean</a>. However, the value of a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> remains
- <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true#getEmptyValue--" title="class or interface in com.vaadin.flow.component">the empty value</a> as long as the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> remains invalid.
-
- <p>
- To create new instances, the value type must have a public zero-arg constructor; otherwise, override <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createNewBean--"><code>createNewBean()</code></a>.
-
- <p><b>Validation</b>
-
- <p>
- Individual sub-fields will be validated normally using the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>; however, this class also implements
- <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>ValidatingField</code></a> to support recursive validation of the overall field value by the field itself.
-
- <p>
- So subclasses can override <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-"><code>validate()</code></a> to apply validation contraints that span multiple sub-fields
- (see also <a href="../../../../../org/dellroad/stuff/vaadin22/util/WholeBeanValidator.html" title="class in org.dellroad.stuff.vaadin22.util"><code>WholeBeanValidator</code></a> for an alternate way to do this via JSR 303 "whole bean" validation constraints).
- Note that this "whole bean" validation affects in the outer (containing) <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>, not the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>
- mentioned above.
-
- <p>
- However, for this to work some code must register the field as a validator in the outer binding. Note, this happens
- automatically when the field is created by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a>.
+ The purpose of this class is to add an internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> so that the individual sub-fields can be properly
+ (and separately) validated. This class also includes support for validating the overall value, for example,
+ requiring the date range start date to be prior to the end date.
 
  <p>
  <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
   <source src="doc-files/CustomFieldAnimation.webm" type="video/webm">
   <span>[Video not supported]</span>
  </video>
+
+ <p><b>Binding</b>
+
+ <p>
+ Although a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> may be bound as a field to a property in some larger containing class' <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>,
+ each <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> also contains its own internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> to which its private sub-fields are bound.
+
+ <p>
+ Subclasses can customize this internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> by overriding <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createBinder--"><code>createBinder()</code></a>.
+
+ <p><b>Field Value</b>
+
+ <p>
+ The value of a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> is generated by <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createNewBean--">creating a new bean instance</a> and then
+ applying the values of the internal sub-fields to it.
+
+ <p>
+ In order for this class to create new instances, its value type must have a public zero-arg constructor; otherwise,
+ the subclass must override <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#createNewBean--"><code>createNewBean()</code></a>.
+
+ <p>
+ In any case, the value of a <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a> remains <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true#getEmptyValue--" title="class or interface in com.vaadin.flow.component">its empty value</a>
+ as long as any of its sub-fields remain in an invalid state according to the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.
+
+ <p><b>Binders and Validation</b>
+
+ <p>
+ Individual sub-fields are validated normally using the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>; however, this guarantees only that
+ the sub-fields are valid. It does not validate this <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a>'s value, which is derived from a combination
+ of the sub-fields; normally, that's the responsibilty of some outer <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>, not the internal <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.
+
+ <p>
+ Subclasses can override <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-"><code>validate()</code></a> to implement "whole bean" validation contraints on
+ this <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a>'s value. However, for whole bean validation to have any effect, some code must register
+ the validation provided by <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-"><code>validate()</code></a> to the outer binding. This happens automatically when this
+ field is created by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a>, or by any other mechanism which recognizes the <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>ValidatingField</code></a> interface
+ (which this class implements). In particular, it's possible to recursively nest <a href="../../../../../org/dellroad/stuff/vaadin22/field/BinderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>BinderCustomField</code></a>'s using
+ <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> annotations and have proper validation at each level.
+
+ <p>
+ See also <a href="../../../../../org/dellroad/stuff/vaadin22/util/WholeBeanValidator.html" title="class in org.dellroad.stuff.vaadin22.util"><code>WholeBeanValidator</code></a> for another way to do "whole bean" validation using JSR 303 validation constraints.
 
  <p><b>Layout</b>
 
@@ -370,6 +385,13 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingF
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
 <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#equals-java.lang.Object-" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#finalize--" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#getClass--" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#hashCode--" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notify--" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notifyAll--" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang">toString</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait--" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-int-" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.org.dellroad.stuff.vaadin22.field.ValidatingField">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.dellroad.stuff.vaadin22.field.<a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a></h3>
+<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">addValidation</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.component.HasValue">

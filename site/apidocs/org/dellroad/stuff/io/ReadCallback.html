@@ -155,7 +155,10 @@ public interface <span class="typeNameLabel">ReadCallback</span></pre>
 <h4>readFrom</h4>
 <pre>void&nbsp;readFrom(<a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io">InputStream</a>&nbsp;input)
        throws <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
-<div class="block">Read from the given input stream.</div>
+<div class="block">Read from the given input stream.
+
+ <p>
+ This method should not <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true#close--" title="class or interface in java.io"><code>close()</code></a> the given <code>input</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>input</code> - input stream</dd>

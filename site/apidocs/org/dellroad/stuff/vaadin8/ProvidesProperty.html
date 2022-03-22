@@ -100,6 +100,10 @@ public @interface <span class="memberNameLabel">ProvidesProperty</span></pre>
 <div class="block">Provides the information necessary to auto-generate a <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/data/PropertyDefinition.html?is-external=true" title="class or interface in com.vaadin.data"><code>PropertyDefinition</code></a> based on the
  annotated getter method.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  <a href="../../../../org/dellroad/stuff/vaadin8/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin8"><code>&#64;ProvidesProperty</code></a> method annotations can be used to automatically generate a
  <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/data/PropertySet.html?is-external=true" title="class or interface in com.vaadin.data"><code>PropertySet</code></a>'s using a <a href="../../../../org/dellroad/stuff/vaadin8/ProvidesPropertyScanner.html" title="class in org.dellroad.stuff.vaadin8"><code>ProvidesPropertyScanner</code></a>. The resulting
@@ -112,7 +116,7 @@ public @interface <span class="memberNameLabel">ProvidesProperty</span></pre>
 
  <p>
  For example:
- <blockquote><pre>
+ <pre><code class="language-java">
  // Container backing object class
  public class User {
 
@@ -147,7 +151,7 @@ public @interface <span class="memberNameLabel">ProvidesProperty</span></pre>
  Grid&lt;User&gt; grid = Grid.withPropertySet(new ProvidesPropertyScanner(User.class).getPropertySet());
  grid.setVisibleColumns(User.USERNAME_PROPERTY, User.REAL_NAME_PROPERTY);
  ...
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Some details regarding <a href="../../../../org/dellroad/stuff/vaadin8/ProvidesProperty.html" title="annotation in org.dellroad.stuff.vaadin8"><code>&#64;ProvidesProperty</code></a> annotations:

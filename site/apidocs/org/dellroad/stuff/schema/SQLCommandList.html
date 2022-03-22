@@ -118,6 +118,10 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" title="interface in org.dellroad.stuff.schema">DatabaseAction</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/sql/Connection.html?is-external=true" title="class or interface in java.sql">Connection</a>&gt;</pre>
 <div class="block">Holds and executes a configured SQL script, possibly containing multiple statements.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  If the script contains multiple SQL statements, individual statements will be executed individually, in order, by
  <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html#apply-java.sql.Connection-"><code>apply()</code></a>; however, this requires proper configuration of the <a href="../../../../org/dellroad/stuff/schema/SQLCommandList.html#setSplitPattern-java.lang.String-">split pattern</a>.
@@ -130,7 +134,7 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
 
  <p>
  For example:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;beans xmlns="http://www.springframework.org/schema/beans"
     <b>xmlns:dellroad-stuff="http://dellroad-stuff.googlecode.com/schema/dellroad-stuff"</b>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -149,7 +153,7 @@ implements <a href="../../../../org/dellroad/stuff/schema/DatabaseAction.html" t
       &lt;!-- other beans... --&gt;
 
   &lt;/beans&gt;
- </pre></blockquote></div>
+ </code></pre></div>
 </li>
 </ul>
 </div>

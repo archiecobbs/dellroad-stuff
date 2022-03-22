@@ -133,6 +133,10 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
 <div class="block">A variant of <code>SpringServlet</code> that doesn't require Spring Boot, supports traditional
  XML configuration for Spring and servlets via <code>web.xml</code>, and adds support for tracking and limiting sessions.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  This class needs a way to find the <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/context/ApplicationContext.html?is-external=true" title="class or interface in org.springframework.context"><code>ApplicationContext</code></a>; this is done by <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html#findApplicationContext--"><code>findApplicationContext()</code></a>.
  The implementation in this class obtains the <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/context/ApplicationContext.html?is-external=true" title="class or interface in org.springframework.context"><code>ApplicationContext</code></a> from the
@@ -145,7 +149,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
  <p>
  You can accomplish both of these tasks by including a class like this in your application context:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  import com.vaadin.flow.spring.annotation.EnableVaadin;
  import org.dellroad.stuff.spring.Springleton;
 
@@ -156,7 +160,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
          return (MySpringleton)Springleton.getInstance();
      }
  }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  You may also need to include an <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/page/AppShellConfigurator.html?is-external=true" title="class or interface in com.vaadin.flow.component.page"><code>AppShellConfigurator</code></a> bean with the appropriate application-wide annotations.
@@ -188,7 +192,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
   If set to <code>true</code>, then <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html#getSessions--"><code>getSessions()</code></a> can be used to access all active sessions.
   Session tracking should not be used unless sessions are normally kept in memory; e.g., don't use session tracking
   when sessions are being serialized and persisted, or when this servlet may be serialized.
-  See also <code>VaadinSessionDataProvider</code>.
+  See also <a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><code>VaadinSessionDataProvider</code></a>.
  </td>
  </tr>
  <tr>
@@ -204,7 +208,8 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
  </div></div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="https://github.com/vaadin/spring/issues/560">vaadin-spring issue #560</a>, 
+<dd><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><code>VaadinSessionDataProvider</code></a>, 
+<a href="https://github.com/vaadin/spring/issues/560">vaadin-spring issue #560</a>, 
 <a href="../../../../../serialized-form.html#org.dellroad.stuff.vaadin22.servlet.SimpleSpringServlet">Serialized Form</a></dd>
 </dl>
 </li>
@@ -432,8 +437,10 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/V
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>live tracked sessions, or an empty collection if session tracking is not enabled</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this servlet instance has been serialized</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><code>VaadinSessionDataProvider</code></dd>
+<dd><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><code>VaadinSessionDataProvider</code></a></dd>
 </dl>
 </li>
 </ul>

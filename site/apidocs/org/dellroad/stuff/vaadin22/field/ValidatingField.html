@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var methods = {"i0":18,"i1":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -116,19 +116,22 @@ var activeTableTab = "activeTableTab";
 <br>
 <pre>public interface <span class="typeNameLabel">ValidatingField&lt;E extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;V&gt;,V&gt;</span>
 extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue</a>&lt;E,V&gt;</pre>
-<div class="block">Implemented by fields that are also capable of validating field values.
+<div class="block">Implemented by fields that are themselves capable of validating field values.
 
  <p>
  The main purpose of doing things this way is modularity: it allows a field to define its own validation logic,
- rather than relying on some external component to do so.
+ rather than relying on some external component to do so. Of course, this only works for validation checks that
+ can be done by the field itself and are therefore independent of the containing context (e.g., other fields).
 
  <p>
- This interface would typically be implemented by complex fields composed from sub-fields, for which some overall validation
- needs to be performed. See <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderCustomField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilderCustomField</code></a> for a motivating example.
+ This interface would typically be implemented by complex fields composed from sub-fields for which some overall validation
+ is required. For example, imagine a date range field composed of two <code>LocalDate</code> fields representing the start
+ and end date: an overall validation would require that the start date be prior to the end date.
 
  <p>
- <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> recognizes fields implementing this interface and automatically registers them
- as an additional <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> when binding the field.</div>
+ However, for any <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>ValidatingField</code></a> validation to take effect, some mechanism must register the validation with
+ an appropriate <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>. This happens automatically for fields created by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a>, but can also
+ be done manually via <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-"><code>addValidation()</code></a>.</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a>, 
@@ -163,12 +166,18 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/componen
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>default &lt;BEAN,TARGET extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt;<br><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.BindingBuilder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">Binder.BindingBuilder</a>&lt;BEAN,TARGET&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">addValidation</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.BindingBuilder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">Binder.BindingBuilder</a>&lt;BEAN,TARGET&gt;&nbsp;builder)</code>
+<div class="block">Add this instance as a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> to the given binding.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValidationResult.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">ValidationResult</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#validate-V-com.vaadin.flow.data.binder.ValueContext-">validate</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&nbsp;value,
         <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValueContext.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">ValueContext</a>&nbsp;context)</code>
@@ -202,7 +211,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/componen
 </a><a name="validate-V-com.vaadin.flow.data.binder.ValueContext-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>validate</h4>
 <pre><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValidationResult.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">ValidationResult</a>&nbsp;validate(<a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&nbsp;value,
@@ -214,6 +223,27 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/componen
 <dd><code>context</code> - the value context for validation</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the validation result</dd>
+</dl>
+</li>
+</ul>
+<a name="addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>addValidation</h4>
+<pre>default&nbsp;&lt;BEAN,TARGET extends <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt;&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.BindingBuilder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">Binder.BindingBuilder</a>&lt;BEAN,TARGET&gt;&nbsp;addValidation(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.BindingBuilder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">Binder.BindingBuilder</a>&lt;BEAN,TARGET&gt;&nbsp;builder)</pre>
+<div class="block">Add this instance as a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> to the given binding.</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>BEAN</code> - binder bean type</dd>
+<dd><code>TARGET</code> - binding target type</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>builder</code> - binding builder</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>updated binding builder</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>builder</code> is null</dd>
 </dl>
 </li>
 </ul>

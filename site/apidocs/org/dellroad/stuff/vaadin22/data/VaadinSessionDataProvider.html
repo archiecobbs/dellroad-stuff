@@ -18,6 +18,12 @@
     catch(err) {
     }
 //-->
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 </script>
 <noscript>
 <div>JavaScript is disabled on your browser.</div>
@@ -43,7 +49,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/data/MapPropertySet.Definition.Getter.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -68,16 +74,16 @@
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.classes.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">Nested</a>&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.top">
@@ -87,25 +93,20 @@
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">org.dellroad.stuff.vaadin22.data</div>
-<h2 title="Class VaadinSessionDataProvider" class="title">Class VaadinSessionDataProvider</h2>
+<h2 title="Class VaadinSessionDataProvider" class="title">Class VaadinSessionDataProvider&lt;T extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">java.lang.Object</a></li>
 <li>
 <ul class="inheritance">
-<li><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">com.vaadin.flow.data.provider.AbstractDataProvider</a>&lt;T,F&gt;</li>
+<li><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">com.vaadin.flow.data.provider.AbstractDataProvider</a>&lt;T,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/function/SerializablePredicate.html?is-external=true" title="class or interface in com.vaadin.flow.function">SerializablePredicate</a>&lt;T&gt;&gt;</li>
 <li>
 <ul class="inheritance">
-<li><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractBackEndDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">com.vaadin.flow.data.provider.AbstractBackEndDataProvider</a>&lt;T,F&gt;</li>
+<li><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">com.vaadin.flow.data.provider.ListDataProvider</a>&lt;T&gt;</li>
 <li>
 <ul class="inheritance">
-<li><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">com.vaadin.flow.data.provider.CallbackDataProvider</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&gt;&gt;</li>
-<li>
-<ul class="inheritance">
-<li>org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider</li>
-</ul>
-</li>
+<li>org.dellroad.stuff.vaadin22.data.VaadinSessionDataProvider&lt;T&gt;</li>
 </ul>
 </li>
 </ul>
@@ -118,17 +119,23 @@
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/BackEndDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">BackEndDataProvider</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&gt;&gt;, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/DataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">DataProvider</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&gt;&gt;, <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></dd>
+<dd><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ConfigurableFilterDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ConfigurableFilterDataProvider</a>&lt;T,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/function/SerializablePredicate.html?is-external=true" title="class or interface in com.vaadin.flow.function">SerializablePredicate</a>&lt;T&gt;,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/function/SerializablePredicate.html?is-external=true" title="class or interface in com.vaadin.flow.function">SerializablePredicate</a>&lt;T&gt;&gt;, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/DataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">DataProvider</a>&lt;T,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/function/SerializablePredicate.html?is-external=true" title="class or interface in com.vaadin.flow.function">SerializablePredicate</a>&lt;T&gt;&gt;, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">InMemoryDataProvider</a>&lt;T&gt;, <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">VaadinSessionDataProvider</span>
-extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html?is-external=true" title="class or interface in java.util.function">Predicate</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&gt;&gt;</pre>
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/DataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider"><code>DataProvider</code></a> that contains all live <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>s.
+<pre>public class <span class="typeNameLabel">VaadinSessionDataProvider&lt;T extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt;</span>
+extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ListDataProvider</a>&lt;T&gt;</pre>
+<div class="block">A <code>DataProvider</code> that provides an object corresponding to each live <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.
 
  <p>
- The sessions are retrieved from the <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>, which must be configured
- with session tracking enabled.</div>
+ The sessions are retrieved from the <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>, which must be configured with session tracking enabled.
+
+ <p>
+ Sessions are represented by <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><code>SessionInfo</code></a>, which may be subclassed to add application-specific information
+ (e.g., currently logged-in user).
+
+ <p>
+ Sessions are orderded by reverse creation time (newest first).</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>, 
@@ -140,19 +147,31 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
+<!-- =========== FIELD SUMMARY =========== -->
 <ul class="blockList">
-<li class="blockList"><a name="nested.class.summary">
+<li class="blockList"><a name="field.summary">
 <!--   -->
 </a>
-<h3>Nested Class Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a name="nested.classes.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from class&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider</a></h3>
-<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.CountCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider.CountCallback</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.CountCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">T</a>,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.CountCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">F</a>&gt;, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.FetchCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider.FetchCallback</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.FetchCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">T</a>,<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.FetchCallback.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">F</a>&gt;</code></li>
-</ul>
+<h3>Field Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Field Summary table, listing fields, and an explanation">
+<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Field and Description</th>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#infoCreator">infoCreator</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>protected <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#servlet">servlet</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>protected <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#session">session</a></span></code>&nbsp;</td>
+</tr>
+</table>
 </li>
 </ul>
 <!-- ======== CONSTRUCTOR SUMMARY ======== -->
@@ -167,17 +186,13 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider--">VaadinSessionDataProvider</a></span>()</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-java.util.function.Function-">VaadinSessionDataProvider</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;infoCreator)</code>
 <div class="block">Create an instance from the current <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-org.dellroad.stuff.vaadin22.servlet.SimpleSpringServlet-">VaadinSessionDataProvider</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a>&nbsp;servlet)</code>
-<div class="block">Create an instance from the provided <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</div>
-</td>
-</tr>
-<tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-">VaadinSessionDataProvider</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&nbsp;session)</code>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-java.util.function.Function-">VaadinSessionDataProvider</a></span>(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&nbsp;session,
+                         <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;infoCreator)</code>
 <div class="block">Create an instance from the provided <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
 </td>
 </tr>
@@ -190,19 +205,59 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <!--   -->
 </a>
 <h3>Method Summary</h3>
+<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<tr>
+<th class="colFirst" scope="col">Modifier and Type</th>
+<th class="colLast" scope="col">Method and Description</th>
+</tr>
+<tr id="i0" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#applyUpdates-java.util.List-">applyUpdates</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;sessionInfoList)</code>
+<div class="block">Reload this data provider's items after a successful reload operation.</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#cancel--">cancel</a></span>()</code>
+<div class="block">Cancel any outstanding reload operation.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#getId-T-">getId</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&nbsp;item)</code></td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#getItems--">getItems</a></span>()</code>
+<div class="block">Get the <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><code>SessionInfo</code></a>'s currently in this container.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#isReloading--">isReloading</a></span>()</code>
+<div class="block">Determine if there is any outstanding asynchronous reload operation in progress.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#reload-java.util.concurrent.atomic.AtomicReference-">reload</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html?is-external=true" title="class or interface in java.util.concurrent.atomic">AtomicReference</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;?&gt;&gt;&nbsp;reloadToken)</code>
+<div class="block">Reload this data provider.</div>
+</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#reload-java.util.function.Function-">reload</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>,? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;?&gt;&gt;&nbsp;executor)</code>
+<div class="block">Reload this data provider using the given asynchronous executor.</div>
+</td>
+</tr>
+</table>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">
+<li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.ListDataProvider">
 <!--   -->
 </a>
-<h3>Methods inherited from class&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">CallbackDataProvider</a></h3>
-<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true#fetchFromBackEnd-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">fetchFromBackEnd</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true#getId-T-" title="class or interface in com.vaadin.flow.data.provider">getId</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/CallbackDataProvider.html?is-external=true#sizeInBackEnd-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">sizeInBackEnd</a></code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.AbstractBackEndDataProvider">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractBackEndDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">AbstractBackEndDataProvider</a></h3>
-<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractBackEndDataProvider.html?is-external=true#fetch-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">fetch</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractBackEndDataProvider.html?is-external=true#setSortOrders-java.util.List-" title="class or interface in com.vaadin.flow.data.provider">setSortOrders</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractBackEndDataProvider.html?is-external=true#size-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">size</a></code></li>
+<h3>Methods inherited from class&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ListDataProvider</a></h3>
+<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#fetch-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">fetch</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#getFilter--" title="class or interface in com.vaadin.flow.data.provider">getFilter</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#getSortComparator--" title="class or interface in com.vaadin.flow.data.provider">getSortComparator</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#setFilter-com.vaadin.flow.function.SerializablePredicate-" title="class or interface in com.vaadin.flow.data.provider">setFilter</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#setSortComparator-com.vaadin.flow.function.SerializableComparator-" title="class or interface in com.vaadin.flow.data.provider">setSortComparator</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#size-com.vaadin.flow.data.provider.Query-" title="class or interface in com.vaadin.flow.data.provider">size</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.AbstractDataProvider">
@@ -219,11 +274,11 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#equals-java.lang.Object-" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#finalize--" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#getClass--" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#hashCode--" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notify--" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notifyAll--" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang">toString</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait--" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-int-" title="class or interface in java.lang">wait</a></code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.BackEndDataProvider">
+<li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.InMemoryDataProvider">
 <!--   -->
 </a>
-<h3>Methods inherited from interface&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/BackEndDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">BackEndDataProvider</a></h3>
-<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/BackEndDataProvider.html?is-external=true#isInMemory--" title="class or interface in com.vaadin.flow.data.provider">isInMemory</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/BackEndDataProvider.html?is-external=true#setSortOrder-com.vaadin.flow.data.provider.QuerySortOrder-" title="class or interface in com.vaadin.flow.data.provider">setSortOrder</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/BackEndDataProvider.html?is-external=true#setSortOrders-com.vaadin.flow.data.provider.QuerySortOrderBuilder-" title="class or interface in com.vaadin.flow.data.provider">setSortOrders</a></code></li>
+<h3>Methods inherited from interface&nbsp;com.vaadin.flow.data.provider.<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">InMemoryDataProvider</a></h3>
+<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#addFilter-com.vaadin.flow.function.SerializablePredicate-" title="class or interface in com.vaadin.flow.data.provider">addFilter</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#addFilter-com.vaadin.flow.function.ValueProvider-com.vaadin.flow.function.SerializablePredicate-" title="class or interface in com.vaadin.flow.data.provider">addFilter</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#addFilterByValue-com.vaadin.flow.function.ValueProvider-V-" title="class or interface in com.vaadin.flow.data.provider">addFilterByValue</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#addSortComparator-com.vaadin.flow.function.SerializableComparator-" title="class or interface in com.vaadin.flow.data.provider">addSortComparator</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#addSortOrder-com.vaadin.flow.function.ValueProvider-com.vaadin.flow.data.provider.SortDirection-" title="class or interface in com.vaadin.flow.data.provider">addSortOrder</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#clearFilters--" title="class or interface in com.vaadin.flow.data.provider">clearFilters</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringBy-com.vaadin.flow.function.SerializableBiPredicate-" title="class or interface in com.vaadin.flow.data.provider">filteringBy</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringBy-com.vaadin.flow.function.ValueProvider-com.vaadin.flow.function.SerializableBiPredicate-" title="class or interface in com.vaadin.flow.data.provider">filteringBy</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringByEquals-com.vaadin.flow.function.ValueProvider-" title="class or interface in com.vaadin.flow.data.provider">filteringByEquals</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringByPrefix-com.vaadin.flow.function.ValueProvider-" title="class or interface in com.vaadin.flow.data.provider">filteringByPrefix</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringByPrefix-com.vaadin.flow.function.ValueProvider-java.util.Locale-" title="class or interface in com.vaadin.flow.data.provider">filteringByPrefix</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringBySubstring-com.vaadin.flow.function.ValueProvider-" title="class or interface in com.vaadin.flow.data.provider">filteringBySubstring</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#filteringBySubstring-com.vaadin.flow.function.ValueProvider-java.util.Locale-" title="class or interface in com.vaadin.flow.data.provider">filteringBySubstring</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#isInMemory--" title="class or interface in com.vaadin.flow.data.provider">isInMemory</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#setFilter-com.vaadin.flow.function.ValueProvider-com.vaadin.flow.function.SerializablePredicate-" title="class or interface in com.vaadin.flow.data.provider">setFilter</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#setFilterByValue-com.vaadin.flow.function.ValueProvider-V-" title="class or interface in com.vaadin.flow.data.provider">setFilterByValue</a>, <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/InMemoryDataProvider.html?is-external=true#setSortOrder-com.vaadin.flow.function.ValueProvider-com.vaadin.flow.data.provider.SortDirection-" title="class or interface in com.vaadin.flow.data.provider">setSortOrder</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.data.provider.DataProvider">
@@ -240,59 +295,230 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ============ FIELD DETAIL =========== -->
+<ul class="blockList">
+<li class="blockList"><a name="field.detail">
+<!--   -->
+</a>
+<h3>Field Detail</h3>
+<a name="session">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>session</h4>
+<pre>protected final&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a> session</pre>
+</li>
+</ul>
+<a name="servlet">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>servlet</h4>
+<pre>protected final&nbsp;<a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a> servlet</pre>
+</li>
+</ul>
+<a name="infoCreator">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>infoCreator</h4>
+<pre>protected final&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a> extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt; infoCreator</pre>
+</li>
+</ul>
+</li>
+</ul>
 <!-- ========= CONSTRUCTOR DETAIL ======== -->
 <ul class="blockList">
 <li class="blockList"><a name="constructor.detail">
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="VaadinSessionDataProvider--">
+<a name="VaadinSessionDataProvider-java.util.function.Function-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>VaadinSessionDataProvider</h4>
-<pre>public&nbsp;VaadinSessionDataProvider()</pre>
-<div class="block">Create an instance from the current <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
+<pre>public&nbsp;VaadinSessionDataProvider(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;infoCreator)</pre>
+<div class="block">Create an instance from the current <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.
+
+ <p>
+ The <code>infoCreator</code> gathers whatever information is needed by this instance from the given session,
+ and may assume that the given session is locked.
+
+ <p>
+ If <code>infoCreator</code> returns null, the session is omitted.</div>
 <dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>infoCreator</code> - extracts data provider information from each session</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is no current <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> associated with the current thread</dd>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinService</code></a> is not a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServletService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServletService</code></a>.</dd>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServlet</code></a> is not a <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>infoCreator</code> is null</dd>
 </dl>
 </li>
 </ul>
-<a name="VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>VaadinSessionDataProvider</h4>
-<pre>public&nbsp;VaadinSessionDataProvider(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&nbsp;session)</pre>
-<div class="block">Create an instance from the provided <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>session</code> - Vaadin session</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinService</code></a> is not a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServletService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServletService</code></a>.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServlet</code></a> is not a <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</dd>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>session</code> is null</dd>
-</dl>
-</li>
-</ul>
-<a name="VaadinSessionDataProvider-org.dellroad.stuff.vaadin22.servlet.SimpleSpringServlet-">
+<a name="VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-java.util.function.Function-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>VaadinSessionDataProvider</h4>
-<pre>public&nbsp;VaadinSessionDataProvider(<a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a>&nbsp;servlet)</pre>
-<div class="block">Create an instance from the provided <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</div>
+<pre>public&nbsp;VaadinSessionDataProvider(<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>&nbsp;session,
+                                 <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server">VaadinSession</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;infoCreator)</pre>
+<div class="block">Create an instance from the provided <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.
+
+ <p>
+ The <code>infoCreator</code> gathers whatever information is needed by this instance from the given session,
+ and may assume that the given session is locked.
+
+ <p>
+ If <code>infoCreator</code> returns null, the session is omitted.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>servlet</code> - servlet to extract sessions from</dd>
+<dd><code>session</code> - Vaadin session</dd>
+<dd><code>infoCreator</code> - extracts data provider information from each session</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>servlet</code> is null</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinService</code></a> is not a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServletService.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServletService</code></a>.</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if the associated <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinServlet.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinServlet</code></a> is not a <a href="../../../../../org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if either parameter is null</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+<!-- ============ METHOD DETAIL ========== -->
+<ul class="blockList">
+<li class="blockList"><a name="method.detail">
+<!--   -->
+</a>
+<h3>Method Detail</h3>
+<a name="getItems--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getItems</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;getItems()</pre>
+<div class="block">Get the <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><code>SessionInfo</code></a>'s currently in this container.</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
+<dd><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true#getItems--" title="class or interface in com.vaadin.flow.data.provider">getItems</a></code>&nbsp;in class&nbsp;<code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/ListDataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider">ListDataProvider</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a> extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt;</code></dd>
+</dl>
+</li>
+</ul>
+<a name="getId-org.dellroad.stuff.vaadin22.data.SessionInfo-">
+<!--   -->
+</a><a name="getId-T-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getId</h4>
+<pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getId(<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&nbsp;item)</pre>
+<div class="block">
+
+ <p>
+ The implementation in <code>VaadinSessionDataProvider</code> returns <code>item.getVaadinSession().getSession().getId()</code>.</div>
+</li>
+</ul>
+<a name="reload-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reload</h4>
+<pre>public&nbsp;void&nbsp;reload(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>,? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;?&gt;&gt;&nbsp;executor)</pre>
+<div class="block">Reload this data provider using the given asynchronous executor.
+
+ <p>
+ If a previous reload operation is still in progress, an <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang"><code>IllegalStateException</code></a> exception is thrown;
+ <a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#isReloading--"><code>isReloading()</code></a> can be checked to avoid that from happening.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>executor</code> - asynchronous executor</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>executor</code> is null</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>executor</code> returns a null <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent"><code>Future</code></a></dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance is already in the process of reloading</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance's <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> is not locked</dd>
+</dl>
+</li>
+</ul>
+<a name="cancel--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>cancel</h4>
+<pre>public&nbsp;boolean&nbsp;cancel()</pre>
+<div class="block">Cancel any outstanding reload operation.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if an outstanding reload was canceled, false if nothing happened</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance's <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> is not locked</dd>
+</dl>
+</li>
+</ul>
+<a name="isReloading--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isReloading</h4>
+<pre>public&nbsp;boolean&nbsp;isReloading()</pre>
+<div class="block">Determine if there is any outstanding asynchronous reload operation in progress.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if an outstanding reload is happening, otherwise false</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if this instance's <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> is not locked</dd>
+</dl>
+</li>
+</ul>
+<a name="reload-java.util.concurrent.atomic.AtomicReference-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>reload</h4>
+<pre>protected&nbsp;void&nbsp;reload(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/atomic/AtomicReference.html?is-external=true" title="class or interface in java.util.concurrent.atomic">AtomicReference</a>&lt;<a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;?&gt;&gt;&nbsp;reloadToken)</pre>
+<div class="block">Reload this data provider.
+
+ <p>
+ This method must <b>not</b> be invoked while holding a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> lock. Instead, use <a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#reload-java.util.function.Function-"><code>reload(Function)</code></a>
+ to trigger an asynchronous reload.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>reloadToken</code> - token representing a particular reload operation</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if there is any <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> associated with the current thread</dd>
+</dl>
+</li>
+</ul>
+<a name="applyUpdates-java.util.List-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>applyUpdates</h4>
+<pre>protected&nbsp;void&nbsp;applyUpdates(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/List.html?is-external=true" title="class or interface in java.util">List</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a>&gt;&nbsp;sessionInfoList)</pre>
+<div class="block">Reload this data provider's items after a successful reload operation.
+
+ <p>
+ The implementation in <a href="../../../../../org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><code>VaadinSessionDataProvider</code></a> reloads this instance's #getItems
+ and then invokes <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/AbstractDataProvider.html?is-external=true#refreshAll--" title="class or interface in com.vaadin.flow.data.provider"><code>AbstractDataProvider.refreshAll()</code></a>.
+
+ <p>
+ This instance's session lock will be held.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sessionInfoList</code> - updated sessions info</dd>
 </dl>
 </li>
 </ul>
@@ -324,7 +550,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../org/dellroad/stuff/vaadin22/data/MapPropertySet.Definition.Getter.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li>Next&nbsp;Class</li>
 </ul>
 <ul class="navList">
@@ -349,16 +575,16 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.classes.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">Nested</a>&nbsp;|&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
+<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
-<li><a href="#methods.inherited.from.class.com.vaadin.flow.data.provider.CallbackDataProvider">Method</a></li>
+<li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li>Field&nbsp;|&nbsp;</li>
+<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
 <li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
-<li>Method</li>
+<li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
 <a name="skip.navbar.bottom">

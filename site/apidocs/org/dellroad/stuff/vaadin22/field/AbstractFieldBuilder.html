@@ -166,9 +166,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <tr class="rowColor">
 <td class="colFirst"><code>class&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></span></code>
-<div class="block">Holds static information gathered for one bean property based on <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Foo</code></a>,
- <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.ProvidesField</code></a>, <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Binding</code></a>,
- <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.NullifyCheckbox</code></a>, and <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
+<div class="block"><a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> static configuration information for one bean property.</div>
 </td>
 </tr>
 <tr class="altColor">
@@ -179,32 +177,39 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>static interface&nbsp;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.EnabledBy</a></span></code>
+<div class="block">Causes the generated field to be automatically enabled or disabled based on the value of some other field.</div>
+</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>protected class&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldBuilderContextImpl.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldBuilderContextImpl</a></span></code>
 <div class="block">Straightforward implementation of the <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderContext.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>FieldBuilderContext</code></a> interface.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FieldDefault</a></span></code>
 <div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
  by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a></span></code>
 <div class="block">Configures how <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder.addFieldComponents()</code></a>
  adds a generated field to a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/formlayout/FormLayout.html?is-external=true" title="class or interface in com.vaadin.flow.component.formlayout"><code>FormLayout</code></a>.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>static interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a></span></code>
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>,
+ which adds a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> that controls whether the value is null or not.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>static interface&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.ProvidesField</a></span></code>
 <div class="block">Specifies that the annotated method will create a field suitable for editing the specified property.</div>
@@ -312,12 +317,13 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-java.util.function.BiFunction-">createBindingInfo</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.EnabledBy-java.util.function.BiFunction-">createBindingInfo</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/reflect/Method.html?is-external=true" title="class or interface in java.lang.reflect">Method</a>&nbsp;method,
                  <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propertyName,
                  <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&nbsp;annotation,
                  <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>&nbsp;binding,
                  <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>&nbsp;formLayout,
                  <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>&nbsp;nullifyCheckbox,
+                 <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.EnabledBy</a>&nbsp;enabledBy,
                  <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;&gt;&nbsp;fieldBuilder)</code>
 <div class="block">Create a <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><code>AbstractFieldBuilder.BindingInfo</code></a>.</div>
 </td>
@@ -384,19 +390,19 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </td>
 </tr>
 <tr id="i16" class="altColor">
-<td class="colFirst"><code>protected &lt;T&gt;&nbsp;T</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">instantiate</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;type,
-           <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>&nbsp;bindingInfo)</code>
-<div class="block">Instantiate a field (or whatever) from the given <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a>.</div>
-</td>
-</tr>
-<tr id="i17" class="rowColor">
-<td class="colFirst"><code>protected &lt;T&gt;&nbsp;T</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;expectedType,
+<td class="colFirst"><code>protected &lt;F&gt;&nbsp;F</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;F&gt;&nbsp;expectedType,
            <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>&nbsp;bindingInfo,
            <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&nbsp;annotation,
            <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propertyName)</code>
 <div class="block">Instantiate a field (or whatever) from the given <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a>-valued annotation property.</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>protected &lt;T&gt;&nbsp;T</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-">instantiate</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;type,
+           <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>&nbsp;bindingInfo)</code>
+<div class="block">Instantiate a field (or whatever) from the given <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a>.</div>
 </td>
 </tr>
 <tr id="i18" class="altColor">
@@ -801,7 +807,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 </dl>
 </li>
 </ul>
-<a name="createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-java.util.function.BiFunction-">
+<a name="createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.EnabledBy-java.util.function.BiFunction-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -813,6 +819,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
                                                              <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.Binding</a>&nbsp;binding,
                                                              <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.FormLayout</a>&nbsp;formLayout,
                                                              <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.NullifyCheckbox</a>&nbsp;nullifyCheckbox,
+                                                             <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.EnabledBy</a>&nbsp;enabledBy,
                                                              <a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html?is-external=true" title="class or interface in java.util.function">BiFunction</a>&lt;<a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>,? super <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="type parameter in AbstractFieldBuilder">T</a>,<a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a>&lt;?&gt;&gt;&nbsp;fieldBuilder)</pre>
 <div class="block">Create a <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><code>AbstractFieldBuilder.BindingInfo</code></a>.</div>
 <dl>
@@ -822,7 +829,8 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <dd><code>annotation</code> - annotation found on <code>method</code></dd>
 <dd><code>binding</code> - associated <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Binding</code></a> annotation, if any</dd>
 <dd><code>formLayout</code> - associated <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.FormLayout</code></a> annotation, if any</dd>
-<dd><code>nullifyCheckbox</code> - checkbox from <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.NullifyCheckbox</code></a></dd>
+<dd><code>nullifyCheckbox</code> - associated from <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.NullifyCheckbox</code></a>, if any</dd>
+<dd><code>enabledBy</code> - associated from <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.EnabledBy</code></a>, if any</dd>
 <dd><code>fieldBuilder</code> - builds the field</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>new <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><code>AbstractFieldBuilder.BindingInfo</code></a></dd>
@@ -885,7 +893,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
 <ul class="blockList">
 <li class="blockList">
 <h4>instantiate</h4>
-<pre>protected&nbsp;&lt;T&gt;&nbsp;T&nbsp;instantiate(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;T&gt;&nbsp;expectedType,
+<pre>protected&nbsp;&lt;F&gt;&nbsp;F&nbsp;instantiate(<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang">Class</a>&lt;F&gt;&nbsp;expectedType,
                             <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a>&nbsp;bindingInfo,
                             <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/annotation/Annotation.html?is-external=true" title="class or interface in java.lang.annotation">Annotation</a>&nbsp;annotation,
                             <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;propertyName)</pre>
@@ -894,6 +902,8 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
  <p>
  We use the <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilderContext.html" title="interface in org.dellroad.stuff.vaadin22.field"><code>FieldBuilderContext</code></a> constructor if available, otherwise default constructor.</div>
 <dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>F</code> - field type</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>expectedType</code> - expected type of thing we're instantiating</dd>
 <dd><code>bindingInfo</code> - binding context</dd>

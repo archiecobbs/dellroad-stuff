@@ -122,6 +122,10 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializable.html?is-external=true" title="class or interface in java.io">Serializable</a></pre>
 <div class="block">Automatically builds a <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/data/Binder.html?is-external=true" title="class or interface in com.vaadin.data"><code>Binder</code></a> and configures and binds fields based on method annotations.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  <a href="../../../../org/dellroad/stuff/vaadin8/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin8"><code>FieldBuilder</code></a> annotations allow for the automatic construction of forms for editing the annotated bean type.
  Annotations specify how bean properties should be edited in a form. As a result, all information about how to edit a Java
@@ -157,7 +161,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
  <p><b>Example</b>
  <p>
  A simple example shows how these annotations are used:
- <blockquote><pre>
+ <pre><code class="language-java">
  // Use a 10 row TextArea to edit the "description" property
  <b>&#64;FieldBuilder.AbstractComponent(caption = "Description:")</b>
  <b>&#64;FieldBuilder.TextArea(rows = 10)</b>
@@ -181,13 +185,13 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
  private static MyCustomField createFoobarField() {
      ...
  }
- </pre></blockquote>
+ </code></pre>
 
  <p><b>Building the Form</b>
  <p>
  Use <a href="../../../../org/dellroad/stuff/vaadin8/FieldBuilder.html#buildAndBind--"><code>FieldBuilder.buildAndBind()</code></a> to setup the <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/data/Binder.html?is-external=true" title="class or interface in com.vaadin.data"><code>Binder</code></a>, and then add the bound
  fields to your form:
- <blockquote><pre>
+ <pre><code class="language-java">
  // Create fields based on FieldBuilder.* annotations
  Binder&lt;Person&gt; binder = <b>new FieldBuilder(Person.class).buildAndBind().getBinder()</b>;
 
@@ -200,7 +204,7 @@ implements <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Serializab
  // Bind a value
  Person person = new Person("Joe Smith", 100);
  binder.setBean(person);
- </pre></blockquote>
+ </code></pre>
 
 
  <p>

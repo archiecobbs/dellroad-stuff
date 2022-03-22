@@ -123,6 +123,11 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
 <div class="block">JiBX Marshaller/Unmarshaller that assigns unique ID's to each object and
  replaces duplicate appearances of the same object with an IDREF reference.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  This class allows for easy ID/IDREF handling for existing classes, with minimal
  modifications to those classes and no custom (un)marshaller subclasses.
@@ -136,7 +141,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
  <p>
  First add the following two pseudo-bean property methods to the classes:
 
- <blockquote><pre>
+ <pre><code class="language-java">
   import org.dellroad.stuff.jibx.IdMapper;
 
   public class Person {
@@ -158,23 +163,23 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
           // do nothing
       }</b>
   }
- </pre></blockquote>
+ </code></pre>
  Note: if you subclass <code>Person.java</code> from a different sub-package, you may need
  to change the access privileges of those methods from <code>private</code> to <code>protected</code>.
 
  <p>
  Next, define a concrete mapping for <code>Person.java</code> and add the <code>id</code> attribute:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;mapping name="Person" class="com.example.Person"&gt;
       <b>&lt;value name="id" style="attribute" ident="def"
         get-method="getJiBXId" set-method="setJiBXId"/&gt;</b>
       &lt;value name="name" field="name"/&gt;
   &lt;/mapping&gt;
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Finally, use <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html" title="class in org.dellroad.stuff.jibx"><code>IdMapper</code></a> as the custom marshaller and unmarshaller wherever a <code>Person</code> appears, e.g.:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;mapping name="Company" class="com.example.Company"&gt;
       &lt;collection name="Employees" field="employees" create-type="java.util.ArrayList"&gt;
           &lt;structure name="Person" type="com.example.Person"
@@ -187,7 +192,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
             unmarshaller="org.dellroad.stuff.jibx.IdMapper"</b>/&gt;
       &lt;/structure&gt;
   &lt;/mapping&gt;
- </pre></blockquote>
+ </code></pre>
  Note the <code>EmployeeOfTheWeek</code> "wrapper" element for the <code>employeeOfTheWeek</code> field; this is required
  in order to use an XML name for this field other than <code>Person</code> (see limitations below).
 
@@ -199,7 +204,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
 
  <p>
  So the resulting XML might look like:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;Company&gt;
       &lt;Employees&gt;
           &lt;Person id="N00001"&gt;
@@ -214,7 +219,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
           &lt;Person idref="N00001"/&gt;
       &lt;/EmployeeOfTheWeek&gt;
   &lt;/Company&gt;
- </pre></blockquote>
+ </code></pre>
 
  <h3>Limitations</h3>
 
@@ -242,7 +247,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
  <p>
  First, replace the <code>// do nothing</code> in the example above with call to <a href="../../../../org/dellroad/stuff/jibx/IdMapper.html#setId-java.lang.Object-java.lang.String-"><code>IdMapper.setId()</code></a>,
  and add a custom deserializer delegating to <a href="../../../../org/dellroad/stuff/jibx/ParseUtil.html#deserializeReference-java.lang.String-java.lang.Class-"><code>ParseUtil.deserializeReference()</code></a> to
- <blockquote><pre>
+ <pre><code class="language-java">
       private void setJiBXId(String id) {
           IdMapper.setId(this, id);
       }
@@ -250,7 +255,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
       public static Employee deserializeEmployeeReference(String string) throws JiBXParseException {
           return ParseUtil.deserializeReference(string, Employee.class);
       }
- </pre></blockquote>
+ </code></pre>
 
  <p>
  Then, map the first occurrence of an object exactly as in the concrete mapping above, exposing the <code>JiBXId</code> property.
@@ -260,7 +265,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
 
  <p>
  For example, the following binding would yeild the same XML encoding as before:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;mapping abstract="true" type-name="person" class="com.example.Person"&gt;
       <b>&lt;value name="id" style="attribute" get-method="getJiBXId" set-method="setJiBXId"/&gt;</b>
       &lt;value name="name" field="name"/&gt;
@@ -278,15 +283,16 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
           &lt;/structure&gt;
       &lt;/structure&gt;
   &lt;/mapping&gt;
- </pre></blockquote>
+ </code></pre>
 
  <p>
  If you want the reference to be optionally <code>null</code>, then you'll also need to add a <code>test-method</code>:
- <blockquote><pre>
+ <pre><code class="language-java">
       <b>private boolean hasEmployeeOfTheWeek() {
           return this.getEmployeeOfTheWeek() != null;
       }</b>
-
+ </code></pre>
+ <pre><code class="language-xml">
       &lt;structure name="EmployeeOfTheWeek" <b>usage="optional" test-method="hasEmployeeOfTheWeek"</b>&gt;
           &lt;structure name="Person"&gt;
               &lt;value name="idref" style="attribute" field="employeeOfTheWeek"
@@ -294,7 +300,7 @@ extends org.jibx.extras.IdDefRefMapperBase</pre>
                 deserializer="com.example.Employee.deserializeEmployeeReference"/&gt;
           &lt;/structure&gt;
       &lt;/structure&gt;
- </pre></blockquote>
+ </code></pre>
  This approach causes the whole <code>&lt;EmployeeOfTheWeek&gt;</code> element to disappear when there is no
  such employee. Alternately, you can avoid the need for the <code>test-method</code> if you want to allow
  just the attribute to disappear, or you could even change from <code>style="attribute"</code> to <code>style="element"</code>;

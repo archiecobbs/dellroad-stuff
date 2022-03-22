@@ -155,14 +155,16 @@
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.BindingInfo</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
-<div class="block">Holds static information gathered for one bean property based on <a href="org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Foo</code></a>,
- <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.ProvidesField</code></a>, <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.Binding.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Binding</code></a>,
- <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.NullifyCheckbox</code></a>, and <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FormLayout.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.FormLayout</code></a> annotations.</div>
+<div class="block"><a href="org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> static configuration information for one bean property.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.DefaultInfo</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
 <div class="block">Holds static information gathered from scanning <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.FieldDefault</code></a>
  annotations.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.EnabledBy</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
+<dd>
+<div class="block">Causes the generated field to be automatically enabled or disabled based on the value of some other field.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldBuilderContextImpl.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.FieldBuilderContextImpl</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
@@ -180,7 +182,8 @@
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.NullifyCheckbox.html" title="annotation in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.NullifyCheckbox</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
-<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>.</div>
+<div class="block">Causes the field that would otherwise be used for a property to be wrapped in a <a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><code>NullableField</code></a>,
+ which adds a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/checkbox/Checkbox.html?is-external=true" title="class or interface in com.vaadin.flow.component.checkbox"><code>Checkbox</code></a> that controls whether the value is null or not.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.ProvidesField.html" title="annotation in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">AbstractFieldBuilder.ProvidesField</span></a> - Annotation Type in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
@@ -339,6 +342,8 @@
 <dd>
 <div class="block">Add a <a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.LoadListener.html" title="interface in org.dellroad.stuff.vaadin22.data"><code>AsyncDataProvider.LoadListener</code></a> to this instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#addNullifyCheckbox-org.dellroad.stuff.vaadin22.field.FieldComponent-">addNullifyCheckbox(FieldComponent&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.html#addPropertyDefinition-java.lang.String-java.lang.Class-java.lang.String-">addPropertyDefinition(String, Class&lt;V&gt;, String)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.html" title="class in org.dellroad.stuff.vaadin22.data">MapPropertySet</a></dt>
 <dd>
 <div class="block">Add a new property to this instance.</div>
@@ -350,6 +355,10 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/jibx/ListableHashSet.html#addUnique-E-">addUnique(E)</a></span> - Method in class org.dellroad.stuff.jibx.<a href="org/dellroad/stuff/jibx/ListableHashSet.html" title="class in org.dellroad.stuff.jibx">ListableHashSet</a></dt>
 <dd>
 <div class="block">Add an item to a set while verifying that the item is not already in the set.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">addValidation(Binder.BindingBuilder&lt;BEAN, TARGET&gt;)</a></span> - Method in interface org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a></dt>
+<dd>
+<div class="block">Add this instance as a <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Validator.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Validator</code></a> to the given binding.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html#addVisbilityMenuItems-com.vaadin.flow.component.contextmenu.HasMenuItems-">addVisbilityMenuItems(HasMenuItems)</a></span> - Method in class org.dellroad.stuff.vaadin22.grid.<a href="org/dellroad/stuff/vaadin22/grid/GridColumnScanner.html" title="class in org.dellroad.stuff.vaadin22.grid">GridColumnScanner</a></dt>
 <dd>
@@ -435,6 +444,10 @@
 <dd>
 <div class="block">Annotation utility methods.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ThrowableUtil.html#appendStackFrames-java.lang.Throwable-java.lang.StackTraceElement:A-">appendStackFrames(Throwable, StackTraceElement[])</a></span> - Static method in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ThrowableUtil.html" title="class in org.dellroad.stuff.java">ThrowableUtil</a></dt>
+<dd>
+<div class="block">Prepend stack frames from the current thread onto the given exception's stack frames and return the result.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdate.html#apply-org.dellroad.stuff.pobj.PersistentFileTransaction-">apply(PersistentFileTransaction)</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdate.html" title="class in org.dellroad.stuff.pobj">SpringPersistentObjectSchemaUpdate</a></dt>
 <dd>
 <div class="block">Apply this update to the given transaction.</div>
@@ -489,7 +502,7 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#applyLoad-long-java.lang.Throwable-java.util.stream.Stream-">applyLoad(long, Throwable, Stream&lt;? extends T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">AsyncDataProvider</a></dt>
 <dd>
-<div class="block">Apply the results of a load operation.</div>
+<div class="block">Apply the outcome of a load operation in whatever way is appropriate.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/distrib/Synchronizer.html#applyLocalUpdate-org.dellroad.stuff.pobj.PersistentObject.Snapshot-java.lang.String-">applyLocalUpdate(PersistentObject&lt;T&gt;.Snapshot, String)</a></span> - Method in class org.dellroad.stuff.pobj.distrib.<a href="org/dellroad/stuff/pobj/distrib/Synchronizer.html" title="class in org.dellroad.stuff.pobj.distrib">Synchronizer</a></dt>
 <dd>
@@ -500,6 +513,10 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html#applyTo-com.vaadin.flow.component.HasValue-">applyTo(HasValue&lt;?, ?&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.DefaultInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.DefaultInfo</a></dt>
 <dd>
 <div class="block">Apply the alternate default value to the configured property in the given field, if possible.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#applyUpdates-java.util.List-">applyUpdates(List&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Reload this data provider's items after a successful reload operation.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/text/MessageFmt.ArgumentSegment.html#ArgumentSegment--">ArgumentSegment()</a></span> - Constructor for class org.dellroad.stuff.text.<a href="org/dellroad/stuff/text/MessageFmt.ArgumentSegment.html" title="class in org.dellroad.stuff.text">MessageFmt.ArgumentSegment</a></dt>
 <dd>&nbsp;</dd>
@@ -588,6 +605,8 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/IdleTimeoutInputStream.html#available--">available()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/IdleTimeoutInputStream.html" title="class in org.dellroad.stuff.io">IdleTimeoutInputStream</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#available--">available()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/AsyncOutputStream.html#availableBufferSpace--">availableBufferSpace()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/AsyncOutputStream.html" title="class in org.dellroad.stuff.io">AsyncOutputStream</a></dt>
 <dd>
 <div class="block">Get the number of free bytes remaining in the output buffer.</div>
@@ -637,7 +656,7 @@
 <dd>
 <div class="block">Create, configure, and bind fields into the given <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#BindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-java.util.function.BiFunction-">BindingInfo(Method, String, Annotation, AbstractFieldBuilder.Binding, AbstractFieldBuilder.FormLayout, AbstractFieldBuilder.NullifyCheckbox, BiFunction&lt;AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, ? super T, FieldComponent&lt;?&gt;&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#BindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.EnabledBy-java.util.function.BiFunction-">BindingInfo(Method, String, Annotation, AbstractFieldBuilder.Binding, AbstractFieldBuilder.FormLayout, AbstractFieldBuilder.NullifyCheckbox, AbstractFieldBuilder.EnabledBy, BiFunction&lt;AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, ? super T, FieldComponent&lt;?&gt;&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
@@ -650,6 +669,23 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin8/BlobField.html#BlobField--">BlobField()</a></span> - Constructor for class org.dellroad.stuff.vaadin8.<a href="org/dellroad/stuff/vaadin8/BlobField.html" title="class in org.dellroad.stuff.vaadin8">BlobField</a></dt>
 <dd>
 <div class="block">Constructor.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io"><span class="typeNameLink">BOM</span></a> - Enum in <a href="org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
+<dd>
+<div class="block">Catalog of common byte order marks.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io"><span class="typeNameLink">BOMReader</span></a> - Class in <a href="org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
+<dd>
+<div class="block">A <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Reader.html?is-external=true" title="class or interface in java.io"><code>Reader</code></a> that wraps an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>, detects and strips the byte order mark, and then converts
+ bytes into characters accordingly.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#BOMReader-java.io.InputStream-">BOMReader(InputStream)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>
+<div class="block">Constructor.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#BOMReader-java.io.InputStream-java.nio.charset.CodingErrorAction-java.nio.charset.Charset-">BOMReader(InputStream, CodingErrorAction, Charset)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>
+<div class="block">Primary constructor.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/Primitive.html#BOOLEAN">BOOLEAN</a></span> - Static variable in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a></dt>
 <dd>
@@ -795,6 +831,10 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#cancel--">cancel()</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">AsyncDataProvider</a></dt>
 <dd>
 <div class="block">Attempt to cancel the current outstanding async load operation, if any.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#cancel--">cancel()</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Cancel any outstanding reload operation.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.LoadListener.html#CANCELED">CANCELED</a></span> - Static variable in interface org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.LoadListener.html" title="interface in org.dellroad.stuff.vaadin22.data">AsyncDataProvider.LoadListener</a></dt>
 <dd>
@@ -1067,6 +1107,8 @@
 <dd>
 <div class="block">Close this instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#close--">close()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#close--">close()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferOutputStream.html#close--">close()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferOutputStream.html" title="class in org.dellroad.stuff.io">ByteBufferOutputStream</a></dt>
@@ -1081,6 +1123,8 @@
 <dd>
 <div class="block">Close this instance.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#close--">close()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/OutputStreamWriter.html#close--">close()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io">OutputStreamWriter</a></dt>
 <dd>
 <div class="block">Close this instance.</div>
@@ -1244,7 +1288,7 @@
 <dd>
 <div class="block">Create a new <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/Binder.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder"><code>Binder</code></a> for the given type.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-java.util.function.BiFunction-">createBindingInfo(Method, String, Annotation, AbstractFieldBuilder.Binding, AbstractFieldBuilder.FormLayout, AbstractFieldBuilder.NullifyCheckbox, BiFunction&lt;AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, ? super T, FieldComponent&lt;?&gt;&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#createBindingInfo-java.lang.reflect.Method-java.lang.String-java.lang.annotation.Annotation-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.Binding-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.FormLayout-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.NullifyCheckbox-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.EnabledBy-java.util.function.BiFunction-">createBindingInfo(Method, String, Annotation, AbstractFieldBuilder.Binding, AbstractFieldBuilder.FormLayout, AbstractFieldBuilder.NullifyCheckbox, AbstractFieldBuilder.EnabledBy, BiFunction&lt;AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, ? super T, FieldComponent&lt;?&gt;&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></dt>
 <dd>
 <div class="block">Create a <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field"><code>AbstractFieldBuilder.BindingInfo</code></a>.</div>
 </dd>
@@ -2347,6 +2391,8 @@
 <dd>
 <div class="block">Flush output.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#flush--">flush()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/IdGenerator.html#flush--">flush()</a></span> - Method in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/IdGenerator.html" title="class in org.dellroad.stuff.java">IdGenerator</a></dt>
 <dd>
 <div class="block">Flush any cleared weak references.</div>
@@ -2428,6 +2474,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/util/LongMap.html#get-long-">get(long)</a></span> - Method in class org.dellroad.stuff.util.<a href="org/dellroad/stuff/util/LongMap.html" title="class in org.dellroad.stuff.util">LongMap</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/FieldComponent.html#getAbstractField--">getAbstractField()</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/FieldComponent.html" title="class in org.dellroad.stuff.vaadin22.field">FieldComponent</a></dt>
+<dd>
+<div class="block">Get this instance's field as an <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.html?is-external=true" title="class or interface in com.vaadin.flow.component"><code>AbstractField</code></a>, assuming that's what it is.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/PersistentObjectVersionException.html#getActualVersion--">getActualVersion()</a></span> - Method in exception org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/PersistentObjectVersionException.html" title="class in org.dellroad.stuff.pobj">PersistentObjectVersionException</a></dt>
 <dd>
 <div class="block">Get the actual, unexpected version number.</div>
@@ -2609,6 +2659,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getBlob-java.lang.String-">getBlob(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#getBOM--">getBOM()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>
+<div class="block">Get the <a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io"><code>BOM</code></a> found at the beginning of the input.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getBoolean-int-">getBoolean(int)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getBoolean-java.lang.String-">getBoolean(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
@@ -2647,6 +2701,14 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getCharacterStream-java.lang.String-">getCharacterStream(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOM.html#getCharset--">getCharset()</a></span> - Method in enum org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io">BOM</a></dt>
+<dd>
+<div class="block">Get the character encoding that this BOM indicates.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#getCharset--">getCharset()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>
+<div class="block">Get the actual character encoding used.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/PersistentObject.html#getCheckInterval--">getCheckInterval()</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj">PersistentObject</a></dt>
 <dd>
 <div class="block">Get the delay time between periodic checks for changes in the underlying persistent file.</div>
@@ -2853,6 +2915,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/StackXMLEventReader.html#getElementText--">getElementText()</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/StackXMLEventReader.html" title="class in org.dellroad.stuff.xml">StackXMLEventReader</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#getEnabledBy--">getEnabledBy()</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></dt>
+<dd>
+<div class="block">Get the associated <a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.EnabledBy.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.EnabledBy</code></a> annotation, if any.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/NullableField.html#getEnabledField--">getEnabledField()</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/AbstractDAO.html#getEntityManager--">getEntityManager()</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/AbstractDAO.html" title="class in org.dellroad.stuff.spring">AbstractDAO</a></dt>
@@ -2957,6 +3023,7 @@
 <dd>
 <div class="block">Get the unique ID value for the given object.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#getId-T-">getId(T)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/ChannelConnection.html#getIdleTime--">getIdleTime()</a></span> - Method in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/ChannelConnection.html" title="class in org.dellroad.stuff.net">ChannelConnection</a></dt>
 <dd>
 <div class="block">Get time in milliseconds since last activity.</div>
@@ -3023,6 +3090,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html#getIsolation--">getIsolation()</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/HibernateIsolationJpaDialect.TransactionDataWrapper.html" title="class in org.dellroad.stuff.spring">HibernateIsolationJpaDialect.TransactionDataWrapper</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#getItems--">getItems()</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Get the <a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><code>SessionInfo</code></a>'s currently in this container.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/jibx/MapEntry.html#getKey--">getKey()</a></span> - Method in class org.dellroad.stuff.jibx.<a href="org/dellroad/stuff/jibx/MapEntry.html" title="class in org.dellroad.stuff.jibx">MapEntry</a></dt>
 <dd>
 <div class="block">Get this map entry's key.</div>
@@ -3513,6 +3584,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getShort-java.lang.String-">getShort(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOM.html#getSignature--">getSignature()</a></span> - Method in enum org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io">BOM</a></dt>
+<dd>
+<div class="block">Get the byte signature for this instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/Primitive.html#getSize--">getSize()</a></span> - Method in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java">Primitive</a></dt>
 <dd>
 <div class="block">Get the size of one value of this primitive type in bytes.</div>
@@ -3752,6 +3827,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#getURL-java.lang.String-">getURL(String)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html#getVaadinSession--">getVaadinSession()</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a></dt>
+<dd>
+<div class="block">Get the <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> associated with this instance.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/jibx/MapEntry.html#getValue--">getValue()</a></span> - Method in class org.dellroad.stuff.jibx.<a href="org/dellroad/stuff/jibx/MapEntry.html" title="class in org.dellroad.stuff.jibx">MapEntry</a></dt>
 <dd>
 <div class="block">Get this map entry's value.</div>
@@ -4174,6 +4253,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.Logger.html#INFO">INFO</a></span> - Static variable in interface org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.Logger.html" title="interface in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator.Logger</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#infoCreator">infoCreator</a></span> - Variable in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/DellRoadStuffNamespaceHandler.html#init--">init()</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/DellRoadStuffNamespaceHandler.html" title="class in org.dellroad.stuff.spring">DellRoadStuffNamespaceHandler</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin8/BlobField.html#initContent--">initContent()</a></span> - Method in class org.dellroad.stuff.vaadin8.<a href="org/dellroad/stuff/vaadin8/BlobField.html" title="class in org.dellroad.stuff.vaadin8">BlobField</a></dt>
@@ -4234,7 +4315,7 @@
 <dd>
 <div class="block">Instantiate a field (or whatever) from the given <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate(Class&lt;T&gt;, AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, Annotation, String)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html#instantiate-java.lang.Class-org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder.BindingInfo-java.lang.annotation.Annotation-java.lang.String-">instantiate(Class&lt;F&gt;, AbstractFieldBuilder&lt;S, T&gt;.BindingInfo, Annotation, String)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder</a></dt>
 <dd>
 <div class="block">Instantiate a field (or whatever) from the given <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html?is-external=true" title="class or interface in java.lang"><code>Class</code></a>-valued annotation property.</div>
 </dd>
@@ -4356,6 +4437,14 @@
 <dd>
 <div class="block">Get whether, during read-only transactions, <a href="org/dellroad/stuff/pobj/PersistentObjectTransactionManager.html#getRoot--"><code>PersistentObjectTransactionManager.getRoot()</code></a> returns a new copy of the
  <a href="org/dellroad/stuff/pobj/PersistentObject.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObject</code></a> object graph or the <a href="org/dellroad/stuff/pobj/PersistentObject.html#getSharedRoot--">shared root</a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#isReloading--">isReloading()</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Determine if there is any outstanding asynchronous reload operation in progress.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/NullableField.html#isResetOnDisable--">isResetOnDisable()</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a></dt>
+<dd>
+<div class="block">Determine whether the inner field forgets its value when the checkbox is unchecked.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/PersistentConnection.html#isRunning--">isRunning()</a></span> - Method in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/PersistentConnection.html" title="class in org.dellroad.stuff.net">PersistentConnection</a></dt>
 <dd>
@@ -4628,6 +4717,8 @@
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/data/MapPropertySet.Definition.Getter.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">MapPropertySet.Definition.Getter</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/data/package-summary.html">org.dellroad.stuff.vaadin22.data</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#mark-int-">mark(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#mark-int-">mark(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#markSupported--">markSupported()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
@@ -4644,6 +4735,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/jibx/WorkaroundJibxMarshaller.html#marshalXmlStreamWriter-java.lang.Object-javax.xml.stream.XMLStreamWriter-">marshalXmlStreamWriter(Object, XMLStreamWriter)</a></span> - Method in class org.dellroad.stuff.jibx.<a href="org/dellroad/stuff/jibx/WorkaroundJibxMarshaller.html" title="class in org.dellroad.stuff.jibx">WorkaroundJibxMarshaller</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ThrowableUtil.html#maskException-java.lang.Throwable-">maskException(Throwable)</a></span> - Static method in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ThrowableUtil.html" title="class in org.dellroad.stuff.java">ThrowableUtil</a></dt>
+<dd>
+<div class="block">Mask a checked exception and throw it as an unchecked exception.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.Customization.html#matches-java.lang.Class-java.lang.reflect.Method-">matches(Class&lt;?&gt;, Method)</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGeneratorMojo.Customization.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGeneratorMojo.Customization</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/string/ParseContext.html#matchPrefix-java.lang.String-">matchPrefix(String)</a></span> - Method in class org.dellroad.stuff.string.<a href="org/dellroad/stuff/string/ParseContext.html" title="class in org.dellroad.stuff.string">ParseContext</a></dt>
@@ -4936,7 +5031,7 @@
 <dt><a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">NullableField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="type parameter in NullableField">T</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
 <div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
- which controls whether the value is null or not.</div>
+ that controls whether the value is null or not.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/NullableField.html#NullableField-com.vaadin.flow.component.AbstractField-java.lang.String-">NullableField(AbstractField&lt;?, T&gt;, String)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a></dt>
 <dd>
@@ -4952,19 +5047,25 @@
 </dd>
 <dt><a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io"><span class="typeNameLink">NullModemInputStream</span></a> - Class in <a href="org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
 <dd>
-<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> interface given a <a href="org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io"><code>WriteCallback</code></a> that can write to an
- <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
+<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a> interface given a <a href="org/dellroad/stuff/io/WriteCallback.html" title="interface in org.dellroad.stuff.io"><code>WriteCallback</code></a> that can write to an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#NullModemInputStream-org.dellroad.stuff.io.WriteCallback-java.lang.String-">NullModemInputStream(WriteCallback, String)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
+<dd>
+<div class="block">Constructor that uses a background thread for writing.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#NullModemInputStream-org.dellroad.stuff.io.WriteCallback-java.util.concurrent.Executor-">NullModemInputStream(WriteCallback, Executor)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io"><span class="typeNameLink">NullModemOutputStream</span></a> - Class in <a href="org/dellroad/stuff/io/package-summary.html">org.dellroad.stuff.io</a></dt>
 <dd>
-<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> interface given a <a href="org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io"><code>ReadCallback</code></a> that can read from an
- <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
+<div class="block">Presents an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io"><code>OutputStream</code></a> interface given a <a href="org/dellroad/stuff/io/ReadCallback.html" title="interface in org.dellroad.stuff.io"><code>ReadCallback</code></a> that can read from an <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#NullModemOutputStream-org.dellroad.stuff.io.ReadCallback-java.lang.String-">NullModemOutputStream(ReadCallback, String)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
+<dd>
+<div class="block">Constructor that uses a background thread for reading.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#NullModemOutputStream-org.dellroad.stuff.io.ReadCallback-java.util.concurrent.Executor-">NullModemOutputStream(ReadCallback, Executor)</a></span> - Constructor for class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
 <dd>
 <div class="block">Constructor.</div>
 </dd>
@@ -5436,6 +5537,10 @@
 <dd>
 <div class="block">Prepare transaction.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ThrowableUtil.html#prependCurrentStackTrace-java.lang.Throwable-">prependCurrentStackTrace(Throwable)</a></span> - Static method in class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ThrowableUtil.html" title="class in org.dellroad.stuff.java">ThrowableUtil</a></dt>
+<dd>
+<div class="block">Prepend stack frames from the current thread onto the given exception's stack frames.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#previous--">previous()</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="org/dellroad/stuff/java/Primitive.html" title="class in org.dellroad.stuff.java"><span class="typeNameLink">Primitive</span></a>&lt;<a href="org/dellroad/stuff/java/Primitive.html" title="type parameter in Primitive">T</a>&gt; - Class in <a href="org/dellroad/stuff/java/package-summary.html">org.dellroad.stuff.java</a></dt>
@@ -5518,6 +5623,14 @@
 <dl>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/test/TestSupport.html#random">random</a></span> - Variable in class org.dellroad.stuff.test.<a href="org/dellroad/stuff/test/TestSupport.html" title="class in org.dellroad.stuff.test">TestSupport</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#read--">read()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#read-char:A-">read(char[])</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#read-char:A-int-int-">read(char[], int, int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#read-java.nio.CharBuffer-">read(CharBuffer)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#read--">read()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#read-byte:A-int-int-">read(byte[], int, int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
@@ -5530,6 +5643,12 @@
 <dd>
 <div class="block">Read the next <a href="https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html?is-external=true" title="class or interface in java.io"><code>InputStream</code></a>.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#read--">read()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#read-byte:A-">read(byte[])</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#read-byte:A-int-int-">read(byte[], int, int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/jibx/XMLDocumentInputStream.html#read--">read()</a></span> - Method in class org.dellroad.stuff.jibx.<a href="org/dellroad/stuff/jibx/XMLDocumentInputStream.html" title="class in org.dellroad.stuff.jibx">XMLDocumentInputStream</a></dt>
 <dd>
 <div class="block">Read the next XML document, parsed and objectified.</div>
@@ -5620,6 +5739,8 @@
 <dd>
 <div class="block">Read and (optionally) validate the XML file.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#ready--">ready()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin8/BlobField.html#receiveUpload-java.lang.String-java.lang.String-">receiveUpload(String, String)</a></span> - Method in class org.dellroad.stuff.vaadin8.<a href="org/dellroad/stuff/vaadin8/BlobField.html" title="class in org.dellroad.stuff.vaadin8">BlobField</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/AbstractConfiguredBean.html#reconfigure-T-T-">reconfigure(T, T)</a></span> - Method in class org.dellroad.stuff.pobj.<a href="org/dellroad/stuff/pobj/AbstractConfiguredBean.html" title="class in org.dellroad.stuff.pobj">AbstractConfiguredBean</a></dt>
@@ -5672,6 +5793,14 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#relative-int-">relative(int)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#reload-java.util.function.Function-">reload(Function&lt;? super Runnable, ? extends Future&lt;?&gt;&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Reload this data provider using the given asynchronous executor.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#reload-java.util.concurrent.atomic.AtomicReference-">reload(AtomicReference&lt;Future&lt;?&gt;&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>
+<div class="block">Reload this data provider.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/distrib/GitRepository.html#REMOTE_NAME_PATTERN">REMOTE_NAME_PATTERN</a></span> - Static variable in class org.dellroad.stuff.pobj.distrib.<a href="org/dellroad/stuff/pobj/distrib/GitRepository.html" title="class in org.dellroad.stuff.pobj.distrib">GitRepository</a></dt>
 <dd>
 <div class="block">Accepted git remote name pattern.</div>
@@ -5712,7 +5841,11 @@
 <dd>
 <div class="block">Determine if a change from <code>oldConfig</code> to <code>newConfig</code> requires a <a href="org/dellroad/stuff/pobj/AbstractConfiguredBean.html#reconfigure-T-T-"><code>reconfigure()</code></a> operation.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#reset--">reset()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#reset--">reset()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#reset--">reset()</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/distrib/GitRepository.html#reset--">reset()</a></span> - Method in class org.dellroad.stuff.pobj.distrib.<a href="org/dellroad/stuff/pobj/distrib/GitRepository.html" title="class in org.dellroad.stuff.pobj.distrib">GitRepository</a></dt>
 <dd>
@@ -6035,14 +6168,28 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/net/TCPConnection.html#serviceIO-java.nio.channels.SelectionKey-">serviceIO(SelectionKey)</a></span> - Method in class org.dellroad.stuff.net.<a href="org/dellroad/stuff/net/TCPConnection.html" title="class in org.dellroad.stuff.net">TCPConnection</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#servlet">servlet</a></span> - Variable in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">session</a></span> - Variable in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">AsyncDataProvider</a></dt>
 <dd>
 <div class="block">The <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a> with which this instance is associated.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html#session">session</a></span> - Variable in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#session">session</a></span> - Variable in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html#SESSION_TRACKING_PARAMETER">SESSION_TRACKING_PARAMETER</a></span> - Static variable in class org.dellroad.stuff.vaadin22.servlet.<a href="org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet">SimpleSpringServlet</a></dt>
 <dd>
 <div class="block">Servlet initialization parameter (<code>"sessionTracking"</code>) that enables
  tracking of all Vaadin session.</div>
+</dd>
+<dt><a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">SessionInfo</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/data/package-summary.html">org.dellroad.stuff.vaadin22.data</a></dt>
+<dd>
+<div class="block">Holds information gathered from one <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html#SessionInfo-com.vaadin.flow.server.VaadinSession-">SessionInfo(VaadinSession)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a></dt>
+<dd>
+<div class="block">Constructor.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html#setAddMissingXmlDeclaration-boolean-">setAddMissingXmlDeclaration(boolean)</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html" title="class in org.dellroad.stuff.xml">IndentXMLStreamWriter</a></dt>
 <dd>
@@ -6237,6 +6384,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html#setImplementationPropertyName-java.lang.String-">setImplementationPropertyName(String)</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html#setIncludeStyleProperties-boolean-">setIncludeStyleProperties(boolean)</a></span> - Method in class org.dellroad.stuff.vaadin.fieldbuilder.<a href="org/dellroad/stuff/vaadin/fieldbuilder/FieldBuilderGenerator.html" title="class in org.dellroad.stuff.vaadin.fieldbuilder">FieldBuilderGenerator</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html#setIndentAfterXmlDeclaration-boolean-">setIndentAfterXmlDeclaration(boolean)</a></span> - Method in class org.dellroad.stuff.xml.<a href="org/dellroad/stuff/xml/IndentXMLStreamWriter.html" title="class in org.dellroad.stuff.xml">IndentXMLStreamWriter</a></dt>
 <dd>
 <div class="block">Set whether to "indent" (actually, just output a newline) after the XML declaration if necessary.</div>
@@ -6401,6 +6550,8 @@
 <dd>
 <div class="block">Infer required predecessors from Spring dependencies.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/NullableField.html#setResetOnDisable-boolean-">setResetOnDisable(boolean)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/NullableField.html" title="class in org.dellroad.stuff.vaadin22.field">NullableField</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/spring/ResourceReaderFactoryBean.html#setResource-org.springframework.core.io.Resource-">setResource(Resource)</a></span> - Method in class org.dellroad.stuff.spring.<a href="org/dellroad/stuff/spring/ResourceReaderFactoryBean.html" title="class in org.dellroad.stuff.spring">ResourceReaderFactoryBean</a></dt>
 <dd>
 <div class="block">Configure the resource containing the <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang"><code>value</code></a>.</div>
@@ -6592,7 +6743,11 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/util/LongSet.html#size--">size()</a></span> - Method in class org.dellroad.stuff.util.<a href="org/dellroad/stuff/util/LongSet.html" title="class in org.dellroad.stuff.util">LongSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOMReader.html#skip-long-">skip(long)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOMReader.html" title="class in org.dellroad.stuff.io">BOMReader</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferInputStream.html#skip-long-">skip(long)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferInputStream.html" title="class in org.dellroad.stuff.io">ByteBufferInputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemInputStream.html#skip-long-">skip(long)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemInputStream.html" title="class in org.dellroad.stuff.io">NullModemInputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/string/ParseContext.html#skipWhitespace--">skipWhitespace()</a></span> - Method in class org.dellroad.stuff.string.<a href="org/dellroad/stuff/string/ParseContext.html" title="class in org.dellroad.stuff.string">ParseContext</a></dt>
 <dd>
@@ -6675,6 +6830,11 @@
 <dt><a href="org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><span class="typeNameLink">SpringPersistentObjectSchemaUpdater</span></a>&lt;<a href="org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdater.html" title="type parameter in SpringPersistentObjectSchemaUpdater">T</a>&gt; - Class in <a href="org/dellroad/stuff/pobj/package-summary.html">org.dellroad.stuff.pobj</a></dt>
 <dd>
 <div class="block"><a href="org/dellroad/stuff/pobj/PersistentObjectSchemaUpdater.html" title="class in org.dellroad.stuff.pobj"><code>PersistentObjectSchemaUpdater</code></a> optimized for use with Spring:
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  
  <a href="org/dellroad/stuff/pobj/SpringPersistentObjectSchemaUpdater.html#getOrderingTieBreaker--"><code>SpringPersistentObjectSchemaUpdater.getOrderingTieBreaker()</code></a> is overridden to break ties by ordering updates in the same order
   as they are defined in the bean factory.
@@ -6945,6 +7105,10 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ThreadParkingLot.html#ThreadParkingLot--">ThreadParkingLot()</a></span> - Constructor for class org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ThreadParkingLot.html" title="class in org.dellroad.stuff.java">ThreadParkingLot</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/dellroad/stuff/java/ThrowableUtil.html" title="class in org.dellroad.stuff.java"><span class="typeNameLink">ThrowableUtil</span></a> - Class in <a href="org/dellroad/stuff/java/package-summary.html">org.dellroad.stuff.java</a></dt>
+<dd>
+<div class="block">Utility methods dealing with <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang"><code>Throwable</code></a>s.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/CheckedExceptionWrapper.html#throwException--">throwException()</a></span> - Method in exception org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/CheckedExceptionWrapper.html" title="class in org.dellroad.stuff.java">CheckedExceptionWrapper</a></dt>
 <dd>
 <div class="block">Throw the wrapped exception.</div>
@@ -7319,6 +7483,11 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/sql/MergedResultSet.html#updateFloat-java.lang.String-float-">updateFloat(String, float)</a></span> - Method in class org.dellroad.stuff.sql.<a href="org/dellroad/stuff/sql/MergedResultSet.html" title="class in org.dellroad.stuff.sql">MergedResultSet</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#updateFromLoad-long-java.util.stream.Stream-">updateFromLoad(long, Stream&lt;? extends T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">AsyncDataProvider</a></dt>
+<dd>
+<div class="block">Update this data provider's internal list of items using the new data from a successful load operation
+ and fire a refresh notification.</div>
+</dd>
 <dt><a href="org/dellroad/stuff/schema/UpdateInProgressException.html" title="class in org.dellroad.stuff.schema"><span class="typeNameLink">UpdateInProgressException</span></a> - Exception in <a href="org/dellroad/stuff/schema/package-summary.html">org.dellroad.stuff.schema</a></dt>
 <dd>
 <div class="block">Exception thrown by an <a href="org/dellroad/stuff/schema/AbstractUpdatingDataSource.html" title="class in org.dellroad.stuff.schema"><code>AbstractUpdatingDataSource</code></a> operating in asynchronous mode when
@@ -7487,21 +7656,17 @@
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/pobj/vaadin8/VaadinPersistentObjectListener.html#VaadinPersistentObjectListener-org.dellroad.stuff.pobj.PersistentObject-">VaadinPersistentObjectListener(PersistentObject&lt;T&gt;)</a></span> - Constructor for class org.dellroad.stuff.pobj.vaadin8.<a href="org/dellroad/stuff/pobj/vaadin8/VaadinPersistentObjectListener.html" title="class in org.dellroad.stuff.pobj.vaadin8">VaadinPersistentObjectListener</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">VaadinSessionDataProvider</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/data/package-summary.html">org.dellroad.stuff.vaadin22.data</a></dt>
+<dt><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data"><span class="typeNameLink">VaadinSessionDataProvider</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="type parameter in VaadinSessionDataProvider">T</a> extends <a href="org/dellroad/stuff/vaadin22/data/SessionInfo.html" title="class in org.dellroad.stuff.vaadin22.data">SessionInfo</a>&gt; - Class in <a href="org/dellroad/stuff/vaadin22/data/package-summary.html">org.dellroad.stuff.vaadin22.data</a></dt>
 <dd>
-<div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/provider/DataProvider.html?is-external=true" title="class or interface in com.vaadin.flow.data.provider"><code>DataProvider</code></a> that contains all live <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>s.</div>
+<div class="block">A <code>DataProvider</code> that provides an object corresponding to each live <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider--">VaadinSessionDataProvider()</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-java.util.function.Function-">VaadinSessionDataProvider(Function&lt;? super VaadinSession, T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
 <dd>
 <div class="block">Create an instance from the current <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-">VaadinSessionDataProvider(VaadinSession)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-com.vaadin.flow.server.VaadinSession-java.util.function.Function-">VaadinSessionDataProvider(VaadinSession, Function&lt;? super VaadinSession, T&gt;)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
 <dd>
 <div class="block">Create an instance from the provided <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/server/VaadinSession.html?is-external=true" title="class or interface in com.vaadin.flow.server"><code>VaadinSession</code></a>.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html#VaadinSessionDataProvider-org.dellroad.stuff.vaadin22.servlet.SimpleSpringServlet-">VaadinSessionDataProvider(SimpleSpringServlet)</a></span> - Constructor for class org.dellroad.stuff.vaadin22.data.<a href="org/dellroad/stuff/vaadin22/data/VaadinSessionDataProvider.html" title="class in org.dellroad.stuff.vaadin22.data">VaadinSessionDataProvider</a></dt>
-<dd>
-<div class="block">Create an instance from the provided <a href="org/dellroad/stuff/vaadin22/servlet/SimpleSpringServlet.html" title="class in org.dellroad.stuff.vaadin22.servlet"><code>SimpleSpringServlet</code></a>.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/util/VaadinUtil.html" title="class in org.dellroad.stuff.vaadin22.util"><span class="typeNameLink">VaadinUtil</span></a> - Class in <a href="org/dellroad/stuff/vaadin22/util/package-summary.html">org.dellroad.stuff.vaadin22.util</a></dt>
 <dd>
@@ -7554,7 +7719,7 @@
 </dd>
 <dt><a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field"><span class="typeNameLink">ValidatingField</span></a>&lt;<a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">E</a> extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.ValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">HasValue.ValueChangeEvent</a>&lt;<a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt;,<a href="org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="type parameter in ValidatingField">V</a>&gt; - Interface in <a href="org/dellroad/stuff/vaadin22/field/package-summary.html">org.dellroad.stuff.vaadin22.field</a></dt>
 <dd>
-<div class="block">Implemented by fields that are also capable of validating field values.</div>
+<div class="block">Implemented by fields that are themselves capable of validating field values.</div>
 </dd>
 <dt><a href="org/dellroad/stuff/validation/ValidationContext.html" title="class in org.dellroad.stuff.validation"><span class="typeNameLink">ValidationContext</span></a>&lt;<a href="org/dellroad/stuff/validation/ValidationContext.html" title="type parameter in ValidationContext">T</a>&gt; - Class in <a href="org/dellroad/stuff/validation/package-summary.html">org.dellroad.stuff.validation</a></dt>
 <dd>
@@ -7572,6 +7737,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/text/MessageFmt.DateFormatStandard.html#value--">value()</a></span> - Method in enum org.dellroad.stuff.text.<a href="org/dellroad/stuff/text/MessageFmt.DateFormatStandard.html" title="enum in org.dellroad.stuff.text">MessageFmt.DateFormatStandard</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOM.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io">BOM</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ErrorAction.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ErrorAction.html" title="enum in org.dellroad.stuff.java">ErrorAction</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
@@ -7583,6 +7752,11 @@
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/text/MessageFmt.DateFormatStandard.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum org.dellroad.stuff.text.<a href="org/dellroad/stuff/text/MessageFmt.DateFormatStandard.html" title="enum in org.dellroad.stuff.text">MessageFmt.DateFormatStandard</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/BOM.html#values--">values()</a></span> - Static method in enum org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/BOM.html" title="enum in org.dellroad.stuff.io">BOM</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum type, in
+the order they are declared.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/java/ErrorAction.html#values--">values()</a></span> - Static method in enum org.dellroad.stuff.java.<a href="org/dellroad/stuff/java/ErrorAction.html" title="enum in org.dellroad.stuff.java">ErrorAction</a></dt>
 <dd>
@@ -7703,8 +7877,6 @@ the order they are declared.</div>
 <dd>
 <div class="block">Wrap the given primitive type into its wrapper type if it's a primitive type.</div>
 </dd>
-<dt><span class="memberNameLink"><a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html#wrapInNullableField-org.dellroad.stuff.vaadin22.field.FieldComponent-">wrapInNullableField(FieldComponent&lt;T&gt;)</a></span> - Method in class org.dellroad.stuff.vaadin22.field.<a href="org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.BindingInfo.html" title="class in org.dellroad.stuff.vaadin22.field">AbstractFieldBuilder.BindingInfo</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="org/dellroad/stuff/vaadin8/WritableResource.html" title="class in org.dellroad.stuff.vaadin8"><span class="typeNameLink">WritableResource</span></a> - Class in <a href="org/dellroad/stuff/vaadin8/package-summary.html">org.dellroad.stuff.vaadin8</a></dt>
 <dd>
 <div class="block">Support superclass for <a href="https://vaadin.com/download/release/8.6/8.6.4/docs/api/com/vaadin/server/StreamResource.html?is-external=true" title="class or interface in com.vaadin.server"><code>StreamResource</code></a> implementations that can be more easily implemented
@@ -7729,6 +7901,12 @@ the order they are declared.</div>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferOutputStream.html#write-int-">write(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferOutputStream.html" title="class in org.dellroad.stuff.io">ByteBufferOutputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/ByteBufferOutputStream.html#write-byte:A-int-int-">write(byte[], int, int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/ByteBufferOutputStream.html" title="class in org.dellroad.stuff.io">ByteBufferOutputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#write-int-">write(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#write-byte:A-">write(byte[])</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/NullModemOutputStream.html#write-byte:A-int-int-">write(byte[], int, int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/NullModemOutputStream.html" title="class in org.dellroad.stuff.io">NullModemOutputStream</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="org/dellroad/stuff/io/OutputStreamWriter.html#write-int-">write(int)</a></span> - Method in class org.dellroad.stuff.io.<a href="org/dellroad/stuff/io/OutputStreamWriter.html" title="class in org.dellroad.stuff.io">OutputStreamWriter</a></dt>
 <dd>&nbsp;</dd>

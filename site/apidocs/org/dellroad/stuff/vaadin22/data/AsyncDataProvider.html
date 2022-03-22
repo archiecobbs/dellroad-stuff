@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -252,7 +252,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#applyLoad-long-java.lang.Throwable-java.util.stream.Stream-">applyLoad</a></span>(long&nbsp;id,
          <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;error,
          <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;? extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="type parameter in AsyncDataProvider">T</a>&gt;&nbsp;stream)</code>
-<div class="block">Apply the results of a load operation.</div>
+<div class="block">Apply the outcome of a load operation in whatever way is appropriate.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -305,6 +305,14 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#setAsyncExecutor-java.util.function.Function-">setAsyncExecutor</a></span>(<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html?is-external=true" title="class or interface in java.util.function">Function</a>&lt;? super <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runnable.html?is-external=true" title="class or interface in java.lang">Runnable</a>,? extends <a href="https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/Future.html?is-external=true" title="class or interface in java.util.concurrent">Future</a>&lt;?&gt;&gt;&nbsp;executor)</code>
 <div class="block">Configure the executor used for async tasks.</div>
+</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#updateFromLoad-long-java.util.stream.Stream-">updateFromLoad</a></span>(long&nbsp;id,
+              <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;? extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="type parameter in AsyncDataProvider">T</a>&gt;&nbsp;stream)</code>
+<div class="block">Update this data provider's internal list of items using the new data from a successful load operation
+ and fire a refresh notification.</div>
 </td>
 </tr>
 </table>
@@ -563,7 +571,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
  This is invoked in the async background thread.
 
  <p>
- When done, this method should invoke <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#applyLoad-long-java.lang.Throwable-java.util.stream.Stream-"><code>applyLoa()</code></a>
+ When done, this method should invoke <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#applyLoad-long-java.lang.Throwable-java.util.stream.Stream-"><code>applyLoad()</code></a>
  with <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">this instance's session</a> locked.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -584,7 +592,7 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <pre>protected&nbsp;void&nbsp;applyLoad(long&nbsp;id,
                          <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Throwable.html?is-external=true" title="class or interface in java.lang">Throwable</a>&nbsp;error,
                          <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;? extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="type parameter in AsyncDataProvider">T</a>&gt;&nbsp;stream)</pre>
-<div class="block">Apply the results of a load operation.
+<div class="block">Apply the outcome of a load operation in whatever way is appropriate.
 
  <p>
  This is invoked with <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">this instance's session</a> locked.</div>
@@ -596,6 +604,29 @@ extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/pro
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the current thread is not associated with <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">this instance's session</a></dd>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>id</code> is zero</dd>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>stream</code> is null</dd>
+</dl>
+</li>
+</ul>
+<a name="updateFromLoad-long-java.util.stream.Stream-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>updateFromLoad</h4>
+<pre>protected&nbsp;void&nbsp;updateFromLoad(long&nbsp;id,
+                              <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html?is-external=true" title="class or interface in java.util.stream">Stream</a>&lt;? extends <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html" title="type parameter in AsyncDataProvider">T</a>&gt;&nbsp;stream)</pre>
+<div class="block">Update this data provider's internal list of items using the new data from a successful load operation
+ and fire a refresh notification.
+
+ <p>
+ This is invoked with <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">this instance's session</a> locked.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>id</code> - task ID</dd>
+<dd><code>stream</code> - load results</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html?is-external=true" title="class or interface in java.lang">IllegalStateException</a></code> - if the current thread is not associated with <a href="../../../../../org/dellroad/stuff/vaadin22/data/AsyncDataProvider.html#session">this instance's session</a></dd>
 <dd><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalArgumentException.html?is-external=true" title="class or interface in java.lang">IllegalArgumentException</a></code> - if <code>stream</code> is null</dd>
 </dl>
 </li>

@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -136,17 +136,24 @@ var activeTableTab = "activeTableTab";
 extends <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield">CustomField</a>&lt;T&gt;
 implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/AbstractField.ComponentValueChangeEvent.html?is-external=true" title="class or interface in com.vaadin.flow.component">AbstractField.ComponentValueChangeEvent</a>&lt;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield">CustomField</a>&lt;T&gt;,T&gt;,T&gt;</pre>
 <div class="block">A <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/customfield/CustomField.html?is-external=true" title="class or interface in com.vaadin.flow.component.customfield"><code>CustomField</code></a> that wraps an inner field and prepends a checkbox (or other boolean field) in front of it
- which controls whether the value is null or not.
+ that controls whether the value is null or not.
 
  <p>
- When the checkbox is checked, the inner field functions normally and provides the field value.
- When the checkbox is unchecked, the inner field is completely disabled and the field value is null.
+ When the checkbox is checked, the inner field functions normally and provides this field's value.
+ When the checkbox is unchecked, the inner field is completely disabled and this field's value is null.
 
  <p>
  <video style="border: 1px solid #000;" loop="true" autoplay="true" muted="true" controls="true">
   <source src="doc-files/NullableFieldAnimation.webm" type="video/webm">
   <span>[Video not supported]</span>
  </video>
+
+ <p><b>Resetting On Disable</b>
+
+ <p>
+ When the checkbox is unchecked, by default the inner (wrapped) field is automatically reset to its
+ <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/HasValue.html?is-external=true#getEmptyValue--" title="class or interface in com.vaadin.flow.component">empty value</a>. To have the inner field retain its value instead,
+ so the value reappears if the checkbox is unchecked, use <a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setResetOnDisable-boolean-"><code>setResetOnDisable(false)</code></a>.
 
  <p><b>Validation</b>
 
@@ -309,14 +316,24 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingF
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#getInnerField--">getInnerField</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setComponentEnabled-boolean-">setComponentEnabled</a></span>(boolean&nbsp;enabled)</code>&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#isResetOnDisable--">isResetOnDisable</a></span>()</code>
+<div class="block">Determine whether the inner field forgets its value when the checkbox is unchecked.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setPresentationValue-T-">setPresentationValue</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="type parameter in NullableField">T</a>&nbsp;value)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setComponentEnabled-boolean-">setComponentEnabled</a></span>(boolean&nbsp;enabled)</code>&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
+<td class="colFirst"><code>protected void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setPresentationValue-T-">setPresentationValue</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="type parameter in NullableField">T</a>&nbsp;value)</code>&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#setResetOnDisable-boolean-">setResetOnDisable</a></span>(boolean&nbsp;resetOnDisable)</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code><a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValidationResult.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">ValidationResult</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html#validate-T-com.vaadin.flow.data.binder.ValueContext-">validate</a></span>(<a href="../../../../../org/dellroad/stuff/vaadin22/field/NullableField.html" title="type parameter in NullableField">T</a>&nbsp;value,
         <a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/data/binder/ValueContext.html?is-external=true" title="class or interface in com.vaadin.flow.data.binder">ValueContext</a>&nbsp;ctx)</code>
@@ -351,6 +368,13 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingF
 </a>
 <h3>Methods inherited from class&nbsp;java.lang.<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true" title="class or interface in java.lang">Object</a></h3>
 <code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#clone--" title="class or interface in java.lang">clone</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#equals-java.lang.Object-" title="class or interface in java.lang">equals</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#finalize--" title="class or interface in java.lang">finalize</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#getClass--" title="class or interface in java.lang">getClass</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#hashCode--" title="class or interface in java.lang">hashCode</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notify--" title="class or interface in java.lang">notify</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#notifyAll--" title="class or interface in java.lang">notifyAll</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang">toString</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait--" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-" title="class or interface in java.lang">wait</a>, <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#wait-long-int-" title="class or interface in java.lang">wait</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a name="methods.inherited.from.class.org.dellroad.stuff.vaadin22.field.ValidatingField">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;org.dellroad.stuff.vaadin22.field.<a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html" title="interface in org.dellroad.stuff.vaadin22.field">ValidatingField</a></h3>
+<code><a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingField.html#addValidation-com.vaadin.flow.data.binder.Binder.BindingBuilder-">addValidation</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.com.vaadin.flow.component.HasValue">
@@ -582,6 +606,29 @@ implements <a href="../../../../../org/dellroad/stuff/vaadin22/field/ValidatingF
 <li class="blockList">
 <h4>getComponent</h4>
 <pre>public&nbsp;<a href="https://vaadin.com/api/platform/22.0.2/com/vaadin/flow/component/Component.html?is-external=true" title="class or interface in com.vaadin.flow.component">Component</a>&nbsp;getComponent()</pre>
+</li>
+</ul>
+<a name="isResetOnDisable--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isResetOnDisable</h4>
+<pre>public&nbsp;boolean&nbsp;isResetOnDisable()</pre>
+<div class="block">Determine whether the inner field forgets its value when the checkbox is unchecked.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if the inner field is reset when the checkbox is unchecked</dd>
+</dl>
+</li>
+</ul>
+<a name="setResetOnDisable-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setResetOnDisable</h4>
+<pre>public&nbsp;void&nbsp;setResetOnDisable(boolean&nbsp;resetOnDisable)</pre>
 </li>
 </ul>
 <a name="validate-java.lang.Object-com.vaadin.flow.data.binder.ValueContext-">

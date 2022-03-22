@@ -159,7 +159,10 @@ public interface <span class="typeNameLabel">WriteCallback</span></pre>
 <h4>writeTo</h4>
 <pre>void&nbsp;writeTo(<a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true" title="class or interface in java.io">OutputStream</a>&nbsp;output)
       throws <a href="https://docs.oracle.com/javase/8/docs/api/java/io/IOException.html?is-external=true" title="class or interface in java.io">IOException</a></pre>
-<div class="block">Write the output to the given output stream.</div>
+<div class="block">Write the output to the given output stream.
+
+ <p>
+ This method should not <a href="https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html?is-external=true#close--" title="class or interface in java.io"><code>close()</code></a> the given <code>output</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>output</code> - output stream</dd>

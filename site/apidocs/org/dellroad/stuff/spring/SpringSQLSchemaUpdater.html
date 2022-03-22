@@ -127,6 +127,11 @@ var activeTableTab = "activeTableTab";
 extends <a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema">SQLSchemaUpdater</a>
 implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/beans/factory/BeanFactoryAware.html?is-external=true" title="class or interface in org.springframework.beans.factory">BeanFactoryAware</a>, <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/beans/factory/InitializingBean.html?is-external=true" title="class or interface in org.springframework.beans.factory">InitializingBean</a></pre>
 <div class="block"><a href="../../../../org/dellroad/stuff/schema/SQLSchemaUpdater.html" title="class in org.dellroad.stuff.schema"><code>SQLSchemaUpdater</code></a> optimized for use with Spring.
+
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <ul>
  <li><a href="../../../../org/dellroad/stuff/spring/SpringSQLSchemaUpdater.html#apply-java.sql.Connection-org.dellroad.stuff.schema.DatabaseAction-"><code>apply()</code></a> is overridden so Spring <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api/org/springframework/dao/DataAccessException.html?is-external=true" title="class or interface in org.springframework.dao"><code>DataAccessException</code></a>s are thrown.</li>
  <li><a href="../../../../org/dellroad/stuff/spring/SpringSQLSchemaUpdater.html#indicatesUninitializedDatabase-java.sql.Connection-java.sql.SQLException-"><code>indicatesUninitializedDatabase()</code></a> is overridden to examine exceptions
@@ -141,7 +146,7 @@ implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api
  <p>
  An example of how this class can be combined with custom XML to define an updater, all its updates,
  and a <a href="../../../../org/dellroad/stuff/schema/SchemaUpdatingDataSource.html" title="class in org.dellroad.stuff.schema"><code>SchemaUpdatingDataSource</code></a> that automatically updates the database schema:
- <blockquote><pre>
+ <pre><code class="language-xml">
   &lt;beans xmlns="http://www.springframework.org/schema/beans"
     <b>xmlns:dellroad-stuff="http://dellroad-stuff.googlecode.com/schema/dellroad-stuff"</b>
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -188,7 +193,7 @@ implements <a href="https://docs.spring.io/spring/docs/5.2.9.RELEASE/javadoc-api
       &lt;!-- Add more schema updates over time as needed and everything just works... --&gt;
 
   &lt;/beans&gt;
- </pre></blockquote>
+ </code></pre>
 
  <p>
  In the case no schema updates are explicitly configured, it is required that this updater and all of its

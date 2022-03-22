@@ -128,6 +128,10 @@ extends <a href="https://www.slf4j.org/apidocs/org/apache/log4j/WriterAppender.h
 <div class="block">A Log4J appender that can be configured on a per-thread basis to direct the log messages
  to an arbitrary <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a> destination.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-xml-doc.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  Normally this appender does nothing. However, if a thread invokes <a href="../../../../org/dellroad/stuff/util/ThreadLogger.html#setLogDestination-java.io.Writer-boolean-"><code>setLogDestination()</code></a>
  with a non-null <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a>, then any messages logged by <i>that particular thread</i> will go to that <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html?is-external=true" title="class or interface in java.io"><code>Writer</code></a>.
@@ -136,7 +140,7 @@ extends <a href="https://www.slf4j.org/apidocs/org/apache/log4j/WriterAppender.h
  <p>
  Configure this appender just as you would any other. For example:
 
-  <blockquote><pre>
+  <pre><code class="language-xml">
   &lt;!-- Per-thread logger --&gt;
   &lt;appender name="threadlog" class="org.dellroad.stuff.util.ThreadLogger"&gt;
       &lt;param name="Threshold" value="debug"/&gt;
@@ -151,7 +155,7 @@ extends <a href="https://www.slf4j.org/apidocs/org/apache/log4j/WriterAppender.h
       ...
       &lt;appender-ref ref="threadlog"&gt;
   &lt;/root&gt;
-  </pre></blockquote></div>
+  </code></pre></div>
 </li>
 </ul>
 </div>

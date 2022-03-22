@@ -100,6 +100,10 @@ public static @interface <span class="memberNameLabel">AbstractFieldBuilder.Fiel
 <div class="block">Annotates methods returning alternate default values for some property of the various fields constructed
  by a <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>FieldBuilder</code></a> from <a href="../../../../../org/dellroad/stuff/vaadin22/field/FieldBuilder.html" title="class in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.Foo</code></a> declarative annotations.
 
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
+
  <p>
  A <a href="../../../../../org/dellroad/stuff/vaadin22/field/AbstractFieldBuilder.FieldDefault.html" title="annotation in org.dellroad.stuff.vaadin22.field"><code>&#64;FieldBuilder.FieldDefault</code></a> annotation annotates a static method in an
  edited model class that returns an alternate default value for some field configuration property (for example,
@@ -109,7 +113,7 @@ public static @interface <span class="memberNameLabel">AbstractFieldBuilder.Fiel
  <p>
  For example:
 
- <blockquote><pre>
+ <pre><code class="language-java">
  // This is one of our data model classes
  public class <b>Person</b> {
      public String getFirstName() { ... }
@@ -137,7 +141,7 @@ public static @interface <span class="memberNameLabel">AbstractFieldBuilder.Fiel
      <b>&#64;FieldBuilder.CheckboxGroup</b>     // Uses ItemLabelGenerator from Person.myCustomLabel()
      public <b>Person</b> getPassengers() { ... }
  }
- </pre></blockquote>
+ </code></pre>
 
  <p><b>Details</b>
 
