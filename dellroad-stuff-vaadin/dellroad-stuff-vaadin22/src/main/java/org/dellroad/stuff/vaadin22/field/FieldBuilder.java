@@ -102,8 +102,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  *
  * <p>
  * All of the declarative {@code @FieldBuilder.Foo} annotations have an {@code implementation()} property that allows you
- * to specify a custom implementation. So a slightly different way to specify a custom field to edit the {@code "foobar"}
- * property would be:
+ * to specify a custom implementation. So a more consistent way to customize the {@code "foobar"} component would be:
  *
  * <pre><code class="language-java">
  * // Use my own custom FoobarField to edit "foobar"
@@ -114,7 +113,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * <p><b>Building the Form</b>
  *
  * <p>
- * First, use {@link #bindFields bindFields()} to create and configure a new set of fields, and bind them into a {@link Binder}:
+ * First, use {@link #bindFields bindFields()} to create a new set of fields, configure them, and bind them into a {@link Binder}:
  *
  * <pre><code class="language-java">
  * // Create a FieldBuilder
