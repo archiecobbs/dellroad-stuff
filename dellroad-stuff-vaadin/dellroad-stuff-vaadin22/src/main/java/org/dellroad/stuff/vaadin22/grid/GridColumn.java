@@ -23,6 +23,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.Comparator;
 
+import org.dellroad.stuff.vaadin22.util.SelfRenderer;
+
 /**
  * Provides the information necessary to auto-generate a {@link Grid.Column} based on annotated getter methods.
  *

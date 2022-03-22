@@ -37,6 +37,7 @@ import java.util.stream.Stream;
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 import org.dellroad.stuff.java.ReflectUtil;
+import org.dellroad.stuff.vaadin22.util.SelfRenderer;
 
 /**
  * Scans a Java class hierarchy for {@link GridColumn &#64;GridColumn} annotated getter methods,

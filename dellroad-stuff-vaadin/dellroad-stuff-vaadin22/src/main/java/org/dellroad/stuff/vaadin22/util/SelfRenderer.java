@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.grid;
+package org.dellroad.stuff.vaadin22.util;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;

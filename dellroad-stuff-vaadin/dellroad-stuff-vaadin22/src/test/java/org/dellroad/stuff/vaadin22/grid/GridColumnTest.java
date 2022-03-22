@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.test.TestSupport;
+import org.dellroad.stuff.vaadin22.util.SelfRenderer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
