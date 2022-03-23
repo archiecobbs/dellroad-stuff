@@ -6,6 +6,7 @@
 package org.dellroad.stuff.java;
 
 import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 /**
  * Manages a thread local whose lifetime matches the duration of some method call.
@@ -157,6 +158,31 @@ public class ThreadLocalHolder<T> {
                 this.threadLocal.remove();
                 this.destroy(value);
             }
+        }
+    }
+
+    /**
+     * Invoke the given action while making the given thread local variable available via {@link #get} and {@link #require}.
+     *
+     * <p>
+     * If there is already a thread local variable set for the current thread (i.e., we are already executing within
+     * an invocation of <code>ThreadLocalHolder.invoke()</code>), then if {@code value} is the exact same Java object
+     * (using object equality, not <code>equals()</code>), execution proceeds normally, otherwise an exception is thrown.
+     *
+     * @param <R> action return type
+     * @param value value for the thread local variable
+     * @param action action to invoke
+     * @return result of invoking {@code action}
+     * @throws IllegalArgumentException if either {@code action} or {@code value} is null
+     * @throws IllegalStateException if there is already a thread local variable <code>previous</code>
+     *  associated with the current thread and <code>value != previous</code>
+     * @throws Exception if {@code action} throws an {@link Exception}
+     */
+    public <R> R invoke(final T value, Supplier<R> action) {
+        try {
+            return this.invoke(value, (Callable<R>)action::get);
+        } catch (Exception e) {
+            throw new RuntimeException("unexpected exception", e);
         }
     }
 
