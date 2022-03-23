@@ -54,6 +54,8 @@ public class GridColumnScanner<T> {
     private final Class<T> type;
     private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
 
+// Constructors
+
     /**
      * Scan the given type and all super-types for {@link GridColumn &#64;GridColumn} annotations.
      *
@@ -107,6 +109,32 @@ public class GridColumnScanner<T> {
           .sorted(Comparator.<Map.Entry<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo>>comparingDouble(
             entry -> entry.getValue().getAnnotation().order()).thenComparing(Map.Entry::getKey))
           .forEach(entry -> this.columnMap.put(entry.getKey(), entry.getValue()));
+    }
+
+// Public Methods
+
+    /**
+     * Get the type associated with this instance.
+     *
+     * @return backing object type
+     */
+    public Class<T> getType() {
+        return this.type;
+    }
+
+    /**
+     * Get the annotations found through introspection indexed by {@linkplain GridColumn#key column key}.
+     *
+     * <p>
+     * This represents static information gathered by this instance by scanning the class hierarchy during construction.
+     *
+     * <p>
+     * The returned map is mutable, e.g., if you delete unwanted entries then {@link #buildGrid} will skip them.
+     *
+     * @return annotations keyed by {@linkplain GridColumn#key column key}, and sorted based on {@link GridColumn#order}, then key
+     */
+    public Map<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> getColumnMap() {
+        return this.columnMap;
     }
 
     /**
@@ -271,6 +299,8 @@ public class GridColumnScanner<T> {
           description, valueProvider, selfRendering, GridColumnScanner.getDefaults());
     }
 
+// Internal Methods
+
     @SuppressWarnings("unchecked")
     private static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
       String description, ValueProvider<T, ?> valueProvider, boolean selfRendering, GridColumn defaults) {
@@ -356,26 +386,5 @@ public class GridColumnScanner<T> {
         return Optional.ofNullable(methodInfo.getMethodPropertyName())
           .orElseThrow(
             () -> new IllegalArgumentException("can't infer column key name from non-bean method " + methodInfo.getMethod()));
-    }
-
-    /**
-     * Get the type associated with this instance.
-     *
-     * @return backing object type
-     */
-    public Class<T> getType() {
-        return this.type;
-    }
-
-    /**
-     * Get the annotations found through introspection indexed by {@linkplain GridColumn#key column key}.
-     *
-     * <p>
-     * The returned map is mutable, e.g., if you need to delete some unwanted entries.
-     *
-     * @return annotations keyed by {@linkplain GridColumn#key column key}, and sorted based on {@link GridColumn#order}, then key
-     */
-    public Map<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> getColumnMap() {
-        return this.columnMap;
     }
 }
