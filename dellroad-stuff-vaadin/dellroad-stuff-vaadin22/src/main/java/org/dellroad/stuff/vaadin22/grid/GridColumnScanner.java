@@ -111,6 +111,25 @@ public class GridColumnScanner<T> {
           .forEach(entry -> this.columnMap.put(entry.getKey(), entry.getValue()));
     }
 
+    /**
+     * Static information copy constructor.
+     *
+     * <p>
+     * Using this constructor is more efficient than repeatedly scanning the same classes for the same annotations.
+     *
+     * <p>
+     * Any modifications made to the {@link Map} returned from {@link getColumnMap getColumnMap()} are included.
+     *
+     * @param original original instance
+     * @throws IllegalArgumentException if {@code original} is null
+     */
+    public GridColumnScanner(GridColumnScanner<T> original) {
+        if (original == null)
+            throw new IllegalArgumentException("null original");
+        this.type = original.type;
+        this.columnMap.putAll(original.columnMap);
+    }
+
 // Public Methods
 
     /**
