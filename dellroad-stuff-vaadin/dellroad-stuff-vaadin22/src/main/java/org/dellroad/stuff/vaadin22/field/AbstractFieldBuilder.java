@@ -101,6 +101,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * Static information copy constructor.
      *
      * <p>
+     * Using this constructor is more efficient than repeatedly scanning the same classes for the same annotations.
+     *
+     * <p>
      * Only the static information gathered by this instance by scanning for annotations is copied.
      * Any previously built fields are not copied.
      *

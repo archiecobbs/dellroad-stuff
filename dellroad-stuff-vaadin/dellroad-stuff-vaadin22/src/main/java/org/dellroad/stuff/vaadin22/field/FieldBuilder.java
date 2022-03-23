@@ -237,6 +237,9 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
      * Static information copy constructor.
      *
      * <p>
+     * Using this constructor is more efficient than repeatedly scanning the same classes for the same annotations.
+     *
+     * <p>
      * Only the static information gathered by this instance by scanning for annotations is copied.
      * Any previously bound fields are not copied.
      *
