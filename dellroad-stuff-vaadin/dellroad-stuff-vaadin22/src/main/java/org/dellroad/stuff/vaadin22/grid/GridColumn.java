@@ -291,7 +291,7 @@ public @interface GridColumn {
      * Get initial visibility setting.
      *
      * @return whether column is visible
-     * @see #visbilityMenu
+     * @see #visibilityMenu
      * @see Grid.Column#setVisible
      */
     boolean visible() default true;
@@ -307,7 +307,7 @@ public @interface GridColumn {
      * @see #visible
      * @see GridColumnScanner#addVisbilityMenuItems
      */
-    boolean visbilityMenu() default false;
+    boolean visibilityMenu() default false;
 
     /**
      * Get the width.

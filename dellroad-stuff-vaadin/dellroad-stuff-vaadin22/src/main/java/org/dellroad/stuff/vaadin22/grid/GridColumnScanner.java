@@ -204,7 +204,7 @@ public class GridColumnScanner<T> {
         // Get default annotation
         final GridColumn defaults = GridColumnScanner.getDefaults();
 
-        // Gather columns in ordered lists, grouped by group name, and track visbilityMenu()
+        // Gather columns in ordered lists, grouped by group name, and track visibilityMenu()
         final LinkedHashMap<String, List<Grid.Column<S>>> columnGroups = new LinkedHashMap<>();
         this.columnMap.forEach((columnKey, methodInfo) -> {
 
@@ -244,10 +244,10 @@ public class GridColumnScanner<T> {
 
     /**
      * Add menu items that enable/disable the visibility of individual columns for for which
-     * {@link GridColumn#visbilityMenu visbilityMenu()} was true to the given menu.
+     * {@link GridColumn#visibilityMenu visibilityMenu()} was true to the given menu.
      *
      * <p>
-     * This method adds menu items for all columns in the given grid for which {@link GridColumn#visbilityMenu visbilityMenu()}
+     * This method adds menu items for all columns in the given grid for which {@link GridColumn#visibilityMenu visibilityMenu()}
      * was true, according to the most recent call to {@link #buildGrid} or {@link #addColumnsTo addColumnsTo()}.
      *
      * <p>
@@ -276,7 +276,7 @@ public class GridColumnScanner<T> {
 
             // In visibility menu?
             final GridColumn annotation = methodInfo.getAnnotation();
-            if (!annotation.visbilityMenu())
+            if (!annotation.visibilityMenu())
                 return;
 
             // Find corresponding column
