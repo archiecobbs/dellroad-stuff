@@ -49,14 +49,13 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("serial")
 public class AsyncDataProvider<T> extends ListDataProvider<T> {
 
-    private static final AtomicLong LAST_LOAD_ID = new AtomicLong(0);
-
     /**
      * The {@link VaadinSession} with which this instance is associated.
      */
     protected final VaadinSession session = VaadinUtil.getCurrentSession();
 
     private final HashSet<LoadListener> listeners = new HashSet<>();
+    private final AtomicLong lastLoadId = new AtomicLong();
 
     private Function<? super Runnable, ? extends Future<?>> executor;
 
@@ -221,7 +220,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      */
     protected long nextId() {
         while (true) {                                              // just in case of in the unlikely event of a roll-over
-            final long nextId = LAST_LOAD_ID.incrementAndGet();
+            final long nextId = this.lastLoadId.incrementAndGet();
             if (nextId != 0)
                 return nextId;
         }
@@ -295,8 +294,8 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * This is invoked with {@linkplain #session this instance's session} locked.
      *
      * @param id task ID
-     * @param error load error, or null if none
-     * @param stream load results
+     * @param error load error, or null if there was no error
+     * @param stream load results, or null if there was an error
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      * @throws IllegalArgumentException if {@code id} is zero
      * @throws IllegalArgumentException if {@code stream} is null
