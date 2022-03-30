@@ -88,6 +88,15 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
 // Public Methods
 
     /**
+     * Get the {@link VaadinSession} to which this instance data provider belongs.
+     *
+     * @return this instance's {@link VaadinSession}, never null
+     */
+    public VaadinSession getVaadinSession() {
+        return this.session;
+    }
+
+    /**
      * Configure the executor used for async tasks.
      *
      * @param executor the thing that launches background tasks
