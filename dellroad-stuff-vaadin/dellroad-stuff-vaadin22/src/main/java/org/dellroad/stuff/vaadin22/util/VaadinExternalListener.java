@@ -147,10 +147,22 @@ public abstract class VaadinExternalListener<S> {
             try {
                 action.run();
             } catch (RuntimeException e) {
-                LoggerFactory.getLogger(this.getClass()).error("exception in asynchrnous listener", e);
-                throw e;
+                this.handleException(e);
             }
         });
+    }
+
+    /**
+     * Handle a {@link RuntimeException} thrown by the {@link #handleEvent handleEvent} callback.
+     *
+     * <p>
+     * The implementation in {@link VaadinExternalListener} logs an error and then re-throws the exception.
+     *
+     * @param e exception thrown
+     */
+    protected void handleException(RuntimeException e) {
+        LoggerFactory.getLogger(this.getClass()).error("exception in asynchronous listener", e);
+        throw e;
     }
 
     /**
