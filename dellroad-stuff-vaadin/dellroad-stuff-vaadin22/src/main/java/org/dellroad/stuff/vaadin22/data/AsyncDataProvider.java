@@ -26,17 +26,20 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * Instances are just a {@link ListDataProvider} with an added ability to load the underlying data list using
- * the results from an asynchronous background query. These async load attempts are initiated via {@link #load load}
+ * the results from an asynchronous background query. These async load attempts are initiated via {@link #load load()}
  * and may be canceled in progress via {@link #cancel}.
  *
  * <p>
- * {@link LoadListener}'s receive status updates when a task starts, completes, fails, or is canceled. These updates
- * can be used to drive GUI loading spinners, etc.
+ * Any {@link LoadListener}s receive status updates when a load operation starts, completes, fails, or is canceled. These
+ * updates can be used to drive GUI loading spinners, etc. The {@link #isBusy} method can be used at any time to determine if
+ * there is any load operation in progress.
  *
  * <p>
  * This class handles all required synchronization and locking. It guarantees that at most one async load task
  * can be happening at a time, that listener notifications are delivered in proper order, and that instance's
- * state can not change unexpectely as long as the current {@link VaadinSession} remains locked.
+ * state can not change unexpectely (i.e., there are no race conditions) as long as the current {@link VaadinSession}
+ * remains locked whenever instances are accessed. Put another way, everything that occurs while the session
+ * is locked appears to happen atomically.
  *
  * <p>
  * Instances bind to the current {@link VaadinSession} at construction time and may only be used with that session.
@@ -109,7 +112,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * Trigger a new asynchronous load of this instance.
      *
      * <p>
-     * If there is already an async load in progress, this method will {@link #cancel cancel()} it.
+     * If there is already an async load in progress, this method will {@link #cancel cancel()} it first.
      * You can check this ahead of time via {@link #isBusy}.
      *
      * <p>
@@ -395,7 +398,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
          *
          * <p>
          * If this method returns null, the load fails with an {@link IllegalArgumentException} and
-         * {@link LoadListener#FAILED} is reported).
+         * {@link LoadListener#FAILED} is reported.
          *
          * @param id unique ID for this load attempt
          * @return stream of data items

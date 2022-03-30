@@ -796,7 +796,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <ul>
      *  <li>{@link FieldBuilder &#64;FieldBuilder.Foo} (for some widget class {@code Foo})
      *  <li>{@link ProvidesField &#64;FieldBuilder.ProvidesField}
-     *  <li>{@link Binding &#64;FieldBuilder.Binding},
+     *  <li>{@link Binding &#64;FieldBuilder.Binding}
      *  <li>{@link FormLayout &#64;FieldBuilder.FormLayout}
      *  <li>{@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}
      *  <li>{@link EnabledBy &#64;FieldBuilder.EnabledBy}

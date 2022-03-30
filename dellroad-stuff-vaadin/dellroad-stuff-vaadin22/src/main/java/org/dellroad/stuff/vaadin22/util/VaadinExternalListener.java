@@ -16,25 +16,30 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * Listeners that are part of a Vaadin application should use this superclass if they are going to be registered
- * with non-Vaadin event sources. Use the methods {@link #register()} and {@link #unregister()} to control listener
- * registration.
+ * with non-Vaadin event sources, where "non-Vaadin" means not operating in the context of a {@link VaadinSession}
+ * and not holding corresponding lock.
  *
  * <p>
- * Subclasses must implement {@link #registerExternal} and {@link #unregisterExternal} to perform the actual external
+ * Use the methods {@link #register()} and {@link #unregister()} from within a {@link VaadinSession} to control
+ * listener registration.
+ *
+ * <p>
+ * Subclasses must then implement {@link #registerExternal} and {@link #unregisterExternal} to perform the actual external
  * registration/unregister operations, and then when notified by the external source, must use {@link #handleEvent handleEvent()}
- * to relay the notification back to the caller with the session safely locked.
+ * to relay the notification back to the caller with the {@link VaadinSession} safely locked.
  *
  * <p>
- * Use of this class will ensure two possible bugs are avoided:
+ * Use of this class will prevent these bugs from happening:
  * <ul>
- *  <li>Notifications are delivered {@linkplain VaadinSession#access with the Vaadin session locked}; and</li>
- *  <li>Outstanding listeners are automatically unregistered if/when the Vaadin application is closed</li>
+ *  <li>Notifications being delivered without the {@link VaadinSession} being locked;</li>
+ *  <li>Race conditions between unregistering a listener and receiving a listener notification; and</li>
+ *  <li>Memory leaks that occur if the Vaadin application is closed while listeners are still registered</li>
  * </ul>
  *
  * <p>
- * Note: when listening to event sources that are scoped to specific Vaadin application instances and already originate events
- * within the proper Vaadin application context (i.e., non-external event sources), then the use of this superclass is not
- * necessary, but it won't hurt to use it.
+ * Note: when listening to event sources that are scoped to specific Vaadin application instances and that already originate events
+ * within the proper Vaadin application context (i.e., non-external event sources), then the use of this class is not
+ * necessary, but it also won't hurt to use it.
  *
  * @param <S> The type of the event source
  */
@@ -80,8 +85,7 @@ public abstract class VaadinExternalListener<S> {
      * Register as a listener on configured event source.
      *
      * <p>
-     * This also listens for shutdown of the {@linkplain #getSession configured Vaadin application},
-     * so that when the application closes we can unregister this instance from the event source to avoid a memory leak.
+     * This method may be invoked from any context.
      *
      * @throws IllegalStateException if this instance is already registered
      */
@@ -99,7 +103,7 @@ public abstract class VaadinExternalListener<S> {
      * Un-register as a listener on configured event source.
      *
      * <p>
-     * This also removes the listener registered by {@link #register}.
+     * This method may be invoked from any context.
      */
     public synchronized void unregister() {
         if (this.sessionDestroyRegistration != null) {
@@ -110,7 +114,7 @@ public abstract class VaadinExternalListener<S> {
     }
 
     /**
-     * Get the {@link VaadinSession} (aka Vaadin application) with which this instance is associated.
+     * Get the {@link VaadinSession} with which this instance is associated.
      *
      * @return associated session
      */
@@ -128,7 +132,7 @@ public abstract class VaadinExternalListener<S> {
     }
 
     /**
-     * Execute the given listener action using the {@link VaadinSession} with which this instance is associated.
+     * Execute the given listener action while the {@link VaadinSession} with which this instance is associated is locked.
      *
      * <p>
      * Subclass listener methods should handle events by invoking this method to ensure proper locking to avoid race conditions.
