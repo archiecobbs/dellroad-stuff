@@ -404,7 +404,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
          * @throws InterruptedException if the current thread is interrupted
          * @throws RuntimeException if an error occurs during loading
          */
-        Stream<T> load(long id) throws InterruptedException;
+        Stream<? extends T> load(long id) throws InterruptedException;
     }
 
 // LoadListener
