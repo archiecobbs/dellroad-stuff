@@ -55,7 +55,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     protected final VaadinSession session = VaadinUtil.getCurrentSession();
 
     private final HashSet<LoadListener> listeners = new HashSet<>();
-    private final AtomicLong lastLoadId = new AtomicLong();
+    private final AtomicLong lastTaskId = new AtomicLong();
 
     private Function<? super Runnable, ? extends Future<?>> executor;
 
@@ -134,7 +134,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         this.cancel();
 
         // Get the next unique load ID
-        final long id = nextId();
+        final long id = this.nextTaskId();
 
         // Enqueue STARTED notification
         this.notifyListeners(id, LoadListener.STARTED, null);
@@ -214,15 +214,15 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
 // Internal Methods
 
     /**
-     * Get the next unique ID.
+     * Get the next unique task ID.
      *
-     * @return unique ID, never zero
+     * @return unique task ID, never zero
      */
-    protected long nextId() {
+    protected long nextTaskId() {
         while (true) {                                              // just in case of in the unlikely event of a roll-over
-            final long nextId = this.lastLoadId.incrementAndGet();
-            if (nextId != 0)
-                return nextId;
+            final long nextTaskId = this.lastTaskId.incrementAndGet();
+            if (nextTaskId != 0)
+                return nextTaskId;
         }
     }
 
