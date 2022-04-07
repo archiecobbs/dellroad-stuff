@@ -27,7 +27,7 @@ import com.vaadin.flow.data.binder.ValueContext;
  * <p>
  * However, for any {@link ValidatingField} validation to take effect, some mechanism must register the validation with
  * an appropriate {@link Binder}. This happens automatically for fields created by a {@link FieldBuilder}, but can also
- * be done manually via {@link #addValidation addValidation()}.
+ * be done manually via {@link #addValidationTo addValidationTo()}.
  *
  * @param <E> value change event type
  * @param <V> internal binder bean type
@@ -57,7 +57,7 @@ public interface ValidatingField<E extends HasValue.ValueChangeEvent<V>, V> exte
      * @throws IllegalArgumentException if {@code builder} is null
      */
     default <BEAN, TARGET extends V>
-      Binder.BindingBuilder<BEAN, TARGET> addValidation(Binder.BindingBuilder<BEAN, TARGET> builder) {
+      Binder.BindingBuilder<BEAN, TARGET> addValidationTo(Binder.BindingBuilder<BEAN, TARGET> builder) {
         if (builder == null)
             throw new IllegalArgumentException("null builder");
         return builder.withValidator(this::validate);

@@ -1034,7 +1034,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             // Add recursive validation if field implements ValidatingField
             if (field instanceof ValidatingField) {
                 final ValidatingField<?, V> validatingField = (ValidatingField<?, V>)field;
-                bindingBuilder = validatingField.addValidation(bindingBuilder);
+                bindingBuilder = validatingField.addValidationTo(bindingBuilder);
             }
 
             // Complete the binding
