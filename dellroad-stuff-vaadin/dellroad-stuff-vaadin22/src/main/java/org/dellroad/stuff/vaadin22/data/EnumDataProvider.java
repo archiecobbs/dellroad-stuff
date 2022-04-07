@@ -16,7 +16,7 @@ import org.dellroad.stuff.vaadin22.field.FieldBuilderContext;
  *
  * <p>
  * When created by a {@link org.dellroad.stuff.vaadin22.field.FieldBuilder}, instances will
- * automatically infer the {@link Enum} type via {@link FieldBuilderContext#inferDataType} and then
+ * automatically infer the {@link Enum} type via {@link FieldBuilderContext#inferDataModelType} and then
  * populate themselves with the corresponding enum values.
  */
 @SuppressWarnings("serial")
@@ -36,7 +36,7 @@ public class EnumDataProvider<T extends Enum<T>> extends ListDataProvider<T> {
      */
     @SuppressWarnings("unchecked")
     public EnumDataProvider(FieldBuilderContext ctx) {
-        this((Class<T>)ctx.inferDataType());
+        this((Class<T>)ctx.inferDataModelType());
     }
 
     /**

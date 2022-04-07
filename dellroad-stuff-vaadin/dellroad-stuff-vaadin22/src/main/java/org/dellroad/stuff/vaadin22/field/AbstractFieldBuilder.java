@@ -512,7 +512,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
 
         // Apply any applicable @FieldDefault annotations found in the data model class
-        this.applyFieldDefaultAnnotations(field, this.newFieldBuilderContext(bindingInfo).inferDataType());
+        this.applyFieldDefaultAnnotations(field, this.newFieldBuilderContext(bindingInfo).inferDataModelType());
 
         // Configure field from annotation (this will only apply non-default values)
         applier.configureField(field);

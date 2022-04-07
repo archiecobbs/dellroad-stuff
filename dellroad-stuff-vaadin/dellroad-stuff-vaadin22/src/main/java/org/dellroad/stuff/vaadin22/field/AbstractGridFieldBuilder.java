@@ -405,7 +405,7 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
     protected Grid<?> buildGrid(BindingInfo bindingInfo, GridColumn column) {
 
         // Determine grid model type
-        final Class<?> modelType = this.newFieldBuilderContext(bindingInfo).inferDataType();
+        final Class<?> modelType = this.newFieldBuilderContext(bindingInfo).inferDataModelType();
 
         // Create grid
         final Grid<?> grid = new Grid<>(modelType, false);

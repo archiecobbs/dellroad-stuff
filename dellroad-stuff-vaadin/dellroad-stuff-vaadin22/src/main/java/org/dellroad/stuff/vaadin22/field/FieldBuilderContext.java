@@ -71,7 +71,7 @@ public interface FieldBuilderContext {
      * return type, unless the return type is a sub-type of {@link Collection}, in which case the data model
      * type is the collection's element type.
      */
-    default Class<?> inferDataType() {
+    default Class<?> inferDataModelType() {
         Class<?> modelType = this.getMethod().getReturnType();
         if (Collection.class.isAssignableFrom(modelType)) {
             final Type elementType;
