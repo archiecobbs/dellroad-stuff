@@ -553,8 +553,8 @@ public class PersistentObject<T> {
 
         // Stop executor services
         this.log.info(this + ": shutting down");
-        this.scheduledExecutor.shutdown();
-        this.notifyExecutor.shutdown();
+        this.scheduledExecutor.shutdownNow();
+        this.notifyExecutor.shutdownNow();
         this.awaitTermination(this.scheduledExecutor, "scheduledExecutor");
         this.awaitTermination(this.notifyExecutor, "notifyExecutor");
 
