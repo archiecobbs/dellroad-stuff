@@ -114,7 +114,6 @@ import org.springframework.web.context.ContextLoaderListener;
  * @see VaadinSessionDataProvider
  * @see <a href="https://github.com/vaadin/spring/issues/560">vaadin-spring issue #560</a>
  */
-@SuppressWarnings("serial")
 public class SimpleSpringServlet extends VaadinServlet {
 
     /**
@@ -195,6 +194,7 @@ public class SimpleSpringServlet extends VaadinServlet {
         final ApplicationContext context = this.findApplicationContext();
 
         // Return a VaadinServletService that tracks sessions (if enabled)
+        @SuppressWarnings("serial")
         final VaadinServletService service = new SpringVaadinServletService(this, deploymentConfiguration, context) {
 
             @Override
