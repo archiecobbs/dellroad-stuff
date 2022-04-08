@@ -6,7 +6,6 @@
 package org.dellroad.stuff.jibx;
 
 import java.io.IOException;
-import java.util.concurrent.Callable;
 
 import javax.annotation.PostConstruct;
 import javax.xml.transform.Result;
@@ -51,41 +50,24 @@ public class IdMappingMarshaller implements Marshaller, Unmarshaller {
     /**
      * Invokdes {@link org.springframework.oxm.jibx.JibxMarshaller#marshal JibxMarshaller.marshal()} on the configured
      * {@link org.springframework.oxm.jibx.JibxMarshaller} within an invocation of
-     * {@link IdGenerator#run(Callable) IdGenerator.run()}.
+     * {@link IdGenerator#run(Supplier) IdGenerator.run()}.
      */
     @Override
     public void marshal(final Object graph, final Result result) throws IOException {
-        try {
-            IdGenerator.run(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    IdMappingMarshaller.this.jibxMarshaller.marshal(graph, result);
-                    return null;
-                }
-            });
-        } catch (Exception e) {
-            this.unwrapException(e);
-        }
+        IdMappingMarshaller.runIdGenerator(() -> {
+            this.jibxMarshaller.marshal(graph, result);
+            return null;
+        });
     }
 
     /**
      * Invokdes {@link org.springframework.oxm.jibx.JibxMarshaller#unmarshal JibxMarshaller.unmarshal()} on the configured
      * {@link org.springframework.oxm.jibx.JibxMarshaller} within an invocation of
-     * {@link IdGenerator#run(Callable) IdGenerator.run()}.
+     * {@link IdGenerator#run(Supplier) IdGenerator.run()}.
      */
     @Override
     public Object unmarshal(final Source source) throws IOException {
-        try {
-            return IdGenerator.run(new Callable<Object>() {
-                @Override
-                public Object call() throws Exception {
-                    return IdMappingMarshaller.this.jibxMarshaller.unmarshal(source);
-                }
-            });
-        } catch (Exception e) {
-            this.unwrapException(e);
-            return null;                // never reached
-        }
+        return IdMappingMarshaller.runIdGenerator(() -> this.jibxMarshaller.unmarshal(source));
     }
 
     @Override
@@ -93,12 +75,28 @@ public class IdMappingMarshaller implements Marshaller, Unmarshaller {
         return this.jibxMarshaller.supports(type);
     }
 
-    private void unwrapException(Exception e) throws IOException {
-        if (e instanceof IOException)
-            throw (IOException)e.getCause();
-        if (e instanceof RuntimeException)
-            throw (RuntimeException)e;
-        throw new RuntimeException(e);
+// Exception wrangling
+
+    private static <R> R runIdGenerator(JiBXSupplier<R> action) throws IOException {
+        if (action == null)
+            throw new IllegalArgumentException("null action");
+        try {
+            return IdGenerator.run(() -> {
+                try {
+                    return action.get();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof IOException)
+                throw (IOException)e.getCause();
+            throw e;
+        }
+    };
+
+    @FunctionalInterface
+    private interface JiBXSupplier<R> {
+        R get() throws IOException;
     }
 }
-

@@ -9,7 +9,7 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 /**
  * Registry of unique IDs for objects.
@@ -167,7 +167,7 @@ public class IdGenerator {
      * instance.
      *
      * @param action action to perform, and which may successfully invoke {@link #get}
-     * @throws NullPointerException if {@code action} is null
+     * @throws IllegalArgumentException if {@code action} is null
      */
     public static void run(final Runnable action) {
         IdGenerator current = IdGenerator.CURRENT.get();
@@ -186,10 +186,9 @@ public class IdGenerator {
      * @param <R> action return type
      * @param action action to perform, and which may successfully invoke {@link #get}
      * @return result of invoking {@code action}
-     * @throws Exception if {@code action} throws an exception
-     * @throws NullPointerException if {@code action} is null
+     * @throws IllegalArgumentException if {@code action} is null
      */
-    public static <R> R run(final Callable<R> action) throws Exception {
+    public static <R> R run(final Supplier<R> action) {
         IdGenerator current = IdGenerator.CURRENT.get();
         if (current == null)
             current = new IdGenerator();
@@ -242,4 +241,3 @@ public class IdGenerator {
         }
     }
 }
-

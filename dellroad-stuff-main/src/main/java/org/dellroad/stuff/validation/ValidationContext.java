@@ -8,7 +8,6 @@ package org.dellroad.stuff.validation;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.Callable;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -91,27 +90,19 @@ public class ValidationContext<T> {
      *
      * @param validator the validator
      * @return zero or more violations
+     * @throws IllegalArgumentException if {@code validator} is null
      * @throws IllegalStateException if this method is invoked re-entrantly
      */
     public Set<ConstraintViolation<T>> validate(final Validator validator) {
 
         // Sanity check
+        if (validator == null)
+            throw new IllegalArgumentException("null validator");
         if (ValidationContext.CURRENT.get() != null)
             throw new IllegalStateException("re-entrant invocation is not allowed");
 
         // Validate
-        try {
-            return ValidationContext.CURRENT.invoke(this, new Callable<Set<ConstraintViolation<T>>>() {
-                @Override
-                public Set<ConstraintViolation<T>> call() {
-                    return validator.validate(ValidationContext.this.root, ValidationContext.this.groups);
-                }
-            });
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return ValidationContext.CURRENT.invoke(this, () -> validator.validate(this.root, this.groups));
     }
 
     /**

@@ -6,7 +6,7 @@
 package org.dellroad.stuff.java;
 
 import java.util.HashSet;
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 import org.dellroad.stuff.test.TestSupport;
 import org.testng.Assert;
@@ -62,24 +62,21 @@ public class ThreadLocalHolderTest extends TestSupport {
 
         destroyed.clear();
 
-    // Test Callable
+    // Test Supplier
 
         final Object foo2 = new Object();
         final Object bar = new Object();
 
-        Callable<Object> cable = new Callable<Object>() {
-            @Override
-            public Object call() {
-                Object current = t.require();
-                assert current == foo2;
-                current = t.get();
-                assert current == foo2;
-                assert destroyed.isEmpty();
-                return bar;
-            }
+        Supplier<Object> supplier = () -> {
+            Object current = t.require();
+            assert current == foo2;
+            current = t.get();
+            assert current == foo2;
+            assert destroyed.isEmpty();
+            return bar;
         };
 
-        Object bar2 = t.invoke(foo2, cable);
+        Object bar2 = t.invoke(foo2, supplier);
         assert bar2 == bar;
 
         assert destroyed.iterator().next() == foo2;

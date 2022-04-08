@@ -14,7 +14,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
-import java.util.concurrent.Callable;
+import java.util.function.Supplier;
 
 import org.dellroad.stuff.java.IdGenerator;
 import org.jibx.runtime.BindingDirectory;
@@ -39,7 +39,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * <p>
@@ -60,7 +60,7 @@ public final class JiBXUtil {
      * Read in an object encoded as XML.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * <p>
@@ -79,17 +79,7 @@ public final class JiBXUtil {
         IBindingFactory bindingFactory = bindingName != null ?
           BindingDirectory.getFactory(bindingName, targetClass) : BindingDirectory.getFactory(targetClass);
         final IUnmarshallingContext unmarshallingContext = bindingFactory.createUnmarshallingContext();
-        try {
-            return IdGenerator.run(new Callable<T>() {
-                @Override
-                public T call() throws Exception {
-                    return targetClass.cast(unmarshallingContext.unmarshalDocument(input, null));
-                }
-            });
-        } catch (Exception e) {
-            JiBXUtil.unwrapException(e);
-            return null;            // not reached
-        }
+        return JiBXUtil.runIdGenerator(() -> targetClass.cast(unmarshallingContext.unmarshalDocument(input, null)));
     }
 
     /**
@@ -97,7 +87,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * <p>
@@ -118,7 +108,7 @@ public final class JiBXUtil {
      * Read in an object encoded as XML.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * <p>
@@ -137,17 +127,7 @@ public final class JiBXUtil {
         IBindingFactory bindingFactory = bindingName != null ?
           BindingDirectory.getFactory(bindingName, targetClass) : BindingDirectory.getFactory(targetClass);
         final IUnmarshallingContext unmarshallingContext = bindingFactory.createUnmarshallingContext();
-        try {
-            return IdGenerator.run(new Callable<T>() {
-                @Override
-                public T call() throws Exception {
-                    return targetClass.cast(unmarshallingContext.unmarshalDocument(input));
-                }
-            });
-        } catch (Exception e) {
-            JiBXUtil.unwrapException(e);
-            return null;            // not reached
-        }
+        return JiBXUtil.runIdGenerator(() -> targetClass.cast(unmarshallingContext.unmarshalDocument(input)));
     }
 
     /**
@@ -155,7 +135,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param <T> type of object to read
@@ -173,7 +153,7 @@ public final class JiBXUtil {
      * Read in an object encoded as XML from an {@link URL}.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param <T> type of object to read
@@ -195,7 +175,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param <T> object type
@@ -212,7 +192,7 @@ public final class JiBXUtil {
      * Write out the given instance encoded as a UTF-8 encoded XML document.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param <T> object type
@@ -231,7 +211,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param <T> object type
@@ -248,7 +228,7 @@ public final class JiBXUtil {
      * Write out the given instance encoded as an XML document with "UTF-8" as the declared encoding.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param obj object to write
@@ -261,24 +241,17 @@ public final class JiBXUtil {
         IBindingFactory bindingFactory = bindingName != null ?
           BindingDirectory.getFactory(bindingName, obj.getClass()) : BindingDirectory.getFactory(obj.getClass());
         final IMarshallingContext marshallingContext = bindingFactory.createMarshallingContext();
-        try {
-            IdGenerator.run(new Callable<Void>() {
-                @Override
-                public Void call() throws Exception {
-                    BufferedWriter bufferedWriter = new BufferedWriter(writer);
-                    marshallingContext.setIndent(4);
-                    marshallingContext.setOutput(bufferedWriter);
-                    marshallingContext.startDocument(XML_ENCODING, null);
-                    ((IMarshallable)obj).marshal(marshallingContext);
-                    marshallingContext.getXmlWriter().flush();
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-                    return null;
-                }
-            });
-        } catch (Exception e) {
-            JiBXUtil.unwrapException(e);
-        }
+        JiBXUtil.runIdGenerator(() -> {
+            final BufferedWriter bufferedWriter = new BufferedWriter(writer);
+            marshallingContext.setIndent(4);
+            marshallingContext.setOutput(bufferedWriter);
+            marshallingContext.startDocument(XML_ENCODING, null);
+            ((IMarshallable)obj).marshal(marshallingContext);
+            marshallingContext.getXmlWriter().flush();
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+            return null;
+        });
     }
 
     /**
@@ -286,7 +259,7 @@ public final class JiBXUtil {
      * This method assumes there is exactly one binding for the given class.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param obj object to encode
@@ -301,7 +274,7 @@ public final class JiBXUtil {
      * Encode the given instance as an XML document and return it as a {@link String}.
      *
      * <p>
-     * This method runs within a new invocation of {@link IdGenerator#run(Callable) IdGenerator.run()} to support object references
+     * This method runs within a new invocation of {@link IdGenerator#run(Supplier) IdGenerator.run()} to support object references
      * (see {@link IdMapper}).
      *
      * @param obj object to encode
@@ -320,14 +293,30 @@ public final class JiBXUtil {
         return w.toString();
     }
 
-    private static void unwrapException(Exception e) throws JiBXException, IOException {
-        if (e instanceof JiBXException)
-            throw (JiBXException)e;
-        if (e instanceof IOException)
-            throw (IOException)e;
-        if (e instanceof RuntimeException)
-            throw (RuntimeException)e;
-        throw new RuntimeException(e);
+// Exception wrangling
+
+    private static <R> R runIdGenerator(JiBXSupplier<R> action) throws JiBXException, IOException {
+        if (action == null)
+            throw new IllegalArgumentException("null action");
+        try {
+            return IdGenerator.run(() -> {
+                try {
+                    return action.get();
+                } catch (JiBXException | IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (RuntimeException e) {
+            if (e.getCause() instanceof JiBXException)
+                throw (JiBXException)e.getCause();
+            if (e.getCause() instanceof IOException)
+                throw (IOException)e.getCause();
+            throw e;
+        }
+    };
+
+    @FunctionalInterface
+    private interface JiBXSupplier<R> {
+        R get() throws JiBXException, IOException;
     }
 }
-
