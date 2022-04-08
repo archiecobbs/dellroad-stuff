@@ -22,6 +22,8 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.Documented;
@@ -78,11 +80,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     // Static info
     private final Class<T> type;
-    private final LinkedHashMap<String, BindingInfo> bindingInfoMap = new LinkedHashMap<>();    // info from scanned annotations
-    private final HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap = new HashMap<>(); // info from scanned @FieldDefault's
+    private transient LinkedHashMap<String, BindingInfo> bindingInfoMap;            // info from scanned annotations
+    private transient HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap;   // info from scanned @FieldDefault's
 
-    // Info updated by bindFields()
-    private LinkedHashMap<String, FieldComponent<?>> fieldComponentMap;                         // most recently built fields
+    // Mutable info
+    private LinkedHashMap<String, FieldComponent<?>> fieldComponentMap;             // fields most recently built by bindFields()
 
     /**
      * Constructor.
@@ -114,8 +116,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         if (original == null)
             throw new IllegalArgumentException("null original");
         this.type = original.type;
-        this.bindingInfoMap.putAll(original.bindingInfoMap);
-        this.defaultInfoMap.putAll(original.defaultInfoMap);
+        this.bindingInfoMap = new LinkedHashMap<>(original.bindingInfoMap);
+        this.defaultInfoMap = new HashMap<>(original.defaultInfoMap);
     }
 
     /**
@@ -279,8 +281,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     protected void scanForAnnotations() {
 
         // Reset state
-        this.bindingInfoMap.clear();
-        this.fieldComponentMap = null;
+        this.bindingInfoMap = new LinkedHashMap<>();
+        this.defaultInfoMap = new HashMap<>();
 
         // Identify all bean property getter methods
         final BeanInfo beanInfo;
@@ -1283,6 +1285,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      */
     protected class FieldBuilderContextImpl implements FieldBuilderContext {
 
+        private static final long serialVersionUID = -4636811655407064538L;
+
         protected final BindingInfo bindingInfo;
 
         public FieldBuilderContextImpl(BindingInfo bindingInfo) {
@@ -1306,6 +1310,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             return String.format("%s[info=%s,beanType=%s]",
               this.getClass().getSimpleName(), this.getBindingInfo(), this.getBeanType());
         }
+    }
+
+// Serialization
+
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+        this.scanForAnnotations();
     }
 
 // Annotations

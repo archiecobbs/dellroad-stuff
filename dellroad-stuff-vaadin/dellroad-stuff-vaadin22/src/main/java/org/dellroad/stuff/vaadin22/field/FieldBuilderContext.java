@@ -8,6 +8,7 @@ package org.dellroad.stuff.vaadin22.field;
 import com.google.common.reflect.TypeToken;
 import com.vaadin.flow.data.provider.DataProvider;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -24,7 +25,8 @@ import java.util.Collection;
  * <p>
  * @see FieldBuilder
  */
-public interface FieldBuilderContext {
+@SuppressWarnings("serial")         // workaround for JDK-8191637
+public interface FieldBuilderContext extends Serializable {
 
     /**
      * Get the static information (annotations, annotated method, etc.) associated with this context.

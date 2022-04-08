@@ -12,6 +12,8 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 
+import java.io.Serializable;
+
 /**
  * A combination of a {@link HasValue} field and its corresponding {@link Component}.
  *
@@ -25,7 +27,9 @@ import com.vaadin.flow.component.textfield.TextField;
  *
  * @param <V> field value type
  */
-public class FieldComponent<V> {
+public class FieldComponent<V> implements Serializable {
+
+    private static final long serialVersionUID = -4773664300675624288L;
 
     private final HasValue<?, V> field;
     private final Component component;
