@@ -54,8 +54,8 @@
 
         <!-- Dependency versions -->
         <ant.version>1.10.2</ant.version>
-        <aspectj.maven-plugin.version>1.11</aspectj.maven-plugin.version>
-        <aspectj.version>[1.8.13,1.9)</aspectj.version>
+        <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
+        <aspectj.version>1.9.7</aspectj.version>
         <guava.javadoc.version>29.0-jre</guava.javadoc.version>
         <guava.version>[29.0,)</guava.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
