@@ -105,6 +105,14 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- For validation stuff -->
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>${validation-api.version}</version>
+            <optional>true</optional>
+        </dependency>
+
         <!-- A few classes depend on Vaadin; set these dependencies to optional. -->
         <dependency>
             <groupId>com.vaadin</groupId>
