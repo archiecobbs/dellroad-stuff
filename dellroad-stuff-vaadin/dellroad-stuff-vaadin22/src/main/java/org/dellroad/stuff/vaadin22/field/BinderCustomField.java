@@ -138,7 +138,7 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      * <p>
      * Note: this method is invoked from the constructor, so any subclass constructor initialization will not have been done yet.
      * Subclasses can fix this by overriding this method and invoking
-     * {@link VaadinUtil#accessSession VaadinUtil.accessSession}{@code (() -> super.initialize())}.
+     * {@link VaadinUtil#accessCurrentSession VaadinUtil.accessCurrentSession}{@code (() -> super.initialize())}.
      */
     protected void initialize() {
         this.createAndBindFields();

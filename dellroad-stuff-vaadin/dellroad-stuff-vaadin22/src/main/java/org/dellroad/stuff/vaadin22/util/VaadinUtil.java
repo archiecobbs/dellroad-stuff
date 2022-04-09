@@ -87,7 +87,7 @@ public final class VaadinUtil {
      * @throws IllegalArgumentException if {@code action} is null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
-    public static boolean accessSession(Command action) {
+    public static boolean accessCurrentSession(Command action) {
         return VaadinUtil.accessSession(VaadinUtil.getCurrentSession(), action);
     }
 
