@@ -88,6 +88,7 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>${validation-api.version}</version>
+            <optional>true</optional>
         </dependency>
 
         <!-- For DAO stuff -->
