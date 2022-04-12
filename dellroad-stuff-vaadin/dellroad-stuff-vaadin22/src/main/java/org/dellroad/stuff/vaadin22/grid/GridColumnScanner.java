@@ -198,8 +198,12 @@ public class GridColumnScanner<T> {
         if (grid == null)
             throw new IllegalArgumentException("null grid");
 
-        // Inventory any existing columns
-        final List<Grid.Column<S>> existingColumnList = new ArrayList<>(grid.getColumns());
+        // Inventory any columns by key, but while also preserving their current order
+        final LinkedHashMap<String, Grid.Column<S>> existingColumnMap = grid.getColumns().stream()
+          .collect(Collectors.toMap(Grid.Column::getKey, c -> c,
+            (c1, c2) -> {
+              throw new RuntimeException("internal error");
+            }, LinkedHashMap::new));
 
         // Get default annotation
         final GridColumn defaults = GridColumnScanner.getDefaults();
@@ -208,8 +212,9 @@ public class GridColumnScanner<T> {
         final LinkedHashMap<String, List<Grid.Column<S>>> columnGroups = new LinkedHashMap<>();
         this.columnMap.forEach((columnKey, methodInfo) -> {
 
-            // Remove any existing column with the same key
-            existingColumnList.removeIf(column -> columnKey.equals(column.getKey()));
+            // Remove any existing column with the same key - the new column is going to override it
+            if (existingColumnMap.remove(columnKey) != null)
+                grid.removeColumnByKey(columnKey);
 
             // Get method and annotation
             final Method method = methodInfo.getMethod();
@@ -238,8 +243,11 @@ public class GridColumnScanner<T> {
         }
 
         // Set column order, respecting any column groupings
-        grid.setColumnOrder(Stream.concat(existingColumnList.stream(), columnGroups.values().stream().flatMap(List::stream))
-          .collect(Collectors.toList()));
+        final List<Grid.Column<S>> columnList = Stream.concat(
+            existingColumnMap.values().stream(),
+            columnGroups.values().stream().flatMap(List::stream))
+          .collect(Collectors.toList());
+        grid.setColumnOrder(columnList);
     }
 
     /**
