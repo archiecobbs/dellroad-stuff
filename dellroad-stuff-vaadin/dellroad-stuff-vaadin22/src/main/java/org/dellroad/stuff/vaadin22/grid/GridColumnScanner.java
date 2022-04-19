@@ -37,6 +37,7 @@ import java.util.stream.Stream;
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.java.MethodAnnotationScanner;
 import org.dellroad.stuff.java.ReflectUtil;
+import org.dellroad.stuff.java.ThreadLocalHolder;
 import org.dellroad.stuff.vaadin22.util.SelfRenderer;
 
 /**
@@ -50,6 +51,8 @@ import org.dellroad.stuff.vaadin22.util.SelfRenderer;
  * @see GridColumn &#64;GridColumn
  */
 public class GridColumnScanner<T> {
+
+    private static final ThreadLocalHolder<Grid<?>> CURRENT_GRID = new ThreadLocalHolder<>();
 
     private final Class<T> type;
     private final LinkedHashMap<String, MethodAnnotationScanner<T, GridColumn>.MethodInfo> columnMap = new LinkedHashMap<>();
@@ -162,6 +165,10 @@ public class GridColumnScanner<T> {
      * <p>
      * No columns are included for bean properties that are not annotated.
      *
+     * <p>
+     * During the execution of this method, in particular when any custom {@link Renderer}, {@link ValueProvider}, etc.,
+     * classes are being instantiated, the {@link Grid} being configured is available via {@link #currentGrid}.
+     *
      * @return newly built {@link Grid} with auto-generated columns
      */
     public Grid<T> buildGrid() {
@@ -184,11 +191,15 @@ public class GridColumnScanner<T> {
      * <p>
      * Any existing columns with conflicting column keys will be replaced.
      *
+     * <p>
+     * During the execution of this method, in particular when any custom {@link Renderer}, {@link ValueProvider}, etc.,
+     * classes are being instantiated, the supplied {@code grid} is available via {@link #currentGrid}.
+     *
      * @param grid target grid
      * @throws IllegalArgumentException if {@code grid} is null
      */
     public void addColumnsTo(Grid<?> grid) {
-        this.addColumnsTo2(grid);
+        CURRENT_GRID.invoke(grid, () -> this.addColumnsTo2(grid));
     }
 
     // This method is split from addColumnsTo() simply in order to bind type variable "S"
@@ -310,6 +321,10 @@ public class GridColumnScanner<T> {
     /**
      * Add and configure a single column to the given {@link Grid}.
      *
+     * <p>
+     * During the execution of this method, in particular when any custom {@link Renderer}, {@link ValueProvider}, etc.,
+     * classes are being instantiated, the supplied {@code grid} is available via {@link #currentGrid}.
+     *
      * @param grid target {@link Grid}
      * @param key the column's unique column key
      * @param annotation {@link GridColumn &#64;GridColumn} annotation
@@ -322,8 +337,22 @@ public class GridColumnScanner<T> {
      */
     public static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
       String description, ValueProvider<T, ?> valueProvider, boolean selfRendering) {
-        return GridColumnScanner.addColumn(grid, key, annotation,
-          description, valueProvider, selfRendering, GridColumnScanner.getDefaults());
+        return CURRENT_GRID.invoke(grid, () -> GridColumnScanner.addColumn(grid, key, annotation,
+          description, valueProvider, selfRendering, GridColumnScanner.getDefaults()));
+    }
+
+    /**
+     * Obtain the {@link Grid} being configured in the current thread.
+     *
+     * <p>
+     * This method only works when the current thread is executing in {@link #buildGrid buildGrid()},
+     * {@link #addColumn addColumn()}, or {@link #addColumnsTo addColumnsTo()}.
+     *
+     * @return current {@link Grid} being configured
+     * @throws IllegalStateException if no {@link Grid} is currently being configured by this class
+     */
+    public static Grid<?> currentGrid() {
+        return GridColumnScanner.CURRENT_GRID.require();
     }
 
 // Internal Methods
