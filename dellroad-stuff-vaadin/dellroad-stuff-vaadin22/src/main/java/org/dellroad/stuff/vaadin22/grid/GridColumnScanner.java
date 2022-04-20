@@ -376,14 +376,21 @@ public class GridColumnScanner<T> {
         // Create custom Renderer, if any
         Renderer<T> renderer = null;
         if (!annotation.renderer().equals(defaults.renderer())) {
-            final Constructor<? extends Renderer<?>> constructor;
+            Constructor<? extends Renderer<?>> constructor;
+            Object[] constructorParams;
             try {
                 constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
+                constructorParams = new Object[] { valueProvider };
             } catch (Exception e) {
-                throw new RuntimeException("cannot instantiate " + annotation.renderer()
-                  + " because no constructor taking ValueProvider is found", e);
+                try {
+                    constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
+                    constructorParams = new Object[0];
+                } catch (Exception e2) {
+                    throw new RuntimeException("cannot instantiate " + annotation.renderer()
+                      + " because no default constructor or constructor taking ValueProvider is found", e);
+                }
             }
-            renderer = (Renderer<T>)ReflectUtil.instantiate(constructor, valueProvider);
+            renderer = (Renderer<T>)ReflectUtil.instantiate(constructor, constructorParams);
         } else if (selfRendering)
             renderer = new SelfRenderer<T>((ValueProvider<T, ? extends Component>)valueProvider);
 

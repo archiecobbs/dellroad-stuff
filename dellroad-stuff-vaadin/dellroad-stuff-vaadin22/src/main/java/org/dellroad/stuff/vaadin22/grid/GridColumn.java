@@ -89,7 +89,7 @@ public @interface GridColumn {
      * <p>
      * If this property is not specified, {@link Grid#addColumn(ValueProvider)} is used to create the column;
      * if this property is specified, {@link Grid#addColumn(Renderer)} is used to create the column and the
-     * specified class must have a constructor taking a {@link ValueProvider} parameter.
+     * specified class must have either a default constructor or a constructor taking a {@link ValueProvider}.
      *
      * <p>
      * As a special case, when the annotated method returns a sub-type of {@link Component} and this property
