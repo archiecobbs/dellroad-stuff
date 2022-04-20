@@ -369,7 +369,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 }
                 final Class<?>[] parameterTypes = method.getParameterTypes();
                 if (!(parameterTypes.length == 0
-                  || (parameterTypes.length == 1 && parameterTypes[0].isAssignableFrom(FieldBuilderContext.class)))) {
+                  || (parameterTypes.length == 1 && FieldBuilderContext.class.isAssignableFrom(parameterTypes[0])))) {
                     throw new IllegalArgumentException("incompatible parameter type(s) for @ProvidesField annotation on method "
                       + method);
                 }
