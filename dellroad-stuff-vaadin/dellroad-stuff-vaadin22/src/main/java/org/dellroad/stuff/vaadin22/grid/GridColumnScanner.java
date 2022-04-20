@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -357,7 +358,7 @@ public class GridColumnScanner<T> {
 
 // Internal Methods
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
       String description, ValueProvider<T, ?> valueProvider, boolean selfRendering, GridColumn defaults) {
 
@@ -373,24 +374,46 @@ public class GridColumnScanner<T> {
         if (defaults == null)
             throw new IllegalArgumentException("null defaults");
 
+        // Provide helpful exception messages
+        class ErrorWrapper<T> implements Supplier<T> {
+
+            private final Supplier<T> supplier;
+
+            ErrorWrapper(Supplier<T> supplier) {
+                this.supplier = supplier;
+            }
+
+            @Override
+            public T get() {
+                try {
+                    return this.supplier.get();
+                } catch (RuntimeException e) {
+                    throw new RuntimeException("error in @" + GridColumn.class.getSimpleName()
+                      + " annotation for " + description, e);
+                }
+            }
+        }
+
         // Create custom Renderer, if any
         Renderer<T> renderer = null;
         if (!annotation.renderer().equals(defaults.renderer())) {
-            Constructor<? extends Renderer<?>> constructor;
-            Object[] constructorParams;
-            try {
-                constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
-                constructorParams = new Object[] { valueProvider };
-            } catch (Exception e) {
+            renderer = (Renderer<T>)new ErrorWrapper<>(() -> {
+                Constructor<? extends Renderer<?>> constructor;
+                Object[] constructorParams;
                 try {
-                    constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
-                    constructorParams = new Object[0];
-                } catch (Exception e2) {
-                    throw new RuntimeException("cannot instantiate " + annotation.renderer()
-                      + " because no default constructor or constructor taking ValueProvider is found", e);
+                    constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
+                    constructorParams = new Object[] { valueProvider };
+                } catch (Exception e) {
+                    try {
+                        constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
+                        constructorParams = new Object[0];
+                    } catch (Exception e2) {
+                        throw new RuntimeException("cannot instantiate " + annotation.renderer()
+                          + " because no default constructor or constructor taking ValueProvider is found", e);
+                    }
                 }
-            }
-            renderer = (Renderer<T>)ReflectUtil.instantiate(constructor, constructorParams);
+                return ReflectUtil.instantiate(constructor, constructorParams);
+            }).get();
         } else if (selfRendering)
             renderer = new SelfRenderer<T>((ValueProvider<T, ? extends Component>)valueProvider);
 
@@ -415,15 +438,20 @@ public class GridColumnScanner<T> {
           "autoWidth", "classNameGenerator", "comparator", "flexGrow", "footer", "frozen", "header",
           "id", "resizable", "sortOrderProvider", "sortable", "textAlign", "visible", "width" }));
         AnnotationUtil.applyAnnotationValues(column, "set", annotation, defaults,
-          (method, name) -> autoProperties.contains(name) ? name : null, ReflectUtil::instantiate);
+          (method, name) -> autoProperties.contains(name) ? name : null,
+          type -> new ErrorWrapper<>(() -> ReflectUtil.instantiate(type)).get());
 
         // Handle other annotation properties manually
         column.setKey(key);
-        if (!annotation.valueProviderComparator().equals(defaults.valueProviderComparator()))
-            column.setComparator(ReflectUtil.instantiate(annotation.valueProviderComparator()));
+        if (!annotation.valueProviderComparator().equals(defaults.valueProviderComparator())) {
+            final ValueProvider keyExtractor = new ErrorWrapper<>(
+              () -> ReflectUtil.instantiate(annotation.valueProviderComparator())).get();
+            column.setComparator(keyExtractor);
+        }
         if (!annotation.editorComponent().equals(defaults.editorComponent())) {
-            column.setEditorComponent(
-              (SerializableFunction<T, ? extends Component>)ReflectUtil.instantiate(annotation.editorComponent()));
+            final SerializableFunction componentCallback = new ErrorWrapper<>(
+              () -> (SerializableFunction)ReflectUtil.instantiate(annotation.editorComponent())).get();
+            column.setEditorComponent(componentCallback);
         }
         if (annotation.sortProperties().length > 0)
             column.setSortProperty(annotation.sortProperties());

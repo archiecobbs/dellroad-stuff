@@ -47,6 +47,8 @@ import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
@@ -765,14 +767,22 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Create FieldBuilderContext "context" so we know its type
         final FieldBuilderContext context = this.newFieldBuilderContext(bindingInfo);
 
+        // Provide helpful exception messages
+        final Function<Supplier<?>, Object> errorWrapper = invoker -> {
+            try {
+                return invoker.get();
+            } catch (RuntimeException e) {
+                throw new RuntimeException("error instantiating " + type.getName() + " for " + bindingInfo.getOrigin(), e);
+            }
+        };
+
         // Find the best (narrowest) matching constructor for "context", if any, else fall back to default constructor
-        return Stream.of(type.getConstructors())
+        return type.cast(Stream.of(type.getConstructors())          // returns Constructor<?>[] instead of Constructor<T>[]
           .filter(c -> c.getParameterCount() == 1)
           .filter(c -> c.getParameterTypes()[0].isInstance(context))
           .min(Comparator.comparing(c -> c.getParameterTypes()[0], ReflectUtil.getClassComparator()))
-          .map(constructor -> ReflectUtil.instantiate(constructor, context))
-          .map(type::cast)      // because type.getConstructors() returns Constructor<?>[] instead of Constructor<T>[]
-          .orElseGet(() -> ReflectUtil.instantiate(type));
+          .map(constructor -> errorWrapper.apply(() -> ReflectUtil.instantiate(constructor, context)))
+          .orElseGet(() -> errorWrapper.apply(() -> ReflectUtil.instantiate(type))));
     }
 
     /**
