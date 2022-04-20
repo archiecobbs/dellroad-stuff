@@ -108,7 +108,7 @@ public @interface GridColumn {
      * @return auto width
      * @see Grid.Column#setAutoWidth
      */
-    boolean autoWidth() default true;
+    boolean autoWidth() default false;
 
     /**
      * Get the CSS class name generator class.
@@ -172,7 +172,7 @@ public @interface GridColumn {
      * @return column flex grow ratio.
      * @see Grid.Column#setFlexGrow
      */
-    int flexGrow() default 0;
+    int flexGrow() default 1;
 
     /**
      * Get the column footer.
