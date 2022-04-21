@@ -1069,11 +1069,15 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalArgumentException("null component");
 
             // Get label: (a) from @FormLayout.label(); (b) from component.getLabel(); (c) derive from property name
-            final String label = Optional.ofNullable(this.formLayout)
+            String label = Optional.ofNullable(this.formLayout)
               .map(FormLayout::label)
               .filter(value -> !value.isEmpty())
               .orElseGet(() -> Optional.ofNullable(this.getLabel(component))
                                 .orElseGet(() -> SharedUtil.camelCaseToHumanFriendly(this.propertyName)));
+
+            // Special case for checkboxes, which incorporate their own labels
+            if (component instanceof Checkbox)
+                label = "";
 
             // Add component to form
             final com.vaadin.flow.component.formlayout.FormLayout.FormItem formItem = formLayout.addFormItem(component, label);
