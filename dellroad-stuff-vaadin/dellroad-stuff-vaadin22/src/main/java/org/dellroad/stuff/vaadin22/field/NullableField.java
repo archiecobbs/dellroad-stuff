@@ -9,6 +9,7 @@ import com.google.common.base.Preconditions;
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.HasEnabled;
+import com.vaadin.flow.component.HasValidation;
 import com.vaadin.flow.component.HasValue;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.customfield.CustomField;
@@ -123,6 +124,8 @@ public class NullableField<T> extends CustomField<T>
             if (this.resetOnDisable && !e.getValue())
                 this.innerField.setValue(this.innerField.getEmptyValue());
             this.setComponentEnabled(e.getValue());
+            if (!e.getValue() && this.innerField instanceof HasValidation)
+                ((HasValidation)this.innerField).setInvalid(false);
             this.updateValue();
         });
         this.innerField.addValueChangeListener(e -> this.updateValue());
