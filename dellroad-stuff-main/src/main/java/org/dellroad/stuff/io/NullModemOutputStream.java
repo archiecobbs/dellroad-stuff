@@ -128,7 +128,7 @@ public class NullModemOutputStream extends FilterOutputStream {
     @Override
     public void write(byte[] b, int off, int len) throws IOException {
         NullUtil.checkError(this.error);
-        NullUtil.wrap(this.error, () -> super.write(b, off, len));
+        NullUtil.wrap(this.error, () -> this.out.write(b, off, len));
     }
 
     @Override
