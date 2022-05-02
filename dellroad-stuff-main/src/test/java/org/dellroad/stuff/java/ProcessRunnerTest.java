@@ -28,16 +28,13 @@ public class ProcessRunnerTest extends TestSupport {
 
         // Start up "grep"
         Process p = Runtime.getRuntime().exec(new String[] { "grep", "a" });
-        ProcessRunner runner = new ProcessRunner(p, new WriteCallback() {
-            @Override
-            public void writeTo(OutputStream output) throws IOException {
-                for (int i = 0; i < NUM_LINES; i++) {
-                    int letter = 'a' + ProcessRunnerTest.this.random.nextInt(26);
-                    output.write(letter);
-                    output.write('\n');
-                    if (letter == 'a')
-                        ProcessRunnerTest.this.numMatch++;
-                }
+        ProcessRunner runner = new ProcessRunner(p, output -> {
+            for (int i = 0; i < NUM_LINES; i++) {
+                int letter = 'a' + ProcessRunnerTest.this.random.nextInt(26);
+                output.write(letter);
+                output.write('\n');
+                if (letter == 'a')
+                    ProcessRunnerTest.this.numMatch++;
             }
         });
 

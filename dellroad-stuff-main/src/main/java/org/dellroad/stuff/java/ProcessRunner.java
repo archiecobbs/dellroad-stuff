@@ -57,12 +57,7 @@ public class ProcessRunner {
      * @throws IllegalArgumentException if {@code input} is null
      */
     public ProcessRunner(Process process, final byte[] input) {
-        this(process, new WriteCallback() {
-            @Override
-            public void writeTo(OutputStream output) throws IOException {
-                output.write(input);
-            }
-        });
+        this(process, output -> output.write(input));
     }
 
     /**
