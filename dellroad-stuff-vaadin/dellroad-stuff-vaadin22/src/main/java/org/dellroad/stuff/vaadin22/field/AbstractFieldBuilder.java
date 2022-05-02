@@ -1076,7 +1076,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                                 .orElseGet(() -> SharedUtil.camelCaseToHumanFriendly(this.propertyName)));
 
             // Special case for checkboxes, which incorporate their own labels
-            if (component instanceof Checkbox)
+            if (component instanceof Checkbox || component instanceof NullableField)
                 label = "";
 
             // Add component to form
