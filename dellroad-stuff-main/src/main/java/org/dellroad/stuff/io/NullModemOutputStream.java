@@ -130,16 +130,22 @@ public class NullModemOutputStream extends FilterOutputStream {
 // Properties
 
     /**
-     * Get whether {@link #close} should block until the reader has finished reading.
+     * Get whether {@link #close} should block until the reader has finished reading (or thrown an exception).
      *
      * <p>
      * Default is false.
      *
-     * @return true if {@link #close} should block until the reader has finished reading, otherwise false
+     * @return true if {@link #close} should block until the reader has finished, otherwise false
      */
     public boolean isSynchronousClose() {
         return this.synchronousClose;
     }
+
+    /**
+     * Set whether {@link #close} should block until the reader has finished reading (or thrown an exception).
+     *
+     * @param synchronousClose true to make {@link #close} block until the reader finishes, false to make it return immediately
+     */
     public void setSynchronousClose(final boolean synchronousClose) {
         this.synchronousClose = synchronousClose;
     }
@@ -170,6 +176,18 @@ public class NullModemOutputStream extends FilterOutputStream {
         NullUtil.wrap(this.error, super::flush);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * If {@linkplain #setSynchronousClose synchronous close} is enabled, this method will block until the reader
+     * thread has finished reading (or thrown an exception). Otherwise, this method returns immediately.
+     *
+     * <p>
+     * If the current thread is interrupted during a synchronous close, an {@link IOException} is thrown.
+     *
+     * @see #isSynchronousClose
+     */
     @Override
     public void close() throws IOException {
         this.error.set(null);                       // avoid redundant exception being thrown by flush()
