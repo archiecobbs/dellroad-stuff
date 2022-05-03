@@ -43,11 +43,23 @@ import org.dellroad.stuff.java.ThrowableUtil;
  * Note: This class uses {@link PipedInputStream} and {@link PipedOutputStream} under the covers, so instances should not
  * be shared by multiple threads or they might be considered "broken".
  *
+ * <p><b>Synchronous Close</b>
+ *
+ * <p>
+ * Normally, an {@link OutputStream} will not return from {@link #close} until all data has been written out
+ * (e.g., to a destination file). However, due to thread concurrency, the reader thread associated with this
+ * {@link NullModemOutputStream} could still be reading when {@link #close} returns. If this is a problem,
+ * you can use {@link #setSynchronousClose setSynchronousClose()} to force {@link #close} to block until the
+ * reader has returned from {@link ReadCallback#readFrom readFrom()}.
+ *
  * @since 1.0.82
  */
 public class NullModemOutputStream extends FilterOutputStream {
 
     private final AtomicReference<Throwable> error = new AtomicReference<>();
+
+    private boolean synchronousClose;
+    private boolean readerFinished;
 
 // Constructors
 
@@ -102,6 +114,10 @@ public class NullModemOutputStream extends FilterOutputStream {
                 this.error.compareAndSet(null, t);
                 throw ThrowableUtil.<RuntimeException>maskException(t);
             } finally {
+                synchronized (this) {
+                    this.readerFinished = true;
+                    this.notifyAll();
+                }
                 try {
                     input.close();
                 } catch (IOException e) {
@@ -109,6 +125,23 @@ public class NullModemOutputStream extends FilterOutputStream {
                 }
             }
         });
+    }
+
+// Properties
+
+    /**
+     * Get whether {@link #close} should block until the reader has finished reading.
+     *
+     * <p>
+     * Default is false.
+     *
+     * @return true if {@link #close} should block until the reader has finished reading, otherwise false
+     */
+    public boolean isSynchronousClose() {
+        return this.synchronousClose;
+    }
+    public void setSynchronousClose(final boolean synchronousClose) {
+        this.synchronousClose = synchronousClose;
     }
 
 // Wrapper Methods
@@ -141,6 +174,18 @@ public class NullModemOutputStream extends FilterOutputStream {
     public void close() throws IOException {
         this.error.set(null);                       // avoid redundant exception being thrown by flush()
         super.close();
+        if (this.synchronousClose) {
+            try {
+                this.waitForReader();
+            } catch (InterruptedException e) {
+                throw new IOException("interrupted while waiting for reader to finish", e);
+            }
+        }
+    }
+
+    protected synchronized void waitForReader() throws InterruptedException {
+        while (!this.readerFinished)
+            this.wait();
     }
 
 // Subclass Methods
