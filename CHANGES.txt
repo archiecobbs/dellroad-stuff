@@ -5,6 +5,7 @@ Version 2.5.0
     - Added new Vaadin classes supporting Vaadin 22.
     - Added new Springleton class (replaces ApplicationContextBean).
     - Improvements to IndentXMLStreamWriter to better handles comments.
+    - Added NullModemOutputStream.setSynchronousClose().
     - Added ThrowableUtil.
     - Added BOMReader.
 
