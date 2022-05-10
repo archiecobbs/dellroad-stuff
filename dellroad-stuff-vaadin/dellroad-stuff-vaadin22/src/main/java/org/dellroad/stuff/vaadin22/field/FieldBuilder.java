@@ -32,6 +32,10 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * to be specified declaratively. Annotations are also provided to configure how to add the geenrated fields to a
  * {@link FormLayout}.
  *
+ * <p>
+ * The primary method is {@link #bindFields bindFields()}, which automatically creates, configures, and binds fields
+ * into a given {@link Binder} based on information gleaned from scanned annotations.
+ *
  * <p><b>{@code @FieldBuilder.Foo} vs. {@code @ProvidesField}</b>
  *
  * <p>
@@ -137,9 +141,15 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * <p>
  * You can also access the fields directly via {@link #getFieldComponents getFieldComponents()}.
  *
+ * <p><b>Efficient Reuse</b>
+ *
  * <p>
- * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked a new set
- * of fields is created.
+ * A {@link FieldBuilder} can be used multiple times. Each time {@link #bindFields bindFields()} is invoked any previously
+ * created fields are forgotten and a new set of fields is created and bound. This avoids the relatively expensive process
+ * of scanning the class hierarchy for annotations that occurs during construction.
+ *
+ * <p>
+ * {@link FieldBuilder} also has a copy constructor, which accomplishes the same thing.
  *
  * <p><b>Alternate Defaults</b>
  *
