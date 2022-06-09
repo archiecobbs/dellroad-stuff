@@ -23,8 +23,9 @@ import java.nio.file.StandardCopyOption;
  *
  * <p>
  * An open instance can be thought of as representing an open transaction to rewrite the file.
- * The "transaction" is committed via {@link #close}, or may be rolled back via {@link #cancel}
- * (this also deletes the temporary file).
+ * The "transaction" is committed via {@link #close}, or t may be explicitly rolled back via {@link #cancel}
+ * (this also deletes the temporary file). In addition, if any method throws {@link IOException}, the
+ * {@link #cancel} is implicitly invoked.
  *
  * <p>
  * Note: to guarantee that the new content will always be found in the future, even if there is a sudden system crash,
@@ -33,10 +34,17 @@ import java.nio.file.StandardCopyOption;
  */
 public class AtomicUpdateFileOutputStream extends FileOutputStream {
 
-    private final File targetFile;
+    private static final int OPEN = 0;
+    private static final int CLOSED = 1;
+    private static final int CANCELED = 2;
 
-    private File tempFile;
+    private final File targetFile;
+    private final File tempFile;
+
+    private int state;
     private long timestamp;
+
+// Constructors
 
     /**
      * Constructor.
@@ -71,6 +79,8 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
         this(targetFile, File.createTempFile("atomicupdate", null, targetFile.getAbsoluteFile().getParentFile()));
     }
 
+// Accessors
+
     /**
      * Get the target file.
      *
@@ -93,13 +103,24 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
         return this.tempFile;
     }
 
+// Cancel
+
     /**
      * Cancel this instance. This "aborts" the open "transaction", and deletes the temporary file.
      *
      * <p>
      * Does nothing if {@link #close} or {@link #cancel} has already been invoked.
+     *
+     * @return true if canceled, false if this instance is already closed or canceled
      */
-    public synchronized void cancel() {
+    public synchronized boolean cancel() {
+
+        // Already closed?
+        if (this.state != OPEN)
+            return false;
+
+        // Update state - we're committed now
+        this.state = CANCELED;
 
         // Close output stream to release file descriptor
         try {
@@ -108,48 +129,106 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
             // ignore
         }
 
-        // Delete temporary file
-        if (this.tempFile != null) {
-            this.tempFile.delete();
-            this.tempFile = null;
+        // Delete the temporary file
+        this.tempFile.delete();
+
+        // Done
+        return true;
+    }
+
+// OutputStream Wrappers
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        try {
+            super.write(b);
+        } catch (IOException e) {
+            this.cancel();
+            throw e;
+        }
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        try {
+            super.write(b, off, len);
+        } catch (IOException e) {
+            this.cancel();
+            throw e;
+        }
+    }
+
+    @Override
+    public void write(int b) throws IOException {
+        try {
+            super.write(b);
+        } catch (IOException e) {
+            this.cancel();
+            throw e;
+        }
+    }
+
+    @Override
+    public void flush() throws IOException {
+        try {
+            super.flush();
+        } catch (IOException e) {
+            this.cancel();
+            throw e;
         }
     }
 
     /**
-     * Close this instance. This "commits" the open "transaction".
+     * Close this instance. This "commits" the open "transaction" if not already committed.
      *
      * <p>
-     * If successful, the configured {@code tempFile} will be {@linkplain File#renameTo renamed}
-     * to the configured destination file {@code targetFile}. In any case, after this method returns
-     * (either normally or abnormally), the temporary file will be deleted.
+     * If successful, the configured {@code tempFile} will be {@linkplain atomically StandardCopyOption#ATOMIC_MOVE}
+     * {@linkplain Files#move renamed} to the configured destination file {@code targetFile}. In any case, after
+     * this method returns (either normally or abnormally), the temporary file will no longer exist.
      *
-     * @throws IOException if {@link #close} or {@link #cancel} has already been invoked
+     * <p>
+     * Does nothing if this instance has already been successfully closed.
+     *
+     * @throws IOException if an I/O error occurs
+     * @throws IOException if {@link #cancel} has already been invoked
      */
     @Override
     public synchronized void close() throws IOException {
 
-        // Close temporary file
-        super.close();
-
-        // Be idempotent
-        if (this.tempFile == null)
-            return;
-
-        // Read updated modification time
-        final long newTimestamp = this.tempFile.lastModified();
-
-        // Rename file, or delete it if that fails
-        try {
-            Files.move(this.tempFile.toPath(), this.targetFile.toPath(),
-              StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
-            this.tempFile = null;
-        } finally {
-            if (this.tempFile != null)          // exception thrown, cancel transaction
-                this.cancel();
+        // Check state
+        switch (this.state) {
+        case CLOSED:
+            throw new IOException("already closed");
+        case CANCELED:
+            throw new IOException("already canceled");
+        default:
+            break;
         }
 
-        // Update target file timestamp
-        this.timestamp = newTimestamp;
+        // If anything goes wrong, automatically cancel
+        try {
+
+            // Close temporary file
+            super.close();
+
+            // Read updated modification time
+            final long newTimestamp = this.tempFile.lastModified();
+
+            // Rename file, or delete it if that fails
+            Files.move(this.tempFile.toPath(), this.targetFile.toPath(),
+              StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+
+            // Update target file timestamp
+            this.timestamp = newTimestamp;
+        } catch (IOException e) {
+
+            // We failed - cancel instead
+            this.cancel();
+            throw e;
+        }
+
+        // Done
+        this.state = CLOSED;
     }
 
     /**
@@ -164,14 +243,15 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
         return this.timestamp;
     }
 
+// Object
+
     /**
      * Ensure the temporary file is deleted in cases where this instance never got successfully closed.
      */
     @Override
     protected void finalize() throws IOException {
         try {
-            if (this.tempFile != null)
-                this.cancel();
+            this.cancel();
         } finally {
             super.finalize();
         }
