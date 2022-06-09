@@ -85,7 +85,7 @@ import org.dellroad.stuff.vaadin22.util.WholeBeanValidator;
  *
  * <p>
  * For layout, {@link BinderCustomField} simply concatenates the sub-fields into a {@link HorizontalLayout}.
- * Subclasses can cusomtize this behavior by overriding {@link #layoutComponents}.
+ * Subclasses can customize this behavior by overriding {@link #layoutComponents}.
  *
  * <p><b>Example</b>
  *
