@@ -1,4 +1,4 @@
-Version 2.5.0
+Version 2.5.0 Released June 10, 2022
 
     - Store SQL schema update timestamps as TIMESTAMP rather than DATE.
     - Clarify that SelfValidationException constructor takes a template.
