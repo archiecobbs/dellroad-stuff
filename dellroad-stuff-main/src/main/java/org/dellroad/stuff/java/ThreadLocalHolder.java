@@ -28,26 +28,27 @@ import java.util.function.Supplier;
  * <p>
  * Example:
  * <pre><code class="language-java">
- * public class Activity {
+ * public class FooContext {
  *
- *     private static final ThreadLocalHolder&lt;Activity&gt; CURRENT_ACTIVITY = new ThreadLocalHolder&lt;Activity&gt;();
+ *     private static final ThreadLocalHolder&lt;FooContext&gt; CURRENT = new ThreadLocalHolder&lt;&gt;();
  *
- *     public void perform(final Object parameter) {
- *         CURRENT_ACTIVITY.invoke(this, new Runnable() {
- *             &#64;Override
- *             public void run() {
- *                 // do whatever with parameter
- *             }
- *         });
+ *     /**
+ *      * Make this instance the current instance while performing the given activity.
+ *      *
+ *      * &#64;throws IllegalArgumentException if {&#64;code action} is null
+ *      * &#64;throws IllegalStateException if there is already another, different current instance
+ *      *&#47;
+ *     public void doWhileCurrent(Runnable action) {
+ *         CURRENT_ACTIVITY.invoke(this, action);
  *     }
  *
  *     /**
- *      * Get the current activity being performed.
+ *      * Get the current {&#64;link FooContext}.
  *      *
- *      * @throws IllegalStateException if there is no current activity
+ *      * &#64;throws IllegalStateException if the current thread is not running within an invocation of {&#64;link #doWhileCurrent}
  *      *&#47;
- *     public static Activity currentActivity() {
- *         return CURRENT_ACTIVITY.require();
+ *     public static FooContext getCurrent() {
+ *         return CURRENT.require();
  *     }
  * }
  * </code></pre>
