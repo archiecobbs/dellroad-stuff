@@ -74,18 +74,39 @@ public interface FieldBuilderContext extends Serializable {
      * type is the collection's element type.
      */
     default Class<?> inferDataModelType() {
-        Class<?> modelType = this.getMethod().getReturnType();
-        if (Collection.class.isAssignableFrom(modelType)) {
-            final Type elementType;
+
+        // Get method return type
+        Class<?> returnType = this.getMethod().getReturnType();
+        Type modelType = this.getMethod().getGenericReturnType();
+
+        // If it's a collection type, drill down to get the element type
+        if (Collection.class.isAssignableFrom(returnType)) {
             try {
-                final ParameterizedType returnType = (ParameterizedType)this.getMethod().getGenericReturnType();
-                elementType = returnType.getActualTypeArguments()[0];
+                modelType = ((ParameterizedType)modelType).getActualTypeArguments()[0];
             } catch (ClassCastException | ArrayIndexOutOfBoundsException e) {
-                throw new IllegalArgumentException("can't determine data model type from non-generic return type of method "
-                  + this.getMethod() + " in the context of " + this.getBeanType());
+                throw new IllegalArgumentException("can't determine collection element type from return type of method "
+                  + this.getMethod() + " in the context of " + this.getBeanType(), e);
             }
-            modelType = TypeToken.of(this.getBeanType()).resolveType(elementType).getRawType();
         }
-        return modelType;
+
+//        // Debug
+//        org.slf4j.LoggerFactory.getLogger(this.getClass()).info("inferDataModelType():"
+//          + "\n  method={}"
+//          + "\n  returnType={}"
+//          + "\n  beanType={}"
+//          + "\n  modelType1={}"
+//          + "\n  modelType2={}"
+//          + "\n  resolvedType={}"
+//          + "\n  result={}",
+//          this.getMethod(),
+//          returnType,
+//          this.getBeanType(),
+//          this.getMethod().getGenericReturnType(),
+//          modelType,
+//          TypeToken.of(this.getBeanType()).resolveType(modelType),
+//          TypeToken.of(this.getBeanType()).resolveType(modelType).getRawType());
+
+        // Resolve any type variables in the context of the bean's type, then return the raw type equivalent
+        return TypeToken.of(this.getBeanType()).resolveType(modelType).getRawType();
     }
 }
