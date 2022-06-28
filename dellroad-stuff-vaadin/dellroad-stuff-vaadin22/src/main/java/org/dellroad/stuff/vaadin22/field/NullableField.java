@@ -120,14 +120,7 @@ public class NullableField<T> extends CustomField<T>
 
         // Start tracking checkbox and inner field state
         this.setComponentEnabled(this.enabledField.getValue());
-        this.enabledField.addValueChangeListener(e -> {
-            if (this.resetOnDisable && !e.getValue())
-                this.innerField.setValue(this.innerField.getEmptyValue());
-            this.setComponentEnabled(e.getValue());
-            if (!e.getValue() && this.innerField instanceof HasValidation)
-                ((HasValidation)this.innerField).setInvalid(false);
-            this.updateValue();
-        });
+        this.enabledField.addValueChangeListener(e -> this.handleEnabledFieldChange(e.getValue()));
         this.innerField.addValueChangeListener(e -> this.updateValue());
     }
 
@@ -181,6 +174,15 @@ public class NullableField<T> extends CustomField<T>
     }
 
 // Subclass methods
+
+    protected void handleEnabledFieldChange(boolean enabled) {
+        if (this.resetOnDisable && !enabled)
+            this.innerField.setValue(this.innerField.getEmptyValue());
+        this.setComponentEnabled(enabled);
+        if (!enabled && this.innerField instanceof HasValidation)
+            ((HasValidation)this.innerField).setInvalid(false);
+        this.updateValue();
+    }
 
     /**
      * Build a {@link ValidationResult} to be returned by {@link #validate validate()} in the situation
