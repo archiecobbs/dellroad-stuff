@@ -88,6 +88,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     // Mutable info
     private LinkedHashMap<String, FieldComponent<?>> fieldComponentMap;             // fields most recently built by bindFields()
 
+// Constructors
+
     /**
      * Constructor.
      *
@@ -121,6 +123,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         this.bindingInfoMap = new LinkedHashMap<>(original.bindingInfoMap);
         this.defaultInfoMap = new HashMap<>(original.defaultInfoMap);
     }
+
+// Methods
 
     /**
      * Get the type associated with this instance.
@@ -995,6 +999,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 throw new IllegalStateException("no nullifyCheckbox");
             final NullableField<T> field = new NullableField<>(fieldComponent.getField(),
               fieldComponent.getComponent(), new Checkbox(this.nullifyCheckbox.value()));
+            field.setDisplayErrorMessages(this.nullifyCheckbox.displayErrorMessages());
             field.setResetOnDisable(this.nullifyCheckbox.resetOnDisable());
             return new FieldComponent<>(field);
         }
@@ -1614,6 +1619,18 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * @see NullableField#isResetOnDisable
          */
         boolean resetOnDisable() default true;
+
+        /**
+         * Whether the {@link NullableField} itself should display error messages.
+         *
+         * <p>
+         * If the inner field is a complex field with sub-fields, such that any validation errors will have originated
+         * from a sub-field which is already displaying the error, then setting this to false can reduce clutter.
+         *
+         * @return whether to reset when disabled
+         * @see NullableField#setDisplayErrorMessages NullableField.setDisplayErrorMessages()
+         */
+        boolean displayErrorMessages() default true;
     }
 
     /**

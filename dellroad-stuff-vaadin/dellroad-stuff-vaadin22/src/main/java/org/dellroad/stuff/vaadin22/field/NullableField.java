@@ -69,6 +69,7 @@ public class NullableField<T> extends CustomField<T>
     protected final Component component;
 
     private boolean resetOnDisable = true;
+    private boolean displayErrorMessages = true;
 
 // Constructors
 
@@ -141,6 +142,9 @@ public class NullableField<T> extends CustomField<T>
     /**
      * Determine whether the inner field forgets its value when the checkbox is unchecked.
      *
+     * <p>
+     * Default is true.
+     *
      * @return true if the inner field is reset when the checkbox is unchecked
      */
     public boolean isResetOnDisable() {
@@ -152,6 +156,41 @@ public class NullableField<T> extends CustomField<T>
         this.resetOnDisable = resetOnDisable;
         if (this.resetOnDisable && !this.enabledField.getValue())
             this.innerField.setValue(this.innerField.getEmptyValue());
+    }
+
+    /**
+     * Determine whether to display error messages.
+     *
+     * <p>
+     * This method is invoked by {@link #setErrorMessage setErrorMessage()}.
+     *
+     * <p>
+     * Default is true.
+     *
+     * @return true to display error messages, false to not display
+     */
+    public boolean isDisplayErrorMessages() {
+        return this.displayErrorMessages;
+    }
+    public void setDisplayErrorMessages(boolean displayErrorMessages) {
+        this.displayErrorMessages = displayErrorMessages;
+    }
+
+// CustomField
+
+    /**
+     * Sets an error message to the component.
+     *
+     * <p>
+     * The implementation in {@link NullableField} delegates to the overridden superclass method
+     * only if {@link #isDisplayErrorMessages} returns true.
+     *
+     * @see #isDisplayErrorMessages
+     */
+    @Override
+    public void setErrorMessage(String errorMessage) {
+        if (this.isDisplayErrorMessages())
+            super.setErrorMessage(errorMessage);
     }
 
 // ValidatingField
@@ -176,11 +215,17 @@ public class NullableField<T> extends CustomField<T>
 // Subclass methods
 
     protected void handleEnabledFieldChange(boolean enabled) {
-        if (this.resetOnDisable && !enabled)
-            this.innerField.setValue(this.innerField.getEmptyValue());
-        this.setComponentEnabled(enabled);
-        if (!enabled && this.innerField instanceof HasValidation)
-            ((HasValidation)this.innerField).setInvalid(false);
+        if (enabled)
+            this.setComponentEnabled(true);
+        else {
+            if (this.resetOnDisable)
+                this.innerField.setValue(this.innerField.getEmptyValue());
+            if (this.component instanceof HasValidation) {
+                ((HasValidation)this.component).setErrorMessage(null);
+                ((HasValidation)this.component).setInvalid(false);
+            }
+            this.setComponentEnabled(false);
+        }
         this.updateValue();
     }
 
@@ -199,11 +244,19 @@ public class NullableField<T> extends CustomField<T>
      * The implementation in {@link NullableField} returns a {@value #DEFAULT_ENABLED_BUT_NULL_ERROR} error.
      *
      * @return validation error
+     * @see #isDisplayErrorMessages
      */
     protected ValidationResult enabledButNullValidationResult() {
         return ValidationResult.error(DEFAULT_ENABLED_BUT_NULL_ERROR);
     }
 
+    /**
+     * Build the layout for this field.
+     *
+     * <p>
+     * The implementation in {@link NullableField} returns a {@link HorizontalLayout} with the
+     * field that controls nullability (if it's a {@link Component}) followed by the inner component.
+     */
     protected void buildLayout() {
         final HorizontalLayout layout = new HorizontalLayout();
         layout.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.BASELINE);
@@ -213,6 +266,11 @@ public class NullableField<T> extends CustomField<T>
         this.add(layout);
     }
 
+    /**
+     * Set whether the inner component is enabled, if possible.
+     *
+     * @param enabled true to enable, false to disable
+     */
     protected void setComponentEnabled(boolean enabled) {
         if (this.component instanceof HasEnabled)
             ((HasEnabled)this.component).setEnabled(enabled);
@@ -231,7 +289,7 @@ public class NullableField<T> extends CustomField<T>
     protected void setPresentationValue(T value) {
         final boolean enabled = value != null;
         this.enabledField.setValue(enabled);
-        this.setComponentEnabled(enabled);
-        this.innerField.setValue(enabled ? value : this.innerField.getEmptyValue());
+        if (enabled)
+            this.innerField.setValue(value);
     }
 }

@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin22.field;
 
 import com.vaadin.flow.component.AbstractField;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasValidation;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -138,7 +139,16 @@ public abstract class BinderCustomField<T> extends CustomField<T>
 
         // When any bound sub-field changes, recalculate this field's value
         this.binder.addValueChangeListener(e -> this.updateValue());
+
+        // Whenever any sub-field becomes invalid, remove our error message (if any) to avoid clutter
+        this.binder.addStatusChangeListener(e -> {
+            this.subfieldValidationErrors = e.hasValidationErrors();
+            if (this.subfieldValidationErrors)
+                this.setErrorMessage(null);
+        });
     }
+
+// Subclass Methods
 
     /**
      * Initialize this instance.
@@ -236,7 +246,46 @@ public abstract class BinderCustomField<T> extends CustomField<T>
         return ValidationResult.ok();
     }
 
+// HasEnabled
+
+    /**
+     * {@inheritDoc}
+     *
+     * <p>
+     * The implementation in {@code BinderCustomField} delegates to the superclass and then removes
+     * any error message from sub-fields that implement {@link HasValidation}.
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        super.setEnabled(enabled);
+        if (enabled)
+            this.updateValue();                     // trigger validation to (re)populate error messages
+        else {
+            this.binder.getFields()
+              .filter(HasValidation.class::isInstance)
+              .map(HasValidation.class::cast)
+              .forEach(field -> {
+                field.setInvalid(false);
+                field.setErrorMessage(null);
+              });
+        }
+    }
+
 // CustomField
+
+    /**
+     * Sets an error message to the component.
+     *
+     * <p>
+     * The implementation in {@link BinderCustomField} delegates to the overridden superclass method
+     * except when {@code errorMessage} is not null and any sub-field currently has a validation error.
+     * This is to avoid clutter in the display.
+     */
+    @Override
+    public void setErrorMessage(String errorMessage) {
+        if (errorMessage == null || !this.subfieldValidationErrors)
+            super.setErrorMessage(errorMessage);
+    }
 
     /**
      * {@inheritDoc}
