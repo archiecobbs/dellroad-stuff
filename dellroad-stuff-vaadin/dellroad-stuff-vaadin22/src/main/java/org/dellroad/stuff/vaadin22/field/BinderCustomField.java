@@ -109,6 +109,17 @@ public abstract class BinderCustomField<T> extends CustomField<T>
     protected final Binder<T> binder;
 
     /**
+     * Whether any sub-fields currently have a validation error.
+     */
+    protected boolean subfieldValidationErrors;
+
+    // Handle setPresentationValue() being invoked prior to initialize() if initialization is delayed
+    private InitState initState = InitState.INITIAL;
+    private T initialValue;
+
+// Constructors
+
+    /**
      * Constructor.
      *
      * @param modelType field value type
@@ -141,8 +152,16 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      * {@link VaadinUtil#accessCurrentSession VaadinUtil.accessCurrentSession}{@code (() -> super.initialize())}.
      */
     protected void initialize() {
+        if (this.initState.equals(InitState.INITIALIZED))
+            throw new IllegalStateException("duplicate initialization");
         this.createAndBindFields();
         this.layoutComponents();
+        final boolean hasInitialValue = this.initState.equals(InitState.INITIAL_VALUE);
+        this.initState = InitState.INITIALIZED;
+        if (hasInitialValue) {
+            this.setPresentationValue(this.initialValue);
+            this.initialValue = null;
+        }
     }
 
     /**
@@ -247,7 +266,26 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      */
     @Override
     protected void setPresentationValue(T value) {
+        switch (this.initState) {
+        case INITIAL:
+            this.initialValue = value;
+            this.initState = InitState.INITIAL_VALUE;
+            return;
+        case INITIAL_VALUE:
+            this.initialValue = value;
+            return;
+        default:
+            break;
+        }
         final T target = !Objects.equals(value, this.getEmptyValue()) ? value : this.createNewBean();
         this.binder.readBean(target);
+    }
+
+// InitState
+
+    private enum InitState {
+        INITIAL,                                // initial state
+        INITIAL_VALUE,                          // setPresentationValue() has been invoked, but not initialize() yet
+        INITIALIZED;                            // initialize() has been invoked
     }
 }
