@@ -180,6 +180,8 @@ public class NullableField<T> extends CustomField<T>
         return ValidationResult.ok();
     }
 
+// Subclass methods
+
     /**
      * Build a {@link ValidationResult} to be returned by {@link #validate validate()} in the situation
      * where the checkbox is checked, but the inner field is returning a value of null.
@@ -197,10 +199,8 @@ public class NullableField<T> extends CustomField<T>
      * @return validation error
      */
     protected ValidationResult enabledButNullValidationResult() {
-        return ValidationResult.error("Required value");
+        return ValidationResult.error(DEFAULT_ENABLED_BUT_NULL_ERROR);
     }
-
-// Subclass methods
 
     protected void buildLayout() {
         final HorizontalLayout layout = new HorizontalLayout();
