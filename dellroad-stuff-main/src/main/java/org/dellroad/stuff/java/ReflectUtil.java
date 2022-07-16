@@ -112,7 +112,7 @@ public final class ReflectUtil {
             throw new IllegalArgumentException("null params");
         try {
             constructor.setAccessible(true);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             // ignore
         }
         try {

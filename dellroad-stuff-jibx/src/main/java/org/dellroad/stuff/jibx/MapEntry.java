@@ -164,7 +164,7 @@ public class MapEntry<K, V> {
                 Map.Entry<K, V> entry = entryIterator.next();
                 E mapEntry;
                 try {
-                    mapEntry = entryClass.newInstance();
+                    mapEntry = entryClass.getDeclaredConstructor().newInstance();
                 } catch (ReflectiveOperationException e) {
                     throw new RuntimeException("unexpected exception", e);
                 }

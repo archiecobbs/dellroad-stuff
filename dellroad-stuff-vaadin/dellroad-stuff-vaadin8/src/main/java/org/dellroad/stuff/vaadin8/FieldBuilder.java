@@ -347,7 +347,7 @@ public class FieldBuilder<T> implements Serializable {
             HasValue<?> field;
             try {
                 method.setAccessible(true);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 // ignore
             }
             try {

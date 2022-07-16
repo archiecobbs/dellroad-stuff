@@ -584,7 +584,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Invoke method
         try {
             method.setAccessible(true);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             // ignore
         }
         try {
@@ -687,7 +687,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         }
         if (method == null)
             throw new RuntimeException("internal error: method " + this.getAnnotationDefaultsMethodName() + "() not found");
-        method.setAccessible(true);
+        try {
+            method.setAccessible(true);
+        } catch (RuntimeException e) {
+            // ignore
+        }
         return method;
     }
 
@@ -1180,9 +1184,13 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 return false;
 
             // Invoke annotated method
-            final Object defaultValue;
             try {
                 method.setAccessible(true);
+            } catch (RuntimeException e) {
+                // ignore
+            }
+            final Object defaultValue;
+            try {
                 defaultValue = method.invoke(null);
             } catch (ReflectiveOperationException e) {
                 return false;

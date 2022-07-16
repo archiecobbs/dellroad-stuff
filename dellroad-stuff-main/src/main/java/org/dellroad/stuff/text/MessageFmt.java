@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Valid;
@@ -78,11 +79,14 @@ public class MessageFmt implements SelfValidating {
         } catch (NoSuchFieldException e) {
             throw new RuntimeException("internal error", e);
         }
-        OFFSETS_FIELD.setAccessible(true);
-        FORMATS_FIELD.setAccessible(true);
-        PATTERN_FIELD.setAccessible(true);
-        MAX_OFFSET_FIELD.setAccessible(true);
-        ARGUMENT_NUMBERS_FIELD.setAccessible(true);
+        Stream.of(OFFSETS_FIELD, FORMATS_FIELD, PATTERN_FIELD, MAX_OFFSET_FIELD, ARGUMENT_NUMBERS_FIELD)
+          .forEach(field -> {
+            try {
+                field.setAccessible(true);
+            } catch (RuntimeException e) {
+                // ignore
+            }
+          });
     }
 
     private List<Segment> segments = new ArrayList<>();

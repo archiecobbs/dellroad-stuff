@@ -225,7 +225,7 @@ public class FieldBuilder {
             Field<?> field;
             try {
                 method.setAccessible(true);
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 // ignore
             }
             try {
@@ -424,7 +424,7 @@ public class FieldBuilder {
         }
         try {
             constructor.setAccessible(true);
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             // ignore
         }
         try {

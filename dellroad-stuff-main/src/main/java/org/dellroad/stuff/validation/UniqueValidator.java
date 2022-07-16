@@ -28,7 +28,7 @@ public class UniqueValidator extends AbstractValidator<Unique, Object> {
         this.domain = annotation.domain();
         Class<? extends Uniquifier<?>> uniquifierClass = annotation.uniquifier();
         try {
-            this.uniquifier = (Uniquifier<Object>)uniquifierClass.newInstance();
+            this.uniquifier = (Uniquifier<Object>)uniquifierClass.getDeclaredConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
             throw new RuntimeException("can't create an instance of " + uniquifierClass + ": " + e.getMessage(), e);
         }

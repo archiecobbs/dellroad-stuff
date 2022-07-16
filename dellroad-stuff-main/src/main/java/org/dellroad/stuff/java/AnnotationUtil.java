@@ -185,8 +185,13 @@ public final class AnnotationUtil {
                     continue;
 
                 // Workaround JDK bug (JDK-8280013)
-                if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0)
-                    beanSetter.setAccessible(true);
+                if ((beanSetter.getModifiers() & Modifier.PUBLIC) != 0) {
+                    try {
+                        beanSetter.setAccessible(true);
+                    } catch (RuntimeException e) {
+                        //  ignore
+                    }
+                }
 
                 // Try to apply the value
                 try {

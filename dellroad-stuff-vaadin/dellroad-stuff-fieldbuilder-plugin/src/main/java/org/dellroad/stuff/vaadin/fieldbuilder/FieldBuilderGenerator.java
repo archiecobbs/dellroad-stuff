@@ -545,7 +545,7 @@ public class FieldBuilderGenerator {
 
         // Instantiate the class and try to see what the actual default is
         try {
-            final Object obj = cl.newInstance();
+            final Object obj = cl.getDeclaredConstructor().newInstance();
             final String getterName = method.getName().replaceAll("^set", ptype == boolean.class ? "is" : "get");
             final Method getter = cl.getMethod(getterName);
             actualDefault = getter.invoke(obj);

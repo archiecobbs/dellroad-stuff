@@ -234,7 +234,7 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
             this.annotation = annotation;
             try {
                 this.method.setAccessible(true);
-            } catch (SecurityException e) {
+            } catch (RuntimeException e) {
                 // ignore
             }
         }
