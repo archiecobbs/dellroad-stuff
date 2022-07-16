@@ -419,7 +419,7 @@ public class FieldBuilder {
         Constructor<T> constructor;
         try {
             constructor = type.getDeclaredConstructor();
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("cannot instantiate " + type + " because no zero-arg constructor could be found", e);
         }
         try {
@@ -429,7 +429,7 @@ public class FieldBuilder {
         }
         try {
             return constructor.newInstance();
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("cannot instantiate " + type + " using its zero-arg constructor", e);
         }
     }

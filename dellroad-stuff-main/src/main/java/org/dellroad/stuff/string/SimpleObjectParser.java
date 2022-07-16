@@ -74,7 +74,7 @@ public class SimpleObjectParser<T> {
         T target;
         try {
             target = this.targetClass.newInstance();
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("can't create instance of " + this.targetClass + " using default constructor", e);
         }
         return this.parse(target, text, regex, allowSubstringMatch);
@@ -155,7 +155,7 @@ public class SimpleObjectParser<T> {
         T target;
         try {
             target = this.targetClass.newInstance();
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("can't create instance of " + this.targetClass + " using default constructor", e);
         }
         return this.parse(target, text, pattern, patternMap, allowSubstringMatch);

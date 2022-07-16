@@ -559,7 +559,7 @@ public class FieldBuilderGenerator {
             } catch (Throwable cause) {
                 throw new IllegalArgumentException(cause);
             }
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new IllegalArgumentException(e);
         }
 

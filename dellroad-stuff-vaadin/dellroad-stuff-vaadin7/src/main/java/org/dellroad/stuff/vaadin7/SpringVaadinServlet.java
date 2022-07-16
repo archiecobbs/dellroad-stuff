@@ -212,9 +212,7 @@ public class SpringVaadinServlet extends VaadinServlet {
         try {
             sessionListener = listenerClass.getConstructor(String.class, String.class)
               .newInstance(applicationName, contextLocation);
-        } catch (RuntimeException e) {
-            throw e;
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new ServletException("error instantiating " + listenerClass, e);
         }
 

@@ -165,7 +165,7 @@ public class MapEntry<K, V> {
                 E mapEntry;
                 try {
                     mapEntry = entryClass.newInstance();
-                } catch (Exception e) {
+                } catch (ReflectiveOperationException e) {
                     throw new RuntimeException("unexpected exception", e);
                 }
                 mapEntry.setKey(entry.getKey());

@@ -52,7 +52,7 @@ public class SortedValidator extends AbstractValidator<Sorted, Object> {
         } else {
             try {
                 comparator = this.annotation.comparator().newInstance();
-            } catch (Exception e) {
+            } catch (ReflectiveOperationException e) {
                 this.setViolation(context, "Cannot instantiate comparator for @Sorted constraint: " + e);
                 return false;
             }

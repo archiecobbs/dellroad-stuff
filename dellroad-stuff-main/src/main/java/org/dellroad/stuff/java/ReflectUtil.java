@@ -117,7 +117,7 @@ public final class ReflectUtil {
         }
         try {
             return constructor.newInstance(params);
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("cannot instantiate "
               + constructor.getDeclaringClass() + " using constructor " +  constructor, e);
         }

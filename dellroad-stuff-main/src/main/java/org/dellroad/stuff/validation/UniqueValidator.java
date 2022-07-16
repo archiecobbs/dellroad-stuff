@@ -29,7 +29,7 @@ public class UniqueValidator extends AbstractValidator<Unique, Object> {
         Class<? extends Uniquifier<?>> uniquifierClass = annotation.uniquifier();
         try {
             this.uniquifier = (Uniquifier<Object>)uniquifierClass.newInstance();
-        } catch (Exception e) {
+        } catch (ReflectiveOperationException e) {
             throw new RuntimeException("can't create an instance of " + uniquifierClass + ": " + e.getMessage(), e);
         }
     }
