@@ -177,6 +177,15 @@ public class ValidationContext<T> {
     }
 
     /**
+     * Get the {@link ThreadLocalHolder} used by this class.
+     *
+     * @return {@link ThreadLocalHolder} for ValidationContext
+     */
+    public static ThreadLocalHolder<ValidationContext<?>> getThreadLocalHolder() {
+        return CURRENT;
+    }
+
+    /**
      * Get the uniqueness domain with the given name. Used to validate {@link Unique @Unique} constraints.
      *
      * @param domain name of the uniqueness domain
