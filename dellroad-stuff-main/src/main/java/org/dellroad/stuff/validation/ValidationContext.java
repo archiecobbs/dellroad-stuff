@@ -85,7 +85,7 @@ public class ValidationContext<T> {
     }
 
     /**
-     * Validate this instance's root object using the given {@link Validator}, making the context
+     * Validate this instance's root object using the given {@link Validator}, making this context
      * available to the current thread during the validation process via {@link #getCurrentContext}.
      *
      * @param validator the validator
@@ -94,15 +94,31 @@ public class ValidationContext<T> {
      * @throws IllegalStateException if this method is invoked re-entrantly
      */
     public Set<ConstraintViolation<T>> validate(final Validator validator) {
+        return this.validate(validator, this.root);
+    }
+
+    /**
+     * Validate the given target object using the given {@link Validator}, making this context
+     * available to the current thread during the validation process via {@link #getCurrentContext}.
+     *
+     * @param validator the validator
+     * @param target object to validate
+     * @return zero or more violations
+     * @throws IllegalArgumentException if either parameter is null
+     * @throws IllegalStateException if this method is invoked re-entrantly
+     */
+    public <S> Set<ConstraintViolation<S>> validate(final Validator validator, S target) {
 
         // Sanity check
         if (validator == null)
             throw new IllegalArgumentException("null validator");
+        if (target == null)
+            throw new IllegalArgumentException("null target");
         if (ValidationContext.CURRENT.get() != null)
             throw new IllegalStateException("re-entrant invocation is not allowed");
 
         // Validate
-        return ValidationContext.CURRENT.invoke(this, () -> validator.validate(this.root, this.groups));
+        return ValidationContext.CURRENT.invoke(this, () -> validator.validate(target, this.groups));
     }
 
     /**
