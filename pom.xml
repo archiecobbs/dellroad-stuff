@@ -65,20 +65,20 @@
         <jline.version>2.14.6</jline.version>
         <jmock.version>2.8.2</jmock.version>
         <log4j.version>[1.2,1.3)</log4j.version>
-        <maven.artifact.version>3.5.3</maven.artifact.version>
+        <maven.artifact.version>3.6.3</maven.artifact.version>
         <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
-        <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0-M1</maven.enforcer.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
         <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
-        <maven.jar.plugin.version>3.0.2</maven.jar.plugin.version>
-        <maven.javadoc.plugin.version>3.0.0</maven.javadoc.plugin.version>
-        <maven.plugin.tools.version>3.5.1</maven.plugin.tools.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
+        <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
+        <maven.plugin.tools.version>3.6.0</maven.plugin.tools.version>
         <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
         <maven.project.version>3.0-alpha-2</maven.project.version>
         <maven.site.plugin.version>3.9.1</maven.site.plugin.version>
-        <maven.source.plugin.version>3.0.1</maven.source.plugin.version>
-        <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
-        <maven.wagon.scm.extension.version>3.0.0</maven.wagon.scm.extension.version>
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.surefire.plugin.version>2.22.0</maven.surefire.plugin.version>
+        <maven.wagon.scm.extension.version>3.3.4</maven.wagon.scm.extension.version>
         <opencsv.version>2.4</opencsv.version>
         <persistence.api.version>[2.2,)</persistence.api.version>
         <plugin-api.version>3.3.9</plugin-api.version>
