@@ -20,9 +20,12 @@
             <url>file://${project.basedir}/../../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
     <properties>
+        <auto.module.name>org.dellroad.stuff.vaadin7</auto.module.name>
         <vaadin7.version>[7.7,8.0)</vaadin7.version>
     </properties>
+
     <dependencies>
 
         <!-- Sibling JARs -->

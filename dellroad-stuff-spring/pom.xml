@@ -20,6 +20,11 @@
             <url>file://${project.basedir}/../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
+    <properties>
+        <auto.module.name>org.dellroad.stuff.spring</auto.module.name>
+    </properties>
+
     <dependencies>
 
         <!-- Sibling JARs -->

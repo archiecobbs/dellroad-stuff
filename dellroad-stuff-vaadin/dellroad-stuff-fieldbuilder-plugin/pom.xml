@@ -20,9 +20,12 @@
             <url>file://${project.basedir}/../../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
     <properties>
+        <auto.module.name>org.dellroad.stuff.vaadin.fieldbuilder</auto.module.name>
         <spring.version>5.3.14</spring.version>
     </properties>
+
     <dependencies>
 
         <!-- Siblings -->

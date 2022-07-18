@@ -20,9 +20,12 @@
             <url>file://${project.basedir}/../../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
     <properties>
+        <auto.module.name>org.dellroad.stuff.vaadin8</auto.module.name>
         <vaadin8.version>[8.14,9.0)</vaadin8.version>
     </properties>
+
     <build>
         <plugins>
             <plugin>

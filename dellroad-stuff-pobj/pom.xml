@@ -20,7 +20,9 @@
             <url>file://${project.basedir}/../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
     <properties>
+        <auto.module.name>org.dellroad.stuff.pobj</auto.module.name>
         <vaadin7.version>[7.7,8.0)</vaadin7.version>
         <vaadin8.version>[8.14,9.0)</vaadin8.version>
     </properties>

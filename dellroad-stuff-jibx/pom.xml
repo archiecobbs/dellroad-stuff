@@ -21,6 +21,10 @@
         </site>
     </distributionManagement>
 
+    <properties>
+        <auto.module.name>org.dellroad.stuff.jibx</auto.module.name>
+    </properties>
+
     <dependencies>
 
         <!-- Sibling JARs -->

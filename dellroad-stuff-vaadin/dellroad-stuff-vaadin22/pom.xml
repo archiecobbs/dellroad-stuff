@@ -20,9 +20,11 @@
             <url>file://${project.basedir}/../../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
     <properties>
-        <vaadin.version>22.0.17</vaadin.version>
+        <auto.module.name>org.dellroad.stuff.vaadin22</auto.module.name>
         <servlet-api.version>3.1.0</servlet-api.version>
+        <vaadin.version>22.0.17</vaadin.version>
     </properties>
 
     <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
