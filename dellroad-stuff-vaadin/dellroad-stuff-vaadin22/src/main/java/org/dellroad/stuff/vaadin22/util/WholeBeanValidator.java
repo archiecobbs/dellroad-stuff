@@ -12,9 +12,11 @@ import com.vaadin.flow.data.validator.BeanValidator;
 
 import java.lang.annotation.ElementType;
 import java.util.Locale;
+import java.util.Optional;
 
 import javax.validation.Path;
 import javax.validation.TraversableResolver;
+import javax.validation.ValidatorFactory;
 import javax.validation.groups.Default;
 
 /**
@@ -38,6 +40,7 @@ public class WholeBeanValidator extends BeanValidator {
     protected final Class<?> beanType;
 
     private Class<?>[] groups;
+    private ValidatorFactory validatorFactory;
 
 // Constructor
 
@@ -67,6 +70,18 @@ public class WholeBeanValidator extends BeanValidator {
         this.groups = groups != null ? groups : new Class<?>[0];
     }
 
+    /**
+     * Configure a custom {@link ValidatorFactory}.
+     *
+     * <p>
+     * If this property is left unset, then the factory returned by {@link BeanValidator#getJavaxBeanValidatorFactory} is used.
+     *
+     * @param factory custom validation factory, or null for none
+     */
+    public void setValidatorFactory(ValidatorFactory validatorFactory) {
+        this.validatorFactory = validatorFactory;
+    }
+
 // Validator
 
     @Override
@@ -79,7 +94,8 @@ public class WholeBeanValidator extends BeanValidator {
         final Locale locale = valueContext.getLocale().orElse(Locale.getDefault());
 
         // Build a Validator that won't recurse into bean properties, apply validator, and convert to ValidationResult
-        return BeanValidator.getJavaxBeanValidatorFactory()
+        return Optional.ofNullable(this.validatorFactory)
+          .orElseGet(BeanValidator::getJavaxBeanValidatorFactory)
           .usingContext()
           .traversableResolver(new NeverTraversableResolver())
           .getValidator()
