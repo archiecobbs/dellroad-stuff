@@ -183,6 +183,7 @@ public class MessageFmt implements SelfValidating {
      * @param format source message format
      * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
      * @throws IllegalArgumentException if {@code format} is null
+     * @throws RuntimeException if reflective access into {@link MessageFormat} is denied
      * @see FormatArgumentSegment#of FormatArgumentSegment.of()
      */
     public MessageFmt(MessageFormat format, boolean captureLocaleDefaults) {
@@ -192,20 +193,12 @@ public class MessageFmt implements SelfValidating {
             throw new IllegalArgumentException("null format");
 
         // Introspect
-        final Format[] formats;
-        final int[] offsets;
-        final String pattern;
-        final int maxOffset;
-        final int[] argumentNumbers;
-        try {
-            formats = (Format[])FORMATS_FIELD.get(format);
-            offsets = (int[])OFFSETS_FIELD.get(format);
-            pattern = (String)PATTERN_FIELD.get(format);
-            maxOffset = (Integer)MAX_OFFSET_FIELD.get(format);
-            argumentNumbers = (int[])ARGUMENT_NUMBERS_FIELD.get(format);
-        } catch (Exception e) {
-            throw new RuntimeException("internal error", e);
-        }
+        final MessageFormatAccessor accessor = new MessageFormatAccessor();
+        final Format[] formats = accessor.getFormats(format);
+        final int[] offsets = accessor.getOffsets(format);
+        final String pattern = accessor.getPattern(format);
+        final int maxOffset = accessor.getMaxOffset(format);
+        final int[] argumentNumbers = accessor.getArgumentNumbers(format);
 
         // Extract segments
         final Locale locale = !captureLocaleDefaults ? format.getLocale() : null;
@@ -1641,6 +1634,77 @@ public class MessageFmt implements SelfValidating {
 
         public String description() {
             return this.name().toLowerCase();
+        }
+    }
+
+// MessageFormatAccessor
+
+    // This is in a separate class so we don't trigger the JDK "illegal reflective access" warning until we actually do reflection
+    private static class MessageFormatAccessor {
+
+        private static final Field FORMATS_FIELD;
+        private static final Field OFFSETS_FIELD;
+        private static final Field PATTERN_FIELD;
+        private static final Field MAX_OFFSET_FIELD;
+        private static final Field ARGUMENT_NUMBERS_FIELD;
+
+        static {
+            try {
+                FORMATS_FIELD = MessageFormat.class.getDeclaredField("formats");
+                OFFSETS_FIELD = MessageFormat.class.getDeclaredField("offsets");
+                PATTERN_FIELD = MessageFormat.class.getDeclaredField("pattern");
+                MAX_OFFSET_FIELD = MessageFormat.class.getDeclaredField("maxOffset");
+                ARGUMENT_NUMBERS_FIELD = MessageFormat.class.getDeclaredField("argumentNumbers");
+            } catch (NoSuchFieldException e) {
+                throw new RuntimeException("internal error", e);
+            }
+            Stream.of(OFFSETS_FIELD, FORMATS_FIELD, PATTERN_FIELD, MAX_OFFSET_FIELD, ARGUMENT_NUMBERS_FIELD).forEach(field -> {
+                try {
+                    field.setAccessible(true);
+                } catch (RuntimeException e) {
+                    // ignore
+                }
+            });
+        }
+
+        public Format[] getFormats(MessageFormat format) {
+            try {
+                return (Format[])FORMATS_FIELD.get(format);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("internal error", e);
+            }
+        }
+
+        public int[] getOffsets(MessageFormat format) {
+            try {
+                return (int[])OFFSETS_FIELD.get(format);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("internal error", e);
+            }
+        }
+
+        public String getPattern(MessageFormat format) {
+            try {
+                return (String)PATTERN_FIELD.get(format);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("internal error", e);
+            }
+        }
+
+        public int getMaxOffset(MessageFormat format) {
+            try {
+                return (Integer)MAX_OFFSET_FIELD.get(format);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("internal error", e);
+            }
+        }
+
+        public int[] getArgumentNumbers(MessageFormat format) {
+            try {
+                return (int[])ARGUMENT_NUMBERS_FIELD.get(format);
+            } catch (ReflectiveOperationException e) {
+                throw new RuntimeException("internal error", e);
+            }
         }
     }
 }
