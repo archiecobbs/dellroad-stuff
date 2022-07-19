@@ -176,6 +176,10 @@ public class MessageFmt implements SelfValidating {
      * {@link Locale}-dependent. For example, a simple argument parameter like <code>{0}</code>, when applied
      * to a numerical argument, is always formatted using the {@link Locale} default number format.
      *
+     * <p>
+     * <b>Warning:</b> This constructor relies on reflective access into the {@link MessageFormat} class.
+     * On newer JDK versions this may require adding a flag like {@code --add-opens java.base/java.text=...}.
+     *
      * @param format source message format
      * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
      * @throws IllegalArgumentException if {@code format} is null
