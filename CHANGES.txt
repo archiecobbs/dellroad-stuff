@@ -1,6 +1,9 @@
 Version 2.5.1
 
-    - Fixed bug in FieldBuilderContext.inferDataModelType() with generic types
+    - Fixed bug in FieldBuilderContext.inferDataModelType() with generic types.
+    - Added Automatic-Module-Name manifest entries and a few other JDK 9+ tweaks.
+    - Added a couple of additional methods to ValidationContext.
+    - Miscellanous improvements to Vaadin 22 classes.
 
 Version 2.5.0 Released June 10, 2022
 
