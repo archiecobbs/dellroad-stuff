@@ -63,32 +63,6 @@ import org.dellroad.stuff.validation.SelfValidationException;
 @SelfValidates
 public class MessageFmt implements SelfValidating {
 
-    private static final Field FORMATS_FIELD;
-    private static final Field OFFSETS_FIELD;
-    private static final Field PATTERN_FIELD;
-    private static final Field MAX_OFFSET_FIELD;
-    private static final Field ARGUMENT_NUMBERS_FIELD;
-
-    static {
-        try {
-            FORMATS_FIELD = MessageFormat.class.getDeclaredField("formats");
-            OFFSETS_FIELD = MessageFormat.class.getDeclaredField("offsets");
-            PATTERN_FIELD = MessageFormat.class.getDeclaredField("pattern");
-            MAX_OFFSET_FIELD = MessageFormat.class.getDeclaredField("maxOffset");
-            ARGUMENT_NUMBERS_FIELD = MessageFormat.class.getDeclaredField("argumentNumbers");
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("internal error", e);
-        }
-        Stream.of(OFFSETS_FIELD, FORMATS_FIELD, PATTERN_FIELD, MAX_OFFSET_FIELD, ARGUMENT_NUMBERS_FIELD)
-          .forEach(field -> {
-            try {
-                field.setAccessible(true);
-            } catch (RuntimeException e) {
-                // ignore
-            }
-          });
-    }
-
     private List<Segment> segments = new ArrayList<>();
 
 // Constructors
