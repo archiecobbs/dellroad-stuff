@@ -7,6 +7,7 @@ package org.dellroad.stuff.vaadin22.util;
 
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.binder.ValueContext;
 import com.vaadin.flow.data.validator.BeanValidator;
 
@@ -14,8 +15,10 @@ import java.lang.annotation.ElementType;
 import java.util.Locale;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Path;
 import javax.validation.TraversableResolver;
+import javax.validation.Valid;
 import javax.validation.ValidatorFactory;
 import javax.validation.groups.Default;
 
@@ -23,8 +26,10 @@ import javax.validation.groups.Default;
  * Applies JSR 303 bean validation constraints that are attached to the bean as a whole (not to an individual property).
  *
  * <p>
- * The {@link BeanValidator} class does not handle "whole bean" validation constraints, so this class can be
- * used to cover that gap. This validator does <i>not</i> recurse on the properties of the bean.
+ * The {@link BeanValidator} class validates individual bean properties but does not handle "whole bean" validation
+ * constraints. This class can be used to cover that gap. This validator does <i>not</i> recurse on the properties
+ * of the bean (for that, annotate those properties with {@link Valid &#64;Valid} and reply on {@link BeanValidator}
+ * per-property validation).
  *
  * <p>
  * This is a bean-level validator, so any {@link Binder} using this validator must have an actual bean bound to it to validate
@@ -32,7 +37,7 @@ import javax.validation.groups.Default;
  * <i>bean level validators have been configured but no bean is currently set</i>.
  */
 @SuppressWarnings("serial")
-public class WholeBeanValidator extends BeanValidator {
+public class WholeBeanValidator implements Validator<Object> {
 
     /**
      * Bean type.
@@ -51,7 +56,6 @@ public class WholeBeanValidator extends BeanValidator {
      * @throws NullPointerException if {@code beanType} is null
      */
     public WholeBeanValidator(Class<?> beanType) {
-        super(beanType, "ignored");
         this.beanType = beanType;
     }
 
@@ -94,14 +98,14 @@ public class WholeBeanValidator extends BeanValidator {
         final Locale locale = valueContext.getLocale().orElse(Locale.getDefault());
 
         // Build a Validator that won't recurse into bean properties, apply validator, and convert to ValidationResult
-        return Optional.ofNullable(this.validatorFactory)
-          .orElseGet(BeanValidator::getJavaxBeanValidatorFactory)
+        final WorkaroundBeanValidator beanValidator = new WorkaroundBeanValidator(this.beanType, this.validatorFactory);
+        return beanValidator.getValidatorFactory()
           .usingContext()
           .traversableResolver(new NeverTraversableResolver())
           .getValidator()
           .validate(bean, groupsArray)
           .stream()
-          .map(violation -> ValidationResult.error(this.getMessage(violation, locale)))
+          .map(violation -> ValidationResult.error(beanValidator.getMessage(violation, locale)))
           .findFirst()
           .orElseGet(ValidationResult::ok);
     }
@@ -120,6 +124,35 @@ public class WholeBeanValidator extends BeanValidator {
         public boolean isCascadable(Object traversableObject, Path.Node traversableProperty,
           Class<?> rootBeanType, Path pathToTraversableObject, ElementType elementType) {
             return false;
+        }
+    }
+
+// WorkaroundBeanValidator
+
+    // Workaround for Vaadin methods being protected for no good reason
+    static class WorkaroundBeanValidator extends BeanValidator {
+
+        private final ValidatorFactory validatorFactory;
+
+        WorkaroundBeanValidator(Class<?> beanType, ValidatorFactory validatorFactory) {
+            super(beanType, "ignored");
+            this.validatorFactory = validatorFactory;
+        }
+
+        public ValidatorFactory getValidatorFactory() {
+            return Optional.ofNullable(this.validatorFactory)
+              .orElseGet(BeanValidator::getJavaxBeanValidatorFactory);
+        }
+
+        @Override
+        public javax.validation.Validator getJavaxBeanValidator() {
+            return this.getValidatorFactory().getValidator();
+        }
+
+        @Override
+        public String getMessage(ConstraintViolation<?> violation, Locale locale) {
+            return this.getValidatorFactory().getMessageInterpolator().interpolate(
+              violation.getMessageTemplate(), this.createContext(violation), locale);
         }
     }
 }
