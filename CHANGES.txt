@@ -1,4 +1,4 @@
-Version 2.5.1
+Version 2.5.1 Released July 19, 2022
 
     - Fixed bug in FieldBuilderContext.inferDataModelType() with generic types.
     - Added Automatic-Module-Name manifest entries and a few other JDK 9+ tweaks.
