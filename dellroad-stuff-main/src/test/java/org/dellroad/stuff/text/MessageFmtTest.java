@@ -34,8 +34,8 @@ public class MessageFmtTest extends TestSupport {
         Assert.assertEquals(messageFmt1.toPattern(), "date = {0,date,short}");
         Assert.assertEquals(messageFmt2.toPattern(), "date = {0,date,M/d/yy}");
 
-        final MessageFormat messageFormat1 = messageFmt1.toMessageFormat(Locale.FRANCE);
-        final MessageFormat messageFormat2 = messageFmt2.toMessageFormat(Locale.FRANCE);
+        final MessageFormat messageFormat1 = messageFmt1.toMessageFormat(Locale.ITALY);
+        final MessageFormat messageFormat2 = messageFmt2.toMessageFormat(Locale.ITALY);
 
         Assert.assertEquals(messageFormat1.format(args), "date = 25/01/20");
         Assert.assertEquals(messageFormat2.format(args), "date = 1/25/20");
