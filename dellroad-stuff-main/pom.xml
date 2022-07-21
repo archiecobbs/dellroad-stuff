@@ -33,6 +33,15 @@
             <version>${guava.version}</version>
         </dependency>
 
+        <!-- For @PostConstruct -->
+    <!--
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>${javax.annotation.api.version}</version>
+        </dependency>
+    -->
+
         <!-- For unit tests -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
