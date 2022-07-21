@@ -1,5 +1,9 @@
 <FindBugsFilter>
     <Match>
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
         <Class name="org.dellroad.stuff.spring.AbstractBeanDefinitionParser"/>
         <Bug pattern="NM_SAME_SIMPLE_NAME_AS_SUPERCLASS"/>
     </Match>
@@ -17,5 +21,10 @@
         <Class name="org.dellroad.stuff.spring.HibernateIsolationJpaDialect"/>
         <Method name="cleanupTransaction"/>
         <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.Springleton"/>
+        <Method name="getInstance"/>
+        <Bug pattern="MS_EXPOSE_REP"/>
     </Match>
 </FindBugsFilter>

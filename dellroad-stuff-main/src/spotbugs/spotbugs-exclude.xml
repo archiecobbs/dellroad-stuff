@@ -1,5 +1,9 @@
 <FindBugsFilter>
     <Match>
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
         <Class name="org.dellroad.stuff.main.MainClass"/>
         <Bug pattern="DM_EXIT"/>
     </Match>
@@ -45,5 +49,20 @@
         <Class name="org.dellroad.stuff.net.TCPNetwork"/>
         <Method name="handleAccept"/>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.schema.SQLCommand"/>
+        <Method name="apply"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.schema.SQLSchemaUpdater$1"/>
+        <Method name="apply"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.schema.SQLSchemaUpdater$3"/>
+        <Method name="apply"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
     </Match>
 </FindBugsFilter>

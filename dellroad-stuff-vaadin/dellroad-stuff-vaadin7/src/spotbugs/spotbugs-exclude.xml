@@ -1,5 +1,9 @@
 <FindBugsFilter>
     <Match>
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
         <Class name="org.dellroad.stuff.vaadin7.PropertyDef"/>
         <Method name="sort"/>
         <Bug pattern="NP_NULL_ON_SOME_PATH_MIGHT_BE_INFEASIBLE"/>
