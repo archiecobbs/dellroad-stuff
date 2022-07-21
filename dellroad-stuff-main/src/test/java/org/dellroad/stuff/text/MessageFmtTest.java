@@ -24,7 +24,7 @@ public class MessageFmtTest extends TestSupport {
     @Test
     public void testLocaleCapture() {
 
-        final Object[] args = new Object[] { new java.util.Date(1590000000000L) };
+        final Object[] args = new Object[] { new java.util.Date(1580000000000L) };
 
         final MessageFormat messageFormat = new MessageFormat("date = {0,date,short}", Locale.US);
 
@@ -37,8 +37,8 @@ public class MessageFmtTest extends TestSupport {
         final MessageFormat messageFormat1 = messageFmt1.toMessageFormat(Locale.FRANCE);
         final MessageFormat messageFormat2 = messageFmt2.toMessageFormat(Locale.FRANCE);
 
-        Assert.assertEquals(messageFormat1.format(args), "date = 20/05/20");
-        Assert.assertEquals(messageFormat2.format(args), "date = 5/20/20");
+        Assert.assertEquals(messageFormat1.format(args), "date = 25/01/20");
+        Assert.assertEquals(messageFormat2.format(args), "date = 1/25/20");
     }
 
     @Test
