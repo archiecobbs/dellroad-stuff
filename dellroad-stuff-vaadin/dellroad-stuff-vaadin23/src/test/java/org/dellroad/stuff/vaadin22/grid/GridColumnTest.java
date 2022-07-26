@@ -3,7 +3,7 @@
  * Copyright (C) 2022 Archie L. Cobbs. All rights reserved.
  */
 
-package org.dellroad.stuff.vaadin22.grid;
+package org.dellroad.stuff.vaadin23.grid;
 
 import com.vaadin.flow.component.grid.ColumnPathRenderer;
 import com.vaadin.flow.component.grid.ColumnTextAlign;
@@ -22,7 +22,7 @@ import java.util.Comparator;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.test.TestSupport;
-import org.dellroad.stuff.vaadin22.util.SelfRenderer;
+import org.dellroad.stuff.vaadin23.util.SelfRenderer;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
