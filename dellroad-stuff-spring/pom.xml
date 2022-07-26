@@ -130,9 +130,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <complianceLevel>8</complianceLevel>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>${jdk.target}</source>
+                    <target>${jdk.target}</target>
+                    <complianceLevel>${jdk.target}</complianceLevel>
                     <showWeaveInfo>true</showWeaveInfo>
                     <outxml>true</outxml>
                     <outxmlfile>META-INF/aop.xml</outxmlfile>

@@ -49,6 +49,7 @@
         <!-- Basic stuff -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
+        <jdk.target>8</jdk.target>
 
         <!-- Dependency versions -->
         <ant.version>1.10.2</ant.version>
@@ -182,9 +183,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <release>8</release>
+                    <source>${jdk.target}</source>
+                    <target>${jdk.target}</target>
+                    <release>${jdk.target}</release>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-Xlint:all,-processing,-path</arg>
@@ -214,7 +215,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
-                    <source>8</source>
+                    <source>${jdk.target}</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
                     <additionalJOption>--allow-script-in-comments</additionalJOption>
