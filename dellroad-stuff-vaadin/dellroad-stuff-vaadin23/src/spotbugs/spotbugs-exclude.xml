@@ -1,0 +1,10 @@
+<FindBugsFilter>
+    <Match>
+        <Class name="~.*"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin22.field.AbstractFieldBuilder$BindingInfo"/>
+        <Bug pattern="SE_INNER_CLASS"/>
+    </Match>
+</FindBugsFilter>
