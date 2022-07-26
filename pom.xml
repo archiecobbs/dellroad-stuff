@@ -371,6 +371,7 @@
                 <version>${maven.javadoc.plugin.version}</version>
                 <inherited>false</inherited>
                 <configuration>
+                    <source>${jdk.target}</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-html</doclint><!-- to allow <video> tags -->
                     <additionalJOption>--allow-script-in-comments</additionalJOption>
