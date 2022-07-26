@@ -50,6 +50,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
         <jdk.target>8</jdk.target>
+        <javadoc.target>8</javadoc.target>
 
         <!-- Dependency versions -->
         <ant.version>1.10.2</ant.version>
@@ -215,7 +216,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven.javadoc.plugin.version}</version>
                 <configuration>
-                    <source>${jdk.target}</source>
+                    <source>${javadoc.target}</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-reference</doclint>
                     <additionalJOption>--allow-script-in-comments</additionalJOption>
@@ -371,7 +372,7 @@
                 <version>${maven.javadoc.plugin.version}</version>
                 <inherited>false</inherited>
                 <configuration>
-                    <source>${jdk.target}</source>
+                    <source>${javadoc.target}</source>
                     <notimestamp>true</notimestamp>
                     <doclint>-html</doclint><!-- to allow <video> tags -->
                     <additionalJOption>--allow-script-in-comments</additionalJOption>
