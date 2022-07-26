@@ -22,10 +22,15 @@ import java.nio.file.StandardCopyOption;
  * will contain either the previous content or the new content, but never a mix of the two.
  *
  * <p>
- * An open instance can be thought of as representing an open transaction to rewrite the file.
- * The "transaction" is committed via {@link #close}, or t may be explicitly rolled back via {@link #cancel}
- * (this also deletes the temporary file). In addition, if any method throws {@link IOException}, the
- * {@link #cancel} is implicitly invoked.
+ * Instances therefore represent a "transaction" for rewriting the file. As such, they can be in one of three states:
+ * {@link #OPEN}, {@link #CLOSED}, or {@link #CANCELED}. State {@link #CLOSED} implies that the file update was
+ * successful (no {@link IOException}s occurred); state {@link #CANCELED} implies the file update was either
+ * explicitly canceled (via {@link #cancel}) or implicitly canceled due to an {@link IOException} being thrown by any method.
+ *
+ * <p>
+ * When still {@link #OPEN}, the transaction is "comitted" by invoking {@link #close}, or rolled back by invoking {@link #cancel}.
+ * Once an instance has been closed or canceled, the temporary file will have been deleted, and any subsequent invocations
+ * of {@link #close} or {@link #cancel} have no effect.
  *
  * <p>
  * Note: to guarantee that the new content will always be found in the future, even if there is a sudden system crash,
@@ -34,15 +39,28 @@ import java.nio.file.StandardCopyOption;
  */
 public class AtomicUpdateFileOutputStream extends FileOutputStream {
 
-    private static final int OPEN = 0;
-    private static final int CLOSED = 1;
-    private static final int CANCELED = 2;
+    /**
+     * The stream is open for writing.
+     */
+    public static final int OPEN = 0;
+
+    /**
+     * The stream is closed and the update has been successful.
+     */
+    public static final int CLOSED = 1;
+
+    /**
+     * The stream is closed, and the update has been canceled either explicitly via {@link #cancel}
+     * or implicitly due to an {@link IOException} having been thrown.
+     */
+    public static final int CANCELED = 2;
 
     private final File targetFile;
     private final File tempFile;
 
     private int state;
     private long timestamp;
+    private boolean invokingSuperClose;             // workaround for a stupid re-entrancy bug in FileOutputStream.close()
 
 // Constructors
 
@@ -56,7 +74,21 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
      * @throws NullPointerException if either parameter is null
      */
     public AtomicUpdateFileOutputStream(File targetFile, File tempFile) throws FileNotFoundException {
-        super(tempFile);
+        this(targetFile, tempFile, false);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param targetFile the ultimate destination for the output when {@linkplain #close closed}.
+     * @param tempFile temporary file that accumulates output until {@linkplain #close close}.
+     * @param append if true, then bytes will be written to the end of the file rather than the beginning
+     * @throws FileNotFoundException if {@code tempFile} cannot be opened for any reason
+     * @throws SecurityException if a security manager prevents writing to {@code tempFile}
+     * @throws NullPointerException if either parameter is null
+     */
+    public AtomicUpdateFileOutputStream(File targetFile, File tempFile, boolean append) throws FileNotFoundException {
+        super(tempFile, append);
         this.tempFile = tempFile;
         if (targetFile == null)
             throw new NullPointerException("null targetFile");
@@ -73,10 +105,31 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
      * @throws FileNotFoundException if {@code tempFile} cannot be opened for any reason
      * @throws IOException if a temporary file could not be created
      * @throws SecurityException if a security manager prevents writing to {@code tempFile}
-     * @throws NullPointerException if either parameter is null
+     * @throws NullPointerException if {@code targetFile} is null
      */
     public AtomicUpdateFileOutputStream(File targetFile) throws IOException {
-        this(targetFile, File.createTempFile("atomicupdate", null, targetFile.getAbsoluteFile().getParentFile()));
+        this(targetFile, false);
+    }
+
+    /**
+     * Convenience constructor.
+     *
+     * <p>
+     * This constructor uses a temporary file within the same directory as {@code targetFile}.
+     *
+     * @param targetFile the ultimate destination for the output when {@linkplain #close closed}.
+     * @param append if true, then bytes will be written to the end of the file rather than the beginning
+     * @throws FileNotFoundException if {@code tempFile} cannot be opened for any reason
+     * @throws IOException if a temporary file could not be created
+     * @throws SecurityException if a security manager prevents writing to {@code tempFile}
+     * @throws NullPointerException if {@code targetFile} is null
+     */
+    public AtomicUpdateFileOutputStream(File targetFile, boolean append) throws IOException {
+        this(targetFile, AtomicUpdateFileOutputStream.tempFileFor(targetFile), append);
+    }
+
+    private static File tempFileFor(File targetFile) throws IOException {
+        return File.createTempFile("atomicupdate", null, targetFile.getAbsoluteFile().getParentFile());
     }
 
 // Accessors
@@ -94,39 +147,51 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
      * Get the temporary file.
      *
      * <p>
-     * If this instance has already been {@linkplain #close closed} (either successfully or not)
-     * or {@linkplain #cancel canceled}, this will return null.
+     * If this instance is in state {@link #CLOSED} or {@link #CANCELED}, the file will no longer exist.
      *
-     * @return temporary file, or null if {@link #close} or {@link #cancel} has already been invoked
+     * @return temporary file, never null
      */
     public synchronized File getTempFile() {
         return this.tempFile;
     }
 
+    /**
+     * Get the state of this instance
+     *
+     * @return the current state of this instance
+     */
+    public synchronized int getState() {
+        return this.state;
+    }
+
 // Cancel
 
     /**
-     * Cancel this instance. This "aborts" the open "transaction", and deletes the temporary file.
+     * Cancel this instance if still open. This rolls back the open transaction.
      *
      * <p>
-     * Does nothing if {@link #close} or {@link #cancel} has already been invoked.
+     * This method does nothing (and returns false) if {@link #close} or {@link #cancel} has already been invoked.
      *
-     * @return true if canceled, false if this instance is already closed or canceled
+     * @return true if this instance was canceled, false if this instance is already closed or canceled
      */
     public synchronized boolean cancel() {
 
-        // Already closed?
+        // Already closed or canceled?
         if (this.state != OPEN)
             return false;
 
-        // Update state - we're committed now
+        // Update state - we're "committed" now
         this.state = CANCELED;
 
         // Close output stream to release file descriptor
-        try {
-            super.close();
-        } catch (IOException e) {
-            // ignore
+        if (!this.invokingSuperClose) {
+            try {
+                super.close();
+            } catch (IOException e) {
+                // ignore
+            } finally {
+                this.invokingSuperClose = false;
+            }
         }
 
         // Delete the temporary file
@@ -179,28 +244,32 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
     }
 
     /**
-     * Close this instance. This "commits" the open "transaction" if not already committed.
+     * Close this instance if still open. This commits the open transaction.
      *
      * <p>
-     * If successful, the configured {@code tempFile} will be {@linkplain atomically StandardCopyOption#ATOMIC_MOVE}
-     * {@linkplain Files#move renamed} to the configured destination file {@code targetFile}. In any case, after
-     * this method returns (either normally or abnormally), the temporary file will no longer exist.
+     * If this instance is still open, this method will close the temporary file and then attempt to
+     * {@linkplain StandardCopyOption#ATOMIC_MOVE atomically} {@linkplain Files#move rename} it onto the target file.
+     * In any case, after this method returns (either normally or abnormally), the temporary file will no longer exist.
      *
      * <p>
-     * Does nothing if this instance has already been successfully closed.
+     * If this instance has already been closed or canceled, this method does nothing.
      *
      * @throws IOException if an I/O error occurs
-     * @throws IOException if {@link #cancel} has already been invoked
      */
     @Override
     public synchronized void close() throws IOException {
 
+        // JDK bug workaround
+        if (this.invokingSuperClose) {
+            super.close();
+            return;
+        }
+
         // Check state
         switch (this.state) {
         case CLOSED:
-            throw new IOException("already closed");
         case CANCELED:
-            throw new IOException("already canceled");
+            return;
         default:
             break;
         }
@@ -209,12 +278,17 @@ public class AtomicUpdateFileOutputStream extends FileOutputStream {
         try {
 
             // Close temporary file
-            super.close();
+            this.invokingSuperClose = true;
+            try {
+                super.close();
+            } finally {
+                this.invokingSuperClose = false;
+            }
 
             // Read updated modification time
             final long newTimestamp = this.tempFile.lastModified();
 
-            // Rename file, or delete it if that fails
+            // Rename file
             Files.move(this.tempFile.toPath(), this.targetFile.toPath(),
               StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
 

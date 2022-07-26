@@ -1,6 +1,7 @@
 Version Next
 
     - Add support for building on JDK 9+ but still targeting JDK 8.
+    - Add AtomicUpdateFileOutputStream workaround for JDK-8291023.
 
 Version 2.5.1 Released July 19, 2022
 
