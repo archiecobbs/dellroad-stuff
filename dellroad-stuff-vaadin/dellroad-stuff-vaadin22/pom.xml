@@ -24,10 +24,9 @@
     <properties>
         <auto.module.name>org.dellroad.stuff.vaadin22</auto.module.name>
         <servlet-api.version>3.1.0</servlet-api.version>
-        <vaadin.version>22.0.17</vaadin.version>
     </properties>
 
-    <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
+    <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin22.version} -->
     <dependencyManagement>
         <dependencies>
 
@@ -35,7 +34,7 @@
             <dependency>
                 <groupId>com.vaadin</groupId>
                 <artifactId>vaadin-bom</artifactId>
-                <version>${vaadin.version}</version>
+                <version>${vaadin22.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -131,7 +130,7 @@
                 <configuration>
                     <offlineLinks>
                         <offlineLink><!-- https://github.com/vaadin/vaadin.com/issues/100 -->
-                            <url>https://vaadin.com/api/platform/${vaadin.version}</url>
+                            <url>https://vaadin.com/api/platform/${vaadin22.version}</url>
                             <location>${project.basedir}/src/javadoc/vaadin</location>
                         </offlineLink>
                     </offlineLinks>
@@ -279,7 +278,7 @@
                     <dependency>
                         <groupId>com.vaadin</groupId>
                         <artifactId>vaadin</artifactId>
-                        <version>${vaadin.version}</version>
+                        <version>${vaadin22.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>javax.servlet</groupId>

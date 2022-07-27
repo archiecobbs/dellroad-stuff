@@ -93,6 +93,10 @@
         <testng.version>6.14.2</testng.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
 
+        <!-- Vaadin versions -->
+        <vaadin22.version>22.0.17</vaadin22.version>
+        <vaadin23.version>23.1.3</vaadin23.version>
+
     </properties>
     <dependencies>
         <dependency>
@@ -392,9 +396,13 @@
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
                     <offlineLinks>
-                        <offlineLink><!-- Must keep this in sync with dellroad-stuff-vaadin22 pom -->
-                            <url>https://vaadin.com/api/platform/22.0.2</url>
+                        <offlineLink>
+                            <url>https://vaadin.com/api/platform/${vaadin22.version}</url>
                             <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin22/src/javadoc/vaadin</location>
+                        </offlineLink>
+                        <offlineLink>
+                            <url>https://vaadin.com/api/platform/${vaadin23.version}</url>
+                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin23/src/javadoc/vaadin</location>
                         </offlineLink>
                     </offlineLinks>
                 </configuration>
