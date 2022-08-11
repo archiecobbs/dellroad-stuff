@@ -198,13 +198,24 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         });
 
         // Wire up and initialize @EnabledBy dependencies
-        this.bindingInfoMap.forEach((propertyName, info) ->
-          Optional.ofNullable(info.getEnabledBy())
-            .map(EnabledBy::value)
-            .flatMap(binder::getBinding)
-            .map(Binder.Binding::getField)
-            .ifPresent(field ->
-              this.setEnablement(field, this.fieldComponentMap.get(propertyName), info.getEnabledBy().resetOnDisable())));
+        this.bindingInfoMap.forEach((propertyName, info) -> {
+
+            // Get @EnabledBy annotation, if any
+            final EnabledBy enabledBy = info.getEnabledBy();
+            if (enabledBy == null)
+                return;
+
+            // Find the controlling field
+            final HasValue<?, ?> field = Optional.of(enabledBy)
+              .map(EnabledBy::value)
+              .flatMap(binder::getBinding)
+              .map(Binder.Binding::getField)
+              .orElseThrow(() -> new IllegalArgumentException(String.format(
+                "field \"%s\" is @EnabledBy unknown field \"%s\"", propertyName, enabledBy.value())));
+
+            // Wire up enablement
+            this.setEnablement(field, this.fieldComponentMap.get(propertyName), info.getEnabledBy().resetOnDisable());
+        });
     }
 
     private <V> void setEnablement(HasValue<?, V> field, FieldComponent<?> fieldComponent, boolean resetOnDisable) {
