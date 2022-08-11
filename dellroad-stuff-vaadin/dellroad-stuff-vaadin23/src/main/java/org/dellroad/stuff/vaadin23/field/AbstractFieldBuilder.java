@@ -1698,6 +1698,14 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * Whether the value of this field should be automatically reset to its {@linkplain HasValue#getEmptyValue empty value}
          * when this field is disabled by its controlling field.
          *
+         * <p>
+         * Note: it's not currently possible in Vaadin to listen for changes to a field's enabled status
+         * (see <a href="https://github.com/vaadin/flow/issues/14334">issue #14334</a>).
+         * Therefore, if you change this to false, and the field X you're configuring is itself the enabling
+         * field for some third field Y through another instance of this annotation, then it's possible to get
+         * in a state where this field X is disabled (though non-empty), and therefore Y is still enabled.
+         * Leaving this value set to true avoids that possibility.
+         *
          * @return whether to reset when disabled
          */
         boolean resetOnDisable() default true;
