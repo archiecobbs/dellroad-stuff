@@ -198,7 +198,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         });
 
         // Wire up and initialize @EnabledBy dependencies
-        this.bindingInfoMap.forEach((propertyName, info) -> {
+        this.bindingInfoMap.forEach((targetPropertyName, info) -> {
 
             // Get @EnabledBy annotation, if any
             final EnabledBy enabledBy = info.getEnabledBy();
@@ -206,32 +206,59 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 return;
 
             // Find the controlling field
-            final HasValue<?, ?> field = Optional.of(enabledBy)
-              .map(EnabledBy::value)
+            final HasValue<?, ?> controllingField = Optional.of(enabledBy.value())
               .flatMap(binder::getBinding)
               .map(Binder.Binding::getField)
               .orElseThrow(() -> new IllegalArgumentException(String.format(
-                "field \"%s\" is @EnabledBy unknown field \"%s\"", propertyName, enabledBy.value())));
+                "field \"%s\" is @EnabledBy unknown field \"%s\"", targetPropertyName, enabledBy.value())));
 
             // Wire up enablement
-            this.setEnablement(field, this.fieldComponentMap.get(propertyName), info.getEnabledBy().resetOnDisable());
+            this.setEnablement(controllingField, targetPropertyName, info);
         });
     }
 
-    private <V> void setEnablement(HasValue<?, V> field, FieldComponent<?> fieldComponent, boolean resetOnDisable) {
-        final Component component = fieldComponent.getComponent();
-        final HasEnabled hasEnabled = component instanceof HasEnabled ? (HasEnabled)component : null;
-        if (hasEnabled == null && !resetOnDisable)                          // nothing to do
+    /**
+     * Configure the given target field to be automatically enabled/disabled based on the value of the given controlling field.
+     */
+    private <V> void setEnablement(HasValue<?, V> controllingField, String targetPropertyName, BindingInfo targetFieldInfo) {
+
+        // Gather target field info
+        final EnabledBy targetFieldEnabledBy = targetFieldInfo.getEnabledBy();
+        final boolean resetOnDisable = targetFieldEnabledBy.resetOnDisable();
+        final FieldComponent<?> targetFieldComponent = this.fieldComponentMap.get(targetPropertyName);
+        final Component targetComponent = targetFieldComponent.getComponent();
+        final HasValue<?, ?> targetField = targetFieldComponent.getField();
+        final HasEnabled targetHasEnabled = targetComponent instanceof HasEnabled ? (HasEnabled)targetComponent : null;
+
+        // Gather controlling field info
+        final String controllingPropertyName = targetFieldEnabledBy.value();
+        final BindingInfo controllingFieldInfo = this.bindingInfoMap.get(controllingPropertyName);
+        final V controllingFieldEmptyValue = controllingField.getEmptyValue();
+
+        // Is there anthing to do?
+        if (targetHasEnabled == null && !resetOnDisable)
             return;
-        final Consumer<V> newValueHandler = value -> {
-            final boolean enabled = !Objects.equals(value, field.getEmptyValue());
-            if (!enabled && resetOnDisable)
-                this.resetField(fieldComponent.getField());
-            if (hasEnabled != null)
-                hasEnabled.setEnabled(enabled);
+
+        // This is what we will do whenever something changes
+        final Consumer<V> update = controllingFieldValue -> {
+
+            // We want the target field to be enabled when the controlling field is non-empty
+            final boolean enableTargetField = !Objects.equals(controllingFieldValue, controllingFieldEmptyValue);
+
+            // If requested, also reset the target field's value when disabling it
+            if (!enableTargetField && resetOnDisable)
+                this.resetField(targetField);
+
+            // Update the target field (if possible)
+            if (targetHasEnabled != null)
+                targetHasEnabled.setEnabled(enableTargetField);
         };
-        field.addValueChangeListener(e -> newValueHandler.accept(e.getValue()));
-        newValueHandler.accept(field.getValue());
+
+        // Apply update now to synchronize
+        update.accept(controllingField.getValue());
+
+        // Apply update whenever the enabling field's value changes
+        controllingField.addValueChangeListener(e -> update.accept(e.getValue()));
     }
 
     private <V> void resetField(HasValue<?, V> field) {
