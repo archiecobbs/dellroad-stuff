@@ -234,6 +234,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         final String controllingPropertyName = targetFieldEnabledBy.value();
         final BindingInfo controllingFieldInfo = this.bindingInfoMap.get(controllingPropertyName);
         final V controllingFieldEmptyValue = controllingField.getEmptyValue();
+        final String controllingFieldNullRepresentation = Optional.ofNullable(controllingFieldInfo.getBinding())
+          .map(Binding::nullRepresentation)
+          .filter(string -> !string.equals(STRING_DEFAULT))
+          .orElse(null);
 
         // Is there anthing to do?
         if (targetHasEnabled == null && !resetOnDisable)
@@ -243,7 +247,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         final Consumer<V> update = controllingFieldValue -> {
 
             // We want the target field to be enabled when the controlling field is non-empty
-            final boolean enableTargetField = !Objects.equals(controllingFieldValue, controllingFieldEmptyValue);
+            final boolean enableTargetField = !Objects.equals(controllingFieldValue, controllingFieldEmptyValue)
+                && (controllingFieldNullRepresentation == null
+                  || !Objects.equals(controllingFieldValue, controllingFieldNullRepresentation));
 
             // If requested, also reset the target field's value when disabling it
             if (!enableTargetField && resetOnDisable)
