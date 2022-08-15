@@ -1,6 +1,7 @@
 Version Next
 
     - Added new class SuperFinal.
+    - Added method ReflectUtil.propertyNameFromGetterMethod().
 
 Version 2.5.2 Released July 26, 2022
 

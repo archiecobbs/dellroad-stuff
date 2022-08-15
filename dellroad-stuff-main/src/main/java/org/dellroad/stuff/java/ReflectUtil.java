@@ -9,6 +9,7 @@ import java.beans.Introspector;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -23,6 +24,48 @@ import java.util.function.Function;
 public final class ReflectUtil {
 
     private ReflectUtil() {
+    }
+
+    /**
+     * Get the Java bean name corresponding to the given Java bean property getter method.
+     *
+     * <p>
+     * Does not support indexed bean properties.
+     *
+     * @param method getter method
+     * @return corresponding bean property name, or null if {@code method} is not a valid Java bean getter method
+     * @throws IllegalArgumentException if {@code method} is null
+     */
+    public static String propertyNameFromGetterMethod(Method method) {
+        if (method == null)
+            throw new IllegalArgumentException("null method");
+        if (method.getReturnType() == void.class
+          || method.getParameterTypes().length != 0
+          || (method.getModifiers() & Modifier.PUBLIC) == 0
+          || (method.getName().startsWith("is") && method.getReturnType() != boolean.class))
+            return null;
+        return ReflectUtil.propertyNameFromGetterMethodName(method.getName());
+    }
+
+    /**
+     * Get the Java bean name corresponding to the given Java bean property getter method name.
+     *
+     * <p>
+     * This method assumes that if the name starts with {@code "is"}, then the caller has already
+     * verified any corresponding method has return type boolean.
+     *
+     * @param methodName getter method name
+     * @return corresponding bean property name, or null if {@code methodName} is not a value property getter method name
+     * @throws IllegalArgumentException if {@code methodName} is null
+     */
+    public static String propertyNameFromGetterMethodName(String methodName) {
+        if (methodName == null)
+            throw new IllegalArgumentException("null methodName");
+        if (methodName.startsWith("get") && methodName.length() > 3)
+            return Introspector.decapitalize(methodName.substring(3));
+        if (methodName.startsWith("is") && methodName.length() > 2)
+            return Introspector.decapitalize(methodName.substring(2));
+        return null;
     }
 
     /**

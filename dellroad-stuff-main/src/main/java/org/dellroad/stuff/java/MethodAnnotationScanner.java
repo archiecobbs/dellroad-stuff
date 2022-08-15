@@ -5,7 +5,6 @@
 
 package org.dellroad.stuff.java;
 
-import java.beans.Introspector;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -14,6 +13,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -258,18 +258,16 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
         }
 
         /**
-         * Get the Java bean property name implied by this method's name, if any.
+         * Get the Java bean property name implied by the associated method, if any.
          *
          * @return the name of the bean property implied by the method
-         * @throws IllegalArgumentException if the method's name does not follow Java bean conventions
+         * @throws IllegalArgumentException if the method does not follow Java bean conventions
          */
         public String getMethodPropertyName() {
-            final String name = this.method.getName();
-            if (name.startsWith("get") && name.length() > 3)
-                return Introspector.decapitalize(name.substring(3));
-            if (name.startsWith("is") && name.length() > 2 && Primitive.get(method.getReturnType()) == Primitive.BOOLEAN)
-                return Introspector.decapitalize(name.substring(2));
-            throw new IllegalArgumentException("can't infer property name from non-Java bean method " + this.method);
+            return Optional.of(this.method)
+              .map(ReflectUtil::propertyNameFromGetterMethod)
+              .orElseThrow(() -> new IllegalArgumentException(
+                "can't infer property name from non-Java bean method " + this.method));
         }
 
         /**
