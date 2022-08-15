@@ -18,10 +18,6 @@ import com.vaadin.flow.data.converter.Converter;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.shared.util.SharedUtil;
 
-import java.beans.BeanInfo;
-import java.beans.IntrospectionException;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -376,24 +372,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         this.bindingInfoMap = new LinkedHashMap<>();
         this.defaultInfoMap = new HashMap<>();
 
-        // Identify all bean property getter methods
-        final BeanInfo beanInfo;
-        try {
-            beanInfo = Introspector.getBeanInfo(this.type);
-        } catch (IntrospectionException e) {
-            throw new RuntimeException("unexpected exception", e);
-        }
-        final HashMap<String, String> getter2propertyMap = new HashMap<>();                 // method name -> property name
-        for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
-            final Method method = this.workAroundIntrospectorBug(propertyDescriptor.getReadMethod());
-            if (method != null && method.getReturnType() != void.class && method.getParameterTypes().length == 0)
-                getter2propertyMap.put(method.getName(), propertyDescriptor.getName());
-        }
-
         // Scan getter methods for @Binding annotations
         final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();
         this.findAnnotatedMethods(Binding.class).forEach(methodInfo -> {
-            final String propertyName = getter2propertyMap.get(methodInfo.getMethod().getName());
+            final String propertyName = ReflectUtil.propertyNameFromGetterMethod(methodInfo.getMethod());
             if (propertyName != null)
                 bindingAnnotationMap.put(propertyName, methodInfo.getAnnotation());
         });
@@ -401,7 +383,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Scan getter methods for @FormLayout annotations
         final HashMap<String, FormLayout> formLayoutAnnotationMap = new HashMap<>();
         this.findAnnotatedMethods(FormLayout.class).forEach(methodInfo -> {
-            final String propertyName = getter2propertyMap.get(methodInfo.getMethod().getName());
+            final String propertyName = ReflectUtil.propertyNameFromGetterMethod(methodInfo.getMethod());
             if (propertyName != null)
                 formLayoutAnnotationMap.put(propertyName, methodInfo.getAnnotation());
         });
@@ -413,7 +395,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 final Method method = methodInfo.getMethod();
 
                 // Identify the bean property
-                final String propertyName = getter2propertyMap.get(method.getName());
+                final String propertyName = ReflectUtil.propertyNameFromGetterMethod(method);
                 if (propertyName == null) {
                     throw new IllegalArgumentException("invalid @" + annotationType.getSimpleName()
                       + " annotation on non-getter method " + method.getName());
