@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import org.dellroad.stuff.java.Primitive;
 import org.dellroad.stuff.java.ReflectUtil;
 
 /**
@@ -159,7 +160,7 @@ public class SimplePropertySet<T> implements PropertySet<T> {
         if (getter == null)
             throw new IllegalArgumentException("null getter");
         return this.addPropertyDefinition(name, type, caption,
-          target -> type.cast(ReflectUtil.invoke(getter, target)),
+          target -> Primitive.wrap(type).cast(ReflectUtil.invoke(getter, target)),
           setter != null ? (target, value) -> ReflectUtil.invoke(setter, target, value) : null);
     }
 
