@@ -38,23 +38,16 @@ import org.dellroad.stuff.java.ReflectUtil;
  * fails to detect such bean properties. To work around that bug, you can do something like this:
  *
  * <pre><code class="language-java">
- *  public class MyBinder&lt;T&gt; extends Binder&lt;T&gt; {
+ *     // Gather bean properties using Spring's BeanUtil to avoid JDK-8071693
+ *     final SimplePropertySet&lt;T&gt; propertySet = new SimplePropertySet&lt;&gt;(beanType);
+ *     Stream.of(BeanUtils.getPropertyDescriptors(beanType))
+ *       .filter(pd -&gt; !(pd instanceof IndexedPropertyDescriptor))
+ *       .filter(pd -&gt; pd.getReadMethod() != null)
+ *       .filter(pd -&gt; pd.getWriteMethod() != null)
+ *       .forEach(propertySet::addPropertyDefinition);
  *
- *      public MyBinder(Class&lt;T&gt; beanType) {
- *          super(MyBinder.buildPropertySet(beanType), false);
- *      }
- *
- *     // Here we use Spring's BeanUtil to avoid JDK-8071693, which Vaadin's Binder suffers from
- *     private static &lt;T&gt; PropertySet&lt;T&gt; buildPropertySet(Class&lt;T&gt; beanType) {
- *         final SimplePropertySet&lt;T&gt; propertySet = new SimplePropertySet&lt;&gt;(beanType);
- *         Stream.of(BeanUtils.getPropertyDescriptors(beanType))
- *           .filter(pd -&gt; !(pd instanceof IndexedPropertyDescriptor))
- *           .filter(pd -&gt; pd.getReadMethod() != null)
- *           .filter(pd -&gt; pd.getWriteMethod() != null)
- *           .forEach(propertySet::addPropertyDefinition);
- *         return propertySet;
- *     }
- *  }
+ *     // Create binder
+ *     final Binder&lt;T&gt; binder = Binder.withPropertySet(propertySet);
  * </code></pre>
  *
  * <p>
