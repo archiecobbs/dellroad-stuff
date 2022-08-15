@@ -435,8 +435,9 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * @return the {@link Primitive} corresponding to {@code c}, or {@code null}
      *         if {@code c} is not a primitive or primitive wrapper type
      */
-    public static Primitive<?> get(Class<?> c) {
-        return Primitive.classMap.get(c);
+    @SuppressWarnings("unchecked")
+    public static <T> Primitive<T> get(Class<T> c) {
+        return (Primitive<T>)Primitive.classMap.get(c);
     }
 
     /**
@@ -446,11 +447,11 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * @return primitive type corresponding to {@code type}, or {@code type}
      *  if {@code type} is not a primitive wrapper type, or null if {@code type} is null
      */
-    public static Class<?> unwrap(Class<?> type) {
+    public static <T> Class<T> unwrap(Class<T> type) {
         if (type == null)
             return null;
         return Optional.ofNullable(Primitive.get(type))
-          .<Class<?>>map(Primitive::getType)
+          .map(Primitive::getType)
           .orElse(type);
     }
 
@@ -461,11 +462,11 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
      * @return primitive wrapper type corresponding to {@code type}, or {@code type}
      *  if {@code type} is not a primitive type, or null if {@code type} is null
      */
-    public static Class<?> wrap(Class<?> type) {
+    public static <T> Class<T> wrap(Class<T> type) {
         if (type == null)
             return null;
         return Optional.ofNullable(Primitive.get(type))
-          .<Class<?>>map(Primitive::getWrapperType)
+          .map(Primitive::getWrapperType)
           .orElse(type);
     }
 
