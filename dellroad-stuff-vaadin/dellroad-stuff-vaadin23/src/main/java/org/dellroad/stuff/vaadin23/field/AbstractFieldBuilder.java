@@ -44,11 +44,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiFunction;
 import java.util.function.BinaryOperator;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
@@ -197,76 +198,117 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             this.fieldComponentMap.put(propertyName, fieldComponent);
         });
 
-        // Wire up and initialize @EnabledBy dependencies
-        this.bindingInfoMap.forEach((targetPropertyName, info) -> {
-
-            // Get @EnabledBy annotation, if any
-            final EnabledBy enabledBy = info.getEnabledBy();
-            if (enabledBy == null)
-                return;
-
-            // Find the controlling field
-            final HasValue<?, ?> controllingField = Optional.of(enabledBy.value())
-              .flatMap(binder::getBinding)
-              .map(Binder.Binding::getField)
-              .orElseThrow(() -> new IllegalArgumentException(String.format(
-                "field \"%s\" is @EnabledBy unknown field \"%s\"", targetPropertyName, enabledBy.value())));
-
-            // Wire up enablement
-            this.setEnablement(controllingField, targetPropertyName, info);
-        });
+        // Process @EnabledBy dependencies
+        this.bindingInfoMap.forEach((name, info) -> this.configureEnabledBy(binder, name, info));
     }
 
     /**
      * Configure the given target field to be automatically enabled/disabled based on the value of the given controlling field.
      */
-    private <V> void setEnablement(HasValue<?, V> controllingField, String targetPropertyName, BindingInfo targetFieldInfo) {
+    private <V> void configureEnabledBy(Binder<? extends T> binder, String targetFieldName, BindingInfo targetFieldInfo) {
 
-        // Gather target field info
-        final EnabledBy targetFieldEnabledBy = targetFieldInfo.getEnabledBy();
-        final boolean resetOnDisable = targetFieldEnabledBy.resetOnDisable();
-        final FieldComponent<?> targetFieldComponent = this.fieldComponentMap.get(targetPropertyName);
-        final Component targetComponent = targetFieldComponent.getComponent();
-        final HasValue<?, ?> targetField = targetFieldComponent.getField();
-        final HasEnabled targetHasEnabled = targetComponent instanceof HasEnabled ? (HasEnabled)targetComponent : null;
-
-        // Gather controlling field info
-        final String controllingPropertyName = targetFieldEnabledBy.value();
-        final BindingInfo controllingFieldInfo = this.bindingInfoMap.get(controllingPropertyName);
-        final V controllingFieldEmptyValue = controllingField.getEmptyValue();
-        final String controllingFieldNullRepresentation = Optional.ofNullable(controllingFieldInfo.getBinding())
-          .map(Binding::nullRepresentation)
-          .filter(string -> !string.equals(STRING_DEFAULT))
-          .orElse(null);
-
-        // Is there anthing to do?
-        if (targetHasEnabled == null && !resetOnDisable)
+        // Get @EnabledBy annotation, if any
+        final EnabledBy enabledBy = targetFieldInfo.getEnabledBy();
+        if (enabledBy == null)
             return;
 
-        // This is what we will do whenever something changes
-        final Consumer<V> update = controllingFieldValue -> {
+        // Gather target field info
+        final boolean requireAll = enabledBy.requireAll();
+        final boolean resetOnDisable = enabledBy.resetOnDisable();
+        final HasValue<?, ?> targetField0 = this.fieldComponentMap.get(targetFieldName).getField();
+        final HasEnabled targetField;
+        try {
+            targetField = (HasEnabled)targetField0;
+        } catch (ClassCastException e) {
+            throw new IllegalArgumentException(String.format(
+              "field \"%s\" has @EnabledBy annotation but its type %s does not implement %s",
+              targetFieldName, targetField0.getClass().getName(), HasEnabled.class.getName()), e);
+        }
 
-            // We want the target field to be enabled when the controlling field is non-empty
-            final boolean enableTargetField = !Objects.equals(controllingFieldValue, controllingFieldEmptyValue)
-                && (controllingFieldNullRepresentation == null
-                  || !Objects.equals(controllingFieldValue, controllingFieldNullRepresentation));
+        // Gather controlling fields names
+        final String[] controllingFieldNames = enabledBy.value();
+        if (controllingFieldNames.length == 0)
+            return;
 
-            // If requested, also reset the target field's value when disabling it
+        // This is the information we need for each controlling field
+        class ControllingField {
+
+            final HasValue<?, ?> field;
+            final String nullRepresentation;
+            final AtomicReference<Object> currentValue;
+
+            ControllingField(HasValue<?, ?> field, String nullRepresentation) {
+                this.field = field;
+                this.nullRepresentation = nullRepresentation;
+                this.currentValue = new AtomicReference<>(this.field.getValue());
+            }
+
+            HasValue<?, ?> getField() {
+                return this.field;
+            }
+
+            AtomicReference<Object> currentValue() {
+                return this.currentValue;
+            }
+
+            boolean isEnabling() {
+                final Object value = this.currentValue.get();
+                return !Objects.equals(value, this.field.getEmptyValue())
+                  && (this.nullRepresentation == null || !Objects.equals(value, this.nullRepresentation));
+            }
+        }
+
+        // Find the controlling fields
+        final List<ControllingField> controllingFields = Stream.of(controllingFieldNames)
+          .map(name -> {
+            final Binder.Binding<? extends T, ?> binding = this.findControllingFieldBinding(binder, targetFieldName, name);
+            final String nullRepresentation = Optional.of(this.bindingInfoMap.get(name))
+              .map(BindingInfo::getBinding)
+              .map(Binding::nullRepresentation)
+              .filter(string -> !STRING_DEFAULT.equals(string))
+              .orElse(null);
+            return new ControllingField(binding.getField(), nullRepresentation);
+          })
+          .collect(Collectors.toList());
+
+        // This is what we will do when we need to update the target field's enablement
+        final Runnable updateTargetFieldEnablement = () -> {
+
+            // Recalculate target field enablement
+            final boolean enableTargetField = requireAll ?
+              controllingFields.stream().allMatch(ControllingField::isEnabling) :
+              controllingFields.stream().anyMatch(ControllingField::isEnabling);
+
+            // Anything to do?
+            if (targetField.isEnabled() == enableTargetField)
+                return;
+
+            // Reset the target field's value when disabling, if requested
             if (!enableTargetField && resetOnDisable)
-                this.resetField(targetField);
+                this.resetField(targetField0);
 
-            // Update the target field (if possible)
-            if (targetHasEnabled != null)
-                targetHasEnabled.setEnabled(enableTargetField);
+            // Update the target field's enablement
+            targetField.setEnabled(enableTargetField);
         };
 
-        // Apply update now to synchronize
-        update.accept(controllingField.getValue());
+        // Update now to synchronize
+        updateTargetFieldEnablement.run();
 
-        // Apply update whenever the enabling field's value changes
-        controllingField.addValueChangeListener(e -> update.accept(e.getValue()));
+        // Update whenever any controlling field's value changes
+        controllingFields.forEach(controllingField -> controllingField.getField().addValueChangeListener(e -> {
+            controllingField.currentValue().set(e.getValue());
+            updateTargetFieldEnablement.run();
+        }));
     }
 
+    private Binder.Binding<? extends T, ?> findControllingFieldBinding(Binder<? extends T> binder,
+      String targetFieldName, String controllingFieldName) {
+        return binder.getBinding(controllingFieldName)
+          .orElseThrow(() -> new IllegalArgumentException(
+            String.format("field \"%s\" is @EnabledBy unknown field \"%s\"", targetFieldName, controllingFieldName)));
+    }
+
+    // This method exists solely to bind the generic type
     private <V> void resetField(HasValue<?, V> field) {
         field.setValue(field.getEmptyValue());
     }
@@ -1686,25 +1728,29 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Causes the generated field to be automatically enabled or disabled based on the value of some other field.
+     * Causes the generated field to be automatically enabled or disabled based on the value of some other controlling field(s).
      *
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
      * <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/themes/prism.min.css" rel="stylesheet"/>
      *
      * <p>
-     * Typically the other field is a {@link Checkbox}, but any type of field is supported.
-     * The target field will be enabled whenever the other field's value is not equal to its
-     * {@linkplain HasValue#getEmptyValue empty value}.
+     * The target field will be enabled depending on whether the controlling field(s) have value(s) equal to their
+     * {@linkplain HasValue#getEmptyValue empty values}. Often the controlling field is a single {@link Checkbox}
+     * (whose empty value is false), but any type of controlling field is supported.
      *
      * <p>
-     * When the generated field is disabled, by default it is automatically reset to its
-     * {@linkplain HasValue#getEmptyValue empty value}. To have it retain its previous value instead,
-     * so the value reappears if the checkbox is unchecked, set {@link #resetOnDisable} to false.
+     * When multiple controlling field are specified, by default an AND condition applies: all of the controlling fields
+     * must have non-empty values for the target field to be enabled. You can change this to an OR condition by setting
+     * {@link #requireAll} to false.
      *
      * <p>
-     * If the named property does not exist in the {@link Binder}, or the target field's {@link Component}
-     * doesn't implement {@link HasEnabled}, then this annotation has no effect.
+     * Whenever the target field is disabled, by default it is also reset to its {@linkplain HasValue#getEmptyValue empty value}.
+     * To have it keep its previous value, set {@link #resetOnDisable} to false.
+     *
+     * <p>
+     * If any named property doesn't exist in the {@link Binder}, or the target field's {@link Component}
+     * doesn't implement {@link HasEnabled}, then an exception is thrown.
      *
      * <p>
      * Example:
@@ -1732,11 +1778,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     public @interface EnabledBy {
 
         /**
-         * The name of another property in the form that should control enablement.
+         * The name of the other properties in the form that should control enablement.
          *
-         * @return controlling property name
+         * @return controlling property name(s)
          */
-        String value();
+        String[] value() default {};
 
         /**
          * Whether the value of this field should be automatically reset to its {@linkplain HasValue#getEmptyValue empty value}
@@ -1748,10 +1794,24 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * Therefore, if you change this to false, and the field X you're configuring is itself the enabling
          * field for some third field Y through another instance of this annotation, then it's possible to get
          * in a state where this field X is disabled (though non-empty), and therefore Y is still enabled.
-         * Leaving this value set to true avoids that possibility.
+         *
+         * <p>
+         * To avoid that possibility, leave this set to true or set {@link #value} to the transitive closure
+         * of such dependencies.
          *
          * @return whether to reset when disabled
          */
         boolean resetOnDisable() default true;
+
+        /**
+         * Enable the target field only when all controlling fields have a non-default value (AND condition).
+         *
+         * <p>
+         * If set to false, then the target field is enabled when any of the controlling fields have a non-default value
+         * (OR condition).
+         *
+         * @return true for AND conditions, false for OR condition
+         */
+        boolean requireAll() default true;
     }
 }
