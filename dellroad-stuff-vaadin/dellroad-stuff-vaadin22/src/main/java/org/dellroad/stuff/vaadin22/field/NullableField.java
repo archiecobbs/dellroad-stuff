@@ -46,6 +46,7 @@ import com.vaadin.flow.data.binder.ValueContext;
  * implements {@link ValidatingField}.
  *
  * @param <T> field value type
+ * @see AbstractFieldBuilder.NullifyCheckbox
  */
 @SuppressWarnings("serial")
 public class NullableField<T> extends CustomField<T>
