@@ -1,7 +1,10 @@
-Version Next
+Version 2.5.3 Release September 6, 2022
 
-    - Added new class SuperFinal.
     - Added method ReflectUtil.propertyNameFromGetterMethod().
+    - Parameterize Primitive.wrap() and Primitive.unwrap() signatures.
+    - Allow @FieldBuilder.EnabledBy to listen to multiple other fields.
+    - Added new class SimplePropertySet.
+    - Added new class SuperFinal.
 
 Version 2.5.2 Released July 26, 2022
 
