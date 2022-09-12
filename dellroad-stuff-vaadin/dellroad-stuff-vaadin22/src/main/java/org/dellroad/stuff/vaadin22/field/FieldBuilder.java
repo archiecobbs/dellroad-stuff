@@ -5,7 +5,6 @@
 
 package org.dellroad.stuff.vaadin22.field;
 
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
@@ -19,7 +18,7 @@ import java.lang.annotation.Target;
 import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
 
 /**
- * Automatically configures and bind fields using declarative method annotations.
+ * Automatically configures and binds fields using declarative method annotations.
  *
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
@@ -29,8 +28,8 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * {@link FieldBuilder} annotations allow for the automatic construction and configuration of fields for editing a bean.
  * Annotations on "getter" methods specify how the fields that edit the corresponding bean property should be constructed,
  * configured, and bound to a {@link Binder}. This allows all information about how to edit a Java type
- * to be specified declaratively. Annotations are also provided to configure how to add the geenrated fields to a
- * {@link FormLayout}.
+ * to be specified declaratively. Annotations are also provided to configure how to add the generated fields to a
+ * {@link com.vaadin.flow.component.formlayout.FormLayout}.
  *
  * <p>
  * The primary method is {@link #bindFields bindFields()}, which automatically creates, configures, and binds fields
@@ -69,14 +68,15 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  * The {@link AbstractFieldBuilder.Binding &#64;FieldBuilder.Binding} annotation allows you to configure the
  * binding using properties corresponding to methods in {@link Binder.BindingBuilder}.
  *
- * <p><b>Adding Fields to a {@link FormLayout}</b>
+ * <p><b>Adding Fields to a {@link com.vaadin.flow.component.formlayout.FormLayout}</b>
  *
  * <p>
  * The {@link FieldBuilder.FormLayout &#64;FieldBuilder.FormLayout} annotation allows you to configure field labels,
- * column span, and ordering of fields in a {@link FormLayout}.
+ * column span, and ordering of fields in a {@link com.vaadin.flow.component.formlayout.FormLayout}.
  *
  * <p>
- * Fields are added to a {@link FormLayout} via {@link #addFieldComponents addFieldComponents()}.
+ * Fields are added to a {@link com.vaadin.flow.component.formlayout.FormLayout} via
+ * {@link #addFieldComponents addFieldComponents()}.
  *
  * <p><b>Example</b>
  *
@@ -130,7 +130,7 @@ import org.dellroad.stuff.vaadin22.data.EnumDataProvider;
  *
  * <p>
  * Then (optionally) use {@link #addFieldComponents addFieldComponents()} to add and configure those fields into a
- * {@link FormLayout}:
+ * {@link com.vaadin.flow.component.formlayout.FormLayout}:
  *
  * <pre><code class="language-java">
  * // Create form and add fields to it
