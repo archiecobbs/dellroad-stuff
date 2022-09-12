@@ -265,6 +265,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     @Checkbox
     @CheckboxGroup
     @ComboBox
+    @MultiSelectComboBox
     @CustomField(implementation = com.vaadin.flow.component.customfield.CustomField.class)
     @DatePicker
     @DateTimePicker
@@ -286,6 +287,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
             Checkbox.class,
             CheckboxGroup.class,
             ComboBox.class,
+            MultiSelectComboBox.class,
             CustomField.class,
             DatePicker.class,
             DateTimePicker.class,
@@ -776,15 +778,23 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code allowCustomValue} property.
          *
          * @return desired {@code allowCustomValue} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAllowCustomValue(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAllowCustomValue(boolean)
          */
         boolean allowCustomValue() default false;
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autoOpen} property.
          *
          * @return desired {@code autoOpen} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAutoOpen(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAutoOpen(boolean)
          */
         boolean autoOpen() default true;
 
@@ -792,7 +802,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code autofocus} property.
          *
          * @return desired {@code autofocus} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setAutofocus(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAutofocus(boolean)
          */
         boolean autofocus() default false;
 
@@ -816,7 +826,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the class to instantiate for the {@code dataProvider} property.
          *
          * @return desired {@code dataProvider} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setDataProvider(com.vaadin.flow.data.provider.DataProvider)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setDataProvider(com.vaadin.flow.data.provider.DataProvider)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.data.provider.DataProvider> dataProvider() default com.vaadin.flow.data.provider.DataProvider.class;
@@ -833,7 +843,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setErrorMessage(String)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -874,7 +884,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the class to instantiate for the {@code itemLabelGenerator} property.
          *
          * @return desired {@code itemLabelGenerator} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setItemLabelGenerator(com.vaadin.flow.component.ItemLabelGenerator)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItemLabelGenerator(com.vaadin.flow.component.ItemLabelGenerator)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
@@ -883,7 +893,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the class to instantiate for the {@code items} property.
          *
          * @return desired {@code items} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setItems(com.vaadin.flow.data.provider.DataProvider)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItems(com.vaadin.flow.data.provider.DataProvider)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
@@ -892,7 +902,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code label} property.
          *
          * @return desired {@code label} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setLabel(String)
+         * @see com.vaadin.flow.component.HasLabel#setLabel(String)
          */
         String label() default "";
 
@@ -932,7 +942,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code opened} property.
          *
          * @return desired {@code opened} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setOpened(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setOpened(boolean)
          */
         boolean opened() default false;
 
@@ -940,7 +950,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code pageSize} property.
          *
          * @return desired {@code pageSize} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPageSize(int)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setPageSize(int)
          */
         int pageSize() default 50;
 
@@ -956,7 +966,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code placeholder} property.
          *
          * @return desired {@code placeholder} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setPlaceholder(String)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setPlaceholder(String)
          */
         String placeholder() default "";
 
@@ -980,7 +990,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the class to instantiate for the {@code renderer} property.
          *
          * @return desired {@code renderer} property value type
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRenderer(com.vaadin.flow.data.renderer.Renderer)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRenderer(com.vaadin.flow.data.renderer.Renderer)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.data.renderer.Renderer> renderer() default com.vaadin.flow.data.renderer.Renderer.class;
@@ -989,7 +999,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code required} property.
          *
          * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRequired(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRequired(boolean)
          */
         boolean required() default false;
 
@@ -997,7 +1007,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.combobox.ComboBox#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -1024,6 +1034,307 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.combobox.ComboBox#addThemeVariants(com.vaadin.flow.component.combobox.ComboBoxVariant[])
          */
         com.vaadin.flow.component.combobox.ComboBoxVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code visible} property.
+         *
+         * @return desired {@code visible} property value
+         * @see com.vaadin.flow.component.Component#setVisible(boolean)
+         */
+        boolean visible() default true;
+
+        /**
+         * Get the value desired for the {@code width} property.
+         *
+         * @return desired {@code width} property value
+         * @see com.vaadin.flow.component.HasSize#setWidth(String)
+         */
+        String width() default "";
+    }
+
+    /**
+     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.combobox.MultiSelectComboBox}.
+     *
+     * @see FieldBuilder
+     * @see com.vaadin.flow.component.combobox.MultiSelectComboBox
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface MultiSelectComboBox {
+
+        /**
+         * Get the sub-type of {@link com.vaadin.flow.component.combobox.MultiSelectComboBox} that will edit the property.
+         *
+         * <p>
+         * This property allows custom widget subclasses to be used.
+         *
+         * <p>
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code FieldBuilderContext}.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.combobox.MultiSelectComboBox> implementation() default com.vaadin.flow.component.combobox.MultiSelectComboBox.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowCustomValue} property.
+         *
+         * @return desired {@code allowCustomValue} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAllowCustomValue(boolean)
+         */
+        boolean allowCustomValue() default false;
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
+
+        /**
+         * Get the value desired for the {@code autoOpen} property.
+         *
+         * @return desired {@code autoOpen} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAutoOpen(boolean)
+         */
+        boolean autoOpen() default true;
+
+        /**
+         * Get the value desired for the {@code autofocus} property.
+         *
+         * @return desired {@code autofocus} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setAutofocus(boolean)
+         */
+        boolean autofocus() default false;
+
+        /**
+         * Add the specified class names.
+         *
+         * @return zero or more class names to add
+         * @see com.vaadin.flow.component.HasStyle#addClassNames(String[])
+         */
+        String[] addClassNames() default {};
+
+        /**
+         * Get the value desired for the {@code clearButtonVisible} property.
+         *
+         * @return desired {@code clearButtonVisible} property value
+         * @see com.vaadin.flow.component.shared.HasClearButton#setClearButtonVisible(boolean)
+         */
+        boolean clearButtonVisible() default false;
+
+        /**
+         * Get the class to instantiate for the {@code dataProvider} property.
+         *
+         * @return desired {@code dataProvider} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setDataProvider(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> dataProvider() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
+         * Get the value desired for the {@code enabled} property.
+         *
+         * @return desired {@code enabled} property value
+         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
+         */
+        boolean enabled() default true;
+
+        /**
+         * Get the value desired for the {@code errorMessage} property.
+         *
+         * @return desired {@code errorMessage} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setErrorMessage(String)
+         */
+        String errorMessage() default "";
+
+        /**
+         * Get the value desired for the {@code height} property.
+         *
+         * @return desired {@code height} property value
+         * @see com.vaadin.flow.component.HasSize#setHeight(String)
+         */
+        String height() default "";
+
+        /**
+         * Get the class to instantiate for the {@code helperComponent} property.
+         *
+         * @return desired {@code helperComponent} property value type
+         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code helperText} property.
+         *
+         * @return desired {@code helperText} property value
+         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
+         */
+        String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.combobox.MultiSelectComboBox#setI18n(com.vaadin.flow.component.combobox.MultiSelectComboBoxI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.combobox.MultiSelectComboBoxI18n> i18n() default com.vaadin.flow.component.combobox.MultiSelectComboBoxI18n.class;
+
+        /**
+         * Get the value desired for the {@code id} property.
+         *
+         * @return desired {@code id} property value
+         * @see com.vaadin.flow.component.Component#setId(String)
+         */
+        String id() default "";
+
+        /**
+         * Get the class to instantiate for the {@code itemLabelGenerator} property.
+         *
+         * @return desired {@code itemLabelGenerator} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItemLabelGenerator(com.vaadin.flow.component.ItemLabelGenerator)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.ItemLabelGenerator> itemLabelGenerator() default com.vaadin.flow.component.ItemLabelGenerator.class;
+
+        /**
+         * Get the class to instantiate for the {@code items} property.
+         *
+         * @return desired {@code items} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItems(com.vaadin.flow.data.provider.DataProvider)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
+         * Get the value desired for the {@code label} property.
+         *
+         * @return desired {@code label} property value
+         * @see com.vaadin.flow.component.HasLabel#setLabel(String)
+         */
+        String label() default "";
+
+        /**
+         * Get the value desired for the {@code maxHeight} property.
+         *
+         * @return desired {@code maxHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
+         */
+        String maxHeight() default "";
+
+        /**
+         * Get the value desired for the {@code maxWidth} property.
+         *
+         * @return desired {@code maxWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
+         */
+        String maxWidth() default "";
+
+        /**
+         * Get the value desired for the {@code minHeight} property.
+         *
+         * @return desired {@code minHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
+         */
+        String minHeight() default "";
+
+        /**
+         * Get the value desired for the {@code minWidth} property.
+         *
+         * @return desired {@code minWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
+         */
+        String minWidth() default "";
+
+        /**
+         * Get the value desired for the {@code opened} property.
+         *
+         * @return desired {@code opened} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setOpened(boolean)
+         */
+        boolean opened() default false;
+
+        /**
+         * Get the value desired for the {@code pageSize} property.
+         *
+         * @return desired {@code pageSize} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setPageSize(int)
+         */
+        int pageSize() default 50;
+
+        /**
+         * Get the value desired for the {@code placeholder} property.
+         *
+         * @return desired {@code placeholder} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setPlaceholder(String)
+         */
+        String placeholder() default "";
+
+        /**
+         * Get the value desired for the {@code readOnly} property.
+         *
+         * @return desired {@code readOnly} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
+         */
+        boolean readOnly() default false;
+
+        /**
+         * Get the class to instantiate for the {@code renderer} property.
+         *
+         * @return desired {@code renderer} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRenderer(com.vaadin.flow.data.renderer.Renderer)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.data.renderer.Renderer> renderer() default com.vaadin.flow.data.renderer.Renderer.class;
+
+        /**
+         * Get the value desired for the {@code required} property.
+         *
+         * @return desired {@code required} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRequired(boolean)
+         */
+        boolean required() default false;
+
+        /**
+         * Get the value desired for the {@code requiredIndicatorVisible} property.
+         *
+         * @return desired {@code requiredIndicatorVisible} property value
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setRequiredIndicatorVisible(boolean)
+         */
+        boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code tabIndex} property.
+         *
+         * @return desired {@code tabIndex} property value
+         * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
+         */
+        int tabIndex() default 0;
+
+        /**
+         * Add the specified theme names.
+         *
+         * @return zero or more theme names to add
+         * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
+         */
+        String[] addThemeNames() default {};
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -1271,6 +1582,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autoOpen} property.
@@ -3108,7 +3427,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.BigDecimalField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -3190,6 +3509,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -3430,7 +3757,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.EmailField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -3512,6 +3839,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -3752,7 +4087,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.AbstractNumberField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -3834,6 +4169,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -4106,7 +4449,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.AbstractNumberField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -4188,6 +4531,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -4444,7 +4795,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.PasswordField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -4526,6 +4877,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -4774,7 +5133,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextArea#addThemeVariants(com.vaadin.flow.component.textfield.TextAreaVariant[])
+         * @see com.vaadin.flow.component.textfield.TextArea#addThemeVariants(com.vaadin.flow.component.textfield.TextAreaVariant[])
          */
         com.vaadin.flow.component.textfield.TextAreaVariant[] addThemeVariants() default {};
 
@@ -4848,6 +5207,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autocapitalize} property.
@@ -5096,7 +5463,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.textfield.GeneratedVaadinTextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
+         * @see com.vaadin.flow.component.textfield.TextField#addThemeVariants(com.vaadin.flow.component.textfield.TextFieldVariant[])
          */
         com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
@@ -5178,6 +5545,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
+
+        /**
+         * Get the value desired for the {@code allowedCharPattern} property.
+         *
+         * @return desired {@code allowedCharPattern} property value
+         * @see com.vaadin.flow.component.shared.HasAllowedCharPattern#setAllowedCharPattern(String)
+         */
+        String allowedCharPattern() default "";
 
         /**
          * Get the value desired for the {@code autoOpen} property.

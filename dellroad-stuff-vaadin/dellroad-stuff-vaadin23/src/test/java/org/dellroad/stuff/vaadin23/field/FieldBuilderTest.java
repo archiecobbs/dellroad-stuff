@@ -42,6 +42,7 @@ import org.dellroad.stuff.vaadin23.data.EnumDataProvider;
 public class FieldBuilderTest extends TestSupport {
 
     @Test
+    @SuppressWarnings("deprecation")
     public void test1() throws Exception {
 
         final FieldBuilder<Foo> fieldBuilder = new FieldBuilder<>(Foo.class);
