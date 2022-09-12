@@ -1,3 +1,8 @@
+Version 2.5.4 Release September 12, 2022
+
+    - Updated Vaadin releases to 22.0.22 and 23.2.0.
+    - Updated JiBX release to 1.4.2.
+
 Version 2.5.3 Release September 6, 2022
 
     - Added method ReflectUtil.propertyNameFromGetterMethod().
