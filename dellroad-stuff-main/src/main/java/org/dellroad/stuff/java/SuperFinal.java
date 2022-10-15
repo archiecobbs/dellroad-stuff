@@ -27,19 +27,18 @@ import java.util.ArrayList;
  *
  * <pre><code class="language-java">
  * import java.util.*;
- * import java.util.concurrent.*;
  * import java.util.function.*;
  *
- * public class FilteredDelayQueue&lt;E extends Delayed&gt; extends DelayQueue&lt;E&gt; {
+ * public class FilteredSet&lt;E&gt; extends HashSet&lt;E&gt; {
  *
  *     private final Predicate&lt;? super E&gt; filter;
  *
- *     public FilteredDelayQueue(Predicate&lt;? super E&gt; filter) {
+ *     public FilteredSet(Predicate&lt;? super E&gt; filter) {
  *         this.filter = filter;
  *     }
  *
  *     // BUG: throws NullPointerException if "elems" is non-empty!
- *     public FilteredDelayQueue(Predicate&lt;? super E&gt; filter, Collection&lt;? extends E&gt; elems) {
+ *     public FilteredSet(Predicate&lt;? super E&gt; filter, Collection&lt;? extends E&gt; elems) {
  *         super(elems);
  *         this.filter = filter;
  *     }
@@ -59,18 +58,17 @@ import java.util.ArrayList;
  *
  * <pre><code class="language-java">
  * import java.util.*;
- * import java.util.concurrent.*;
  * import java.util.function.*;
  *
- * public class FilteredDelayQueue&lt;E extends Delayed&gt; extends DelayQueue&lt;E&gt; {
+ * public class FilteredSet&lt;E&gt; extends HashSet&lt;E&gt; {
  *
  *     private final Predicate&lt;? super E&gt; filter;
  *
- *     public FilteredDelayQueue(Predicate&lt;? super E&gt; filter) {
+ *     public FilteredSet(Predicate&lt;? super E&gt; filter) {
  *         this.filter = filter;
  *     }
  *
- *     public FilteredDelayQueue(Predicate&lt;? super E&gt; filter, Collection&lt;? extends E&gt; elems) {
+ *     public FilteredSet(Predicate&lt;? super E&gt; filter, Collection&lt;? extends E&gt; elems) {
  *         super(SuperFinal.push(filter, elems));               // stash "filter" value while super() executes
  *         SuperFinal.pop();                                    // discard stashed value
  *         this.filter = filter;
