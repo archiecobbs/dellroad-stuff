@@ -295,17 +295,17 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      *
      * @param id task ID
      * @param error load error, or null if there was no error
-     * @param stream load results, or null if there was an error
+     * @param stream load results; ignored if there was an error
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      * @throws IllegalArgumentException if {@code id} is zero
-     * @throws IllegalArgumentException if {@code stream} is null
+     * @throws IllegalArgumentException if both {@code stream} and {@code error} are null
      */
     protected void applyLoad(final long id, final Throwable error, final Stream<? extends T> stream) {
 
         // Sanity check
         VaadinUtil.assertCurrentSession(this.session);
         Preconditions.checkArgument(id != 0, "zero id");
-        Preconditions.checkArgument(stream != null, "null stream");
+        Preconditions.checkArgument(error != null || stream != null, "both stream and error are null");
 
         // If we were canceled, bail out without making any changes
         if (id != this.currentId)

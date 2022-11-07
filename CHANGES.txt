@@ -1,3 +1,7 @@
+Version Next
+
+    - Fixed exception in AsyncDataProvider when load operation gives an error.
+
 Version 2.5.4 Release September 12, 2022
 
     - Updated Vaadin releases to 22.0.22 and 23.2.0.
