@@ -9,7 +9,6 @@ import java.beans.Introspector;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -30,6 +29,9 @@ public final class ReflectUtil {
      * Get the Java bean name corresponding to the given Java bean property getter method.
      *
      * <p>
+     * The method does not need to be public.
+     *
+     * <p>
      * Does not support indexed bean properties.
      *
      * @param method getter method
@@ -41,7 +43,6 @@ public final class ReflectUtil {
             throw new IllegalArgumentException("null method");
         if (method.getReturnType() == void.class
           || method.getParameterTypes().length != 0
-          || (method.getModifiers() & Modifier.PUBLIC) == 0
           || (method.getName().startsWith("is") && method.getReturnType() != boolean.class))
             return null;
         return ReflectUtil.propertyNameFromGetterMethodName(method.getName());
