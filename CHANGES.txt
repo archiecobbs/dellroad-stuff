@@ -2,6 +2,7 @@ Version Next
 
     - Fixed exception in AsyncDataProvider when load operation gives an error.
     - Accept non-public methods in ReflectUtil.propertyNameFromGetterMethod().
+    - Updated Vaadin releases to 22.0.24 and 23.2.8.
 
 Version 2.5.4 Release September 12, 2022
 
