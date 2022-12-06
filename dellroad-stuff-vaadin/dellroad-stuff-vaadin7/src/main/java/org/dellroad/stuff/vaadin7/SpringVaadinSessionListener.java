@@ -10,7 +10,6 @@ import com.vaadin.server.SessionDestroyEvent;
 import com.vaadin.server.SessionDestroyListener;
 import com.vaadin.server.SessionInitEvent;
 import com.vaadin.server.SessionInitListener;
-import com.vaadin.server.VaadinPortletRequest;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinServletRequest;
 import com.vaadin.server.VaadinSession;
@@ -254,9 +253,7 @@ public class SpringVaadinSessionListener implements SessionInitListener, Session
             contextPath = ((VaadinServletRequest)request).getHttpServletRequest().getContextPath() + "/";
             servletContext = ((WrappedHttpSession)session.getSession()).getHttpSession().getServletContext();
             parent = WebApplicationContextUtils.getWebApplicationContext(servletContext);
-        } else if (request instanceof VaadinPortletRequest)
-            this.log.warn("portlets are not supported yet");
-        else
+        } else
             this.log.warn("unsupported VaadinRequest instance: " + request);
 
         // Create and configure a new application context for this Application instance
