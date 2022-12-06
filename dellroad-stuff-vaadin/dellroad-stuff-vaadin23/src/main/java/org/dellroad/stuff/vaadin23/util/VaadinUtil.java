@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin23.util;
 
+import com.google.common.base.Preconditions;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.UIDetachedException;
 import com.vaadin.flow.component.page.Page;
@@ -22,12 +23,13 @@ public final class VaadinUtil {
     }
 
     /**
-     * Verify that there is a {@link VaadinSession} associated with the current thread.
+     * Verify that there is a current and locked {@link VaadinSession} associated with the current thread.
      *
      * <p>
      * This method is equivalent to {@link #getCurrentSession} but doesn't actually return the session.
      *
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
+     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
      */
     public static void assertCurrentSession() {
         VaadinUtil.getCurrentSession();
@@ -45,24 +47,18 @@ public final class VaadinUtil {
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not {@code session}
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
-     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is locked by another thread
      */
     public static void assertCurrentSession(VaadinSession session) {
-        if (session == null)
-            throw new IllegalArgumentException("null session");
+        Preconditions.checkArgument(session != null, "null session");
         final VaadinSession currentSession = VaadinUtil.getCurrentSession();
         if (currentSession != session) {
             throw new IllegalStateException("the VaadinSession associated with the current thread " + currentSession
               + " is not the same session as the given one " + session);
         }
-        if (!session.hasLock()) {
-            throw new IllegalStateException("the VaadinSession associated with the current thread " + currentSession
-              + " is not locked by this thread");
-        }
     }
 
     /**
-     * Get the {@link VaadinSession} associated with the current thread and require that it be found.
+     * Get the {@link VaadinSession} associated with the current thread and require that it be found and locked.
      *
      * <p>
      * This is just a wrapper around {@link VaadinSession#getCurrent} that throws an exception instead
@@ -70,11 +66,12 @@ public final class VaadinUtil {
      *
      * @return current {@link VaadinSession}, never null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
+     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
      */
     public static VaadinSession getCurrentSession() {
         final VaadinSession session = VaadinSession.getCurrent();
-        if (session == null)
-            throw new IllegalStateException("there is no VaadinSession associated with the current thread");
+        Preconditions.checkState(session != null, "there is no VaadinSession associated with the current thread");
+        Preconditions.checkState(session.hasLock(), "the VaadinSession associated with the current thread is not locked");
         return session;
     }
 
@@ -86,6 +83,7 @@ public final class VaadinUtil {
      * @return true if successfully invoked, false if {@code session} is not in state {@link VaadinSessionState#OPEN}
      * @throws IllegalArgumentException if {@code action} is null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
+     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
      */
     public static boolean accessCurrentSession(Command action) {
         return VaadinUtil.accessSession(VaadinUtil.getCurrentSession(), action);
@@ -103,14 +101,22 @@ public final class VaadinUtil {
      * @throws IllegalArgumentException if {@code session} or {@code action} is null
      */
     public static boolean accessSession(VaadinSession session, Command action) {
-        if (session == null)
-            throw new IllegalArgumentException("null session");
-        if (action == null)
-            throw new IllegalArgumentException("null action");
+        Preconditions.checkArgument(session != null, "null session");
+        Preconditions.checkArgument(action != null, "null action");
         if (!VaadinSessionState.OPEN.equals(session.getState()))
             return false;
         session.access(action);
         return true;
+    }
+
+    /**
+     * Verify that there is no current <b>and locked</b> {@link VaadinSession} associated with the current thread.
+     *
+     * @throws IllegalStateException if there is a current and locked Vaadin session associated with the current thread
+     */
+    public static void assertNoSession() {
+        final VaadinSession session = VaadinSession.getCurrent();
+        Preconditions.checkState(session == null || !session.hasLock(), "there is a current locked VaadinSession");
     }
 
     /**
@@ -126,8 +132,7 @@ public final class VaadinUtil {
      */
     public static VaadinRequest getCurrentRequest() {
         final VaadinRequest request = VaadinRequest.getCurrent();
-        if (request == null)
-            throw new IllegalStateException("there is no VaadinRequest associated with the current thread");
+        Preconditions.checkState(request != null, "there is no VaadinRequest associated with the current thread");
         return request;
     }
 
@@ -144,8 +149,7 @@ public final class VaadinUtil {
      */
     public static UI getCurrentUI() {
         final UI ui = UI.getCurrent();
-        if (ui == null)
-            throw new IllegalStateException("there is no UI associated with the current thread");
+        Preconditions.checkState(ui != null, "there is no UI associated with the current thread");
         return ui;
     }
 
@@ -163,8 +167,7 @@ public final class VaadinUtil {
      */
     public static boolean accessUI(Command action) {
         final UI ui = UI.getCurrent();
-        if (ui == null)
-            throw new IllegalStateException("there is no UI associated with the current thread");
+        Preconditions.checkState(ui != null, "there is no UI associated with the current thread");
         return VaadinUtil.accessUI(ui, action);
     }
 
@@ -180,8 +183,7 @@ public final class VaadinUtil {
      * @throws IllegalArgumentException if {@code action} is null
      */
     public static boolean accessUI(UI ui, Command action) {
-        if (action == null)
-            throw new IllegalArgumentException("null action");
+        Preconditions.checkArgument(action != null, "null action");
         if (ui == null)
             return false;
         try {
@@ -205,8 +207,7 @@ public final class VaadinUtil {
      * @throws IllegalArgumentException if {@code action} is null
      */
     public static boolean accessUISynchronously(UI ui, Command action) {
-        if (action == null)
-            throw new IllegalArgumentException("null action");
+        Preconditions.checkArgument(action != null, "null action");
         if (ui == null)
             return false;
         try {
@@ -222,11 +223,11 @@ public final class VaadinUtil {
      *
      * @return current {@link Page}, never null
      * @throws IllegalStateException if there is no {@link UI} associated with the current thread
+     * @throws IllegalStateException if there is no {@link Page} associated with the {@link UI} associated with the current thread
      */
     public static Page getCurrentPage() {
         final Page page = VaadinUtil.getCurrentUI().getPage();
-        if (page == null)
-            throw new IllegalStateException("there is no Page associated with the current UI");
+        Preconditions.checkState(page != null, "there is no Page associated with the current UI");
         return page;
     }
 }
