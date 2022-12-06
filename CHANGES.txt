@@ -2,6 +2,7 @@ Version Next
 
     - Require current session be locked in VaadinUtil.getCurrentSession()
     - Added utility method VaadinUtil.assertNoSession() for background threads
+    - Added AsyncDataProvider.getCurrentId() and other minor improvements
 
 Version 2.5.5 Released November 22, 2022
 

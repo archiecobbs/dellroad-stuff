@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  *
  * <p>
  * This class handles all required synchronization and locking. It guarantees that at most one async load task
- * can be happening at a time, that listener notifications are delivered in proper order, and that instance's
+ * can be happening at a time, that listener notifications are delivered in proper order, and that an instance's
  * state can not change unexpectely (i.e., there are no race conditions) as long as the current {@link VaadinSession}
  * remains locked whenever instances are accessed. Put another way, everything that occurs while the session
  * is locked appears to happen atomically.
@@ -159,6 +159,17 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     }
 
     /**
+     * Get the ID of the currently outstanding load operation, if any.
+     *
+     * @return the unique ID of the current load attempt, if any, otherwise zero
+     * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
+     */
+    public long getCurrentId() {
+        VaadinUtil.assertCurrentSession(this.session);
+        return this.currentId;
+    }
+
+    /**
      * Attempt to cancel the current outstanding async load operation, if any.
      *
      * <p>
@@ -216,6 +227,9 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Get the next unique task ID.
      *
+     * <p>
+     * Each invocation of this method returns a new value.
+     *
      * @return unique task ID, never zero
      */
     protected long nextTaskId() {
@@ -249,7 +263,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * Perform the load operation.
      *
      * <p>
-     * This is invoked in the async background thread.
+     * This is invoked in the async background thread (with {@linkplain #session this instance's session} not locked).
      *
      * <p>
      * When done, this method should invoke {@link #applyLoad applyLoad()}
@@ -265,6 +279,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         // Sanity check
         Preconditions.checkArgument(id != 0, "zero id");
         Preconditions.checkArgument(loader != null, "null loader");
+        VaadinUtil.assertNoSession();
 
         // Do the load and gather results
         Throwable error = null;
@@ -291,16 +306,23 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * Apply the outcome of a load operation in whatever way is appropriate.
      *
      * <p>
-     * This is invoked with {@linkplain #session this instance's session} locked.
+     * This is invoked (indirectly) by {@link #performLoad performLoad()} with
+     * {@linkplain #session this instance's session} locked.
+     *
+     * <p>
+     * The implementation in {@link AsyncDataProvider} first compares {@code id} to the current ID. If it
+     * doesn't match it does nothing and returns false; otherwise, the loading state is reset, listeners
+     * are notified, {@link #updateFromLoad updateFromLoad()} is invoked, and true is returned.
      *
      * @param id task ID
-     * @param error load error, or null if there was no error
+     * @param error load error ({@link InterruptedException} if interrupted), or null if there was no error
      * @param stream load results; ignored if there was an error
+     * @return true if {@code id} matched the current ID, otherwise false
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      * @throws IllegalArgumentException if {@code id} is zero
      * @throws IllegalArgumentException if both {@code stream} and {@code error} are null
      */
-    protected void applyLoad(final long id, final Throwable error, final Stream<? extends T> stream) {
+    protected boolean applyLoad(final long id, final Throwable error, final Stream<? extends T> stream) {
 
         // Sanity check
         VaadinUtil.assertCurrentSession(this.session);
@@ -309,7 +331,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
 
         // If we were canceled, bail out without making any changes
         if (id != this.currentId)
-            return;
+            return false;
 
         // Reset state
         this.currentFuture = null;
@@ -321,6 +343,9 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
         // Update data if successful
         if (error == null)
             this.updateFromLoad(id, stream);
+
+        // Done
+        return true;
     }
 
     /**
@@ -422,7 +447,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      *  <li>The {@link #COMPLETED}, {@link #CANCELED}, or {@link #FAILED} notification for a task
      *      is always delivered before the {@link #STARTED} notification for the next task.
      *  <li>Notifications are delivered for tasks in the same order that the tasks were started
-     *      (by invoking {@link AsyncDataProvider#load AsyncDataProvider#load.load()}).
+     *      (via {@link AsyncDataProvider#load AsyncDataProvider.load()}).
      * </ul>
      */
     @FunctionalInterface
