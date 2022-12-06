@@ -279,7 +279,7 @@ public class SimplePropertySet<T> implements PropertySet<T> {
 
         @Override
         public Class<V> getType() {
-            return this.type;
+            return Primitive.wrap(this.type);       // see https://github.com/vaadin/flow/issues/13992
         }
 
     // Getter
