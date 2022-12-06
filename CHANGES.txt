@@ -1,9 +1,10 @@
 Version Next
 
-    - Require current session be locked in VaadinUtil.getCurrentSession()
-    - Added utility method VaadinUtil.assertNoSession() for background threads
-    - Added AsyncDataProvider.getCurrentId() and other minor improvements
-    - Added workaround for Vaadin Flow issue #13992
+    - Require current session be locked in VaadinUtil.getCurrentSession().
+    - Added utility method VaadinUtil.assertNoSession() for background threads.
+    - Added AsyncDataProvider.getCurrentId() and other minor improvements.
+    - Added workaround for Vaadin Flow issue #13992.
+    - Updated Vaadin 23.x release to 23.2.10.
 
 Version 2.5.5 Released November 22, 2022
 
