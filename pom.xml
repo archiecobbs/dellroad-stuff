@@ -95,7 +95,7 @@
 
         <!-- Vaadin versions -->
         <vaadin22.version>22.0.24</vaadin22.version>
-        <vaadin23.version>23.2.10</vaadin23.version>
+        <vaadin23.version>23.2.11</vaadin23.version>
 
     </properties>
     <dependencies>

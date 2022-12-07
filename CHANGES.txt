@@ -5,7 +5,7 @@ Version Next
     - Added AsyncDataProvider.getCurrentId() and other minor improvements.
     - Fixed bugs with how @FieldBuilder.FieldDefault infers model types.
     - Added workaround for Vaadin Flow issue #13992.
-    - Updated Vaadin 23.x release to 23.2.10.
+    - Updated Vaadin 23.x release to 23.2.11.
 
 Version 2.5.5 Released November 22, 2022
 
