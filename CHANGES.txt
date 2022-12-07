@@ -3,6 +3,7 @@ Version Next
     - Require current session be locked in VaadinUtil.getCurrentSession().
     - Added utility method VaadinUtil.assertNoSession() for background threads.
     - Added AsyncDataProvider.getCurrentId() and other minor improvements.
+    - Fixed bugs with how @FieldBuilder.FieldDefault infers model types.
     - Added workaround for Vaadin Flow issue #13992.
     - Updated Vaadin 23.x release to 23.2.10.
 

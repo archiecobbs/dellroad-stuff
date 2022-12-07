@@ -419,10 +419,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
         });
 
-        // Inspect model types and scan them for static methods with @FieldDefault annotations
+        // Glean model types from @FieldBuilder.Foo annotated methods and scan for static methods with @FieldDefault annotations
         this.bindingInfoMap.values().stream()
-          .map(BindingInfo::getMethod)
-          .map(Method::getReturnType)
+          .filter(info -> !(info.getAnnotation() instanceof ProvidesField))
+          .map(this::newFieldBuilderContext)
+          .map(FieldBuilderContext::inferDataModelType)
           .distinct()                                                               // avoid redundant scans
           .forEach(modelType -> {
             final Map<String, DefaultInfo> defaultInfo = this.scanForFieldDefaultAnnotations(modelType);
