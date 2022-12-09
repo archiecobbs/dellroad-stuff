@@ -25,21 +25,24 @@ import org.slf4j.LoggerFactory;
  * A {@link ListDataProvider} that supports asynchronous loading.
  *
  * <p>
- * Instances are just a {@link ListDataProvider} with an added ability to load the underlying data list using
- * the results from an asynchronous background query. These async load attempts are initiated via {@link #load load()}
- * and may be canceled in progress via {@link #cancel}.
+ * Instances are just a {@link ListDataProvider} plus support for race-free (re)loading of the underlying data
+ * in a background thread. As a result, the UI never "locks up" while a backend data query executes.
  *
  * <p>
- * Any {@link LoadListener}s receive status updates when a load operation starts, completes, fails, or is canceled. These
- * updates can be used to drive GUI loading spinners, etc. The {@link #isBusy} method can be used at any time to determine if
- * there is any load operation in progress.
+ * {@link LoadListener}s receive status updates when a load operation starts, completes, fails, or is canceled. These
+ * updates can be used to drive GUI loading spinners, etc. The {@link #isBusy} method can be used at any time to determine
+ * if there is any load operation in progress.
+ *
+ * <p>
+ * Loads are triggered via {@link #load load()} and may be canceled in progress via {@link #cancel}.
  *
  * <p>
  * This class handles all required synchronization and locking. It guarantees that at most one async load task
  * can be happening at a time, that listener notifications are delivered in proper order, and that an instance's
  * state can not change unexpectely (i.e., there are no race conditions) as long as the current {@link VaadinSession}
- * remains locked whenever instances are accessed. Put another way, everything that occurs while the session
- * is locked appears to happen atomically.
+ * remains locked whenever instances are accessed (in any case, accessing an instance without proper locking results
+ * in an immediate exception). Put another way, everything that occurs while the session is locked appears to happen
+ * atomically.
  *
  * <p>
  * Instances bind to the current {@link VaadinSession} at construction time and may only be used with that session.
@@ -101,6 +104,10 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Configure the executor used for async tasks.
      *
+     * <p>
+     * When an in-progress load operation is canceled via {@link #cancel}, then {@link Future#cancel Future.cancel()}
+     * is invoked on the {@link Future} that was returned by the executor.
+     *
      * @param executor the thing that launches background tasks
      */
     public void setAsyncExecutor(final Function<? super Runnable, ? extends Future<?>> executor) {
@@ -115,7 +122,11 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * You can check this ahead of time via {@link #isBusy}.
      *
      * <p>
-     * If/when the given load task completes, its results will completely replace the contents of this data provider.
+     * If/when the given load task completes successfully, its results will completely replace the contents
+     * of this data provider.
+     *
+     * <p>
+     * See {@link Loader#load Loader} for requirements that the given {@code loader} must follow.
      *
      * @param loader performs the load operation
      * @return unique ID for this load attempt
@@ -150,6 +161,9 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Determine whether there is an outstanding async load operation.
      *
+     * <p>
+     * Equivalent to: {@code getCurrentId() != 0}.
+     *
      * @return true if an async load operation is active, otherwise false
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      */
@@ -161,7 +175,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Get the ID of the currently outstanding load operation, if any.
      *
-     * @return the unique ID of the current load attempt, if any, otherwise zero
+     * @return the unique ID of the current load operation, if any, otherwise zero
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      */
     public long getCurrentId() {
@@ -170,16 +184,16 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     }
 
     /**
-     * Attempt to cancel the current outstanding async load operation, if any.
+     * Cancels the current outstanding async load operation, if any.
      *
      * <p>
-     * Note: this may result in {@linkplain Thread#interrupt interrupting} the async thread.
+     * Any load operation is canceled and {@link Future#cancel Future.cancel()} is invoked on the running task;
+     * this may result in {@linkplain Thread#interrupt interrupting} the background thread.
      *
      * <p>
-     * If this method returns non-zero, it is guaranteed that the results of the corresponding load attempt
-     * are not applied.
+     * This method guarantees that the results of the corresponding load attempt will not be applied.
      *
-     * @return the unique ID of the canceled load attempt, if any, otherwise zero
+     * @return the unique ID of the canceled load attempt, if any, or zero if there is no load operation outstanding
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      */
     public long cancel() {
@@ -207,7 +221,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     /**
      * Add a {@link LoadListener} to this instance.
      *
-     * @param listener
+     * @param listener listener for notifications
      * @return listener registration
      * @throws IllegalArgumentException if {@code listener} is null
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
@@ -303,7 +317,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
     }
 
     /**
-     * Apply the outcome of a load operation in whatever way is appropriate.
+     * Apply the outcome of a load operation (whether successful or otherwise).
      *
      * <p>
      * This is invoked (indirectly) by {@link #performLoad performLoad()} with
@@ -411,8 +425,8 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
          * {@link AsyncDataProvider#cancel} is invoked; in that case this method may throw {@link InterruptedException}.
          *
          * <p>
-         * This method returns a {@link Stream} but the {@link Stream} is not actually read in the background thread;
-         * that operation occurs later, with the {@link VaadinSesion} locked, and possibly in a different thread.
+         * This method returns a {@link Stream} but the {@link Stream} is not actually consumed in the background thread;
+         * that operation occurs later, in a different thread with the {@link VaadinSession} locked.
          * In cases where this matters (e.g., the data is gathered in a per-thread transactions), this method
          * may need to proactively pull the data into memory ahead of time.
          *
