@@ -115,8 +115,27 @@ public final class VaadinUtil {
      * @throws IllegalStateException if there is a current and locked Vaadin session associated with the current thread
      */
     public static void assertNoSession() {
-        final VaadinSession session = VaadinSession.getCurrent();
-        Preconditions.checkState(session == null || !session.hasLock(), "there is a current locked VaadinSession");
+        VaadinUtil.assertNotSession(null);
+    }
+
+    /**
+     * Verify that a {@link VaadinSession} is not associated with the current thread <b>and locked</b>.
+     *
+     * <p>
+     * To verify this only for one specific {@link VaadinSession}, pass that {@link VaadinSession} as the parameter.
+     *
+     * <p>
+     * To verify this for any {@link VaadinSession} whatsoever, pass null as the parameter.
+     *
+     * @param session some {@link VaadinSession}, or null for any {@link VaadinSession}
+     * @throws IllegalStateException if a/the {@link VaadinSession} associated with the current thread and locked by it
+     */
+    public static void assertNotSession(VaadinSession session) {
+        final VaadinSession currentSession = VaadinSession.getCurrent();
+        Preconditions.checkState(currentSession == null
+            || !currentSession.hasLock()
+            || (session != null && currentSession != session),
+          "VaadinSession is locked");
     }
 
     /**
