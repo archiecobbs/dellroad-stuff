@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin23.data;
 
+import com.google.common.base.Preconditions;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServlet;
 import com.vaadin.flow.server.VaadinServletService;
@@ -83,8 +84,7 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
     public VaadinSessionDataProvider(Function<? super Runnable, ? extends Future<?>> executor,
       Function<? super VaadinSession, T> infoCreator) {
         super(executor);
-        if (infoCreator == null)
-            throw new IllegalArgumentException("null infoCreator");
+        Preconditions.checkArgument(infoCreator != null, "null infoCreator");
         this.servlet = SimpleSpringServlet.forSession(this.session);
         this.infoCreator = infoCreator;
     }
@@ -96,10 +96,7 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
      * If there is already an async load in progress, this method will {@link #cancel cancel()} it first.
      * You can check this ahead of time via {@link #isBusy}.
      *
-     * @param executor asynchronous executor
      * @return unique ID for this load attempt
-     * @throws IllegalArgumentException if {@code executor} is null
-     * @throws IllegalArgumentException if {@code executor} returns a null {@link Future}
      * @throws IllegalStateException if this instance is already in the process of reloading
      * @throws IllegalStateException if this instance's {@link VaadinSession} is not locked
      */
