@@ -1536,6 +1536,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * {@link com.vaadin.flow.component.textfield.TextField}.
          *
          * <p>
+         * Note: Do not combine this with {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox} or {@link NullableField}.
+         * That would mean the {@link NullableField} could never be set to null, which defeats its purpose.
+         *
+         * <p>
          * Note: the default value is just a placeholder, indicating that no null representation should be configured.
          *
          * @return null representation
