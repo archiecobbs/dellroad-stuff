@@ -1,4 +1,4 @@
-Version Next
+Version 2.5.7 Released December 20, 2022
 
     - Clarified the order in which @FieldBuilder.Binding properties are applied.
     - Fixed bug in FormLayout.label() when used with a Checkbox.
