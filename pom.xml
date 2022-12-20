@@ -225,6 +225,10 @@
                     <doclint>-reference</doclint>
                     <additionalJOption>--allow-script-in-comments</additionalJOption>
                     <validateLinks>true</validateLinks>
+                    <additionalJOptions>
+                        <additionalJOption>-Xmaxwarns</additionalJOption>
+                        <additionalJOption>65536</additionalJOption>
+                    </additionalJOptions>
                     <links combine.children="append">
                         <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
                         <link>https://guava.dev/releases/${guava.javadoc.version}/api/docs/</link>
