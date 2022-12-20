@@ -1104,20 +1104,22 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                     bindingBuilder = bindingBuilder.asRequired(this.instantiate(this.binding.requiredProvider()));
                 else if (this.binding.required().length() > 0)
                     bindingBuilder = bindingBuilder.asRequired(this.binding.required());
-                if (this.binding.converter() != Converter.class)
-                    bindingBuilder = bindingBuilder.withConverter(this.instantiate(this.binding.converter()));
-                if (this.binding.validationStatusHandler() != BindingValidationStatusHandler.class) {
-                    bindingBuilder = bindingBuilder.withValidationStatusHandler(
-                      this.instantiate(this.binding.validationStatusHandler()));
-                }
-                for (Class<? extends Validator> validatorClass : this.binding.validators())
-                    bindingBuilder = bindingBuilder.withValidator(this.instantiate(validatorClass));
                 if (!this.binding.nullRepresentation().equals(STRING_DEFAULT)) {
                     try {
                         bindingBuilder = bindingBuilder.withNullRepresentation((V)this.binding.nullRepresentation());
                     } catch (ClassCastException e) {
                         // ignore
                     }
+                }
+                if (this.binding.converter() != Converter.class)
+                    bindingBuilder = bindingBuilder.withConverter(this.instantiate(this.binding.converter()));
+                for (Class<? extends Validator> validatorClass : this.binding.validators())
+                    bindingBuilder = bindingBuilder.withValidator(this.instantiate(validatorClass));
+                if (this.binding.postValidationConverter() != Converter.class)
+                    bindingBuilder = bindingBuilder.withConverter(this.instantiate(this.binding.postValidationConverter()));
+                if (this.binding.validationStatusHandler() != BindingValidationStatusHandler.class) {
+                    bindingBuilder = bindingBuilder.withValidationStatusHandler(
+                      this.instantiate(this.binding.validationStatusHandler()));
                 }
             }
 
@@ -1446,6 +1448,29 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * Properties correspond to methods in {@link Binder.BindingBuilder}.
      *
+     * <p>
+     * <b>Note</b>: When it comes to {@link Converter}s, {@link Validator}s, and {@link #nullRepresentation},
+     * the order in which these items are added to the binding matters because they are chained together in sequence
+     * between the field and the model (the standard {@link Binder.BindingBuilder} methods such as
+     * {@link Binder.BindingBuilder#withConverter(Converter) withConverter()} always add the newly added items
+     * to the "model" side of the current chain).
+     *
+     * <p>
+     * The properties below are applied in the following order:
+     *  <ol>
+     *  <li>{@link #requiredValidator}, {@link #requiredProvider}, or {@link #required}
+     *  <li>{@link #nullRepresentation}
+     *  <li>{@link #converter}
+     *  <li>{@link #validators} (in the order given)
+     *  <li>{@link #postValidationConverter}
+     *  </ol>
+     *
+     * <p>
+     * Therefore, each item in the list should assume all previous items in list have already "seen" the field's value.
+     * In particular, if both a {@link #converter} and one or more {@link #validators} are configured, then the
+     * {@link Validator}s will validate converted model/bean values, not presentation/field values. Or, to get the
+     * opposite behavior, you can use {@link #postValidationConverter} instead.
+     *
      * @see AbstractFieldBuilder#bindFields FieldBuilder.bindFields()
      */
     @Retention(RetentionPolicy.RUNTIME)
@@ -1488,13 +1513,22 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         Class<? extends Validator> requiredValidator() default Validator.class;
 
         /**
-         * Get the converter class.
+         * Get the converter class to be applied before any {@link #validators} are applied.
          *
          * @return converter class
          * @see Binder.BindingBuilder#withConverter(Converter)
          */
         @SuppressWarnings("rawtypes")
         Class<? extends Converter> converter() default Converter.class;
+
+        /**
+         * Get the converter class to be applied after any {@link #validators} are applied.
+         *
+         * @return converter class
+         * @see Binder.BindingBuilder#withConverter(Converter)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends Converter> postValidationConverter() default Converter.class;
 
         /**
          * Get the null representation.

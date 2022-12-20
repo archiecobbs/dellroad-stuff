@@ -1,5 +1,6 @@
 Version Next
 
+    - Clarified the order in which @FieldBuilder.Binding properties are applied.
     - Added and updated utility methods in VaadinUtil.
     - Factored out AsyncTaskManager from AsyncDataProvider.
     - Updated Vaadin 23.x release to 23.3.0.
