@@ -9,7 +9,6 @@ import com.google.common.base.Preconditions;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.UIDetachedException;
 import com.vaadin.flow.component.page.Page;
-import com.vaadin.flow.server.Command;
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.server.VaadinSessionState;
@@ -85,7 +84,7 @@ public final class VaadinUtil {
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
      */
-    public static boolean accessCurrentSession(Command action) {
+    public static boolean accessCurrentSession(Runnable action) {
         return VaadinUtil.accessSession(VaadinUtil.getCurrentSession(), action);
     }
 
@@ -100,12 +99,12 @@ public final class VaadinUtil {
      * @return true if successfully invoked, false if {@code session} is not in state {@link VaadinSessionState#OPEN}
      * @throws IllegalArgumentException if {@code session} or {@code action} is null
      */
-    public static boolean accessSession(VaadinSession session, Command action) {
+    public static boolean accessSession(VaadinSession session, Runnable action) {
         Preconditions.checkArgument(session != null, "null session");
         Preconditions.checkArgument(action != null, "null action");
         if (!VaadinSessionState.OPEN.equals(session.getState()))
             return false;
-        session.access(action);
+        session.access(action::run);
         return true;
     }
 
@@ -184,7 +183,7 @@ public final class VaadinUtil {
      * @throws IllegalArgumentException if {@code action} is null
      * @throws IllegalStateException if there is no {@link UI} associated with the current thread
      */
-    public static boolean accessUI(Command action) {
+    public static boolean accessUI(Runnable action) {
         final UI ui = UI.getCurrent();
         Preconditions.checkState(ui != null, "there is no UI associated with the current thread");
         return VaadinUtil.accessUI(ui, action);
@@ -201,12 +200,12 @@ public final class VaadinUtil {
      * @return true if successfully invoked, false if {@code ui} is null or detached
      * @throws IllegalArgumentException if {@code action} is null
      */
-    public static boolean accessUI(UI ui, Command action) {
+    public static boolean accessUI(UI ui, Runnable action) {
         Preconditions.checkArgument(action != null, "null action");
         if (ui == null)
             return false;
         try {
-            ui.access(action);
+            ui.access(action::run);
         } catch (UIDetachedException e) {
             return false;
         }
@@ -225,12 +224,12 @@ public final class VaadinUtil {
      * @return true if successfully invoked, otherwise false
      * @throws IllegalArgumentException if {@code action} is null
      */
-    public static boolean accessUISynchronously(UI ui, Command action) {
+    public static boolean accessUISynchronously(UI ui, Runnable action) {
         Preconditions.checkArgument(action != null, "null action");
         if (ui == null)
             return false;
         try {
-            ui.accessSynchronously(action);
+            ui.accessSynchronously(action::run);
         } catch (UIDetachedException e) {
             return false;
         }
