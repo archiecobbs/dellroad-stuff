@@ -109,6 +109,21 @@ public final class VaadinUtil {
     }
 
     /**
+     * Invoke {@link VaadinSession#access VaadinSession.accessSynchronously()}.
+     *
+     * @param session the session to access, or null
+     * @param action action to perform
+     * @return true if successfully invoked, otherwise false
+     * @throws IllegalArgumentException if {@code session} is null
+     * @throws IllegalArgumentException if {@code action} is null
+     */
+    public static void accessSessionSynchronously(VaadinSession session, Runnable action) {
+        Preconditions.checkArgument(session != null, "null session");
+        Preconditions.checkArgument(action != null, "null action");
+        session.accessSynchronously(action::run);
+    }
+
+    /**
      * Verify that there is no current <b>and locked</b> {@link VaadinSession} associated with the current thread.
      *
      * @throws IllegalStateException if there is a current and locked Vaadin session associated with the current thread
