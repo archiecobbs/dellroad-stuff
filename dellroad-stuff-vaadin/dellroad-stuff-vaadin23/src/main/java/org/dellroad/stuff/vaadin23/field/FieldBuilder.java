@@ -483,6 +483,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         int tabIndex() default 0;
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code visible} property.
          *
          * @return desired {@code visible} property value
@@ -715,9 +723,17 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.checkbox.GeneratedVaadinCheckboxGroup#addThemeVariants(com.vaadin.flow.component.checkbox.CheckboxGroupVariant[])
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#addThemeVariants(com.vaadin.flow.component.checkbox.CheckboxGroupVariant[])
          */
         com.vaadin.flow.component.checkbox.CheckboxGroupVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -1036,6 +1052,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         com.vaadin.flow.component.combobox.ComboBoxVariant[] addThemeVariants() default {};
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code visible} property.
          *
          * @return desired {@code visible} property value
@@ -1337,6 +1361,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code visible} property.
          *
          * @return desired {@code visible} property value
@@ -1527,6 +1559,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.customfield.CustomField#addThemeVariants(com.vaadin.flow.component.customfield.CustomFieldVariant[])
          */
         com.vaadin.flow.component.customfield.CustomFieldVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -1822,6 +1862,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         com.vaadin.flow.component.datepicker.DatePickerVariant[] addThemeVariants() default {};
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code visible} property.
          *
          * @return desired {@code visible} property value
@@ -2089,6 +2137,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.datetimepicker.DateTimePicker#setTimePlaceholder(String)
          */
         String timePlaceholder() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -2462,6 +2518,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean requiredIndicatorVisible() default false;
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code visible} property.
          *
          * @return desired {@code visible} property value
@@ -2640,6 +2704,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.listbox.ListBoxBase#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -2874,9 +2946,17 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Add the specified theme variants.
          *
          * @return zero or more theme variants to add
-         * @see com.vaadin.flow.component.radiobutton.GeneratedVaadinRadioGroup#addThemeVariants(com.vaadin.flow.component.radiobutton.RadioGroupVariant[])
+         * @see com.vaadin.flow.component.radiobutton.RadioButtonGroup#addThemeVariants(com.vaadin.flow.component.radiobutton.RadioGroupVariant[])
          */
         com.vaadin.flow.component.radiobutton.RadioGroupVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -3155,6 +3235,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.select.Select#addThemeVariants(com.vaadin.flow.component.select.SelectVariant[])
          */
         com.vaadin.flow.component.select.SelectVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.
@@ -3438,6 +3526,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.textfield.BigDecimalField#setTitle(String)
          */
         String title() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code valueChangeMode} property.
@@ -3770,6 +3866,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String title() default "";
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code valueChangeMode} property.
          *
          * @return desired {@code valueChangeMode} property value
@@ -4059,6 +4163,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         int step() default 1;
 
         /**
+         * Get the value desired for the {@code stepButtonsVisible} property.
+         *
+         * @return desired {@code stepButtonsVisible} property value
+         * @see com.vaadin.flow.component.textfield.AbstractNumberField#setStepButtonsVisible(boolean)
+         */
+        boolean stepButtonsVisible() default false;
+
+        /**
          * Get the class to instantiate for the {@code suffixComponent} property.
          *
          * @return desired {@code suffixComponent} property value type
@@ -4098,6 +4210,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.textfield.AbstractNumberField#setTitle(String)
          */
         String title() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code valueChangeMode} property.
@@ -4421,6 +4541,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         double step() default 1.0;
 
         /**
+         * Get the value desired for the {@code stepButtonsVisible} property.
+         *
+         * @return desired {@code stepButtonsVisible} property value
+         * @see com.vaadin.flow.component.textfield.AbstractNumberField#setStepButtonsVisible(boolean)
+         */
+        boolean stepButtonsVisible() default false;
+
+        /**
          * Get the class to instantiate for the {@code suffixComponent} property.
          *
          * @return desired {@code suffixComponent} property value type
@@ -4460,6 +4588,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.textfield.AbstractNumberField#setTitle(String)
          */
         String title() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code valueChangeMode} property.
@@ -4808,6 +4944,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String title() default "";
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code valueChangeMode} property.
          *
          * @return desired {@code valueChangeMode} property value
@@ -5136,6 +5280,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.textfield.TextArea#addThemeVariants(com.vaadin.flow.component.textfield.TextAreaVariant[])
          */
         com.vaadin.flow.component.textfield.TextAreaVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code valueChangeMode} property.
@@ -5476,6 +5628,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String title() default "";
 
         /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
          * Get the value desired for the {@code valueChangeMode} property.
          *
          * @return desired {@code valueChangeMode} property value
@@ -5776,6 +5936,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.timepicker.TimePicker#addThemeVariants(com.vaadin.flow.component.timepicker.TimePickerVariant[])
          */
         com.vaadin.flow.component.timepicker.TimePickerVariant[] addThemeVariants() default {};
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
 
         /**
          * Get the value desired for the {@code visible} property.

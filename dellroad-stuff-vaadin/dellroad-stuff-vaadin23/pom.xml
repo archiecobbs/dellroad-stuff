@@ -161,7 +161,7 @@
 
                                 <!-- Configure the default values for some properties that aren't properly handled automatically -->
                                 <propertyCustomization>
-                                    <methodPattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title)\(java\.lang\.String\)</methodPattern>
+                                    <methodPattern>.*\.set(ErrorMessage|Label|Pattern|Placeholder|Title|TooltipText)\(java\.lang\.String\)</methodPattern>
                                     <defaultValue>""</defaultValue>
                                 </propertyCustomization>
                                 <propertyCustomization>
