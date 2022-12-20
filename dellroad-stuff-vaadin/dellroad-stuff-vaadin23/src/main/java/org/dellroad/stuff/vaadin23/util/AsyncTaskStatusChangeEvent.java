@@ -86,7 +86,7 @@ public class AsyncTaskStatusChangeEvent<R> extends EventObject {
      *
      * @return task ID
      */
-    public long getId() {
+    public long getTaskId() {
         return this.id;
     }
 
