@@ -11,4 +11,9 @@
         <Class name="org.dellroad.stuff.vaadin23.field.AbstractFieldBuilder$1ControllingField"/>
         <Bug pattern="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin23.data.AsyncDataProvider"/>
+        <Field name="taskManager"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
 </FindBugsFilter>

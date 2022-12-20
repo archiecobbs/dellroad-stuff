@@ -52,7 +52,7 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
      * If {@link infoCreator} returns null, that session is omitted.
      *
      * <p>
-     * Caller still must configure an async executor via {@link #setAsyncExecutor setAsyncExecutor()}.
+     * Caller still must configure an async executor; see {@link AsyncDataProvider#AsyncDataProvider()}.
      *
      * @param infoCreator extracts data provider information from each session
      * @throws IllegalStateException if there is no current {@link VaadinSession} associated with the current thread
@@ -83,10 +83,11 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
      */
     public VaadinSessionDataProvider(Function<? super Runnable, ? extends Future<?>> executor,
       Function<? super VaadinSession, T> infoCreator) {
-        super(executor);
         Preconditions.checkArgument(infoCreator != null, "null infoCreator");
-        this.servlet = SimpleSpringServlet.forSession(this.session);
+        this.servlet = SimpleSpringServlet.forSession(this.getAsyncTaskManager().getVaadinSession());
         this.infoCreator = infoCreator;
+        if (executor != null)
+            this.getAsyncTaskManager().setAsyncExecutor(executor);
     }
 
     /**
