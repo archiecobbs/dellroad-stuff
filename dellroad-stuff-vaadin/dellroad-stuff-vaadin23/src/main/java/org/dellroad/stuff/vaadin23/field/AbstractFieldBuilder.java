@@ -1095,8 +1095,16 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             if (field == null)
                 throw new IllegalArgumentException("null field");
 
-            // Create and configure BindingBuilder using @Binding annotation, if any
+            // Create binding builder
             Binder.BindingBuilder<? extends T, V> bindingBuilder = binder.forField(field);
+
+            // Configure recursive validation if field implements ValidatingField
+            if (field instanceof ValidatingField) {
+                final ValidatingField<?, V> validatingField = (ValidatingField<?, V>)field;
+                bindingBuilder = validatingField.addValidationTo(bindingBuilder);
+            }
+
+            // Configure from @Binding annotation, if any
             if (this.binding != null) {
                 if (this.binding.requiredValidator() != Validator.class)
                     bindingBuilder = bindingBuilder.asRequired(this.instantiate(this.binding.requiredValidator()));
@@ -1104,13 +1112,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                     bindingBuilder = bindingBuilder.asRequired(this.instantiate(this.binding.requiredProvider()));
                 else if (this.binding.required().length() > 0)
                     bindingBuilder = bindingBuilder.asRequired(this.binding.required());
-                if (!this.binding.nullRepresentation().equals(STRING_DEFAULT)) {
-                    try {
-                        bindingBuilder = bindingBuilder.withNullRepresentation((V)this.binding.nullRepresentation());
-                    } catch (ClassCastException e) {
-                        // ignore
-                    }
-                }
+                if (!this.binding.nullRepresentation().equals(STRING_DEFAULT))
+                    bindingBuilder = bindingBuilder.withNullRepresentation((V)this.binding.nullRepresentation());
                 if (this.binding.converter() != Converter.class)
                     bindingBuilder = bindingBuilder.withConverter(this.instantiate(this.binding.converter()));
                 for (Class<? extends Validator> validatorClass : this.binding.validators())
@@ -1121,12 +1124,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                     bindingBuilder = bindingBuilder.withValidationStatusHandler(
                       this.instantiate(this.binding.validationStatusHandler()));
                 }
-            }
-
-            // Add recursive validation if field implements ValidatingField
-            if (field instanceof ValidatingField) {
-                final ValidatingField<?, V> validatingField = (ValidatingField<?, V>)field;
-                bindingBuilder = validatingField.addValidationTo(bindingBuilder);
             }
 
             // Complete the binding
@@ -1456,8 +1453,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * to the "model" side of the current chain).
      *
      * <p>
-     * The properties below are applied in the following order:
+     * The binding is built from the properties below applied in the following order:
      *  <ol>
+     *  <li>Implicit validation by {@link ValidatingField}s
      *  <li>{@link #requiredValidator}, {@link #requiredProvider}, or {@link #required}
      *  <li>{@link #nullRepresentation}
      *  <li>{@link #converter}
