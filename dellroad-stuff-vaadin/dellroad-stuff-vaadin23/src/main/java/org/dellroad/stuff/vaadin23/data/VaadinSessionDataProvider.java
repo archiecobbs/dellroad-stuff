@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 import org.dellroad.stuff.vaadin23.servlet.SimpleSpringServlet;
+import org.dellroad.stuff.vaadin23.util.VaadinUtil;
 
 /**
  * A {@link DataProvider} that provides an object corresponding to each live {@link VaadinSession}.
@@ -135,8 +136,7 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
     protected List<T> buildSessionList() throws InterruptedException {
 
         // Sanity check
-        if (VaadinSession.getCurrent() != null)
-            throw new IllegalStateException("there is a current VaadinSession");
+        VaadinUtil.assertNoSession();
 
         // Grab list of live sessions from servlet
         final List<VaadinSession> sessionList = this.servlet.getSessions();

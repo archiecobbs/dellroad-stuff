@@ -14,25 +14,26 @@ import java.util.Collection;
 import java.util.stream.Stream;
 
 import org.dellroad.stuff.vaadin23.util.AsyncTaskManager;
+import org.dellroad.stuff.vaadin23.util.VaadinUtil;
 
 /**
- * A {@link ListDataProvider} that supports asynchronous loading using a {@link AsyncTaskManager}.
+ * A {@link ListDataProvider} whose contents are gathered in an asynchronous query.
  *
  * <p>
- * Instances are just a {@link ListDataProvider} plus support for race-free (re)loading of the underlying data
- * in a background thread. As a result, the UI never "locks up" while a backend data query executes.
+ * Instances are just a {@link ListDataProvider} with support for asynchronous (re)loading of the underlying data
+ * in a background thread using an {@link AsyncTaskManager}. As a result, the UI never "locks up" while a backend
+ * data query executes.
  *
  * <p>
- * The associated {@link AsyncTaskManager} provides status updates when a load operation starts, completes, fails,
- * or is canceled. These updates can be used to drive GUI loading spinners, etc.
+ * The associated {@link AsyncTaskManager} provides status change notifications when a load operation starts,
+ * completes, fails, or is canceled. These updates can be used to drive GUI loading spinners, etc.
  *
  * <p>
- * Loads are triggered via {@link #load load()} and may be canceled in progress via {@link #cancel}.
+ * Load operations are initiated via {@link #load load()}, and may be canceled in progress via {@link #cancel}.
+ * Initiating a new load operation will cancel and replace any previous load operation still in progress.
  *
  * <p>
- * This class handles all required synchronization and locking. See {@link AsyncTaskManager} for details.
- *
- * @param <T> data provider model type
+ * All operations are atomic and race free. See {@link AsyncTaskManager} for details.
  */
 @SuppressWarnings("serial")
 public class AsyncDataProvider<T> extends ListDataProvider<T> {
@@ -86,18 +87,12 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * of this data provider.
      *
      * <p>
-     * <b>Note</b>: The {@code loader} returns a {@link Stream}, but the {@link Stream} is not actually consumed
-     * in the background thread; that operation occurs later, in a different thread with the {@link VaadinSession} locked.
-     * In cases where this matters (e.g., the data is gathered in a per-thread transactions), the {@code loader}
-     * may need to proactively pull the data into memory ahead of time.
-     *
-     * <p>
-     * The {@code loader} must not return null; if it does, the load fails with an {@link IllegalArgumentException}.
+     * See {@link Loader#load Loader} for important requirements for the behavior of {@code loader}.
      *
      * @param loader performs the load operation
      * @return unique ID for this load attempt
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
-     * @throws IllegalStateException if there is no executor configured
+     * @throws IllegalStateException if this instance's {@link AsyncTaskManager} has no executor configured
      * @throws IllegalArgumentException if {@code loader} is null
      * @see AsyncTaskManager#startTask
      */
@@ -137,6 +132,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * @throws IllegalArgumentException if {@code stream} is null
      */
     protected void updateFromLoad(long id, final Stream<? extends T> stream) {
+        VaadinUtil.assertCurrentSession(this.taskManager.getVaadinSession());
         final Collection<T> items = this.getItems();
         items.clear();
         stream.forEach(items::add);
@@ -160,22 +156,18 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
          * This method runs in a background thread; in particular, no {@link VaadinSession} will be locked.
          *
          * <p>
-         * This method should be prepared to handle an {@linkplain Thread#interrupt interrupt} if/when
-         * {@link AsyncDataProvider#cancel} is invoked; in that case this method may throw {@link InterruptedException}.
-         *
-         * <p>
-         * This method returns a {@link Stream} but the {@link Stream} is not actually consumed in the background thread;
-         * that operation occurs later, in a different thread with the {@link VaadinSession} locked.
-         * In cases where this matters (e.g., the data is gathered in a per-thread transactions), this method
+         * <b>Note</b>: This method returns a {@link Stream} but the {@link Stream} is not actually consumed in the
+         * background thread; that operation occurs later, in a different thread with the {@link VaadinSession} locked.
+         * In cases where this matters (e.g., the data is gathered in a per-thread transaction), this method
          * may need to proactively pull the data into memory ahead of time.
          *
          * <p>
-         * This method may cancel itself by throwing {@link InterruptedException} unprompted;
-         * a {@link AsyncTaskManager.TaskStatusChangeEvent#CANCELED} event will be reported.
+         * This method should be prepared to handle an {@linkplain Thread#interrupt interrupt} if/when
+         * {@link AsyncDataProvider#cancel} is invoked; in that case this method may throw {@link InterruptedException}.
+         * This method may also cancel itself by throwing an unprompted {@link InterruptedException}.
          *
          * <p>
-         * If this method returns null, the load fails with an {@link IllegalArgumentException} and
-         * {@link LoadListener#FAILED} is reported.
+         * If this method returns null, the load fails with an {@link IllegalArgumentException}.
          *
          * @param id unique ID for this load attempt
          * @return stream of data items

@@ -33,16 +33,33 @@ import org.slf4j.LoggerFactory;
  * still in progress, the first task is automatically canceled. Tasks are initiated via {@link #startTask startTask()}
  * and may be canceled at any time via {@link #cancelTask cancelTask()}.
  *
+ * <p>
+ * Results returned from successful task executions are delivered to the configured
+ * {@linkplain #setResultConsumer result consumer}, if any.
+ *
+ * <p><b>Safety Guarantees</b>
+ *
+ * <p>
+ * This class handles all required synchronization and locking. It guarantees that at most one background task
+ * can be executing at a time, that all operations are atomic, that listener notifications are delivered in proper order,
+ * and that no race conditions can occur. For example, if a background task tries to report back at the same time a Vaadin
+ * thread invokes {@link #cancelTask}, then the task will always appear to have either completed successfully or been canceled.
+ *
+ * <p>
+ * Instances bind to the current {@link VaadinSession} at construction time and may only be used with that session.
+ * If any method is invoked with the wrong {@link VaadinSession} locking state, an immediate exception is thrown.
+ * Therefore, thread safety is not only provided but enforced.
+ *
  * <p><b>Event Notifications</b>
  *
  * <p>
- * Instances support event notification via {@link #addTaskStatusChangeListener addTaskStatusChangeListener()};
- * all notifications happen within the context of the locked {@link VaadinSession}.
+ * Instances support event notification via {@link #addTaskStatusChangeListener addTaskStatusChangeListener()}.
+ * All notifications are delivered within the context of the locked {@link VaadinSession}.
  *
  * <p>
- * On task start, a {@link TaskStatusChangeEvent#STARTED STARTED} notification is generated. The eventual outcome -
- * one of: {@link TaskStatusChangeEvent#COMPLETED COMPLETED}, {@link TaskStatusChangeEvent#CANCELED CANCELED},
- * or {@link TaskStatusChangeEvent#FAILED FAILED} - is reported when the task finishes.
+ * On task start, a {@link TaskStatusChangeEvent#STARTED STARTED} notification is generated. When the task finishes,
+ * the outcome - one of: {@link TaskStatusChangeEvent#COMPLETED COMPLETED}, {@link TaskStatusChangeEvent#CANCELED CANCELED},
+ * or {@link TaskStatusChangeEvent#FAILED FAILED} - is reported.
  *
  * <p>
  * Proper ordering of event notifications is guaranteed:
@@ -50,25 +67,15 @@ import org.slf4j.LoggerFactory;
  *  <li>Exactly one {@link TaskStatusChangeEvent#STARTED STARTED} notification and exactly one
  *      {@link TaskStatusChangeEvent#COMPLETED COMPLETED}, {@link TaskStatusChangeEvent#CANCELED CANCELED},
  *      or {@link TaskStatusChangeEvent#FAILED FAILED} notification will be delivered
- *      for each task initiated by {@link AsyncTaskManager#startTask AsyncTaskManager.startTask()}.
+ *      for each task initiated by {@link AsyncTaskManager#startTask startTask()}.
  *  <li>{@link TaskStatusChangeEvent#STARTED STARTED} notifications are always delivered before the corresponding
  *      {@link TaskStatusChangeEvent#COMPLETED COMPLETED}, {@link TaskStatusChangeEvent#CANCELED CANCELED},
  *      or {@link TaskStatusChangeEvent#FAILED FAILED} notification for the same task.
  *  <li>The {@link TaskStatusChangeEvent#COMPLETED COMPLETED}, {@link TaskStatusChangeEvent#CANCELED CANCELED}, or
  *      {@link TaskStatusChangeEvent#FAILED FAILED} notification for a task is always delivered before the
  *      {@link TaskStatusChangeEvent#STARTED STARTED} notification for any subsequent task.
- *  <li>Tasks are executed, and corresponding notifications are delivered, in the same order that the tasks are started.
+ *  <li>Tasks are executed, and corresponding notifications are delivered, in the same order that they are started.
  * </ul>
- *
- * <p>
- * This class handles all required synchronization and locking. It guarantees that at most one background task
- * can be executing at a time, that listener notifications are delivered in proper order, and that no race conditions occur.
- * For example, if a background task tries to report back at the same time a Vaadin thread invokes {@link #cancelTask}, then
- * the task will always appear to have either completed successfully or been canceled.
- *
- * <p>
- * Instances bind to the current {@link VaadinSession} at construction time and may only be used with that session.
- * If any method is invoked with the wrong {@link VaadinSession} locking state, an immediate exception is thrown.
  *
  * @param <R> asynchronous task result type
  */
@@ -95,7 +102,7 @@ public class AsyncTaskManager<R> {
      * Default constructor.
      *
      * <p>
-     * Caller still must configure an async executor via {@link #setAsyncExecutor setAsyncExecutor()}.
+     * Caller must configure an async executor via {@link #setAsyncExecutor setAsyncExecutor()}.
      *
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
@@ -127,11 +134,11 @@ public class AsyncTaskManager<R> {
      * Configure the executor used for async tasks.
      *
      * <p>
-     * When an in-progress task is canceled via {@link #cancelTask}, then {@link Future#cancel Future.cancel()}
-     * will be invoked on the {@link Future} returned by the executor.
+     * The executor must execute tasks with {@linkplain #session this instance's VaadinSession} unlocked.
      *
      * <p>
-     * The executor must execute tasks with {@linkplain #session this instance's VaadinSession} unlocked.
+     * Note: wen an in-progress task is canceled via {@link #cancelTask}, then {@link Future#cancel Future.cancel()}
+     * will be invoked on the {@link Future} returned by the executor.
      *
      * @param executor the thing that launches background tasks
      */
@@ -194,7 +201,7 @@ public class AsyncTaskManager<R> {
      * Determine whether there is an outstanding asynchronous task in progress.
      *
      * <p>
-     * Equivalent to: {@code getCurrentId() != 0}.
+     * Equivalent to: {@code getCurrentTaskId() != 0}.
      *
      * @return true if an asynchronous task is currently executing, otherwise false
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
@@ -210,7 +217,7 @@ public class AsyncTaskManager<R> {
      * @return the unique ID of the current asynchronous task, if any, otherwise zero
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      */
-    public long getCurrentId() {
+    public long getCurrentTaskId() {
         VaadinUtil.assertCurrentSession(this.session);
         return this.currentId;
     }
@@ -295,7 +302,7 @@ public class AsyncTaskManager<R> {
      * This method is invoked in the background, with {@linkplain #session this instance's session} <i>not</i> locked.
      *
      * <p>
-     * When finished (regardless of the outcome) this method should invoke {@link #reportTask reportTask()}
+     * When finished (regardless of the outcome) this method invokes {@link #reportTask reportTask()}
      * with {@linkplain #session this instance's session} locked.
      *
      * @param id task ID
@@ -335,11 +342,6 @@ public class AsyncTaskManager<R> {
      * <p>
      * This is invoked (indirectly) by {@link #invokeTask invokeTask()} with {@linkplain #session this instance's session} locked.
      *
-     * <p>
-     * The implementation in {@link AsyncTaskManager} first compares {@code id} to the current ID. If it
-     * doesn't match it does nothing and returns false; otherwise, listeners are notified,
-     * {@link #handleTaskResult handleTaskResult()} is invoked (if task completed normally), and true is returned.
-     *
      * @param id task ID
      * @param result task result, or null if there was an exception
      * @param exception thrown exception ({@link InterruptedException} if interrupted), or null if there was no exception
@@ -378,7 +380,14 @@ public class AsyncTaskManager<R> {
     }
 
     /**
-     * Notify listeners (later).
+     * Notify listeners.
+     *
+     * <p>
+     * This is invoked with {@linkplain #session this instance's session} locked.
+     *
+     * <p>
+     * The implementation in {@link AsyncTaskManager} actually delivers the notifications later,
+     * in the manner of {@link VaadinSession#access VaadinSession.access()}.
      *
      * @param event status change event
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
