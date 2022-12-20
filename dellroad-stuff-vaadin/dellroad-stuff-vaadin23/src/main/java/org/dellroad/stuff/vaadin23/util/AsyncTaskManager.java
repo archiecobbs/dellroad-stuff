@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  * <p><b>Event Notifications</b>
  *
  * <p>
- * Instances support event notification via {@link #addTaskStatusChangeListener addTaskStatusChangeListener()}.
+ * Instances support event notification via {@link #addAsyncTaskStatusChangeListener addAsyncTaskStatusChangeListener()}.
  * All notifications are delivered within the context of the locked {@link VaadinSession}.
  *
  * <p>
@@ -267,7 +267,7 @@ public class AsyncTaskManager<R> {
      * @throws IllegalArgumentException if {@code listener} is null
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      */
-    public Registration addTaskStatusChangeListener(AsyncTaskStatusChangeListener<R> listener) {
+    public Registration addAsyncTaskStatusChangeListener(AsyncTaskStatusChangeListener<R> listener) {
 
         // Sanity check
         VaadinUtil.assertCurrentSession(this.session);
