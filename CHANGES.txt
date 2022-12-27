@@ -1,3 +1,7 @@
+Version Next
+
+    - Fixed invalid sanity check bug in AsyncTaskManager.
+
 Version 2.5.7 Released December 20, 2022
 
     - Clarified the order in which @FieldBuilder.Binding properties are applied.

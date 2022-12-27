@@ -68,6 +68,8 @@ public class AsyncTaskStatusChangeEvent<R> extends EventObject {
             Preconditions.checkArgument(exception == null, "exception must be null");
             break;
         case CANCELED:
+            Preconditions.checkArgument(result == null, "result must be null");
+            break;
         case FAILED:
             Preconditions.checkArgument(result == null, "result must be null");
             Preconditions.checkArgument(exception != null, "exception must not be null");
