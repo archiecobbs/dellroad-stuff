@@ -298,14 +298,14 @@ public @interface GridColumn {
 
     /**
      * Get whether to include this column as one of the columns with configurable visibility by way
-     * of {@link GridColumnScanner#addVisbilityMenuItems}.
+     * of {@link GridColumnScanner#addVisbilityMenuItems GridColumnScanner.addVisbilityMenuItems()}.
      *
      * <p>
      * The menu item labels are taken from the {@link #header}, if any, otherwise {@link #key}.
      *
      * @return whether column has configurable visibility
      * @see #visible
-     * @see GridColumnScanner#addVisbilityMenuItems
+     * @see GridColumnScanner#addVisbilityMenuItems GridColumnScanner.addVisbilityMenuItems()
      */
     boolean visibilityMenu() default false;
 
