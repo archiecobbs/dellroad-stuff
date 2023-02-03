@@ -19,6 +19,6 @@ You can download **dellroad-stuff** from [Maven Central](http://search.maven.org
 * [Spring classes](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/spring/package-summary.html)
 * [JiBX classes](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/jibx/package-summary.html)
 * [Persistent Object classes](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/pobj/package-summary.html)
-* [Vaadin classes](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin22/field/package-summary.html)
+* [Vaadin classes](http://archiecobbs.github.io/dellroad-stuff/site/apidocs/index.html?org/dellroad/stuff/vaadin23/field/package-summary.html)
 
 Changes are noted [here](https://github.com/archiecobbs/dellroad-stuff/blob/master/CHANGES.txt).
