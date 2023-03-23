@@ -1,6 +1,7 @@
-Version Next
+Version 2.5.8 Released March 23, 2023
 
     - Fixed invalid sanity check bug in AsyncTaskManager.
+    - Updated Vaadin releases to 22.0.28 and 23.3.8.
 
 Version 2.5.7 Released December 20, 2022
 
