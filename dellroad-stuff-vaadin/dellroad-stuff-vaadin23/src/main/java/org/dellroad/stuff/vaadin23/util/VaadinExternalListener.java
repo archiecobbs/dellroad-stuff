@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Listeners that are part of a Vaadin application should use this superclass if they are going to be registered
  * with non-Vaadin event sources, where "non-Vaadin" means not operating in the context of a {@link VaadinSession}
- * and not holding corresponding lock.
+ * and not holding the corresponding lock.
  *
  * <p>
  * Use the methods {@link #register()} and {@link #unregister()} from within a {@link VaadinSession} to control
