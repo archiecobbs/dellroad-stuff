@@ -94,8 +94,8 @@
         <validation-api.version>2.0.1.Final</validation-api.version>
 
         <!-- Vaadin versions -->
-        <vaadin22.version>22.0.24</vaadin22.version>
-        <vaadin23.version>23.3.0</vaadin23.version>
+        <vaadin22.version>22.0.28</vaadin22.version>
+        <vaadin23.version>23.3.8</vaadin23.version>
 
     </properties>
     <dependencies>
