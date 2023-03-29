@@ -210,7 +210,8 @@ public final class VaadinUtil {
         public void sessionDestroy(SessionDestroyEvent event) {
             final VaadinSession closedSession = event.getSession();
             if (closedSession == this.session) {
-                this.session.getService().removeSessionDestroyListener(this);       // remove myself as listener to avoid mem leak
+                final VaadinService service = this.session.getService();
+                VaadinUtil.invokeLater(this.session, () -> service.removeSessionDestroyListener(this)); // avoid mem leak
                 this.listener.sessionDestroy(event);
             }
         }

@@ -1,3 +1,7 @@
+Version Next
+
+    - vaadin7: Avoid ConcurrentModificationException on session destroy.
+
 Version 2.5.8 Released March 23, 2023
 
     - Fixed invalid sanity check bug in AsyncTaskManager.
