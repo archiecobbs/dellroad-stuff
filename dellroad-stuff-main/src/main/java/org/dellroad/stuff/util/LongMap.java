@@ -169,7 +169,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
     public V remove(long key) {
         if (key == 0)
             return null;
-        return this.exsert(key);
+        return this.exsert(key, true);
     }
 
     @Override
@@ -208,7 +208,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
             final long key = this.keys[slot];
             if (key != 0) {
                 final V value = this.values != null ? this.values[slot] : null;
-                this.exsert(slot);
+                this.exsert(slot, true);
                 return new AbstractMap.SimpleImmutableEntry<>(key, value);
             }
         }
@@ -344,7 +344,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
         return null;
     }
 
-    private V exsert(long key) {
+    private V exsert(long key, boolean allowResize) {
 
         // Find slot for key
         final int slot = this.findSlot(key);
@@ -355,10 +355,10 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
         assert this.keys[slot] == key;
 
         // Remove key
-        return this.exsert(slot);
+        return this.exsert(slot, allowResize);
     }
 
-    private V exsert(final int slot) {
+    private V exsert(final int slot, boolean allowResize) {
 
         // Sanity check
         assert this.keys[slot] != 0;
@@ -390,8 +390,8 @@ loop:   while (true) {
             i = j;                                                      // restart fixups at jkey's old location
         }
 
-        // Shrink if necessary
-        if (--this.size < this.lowerSizeLimit && this.log2len > MIN_LOG2_LENGTH) {
+        // Shrink if necessary and allowed
+        if (--this.size < this.lowerSizeLimit && allowResize && this.log2len > MIN_LOG2_LENGTH) {
             this.log2len--;
             this.resize();
         }
@@ -558,7 +558,10 @@ loop:   while (true) {
                 throw new IllegalStateException();
             if (this.modcount != LongMap.this.modcount.get())
                 throw new ConcurrentModificationException();
-            LongMap.this.exsert(this.removeSlot);
+            LongMap.this.exsert(this.removeSlot, false);    // remove entry but don't resize arrays
+            if (this.removeSlot == this.nextSlot - 1
+              && LongMap.this.keys[this.removeSlot] != 0)   // exsert() patched another key into the removal slot
+                this.nextSlot--;                            // so backup one slot so we don't skip over it
             this.removeSlot = -1;
             this.modcount++;                            // keep synchronized with LongMap.this.modcount
         }

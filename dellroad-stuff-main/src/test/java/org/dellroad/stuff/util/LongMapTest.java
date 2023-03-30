@@ -86,4 +86,66 @@ public class LongMapTest extends TestSupport {
               "wrong result: actual=" + actual.debugDump() + " expected=" + expected);
         }
     }
+
+    @Test
+    public void testLongMapIterator() throws Exception {
+        final LongMap<String> x = new LongMap<>();
+        final long key1 = 0x0000000000000068L;
+        final String val1 = "foo";
+        final long key2 = 0x000000000000003dL;
+        final String val2 = "bar";
+        x.put(key1, val1);
+        x.put(key2, val2);
+        final Iterator<Map.Entry<Long, String>> i = x.entrySet().iterator();
+        assert i.hasNext();
+        Map.Entry<Long, String> entry1 = i.next();
+        i.remove();
+        assert i.hasNext();
+        Map.Entry<Long, String> entry2 = i.next();
+        i.remove();
+        assert !i.hasNext();
+        if (entry1.getKey().equals(key2)) {
+            Map.Entry<Long, String> temp = entry1;
+            entry1 = entry2;
+            entry2 = temp;
+        }
+        assert entry1.getKey().equals(key1);
+        assert entry1.getValue().equals(val1);
+        assert entry2.getKey().equals(key2);
+        assert entry2.getValue().equals(val2);
+    }
+
+    @Test
+    public void testLongIterator2() throws Exception {
+        final LongMap<Void> actual = new LongMap<>();
+        final HashMap<Long, Void> expected = new HashMap<>();
+        Iterator<Map.Entry<Long, Void>> i = null;
+        for (int count = 0; count < 1000; count++) {
+            if (this.random.nextInt(100) < 30) {
+                long val;
+                do
+                    val = this.random.nextInt(1 << 30);
+                while (val == 0);
+                actual.put(val, null);
+                expected.put(val, null);
+                i = null;
+            } else if (i == null) {
+                i = actual.entrySet().iterator();
+            } else if (!i.hasNext()) {
+                i = null;
+            } else {
+                final long val = i.next().getKey();
+                Assert.assertTrue(actual.containsKey(val));
+                Assert.assertTrue(expected.containsKey(val));
+                if (this.random.nextBoolean())
+                    i.hasNext();
+                if (this.random.nextBoolean()) {
+                    i.remove();
+                    expected.remove(val);
+                    Assert.assertTrue(!actual.containsKey(val));
+                }
+            }
+            Assert.assertEquals(actual, expected);
+        }
+    }
 }
