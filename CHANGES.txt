@@ -1,4 +1,4 @@
-Version Next
+Version 2.5.9 Released April 4, 2023
 
     - Fixed bugs in LongMap iterator when remove() is used.
     - vaadin7: Avoid ConcurrentModificationException on session destroy.
