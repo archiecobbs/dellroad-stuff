@@ -264,6 +264,27 @@ public class BitwiseInputStream extends FilterInputStream {
     }
 
     /**
+     * Read up to 64 bits that are expected to be there.
+     *
+     * <p>
+     * This will read {@code len} bits and return them in a {@code long} value.
+     * The first bit read will be at index zero, etc. All higher bits will be zero.
+     *
+     * @param len the number of bits to read
+     * @return the {@code len} bits that were read, starting at bit index zero
+     * @throws EOFException if EOF is encountered
+     * @throws IOException if an I/O error occurs
+     * @throws IllegalArgumentException if {@code len} is negative or greater than 64
+     */
+    public long bits(int len) throws IOException {
+        final AtomicLong word = new AtomicLong();
+        final int r = this.readBits(word, len);
+        if (r < len)
+            throw new EOFException();
+        return word.get();
+    }
+
+    /**
      * Read a single bit that is expected to be there.
      *
      * @return the bit read
