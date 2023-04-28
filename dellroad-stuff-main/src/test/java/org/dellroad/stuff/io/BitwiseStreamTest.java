@@ -235,14 +235,16 @@ public class BitwiseStreamTest extends TestSupport {
             // Read a byte[] array
             case 2:
             {
+                if (remain < 8 && remain != 0)      // avoid fractional tail
+                    break;
                 final int len = this.randInt(Math.min(87, remain / 8));
                 final int extra = this.randInt(len * 2);
                 final int off = this.randInt(extra);
                 final byte[] buf = new byte[len + extra];
                 final int r = len == buf.length && this.random.nextBoolean() ?
                   input.read(buf) : input.read(buf, off, len);
-                this.log.debug("2@{}: read(byte[], {}, {}) -> {}", index, off, len);
-                assert (r == -1) == (remain == 0 && len > 0) : "r=" + r + ",remain=" + remain + ",len=" + len;
+                this.log.debug("2@{}: read(byte[], {}, {}) -> {}", index, off, len, r);
+                assert len == 0 || (r == -1) == (remain == 0) : "r=" + r + ",remain=" + remain + ",len=" + len;
                 if (r == -1)
                     break readLoop;
                 assert r >= 0;

@@ -36,8 +36,8 @@ import java.util.BitSet;
  */
 public class BitwiseOutputStream extends FilterOutputStream {
 
-    private long bufBits;       // output buffer
-    private int bufLen;         // the number of bits in "bufBits"
+    private byte bufBits;       // partial byte output buffer
+    private byte bufLen;        // the number of bits in "bufBits", in the range 0...7
 
     /**
      * Constructor.
@@ -57,22 +57,8 @@ public class BitwiseOutputStream extends FilterOutputStream {
     }
 
     @Override
-    public void flush() throws IOException {
-        while (this.bufLen >= 8)
-            this.outputByte();
-        super.flush();
-    }
-
-    @Override
     public void write(byte[] buf, int off, int len) throws IOException {
-
-        // Sanity check
-        if (off < 0 || len < 0 || (long)off + (long)len > buf.length)
-            throw new IndexOutOfBoundsException();
-
-        // First, flush any whole bytes from the output buffer
-        while (this.bufLen >= 8)
-            this.outputByte();
+        assert invariants();
 
         // Optimize the byte-aligned case
         if (this.bufLen == 0) {
@@ -80,24 +66,26 @@ public class BitwiseOutputStream extends FilterOutputStream {
             return;
         }
 
+        // Sanity check
+        if (off < 0 || len < 0 || (long)off + (long)len > buf.length)
+            throw new IndexOutOfBoundsException();
+
         // Copy caller's data so we can modify it
         final byte[] copy = new byte[len];
         System.arraycopy(buf, off, copy, 0, len);
         buf = copy;
 
-        // Stick remaining buffer bits onto the front of the buffer, and save what pushes out the other end
+        // Push buffered bits onto the front of the buffer, and grab what pushes out the other end
         this.bufBits = BitwiseInputStream.shiftInBits(this.bufBits, this.bufLen, buf, 0, buf.length);
 
         // Now do a normal bulk write
         this.out.write(buf, 0, buf.length);
+        assert invariants();
     }
 
     @Override
     public void write(int b) throws IOException {
-
-        // First, flush any whole bytes from the output buffer
-        while (this.bufLen >= 8)
-            this.outputByte();
+        assert invariants();
 
         // Optimize the byte-aligned case
         if (this.bufLen == 0) {
@@ -105,8 +93,10 @@ public class BitwiseOutputStream extends FilterOutputStream {
             return;
         }
 
-        // Write non-aligned bits
-        this.writeBits(b, 8);
+        // Handle the mis-aligned case
+        this.out.write(this.bufBits | (b << this.bufLen));
+        this.bufBits = (byte)((b & 0xff) >>> (8 - this.bufLen));
+        assert invariants();
     }
 
 // Public methods
@@ -121,6 +111,7 @@ public class BitwiseOutputStream extends FilterOutputStream {
      * @throws IllegalArgumentException if {@code len} is negative
      */
     public void writeBits(BitSet bits, int len) throws IOException {
+        assert invariants();
 
         // Sanity check
         if (bits == null)
@@ -128,15 +119,24 @@ public class BitwiseOutputStream extends FilterOutputStream {
         if (len < 0)
             throw new IllegalArgumentException("len = " + len);
 
-        // Write bits
-        final long[] array = bits.toLongArray();
-        int arrayIndex = 0;
+        // Write as many whole bytes as we can
+        final byte[] data = bits.toByteArray();
+        final int numBytes = Math.min(len / 8, data.length);
+        int off = 0;
+        if (numBytes > 0) {
+            this.write(data, 0, numBytes);
+            off += numBytes;
+            len -= numBytes * 8;
+        }
+
+        // Write the remaining bits
         while (len > 0) {
-            final int numBits = Math.min(64, len);
-            final long value = arrayIndex < array.length ? array[arrayIndex++] : 0;
+            final int numBits = Math.min(8, len);
+            final byte value = off < data.length ? data[off++] : 0;
             this.writeBits(value, numBits);
             len -= numBits;
         }
+        assert invariants();
     }
 
     /**
@@ -144,6 +144,7 @@ public class BitwiseOutputStream extends FilterOutputStream {
      *
      * <p>
      * The first bit in {@code bits} written is at index zero, etc.
+     * Bits at index {@code len} and higher are ignored.
      *
      * @param bits value containing the bits to write (low-order bit first)
      * @param len the number of bits in {@code bits} to write
@@ -151,6 +152,7 @@ public class BitwiseOutputStream extends FilterOutputStream {
      * @throws IllegalArgumentException if {@code len} is negative or greater than 64
      */
     public void writeBits(long bits, int len) throws IOException {
+        assert invariants();
 
         // Sanity check
         if (len < 0 || len > 64)
@@ -163,31 +165,21 @@ public class BitwiseOutputStream extends FilterOutputStream {
         // Write bits
         while (len > 0) {
 
-            // Calculate how many bits we can copy without overflowing
-            final int numCopy = Math.min(len, 64 - this.bufLen);
+            // Calculate how many bits we can copy
+            final int numCopy = Math.min(len, 8 - this.bufLen);
+            assert numCopy > 0;
 
-            // Copy over bits
-            switch (numCopy) {
-            case 0:
-                break;
-            case 64:
-                assert this.bufLen == 0;
-                this.bufBits = bits;
-                this.bufLen = 64;
-                len = 0;
-                break;
-            default:
-                this.bufBits |= bits << this.bufLen;
-                this.bufLen += numCopy;
-                bits >>>= numCopy;
-                len -= numCopy;
-                break;
-            }
+            // Copy bits
+            this.bufBits = (byte)(this.bufBits | (bits << this.bufLen));
+            this.bufLen += numCopy;
+            bits >>>= numCopy;
+            len -= numCopy;
 
-            // Write out any now-completed byte(s)
-            while (this.bufLen >= 8)
+            // Write out byte, if complete
+            if (this.bufLen == 8)
                 this.outputByte();
         }
+        assert invariants();
     }
 
     /**
@@ -220,18 +212,30 @@ public class BitwiseOutputStream extends FilterOutputStream {
      * @throws IOException if an I/O error occurs
      */
     public int padToByteBoundary() throws IOException {
-        final int pad = (8 - this.bufLen) & 0x07;
-        while (this.bufLen > 0)
-            this.outputByte();
+        assert invariants();
+        if (this.bufLen == 0)
+            return 0;
+        final int pad = 8 - this.bufLen;
+        this.outputByte();
+        assert invariants();
         return pad;
     }
 
 // Internal methods
 
     private void outputByte() throws IOException {
-        assert this.bufLen > 0;
-        super.write((int)this.bufBits);
-        this.bufBits >>>= 8;
-        this.bufLen = Math.max(0, this.bufLen - 8);
+        this.out.write(this.bufBits);
+        this.bufBits = 0;
+        this.bufLen = 0;
+    }
+
+    String describe() {
+        return String.format("bits=0x%02x,len=%d", this.bufBits & 0xff, this.bufLen);
+    }
+
+    boolean invariants() {
+        assert this.bufLen >= 0 && this.bufLen < 8 : describe();
+        assert ((this.bufBits & 0xff) & (~0 << this.bufLen)) == 0 : describe();
+        return true;
     }
 }
