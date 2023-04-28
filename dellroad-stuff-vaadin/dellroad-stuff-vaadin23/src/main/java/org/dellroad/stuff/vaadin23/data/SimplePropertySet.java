@@ -38,7 +38,7 @@ import org.dellroad.stuff.java.ReflectUtil;
  * fails to detect such bean properties. To work around that bug, you can do something like this:
  *
  * <pre><code class="language-java">
- *     // Gather bean properties using Spring's BeanUtil to avoid JDK-8071693
+ *     // Gather bean properties using Spring's BeanUtils to work around JDK-8071693
  *     final SimplePropertySet&lt;T&gt; propertySet = new SimplePropertySet&lt;&gt;(beanType);
  *     Stream.of(BeanUtils.getPropertyDescriptors(beanType))
  *       .filter(pd -&gt; !(pd instanceof IndexedPropertyDescriptor))
@@ -52,7 +52,7 @@ import org.dellroad.stuff.java.ReflectUtil;
  *
  * <p>
  * This class allows you to recover the original {@linkplain Definition property definition} from
- * a {@link Binder.Binding} instance.
+ * a {@link Binder.Binding} instance; see {@link #propertyDefinitionForBinding propertyDefinitionForBinding()}.
  *
  * <p>
  * Does not support sub-properties.
