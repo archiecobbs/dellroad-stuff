@@ -5,12 +5,10 @@
 
 package org.dellroad.stuff.io;
 
-import java.io.EOFException;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.BitSet;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * A bit-oriented {@link OutputStream}.
