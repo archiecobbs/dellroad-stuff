@@ -86,7 +86,7 @@ public class BitwiseInputStream extends FilterInputStream {
         if (next == -1)
             return next;
         final int r = (this.bufBits | (next << this.bufLen)) & 0xff;
-        this.bufBits = (byte)(next >>> (8 - this.bufLen));
+        this.bufBits = (byte)(next >> (8 - this.bufLen));
         assert invariants();
         return r;
     }
