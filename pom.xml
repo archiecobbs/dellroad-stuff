@@ -90,7 +90,7 @@
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
         <spring.version>[5.0.0.RELEASE,6.0)</spring.version>
         <spring.javadoc.version>5.2.9.RELEASE</spring.javadoc.version>
-        <testng.version>6.14.2</testng.version>
+        <testng.version>7.7.0</testng.version>
         <validation-api.version>2.0.1.Final</validation-api.version>
 
         <!-- Vaadin versions -->
