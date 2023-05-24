@@ -158,14 +158,12 @@ public abstract class SelectorSupport {
         // Stop service thread
         if (this.log.isDebugEnabled())
             this.log.debug("stopping " + this);
-        if (this.selector != null) {
-            try {
-                this.selector.close();
-            } catch (Exception e) {
-                // ignore
-            }
-            this.selector = null;
+        try {
+            this.selector.close();
+        } catch (Exception e) {
+            // ignore
         }
+        this.selector = null;
         this.serviceThread.interrupt();
 
         // Wait for service thread to exit
@@ -184,6 +182,13 @@ public abstract class SelectorSupport {
             this.log.warn(failure + " waiting for service thread " + currentServiceThread
               + " while stopping " + this + ", giving up");
         }
+    }
+
+    /**
+     * Determine whether this instance has been {@link #start start()}'ed (and not yet {@link #stop stop()}'d).
+     */
+    public synchronized boolean isRunning() {
+        return this.selector != null;
     }
 
 // Subclass methods
@@ -516,4 +521,3 @@ public abstract class SelectorSupport {
         void close(Throwable cause);
     }
 }
-
