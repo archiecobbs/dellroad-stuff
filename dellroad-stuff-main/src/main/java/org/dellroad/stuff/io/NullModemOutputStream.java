@@ -41,10 +41,13 @@ import org.dellroad.stuff.java.ThrowableUtil;
  *
  * <p>
  * Normally, an {@link OutputStream} will not return from {@link #close} until all data has been written out
- * (e.g., to a destination file). However, due to thread concurrency, the reader thread associated with this
- * {@link NullModemOutputStream} could still be reading when {@link #close} returns. If this is a problem,
- * you can use {@link #setSynchronousClose setSynchronousClose()} to force {@link #close} to block until the
- * reader has returned from {@link ReadCallback#readFrom readFrom()}.
+ * (e.g., to a destination file). However, due to internal buffering, it's possible to flush and close a
+ * {@link NullModemOutputStream} before the reader thread has finished actually reading that data. Therefore,
+ * the guarantee normally provided by {@link #close} that all of the data has been flushed and "reached its destination"
+ * (so to speak) is lost.
+ * To prevent this scenario, use {@link #setSynchronousClose setSynchronousClose(true)} prior to {@link #close},
+ * which will force {@link #close} to block until the reader thread has finished reading and returned from
+ * {@link ReadCallback#readFrom readFrom()}.
  *
  * @since 1.0.82
  */
