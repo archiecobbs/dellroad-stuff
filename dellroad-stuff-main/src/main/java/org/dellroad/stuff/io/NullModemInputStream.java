@@ -9,8 +9,6 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -41,16 +39,11 @@ import org.dellroad.stuff.java.ThrowableUtil;
  *      by the {@link WriteCallback} will generate an {@link IOException}.
  * </ul>
  *
- * <p>
- * Note: This class uses {@link PipedInputStream} and {@link PipedOutputStream} under the covers, so instances should not
- * be shared by multiple threads or they might be considered "broken".
- *
  * @since 1.0.74
  */
 public class NullModemInputStream extends FilterInputStream {
 
     private final AtomicReference<Throwable> error = new AtomicReference<>();
-    private final PipedOutputStream output;
 
     /**
      * Constructor that uses a background thread for writing.
@@ -79,7 +72,7 @@ public class NullModemInputStream extends FilterInputStream {
      * @throws IllegalArgumentException if any parameter is null
      */
     public NullModemInputStream(WriteCallback writer, Executor executor) {
-        super(new PipedInputStream());
+        super(new PipedStreams().getInputStream());
 
         // Sanity check
         if (writer == null)
@@ -87,14 +80,8 @@ public class NullModemInputStream extends FilterInputStream {
         if (executor == null)
             throw new IllegalArgumentException("null executor");
 
-        // Create other end of pipe
-        try {
-            this.output = new PipedOutputStream(this.getPipedInputStream());
-        } catch (IOException e) {
-            throw new RuntimeException("unexpected exception", e);
-        }
-
         // Launch writer task
+        final OutputStream output = this.getPipedStreams().getOutputStream();
         executor.execute(() -> {
             try {
                 writer.writeTo(output);
@@ -151,34 +138,14 @@ public class NullModemInputStream extends FilterInputStream {
         NullUtil.wrap(this.error, super::reset);
     }
 
-// Internal Methods
+// Subclass Methods
 
     /**
-     * Get the wrapped stream cast as a {@link PipedInputStream}.
+     * Get the {@link PipedStreams} associated with this instance.
      *
-     * @return the underlying {@link PipedInputStream}
+     * @return the underlying {@link PipedStreams}
      */
-    protected PipedInputStream getPipedInputStream() {
-        return (PipedInputStream)this.in;
-    }
-
-    /**
-     * Ensure input stream is closed when this instance is no longer referenced.
-     *
-     * <p>
-     * This ensures the writer thread wakes up (and exits, avoiding a memory leak) when an instance of this class
-     * is created but never read from.
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            try {
-                this.getPipedInputStream().close();
-            } catch (IOException e) {
-                // ignore
-            }
-        } finally {
-            super.finalize();
-        }
+    protected PipedStreams getPipedStreams() {
+        return ((PipedStreams.Input)this.in).getPipedStreams();
     }
 }

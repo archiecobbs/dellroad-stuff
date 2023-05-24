@@ -9,8 +9,6 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.util.concurrent.Executor;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -38,10 +36,6 @@ import org.dellroad.stuff.java.ThrowableUtil;
  * <p>
  * The {@link InputStream} provided to the {@link ReadCallback} should never throw any {@link IOException}, as long as
  * it is still open.
- *
- * <p>
- * Note: This class uses {@link PipedInputStream} and {@link PipedOutputStream} under the covers, so instances should not
- * be shared by multiple threads or they might be considered "broken".
  *
  * <p><b>Synchronous Close</b>
  *
@@ -90,7 +84,7 @@ public class NullModemOutputStream extends FilterOutputStream {
      * @throws IllegalArgumentException if any parameter is null
      */
     public NullModemOutputStream(ReadCallback reader, Executor executor) {
-        super(new PipedOutputStream());
+        super(new PipedStreams().getOutputStream());
 
         // Sanity check
         if (reader == null)
@@ -98,15 +92,8 @@ public class NullModemOutputStream extends FilterOutputStream {
         if (executor == null)
             throw new IllegalArgumentException("null executor");
 
-        // Create other end of pipe
-        final PipedInputStream input;
-        try {
-            input = new PipedInputStream(this.getPipedOutputStream());
-        } catch (IOException e) {
-            throw new RuntimeException("unexpected exception", e);
-        }
-
         // Launch reader task
+        final InputStream input = this.getPipedStreams().getInputStream();
         executor.execute(() -> {
             try {
                 reader.readFrom(input);
@@ -209,31 +196,11 @@ public class NullModemOutputStream extends FilterOutputStream {
 // Subclass Methods
 
     /**
-     * Get the wrapped stream cast as a {@link PipedOutputStream}.
+     * Get the {@link PipedStreams} associated with this instance.
      *
-     * @return the underlying {@link PipedOutputStream}
+     * @return the underlying {@link PipedStreams}
      */
-    protected PipedOutputStream getPipedOutputStream() {
-        return (PipedOutputStream)this.out;
-    }
-
-    /**
-     * Ensure output stream is closed when this instance is no longer referenced.
-     *
-     * <p>
-     * This ensures the reader thread wakes up (and exits, avoiding a memory leak) when an instance of this class
-     * is created but never read from.
-     */
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            try {
-                this.getPipedOutputStream().close();
-            } catch (IOException e) {
-                // ignore
-            }
-        } finally {
-            super.finalize();
-        }
+    protected PipedStreams getPipedStreams() {
+        return ((PipedStreams.Output)this.out).getPipedStreams();
     }
 }

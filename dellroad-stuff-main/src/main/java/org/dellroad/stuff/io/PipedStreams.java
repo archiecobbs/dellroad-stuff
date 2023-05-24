@@ -25,7 +25,7 @@ public class PipedStreams {
     /**
      * Default internal buffer size ({@value #DEFAULT_BUFFER_SIZE}).
      */
-    public static final int DEFAULT_BUFFER_SIZE = 1000;
+    public static final int DEFAULT_BUFFER_SIZE = 8192 - 32;        // two 4K pages with room for array object header
 
     private final Input input = this.new Input();
     private final Output output = this.new Output();
@@ -58,18 +58,34 @@ public class PipedStreams {
     /**
      * Get the input side of the pipe.
      *
-     * @return input side
+     * <p>
+     * Regarding the returned {@link InputStream}:
+     * <ul>
+     *  <li>When the internal buffer is empty, reads block until more data is written to the output side,
+     *      or the output side is closed.
+     *  <li>If the current thread is interrupted while blocked, an {@link InterruptedIOException} is thrown.
+     * </ul>
+     *
+     * @return input side of the piped stream
      */
-    public InputStream getInputStream() {
+    public Input getInputStream() {
         return this.input;
     }
 
     /**
      * Get the output side of the pipe.
      *
-     * @return output side
+     * <p>
+     * Regarding the returned {@link OutputStream}:
+     * <ul>
+     *  <li>When the internal buffer is full, writes block until more data is read from the input side.
+     *  <li>If the current thread is interrupted while blocked, an {@link InterruptedIOException} is thrown.
+     *  <li>After the input side side is closed, trying to write more data will generate an {@link IOException}.
+     * </ul>
+     *
+     * @return output side of the piped stream
      */
-    public OutputStream getOutputStream() {
+    public Output getOutputStream() {
         return this.output;
     }
 
@@ -278,11 +294,24 @@ public class PipedStreams {
 
 // Input class
 
-    private class Input extends InputStream {
+    /**
+     * The {@link InputStream} associated with a {@link PipedStreams} instance.
+     *
+     * @see PipedStreams#getInputStream
+     */
+    public final class Input extends InputStream implements HasPipedStreams {
 
+        private Input() {
+        }
+
+    // HasPipedStreams
+
+        @Override
         public PipedStreams getPipedStreams() {
             return PipedStreams.this;
         }
+
+    // InputStream
 
         @Override
         public int read() throws IOException {
@@ -312,11 +341,24 @@ public class PipedStreams {
 
 // Output class
 
-    private class Output extends OutputStream {
+    /**
+     * The {@link OutputStream} associated with a {@link PipedStreams} instance.
+     *
+     * @see PipedStreams#getOutputStream
+     */
+    public final class Output extends OutputStream implements HasPipedStreams {
 
+        private Output() {
+        }
+
+    // HasPipedStreams
+
+        @Override
         public PipedStreams getPipedStreams() {
             return PipedStreams.this;
         }
+
+    // OutputStream
 
         @Override
         public void write(int b) throws IOException {
@@ -332,5 +374,19 @@ public class PipedStreams {
         public void close() {
             PipedStreams.this.closeOutput();
         }
+    }
+
+// HasPipedStreams
+
+    /**
+     * Interface implemented by the {@link InputStream} and {@link OutputStream}
+     * associated with a {@link PipedStreams} instance.
+     */
+    public interface HasPipedStreams {
+
+        /**
+         * Get this stream's originating {@link PipedStreams} instance.
+         */
+        PipedStreams getPipedStreams();
     }
 }
