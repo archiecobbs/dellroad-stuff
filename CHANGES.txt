@@ -2,6 +2,7 @@ Version Next
 
     - Added BitwiseInputStream and BitwiseOutputStream.
     - Updated NullModem I/O classes to use PipedStreams.
+    - Fixed NPE in VaadinSessionDataProvider if session has expired.
     - Added Averager.
 
 Version 2.5.9 Released April 4, 2023

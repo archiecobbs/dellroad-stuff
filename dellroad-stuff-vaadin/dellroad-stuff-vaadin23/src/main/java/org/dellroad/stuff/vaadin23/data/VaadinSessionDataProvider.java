@@ -120,11 +120,11 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
      * {@inheritDoc}
      *
      * <p>
-     * The implementation in {@code VaadinSessionDataProvider} returns {@code item.getVaadinSession().getSession().getId()}.
+     * The implementation in {@code VaadinSessionDataProvider} returns {@code item.getId()}.
      */
     @Override
     public String getId(T item) {
-        return item.getVaadinSession().getSession().getId();
+        return item.getId();
     }
 
     /**
