@@ -23,7 +23,8 @@ import org.dellroad.stuff.io.WriteCallback;
  */
 public class ProcessRunner {
 
-    private final Process process;
+    protected final Process process;
+
     private final WriteCallback inputWriter;
     private final ByteArrayOutputStream stdoutBuffer = new ByteArrayOutputStream();
     private final ByteArrayOutputStream stderrBuffer = new ByteArrayOutputStream();
