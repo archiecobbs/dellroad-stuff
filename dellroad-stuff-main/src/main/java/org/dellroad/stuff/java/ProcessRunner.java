@@ -20,6 +20,12 @@ import org.dellroad.stuff.io.WriteCallback;
  * <p>
  * This class makes it convenient to execute an external process and gather it's output without having to deal
  * directly with the inherent issues relating to threads, race conditions, and deadlocks.
+ *
+ * <p>
+ * Standard input can be specified in three ways, either as empty, a fixed buffer, or written dynamically via callback.
+ * Standard output and error are by default collected into buffers. Alternatively, you can configure either or both to
+ * be discarded, or override the corresponding handler methods for arbitrary action. These handler methods and the
+ * standard input callback, if any, will be invoked from independent threads.
  */
 public class ProcessRunner {
 
