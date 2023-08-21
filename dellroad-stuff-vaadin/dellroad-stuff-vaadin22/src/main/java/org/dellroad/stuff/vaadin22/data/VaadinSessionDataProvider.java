@@ -121,11 +121,14 @@ public class VaadinSessionDataProvider<T extends SessionInfo> extends AsyncDataP
      * {@inheritDoc}
      *
      * <p>
-     * The implementation in {@code VaadinSessionDataProvider} returns {@code item.getVaadinSession().getSession().getId()}.
+     * The implementation in {@code VaadinSessionDataProvider} returns {@code item.getId()}
+     * if {@code item} is not null, otherwise null.
+     *
+     * @param item data item
      */
     @Override
     public String getId(T item) {
-        return item.getVaadinSession().getSession().getId();
+        return item != null ? item.getId() : null;
     }
 
     /**

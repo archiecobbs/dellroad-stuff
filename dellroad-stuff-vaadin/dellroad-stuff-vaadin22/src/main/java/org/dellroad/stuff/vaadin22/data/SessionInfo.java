@@ -16,6 +16,7 @@ import com.vaadin.flow.server.VaadinSession;
 public class SessionInfo {
 
     protected final VaadinSession session;
+    protected final String id;
 
     /**
      * Constructor.
@@ -26,6 +27,17 @@ public class SessionInfo {
         if (session == null)
             throw new IllegalArgumentException("null session");
         this.session = session;
+        this.id = this.session.getSession().getId();
+    }
+
+    /**
+     * Get the associated HTTP session ID, cached from {@code getVaadinSession().getSession().getId()}.
+     *
+     * <p>
+     * Use this method to avoid a {@link NullPointerException} in case the HTTP session is no longer accessible.
+     */
+    public String getId() {
+        return this.id;
     }
 
     /**
