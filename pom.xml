@@ -309,8 +309,6 @@
                     <effort>Max</effort>
                     <threshold>Default</threshold>
                     <xmlOutput>true</xmlOutput>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                     <excludeFilterFile>src/spotbugs/spotbugs-exclude.xml</excludeFilterFile>
                     <failOnError>true</failOnError>
                 </configuration>
