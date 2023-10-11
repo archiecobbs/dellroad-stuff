@@ -119,7 +119,7 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="ImportOrder">
-            <property name="groups" value="au,bsh,ca,com,info,java,javax,junit,net,org"/>
+            <property name="groups" value="au,bsh,ca,com,info,jakarta,java,javax,junit,net,org"/>
             <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
         </module>

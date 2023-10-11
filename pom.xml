@@ -5,21 +5,26 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>3.1.4</version>
+    </parent>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
     <name>DellRoad Stuff</name>
-    <version>2.5.11</version>
+    <version>3.0.0</version>
     <packaging>pom</packaging>
     <description>DellRoad Stuff is a dumping ground for various useful Java classes that have evolved over time from repeated use in multiple projects.</description>
     <url>https://github.com/archiecobbs/dellroad-stuff</url>
     <modules>
-        <module>dellroad-stuff-jibx</module>
-        <module>dellroad-stuff-main</module>
-        <module>dellroad-stuff-maven-plugin</module>
-        <module>dellroad-stuff-pobj</module>
-        <module>dellroad-stuff-spring</module>
-        <module>dellroad-stuff-test</module>
-        <module>dellroad-stuff-vaadin</module>
+        <module>jibx</module>
+        <module>main</module>
+        <module>maven-plugin</module>
+        <module>pobj</module>
+        <module>spring</module>
+        <module>test</module>
+        <module>vaadin</module>
     </modules>
     <licenses>
         <license>
@@ -49,53 +54,26 @@
         <!-- Basic stuff -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
-        <jdk.target>8</jdk.target>
-        <javadoc.target>8</javadoc.target>
+        <java.version>17</java.version>
 
         <!-- Dependency versions -->
-        <ant.version>1.10.2</ant.version>
         <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
-        <aspectj.version>1.9.7</aspectj.version>
-        <guava.javadoc.version>29.0-jre</guava.javadoc.version>
-        <guava.version>[29.0,)</guava.version>
-        <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
-        <hibernate.version>5.6.15.Final</hibernate.version>
-        <javax.el.version>3.0.1-b09</javax.el.version>
-        <javax.annotation.api.version>1.3.2</javax.annotation.api.version>
+        <expressly.version>5.0.0</expressly.version>
+        <guava.version>32.1.2-jre</guava.version>
+        <javax.servlet-api.version>(3.1,)</javax.servlet-api.version>
         <jibx.version>1.4.2</jibx.version>
-        <jline.version>2.14.6</jline.version>
-        <jmock.version>2.8.2</jmock.version>
-        <log4j.version>[1.2,1.3)</log4j.version>
-        <maven.artifact.version>3.6.3</maven.artifact.version>
-        <maven.checkstyle.plugin.version>3.0.0</maven.checkstyle.plugin.version>
-        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
-        <maven.enforcer.plugin.version>3.0.0</maven.enforcer.plugin.version>
-        <maven.gpg.plugin.version>1.6</maven.gpg.plugin.version>
-        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
-        <maven.javadoc.plugin.version>3.2.0</maven.javadoc.plugin.version>
-        <maven.plugin.tools.version>3.9.0</maven.plugin.tools.version>
-        <maven.project.info.reports.plugin.version>3.1.2</maven.project.info.reports.plugin.version>
-        <maven.project.version>3.0-alpha-2</maven.project.version>
-        <maven.site.plugin.version>3.9.1</maven.site.plugin.version>
-        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
-        <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
-        <maven.wagon.scm.extension.version>3.3.4</maven.wagon.scm.extension.version>
-        <opencsv.version>2.4</opencsv.version>
-        <persistence.api.version>[2.2,)</persistence.api.version>
+        <maven-artifact.version>3.6.3</maven-artifact.version>
+        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+        <maven-plugin-tools.version>3.9.0</maven-plugin-tools.version>
+        <maven-project-info-reports.plugin.version>3.1.2</maven-project-info-reports.plugin.version>
+        <maven-project.version>3.0-alpha-2</maven-project.version>
+        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
+        <maven-wagon-scm-extension.version>3.3.4</maven-wagon-scm-extension.version>
         <plugin-api.version>3.3.9</plugin-api.version>
-        <portlet-api.version>2.0</portlet-api.version>
-        <properties.maven.plugin.version>1.0.0</properties.maven.plugin.version>
-        <servlet-api.version>(3.1,)</servlet-api.version>
-        <slf4j.version>1.7.35</slf4j.version>
-        <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
-        <spring.version>[5.0.0.RELEASE,6.0)</spring.version>
-        <spring.javadoc.version>5.2.9.RELEASE</spring.javadoc.version>
+        <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.7.1.0</spotbugs-maven-plugin.version>
         <testng.version>7.7.0</testng.version>
-        <validation-api.version>2.0.1.Final</validation-api.version>
-
-        <!-- Vaadin versions -->
-        <vaadin22.version>22.0.28</vaadin22.version>
-        <vaadin23.version>23.3.8</vaadin23.version>
 
     </properties>
     <dependencies>
@@ -139,7 +117,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven.enforcer.plugin.version}</version>
+                <version>${maven-enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -151,7 +129,7 @@
 
                                 <!-- Enforce Java version -->
                                 <requireJavaVersion>
-                                    <version>[11,)</version>
+                                    <version>[17,)</version>
                                 </requireJavaVersion>
 
                                 <!-- Check for dependency conflicts -->
@@ -172,7 +150,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven.jar.plugin.version}</version>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -186,11 +164,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.plugin.version}</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>${jdk.target}</source>
-                    <target>${jdk.target}</target>
-                    <release>${jdk.target}</release>
+                    <release>${java.version}</release>
                     <showWarnings>true</showWarnings>
                     <compilerArgs>
                         <arg>-Xlint:all,-processing,-path</arg>
@@ -203,7 +179,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>${maven.source.plugin.version}</version>
+                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -218,7 +194,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <source>${javadoc.target}</source>
                     <notimestamp>true</notimestamp>
@@ -230,13 +206,11 @@
                         <additionalJOption>65536</additionalJOption>
                     </additionalJOptions>
                     <links combine.children="append">
-                        <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
-                        <link>https://guava.dev/releases/${guava.javadoc.version}/api/docs/</link>
+                        <link>https://docs.spring.io/spring/docs/${spring-framework.version}/javadoc-api/</link>
+                        <link>https://guava.dev/releases/${guava.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>
-                        <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
                         <link>https://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                 </configuration>
@@ -254,18 +228,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven.surefire.plugin.version}</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <systemProperties>
-                        <property>
-                            <name>deleteTempDirs</name>
-                            <value>true</value>
-                        </property>
-                        <property>
-                            <name>randomSeed</name>
-                            <value/>
-                        </property>
-                    </systemProperties>
+                    <argLine>--add-opens=java.base/java.text=ALL-UNNAMED</argLine>
+                    <systemPropertyVariables>
+                        <deleteTempDirs>true</deleteTempDirs>
+                        <randomSeed/>
+                    </systemPropertyVariables>
                     <properties>
                         <property>
                             <name>surefire.testng.verbose</name>
@@ -279,7 +248,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven.checkstyle.plugin.version}</version>
+                <version>${maven-checkstyle-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-verify</id>
@@ -292,6 +261,7 @@
                             <sourceDirectories>
                                 <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                             </sourceDirectories>
+                            <excludes>org/dellroad/stuff/jibx/JibxMarshaller.java</excludes>
                         </configuration>
                         <goals>
                             <goal>check</goal>
@@ -304,7 +274,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs.maven.plugin.version}</version>
+                <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Default</threshold>
@@ -326,19 +296,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven.project.info.reports.plugin.version}</version>
+                <version>${maven-project-info-reports.plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>${maven.site.plugin.version}</version>
+                <version>${maven-site-plugin.version}</version>
             </plugin>
 
             <!-- Avoid Mac OS X "Launcher" application appearing during build -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
-                <version>${properties.maven.plugin.version}</version>
+                <version>${properties-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -366,7 +336,7 @@
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-scm</artifactId>
-                <version>${maven.wagon.scm.extension.version}</version>
+                <version>${maven-wagon-scm-extension.version}</version>
             </extension>
         </extensions>
     </build>
@@ -375,7 +345,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven.javadoc.plugin.version}</version>
+                <version>${maven-javadoc-plugin.version}</version>
                 <inherited>false</inherited>
                 <configuration>
                     <source>${javadoc.target}</source>
@@ -386,25 +356,18 @@
                     <aggregate>true</aggregate>
                     <inherited>false</inherited>
                     <links>
-                        <link>https://docs.spring.io/spring/docs/${spring.javadoc.version}/javadoc-api/</link>
-                        <link>https://guava.dev/releases/${guava.javadoc.version}/api/docs/</link>
+                        <link>https://docs.spring.io/spring/docs/${spring-framework.version}/javadoc-api/</link>
+                        <link>https://guava.dev/releases/${guava.version}/api/docs/</link>
                         <link>http://jibx.sourceforge.net/api/</link>
-                        <link>http://opencsv.sourceforge.net/apidocs/</link>
                         <link>https://www.slf4j.org/apidocs/</link>
                         <link>https://www.eclipse.org/aspectj/doc/released/runtime-api/</link>
-                        <link>https://docs.oracle.com/javase/8/docs/api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
-                        <link>https://vaadin.com/download/release/8.16/8.16.0/docs/api/</link>
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
                     <offlineLinks>
                         <offlineLink>
-                            <url>https://vaadin.com/api/platform/${vaadin22.version}</url>
-                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin22/src/javadoc/vaadin</location>
-                        </offlineLink>
-                        <offlineLink>
-                            <url>https://vaadin.com/api/platform/${vaadin23.version}</url>
-                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin23/src/javadoc/vaadin</location>
+                            <url>https://vaadin.com/api/platform/${vaadin24.version}</url>
+                            <location>${project.basedir}/vaadin/vaadin24/src/javadoc/vaadin</location>
                         </offlineLink>
                     </offlineLinks>
                 </configuration>
@@ -430,7 +393,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven.gpg.plugin.version}</version>
+                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

@@ -1,3 +1,19 @@
+Version 3.0.0 Released October 10, 2023
+
+    - Update to the new generation:
+        - Java 17
+        - Jakarta EE 9
+        - Spring 6
+        - Vaadin 24
+    - Imported Spring's deleted JibxMarshaller
+    - Removed obsolete cruft:
+        - Hibernate, DAO, and Servlet classes
+        - PersistentObject distributed via git
+        - Vaadin 7, 8, 22, and 23 classes
+        - VaadinExternalListener, VaadinSessionDataProvider, SimpleSpringServlet
+        - CSVOutput, ThreadLogger, EmailAddress
+        - MainClass.commandLoop()
+
 Version 2.5.10 Released August 21, 2023
 
     - Added BitwiseInputStream and BitwiseOutputStream.
