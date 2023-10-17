@@ -6,9 +6,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>3.1.4</version>
+        <groupId>org.dellroad</groupId>
+        <artifactId>dellroad-dependencies</artifactId>
+        <version>3.1.4.0</version>
     </parent>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
@@ -57,22 +57,6 @@
         <java.version>17</java.version>
 
         <!-- Dependency versions -->
-        <aspectj.maven-plugin.version>1.14.0</aspectj.maven-plugin.version>
-        <expressly.version>5.0.0</expressly.version>
-        <guava.version>32.1.2-jre</guava.version>
-        <javax.servlet-api.version>(3.1,)</javax.servlet-api.version>
-        <jibx.version>1.4.2</jibx.version>
-        <maven-artifact.version>3.6.3</maven-artifact.version>
-        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <maven-plugin-tools.version>3.9.0</maven-plugin-tools.version>
-        <maven-project-info-reports.plugin.version>3.1.2</maven-project-info-reports.plugin.version>
-        <maven-project.version>3.0-alpha-2</maven-project.version>
-        <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
-        <maven-wagon-scm-extension.version>3.3.4</maven-wagon-scm-extension.version>
-        <plugin-api.version>3.3.9</plugin-api.version>
-        <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.7.1.0</spotbugs-maven-plugin.version>
         <testng.version>7.7.0</testng.version>
 
     </properties>
@@ -80,12 +64,10 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
-            <version>${slf4j.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -97,14 +79,6 @@
     </dependencies>
     <distributionManagement>
         <downloadUrl>https://github.com/archiecobbs/dellroad-stuff</downloadUrl>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
         <site>
             <id>${project.artifactId}-site</id>
             <url>file://${project.basedir}/site/</url>
@@ -117,7 +91,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>${maven-enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -150,7 +123,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifestEntries>
@@ -164,7 +136,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <release>${java.version}</release>
                     <showWarnings>true</showWarnings>
@@ -179,7 +150,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>${maven-source-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -194,7 +164,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
                 <configuration>
                     <source>${javadoc.target}</source>
                     <notimestamp>true</notimestamp>
@@ -228,7 +197,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>--add-opens=java.base/java.text=ALL-UNNAMED</argLine>
                     <systemPropertyVariables>
@@ -248,7 +216,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${maven-checkstyle-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-verify</id>
@@ -274,7 +241,6 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>${spotbugs-maven-plugin.version}</version>
                 <configuration>
                     <effort>Max</effort>
                     <threshold>Default</threshold>
@@ -296,19 +262,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>${maven-project-info-reports.plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>${maven-site-plugin.version}</version>
             </plugin>
 
             <!-- Avoid Mac OS X "Launcher" application appearing during build -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>properties-maven-plugin</artifactId>
-                <version>${properties-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -345,7 +308,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${maven-javadoc-plugin.version}</version>
                 <inherited>false</inherited>
                 <configuration>
                     <source>${javadoc.target}</source>
@@ -393,7 +355,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>

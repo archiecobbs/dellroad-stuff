@@ -42,32 +42,29 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-oxm</artifactId>
-            <version>${spring-framework.version}</version>
         </dependency>
 
         <!-- For unit tests -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>dellroad-stuff-test</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>dellroad-stuff-jibx</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-extras</artifactId>
-            <version>${jibx.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-run</artifactId>
-            <version>${jibx.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -75,7 +72,6 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>${jakarta-validation.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -87,7 +83,6 @@
             <plugin>
                 <groupId>org.jibx</groupId>
                 <artifactId>jibx-maven-plugin</artifactId>
-                <version>${jibx.version}</version>
                 <executions>
                     <execution>
                         <goals>

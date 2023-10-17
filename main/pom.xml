@@ -30,14 +30,13 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
 
         <!-- For unit tests -->
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
             <artifactId>dellroad-stuff-test</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -47,7 +46,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring-framework.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -55,7 +53,6 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>${jakarta-validation.version}</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
