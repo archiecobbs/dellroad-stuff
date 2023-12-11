@@ -250,7 +250,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
     @Override
     public void writeEndElement() throws XMLStreamException {
         this.depth--;
-        if (this.lastEvent == XMLStreamConstants.END_ELEMENT)
+        if (this.lastEvent == XMLStreamConstants.END_ELEMENT || this.lastEvent == XMLStreamConstants.COMMENT)
             this.reindent();
         this.handleOther(XMLStreamConstants.END_ELEMENT);
         super.writeEndElement();
@@ -290,6 +290,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
         // Handle a one line comment
         if (comment.indexOf('\n') == -1) {
             super.writeComment(comment);
+            this.lastEvent = XMLStreamConstants.COMMENT;
             return;
         }
 
@@ -350,6 +351,7 @@ public class IndentXMLStreamWriter extends StreamWriterDelegate {
           .flatMap(s -> s)
           .collect(Collectors.joining("\n"));
         super.writeComment(comment);
+        this.lastEvent = XMLStreamConstants.COMMENT;
     }
 
     private int spacePrefixLen(String s) {
