@@ -76,6 +76,10 @@ public interface Network {
          * <p>
          * The {@code msg} buffer is read-only; its contents are not guaranteed to be valid after this method returns.
          *
+         * <p>
+         * Note that due to inherent race conditions with multiple threads, it is possible for this method to be invoked
+         * (at most once) after {@link Network#stop} has returned.
+         *
          * @param peer message source
          * @param msg message received
          */
@@ -87,6 +91,10 @@ public interface Network {
          * <p>
          * This notification can be used for flow-control, i.e., to prevent the local output queue for {@code peer}
          * from growing without bound if there is network congestion, or the peer is slow to read messages, etc.
+         *
+         * <p>
+         * Note that due to inherent race conditions with multiple threads, it is possible for this method to be invoked
+         * (at most once) after {@link Network#stop} has returned.
          *
          * @param peer remote peer
          */

@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.net;
 
+import com.google.common.base.Preconditions;
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
@@ -74,7 +76,6 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     private long maxInputQueueSize = DEFAULT_MAX_INPUT_QUEUE_SIZE;
     private int minDirectBufferSize = DEFAULT_MIN_DIRECT_BUFFER_SIZE;
 
-    private Network.Handler handler;
     private HandlerThread handlerThread;
     private String serviceThreadName;
 
@@ -195,15 +196,14 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
         super.start();
         boolean successful = false;
         try {
-            if (this.handler != null)
+            if (this.handlerThread != null)
                 return;
+            this.handlerThread = new HandlerThread(handler);
             if (this.log.isDebugEnabled())
                 this.log.debug("starting " + this);
-            this.handlerThread = new HandlerThread();
             if (this.serviceThreadName != null)
                 this.handlerThread.setName(this.serviceThreadName);
             this.handlerThread.start();
-            this.handler = handler;
             successful = true;
         } finally {
             if (!successful)
@@ -215,12 +215,11 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     public void stop() {
         super.stop();
         synchronized (this) {
-            if (this.handler == null)
+            if (this.handlerThread == null)
                 return;
             if (this.log.isDebugEnabled())
                 this.log.debug("stopping " + this);
             this.handlerThread = null;
-            this.handler = null;
             this.notifyAll();           // wakeup HandlerThread so he can notice that we are stopped
         }
     }
@@ -276,7 +275,12 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
     private class HandlerThread extends Thread {
 
         private final Logger log = ChannelNetwork.this.log;
-        private final Network.Handler handler = ChannelNetwork.this.handler;
+        private final Network.Handler handler;
+
+        HandlerThread(Network.Handler handler) {
+            Preconditions.checkArgument(handler != null, "null handler");
+            this.handler = handler;
+        }
 
         @Override
         public void run() {
