@@ -27,7 +27,7 @@ import java.nio.channels.SocketChannel;
  * Note: if each peer's IP address is unique, consider overriding {@link #identifyPeer identifyPeer()}
  * to remove the port. This will prevent the creation of duplicate connections between peers.
  */
-public class TCPNetwork extends ChannelNetwork implements Network {
+public class TCPNetwork extends ChannelNetwork {
 
     /**
      * Default connect timeout for outgoing connections ({@value #DEFAULT_CONNECT_TIMEOUT} milliseconds).
