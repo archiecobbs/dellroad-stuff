@@ -1,3 +1,8 @@
+Version 3.0.1
+
+    - Fixed possible NPE in ChannelNetwork caused by race condition.
+    - Update to dellroad-dependencies 3.1.7.0.
+
 Version 3.0.0 Released October 10, 2023
 
     - Update to the new generation:
