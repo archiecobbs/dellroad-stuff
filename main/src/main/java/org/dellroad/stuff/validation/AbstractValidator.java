@@ -54,4 +54,3 @@ public abstract class AbstractValidator<C extends Annotation, T> implements Cons
         return result;
     }
 }
-

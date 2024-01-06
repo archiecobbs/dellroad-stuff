@@ -26,4 +26,3 @@ public class PersistentObjectException extends RuntimeException {
         super(cause);
     }
 }
-

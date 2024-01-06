@@ -370,4 +370,3 @@ public abstract class PersistentConnection<C> {
         }
     }
 }
-

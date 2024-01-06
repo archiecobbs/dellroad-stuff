@@ -21,4 +21,3 @@ public class UpdateInProgressException extends SQLTransientException {
         super(message);
     }
 }
-

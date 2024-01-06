@@ -418,4 +418,3 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
             throw new IOException("connection idle timeout after " + this.getIdleTime() + "ms");
     }
 }
-

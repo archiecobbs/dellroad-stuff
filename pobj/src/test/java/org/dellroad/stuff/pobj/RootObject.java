@@ -42,4 +42,3 @@ public class RootObject {
           ^ (this.verbose ? ~0 : 0);
     }
 }
-

@@ -229,4 +229,3 @@ public class FileStreamRepository implements StreamRepository, Serializable {
         this.log = LoggerFactory.getLogger(this.getClass());
     }
 }
-

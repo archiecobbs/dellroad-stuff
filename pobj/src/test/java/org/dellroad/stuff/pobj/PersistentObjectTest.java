@@ -142,4 +142,3 @@ public class PersistentObjectTest extends TestSupport {
     public void testErrorUpdate() throws Exception {
     }
 }
-

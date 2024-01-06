@@ -190,4 +190,3 @@ public class SpringSQLSchemaUpdater extends SQLSchemaUpdater implements BeanFact
         };
     }
 }
-

@@ -111,4 +111,3 @@ public interface GraphCloneable {
      */
     void createGraphClone(GraphCloneRegistry registry) throws CloneNotSupportedException;
 }
-

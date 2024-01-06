@@ -36,4 +36,3 @@ public class VersionPartComparator implements Comparator<String>, Serializable {
             return part1.compareTo(part2);
     }
 }
-

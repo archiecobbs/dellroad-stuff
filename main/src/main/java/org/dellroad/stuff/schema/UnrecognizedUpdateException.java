@@ -20,4 +20,3 @@ public class UnrecognizedUpdateException extends IllegalStateException {
         super(message, cause);
     }
 }
-

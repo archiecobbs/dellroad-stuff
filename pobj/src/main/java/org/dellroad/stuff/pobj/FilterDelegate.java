@@ -70,4 +70,3 @@ public class FilterDelegate<T> implements PersistentObjectDelegate<T> {
         return this.nested.getDefaultValue();
     }
 }
-

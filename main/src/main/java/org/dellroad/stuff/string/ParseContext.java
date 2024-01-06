@@ -281,4 +281,3 @@ public class ParseContext implements Cloneable, Serializable {
         return this.input.hashCode() ^ this.index;
     }
 }
-

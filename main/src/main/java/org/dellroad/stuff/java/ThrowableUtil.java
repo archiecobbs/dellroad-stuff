@@ -61,4 +61,3 @@ public final class ThrowableUtil {
         return frames;
     }
 }
-

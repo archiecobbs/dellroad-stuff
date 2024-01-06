@@ -545,4 +545,3 @@ public abstract class AbstractSchemaUpdater<D, T> {
         }
     }
 }
-

@@ -107,4 +107,3 @@ public class UpdatesXMLStreamTest extends TestSupport {
         };
     }
 }
-

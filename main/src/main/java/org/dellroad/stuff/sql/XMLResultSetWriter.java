@@ -465,4 +465,3 @@ public class XMLResultSetWriter {
         this.state = State.LAST_CLOSE;
     }
 }
-

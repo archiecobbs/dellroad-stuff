@@ -238,4 +238,3 @@ public final class IPv4Util {
          && !address.equals(getBroadcastAddress(network, netmask));
     }
 }
-

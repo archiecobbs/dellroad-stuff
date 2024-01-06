@@ -70,4 +70,3 @@ public class XMLDocumentInputStream<T> {
         this.input.close();
     }
 }
-

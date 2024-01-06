@@ -49,4 +49,3 @@ public interface StreamRepository {
      */
     OutputStream getOutputStream() throws IOException;
 }
-

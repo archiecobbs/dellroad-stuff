@@ -93,4 +93,3 @@ public class ThreadLocalHolderTest extends TestSupport {
         }
     }
 }
-

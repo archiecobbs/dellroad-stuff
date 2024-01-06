@@ -24,4 +24,3 @@ public class PersistentObjectExceptionTranslator implements PersistenceException
         return null;
     }
 }
-

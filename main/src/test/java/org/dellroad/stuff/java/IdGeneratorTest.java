@@ -82,4 +82,3 @@ public class IdGeneratorTest extends TestSupport {
         idg.flush();
     }
 }
-

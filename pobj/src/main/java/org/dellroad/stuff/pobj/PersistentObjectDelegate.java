@@ -123,4 +123,3 @@ public interface PersistentObjectDelegate<T> {
      */
     T getDefaultValue();
 }
-

@@ -23,4 +23,3 @@ class RandomEscape {
         return buf[0] & 0xff;
     }
 }
-

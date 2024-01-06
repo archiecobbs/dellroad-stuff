@@ -293,4 +293,3 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
         }
     }
 }
-

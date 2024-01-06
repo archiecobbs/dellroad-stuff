@@ -96,4 +96,3 @@ public abstract class AbstractSpringSchemaUpdate<T> extends AbstractSchemaUpdate
         this.setRequiredPredecessors(predecessors);
     }
 }
-

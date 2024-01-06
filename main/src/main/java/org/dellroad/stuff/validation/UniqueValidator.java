@@ -81,4 +81,3 @@ public class UniqueValidator extends AbstractValidator<Unique, Object> {
         return true;
     }
 }
-

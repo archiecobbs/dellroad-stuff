@@ -211,4 +211,3 @@ public @interface RetryTransaction {
      */
     long maximumDelay() default -1;
 }
-

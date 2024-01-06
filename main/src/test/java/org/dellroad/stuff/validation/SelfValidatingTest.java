@@ -31,4 +31,3 @@ public class SelfValidatingTest extends TestSupport implements SelfValidating {
             throw new SelfValidationException(MESSAGE);
     }
 }
-

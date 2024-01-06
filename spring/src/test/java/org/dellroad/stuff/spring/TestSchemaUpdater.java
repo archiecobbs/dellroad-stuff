@@ -67,4 +67,3 @@ public class TestSchemaUpdater extends SpringSQLSchemaUpdater {
         this.previousUpdates = previousUpdates;
     }
 }
-

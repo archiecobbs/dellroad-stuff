@@ -25,4 +25,3 @@ public class SchemaUpdateEdgeLister<T> implements EdgeLister<SchemaUpdate<T>> {
         return update.getRequiredPredecessors();
     }
 }
-

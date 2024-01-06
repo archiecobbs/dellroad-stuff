@@ -53,4 +53,3 @@ public class PersistentObjectValidationException extends PersistentObjectExcepti
         return buf.toString();
     }
 }
-

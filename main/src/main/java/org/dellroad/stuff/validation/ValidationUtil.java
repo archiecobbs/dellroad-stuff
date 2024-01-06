@@ -55,4 +55,3 @@ public final class ValidationUtil {
         return buf.toString();
     }
 }
-

@@ -110,4 +110,3 @@ public class SpringXSLUpdateTransformConfigurer implements BeanPostProcessor, Re
         return this.prefix + beanName + this.suffix;
     }
 }
-

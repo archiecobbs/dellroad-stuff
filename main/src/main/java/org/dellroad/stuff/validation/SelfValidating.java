@@ -23,4 +23,3 @@ public interface SelfValidating {
      */
     void checkValid(ConstraintValidatorContext context) throws SelfValidationException;
 }
-

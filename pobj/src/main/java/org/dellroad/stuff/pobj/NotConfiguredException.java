@@ -26,4 +26,3 @@ public class NotConfiguredException extends IllegalStateException {
         super(message, t);
     }
 }
-

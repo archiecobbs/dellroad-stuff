@@ -129,4 +129,3 @@ public abstract class AnnotatedXMLEventReader extends EventReaderDelegate {
         return event.isCharacters() && event.asCharacters().isWhiteSpace();
     }
 }
-

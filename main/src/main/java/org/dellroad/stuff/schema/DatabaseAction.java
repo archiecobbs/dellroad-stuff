@@ -21,4 +21,3 @@ public interface DatabaseAction<T> {
      */
     void apply(T transaction) throws Exception;
 }
-

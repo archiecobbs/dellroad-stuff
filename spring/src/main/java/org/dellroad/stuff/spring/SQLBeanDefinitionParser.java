@@ -103,4 +103,3 @@ class SQLBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
         parserContext.getReaderContext().fatal(message, parserContext.extractSource(element));
     }
 }
-

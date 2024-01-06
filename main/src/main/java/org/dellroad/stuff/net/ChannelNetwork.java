@@ -409,4 +409,3 @@ public abstract class ChannelNetwork extends SelectorSupport implements Network 
             connection.close(null);
     }
 }
-

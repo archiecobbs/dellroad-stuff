@@ -39,4 +39,3 @@ public class PersistentObjectVersionException extends PersistentObjectException 
         return this.expectedVersion;
     }
 }
-

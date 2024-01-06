@@ -147,4 +147,3 @@ public class SQLCommandList implements DatabaseAction<Connection> {
         return list.toArray(new String[list.size()]);
     }
 }
-

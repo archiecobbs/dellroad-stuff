@@ -32,4 +32,3 @@ public @interface SelfValidates {
 
     Class<? extends Payload>[] payload() default {};
 }
-

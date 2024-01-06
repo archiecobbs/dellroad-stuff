@@ -37,4 +37,3 @@ public abstract class AbstractBean implements InitializingBean, DisposableBean {
     public void destroy() throws Exception {
     }
 }
-

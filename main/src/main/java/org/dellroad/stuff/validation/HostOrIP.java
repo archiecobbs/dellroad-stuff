@@ -41,4 +41,3 @@ public @interface HostOrIP {
 
     Class<? extends Payload>[] payload() default {};
 }
-

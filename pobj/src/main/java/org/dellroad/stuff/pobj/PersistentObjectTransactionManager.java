@@ -543,4 +543,3 @@ public class PersistentObjectTransactionManager<T> extends AbstractPlatformTrans
         }
     }
 }
-

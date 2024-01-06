@@ -219,4 +219,3 @@ public class SimpleObjectParserTest extends TestSupport {
         }
     }
 }
-

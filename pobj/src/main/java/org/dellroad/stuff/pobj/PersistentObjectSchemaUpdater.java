@@ -306,4 +306,3 @@ public class PersistentObjectSchemaUpdater<T> extends AbstractSchemaUpdater<Pers
         transaction.getUpdates().add(name);
     }
 }
-

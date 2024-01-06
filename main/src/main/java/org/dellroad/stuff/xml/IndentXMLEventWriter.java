@@ -115,4 +115,3 @@ public class IndentXMLEventWriter extends EventWriterDelegate {
         super.add(this.factory.createIgnorableSpace(new String(buf)));
     }
 }
-

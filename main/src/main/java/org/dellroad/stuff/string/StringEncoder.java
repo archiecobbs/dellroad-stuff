@@ -280,4 +280,3 @@ public final class StringEncoder {
         return (ch >= '\u0020' && ch <= '\ud7ff') || ch == '\n' || ch == '\r' || ch == '\t' || (ch >= '\ue000' && ch <= '\ufffd');
     }
 }
-

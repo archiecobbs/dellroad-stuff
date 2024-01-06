@@ -118,4 +118,3 @@ public class NamedArgumentFormatter {
         return Collections.unmodifiableSet(this.fieldMap.keySet());
     }
 }
-

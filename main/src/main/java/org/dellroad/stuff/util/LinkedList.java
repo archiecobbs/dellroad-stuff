@@ -20,4 +20,3 @@ public interface LinkedList<E> extends List<E>, Queue<E> {
     E removeFirst();
     E removeLast();
 }
-

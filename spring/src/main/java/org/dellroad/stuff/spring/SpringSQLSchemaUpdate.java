@@ -102,4 +102,3 @@ public class SpringSQLSchemaUpdate extends AbstractSpringSchemaUpdate<Connection
         return new ArrayList<>(this.getSQLCommandList().split());
     }
 }
-

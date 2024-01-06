@@ -62,4 +62,3 @@ public class XMLDocumentOutputStream<T> {
         this.output.close();
     }
 }
-

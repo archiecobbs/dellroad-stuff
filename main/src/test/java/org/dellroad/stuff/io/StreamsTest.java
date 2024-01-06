@@ -82,4 +82,3 @@ public class StreamsTest extends TestSupport implements ReadCallback {
         return buf.toByteArray();
     }
 }
-

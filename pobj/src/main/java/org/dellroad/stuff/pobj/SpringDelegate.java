@@ -74,4 +74,3 @@ public class SpringDelegate<T> extends AbstractDelegate<T> implements Initializi
         }
     }
 }
-

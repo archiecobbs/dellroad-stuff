@@ -33,4 +33,3 @@ public @interface Hostname {
 
     Class<? extends Payload>[] payload() default {};
 }
-

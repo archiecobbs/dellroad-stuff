@@ -28,4 +28,3 @@ public interface Uniquifier<T> {
      */
     Object getUniqued(T value);
 }
-

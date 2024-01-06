@@ -114,4 +114,3 @@ public class PrimitiveSwitchAdapter<R> implements PrimitiveSwitch<R> {
         return null;
     }
 }
-

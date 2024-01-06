@@ -331,4 +331,3 @@ public class IdMapper extends IdDefRefMapperBase {
         ctx.closeStartEmpty();
     }
 }
-

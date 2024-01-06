@@ -36,4 +36,3 @@ final class TxWrapper<T> implements SmartTransactionObject {
         return "TxWrapper[info=" + this.info + "]";
     }
 }
-

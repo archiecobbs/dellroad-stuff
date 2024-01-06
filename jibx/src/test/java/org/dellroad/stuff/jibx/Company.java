@@ -27,4 +27,3 @@ public class Company {
         this.employeeOfTheWeek = employeeOfTheWeek;
     }
 }
-

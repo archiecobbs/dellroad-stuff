@@ -1296,4 +1296,3 @@ public class MergedResultSet implements ResultSet {
         throw new SQLException("not a wrapper for " + iface);
     }
 }
-

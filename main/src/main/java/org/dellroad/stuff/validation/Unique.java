@@ -61,4 +61,3 @@ public @interface Unique {
      */
     Class<? extends Uniquifier<?>> uniquifier() default DefaultUniquifier.class;
 }
-

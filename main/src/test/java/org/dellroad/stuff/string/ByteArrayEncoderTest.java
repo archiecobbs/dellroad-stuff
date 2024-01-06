@@ -53,4 +53,3 @@ public class ByteArrayEncoderTest extends TestSupport {
         };
     }
 }
-

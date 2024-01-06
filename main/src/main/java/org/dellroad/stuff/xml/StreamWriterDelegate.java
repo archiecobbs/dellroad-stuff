@@ -210,4 +210,3 @@ public class StreamWriterDelegate implements XMLStreamWriter {
         return this.parent.getProperty(name);
     }
 }
-

@@ -61,4 +61,3 @@ class SQLUpdateBeanDefinitionParser extends AbstractBeanDefinitionParser {
         return update;
     }
 }
-

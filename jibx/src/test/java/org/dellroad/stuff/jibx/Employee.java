@@ -30,4 +30,3 @@ public class Employee {
         return ParseUtil.deserializeReference(string, Employee.class);
     }
 }
-

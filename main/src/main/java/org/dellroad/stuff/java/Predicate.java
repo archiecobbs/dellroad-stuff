@@ -30,4 +30,3 @@ public interface Predicate extends BooleanSupplier {
         return this.test();
     }
 }
-

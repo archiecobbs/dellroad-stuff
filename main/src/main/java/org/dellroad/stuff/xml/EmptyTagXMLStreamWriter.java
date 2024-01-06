@@ -274,4 +274,3 @@ public class EmptyTagXMLStreamWriter extends StreamWriterDelegate {
         }
     }
 }
-

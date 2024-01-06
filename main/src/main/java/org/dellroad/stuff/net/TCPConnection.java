@@ -95,4 +95,3 @@ public class TCPConnection extends ChannelConnection {
         super.performHousekeeping();
     }
 }
-

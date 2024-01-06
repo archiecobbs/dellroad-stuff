@@ -31,4 +31,3 @@ public abstract class SpringPersistentObjectSchemaUpdate<T> extends AbstractSpri
         return Collections.singletonList(this);
     }
 }
-

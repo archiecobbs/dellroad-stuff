@@ -79,4 +79,3 @@ public class PersistentObjectEvent<T> extends EventObject {
         return this.newRoot;
     }
 }
-

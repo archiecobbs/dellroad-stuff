@@ -27,4 +27,3 @@ public class SelfValidatingValidator extends AbstractValidator<SelfValidates, Se
         }
     }
 }
-

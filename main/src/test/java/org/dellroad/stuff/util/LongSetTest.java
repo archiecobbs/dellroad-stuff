@@ -69,4 +69,3 @@ public class LongSetTest extends TestSupport {
         }
     }
 }
-

@@ -67,4 +67,3 @@ public class AsyncInputStreamTest extends TestSupport implements AsyncInputStrea
         this.notify();
     }
 }
-

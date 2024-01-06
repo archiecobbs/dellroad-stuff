@@ -58,4 +58,3 @@ public abstract class AbstractBeanDefinitionParser extends org.springframework.b
         parserContext.getReaderContext().fatal(message, parserContext.extractSource(element));
     }
 }
-

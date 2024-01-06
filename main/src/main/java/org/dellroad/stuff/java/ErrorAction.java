@@ -60,4 +60,3 @@ public enum ErrorAction {
      */
     public abstract void execute(String message);
 }
-

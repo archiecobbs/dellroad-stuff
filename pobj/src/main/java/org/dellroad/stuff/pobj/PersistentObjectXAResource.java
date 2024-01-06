@@ -429,4 +429,3 @@ class PersistentObjectXAResource<T> implements XAResource {
         return xids.toArray(new Xid[xids.size()]);
     }
 }
-

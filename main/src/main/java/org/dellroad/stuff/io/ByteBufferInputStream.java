@@ -103,4 +103,3 @@ public class ByteBufferInputStream extends InputStream {
         this.closed = true;
     }
 }
-

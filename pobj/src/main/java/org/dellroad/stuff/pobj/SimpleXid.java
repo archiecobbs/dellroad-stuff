@@ -78,4 +78,3 @@ final class SimpleXid implements Xid {
         return new SimpleXid(format, global, branch);
     }
 }
-

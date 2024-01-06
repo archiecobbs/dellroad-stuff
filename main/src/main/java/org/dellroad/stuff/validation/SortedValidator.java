@@ -86,4 +86,3 @@ public class SortedValidator extends AbstractValidator<Sorted, Object> {
         return true;
     }
 }
-

@@ -258,4 +258,3 @@ public abstract class AbstractConfiguredBean<ROOT, T> extends AbstractBean
         return beanConfig;
     }
 }
-

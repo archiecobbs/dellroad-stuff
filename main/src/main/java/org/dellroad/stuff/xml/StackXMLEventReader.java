@@ -113,4 +113,3 @@ public class StackXMLEventReader extends EventReaderDelegate {
         return event;
     }
 }
-

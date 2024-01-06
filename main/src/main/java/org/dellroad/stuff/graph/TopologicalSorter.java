@@ -169,4 +169,3 @@ public class TopologicalSorter<E> {
         Set<E> getOutEdges(E node);
     }
 }
-

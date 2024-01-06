@@ -97,4 +97,3 @@ public class EventWriterDelegate implements XMLEventWriter {
         return this.parent.getNamespaceContext();
     }
 }
-

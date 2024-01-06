@@ -43,4 +43,3 @@ public class CheckedExceptionWrapper extends RuntimeException {
         throw this.exception;
     }
 }
-

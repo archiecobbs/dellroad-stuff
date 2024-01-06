@@ -468,4 +468,3 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
         this.apply(c, this.getUpdateTableInitialization());
     }
 }
-

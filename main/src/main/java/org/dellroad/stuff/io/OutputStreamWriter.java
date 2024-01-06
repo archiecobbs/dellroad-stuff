@@ -119,4 +119,3 @@ public class OutputStreamWriter extends FilterOutputStream {
         this.escape = this.randomEscape.next();
     }
 }
-

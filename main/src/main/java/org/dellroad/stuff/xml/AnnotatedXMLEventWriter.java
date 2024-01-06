@@ -97,4 +97,3 @@ public abstract class AnnotatedXMLEventWriter extends EventWriterDelegate {
      */
     protected abstract void addAnnotationElement(XMLEventWriter writer) throws XMLStreamException;
 }
-

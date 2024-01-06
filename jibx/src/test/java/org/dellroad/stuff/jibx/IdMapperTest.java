@@ -29,4 +29,3 @@ public class IdMapperTest extends TestSupport {
         this.testIdMapper("binding2");
     }
 }
-

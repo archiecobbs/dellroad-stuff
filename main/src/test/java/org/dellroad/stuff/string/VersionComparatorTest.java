@@ -84,4 +84,3 @@ public class VersionComparatorTest extends TestSupport {
         return cases.toArray(new String[cases.size()][]);
     }
 }
-

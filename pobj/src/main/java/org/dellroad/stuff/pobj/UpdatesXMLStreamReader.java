@@ -60,4 +60,3 @@ public class UpdatesXMLStreamReader extends AnnotatedXMLStreamReader {
         }
     }
 }
-

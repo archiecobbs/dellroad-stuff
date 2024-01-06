@@ -185,4 +185,3 @@ public abstract class AnnotatedXMLStreamWriter extends StreamWriterDelegate {
      */
     protected abstract void addAnnotationElement(XMLStreamWriter writer) throws XMLStreamException;
 }
-

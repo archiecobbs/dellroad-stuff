@@ -68,4 +68,3 @@ public interface SchemaUpdate<T> {
      */
     boolean isSingleAction();
 }
-

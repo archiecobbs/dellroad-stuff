@@ -29,4 +29,3 @@ public class IdleTimeoutException extends IOException {
         return this.timeout;
     }
 }
-

@@ -72,4 +72,3 @@ public final class TimedWait {
         return true;
     }
 }
-

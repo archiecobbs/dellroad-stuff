@@ -102,4 +102,3 @@ public abstract class PersistentSocketConnection extends PersistentConnection<So
         return socket;
     }
 }
-

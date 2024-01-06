@@ -48,4 +48,3 @@ public @interface Sorted {
      */
     boolean strict() default true;
 }
-

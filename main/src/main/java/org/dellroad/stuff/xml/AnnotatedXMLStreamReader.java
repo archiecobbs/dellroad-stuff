@@ -104,4 +104,3 @@ public abstract class AnnotatedXMLStreamReader extends StreamReaderDelegate {
         return eventType;
     }
 }
-

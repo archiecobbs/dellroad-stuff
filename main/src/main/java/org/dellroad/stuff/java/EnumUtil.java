@@ -40,4 +40,3 @@ public final class EnumUtil {
         return Collections.unmodifiableList(Arrays.asList((T[])array));
     }
 }
-

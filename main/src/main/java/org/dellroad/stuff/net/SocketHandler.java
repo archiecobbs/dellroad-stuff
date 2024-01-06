@@ -50,4 +50,3 @@ public interface SocketHandler {
      */
     void stop(Thread thread, Socket socket);
 }
-

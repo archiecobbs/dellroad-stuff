@@ -32,4 +32,3 @@ public class DellRoadStuffNamespaceHandler extends NamespaceHandlerSupport {
         this.registerBeanDefinitionParser(SQL_UPDATE_ELEMENT_NAME, new SQLUpdateBeanDefinitionParser());
     }
 }
-

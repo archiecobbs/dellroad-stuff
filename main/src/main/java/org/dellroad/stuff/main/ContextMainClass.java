@@ -80,4 +80,3 @@ public abstract class ContextMainClass extends MainClass {
      */
     protected abstract int runInContext(String[] args) throws Exception;
 }
-

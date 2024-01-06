@@ -41,4 +41,3 @@ public class SchemaUpdatingDataSource extends AbstractUpdatingDataSource {
         }
     }
 }
-

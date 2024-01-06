@@ -212,4 +212,3 @@ public class StringEncoderTest extends TestSupport {
         return "\\" + "u" + String.format("%04x", code);
     }
 }
-

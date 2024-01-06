@@ -42,4 +42,3 @@ public class TestDatabaseAction extends SQLCommandList {
         Assert.assertEquals(count, this.count);
     }
 }
-
