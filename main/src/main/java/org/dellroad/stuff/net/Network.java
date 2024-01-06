@@ -34,6 +34,7 @@ public interface Network {
      *
      * @param handler handler for notifications
      * @throws IllegalStateException if already started
+     * @throws IllegalArgumentException if {@code handler} is null
      * @throws IOException if an error occurs
      */
     void start(Handler handler) throws IOException;
