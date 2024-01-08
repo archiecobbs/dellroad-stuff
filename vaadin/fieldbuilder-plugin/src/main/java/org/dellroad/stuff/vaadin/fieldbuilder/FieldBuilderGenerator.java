@@ -262,27 +262,36 @@ public class FieldBuilderGenerator {
 
         // For abstract classes, we have to provide a value for the required implementation property
         final String propertiesText = this.implementationPropertyName != null && (cl.getModifiers() & Modifier.ABSTRACT) != 0 ?
-          String.format("(%s = %s.class)", this.implementationPropertyName, cl.getName()) : "";
+          String.format("(%s = %s.class)", this.implementationPropertyName, this.getSourceName(cl)) : "";
 
         // Output annotation
         this.lines(1, String.format("@%s%s", this.getAnnotationName(cl), propertiesText));
     }
 
-    private void generateAnnotationClass(Class<?> cl) {
+    private void generateAnnotationClass(final Class<?> cl) {
 
         // Get info
-        final String longName = cl.getName();
-        final String a = longName.charAt(0) == 'A' ? "an" : "a";
+        final String sourceName = this.getSourceName(cl);
+        final String article;
+        switch (Character.toUpperCase(this.getShortSourceName(cl).charAt(0))) {
+        case 'A':
+        case 'I':
+            article = "an";
+            break;
+        default:
+            article = "a";
+            break;
+        }
         final String annotationName = this.getAnnotationName(cl);
 
         // Output initial stuff
         this.lines(1,
           "",
           "/**",
-          " * Specifies how a Java bean property should be edited using " + a + " {@link " + longName + "}.",
+          " * Specifies how a Java bean property should be edited using " + article + " " + this.wrapLink(cl) + ".",
           " *",
           " * @see FieldBuilder",
-          " * @see " + longName,
+          " * @see " + sourceName,
           " */",
           "@Retention(RetentionPolicy.RUNTIME)",
           "@Target(ElementType.METHOD)",
@@ -296,14 +305,14 @@ public class FieldBuilderGenerator {
             // Tweak property depending on whether class is abstract
             final String blurb = !isabstract ?
               "This property allows custom widget subclasses to be used." :
-              "This property is required because {@link " + longName + "} is an abstract class.";
-            final String defaultClause = !isabstract ? " default " + longName + ".class" : "";
+              "This property is required because " + this.wrapLink(cl) + " is an abstract class.";
+            final String defaultClause = !isabstract ? " default " + sourceName + ".class" : "";
 
             // Output property
             this.lines(2,
               "",
               "/**",
-              " * Get the sub-type of {@link " + longName + "} that will edit the property.",
+              " * Get the sub-type of " + this.wrapLink(cl) + " that will edit the property.",
               " *",
               " * <p>",
               " * " + blurb,
@@ -315,10 +324,10 @@ public class FieldBuilderGenerator {
               " * @return field type",
               " */",
               "@SuppressWarnings(\"rawtypes\")",
-              "Class<? extends " + longName + "> " + this.implementationPropertyName + "()" + defaultClause + ";");
+              "Class<? extends " + sourceName + "> " + this.implementationPropertyName + "()" + defaultClause + ";");
         } else if (isabstract) {
-            throw new IllegalArgumentException("An implementationPropertyName is required to handle abstract classes such as "
-              + cl.getName());
+            throw new IllegalArgumentException(
+              String.format("An implementationPropertyName is required to handle abstract classes such as %s", sourceName));
         }
 
         // Output styleProperties() if enabled
@@ -519,13 +528,29 @@ public class FieldBuilderGenerator {
         return hasStyleClass.isAssignableFrom(cl);
     }
 
+    // Get the (simple) name of one of our generated annotation classes
     private String getAnnotationName(Class<?> cl) {
+        assert cl.getEnclosingClass() == null;
         if (this.annotationNameFunction == null)
             return cl.getSimpleName();
         final String annotationName = this.annotationNameFunction.apply(cl);
         if (annotationName == null || !IDENTIFIER_PATTERN.matcher(annotationName).matches())
             throw new IllegalArgumentException("invalid result from annotation name function for " + cl + ": " + annotationName);
         return annotationName;
+    }
+
+    // Get the fully-qualified name of the given class as it should appear in source code
+    private String getSourceName(Class<?> cl) {
+        return cl.getCanonicalName();
+    }
+
+    // Get the unqualified name of the given class as it should appear in source code
+    private String getShortSourceName(Class<?> cl) {
+        String name = cl.getCanonicalName();
+        final String packageName = cl.getPackageName();
+        if (!packageName.isEmpty())
+            name = name.substring(packageName.length() + 1);
+        return name;
     }
 
     private String getDefaultValue(Class<?> cl, Method method) {
@@ -571,7 +596,7 @@ public class FieldBuilderGenerator {
         if (actualDefault != null && actualDefault != unknown && !wtype.isInstance(actualDefault)) {
             if (this.warnedAboutWrongType.add(method)) {
                 this.log.log(Logger.WARN, "Default value for %s has type %s which is incompatible with %s",
-                  method, actualDefault.getClass().getName(), wtype);
+                  method, this.getSourceName(actualDefault.getClass()), wtype);
             }
             actualDefault = null;
         }
@@ -645,7 +670,7 @@ public class FieldBuilderGenerator {
         if (ptype.isInterface())
             return ptype.getName() + ".class";
         if (ptype.isEnum())
-            return actualDefault.getClass().getName() + "." + ((Enum<?>)actualDefault).name();
+            return this.getSourceName(actualDefault.getClass()) + "." + ((Enum<?>)actualDefault).name();
 
         // Fail
         throw new IllegalArgumentException("can't describe default value for " + method + ": " + actualDefault);
@@ -667,7 +692,7 @@ public class FieldBuilderGenerator {
 
     private String linkFor(Method method) {
         final StringBuilder buf = new StringBuilder();
-        buf.append(method.getDeclaringClass().getName())
+        buf.append(this.getSourceName(method.getDeclaringClass()))
           .append('#')
           .append(method.getName())
           .append('(');
@@ -681,6 +706,10 @@ public class FieldBuilderGenerator {
         }
         buf.append(")");
         return buf.toString();
+    }
+
+    private String wrapLink(Class<?> cl) {
+        return String.format("{@link %s}", this.getSourceName(cl));
     }
 
     private void lines(int indent, String... lines) {
