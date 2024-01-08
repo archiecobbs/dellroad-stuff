@@ -13,7 +13,7 @@
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
     <name>DellRoad Stuff</name>
-    <version>3.0.0</version>
+    <version>3.0.1</version>
     <packaging>pom</packaging>
     <description>DellRoad Stuff is a dumping ground for various useful Java classes that have evolved over time from repeated use in multiple projects.</description>
     <url>https://github.com/archiecobbs/dellroad-stuff</url>

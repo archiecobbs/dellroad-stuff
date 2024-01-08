@@ -1,4 +1,4 @@
-Version 3.0.1
+Version 3.0.1 Released January 8, 2024
 
     - Fixed possible NPE in ChannelNetwork caused by race condition.
     - Fix IndentXMLStreamWriter handling of comment following closing element.
