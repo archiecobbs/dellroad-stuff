@@ -1,6 +1,8 @@
 Version 3.0.1
 
     - Fixed possible NPE in ChannelNetwork caused by race condition.
+    - Fix IndentXMLStreamWriter handling of comment following closing element.
+    - Prevent capacity overflow in LongMap and LongSet.
     - Update Vaadin 24 to release 24.3.2.
     - Update to dellroad-dependencies 3.1.7.0.
 
