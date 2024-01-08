@@ -1,6 +1,7 @@
 Version 3.0.1
 
     - Fixed possible NPE in ChannelNetwork caused by race condition.
+    - Update Vaadin 24 to release 24.3.2.
     - Update to dellroad-dependencies 3.1.7.0.
 
 Version 3.0.0 Released October 10, 2023

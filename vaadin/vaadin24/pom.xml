@@ -23,7 +23,7 @@
 
     <properties>
         <auto.module.name>org.dellroad.stuff.vaadin24</auto.module.name>
-        <vaadin.version>24.1.10</vaadin.version>
+        <vaadin.version>24.3.2</vaadin.version>
     </properties>
 
     <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
@@ -197,6 +197,10 @@
                                 </propertyCustomization>
                                 <propertyCustomization>
                                     <method>public void com.vaadin.flow.component.textfield.AbstractNumberField.setHasControls(boolean)</method>
+                                    <defaultValue>false</defaultValue>
+                                </propertyCustomization>
+                                <propertyCustomization>
+                                    <methodPattern>public (default )?void com\.vaadin\.flow\.component\..*\.setManualValidation\(boolean\)</methodPattern>
                                     <defaultValue>false</defaultValue>
                                 </propertyCustomization>
 
