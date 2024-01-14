@@ -9,6 +9,7 @@ Version Next
     - Allow FieldBuilder.createBindingInfo() to return null.
     - Add missing setter methods to RetryTransactionProvider interface.
     - Add method TestSupport.assertSameOrDiff().
+    - Eliminate need for "--add-opens" to use MessageFmt on newer JDK's.
 
 Version 2.5.11 Released February 6, 2024
 

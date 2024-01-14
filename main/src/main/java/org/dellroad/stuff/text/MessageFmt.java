@@ -5,7 +5,6 @@
 
 package org.dellroad.stuff.text;
 
-import java.lang.reflect.Field;
 import java.text.ChoiceFormat;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -17,8 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.Valid;
@@ -150,10 +150,6 @@ public class MessageFmt implements SelfValidating {
      * {@link Locale}-dependent. For example, a simple argument parameter like <code>{0}</code>, when applied
      * to a numerical argument, is always formatted using the {@link Locale} default number format.
      *
-     * <p>
-     * <b>Warning:</b> This constructor relies on reflective access into the {@link MessageFormat} class.
-     * On newer JDK versions this may require adding a flag like {@code --add-opens java.base/java.text=...}.
-     *
      * @param format source message format
      * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
      * @throws IllegalArgumentException if {@code format} is null
@@ -166,35 +162,104 @@ public class MessageFmt implements SelfValidating {
         if (format == null)
             throw new IllegalArgumentException("null format");
 
-        // Introspect
-        final MessageFormatAccessor accessor = new MessageFormatAccessor();
-        final Format[] formats = accessor.getFormats(format);
-        final int[] offsets = accessor.getOffsets(format);
-        final String pattern = accessor.getPattern(format);
-        final int maxOffset = accessor.getMaxOffset(format);
-        final int[] argumentNumbers = accessor.getArgumentNumbers(format);
-
-        // Extract segments
+        // Get format inforation
         final Locale locale = !captureLocaleDefaults ? format.getLocale() : null;
-        int prevOffset = 0;
-        for (int i = 0; i <= maxOffset; i++) {
+        final Format[] formats = format.getFormats();
 
-            // Add intervening TextSegment if needed
-            final int nextOffset = offsets[i];
-            if (nextOffset > prevOffset) {
-                this.segments.add(new TextSegment(pattern.substring(prevOffset, nextOffset)));
-                prevOffset = nextOffset;
+        // Initialize parse
+        final String pattern = format.toPattern();
+        final AtomicInteger pos = new AtomicInteger();
+
+        // Create an accumulator for plain text in between nested formats
+        final StringBuilder plainTextBuffer = new StringBuilder();
+        final Runnable endOfPlainText = () -> {
+            if (plainTextBuffer.length() > 0) {
+                final String text = plainTextBuffer.toString();
+                this.segments.add(new TextSegment(text));
+                plainTextBuffer.setLength(0);
+            }
+        };
+
+        // Create a quoted text scanner; we assume "pos" points to the first quoted character
+        final Supplier<String> quotedTextScanner = () -> {
+            final StringBuilder buf = new StringBuilder();
+            for (int off = 0; true; off++) {
+                if (pos.get() == pattern.length())
+                    throw new IllegalArgumentException("invalid pattern string: unclosed quote");
+                char ch = pattern.charAt(pos.getAndIncrement());
+                if (ch == '\'')
+                    break;
+                buf.append(ch);
+            }
+            return buf.length() > 0 ? buf.toString() : "'";
+        };
+
+        // Parse the format pattern to identify the nested formats
+        int braceDepth = 0;
+        int formatIndex = 0;
+        int argNum = -1;
+        while (pos.get() < pattern.length()) {
+            assert (braceDepth == 0) == (argNum == -1);
+            char ch = pattern.charAt(pos.getAndIncrement());
+            switch (ch) {
+            case '\'':
+                final String text = quotedTextScanner.get();
+                if (braceDepth == 0)
+                    plainTextBuffer.append(text);
+                continue;
+            case '{':
+
+                // Already scanning a nested format?
+                if (braceDepth++ > 0)
+                    continue;
+
+                // End the current run of plain text
+                endOfPlainText.run();
+
+                // Scan, parse, and remember the argument index
+                int argNumEnd = pos.get();
+                while (argNumEnd < pattern.length() && Character.isDigit(pattern.charAt(argNumEnd)))
+                    argNumEnd++;
+                final String argNumString = pattern.substring(pos.get(), argNumEnd);
+                try {
+                    if ((argNum = Integer.parseInt(argNumString)) < 0)
+                        throw new NumberFormatException("negative argument index");
+                } catch (NumberFormatException e) {
+                    throw new IllegalArgumentException(String.format(
+                      "invalid pattern string: invalid argument index \"%s\"", argNumString), e);
+                }
+
+                // Proceed
+                pos.set(argNumEnd);
+                continue;
+            case '}':
+
+                // Scanning plain text?
+                if (braceDepth == 0)
+                    break;
+
+                // Check for end of nested format
+                if (--braceDepth == 0) {
+                    final Format nextFormat = formats[formatIndex++];
+                    this.segments.add(nextFormat != null ?
+                      FormatArgumentSegment.of(nextFormat, argNum, locale) : new DefaultArgumentSegment(argNum));
+                    argNum = -1;
+                }
+                continue;
+            default:
+
+                // Scanning a nested format?
+                if (braceDepth > 0)
+                    continue;
+                break;
             }
 
-            // Add next ArgumentSegment
-            final int argumentNumber = argumentNumbers[i];
-            this.segments.add(formats[i] != null ?
-              FormatArgumentSegment.of(formats[i], argumentNumber, locale) : new DefaultArgumentSegment(argumentNumber));
+            // Add plain text character
+            plainTextBuffer.append(ch);
         }
 
-        // Add final TextSegment if needed
-        if (prevOffset < pattern.length())
-            this.segments.add(new TextSegment(pattern.substring(prevOffset)));
+        // End trailing run of plain text
+        endOfPlainText.run();
     }
 
 // Properties
@@ -1608,77 +1673,6 @@ public class MessageFmt implements SelfValidating {
 
         public String description() {
             return this.name().toLowerCase();
-        }
-    }
-
-// MessageFormatAccessor
-
-    // This is in a separate class so we don't trigger the JDK "illegal reflective access" warning until we actually do reflection
-    private static class MessageFormatAccessor {
-
-        private static final Field FORMATS_FIELD;
-        private static final Field OFFSETS_FIELD;
-        private static final Field PATTERN_FIELD;
-        private static final Field MAX_OFFSET_FIELD;
-        private static final Field ARGUMENT_NUMBERS_FIELD;
-
-        static {
-            try {
-                FORMATS_FIELD = MessageFormat.class.getDeclaredField("formats");
-                OFFSETS_FIELD = MessageFormat.class.getDeclaredField("offsets");
-                PATTERN_FIELD = MessageFormat.class.getDeclaredField("pattern");
-                MAX_OFFSET_FIELD = MessageFormat.class.getDeclaredField("maxOffset");
-                ARGUMENT_NUMBERS_FIELD = MessageFormat.class.getDeclaredField("argumentNumbers");
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException("internal error", e);
-            }
-            Stream.of(OFFSETS_FIELD, FORMATS_FIELD, PATTERN_FIELD, MAX_OFFSET_FIELD, ARGUMENT_NUMBERS_FIELD).forEach(field -> {
-                try {
-                    field.setAccessible(true);
-                } catch (RuntimeException e) {
-                    // ignore
-                }
-            });
-        }
-
-        public Format[] getFormats(MessageFormat format) {
-            try {
-                return (Format[])FORMATS_FIELD.get(format);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("internal error", e);
-            }
-        }
-
-        public int[] getOffsets(MessageFormat format) {
-            try {
-                return (int[])OFFSETS_FIELD.get(format);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("internal error", e);
-            }
-        }
-
-        public String getPattern(MessageFormat format) {
-            try {
-                return (String)PATTERN_FIELD.get(format);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("internal error", e);
-            }
-        }
-
-        public int getMaxOffset(MessageFormat format) {
-            try {
-                return (Integer)MAX_OFFSET_FIELD.get(format);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("internal error", e);
-            }
-        }
-
-        public int[] getArgumentNumbers(MessageFormat format) {
-            try {
-                return (int[])ARGUMENT_NUMBERS_FIELD.get(format);
-            } catch (ReflectiveOperationException e) {
-                throw new RuntimeException("internal error", e);
-            }
         }
     }
 }
