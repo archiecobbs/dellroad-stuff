@@ -150,6 +150,10 @@ public class MessageFmt implements SelfValidating {
      * {@link Locale}-dependent. For example, a simple argument parameter like <code>{0}</code>, when applied
      * to a numerical argument, is always formatted using the {@link Locale} default number format.
      *
+     * <p>
+     * Note: This implementation uses {@link MessageFormat#toPattern} and may therefore be vulnerable to
+     * <a href="https://bugs.openjdk.org/browse/JDK-8323699">JDK-8323699</a>.
+     *
      * @param format source message format
      * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
      * @throws IllegalArgumentException if {@code format} is null
@@ -784,10 +788,47 @@ public class MessageFmt implements SelfValidating {
             final StringBuilder buf = new StringBuilder();
             buf.append('{').append(this.argumentNumber);
             final String suffix = this.getArgumentSuffix();
-            if (suffix != null)
-                buf.append(',').append(suffix);
+            if (suffix != null) {
+                buf.append(',');
+                this.quoteExtraClosingBraces(suffix, buf);
+            }
             buf.append('}');
             return buf.toString();
+        }
+
+        // See JDK-8323699 for why this is needed
+        private void quoteExtraClosingBraces(String src, StringBuilder dst) {
+            int braceDepth = 0;
+            boolean quoted = false;
+            for (int i = 0; i < src.length(); i++) {
+                char ch = src.charAt(i);
+                switch (ch) {
+                case '\'':
+                    quoted = !quoted;
+                    break;
+                case '{':
+                    if (!quoted)
+                        braceDepth++;
+                    break;
+                case '}':
+                    if (quoted)
+                        break;
+                    if (braceDepth > 0) {
+                        braceDepth--;
+                        break;
+                    }
+                    dst.append("'}");
+                    while (i + 1 < src.length() && src.charAt(i + 1) == '}') {
+                        dst.append('}');
+                        i++;
+                    }
+                    dst.append('\'');
+                    continue;
+                default:
+                    break;
+                }
+                dst.append(ch);
+            }
         }
 
         /**
