@@ -275,7 +275,10 @@ public class FieldBuilderGenerator {
         final String article;
         switch (Character.toUpperCase(this.getShortSourceName(cl).charAt(0))) {
         case 'A':
+        case 'E':
         case 'I':
+        case 'O':
+        case 'U':
             article = "an";
             break;
         default:
