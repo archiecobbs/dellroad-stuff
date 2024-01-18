@@ -1,6 +1,7 @@
 Version 3.0.2
 
     - Eliminate need for "--add-opens" to use MessageFmt on newer JDK's.
+    - Add method TestSupport.assertSameOrDiff().
 
 Version 3.0.1 Released January 8, 2024
 
