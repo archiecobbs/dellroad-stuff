@@ -47,7 +47,7 @@ public class IndentXMLStreamWriterTest extends TestSupport {
         final String actual = this.readResource(actualFile);
         actualFile.delete();
         final String expected = this.readResource(expectedResource);
-        Assert.assertEquals(actual.trim().replaceAll("(?s)\\r\\n?", "\n"), expected.trim());
+        this.assertSameOrDiff(expected.trim(), actual.trim().replaceAll("(?s)\\r\\n?", "\n"));
     }
 
     private void indent(String input, File outputFile, boolean emptyTag,
@@ -74,6 +74,7 @@ public class IndentXMLStreamWriterTest extends TestSupport {
             new Object[] { "input6.xml", "output6b.xml",    false,  true,   false,  null        },
             new Object[] { "input7.xml", "output7.xml",     false,  true,   true,   null        },
             new Object[] { "input8.xml", "output8.xml",     true,   true,   true,   "JanFoo"    },
+            new Object[] { "input9.xml", "output9.xml",     true,   true,   true,   null,       },
         };
     }
 }
