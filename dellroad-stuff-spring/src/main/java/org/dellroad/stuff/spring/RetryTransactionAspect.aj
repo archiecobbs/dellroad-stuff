@@ -58,6 +58,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     public PersistenceExceptionTranslator getPersistenceExceptionTranslator() {
         return this.persistenceExceptionTranslator;
     }
+    @Override
     public void setPersistenceExceptionTranslator(PersistenceExceptionTranslator persistenceExceptionTranslator) {
         this.persistenceExceptionTranslator = persistenceExceptionTranslator;
     }
@@ -66,6 +67,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     public int getMaxRetriesDefault() {
         return this.maxRetriesDefault;
     }
+    @Override
     public void setMaxRetriesDefault(int maxRetriesDefault) {
         this.maxRetriesDefault = maxRetriesDefault;
     }
@@ -74,6 +76,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     public long getInitialDelayDefault() {
         return this.initialDelayDefault;
     }
+    @Override
     public void setInitialDelayDefault(long initialDelayDefault) {
         this.initialDelayDefault = initialDelayDefault;
     }
@@ -82,6 +85,7 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     public long getMaximumDelayDefault() {
         return this.maximumDelayDefault;
     }
+    @Override
     public void setMaximumDelayDefault(long maximumDelayDefault) {
         this.maximumDelayDefault = maximumDelayDefault;
     }
