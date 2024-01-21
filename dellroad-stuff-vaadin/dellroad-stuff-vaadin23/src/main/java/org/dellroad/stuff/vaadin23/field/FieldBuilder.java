@@ -3569,7 +3569,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.textfield.EmailField}.
+     * Specifies how a Java bean property should be edited using an {@link com.vaadin.flow.component.textfield.EmailField}.
      *
      * @see FieldBuilder
      * @see com.vaadin.flow.component.textfield.EmailField
