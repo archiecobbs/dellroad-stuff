@@ -24,11 +24,25 @@ public interface RetryTransactionProvider {
     PersistenceExceptionTranslator getPersistenceExceptionTranslator();
 
     /**
+     * Set the configured exception translator.
+     *
+     * @param persistenceExceptionTranslator exception translator used to determine which transactions are retryable
+     */
+    void setPersistenceExceptionTranslator(PersistenceExceptionTranslator persistenceExceptionTranslator);
+
+    /**
      * Get the aspect-wide default for {@link RetryTransaction#maxRetries}.
      *
      * @return default maximum number of transaction retry attempts
      */
     int getMaxRetriesDefault();
+
+    /**
+     * Set the aspect-wide default for {@link RetryTransaction#maxRetries}.
+     *
+     * @param maxRetriesDefault default maximum number of transaction retry attempts
+     */
+    void setMaxRetriesDefault(int maxRetriesDefault);
 
     /**
      * Get the aspect-wide default for {@link RetryTransaction#initialDelay}.
@@ -38,11 +52,25 @@ public interface RetryTransactionProvider {
     long getInitialDelayDefault();
 
     /**
+     * Set the aspect-wide default for {@link RetryTransaction#initialDelay}.
+     *
+     * @param initialDelayDefault default initial delay between retry attempts in milliseconds
+     */
+    void setInitialDelayDefault(long initialDelayDefault);
+
+    /**
      * Get the aspect-wide default for {@link RetryTransaction#maximumDelay}.
      *
      * @return default maximum delay between retry attempts in milliseconds
      */
     long getMaximumDelayDefault();
+
+    /**
+     * Set the aspect-wide default for {@link RetryTransaction#maximumDelay}.
+     *
+     * @param maximumDelayDefault default maximum delay between retry attempts in milliseconds
+     */
+    void setMaximumDelayDefault(long maximumDelayDefault);
 
     /**
      * Get the current transaction attempt number in the inner-most active transaction.
