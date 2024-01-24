@@ -112,7 +112,7 @@ public class AsyncTaskManager<R> {
     /**
      * Constructor.
      *
-     * @param executor the executor used to execute async tasks
+     * @param executor the executor used to execute async tasks, or null for none
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
     public AsyncTaskManager(Function<? super Runnable, ? extends Future<?>> executor) {
@@ -137,10 +137,10 @@ public class AsyncTaskManager<R> {
      * The executor must execute tasks with {@linkplain #session this instance's VaadinSession} unlocked.
      *
      * <p>
-     * Note: wen an in-progress task is canceled via {@link #cancelTask}, then {@link Future#cancel Future.cancel()}
+     * Note: when an in-progress task is canceled via {@link #cancelTask}, then {@link Future#cancel Future.cancel()}
      * will be invoked on the {@link Future} returned by the executor.
      *
-     * @param executor the thing that launches background tasks
+     * @param executor the thing that launches background tasks, or null for none
      */
     public void setAsyncExecutor(final Function<? super Runnable, ? extends Future<?>> executor) {
         this.executor = executor;
