@@ -343,7 +343,7 @@ public class AsyncTaskManager<R> {
      * This is invoked (indirectly) by {@link #invokeTask invokeTask()} with {@linkplain #session this instance's session} locked.
      *
      * @param id task ID
-     * @param result task result, or null if there was an exception
+     * @param result task result; must be null if there was an exception
      * @param exception thrown exception ({@link InterruptedException} if interrupted), or null if there was no exception
      * @return true if {@code id} matched the current task ID, otherwise false
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}

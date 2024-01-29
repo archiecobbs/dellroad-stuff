@@ -29,6 +29,9 @@ public interface AsyncTask<R> {
      * <p>
      * This task may also cancel itself by throwing an unprompted {@link InterruptedException}.
      *
+     * <p>
+     * It is valid for this method to return null; no special meaning is attached to null return values.
+     *
      * @param id the unique ID for this task run
      * @return task result
      * @throws InterruptedException if the current thread is interrupted

@@ -1570,8 +1570,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Annotates methods returning alternate default values for some property of the various fields constructed
-     * by a {@link FieldBuilder} from {@link FieldBuilder &#64;FieldBuilder.Foo} declarative annotations.
+     * Declare alternate default values for properties of the Vaadin fields created by {@link FieldBuilder &#64;FieldBuilder}.
      *
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
      * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
@@ -1579,9 +1578,12 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * <p>
      * A {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotation annotates a static method in an
-     * edited model class that returns an alternate default value for some field configuration property (for example,
-     * {@code "itemLabelGenerator"}. The property is specified by name and works for all field types having a corresponding
-     * setter method with parameter type compatible with the annotated method's return value.
+     * edited model class that returns an alternate default value for some field configuration property, for example,
+     * {@code "itemLabelGenerator"}.
+     *
+     * <p>
+     * The property is specified by name and works for all Vaadin field types having a corresponding
+     * setter method whose parameter type is compatible with the annotated method's return type.
      *
      * <p>
      * For example:
@@ -1593,7 +1595,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *     public String getLastName() { ... }
      *
      *     <b>&#64;FieldBuilder.FieldDefault("itemLabelGenerator")</b>
-     *     private static ItemLabelGenerator&lt;Person&gt; myCustomLabel() {
+     *     private static ItemLabelGenerator&lt;Person&gt; itemLabel() {
      *         return person -&gt; person.getLastName() + ", " + person.getFirstName();
      *     }
      * }
@@ -1608,10 +1610,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *       itemLabelGenerator = AnotherClass.class)
      *     public Person getOwner() { ... }
      *
-     *     <b>&#64;FieldBuilder.ComboBox</b>          // Uses ItemLabelGenerator from Person.myCustomLabel()
+     *     <b>&#64;FieldBuilder.ComboBox</b>          // Uses ItemLabelGenerator from Person.itemLabel()
      *     public <b>Person</b> getOwner() { ... }
      *
-     *     <b>&#64;FieldBuilder.CheckboxGroup</b>     // Uses ItemLabelGenerator from Person.myCustomLabel()
+     *     <b>&#64;FieldBuilder.CheckboxGroup</b>     // Uses ItemLabelGenerator from Person.itemLabel()
      *     public <b>Person</b> getPassengers() { ... }
      * }
      * </code></pre>
@@ -1763,7 +1765,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * (whose empty value is false), but any type of controlling field is supported.
      *
      * <p>
-     * When multiple controlling field are specified, by default an AND condition applies: all of the controlling fields
+     * When multiple controlling fields are specified, by default an AND condition applies: all of the controlling fields
      * must have non-empty values for the target field to be enabled. You can change this to an OR condition by setting
      * {@link #requireAll} to false.
      *
