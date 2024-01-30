@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintValidatorContext;
@@ -150,10 +150,6 @@ public class MessageFmt implements SelfValidating {
      * {@link Locale}-dependent. For example, a simple argument parameter like <code>{0}</code>, when applied
      * to a numerical argument, is always formatted using the {@link Locale} default number format.
      *
-     * <p>
-     * Note: This implementation uses {@link MessageFormat#toPattern} and may therefore be vulnerable to
-     * <a href="https://bugs.openjdk.org/browse/JDK-8323699">JDK-8323699</a>.
-     *
      * @param format source message format
      * @param captureLocaleDefaults true to capture locale defaults, false to allow implicit locale defaults
      * @throws IllegalArgumentException if {@code format} is null
@@ -166,104 +162,41 @@ public class MessageFmt implements SelfValidating {
         if (format == null)
             throw new IllegalArgumentException("null format");
 
-        // Get format inforation
+        // Get locale to use
         final Locale locale = !captureLocaleDefaults ? format.getLocale() : null;
+
+        // Perform some trickery to tease out the plain text bits from the subformats. We create a new MessageFormat
+        // instance where all the subformats are replaced with null, so that when toPattern() is invoked, they will
+        // all appear as "{N}". Then we search for those substrings. This works even if the plain text contains a
+        // substring like "{N}" because of the way MessageFormat.toPattern() quotes substrings, namely, all such
+        // plain text substrings will appear as "'{'N}" and so they won't match our regular expression. Finally,
+        // we have to perform an unescaping step on the plain text bits because they will be escaped.
         final Format[] formats = format.getFormats();
+        final MessageFormat tempFormat = (MessageFormat)format.clone();
+        tempFormat.setFormats(new Format[formats.length]);
+        final String pattern = tempFormat.toPattern();
+        final Matcher matcher = Pattern.compile("(.*?)\\{([0-9]+)\\}").matcher(pattern);
+        int offset = 0;
+        for (int i = 0; matcher.find(); i++) {
 
-        // Initialize parse
-        final String pattern = format.toPattern();
-        final AtomicInteger pos = new AtomicInteger();
+            // Add next TextSegment if needed
+            String plainText = matcher.group(1);
+            if (!plainText.isEmpty())
+                this.segments.add(new TextSegment(MessageFmt.unescape(plainText)));
 
-        // Create an accumulator for plain text in between nested formats
-        final StringBuilder plainTextBuffer = new StringBuilder();
-        final Runnable endOfPlainText = () -> {
-            if (plainTextBuffer.length() > 0) {
-                final String text = plainTextBuffer.toString();
-                this.segments.add(new TextSegment(text));
-                plainTextBuffer.setLength(0);
-            }
-        };
+            // Add next ArgumentSegment
+            final int argNum = Integer.parseInt(matcher.group(2));
+            this.segments.add(formats[i] != null ?
+              FormatArgumentSegment.of(formats[i], argNum, locale) : new DefaultArgumentSegment(argNum));
 
-        // Create a quoted text scanner; we assume "pos" points to the first quoted character
-        final Supplier<String> quotedTextScanner = () -> {
-            final StringBuilder buf = new StringBuilder();
-            for (int off = 0; true; off++) {
-                if (pos.get() == pattern.length())
-                    throw new IllegalArgumentException("invalid pattern string: unclosed quote");
-                char ch = pattern.charAt(pos.getAndIncrement());
-                if (ch == '\'')
-                    break;
-                buf.append(ch);
-            }
-            return buf.length() > 0 ? buf.toString() : "'";
-        };
-
-        // Parse the format pattern to identify the nested formats
-        int braceDepth = 0;
-        int formatIndex = 0;
-        int argNum = -1;
-        while (pos.get() < pattern.length()) {
-            assert (braceDepth == 0) == (argNum == -1);
-            char ch = pattern.charAt(pos.getAndIncrement());
-            switch (ch) {
-            case '\'':
-                final String text = quotedTextScanner.get();
-                if (braceDepth == 0)
-                    plainTextBuffer.append(text);
-                continue;
-            case '{':
-
-                // Already scanning a nested format?
-                if (braceDepth++ > 0)
-                    continue;
-
-                // End the current run of plain text
-                endOfPlainText.run();
-
-                // Scan, parse, and remember the argument index
-                int argNumEnd = pos.get();
-                while (argNumEnd < pattern.length() && Character.isDigit(pattern.charAt(argNumEnd)))
-                    argNumEnd++;
-                final String argNumString = pattern.substring(pos.get(), argNumEnd);
-                try {
-                    if ((argNum = Integer.parseInt(argNumString)) < 0)
-                        throw new NumberFormatException("negative argument index");
-                } catch (NumberFormatException e) {
-                    throw new IllegalArgumentException(String.format(
-                      "invalid pattern string: invalid argument index \"%s\"", argNumString), e);
-                }
-
-                // Proceed
-                pos.set(argNumEnd);
-                continue;
-            case '}':
-
-                // Scanning plain text?
-                if (braceDepth == 0)
-                    break;
-
-                // Check for end of nested format
-                if (--braceDepth == 0) {
-                    final Format nextFormat = formats[formatIndex++];
-                    this.segments.add(nextFormat != null ?
-                      FormatArgumentSegment.of(nextFormat, argNum, locale) : new DefaultArgumentSegment(argNum));
-                    argNum = -1;
-                }
-                continue;
-            default:
-
-                // Scanning a nested format?
-                if (braceDepth > 0)
-                    continue;
-                break;
-            }
-
-            // Add plain text character
-            plainTextBuffer.append(ch);
+            // Advance starting position
+            offset = matcher.end();
         }
 
-        // End trailing run of plain text
-        endOfPlainText.run();
+        // Add final TextSegment if needed
+        final String finalPlainText = pattern.substring(offset);
+        if (!finalPlainText.isEmpty())
+            this.segments.add(new TextSegment(MessageFmt.unescape(finalPlainText)));
     }
 
 // Properties
@@ -331,6 +264,9 @@ public class MessageFmt implements SelfValidating {
     /**
      * Escape {@link MessageFormat} special characters.
      *
+     * The characters that are special for {@link MessageFormat} are opening and closing curly braces.
+     * However, due to lenient parsing by {@link MessageFormat} we only need to escape opening curly braces.
+     *
      * @param string unescaped input string
      * @return {@code string} with characters {@link MessageFormat} considers special escaped
      */
@@ -351,8 +287,8 @@ public class MessageFmt implements SelfValidating {
      */
     public static String unescape(String string) {
         return string
-          .replaceAll("(?<!')'([^']+)'", "$1")      // remove lone single quotes surrounding text
-          .replaceAll("''", "'");                   // unescape doubled single quote
+          .replaceAll("(?<!')'(?!')", "")           // remove any standalone single quotes to extract the quoted text as-is
+          .replaceAll("''", "'");                   // unescape doubled single quotes - this works both inside & outside quotes
     }
 
 // Validation
@@ -790,45 +726,72 @@ public class MessageFmt implements SelfValidating {
             final String suffix = this.getArgumentSuffix();
             if (suffix != null) {
                 buf.append(',');
-                this.quoteExtraClosingBraces(suffix, buf);
+                this.quoteBracesIfNotAlreadyQuoted(suffix, buf);
             }
             buf.append('}');
             return buf.toString();
         }
 
+        // Copy the text, but add quotes around any curly braces that aren't already quoted
         // See JDK-8323699 for why this is needed
-        private void quoteExtraClosingBraces(String src, StringBuilder dst) {
-            int braceDepth = 0;
+        private void quoteBracesIfNotAlreadyQuoted(String src, StringBuilder dst) {
+
+            // Because old checkstyle doesn't support records yet... bleh.
+            // This also triggers https://github.com/spotbugs/spotbugs/issues/682
+            class Qchar {
+                final char ch;
+                final boolean quoted;
+                Qchar(char ch, boolean quoted) {
+                    this.ch = ch;
+                    this.quoted = quoted;
+                };
+                char ch() {
+                    return this.ch;
+                }
+                boolean quoted() {
+                    return this.quoted;
+                }
+            }
+
+            // Analyze existing string for already quoted and newly quotable characters
+            ArrayList<Qchar> qchars = new ArrayList<>();
             boolean quoted = false;
+            boolean anyChangeNeeded = false;
             for (int i = 0; i < src.length(); i++) {
                 char ch = src.charAt(i);
-                switch (ch) {
-                case '\'':
-                    quoted = !quoted;
-                    break;
-                case '{':
-                    if (!quoted)
-                        braceDepth++;
-                    break;
-                case '}':
-                    if (quoted)
-                        break;
-                    if (braceDepth > 0) {
-                        braceDepth--;
-                        break;
-                    }
-                    dst.append("'}");
-                    while (i + 1 < src.length() && src.charAt(i + 1) == '}') {
-                        dst.append('}');
+                if (ch == '\'') {
+                    if (i + 1 < src.length() && src.charAt(i + 1) == '\'') {
+                        qchars.add(new Qchar('\'', quoted));
                         i++;
-                    }
+                    } else
+                        quoted = !quoted;
+                } else {
+                    boolean quotable = ch == '{' || ch == '}';
+                    anyChangeNeeded |= quotable && !quoted;
+                    qchars.add(new Qchar(ch, quoted || quotable));
+                }
+            }
+
+            // Was any change needed?
+            if (!anyChangeNeeded) {
+                dst.append(src);
+                return;
+            }
+
+            // Build new string, automatically consolidating adjacent runs of quoted chars
+            quoted = false;
+            for (Qchar qchar : qchars) {
+                char ch = qchar.ch;
+                if (ch == '\'')
+                    dst.append(ch);             // doubling works whether quoted or not
+                else if (qchar.quoted() != quoted) {
                     dst.append('\'');
-                    continue;
-                default:
-                    break;
+                    quoted = qchar.quoted();
                 }
                 dst.append(ch);
             }
+            if (quoted)
+                dst.append('\'');
         }
 
         /**
