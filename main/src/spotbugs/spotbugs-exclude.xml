@@ -65,4 +65,8 @@
         <Method name="apply"/>
         <Bug pattern="RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.text.MessageFmt$ArgumentSegment$1Qchar"/>
+        <Bug pattern="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"/>
+    </Match>
 </FindBugsFilter>

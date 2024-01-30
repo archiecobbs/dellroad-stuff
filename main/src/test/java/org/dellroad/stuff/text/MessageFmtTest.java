@@ -48,6 +48,8 @@ public class MessageFmtTest extends TestSupport {
           new MessageFmt.SimpleDateFormatArgumentSegment(0, new SimpleDateFormat("EEE, '{foo}' MMM d")),
           new MessageFmt.TextSegment("<<<"));
 
+        this.log.info("testFormatWithCommas.1:\n    fmt1=\"{}\"", fmt1.toPattern());
+
         final MessageFmt fmt2 = new MessageFmt(new MessageFormat(fmt1.toPattern()));
 
         final MessageFormat format1 = fmt1.toMessageFormat();
@@ -113,6 +115,22 @@ public class MessageFmtTest extends TestSupport {
                 "you owe me {0,number,#,##0.00}",
                 "you owe me 12,345.68",
                 12345.6789
+            },
+
+            // JDK-8323699
+            {
+                Locale.US,
+                "{0,choice,0.0#option A: {0}|1.0#option B: {0}'}'}",
+                "option B: 1.23}",
+                1.23
+            },
+
+            // JDK-8323699
+            {
+                Locale.US,
+                "{0,choice,0.0#option A: {0}|2.0#option B: {0}'}'}",
+                "option A: 1.23",
+                1.23
             },
 
             {
