@@ -453,6 +453,11 @@ public class GridColumnScanner<T> {
               () -> (SerializableFunction)ReflectUtil.instantiate(annotation.editorComponent())).get();
             column.setEditorComponent(componentCallback);
         }
+        if (!annotation.tooltipGenerator().equals(defaults.tooltipGenerator())) {
+            final SerializableFunction tooltipGenerator = new ErrorWrapper<>(
+              () -> (SerializableFunction)ReflectUtil.instantiate(annotation.tooltipGenerator())).get();
+            column.setTooltipGenerator(tooltipGenerator);
+        }
         if (annotation.sortProperties().length > 0)
             column.setSortProperty(annotation.sortProperties());
 

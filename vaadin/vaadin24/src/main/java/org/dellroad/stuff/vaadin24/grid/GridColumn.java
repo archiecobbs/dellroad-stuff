@@ -288,6 +288,15 @@ public @interface GridColumn {
     ColumnTextAlign textAlign() default ColumnTextAlign.START;
 
     /**
+     * Get the tool tip generator class.
+     *
+     * @return tool tip generator class
+     * @see Grid.Column#setTooltipGenerator(SerializableFunction)
+     */
+    @SuppressWarnings("rawtypes")
+    Class<? extends SerializableFunction> tooltipGenerator() default SerializableFunction.class;
+
+    /**
      * Get initial visibility setting.
      *
      * @return whether column is visible
