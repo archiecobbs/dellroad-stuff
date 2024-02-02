@@ -28,7 +28,7 @@ import javax.validation.groups.Default;
  * <p>
  * The {@link BeanValidator} class validates individual bean properties but does not handle "whole bean" validation
  * constraints. This class can be used to cover that gap. This validator does <i>not</i> recurse on the properties
- * of the bean (for that, annotate those properties with {@link Valid &#64;Valid} and reply on {@link BeanValidator}
+ * of the bean (for that, annotate those properties with {@link Valid &#64;Valid} and rely on {@link BeanValidator}
  * per-property validation).
  *
  * <p>
