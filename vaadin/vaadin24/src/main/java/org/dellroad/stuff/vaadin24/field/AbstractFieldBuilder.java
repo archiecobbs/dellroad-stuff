@@ -872,7 +872,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @throws IllegalArgumentException if {@code bindingInfo} is null
      */
     protected FieldBuilderContext newFieldBuilderContext(BindingInfo bindingInfo) {
-        return this.new FieldBuilderContextImpl(bindingInfo);
+        return new FieldBuilderContextImpl(bindingInfo);
     }
 
 // BindingInfo
@@ -1374,40 +1374,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
         public <T> T instantiate(Class<T> type) {
             return AbstractFieldBuilder.this.instantiate(type, this.bindingInfo);
-        }
-    }
-
-// FieldBuilderContextImpl
-
-    /**
-     * Straightforward implementation of the {@link FieldBuilderContext} interface.
-     */
-    protected class FieldBuilderContextImpl implements FieldBuilderContext {
-
-        private static final long serialVersionUID = -4636811655407064538L;
-
-        protected final BindingInfo bindingInfo;
-
-        public FieldBuilderContextImpl(BindingInfo bindingInfo) {
-            if (bindingInfo == null)
-                throw new IllegalArgumentException("null bindingInfo");
-            this.bindingInfo = bindingInfo;
-        }
-
-        @Override
-        public BindingInfo getBindingInfo() {
-            return this.bindingInfo;
-        }
-
-        @Override
-        public Class<?> getBeanType() {
-            return AbstractFieldBuilder.this.type;
-        }
-
-        @Override
-        public String toString() {
-            return String.format("%s[info=%s,beanType=%s]",
-              this.getClass().getSimpleName(), this.getBindingInfo(), this.getBeanType());
         }
     }
 
