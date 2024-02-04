@@ -10,6 +10,7 @@ import com.google.common.base.Preconditions;
 /**
  * Straightforward implementation of the {@link FieldBuilderContext} interface.
  */
+@SuppressWarnings("serial")
 public class FieldBuilderContextImpl implements FieldBuilderContext {
 
     private static final long serialVersionUID = -4636811655407064538L;

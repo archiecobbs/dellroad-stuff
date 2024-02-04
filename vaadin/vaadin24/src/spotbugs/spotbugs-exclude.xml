@@ -16,4 +16,9 @@
         <Field name="taskManager"/>
         <Bug pattern="SE_BAD_FIELD"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin24.field.FieldBuilderContextImpl"/>
+        <Field name="bindingInfo"/>
+        <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
 </FindBugsFilter>
