@@ -323,7 +323,9 @@ public class MethodAnnotationScanner<T, A extends Annotation> {
 
         @Override
         public int hashCode() {
-            return this.method.hashCode() ^ this.annotation.hashCode();
+            return this.getClass().hashCode()
+              ^ this.method.hashCode()
+              ^ this.annotation.hashCode();
         }
     }
 }
