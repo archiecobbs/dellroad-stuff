@@ -1,6 +1,7 @@
 Version 3.0.2
 
     - Eliminate need for "--add-opens" to use MessageFmt on newer JDK's.
+    - Extract FieldBuilderContextImpl into a separate standalone class.
     - Add missing setter methods to RetryTransactionProvider interface.
     - Add method TestSupport.assertSameOrDiff().
 
