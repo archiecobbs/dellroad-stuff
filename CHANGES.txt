@@ -1,4 +1,4 @@
-Version 3.0.2
+Version 3.0.2 Released February 4, 2024
 
     - Eliminate need for "--add-opens" to use MessageFmt on newer JDK's.
     - Extract FieldBuilderContextImpl into a separate standalone class.
