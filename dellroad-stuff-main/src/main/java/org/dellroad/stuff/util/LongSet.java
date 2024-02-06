@@ -19,6 +19,9 @@ import java.util.stream.LongStream;
  * Equivalent {@link java.util.Set} methods taking {@code long} instead of {@code Long} are also provided.
  *
  * <p>
+ * Instances will throw {@link IllegalStateException} if their capacity is exceeded.
+ *
+ * <p>
  * Instances do not accept zero values and are not thread safe.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Open_addressing">Open addressing</a>
@@ -226,4 +229,3 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
         return clone;
     }
 }
-

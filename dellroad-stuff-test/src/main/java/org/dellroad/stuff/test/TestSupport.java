@@ -5,12 +5,17 @@
 
 package org.dellroad.stuff.test;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.Set;
 
@@ -120,5 +125,88 @@ public abstract class TestSupport {
             throw new RuntimeException("error reading from " + url, e);
         }
     }
-}
 
+// Diffs
+
+    protected void assertSameOrDiff(String expected, String actual) {
+        final String diff = this.diff(expected, actual);
+        if (diff != null)
+            throw new AssertionError("differences in strings found:\n" + diff);
+    }
+
+    /**
+     * Run {@code diff(1)} on two strings.
+     *
+     * @param s1 first string
+     * @param s2 second string
+     * @return the diff, or null if strings are the same
+     */
+    protected String diff(String s1, String s2) {
+
+        // Quick check for equality
+        if (s1.equals(s2))
+            return null;
+
+        // Write strings to temp files
+        final File[] files = new File[2];
+        try {
+
+            // Write strings to temp files
+            for (int i = 0; i < files.length; i++) {
+                files[i] = File.createTempFile("diff.", ".txt");
+                try (BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(files[i]))) {
+                    output.write((i == 0 ? s1 : s2).getBytes(StandardCharsets.UTF_8));
+                }
+            }
+
+            // Run diff(1) command
+            final Process process = Runtime.getRuntime().exec(new String[] {
+              "diff",
+                "-U", "5",
+                "--strip-trailing-cr",
+                "--text",
+                "--expand-tabs",
+              files[0].toString(),
+              files[1].toString()
+              });
+
+            // Close stdin and read back stderr and stdout
+            process.getOutputStream().close();
+            final ByteArrayOutputStream[] outbufs = new ByteArrayOutputStream[] {
+              new ByteArrayOutputStream(),      // stdout
+              new ByteArrayOutputStream()       // stderr
+            };
+            final InputStream[] ins = new InputStream[] {
+              process.getInputStream(),
+              process.getErrorStream()
+            };
+            for (int i = 0; i < 2; i++) {
+                final byte[] inbuf = new byte[1000];
+                for (int r; (r = ins[i].read(inbuf)) != -1; )
+                    outbufs[i].write(inbuf, 0, r);
+                ins[i].close();
+            }
+            String stdout = new String(outbufs[0].toByteArray(), StandardCharsets.UTF_8);
+            String stderr = new String(outbufs[1].toByteArray(), StandardCharsets.UTF_8);
+
+            // Wait for process to exit
+            final int exitValue = process.waitFor();
+            if (exitValue != 0 && exitValue != 1)
+                throw new RuntimeException("diff(1) error: " + stderr);
+
+            // Skip first two lines of the diff (i.e., filenames)
+            for (int i = 0; i < 2; i++)
+                stdout = stdout.substring(stdout.indexOf('\n') + 1);
+
+            // Done
+            return stdout;
+        } catch (InterruptedException | IOException e) {
+            throw new RuntimeException("diff(1) error", e);
+        } finally {
+            for (File file : files) {               // delete temp files
+                if (file != null)
+                    file.delete();
+            }
+        }
+    }
+}

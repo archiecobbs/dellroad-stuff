@@ -11,14 +11,17 @@ import java.io.OutputStream;
 
 /**
  * Interface for atomic storage and retrieval of an opaque byte array, with access being done
- * via {@link InputStream} and {@link OutputStream} interfaces.
+ * via the {@link InputStream} and {@link OutputStream} interfaces.
  *
  * <p>
  * Conceptually, there is a single underlying byte array. Instances behave as if an atomic readable snapshot
- * is made when {@link #getInputStream} is invoked, and the results of that snapshot are then available
- * in the returned {@link InputStream}. Similarly, instances behave as if the underlying byte array is
- * atomically updated when the output stream returned by {@link #getOutputStream} is successfully
- * {@linkplain OutputStream#close closed}.
+ * is made at the moment {@link #getInputStream} is invoked, and the results of that snapshot are then available
+ * in the returned {@link InputStream}.
+ *
+ * <p>
+ * Similarly, instances behave as if the underlying byte array is atomically updated at the moment the output
+ * stream returned by {@link #getOutputStream} is successfully {@linkplain OutputStream#close closed}. If the
+ * close operation fails, or never takes place, the underlying byte array is not updated.
  *
  * <p>
  * Instances are thread safe, and support multiple concurrent open input and output streams. In particular,
@@ -36,8 +39,8 @@ public interface StreamRepository {
     InputStream getInputStream() throws IOException;
 
     /**
-     * Get an output stream writing to the underlying store. The underlying store is not affected until the
-     * returned output stream is successfully {@linkplain OutputStream#close closed}, at which time it is
+     * Get an output stream writing to the underlying store. The underlying store is not modified until if/when
+     * the returned output stream is successfully {@linkplain OutputStream#close closed}, at which time it is
      * atomically updated with the newly written content.
      *
      * <p>
@@ -49,4 +52,3 @@ public interface StreamRepository {
      */
     OutputStream getOutputStream() throws IOException;
 }
-

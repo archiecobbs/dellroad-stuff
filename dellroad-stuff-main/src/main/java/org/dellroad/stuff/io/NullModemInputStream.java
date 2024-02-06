@@ -52,7 +52,7 @@ public class NullModemInputStream extends FilterInputStream {
      * Delegates to {@link #NullModemInputStream(WriteCallback, Executor)},
      * passing an executor that creates a dedicated daemon {@link Thread} with the given name.
      *
-     * @param reader callback that writes the data to be read
+     * @param writer callback that writes the data to be read
      * @param threadName name for the background thread to be created
      */
     public NullModemInputStream(WriteCallback writer, String threadName) {

@@ -25,6 +25,9 @@ import java.util.function.UnaryOperator;
  * Equivalent {@link Map} methods taking {@code long} instead of {@code Long} are also provided.
  *
  * <p>
+ * Instances will throw {@link IllegalStateException} if their capacity is exceeded.
+ *
+ * <p>
  * Instances do not accept zero keys and are not thread safe.
  *
  * @see <a href="https://en.wikipedia.org/wiki/Open_addressing">Open addressing</a>
@@ -327,6 +330,11 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
             return prev;
         }
 
+        // Check for overflow
+        final boolean expansionNeeded = this.size >= this.upperSizeLimit;
+        if (expansionNeeded && this.log2len >= MAX_LOG2_LENGTH)
+            throw new IllegalStateException("maximum capacity reached");
+
         // Insert new key/value pair
         assert this.keys[slot] == 0;
         this.keys[slot] = key;
@@ -334,12 +342,15 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
             assert this.values[slot] == null;
             this.values[slot] = value;
         }
+        this.size++;
 
         // Expand if necessary
-        if (++this.size > this.upperSizeLimit && this.log2len < MAX_LOG2_LENGTH) {
+        if (expansionNeeded) {
             this.log2len++;
             this.resize();
         }
+
+        // Done
         this.modcount.incrementAndGet();
         return null;
     }

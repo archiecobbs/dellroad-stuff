@@ -5,7 +5,7 @@
     <variable name="language">
         <choose>
             <when test="1 = 2">
-                <value-of select="'blah'"/>
+                <value-of select="'blah'"/><!-- comment before closing tag -->
             </when>
             <when test="3 = 4">
                 <value-of select="'blah'"/>

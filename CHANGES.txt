@@ -1,3 +1,11 @@
+Version 2.5.11
+
+    - Add missing setter methods to RetryTransactionProvider interface.
+    - Fixed possible NPE in ChannelNetwork caused by race condition.
+    - Fix IndentXMLStreamWriter handling of comment following closing element.
+    - Prevent capacity overflow in LongMap and LongSet.
+    - Add method TestSupport.assertSameOrDiff().
+
 Version 2.5.10 Released August 21, 2023
 
     - Added BitwiseInputStream and BitwiseOutputStream.

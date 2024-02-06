@@ -146,7 +146,7 @@ public class BitwiseInputStream extends FilterInputStream {
      * Read some number of bits and return them in a {@link BitSet}.
      *
      * <p>
-     * If EOF is encountered before reading {@link len} bits, an {@link EOFException} is thrown.
+     * If EOF is encountered before reading {@code len} bits, an {@link EOFException} is thrown.
      *
      * @param len the number of bits to read
      * @throws IOException if an I/O error occurs
