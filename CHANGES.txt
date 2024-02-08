@@ -1,3 +1,7 @@
+Version 3.0.3
+
+    - Update Vaadin 24 to release 24.3.3.
+
 Version 3.0.2 Released February 4, 2024
 
     - Eliminate need for "--add-opens" to use MessageFmt on newer JDK's.
