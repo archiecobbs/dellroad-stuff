@@ -88,7 +88,7 @@ public class FieldComponent<V> implements Serializable {
     public AbstractField<?, V> getAbstractField() {
         if (this.field instanceof AbstractField)
             return (AbstractField<?, V>)this.field;
-        throw new IllegalArgumentException(this.field.getClass() + " is not a subtype of AbstractField");
+        throw new IllegalArgumentException(String.format("%s is not a subtype of %s", this.field.getClass(), AbstractField.class));
     }
 
     @Override

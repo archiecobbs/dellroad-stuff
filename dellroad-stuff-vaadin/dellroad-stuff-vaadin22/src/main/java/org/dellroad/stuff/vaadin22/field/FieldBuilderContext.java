@@ -84,8 +84,9 @@ public interface FieldBuilderContext extends Serializable {
             try {
                 modelType = ((ParameterizedType)modelType).getActualTypeArguments()[0];
             } catch (ClassCastException | ArrayIndexOutOfBoundsException e) {
-                throw new IllegalArgumentException("can't determine collection element type from return type of method "
-                  + this.getMethod() + " in the context of " + this.getBeanType(), e);
+                throw new IllegalArgumentException(String.format(
+                  "can't determine collection element type from return type of method %s in the context of %s",
+                  this.getMethod(), this.getBeanType()), e);
             }
         }
 

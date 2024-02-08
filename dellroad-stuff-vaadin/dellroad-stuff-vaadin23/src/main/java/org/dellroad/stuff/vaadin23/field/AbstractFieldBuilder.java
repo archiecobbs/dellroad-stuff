@@ -397,8 +397,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 // Identify the bean property
                 final String propertyName = ReflectUtil.propertyNameFromGetterMethod(method);
                 if (propertyName == null) {
-                    throw new IllegalArgumentException("invalid @" + annotationType.getSimpleName()
-                      + " annotation on non-getter method " + method.getName());
+                    throw new IllegalArgumentException(String.format(
+                      "invalid @%s annotation on non-getter method %s",
+                      annotationType.getSimpleName(), method.getName()));
                 }
 
                 // Get @NullifyCheckbox, if any
@@ -439,14 +440,16 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 final Class<?> returnType = method.getReturnType();
                 if (!(HasValue.class.isAssignableFrom(returnType) && Component.class.isAssignableFrom(returnType))
                   && !FieldComponent.class.isAssignableFrom(returnType)) {
-                    throw new IllegalArgumentException("incompatible return type for @ProvidesField annotation on method "
-                      + method);
+                    throw new IllegalArgumentException(String.format(
+                      "incompatible return type for @%s annotation on method %s",
+                      ProvidesField.class.getSimpleName(), method));
                 }
                 final Class<?>[] parameterTypes = method.getParameterTypes();
                 if (!(parameterTypes.length == 0
                   || (parameterTypes.length == 1 && FieldBuilderContext.class.isAssignableFrom(parameterTypes[0])))) {
-                    throw new IllegalArgumentException("incompatible parameter type(s) for @ProvidesField annotation on method "
-                      + method);
+                    throw new IllegalArgumentException(String.format(
+                      "incompatible parameter type(s) for @%s annotation on method %s",
+                      ProvidesField.class.getSimpleName(), method));
                 }
                 return true;
             }
@@ -584,8 +587,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         // Instantiate field
         final HasValue<?, ?> field = applier.createField();
         if (!(field instanceof Component)) {
-            throw new RuntimeException("internal error: field type generated from @" + annotation.annotationType().getName()
-              + " annotation on method " + bindingInfo.getMethod() + " is not a sub-type of " + Component.class);
+            throw new RuntimeException(String.format(
+              "internal error: field type generated from @%s annotation on method %s is not a sub-type of %s",
+              annotation.annotationType().getName(), bindingInfo.getMethod(), Component.class));
         }
 
         // Apply any applicable @FieldDefault annotations found in the data model class
@@ -646,8 +650,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         if ((method.getModifiers() & Modifier.STATIC) != 0)
             bean = null;
         else if ((method.getModifiers() & Modifier.STATIC) == 0 && bean == null) {
-            throw new IllegalArgumentException("@" + ProvidesField.class.getName() + " annotated method " + method
-              + " is an instance method but the Binder has no bound bean");
+            throw new IllegalArgumentException(String.format(
+              "@%s annotated method %s is an instance method but the Binder has no bound bean",
+              ProvidesField.class.getName(), method));
         }
 
         // Invoke method
@@ -665,7 +670,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 return (FieldComponent<?>)field;
             return new FieldComponent<>((HasValue<?, ?>)field, (Component)field);
         } catch (Exception e) {
-            throw new RuntimeException("error invoking @" + ProvidesField.class.getName() + " annotated method " + method, e);
+            throw new RuntimeException(String.format(
+              "error invoking @%s annotated method %s", ProvidesField.class.getName(), method), e);
         }
     }
 
@@ -754,8 +760,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             }
             break;
         }
-        if (method == null)
-            throw new RuntimeException("internal error: method " + this.getAnnotationDefaultsMethodName() + "() not found");
+        if (method == null) {
+            throw new RuntimeException(String.format(
+              "internal error: method %s() not found", this.getAnnotationDefaultsMethodName()));
+        }
         try {
             method.setAccessible(true);
         } catch (RuntimeException e) {
@@ -849,7 +857,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             try {
                 return invoker.get();
             } catch (RuntimeException e) {
-                throw new RuntimeException("error instantiating " + type.getName() + " for " + bindingInfo.getOrigin(), e);
+                throw new RuntimeException(String.format(
+                  "error instantiating %s for %s", type.getName(), bindingInfo.getOrigin()), e);
             }
         };
 

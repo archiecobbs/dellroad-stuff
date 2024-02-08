@@ -229,7 +229,7 @@ public abstract class BinderCustomField<T> extends CustomField<T>
         try {
             return this.modelType.getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new RuntimeException("unexpected error invoking " + this.modelType + " constructor", e);
+            throw new RuntimeException(String.format("unexpected error invoking %s constructor", this.modelType), e);
         }
     }
 

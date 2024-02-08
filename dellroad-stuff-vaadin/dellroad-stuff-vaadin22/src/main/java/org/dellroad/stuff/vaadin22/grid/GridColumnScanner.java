@@ -101,9 +101,9 @@ public class GridColumnScanner<T> {
             if (diff > 0)
                 unorderedColumnMap.put(columnKey, methodInfo);
             else if (diff == 0) {
-                throw new IllegalArgumentException("duplicate @" + GridColumn.class.getSimpleName()
-                  + " declaration for column key `" + columnKey + "' on method " + previousInfo.getMethod()
-                  + " and on method " + methodInfo.getMethod());
+                throw new IllegalArgumentException(String.format(
+                  "duplicate @%s declaration for column key \"%s\" on method %s and on method %s",
+                  GridColumn.class.getSimpleName(), columnKey, previousInfo.getMethod(), methodInfo.getMethod()));
             }
             // else previous wins
         }
@@ -388,8 +388,8 @@ public class GridColumnScanner<T> {
                 try {
                     return this.supplier.get();
                 } catch (RuntimeException e) {
-                    throw new RuntimeException("error in @" + GridColumn.class.getSimpleName()
-                      + " annotation for " + description, e);
+                    throw new RuntimeException(String.format(
+                      "error in @%s annotation for %s", GridColumn.class.getSimpleName(), description), e);
                 }
             }
         }
@@ -408,8 +408,9 @@ public class GridColumnScanner<T> {
                         constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
                         constructorParams = new Object[0];
                     } catch (Exception e2) {
-                        throw new RuntimeException("cannot instantiate " + annotation.renderer()
-                          + " because no default constructor or constructor taking ValueProvider is found", e);
+                        throw new RuntimeException(String.format(
+                          "cannot instantiate %s because no default constructor or constructor taking ValueProvider is found",
+                          annotation.renderer()), e);
                     }
                 }
                 return ReflectUtil.instantiate(constructor, constructorParams);
@@ -423,9 +424,10 @@ public class GridColumnScanner<T> {
             final TreeGrid<T> treeGrid = (TreeGrid<T>)grid;
             if (renderer != null) {
                 if (!(renderer instanceof ComponentRenderer)) {
-                    throw new RuntimeException("non-default renderer type " + renderer.getClass().getName()
-                      + " specified for " + description + " does not subclass " + ComponentRenderer.class.getName()
-                      + ", which is required when configuring a TreeGrid with hierarchyColumn() = true");
+                    throw new RuntimeException(String.format(
+                      "non-default renderer type %s specified for %s does not subclass %s,"
+                      + " which is required when configuring a TreeGrid with hierarchyColumn() = true",
+                      renderer.getClass().getName(), description, ComponentRenderer.class.getName()));
                 }
                 column = treeGrid.addComponentHierarchyColumn(((ComponentRenderer)renderer)::createComponent);
             } else

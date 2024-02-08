@@ -158,7 +158,7 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
         try {
             return (AbstractField<?, ?>)fieldComponent.getField();
         } catch (ClassCastException e) {
-            throw new IllegalArgumentException("not an AbstractField: " + name);
+            throw new IllegalArgumentException(String.format("not an AbstractField: %s", name));
         }
     }
 
@@ -176,7 +176,7 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
             throw new IllegalArgumentException("null name");
         final FieldComponent<?> fieldComponent = this.fieldBuilder.getFieldComponents().get(name);
         if (fieldComponent == null)
-            throw new IllegalArgumentException("no such field: " + name);
+            throw new IllegalArgumentException(String.format("no such field: %s", name));
         return fieldComponent;
     }
 }
