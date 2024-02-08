@@ -79,7 +79,12 @@ public class GridColumnScanner<T> {
 
         // Scan for @GridColumn annotations
         final Set<MethodAnnotationScanner<T, GridColumn>.MethodInfo> gridColumnMethods
-          = new MethodAnnotationScanner<T, GridColumn>(this.type, GridColumn.class).findAnnotatedMethods();
+          = new MethodAnnotationScanner<T, GridColumn>(this.type, GridColumn.class) {
+            @Override
+            protected boolean includeMethod(Method method, GridColumn annotation) {
+                return method.getParameterTypes().length == 0;
+            }
+        }.findAnnotatedMethods();
 
         // Check for duplicate @GridColumn names
         final Comparator<Method> methodComparator = Comparator.comparing(Method::getDeclaringClass,
@@ -231,13 +236,15 @@ public class GridColumnScanner<T> {
             // Get method and annotation
             final Method method = methodInfo.getMethod();
             final GridColumn annotation = methodInfo.getAnnotation();
+            final Class<?> returnType = method.getReturnType();
+            final boolean voidMethod = returnType == void.class || returnType == Void.class;
 
             // Build a bean -> ReflectUtil.invoke(method, bean) that gracefully handles type mismatches
             final Class<?> requiredBeanType = method.getDeclaringClass();
-            final ValueProvider<S, ?> valueProvider = bean -> Optional.ofNullable(bean)
-                                                                .filter(requiredBeanType::isInstance)
-                                                                .map(obj -> ReflectUtil.invoke(method, obj))
-                                                                .orElse(null);
+            final ValueProvider<S, ?> valueProvider = voidMethod ? null : bean -> Optional.ofNullable(bean)
+                                                                            .filter(requiredBeanType::isInstance)
+                                                                            .map(obj -> ReflectUtil.invoke(method, obj))
+                                                                            .orElse(null);
 
             // Add new column
             final boolean selfRendering = Component.class.isAssignableFrom(method.getReturnType());
@@ -330,8 +337,9 @@ public class GridColumnScanner<T> {
      * @param key the column's unique column key
      * @param annotation {@link GridColumn &#64;GridColumn} annotation
      * @param description description of what we're configuring (for debug purposes)
-     * @param valueProvider value provider for the column
-     * @param selfRendering true if {@code valueProvider} returns a {@link Component}
+     * @param valueProvider {@link ValueProvider} providing the return value from the annotated method,
+     *  or null if ther annotated method returns {@codee void} or {@link Void}
+     * @param selfRendering true if the annotated method (and therefore {@code valueProvider}) returns a {@link Component}
      * @param <T> underlying bean type
      * @return newly added column
      * @throws IllegalArgumentException if any parameter is null
@@ -369,8 +377,6 @@ public class GridColumnScanner<T> {
             throw new IllegalArgumentException("null key");
         if (annotation == null)
             throw new IllegalArgumentException("null annotation");
-        if (valueProvider == null)
-            throw new IllegalArgumentException("null valueProvider");
         if (defaults == null)
             throw new IllegalArgumentException("null defaults");
 
@@ -398,21 +404,32 @@ public class GridColumnScanner<T> {
         Renderer<T> renderer = null;
         if (!annotation.renderer().equals(defaults.renderer())) {
             renderer = (Renderer<T>)new ErrorWrapper<>(() -> {
-                Constructor<? extends Renderer<?>> constructor;
-                Object[] constructorParams;
-                try {
-                    constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
-                    constructorParams = new Object[] { valueProvider };
-                } catch (Exception e) {
+
+                // Try constructor #1
+                Constructor<? extends Renderer<?>> constructor = null;
+                Object[] constructorParams = null;
+                if (valueProvider != null) {
+                    try {
+                        constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
+                        constructorParams = new Object[] { valueProvider };
+                    } catch (Exception e) {
+                        // too bad
+                    }
+                }
+
+                // Try constructor #2
+                if (constructor == null) {
                     try {
                         constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
                         constructorParams = new Object[0];
-                    } catch (Exception e2) {
+                    } catch (Exception e) {
                         throw new RuntimeException(String.format(
                           "cannot instantiate %s because no default constructor or constructor taking ValueProvider is found",
                           annotation.renderer()), e);
                     }
                 }
+
+                // Invoke constructor to create Renderer
                 return ReflectUtil.instantiate(constructor, constructorParams);
             }).get();
         } else if (selfRendering)

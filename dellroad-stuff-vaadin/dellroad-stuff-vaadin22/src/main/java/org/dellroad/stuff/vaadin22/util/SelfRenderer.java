@@ -14,7 +14,7 @@ import com.vaadin.flow.function.ValueProvider;
 import java.util.Optional;
 
 /**
- * A "do nothing" {@link ComponentRenderer} used to render property values that are already {@link Component}'s.
+ * A "do nothing" {@link ComponentRenderer} used to render values that are already {@link Component}'s.
  *
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/prism.min.js"></script>
  * <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.27.0/components/prism-java.min.js"></script>
@@ -30,18 +30,14 @@ import java.util.Optional;
  *     <b>&#64;GridColumn(header = "Username", width = "50px")</b>
  *     public String getUsername() { ... }
  *
- *     // Render foobar with a custom renderer
- *     <b>&#64;GridColumn(header = "Foobar", width = "64px", renderer = FoobarRenderer.class)</b>
- *     public Foobar getFoobar() { ... }
- *
  *     // Render status with an Image - as if we had said "renderer = SelfRenderer.class"
  *     <b>&#64;GridColumn(header = "Status", width = "64px")</b>
- *     public Image getStatus() { ... }
+ *     public Image statusColumn() { ... }
  * }
  * </code></pre>
  *
  * <p>
- * This class adds graceful handling of null values; null values are converted into empty {@link Text} components.
+ * This class includes graceful handling of null values; null values are converted into empty {@link Text} components.
  *
  * @param <T> the type of the input model object
  * @see GridColumn
