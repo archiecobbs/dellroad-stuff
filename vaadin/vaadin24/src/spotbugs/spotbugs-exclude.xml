@@ -21,4 +21,10 @@
         <Field name="bindingInfo"/>
         <Bug pattern="SE_BAD_FIELD"/>
     </Match>
+
+    <!-- https://github.com/spotbugs/spotbugs/issues/651 -->
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin24.util.VaadinSessionFinder"/>
+        <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
+    </Match>
 </FindBugsFilter>

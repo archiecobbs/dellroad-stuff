@@ -1,5 +1,6 @@
 Version 3.0.3
 
+    - Added utility class VaadinSessionFinder.
     - Update Vaadin 24 to release 24.3.5.
 
 Version 3.0.2 Released February 4, 2024
