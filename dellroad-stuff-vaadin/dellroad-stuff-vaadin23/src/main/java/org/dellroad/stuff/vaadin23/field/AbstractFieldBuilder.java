@@ -1460,13 +1460,18 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      *
      * <p>
      * <b>Note</b>: When it comes to {@link Converter}s, {@link Validator}s, and {@link #nullRepresentation},
-     * the order in which these items are added to the binding matters because they are chained together in sequence
-     * between the field and the model (the standard {@link Binder.BindingBuilder} methods such as
-     * {@link Binder.BindingBuilder#withConverter(Converter) withConverter()} always add the newly added items
-     * to the "model" side of the current chain).
+     * the order in which these items are added to the binding matters. These items are chained together in sequence
+     * between the field and the model.
      *
      * <p>
-     * The binding is built from the properties below applied in the following order:
+     * For example, the standard {@link Binder.BindingBuilder} methods such as
+     * {@link Binder.BindingBuilder#withConverter(Converter) withConverter()} always add new items to the "model" side
+     * of the chain, so that (for example) each {@link Converter} added will take as its "presentation" value the previous
+     * {@link Converter}'s "model" value.
+     *
+     * <p>
+     * This annotation builds the binding by applying its configuration in the following order, going from
+     * the field's presentation value to the data bean's model value:
      *  <ol>
      *  <li>Implicit validation by {@link ValidatingField}s
      *  <li>{@link #requiredValidator}, {@link #requiredProvider}, or {@link #required}
@@ -1479,8 +1484,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * <p>
      * Therefore, each item in the list should assume all previous items in list have already "seen" the field's value.
      * In particular, if both a {@link #converter} and one or more {@link #validators} are configured, then the
-     * {@link Validator}s will validate converted model/bean values, not presentation/field values. Or, to get the
-     * opposite behavior, you can use {@link #postValidationConverter} instead.
+     * {@link Validator}s will validate the converted model values, not the presentation values.
+     *
+     * <p>
+     * To get the reverse behavior, i.e., to validate presentation values instead of model values, configure the
+     * {@link Converter} using {@link #postValidationConverter} instead of {@link #converter}.
      *
      * @see AbstractFieldBuilder#bindFields FieldBuilder.bindFields()
      */
@@ -1545,7 +1553,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          * Get the null representation.
          *
          * <p>
-         * This property only works for fields that present a {@link String} value, such as
+         * This property only works for fields that represent a {@link String} value, such as
          * {@link com.vaadin.flow.component.textfield.TextField}.
          *
          * <p>
