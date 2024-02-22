@@ -3,6 +3,7 @@ Version 3.0.3
     - Allow FieldBuilder.createBindingInfo() to return null.
     - Added utility class VaadinSessionFinder.
     - Update Vaadin 24 to release 24.3.5.
+    - Update to dellroad-dependencies 3.2.2.0.
 
 Version 3.0.2 Released February 4, 2024
 
