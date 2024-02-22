@@ -1,5 +1,6 @@
 Version 3.0.3
 
+    - Allow FieldBuilder.createBindingInfo() to return null.
     - Added utility class VaadinSessionFinder.
     - Update Vaadin 24 to release 24.3.5.
 

@@ -412,6 +412,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
                 final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, methodInfo.getAnnotation(),
                   bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox, enabledBy,
                   (info, bean) -> this.buildDeclarativeField(info));
+                if (bindingInfo == null)
+                    continue;
                 final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
                 if (previousInfo != null) {
                     throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
@@ -481,6 +483,8 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             final BindingInfo bindingInfo = this.createBindingInfo(method, propertyName, providesField,
               bindingAnnotationMap.get(propertyName), formLayoutAnnotationMap.get(propertyName), nullifyCheckbox,
               enabledBy, (info, bean) -> this.buildProvidedField(info, methodInfo, bean));
+            if (bindingInfo == null)
+                return;
             final BindingInfo previousInfo = this.bindingInfoMap.putIfAbsent(propertyName, bindingInfo);
             if (previousInfo != null) {
                 throw new IllegalArgumentException(String.format("conflicting annotations for property \"%s\": %s and %s",
@@ -736,7 +740,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param nullifyCheckbox associated from {@link NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox}, if any
      * @param enabledBy associated from {@link EnabledBy &#64;FieldBuilder.EnabledBy}, if any
      * @param fieldBuilder builds the field
-     * @return new {@link BindingInfo}
+     * @return new {@link BindingInfo}, or null if this property should be ignored
      * @throws IllegalArgumentException if {@code method}, {@code propertyName}, {@code annotation}, or {@code fieldBuilder} is null
      */
     protected BindingInfo createBindingInfo(Method method, String propertyName, Annotation annotation,
