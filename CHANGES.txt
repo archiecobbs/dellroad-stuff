@@ -1,5 +1,6 @@
 Version Next
 
+    - Allow FieldBuilder.createBindingInfo() to return null.
     - Add missing setter methods to RetryTransactionProvider interface.
     - Add method TestSupport.assertSameOrDiff().
 
