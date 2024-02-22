@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>dellroad-stuff-vaadin</artifactId>
-        <version>3.0.2</version>
+        <version>3.0.3</version>
     </parent>
     <artifactId>dellroad-stuff-vaadin24</artifactId>
     <name>DellRoad Stuff Vaadin 24 Classes</name>
