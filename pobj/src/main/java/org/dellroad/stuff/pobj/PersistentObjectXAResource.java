@@ -246,7 +246,8 @@ class PersistentObjectXAResource<T> implements XAResource {
         final TxInfo<T> info = this.verifyCurrent(xid);
         this.manager.xaMap.remove(xid);
         this.removeXAFile(xid);
-        this.manager.doRollback(new DefaultTransactionStatus(info.toString(), new TxWrapper<T>(info), false, false, false, false, false, null));
+        this.manager.doRollback(new DefaultTransactionStatus(info.toString(),
+          new TxWrapper<T>(info), false, false, false, false, false, null));
         this.manager.doCleanupAfterCompletion(new TxWrapper<T>(info));
         if (this.log.isTraceEnabled())
             this.log.trace("POBJ XA: rollback(): new xaMap=" + this.showXAMap());
