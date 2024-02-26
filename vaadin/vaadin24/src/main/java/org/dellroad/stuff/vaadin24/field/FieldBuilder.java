@@ -5,6 +5,7 @@
 
 package org.dellroad.stuff.vaadin24.field;
 
+import com.vaadin.flow.component.dependency.Uses;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Validator;
 import com.vaadin.flow.data.converter.Converter;
@@ -202,6 +203,22 @@ import org.dellroad.stuff.vaadin24.data.EnumDataProvider;
  * as a field {@link Validator} by {@link #bindFields bindFields()} when the field is bound. This allows for more modularity
  * with respect to validation when nested types having sub-fields are in use. See also {@link FieldBuilderCustomField}, which
  * relies on this mechanism.
+ *
+ * <p><b>Production Bundle Caveat</b>
+ *
+ * <p>
+ * If you build a Vaadin production bundle then you may run into an issue where a field does not appear and Vaadin logs
+ * a warning like this:
+ * <blockquote>
+ *  <em>The component class com.vaadin.flow.component.datepicker.DatePicker includes
+ *      '&#64;vaadin/date-picker/src/vaadin-date-picker.js' but this file was not included when creating the production
+ *      bundle. The component will not work properly. Check that you have a reference to the component and that you are
+ *      not using it only through reflection. If needed add a &#64;Uses(DatePicker.class) where it is used.</em>
+ * </blockquote>
+ * This happens because Vaadin thinks your application never uses {@link DatePicker} because it doesn't see your code
+ * directly instantiating one anywhere. In other words, the indirect instantiation by this class goes undetected.
+ * To fix this, either add the {@link Uses &#64;Uses} annotation to one of your view classes as described in the warning,
+ * or else configure your Vaadin Maven plugin with {@code <optimizeBundle>false</optimizeBundle>}.
  *
  * <p><b>Homebrew Your Own</b>
  * <p>
