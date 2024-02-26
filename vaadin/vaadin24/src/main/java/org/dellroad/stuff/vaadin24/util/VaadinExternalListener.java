@@ -6,7 +6,6 @@
 package org.dellroad.stuff.vaadin24.util;
 
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.server.VaadinSessionState;
 import com.vaadin.flow.shared.Registration;
 
 import org.slf4j.LoggerFactory;
@@ -141,13 +140,12 @@ public abstract class VaadinExternalListener<S> {
      * This method delegates to {@link VaadinUtil#accessSession VaadinUtil.accessSession()} to actually handle the event.
      *
      * @param action action to perform
-     * @return true if successfully invoked, false if the session is no longer in state {@link VaadinSessionState#OPEN}
      * @throws IllegalArgumentException if {@code action} is null
      */
-    protected boolean handleEvent(final Runnable action) {
+    protected void handleEvent(final Runnable action) {
         if (action == null)
             throw new IllegalArgumentException("null action");
-        return VaadinUtil.accessSession(this.session, () -> {
+        VaadinUtil.accessSession(this.session, () -> {
             try {
                 action.run();
             } catch (RuntimeException e) {

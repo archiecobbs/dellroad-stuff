@@ -1,6 +1,7 @@
 Version Next
 
     - Declare AsyncTask.perform() to throw any exception.
+    - Fix exceptions in VaadinSessionFinder and VaadinUtil.accessSession().
 
 Version 3.0.3 Released February 22, 2024
 

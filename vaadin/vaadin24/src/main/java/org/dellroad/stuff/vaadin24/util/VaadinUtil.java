@@ -11,7 +11,6 @@ import com.vaadin.flow.component.UIDetachedException;
 import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.server.VaadinSessionState;
 
 /**
  * Miscellaneous utility methods.
@@ -75,37 +74,28 @@ public final class VaadinUtil {
     }
 
     /**
-     * Invoke {@link #accessSession accessSession()} using the {@link VaadinSession} associated with the current thread,
-     * unless the session is no longer open.
+     * Invoke {@link #accessSession accessSession()} using the {@link VaadinSession} associated with the current thread.
      *
      * @param action action to perform
-     * @return true if successfully invoked, false if {@code session} is not in state {@link VaadinSessionState#OPEN}
      * @throws IllegalArgumentException if {@code action} is null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
      */
-    public static boolean accessCurrentSession(Runnable action) {
-        return VaadinUtil.accessSession(VaadinUtil.getCurrentSession(), action);
+    public static void accessCurrentSession(Runnable action) {
+        VaadinUtil.accessSession(VaadinUtil.getCurrentSession(), action);
     }
 
     /**
-     * Invoke {@link VaadinSession#access VaadinSession.access()}, unless the session is no longer open.
-     *
-     * <p>
-     * Does nothing (and returns false) if {@code session} is null or not in state {@link VaadinSessionState#OPEN}.
+     * Invoke {@link VaadinSession#access VaadinSession.access()}.
      *
      * @param session the session to access
      * @param action action to perform
-     * @return true if successfully invoked, false if {@code session} is not in state {@link VaadinSessionState#OPEN}
      * @throws IllegalArgumentException if {@code session} or {@code action} is null
      */
-    public static boolean accessSession(VaadinSession session, Runnable action) {
+    public static void accessSession(VaadinSession session, Runnable action) {
         Preconditions.checkArgument(session != null, "null session");
         Preconditions.checkArgument(action != null, "null action");
-        if (!VaadinSessionState.OPEN.equals(session.getState()))
-            return false;
         session.access(action::run);
-        return true;
     }
 
     /**

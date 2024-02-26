@@ -7,7 +7,6 @@ package org.dellroad.stuff.vaadin24.util;
 
 import com.google.common.base.Preconditions;
 import com.vaadin.flow.server.VaadinSession;
-import com.vaadin.flow.server.VaadinSessionState;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -40,7 +39,10 @@ public final class VaadinSessionFinder {
     public static Optional<VaadinSession> find() {
 
         // Get the current HTTP request
-        final HttpServletRequest request = (HttpServletRequest)RequestContextHolder.currentRequestAttributes()
+        final RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        if (requestAttributes == null)
+            return Optional.empty();
+        final HttpServletRequest request = (HttpServletRequest)requestAttributes
           .resolveReference(RequestAttributes.REFERENCE_REQUEST);
 
         // Find the VaadinSession in the HTTP session (this logic follows VaadinService.java)
@@ -55,17 +57,15 @@ public final class VaadinSessionFinder {
      * Invoke the given action in the context of the {@link VaadinSession} associated with the current HTTP request.
      *
      * @param action the action to perform
-     * @return true if successfully dispatched, false if {@code session} is not in state {@link VaadinSessionState#OPEN}
-     * @throws IllegalStateException if there is no current HTTP request or {@link VaadinSession} associated with it
+     * @return true if successfully dispatched, false if {@code session} was not found
      * @throws IllegalArgumentException if {@code action} is null
      */
     public static boolean access(Runnable action) {
         Preconditions.checkArgument(action != null, "null action");
-        final VaadinSession session = VaadinSessionFinder.find()
-          .orElseThrow(() -> new IllegalStateException("no VaadinSession found"));
-        if (!VaadinSessionState.OPEN.equals(session.getState()))
+        final Optional<VaadinSession> session = VaadinSessionFinder.find();
+        if (!session.isPresent())
             return false;
-        session.access(action::run);
+        session.get().access(action::run);
         return true;
     }
 }
