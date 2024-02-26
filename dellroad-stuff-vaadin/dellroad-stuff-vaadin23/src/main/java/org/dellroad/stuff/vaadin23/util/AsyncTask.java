@@ -35,7 +35,7 @@ public interface AsyncTask<R> {
      * @param id the unique ID for this task run
      * @return task result
      * @throws InterruptedException if the current thread is interrupted
-     * @throws RuntimeException if an error occurs during task execution
+     * @throws Exception if an error occurs during task execution
      */
-    R perform(long id) throws InterruptedException;
+    R perform(long id) throws Exception;
 }
