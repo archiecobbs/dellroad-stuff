@@ -1,3 +1,7 @@
+Version Next
+
+    - Declare AsyncTask.perform() to throw any exception.
+
 Version 3.0.3 Released February 22, 2024
 
     - Allow FieldBuilder.createBindingInfo() to return null.
