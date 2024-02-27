@@ -1,6 +1,6 @@
 Version Next
 
-    - Declare AsyncTask.perform() to throw any exception.
+    - Declare AsyncTask.perform() to throw any exception; add SimpleTaskManager.
     - Fix exceptions in VaadinSessionFinder and VaadinUtil.accessSession().
 
 Version 3.0.3 Released February 22, 2024

@@ -78,6 +78,7 @@ import org.slf4j.LoggerFactory;
  * </ul>
  *
  * @param <R> asynchronous task result type
+ * @see SimpleTaskManager
  */
 @SuppressWarnings("serial")
 public class AsyncTaskManager<R> {
