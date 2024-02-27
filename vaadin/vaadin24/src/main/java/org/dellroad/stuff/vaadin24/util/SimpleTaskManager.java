@@ -27,7 +27,7 @@ import java.util.function.Function;
  */
 public class SimpleTaskManager {
 
-    private final AsyncTaskManager<Object> taskManager;
+    protected final AsyncTaskManager<Object> taskManager;
 
     // These are for the currently executing task, if any
     private Consumer<?> onSuccess;

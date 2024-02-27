@@ -6,6 +6,7 @@
 package org.dellroad.stuff.vaadin24.util;
 
 import com.google.common.base.Preconditions;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
@@ -49,6 +50,11 @@ import org.slf4j.LoggerFactory;
  * Instances bind to the current {@link VaadinSession} at construction time and may only be used with that session.
  * If any method is invoked with the wrong {@link VaadinSession} locking state, an immediate exception is thrown.
  * Therefore, thread safety is not only provided but enforced.
+ *
+ * <p>
+ * If a {@linkplain UI#getCurrent current UI} exists when {@link #startTask} is invoked, it will also be restored
+ * (along with the current {@link VaadinSession}) when any corresponding callbacks are invoked, unless it has since
+ * been detached.
  *
  * <p><b>Event Notifications</b>
  *
@@ -96,6 +102,7 @@ public class AsyncTaskManager<R> {
 
     private Future<?> currentFuture;                                    // non-null iff some task is running AND not canceled
     private long currentId;                                             // non-zero iff some task is running AND not canceled
+    private UI currentUI;                                               // non-null iff some task is running AND not canceled
 
 // Constructors
 
@@ -188,11 +195,13 @@ public class AsyncTaskManager<R> {
         Preconditions.checkArgument(id != 0, "invalid task ID");
 
         // Emit STARTED notification
-        this.notifyListeners(new AsyncTaskStatusChangeEvent<>(this, id, AsyncTaskStatusChangeEvent.STARTED, null, null));
+        this.notifyListeners(UI.getCurrent(),
+          new AsyncTaskStatusChangeEvent<>(this, id, AsyncTaskStatusChangeEvent.STARTED, null, null));
 
         // Start task and update state
         this.currentFuture = this.executor.apply((Runnable)() -> this.invokeTask(id, task));
         this.currentId = id;
+        this.currentUI = UI.getCurrent();
 
         // Done
         return id;
@@ -249,11 +258,13 @@ public class AsyncTaskManager<R> {
             return 0;
 
         // Enqueue CANCEL notification
-        this.notifyListeners(new AsyncTaskStatusChangeEvent<>(this, id, AsyncTaskStatusChangeEvent.CANCELED, null, null));
+        this.notifyListeners(this.currentUI,
+          new AsyncTaskStatusChangeEvent<>(this, id, AsyncTaskStatusChangeEvent.CANCELED, null, null));
 
         // Cancel task
         this.currentFuture.cancel(true);
         this.currentFuture = null;
+        this.currentUI = null;
         this.currentId = 0;
 
         // Done
@@ -363,18 +374,20 @@ public class AsyncTaskManager<R> {
             return false;
 
         // Reset state
+        final UI ui = this.currentUI;
         this.currentFuture = null;
+        this.currentUI = null;
         this.currentId = 0;
 
         // Enqueue the appropriate notification
         final int status = exception instanceof InterruptedException ? AsyncTaskStatusChangeEvent.CANCELED :
           exception != null ? AsyncTaskStatusChangeEvent.FAILED : AsyncTaskStatusChangeEvent.COMPLETED;
         final AsyncTaskStatusChangeEvent<R> event = new AsyncTaskStatusChangeEvent<>(this, id, status, result, exception);
-        this.notifyListeners(event);
+        this.notifyListeners(ui, event);
 
         // Report back any successful result
         if (exception == null)
-            this.handleTaskResult(id, result);
+            this.withUI(ui, () -> this.handleTaskResult(id, result));
 
         // Done
         return true;
@@ -390,11 +403,12 @@ public class AsyncTaskManager<R> {
      * The implementation in {@link AsyncTaskManager} actually delivers the notifications later,
      * in the manner of {@link VaadinSession#access VaadinSession.access()}.
      *
+     * @param ui {@link UI} to make current, or null for none
      * @param event status change event
      * @throws IllegalStateException if the current thread is not associated with {@linkplain #session this instance's session}
      * @throws IllegalArgumentException if {@code event} is zero
      */
-    protected void notifyListeners(AsyncTaskStatusChangeEvent<R> event) {
+    protected void notifyListeners(UI ui, AsyncTaskStatusChangeEvent<R> event) {
 
         // Sanity check
         Preconditions.checkArgument(event != null, "null event");
@@ -402,7 +416,8 @@ public class AsyncTaskManager<R> {
 
         // Notify listeners (later)
         final ArrayList<AsyncTaskStatusChangeListener<R>> recipients = new ArrayList<>(this.listeners);
-        VaadinUtil.accessSession(this.session, () -> recipients.stream().forEach(listener -> listener.onTaskStatusChange(event)));
+        VaadinUtil.accessSession(this.session,
+          () -> recipients.stream().forEach(listener -> this.withUI(ui, () -> listener.onTaskStatusChange(event))));
     }
 
     /**
@@ -439,5 +454,20 @@ public class AsyncTaskManager<R> {
      */
     protected void handleTaskException(long id, Throwable t) {
         LoggerFactory.getLogger(this.getClass()).error("exception from async task #" + id, t);
+    }
+
+    /**
+     * Perform the given action with the given {@link UI} as current, if not null and still associated
+     * with the current {@link VaadinSession}.
+     *
+     * @param ui {@link UI} to make current, or null for none
+     * @param action action to perform
+     */
+    protected void withUI(UI ui, Runnable action) {
+        VaadinUtil.assertCurrentSession(this.session);
+        if (ui != null && ui.getSession() == this.session)
+            ui.accessSynchronously(action::run);
+        else
+            action.run();
     }
 }
