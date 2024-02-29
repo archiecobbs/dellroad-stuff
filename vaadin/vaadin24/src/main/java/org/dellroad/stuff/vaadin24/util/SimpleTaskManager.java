@@ -92,7 +92,7 @@ public class SimpleTaskManager {
 // Public Methods
 
     /**
-     * Start a new task.
+     * Start a new task that returns some value.
      *
      * <p>
      * Any previous task that is still executing will be cancelled.
@@ -116,6 +116,32 @@ public class SimpleTaskManager {
     }
 
     /**
+     * Start a new task that returns nothing.
+     *
+     * <p>
+     * Any previous task that is still executing will be cancelled.
+     *
+     * @param action the task to perform
+     * @param onSuccess callback when task is successful
+     * @param onError callback when task fails or is interrupted
+     * @throws IllegalStateException if the current thread is not associated with
+     *  {@linkplain #getVaadinSession this instance's session}
+     */
+    public void startTask(ThrowingRunnable action, Runnable onSuccess, Consumer<? super Throwable> onError) {
+        Preconditions.checkArgument(action != null, "null action");
+        Preconditions.checkArgument(onSuccess != null, "null onSuccess");
+        Preconditions.checkArgument(onError != null, "null onError");
+        Preconditions.checkState(this.taskManager != null, "not initialized");
+        Preconditions.checkState(!this.taskManager.isBusy(), "a task is already executing");
+        this.onSuccess = ignored -> onSuccess.run();
+        this.onError = onError;
+        this.taskManager.startTask(id -> {
+            action.run();
+            return null;
+        });
+    }
+
+    /**
      * Determine whether there is an outstanding asynchronous task in progress.
      *
      * @return true if an asynchronous task is currently executing, otherwise false
@@ -135,6 +161,19 @@ public class SimpleTaskManager {
      */
     public boolean cancelTask() {
         return this.taskManager.cancelTask() != 0;
+    }
+
+// ThrowingRunnable
+
+    @FunctionalInterface
+    public interface ThrowingRunnable {
+
+        /**
+         * Perform some action.
+         *
+         * @throws Exception if an error occurs
+         */
+        void run() throws Exception;
     }
 
 // Private Methods
