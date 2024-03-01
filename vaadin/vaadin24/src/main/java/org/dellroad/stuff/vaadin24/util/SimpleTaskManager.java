@@ -13,6 +13,8 @@ import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.dellroad.stuff.util.LongMap;
+
 /**
  * A simplified asynchronous task manager.
  *
@@ -29,9 +31,7 @@ public class SimpleTaskManager {
 
     protected final AsyncTaskManager<Object> taskManager;
 
-    // These are for the currently executing task, if any
-    private Consumer<?> onSuccess;
-    private Consumer<? super Throwable> onError;
+    private final LongMap<Handlers> handlerMap = new LongMap<>();
 
 // Constructors
 
@@ -110,9 +110,9 @@ public class SimpleTaskManager {
         Preconditions.checkArgument(onError != null, "null onError");
         Preconditions.checkState(this.taskManager != null, "not initialized");
         Preconditions.checkState(!this.taskManager.isBusy(), "a task is already executing");
-        this.onSuccess = onSuccess;
-        this.onError = onError;
-        this.taskManager.startTask(id -> action.call());
+        final long id = this.taskManager.startTask(ignored -> action.call());
+        Preconditions.checkState(!this.handlerMap.containsKey(id), "internal error");
+        this.handlerMap.put(id, new Handlers(onSuccess, onError));
     }
 
     /**
@@ -130,15 +130,13 @@ public class SimpleTaskManager {
     public void startTask(ThrowingRunnable action, Runnable onSuccess, Consumer<? super Throwable> onError) {
         Preconditions.checkArgument(action != null, "null action");
         Preconditions.checkArgument(onSuccess != null, "null onSuccess");
-        Preconditions.checkArgument(onError != null, "null onError");
-        Preconditions.checkState(this.taskManager != null, "not initialized");
-        Preconditions.checkState(!this.taskManager.isBusy(), "a task is already executing");
-        this.onSuccess = ignored -> onSuccess.run();
-        this.onError = onError;
-        this.taskManager.startTask(id -> {
+        this.startTask(
+          () -> {
             action.run();
             return null;
-        });
+          },
+          ignored -> onSuccess.run(),
+          onError);
     }
 
     /**
@@ -184,22 +182,22 @@ public class SimpleTaskManager {
         if (event.getStatus() == AsyncTaskStatusChangeEvent.STARTED)
             return;
 
+        // Get handlers
+        final Handlers handlers = this.handlerMap.remove(event.getTaskId());
+        Preconditions.checkState(handlers != null, "internal error");
+
         // Handle success/failure
         switch (event.getStatus()) {
         case AsyncTaskStatusChangeEvent.COMPLETED:
-            this.deliverResult(onSuccess, event.getResult());
+            this.deliverResult(handlers.onSuccess(), event.getResult());
             break;
         case AsyncTaskStatusChangeEvent.FAILED:
         case AsyncTaskStatusChangeEvent.CANCELED:
-            this.onError.accept(event.getException());
+            handlers.onError().accept(event.getException());
             break;
         default:
             throw new RuntimeException("internal error");
         }
-
-        // Clean up
-        this.onSuccess = null;
-        this.onError = null;
     }
 
     // Capture the unchecked cast
@@ -207,4 +205,8 @@ public class SimpleTaskManager {
     private <T> void deliverResult(Consumer<T> handler, Object obj) {
         handler.accept((T)obj);
     }
+
+// Handlers
+
+    private record Handlers(Consumer<?> onSuccess, Consumer<? super Throwable> onError) { }
 }

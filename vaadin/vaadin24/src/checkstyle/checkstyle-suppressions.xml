@@ -7,4 +7,5 @@
 <suppressions>
     <suppress files="FieldBuilder.java" checks="LengthCheck"/>
     <suppress files="FieldBuilder.java" checks="ParameterNumber"/>
+    <suppress files="SimpleTaskManager.java" checks="MethodName"/>
 </suppressions>
