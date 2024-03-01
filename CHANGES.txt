@@ -3,6 +3,7 @@ Version Next
     - Declare AsyncTask.perform() to throw any exception; add SimpleTaskManager.
     - Remember the current UI when invoking AsyncTaskManager tasks.
     - Fix exceptions in VaadinSessionFinder and VaadinUtil.accessSession().
+    - Update to dellroad-dependencies 3.2.3.0.
 
 Version 3.0.3 Released February 22, 2024
 
