@@ -1,4 +1,4 @@
-Version Next
+Version 3.0.4 Released February 29, 2024
 
     - Declare AsyncTask.perform() to throw any exception; add SimpleTaskManager.
     - Remember the current UI when invoking AsyncTaskManager tasks.
