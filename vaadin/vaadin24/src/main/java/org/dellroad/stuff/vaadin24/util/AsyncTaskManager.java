@@ -367,7 +367,7 @@ public class AsyncTaskManager<R> {
         // Sanity check
         VaadinUtil.assertCurrentSession(this.session);
         Preconditions.checkArgument(id != 0, "zero id");
-        Preconditions.checkArgument(exception != null || result != null, "result and exception both given");
+        Preconditions.checkArgument(exception == null || result == null, "result and exception both given");
 
         // If we were canceled, silently go away
         if (id != this.currentId)

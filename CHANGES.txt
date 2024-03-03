@@ -1,3 +1,7 @@
+Version Next
+
+    - Fixed false assertion failure in AsyncTaskManager when task returns null.
+
 Version 3.0.4 Released February 29, 2024
 
     - Declare AsyncTask.perform() to throw any exception; add SimpleTaskManager.
