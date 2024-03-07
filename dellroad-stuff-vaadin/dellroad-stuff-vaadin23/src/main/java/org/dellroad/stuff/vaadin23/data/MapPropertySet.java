@@ -45,7 +45,7 @@ public class MapPropertySet extends SimplePropertySet<Map<String, Object>> {
     }
 
     /**
-     * Add a new property to this instance, deriving the caption automatically from the proeprty name.
+     * Add a new property to this instance, deriving the caption automatically from the property name.
      *
      * <p>
      * Equivalent to: {@link #addPropertyDefinition(String, Class, String) addPropertyDefinition}{@code (name, type,
