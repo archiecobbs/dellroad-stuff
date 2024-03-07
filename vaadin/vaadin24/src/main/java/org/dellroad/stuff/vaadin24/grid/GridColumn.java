@@ -13,6 +13,7 @@ import com.vaadin.flow.component.grid.SortOrderProvider;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.ValueProvider;
 
@@ -308,6 +309,18 @@ public @interface GridColumn {
      * @see Grid.Column#setSortProperty
      */
     String[] sortProperties() default {};
+
+    /**
+     * Specify CSS properties to be set on the column via {@link Style#set Style.set()}.
+     *
+     * <p>
+     * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+     *
+     * @return zero or more style property name, value pairs
+     * @see Style
+     * @see Grid.Column#getStyle
+     */
+    String[] styleProperties() default {};
 
     /**
      * Get the text alignment setting.

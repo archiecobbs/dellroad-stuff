@@ -14,6 +14,7 @@ import com.vaadin.flow.component.grid.HeaderRow;
 import com.vaadin.flow.component.treegrid.TreeGrid;
 import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.renderer.Renderer;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.function.SerializableFunction;
 import com.vaadin.flow.function.ValueProvider;
 import com.vaadin.flow.shared.util.SharedUtil;
@@ -479,6 +480,12 @@ public class GridColumnScanner<T> {
         }
         if (annotation.sortProperties().length > 0)
             column.setSortProperty(annotation.sortProperties());
+        final String[] styleProperties = annotation.styleProperties();
+        if (styleProperties.length > 0) {
+            final Style style = column.getStyle();
+            for (int i = 0; i < styleProperties.length - 1; )
+                style.set(styleProperties[i++], styleProperties[i++]);
+        }
 
         // Done
         return column;
