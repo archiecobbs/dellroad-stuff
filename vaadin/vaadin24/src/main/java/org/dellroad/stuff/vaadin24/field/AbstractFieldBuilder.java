@@ -1148,9 +1148,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
          *
          * @param formLayout target layout
          * @param component field component to add
+         * @return the added {@link com.vaadin.flow.component.formlayout.FormLayout.FormItem}
          * @throws IllegalArgumentException if either parameter is null
          */
-        public void addField(com.vaadin.flow.component.formlayout.FormLayout formLayout, Component component) {
+        public com.vaadin.flow.component.formlayout.FormLayout.FormItem addField(
+          com.vaadin.flow.component.formlayout.FormLayout formLayout, Component component) {
 
             // Sanity check
             if (formLayout == null)
@@ -1181,6 +1183,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
               .map(FormLayout::colspan)
               .filter(colspan -> colspan > 0)
               .ifPresent(colspan -> formLayout.setColspan(formItem, colspan));
+
+            // Return the FormItem
+            return formItem;
         }
 
         /**

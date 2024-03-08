@@ -1,6 +1,7 @@
 Version Next
 
     - Fixed false assertion failure in AsyncTaskManager when task returns null.
+    - Have @FieldBuilder.BindingInfo.addField() return the added FormItem.
     - Added @GridColumn.styleProperties().
 
 Version 3.0.4 Released February 29, 2024
