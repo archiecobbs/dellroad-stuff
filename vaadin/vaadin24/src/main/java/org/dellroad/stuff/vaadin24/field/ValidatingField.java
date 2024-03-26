@@ -36,6 +36,7 @@ import java.time.LocalDate;
  * @see FieldBuilder
  * @see FieldBuilderCustomField
  * @see org.dellroad.stuff.vaadin24.util.WholeBeanValidator
+ * @see ValidatingBean
  */
 @SuppressWarnings("serial")
 public interface ValidatingField<E extends HasValue.ValueChangeEvent<V>, V> extends HasValue<E, V> {

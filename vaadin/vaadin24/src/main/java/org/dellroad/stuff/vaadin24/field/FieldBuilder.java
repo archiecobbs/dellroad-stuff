@@ -196,13 +196,18 @@ import org.dellroad.stuff.vaadin24.data.EnumDataProvider;
  * Override {@link #newFieldBuilderContext newFieldBuilderContext()} if you wish to pass a custom context; the constructor
  * chosen will be the one with the narrowest type compatible with the actual {@link FieldBuilderContext} in use.
  *
- * <p><b>Recursive Validation</b>
+ * <p><b>Automatic Validator Registration</b>
  *
  * <p>
- * To facilitate nesting/recursion of fields, fields that implement {@link ValidatingField} will be automatically registered
- * as a field {@link Validator} by {@link #bindFields bindFields()} when the field is bound. This allows for more modularity
- * with respect to validation when nested types having sub-fields are in use. See also {@link FieldBuilderCustomField}, which
- * relies on this mechanism.
+ * This class automatically registers validators with the {@link Binder} as follows:
+ * <ul>
+ *  <li>If a field implements {@link ValidatingField}, a corresponding field validator will be registered
+ *  <li>If the target bean class implements {@link ValidatingBean}, a corresponding bean-level validator will be registered
+ * </ul>
+ *
+ * <p>
+ * This allows for more modularity, especially when nested types having sub-fields are in use; for example,
+ * {@link FieldBuilderCustomField} relies on this mechanism.
  *
  * <p><b>Production Bundle Caveat</b>
  *
@@ -229,11 +234,12 @@ import org.dellroad.stuff.vaadin24.data.EnumDataProvider;
  * @see Checkbox
  * @see CheckboxGroup
  * @see ComboBox
+ * @see MultiSelectComboBox
+ * @see CustomField
  * @see DatePicker
  * @see DateTimePicker
  * @see Input
- * @see GridMultiSelect
- * @see GridSingleSelect
+ * @see RangeInput
  * @see ListBox
  * @see MultiSelectListBox
  * @see RadioButtonGroup

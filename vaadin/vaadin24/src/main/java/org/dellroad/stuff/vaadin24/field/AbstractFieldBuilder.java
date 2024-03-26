@@ -194,6 +194,10 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
             this.fieldComponentMap.put(propertyName, fieldComponent);
         });
 
+        // Add bean-level validation from ValidatingBean, if appropriate
+        if (ValidatingBean.class.isAssignableFrom(this.type))
+            binder.withValidator((value, context) -> ((ValidatingBean)value).validateBean(context));
+
         // Process @EnabledBy dependencies
         this.bindingInfoMap.forEach((name, info) -> this.configureEnabledBy(binder, name, info));
     }

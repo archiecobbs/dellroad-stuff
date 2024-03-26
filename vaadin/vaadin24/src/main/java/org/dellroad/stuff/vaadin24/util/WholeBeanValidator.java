@@ -22,6 +22,8 @@ import java.lang.annotation.ElementType;
 import java.util.Locale;
 import java.util.Optional;
 
+import org.dellroad.stuff.vaadin24.field.ValidatingBean;
+
 /**
  * Applies JSR 303 bean validation constraints that are attached to the bean as a whole (not to an individual property).
  *
@@ -32,9 +34,16 @@ import java.util.Optional;
  * per-property validation).
  *
  * <p>
- * This is a bean-level validator, so any {@link Binder} using this validator must have an actual bean bound to it to validate
- * (via {@link Binder#setBean Binder.setBean()}), otherwise you'll get an {@link IllegalStateException} with
- * <i>bean level validators have been configured but no bean is currently set</i>.
+ * See {@link ValidatingBean} for a simpler, non-JSR 303 alternative to this class.
+ *
+ * <p>
+ * This is a bean-level validator, so any {@link Binder} using this validator will need access to an actual bean in order
+ * to validate (e.g., via {@link Binder#setBean Binder.setBean()}, {@link Binder#writeBean Binder.writeBean()},
+ * {@link Binder#writeBeanIfValid Binder.writeBeanIfValid()}, etc.), otherwise you'll get an {@link IllegalStateException}
+ * with <i>bean level validators have been configured but no bean is currently set</i>.
+ *
+ * @see ValidatingBean
+ * @see Binder#withValidator(Validator) Binder.withValidator()
  */
 @SuppressWarnings("serial")
 public class WholeBeanValidator implements Validator<Object> {
