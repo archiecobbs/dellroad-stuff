@@ -5,9 +5,17 @@
 
 package org.dellroad.stuff.vaadin24.field;
 
+import com.google.common.base.Preconditions;
 import com.vaadin.flow.component.AbstractField;
+import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.customfield.CustomField;
+import com.vaadin.flow.component.dialog.Dialog;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+
+import java.util.Optional;
 
 /**
  * Support superclass that mostly automates the creation of {@link CustomField}s for editing any model type
@@ -85,15 +93,82 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
  * }
  * </code></pre>
  *
+ * <p>
+ * If you don't need to do any customization, you can use {@link FieldBuilderCustomField} directly; the field's
+ * value type will be inferred by the {@link #FieldBuilderCustomField(FieldBuilderContext)} constructor:
+ *
+ * <pre><code class="language-java">
+ * public class Contract {
+ *
+ *     &#64;FieldBuilder.CheckBox(label = "Approved?")
+ *     public boolean isApproved() { ... }
+ *     public void setApproved(boolean approved) { ... }
+ *
+ *     // "DateInterval" value type is inferred from the method's return type
+ *     &#64;FieldBuilder.CustomField(label = "Term", <b>implementation = FieldBuilderCustomField.class</b>)
+ *     public DateInterval getTerm() { ... }
+ *     public void setTerm(DateInterval term) { ... }
+ * }
+ * </code></pre>
+ *
+ * <p><b>Edit in Dialog Window</b>
+ *
+ * <p>
+ * For more complex value types, this class support an alternative display model in which the value's sub-fields
+ * are edited in a {@link Dialog} window instead of inline in the form. In lieu of the inline sub-fields, the form
+ * displays an "Edit" button which, when clicked, opens a new {@link Dialog} window into which the sub-fields
+ * are laid out, plus "OK" and "Cancel" buttons.
+ *
+ * <p>
+ * To configure an edit dialog, add a {@link FieldBuilderCustomField.DialogForm &#64;FieldBuilderCustomField.DialogForm}
+ * annotation to the method:
+ *
+ * <pre><code class="language-java">
+ * public class Contract {
+ *
+ *     &#64;FieldBuilder.CheckBox(label = "Approved?")
+ *     public boolean isApproved() { ... }
+ *     public void setApproved(boolean approved) { ... }
+ *
+ *     &#64;FieldBuilder.CustomField(label = "Term", implementation = FieldBuilderCustomField.class)
+ *     <b>&#64;FieldBuilderCustomField.DialogForm(windowTitle = "Contract Term")</b>
+ *     public DateInterval getTerm() { ... }
+ *     public void setTerm(DateInterval term) { ... }
+ * }
+ * </code></pre>
+ *
+ * <p><b>Nullable Values</b>
+ *
+ * <p>
+ * When the field's value can be null, consider adding a
+ * {@link AbstractFieldBuilder.NullifyCheckbox &#64;FieldBuilder.NullifyCheckbox} annotation.
+ *
  * @param <T> field value type
  */
 @SuppressWarnings("serial")
 public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
 
+    protected final DialogForm dialogForm;
+
     /**
      * The field builder that builds this instance's sub-fields.
      */
     protected AbstractFieldBuilder<?, T> fieldBuilder;
+
+    /**
+     * Auto-configure Constructor.
+     *
+     * <p>
+     * This constructor will infer the target type and find any {@link DialogForm &#64;FieldBuilderCustomField.DialogForm}
+     * annotation by inspecting the annotated method.
+     *
+     * @param ctx field builder context
+     * @throws NullPointerException if {@code ctx} is null
+     */
+    @SuppressWarnings("unchecked")
+    public FieldBuilderCustomField(FieldBuilderContext ctx) {
+        this((Class<T>)ctx.inferDataModelType(), ctx.getMethod().getAnnotation(DialogForm.class));
+    }
 
     /**
      * Constructor.
@@ -102,7 +177,19 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
      * @throws IllegalArgumentException if {@code modelType} is null
      */
     public FieldBuilderCustomField(Class<T> modelType) {
+        this(modelType, null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param modelType model type to introspect for {@link AbstractFieldBuilder} annotations
+     * @param dialogForm configuration for using a {@link Dialog} window to edit the field value, or null for inline editing
+     * @throws IllegalArgumentException if {@code modelType} is null
+     */
+    public FieldBuilderCustomField(Class<T> modelType, DialogForm dialogForm) {
         super(modelType);
+        this.dialogForm = dialogForm;
     }
 
     /**
@@ -131,18 +218,113 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
     }
 
     /**
-     * Layout components required for this field.
+     * Layout the components required for this field.
+     *
+     * <p>
+     * The implementation in {@link FieldBuilderCustomField} delegates to {@link #layoutInlineComponents()}
+     * if {@code #dialogForm} is null, otherwise {@link #layoutNonInlineComponents()}.
+     */
+    protected void layoutComponents() {
+        if (this.dialogForm == null)
+            this.layoutInlineComponents();
+        else
+            this.layoutNonInlineComponents();
+    }
+
+    /**
+     * Layout components required for this field when a separate edit dialog window is not being used.
      *
      * <p>
      * The implementation in {@link FieldBuilderCustomField} iterates the bound fields in {@link #fieldBuilder}
      * into a new {@link HorizontalLayout} which is then added to this instance.
      */
-    protected void layoutComponents() {
+    protected void layoutInlineComponents() {
         final HorizontalLayout layout = new HorizontalLayout();
         this.add(layout);
         this.fieldBuilder.getFieldComponents().values().stream()
           .map(FieldComponent::getComponent)
           .forEach(layout::add);
+    }
+
+    /**
+     * Layout components required for this field when a separate edit dialog window is being used.
+     *
+     * <p>
+     * The implementation in {@link FieldBuilderCustomField}
+     */
+    protected void layoutNonInlineComponents() {
+        final HorizontalLayout layout = new HorizontalLayout();
+        this.add(layout);
+        final Button editButton = new Button(this.dialogForm.editButtonLabel(), e -> this.editButtonPressed());
+        layout.add(editButton);
+    }
+
+    protected void editButtonPressed() {
+
+        // Get current value, which must not be null, else resort to a new bean
+        final T bean = Optional.ofNullable(this.getValue())
+          .orElseGet(this::createNewBean);
+
+        // Open dialog to edit it
+        this.openEditDialog(bean);
+    }
+
+    /**
+     * Open a dialog window containing a form for editing the given value.
+     *
+     * @param bean field value to edit
+     * @throws IllegalArgumentException if {@code bean} is null
+     * @throws IllegalStateException if {@code this.dialogForm} is null
+     */
+    protected void openEditDialog(T bean) {
+
+        // Sanity check
+        Preconditions.checkArgument(bean != null, "null bean");
+        Preconditions.checkState(this.dialogForm != null, "no @DialogForm");
+
+        // Create dialog window
+        final Dialog dialog = new Dialog(this.dialogForm.windowTitle());
+        dialog.setModal(false);             // workaround for https://github.com/vaadin/flow-components/issues/6052
+        dialog.setHeaderTitle(this.dialogForm.windowTitle());
+
+        // Create form
+        final FormLayout formLayout = new FormLayout();
+
+        // Add fields to form
+        this.layoutEditDialogFields(formLayout);
+
+        // Add buttons
+        final Button submitButton = new Button(this.dialogForm.submitButtonLabel(), e -> {
+            if (this.submitEditDialog(bean))
+                dialog.close();
+        });
+        submitButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        submitButton.addClickShortcut(Key.ENTER);
+        final Button cancelButton = new Button(this.dialogForm.cancelButtonLabel(), e -> dialog.close());
+        cancelButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        cancelButton.addClickShortcut(Key.ESCAPE);
+        formLayout.addFormItem(new HorizontalLayout(submitButton, cancelButton), "");
+
+        // Add form and open dialog window
+        dialog.add(formLayout);
+        dialog.open();
+    }
+
+    protected boolean submitEditDialog(T bean) {
+        Preconditions.checkArgument(bean != null, "null bean");
+        return this.binder.writeBeanIfValid(bean);
+    }
+
+    /**
+     * Layout components required for this field in a separate edit dialog window.
+     *
+     * <p>
+     * The implementation in {@link FieldBuilderCustomField} delegtes to {@link FieldBuilder#addFieldComponents}.
+     *
+     * @param formLayout form
+     */
+    protected void layoutEditDialogFields(FormLayout formLayout) {
+        this.fieldBuilder.addFieldComponents(formLayout);
     }
 
     /**
@@ -178,5 +360,30 @@ public class FieldBuilderCustomField<T> extends BinderCustomField<T> {
         if (fieldComponent == null)
             throw new IllegalArgumentException(String.format("no such field: %s", name));
         return fieldComponent;
+    }
+
+// DialogForm
+
+    public @interface DialogForm {
+
+        /**
+         * Title for the dialog window.
+         */
+        String windowTitle() default "";
+
+        /**
+         * Edit button label.
+         */
+        String editButtonLabel() default "Edit";
+
+        /**
+         * Submit button label.
+         */
+        String submitButtonLabel() default "OK";
+
+        /**
+         * Cancel button label.
+         */
+        String cancelButtonLabel() default "Cancel";
     }
 }

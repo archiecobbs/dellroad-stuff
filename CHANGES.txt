@@ -2,6 +2,7 @@ Version Next
 
     - Fixed false assertion failure in AsyncTaskManager when task returns null.
     - Have @FieldBuilder.BindingInfo.addField() return the added FormItem.
+    - Added @FieldBuilderCustomField.DialogForm.
     - Added @GridColumn.styleProperties().
     - Added ValidatingBean.
 
