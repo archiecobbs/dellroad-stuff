@@ -10,6 +10,7 @@ import java.lang.reflect.Method;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -71,7 +72,14 @@ public abstract class Primitive<T> implements Comparator<T>, Serializable {
         }
         @Override
         protected Boolean doParseValue(String string) {
-            return Boolean.parseBoolean(string);
+            switch (string.toLowerCase(Locale.ROOT)) {
+            case "true":
+                return true;
+            case "false":
+                return false;
+            default:
+                throw new IllegalArgumentException("invalid boolean value \"" + string + "\"");
+            }
         }
     };
 
