@@ -6,6 +6,7 @@ Version Next
     - Added @FieldBuilderCustomField.DialogForm.
     - Added @GridColumn.styleProperties().
     - Added ValidatingBean.
+    - Update Vaadin 24 to release 24.3.10.
 
 Version 3.0.4 Released February 29, 2024
 
