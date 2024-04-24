@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.vaadin.fieldbuilder;
 
+import com.google.common.reflect.TypeToken;
+
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.io.PrintStream;
@@ -357,10 +359,15 @@ public class FieldBuilderGenerator {
 
         // Generate corresponding annotation properties
         setterMap.forEach((propertyName, method) -> {
+
+            // Resolve any generic method parameter types in the context of the containing class
+            final Class<?> paramType = TypeToken.of(cl).resolveType(method.getGenericParameterTypes()[0]).getRawType();
+
+            // Emit annotation property
             if (method.getName().startsWith("set"))
-                this.addAnnotationSetMethod(cl, propertyName, method);
+                this.addAnnotationSetMethod(cl, propertyName, method, paramType);
              else
-                this.addAnnotationAddMethod(cl, propertyName, method);
+                this.addAnnotationAddMethod(cl, propertyName, method, paramType);
         });
 
         // Output final stuff
@@ -368,11 +375,10 @@ public class FieldBuilderGenerator {
     }
 
     // Add annotation property, either using method type directly, or by specifying a class to instantiate
-    private void addAnnotationSetMethod(Class<?> cl, String propertyName, Method method) {
+    private void addAnnotationSetMethod(Class<?> cl, String propertyName, Method method, Class<?> paramType) {
 
         // Handle annotation-supported property type vs. class to instantiate
-        final Class<?> ptype = method.getParameterTypes()[0];
-        if (this.isSupportedAnnotationPropertyType(ptype)) {
+        if (this.isSupportedAnnotationPropertyType(paramType)) {
 
             // We must be able to determine a default value
             String defaultValue;
@@ -393,7 +399,7 @@ public class FieldBuilderGenerator {
               " * @return desired {@code " + propertyName + "} property value",
               " * @see " + this.linkFor(method),
               " */",
-              String.format("%s %s() default %s;", this.srcName(ptype), propertyName, defaultValue));
+              String.format("%s %s() default %s;", this.srcName(paramType), propertyName, defaultValue));
         } else {
 
             // Output annotation property with instantiation class
@@ -406,19 +412,18 @@ public class FieldBuilderGenerator {
               " * @see " + this.linkFor(method),
               " */",
               "@SuppressWarnings(\"rawtypes\")",
-              String.format("Class<? extends %s> %s() default %s.class;", this.srcName(ptype), propertyName, this.srcName(ptype)));
+              String.format("Class<? extends %s> %s() default %s.class;",
+                this.srcName(paramType), propertyName, this.srcName(paramType)));
         }
     }
 
     // Add annotation property, either using method type directly, or by specifying a class to instantiate
-    private void addAnnotationAddMethod(Class<?> cl, String propertyName, Method method) {
+    private void addAnnotationAddMethod(Class<?> cl, String propertyName, Method method, Class<?> paramType) {
 
         // We only support methods taking arrays of annotation-supported property types (e.g., addStyleNames(), not addStyleName())
-        Class<?> ptype = method.getParameterTypes()[0];
-        if (!this.isSupportedAnnotationPropertyType(ptype) || !ptype.isArray())
+        if (!this.isSupportedAnnotationPropertyType(paramType) || !paramType.isArray())
             return;
-        ptype = ptype.getComponentType();
-        if (ptype.isArray())
+        if ((paramType = paramType.getComponentType()).isArray())
             return;
 
         // Output "add" annotation property
@@ -440,7 +445,7 @@ public class FieldBuilderGenerator {
           " * @return zero or more " + plurals + " to add",
           " * @see " + this.linkFor(method),
           " */",
-          String.format("%s[] %s() default {};", this.srcName(ptype), method.getName()));
+          String.format("%s[] %s() default {};", this.srcName(paramType), method.getName()));
     };
 
     private void findPropertySetters(Class<?> type, String methodPrefix, Map<String, Method> setterMap) {

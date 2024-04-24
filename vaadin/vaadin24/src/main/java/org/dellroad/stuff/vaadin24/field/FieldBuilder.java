@@ -769,6 +769,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.checkbox.CheckboxGroupVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code tooltipText} property.
          *
          * @return desired {@code tooltipText} property value
@@ -1107,6 +1115,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.combobox.ComboBoxVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code tooltipText} property.
@@ -1455,6 +1471,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.combobox.MultiSelectComboBoxVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code tooltipText} property.
@@ -1999,6 +2023,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.datepicker.DatePickerVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code tooltipText} property.
          *
          * @return desired {@code tooltipText} property value
@@ -2290,6 +2322,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.datetimepicker.DateTimePicker#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.datetimepicker.DateTimePickerVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code timeAriaLabel} property.
@@ -3384,6 +3424,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.radiobutton.RadioGroupVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code tooltipText} property.
          *
          * @return desired {@code tooltipText} property value
@@ -3703,6 +3751,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.select.SelectVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code tooltipText} property.
          *
          * @return desired {@code tooltipText} property value
@@ -4008,6 +4064,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code title} property.
@@ -4364,6 +4428,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code title} property.
          *
          * @return desired {@code title} property value
@@ -4716,6 +4788,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code title} property.
@@ -5080,6 +5160,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code title} property.
          *
          * @return desired {@code title} property value
@@ -5442,6 +5530,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code title} property.
          *
          * @return desired {@code title} property value
@@ -5794,6 +5890,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextAreaVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code title} property.
@@ -6150,6 +6254,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String[] addThemeNames() default {};
 
         /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.textfield.TextFieldVariant[] addThemeVariants() default {};
+
+        /**
          * Get the value desired for the {@code title} property.
          *
          * @return desired {@code title} property value
@@ -6481,6 +6593,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasTheme#addThemeNames(String[])
          */
         String[] addThemeNames() default {};
+
+        /**
+         * Add the specified theme variants.
+         *
+         * @return zero or more theme variants to add
+         * @see com.vaadin.flow.component.shared.HasThemeVariant#addThemeVariants(com.vaadin.flow.component.shared.ThemeVariant[])
+         */
+        com.vaadin.flow.component.timepicker.TimePickerVariant[] addThemeVariants() default {};
 
         /**
          * Get the value desired for the {@code tooltipText} property.
