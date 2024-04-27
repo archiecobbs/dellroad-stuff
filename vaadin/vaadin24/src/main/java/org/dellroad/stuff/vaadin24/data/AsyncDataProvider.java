@@ -6,7 +6,10 @@
 package org.dellroad.stuff.vaadin24.data;
 
 import com.google.common.base.Preconditions;
+import com.vaadin.flow.data.provider.InMemoryDataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
+import com.vaadin.flow.function.SerializableFunction;
+import com.vaadin.flow.function.SerializablePredicate;
 import com.vaadin.flow.server.VaadinSession;
 
 import java.util.ArrayList;
@@ -34,6 +37,16 @@ import org.dellroad.stuff.vaadin24.util.VaadinUtil;
  *
  * <p>
  * All operations are atomic and race free. See {@link AsyncTaskManager} for details.
+ *
+ * <p><b>Query Parameter and Filtering</b>
+ *
+ * <p>
+ * Note that the query type used with {@link ListDataProvider} is {@link SerializablePredicate}, and any filtering
+ * of the data in {@link #fetch fetch()} or {@link #size()} based on the query parameter is done in memory, being
+ * applied to results already obtained from the most recent asynchronous query. For example, when using this class
+ * with a {@link ComboBox}, you would need to use {@link ComboBox#setItems(InMemoryDataProvider, SerializableFunction)}
+ * to enable {@link ComboBox} filtering. Unfortunately, it's not possible to use the query parameter passed to
+ * {@link #fetch fetch()} and {@link #size()} in the asynchronous query due to the synchronous nature of those methods.
  */
 @SuppressWarnings("serial")
 public class AsyncDataProvider<T> extends ListDataProvider<T> {
