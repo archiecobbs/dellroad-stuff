@@ -6,10 +6,9 @@
 package org.dellroad.stuff.vaadin23.data;
 
 import com.google.common.base.Preconditions;
-import com.vaadin.flow.data.provider.InMemoryDataProvider;
+import com.vaadin.flow.data.provider.DataProvider;
 import com.vaadin.flow.data.provider.ListDataProvider;
-import com.vaadin.flow.function.SerializableFunction;
-import com.vaadin.flow.function.SerializablePredicate;
+import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.server.VaadinSession;
 
 import java.util.ArrayList;
@@ -38,15 +37,19 @@ import org.dellroad.stuff.vaadin23.util.VaadinUtil;
  * <p>
  * All operations are atomic and race free. See {@link AsyncTaskManager} for details.
  *
- * <p><b>Query Parameter and Filtering</b>
+ * <p><b>Queries</b>
  *
  * <p>
- * Note that the query type used with {@link ListDataProvider} is {@link SerializablePredicate}, and any filtering
- * of the data in {@link #fetch fetch()} or {@link #size()} based on the query parameter is done in memory, being
- * applied to results already obtained from the most recent asynchronous query. For example, when using this class
- * with a {@link ComboBox}, you would need to use {@link ComboBox#setItems(InMemoryDataProvider, SerializableFunction)}
- * to enable {@link ComboBox} filtering. Unfortunately, it's not possible to use the query parameter passed to
- * {@link #fetch fetch()} and {@link #size()} in the asynchronous query due to the synchronous nature of those methods.
+ * The {@link DataProvider}'s {@link #fetch fetch()} and {@link #size size()} methods take a {@link Query} parameter,
+ * which includes basic filtering, sorting, and offset/limit information for the query. However, because these methods
+ * are synchronous, they not compatible with this class' aynchronous loading model. That's why this class extends
+ * {@link ListDataProvider}, which applies the {@link Query} to a list of objects already loaded into memory by other means.
+ * The purpose of this class is therefore simply to refresh that list, aynchronously, {@linkplain #load when requested}.
+ *
+ * <p>
+ * However, there may be scenarios where the aynchronous load operation can benefit from knowing the {@link Query} currently
+ * being used, i.e., most recently passed to {@link #fetch fetch()} or {@link #size size()}. For such scenarios, subclasses
+ * could override these methods and trigger a new load operation if the {@link Query} has changed, etc.
  */
 @SuppressWarnings("serial")
 public class AsyncDataProvider<T> extends ListDataProvider<T> {
