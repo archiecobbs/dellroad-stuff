@@ -1,4 +1,4 @@
-Version Next
+Version 3.0.5 Released May 20, 2024
 
     - Fixed false assertion failure in AsyncTaskManager when task returns null.
     - Have @FieldBuilder.BindingInfo.addField() return the added FormItem.
