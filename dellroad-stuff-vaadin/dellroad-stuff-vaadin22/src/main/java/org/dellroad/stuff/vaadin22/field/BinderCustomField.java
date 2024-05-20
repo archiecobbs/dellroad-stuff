@@ -333,8 +333,10 @@ public abstract class BinderCustomField<T> extends CustomField<T>
         default:
             break;
         }
-        final T target = !Objects.equals(value, this.getEmptyValue()) ? value : this.createNewBean();
-        this.binder.readBean(target);
+        if (!Objects.equals(value, this.getEmptyValue()))
+            this.binder.readBean(value);
+        else
+            this.binder.removeBean();
     }
 
 // InitState
