@@ -148,6 +148,13 @@ public abstract class BinderCustomField<T> extends CustomField<T>
         });
     }
 
+    /**
+     * Get the model type.
+     */
+    public Class<T> getModelType() {
+        return this.modelType;
+    }
+
 // Subclass Methods
 
     /**
