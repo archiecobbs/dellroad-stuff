@@ -16,7 +16,7 @@ import java.util.OptionalDouble;
  * <p>
  * Instances are not thread safe.
  *
- * @see <a href="http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Online_algorithm">Wikipedia</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance#Welford's_online_algorithm">Wikipedia</a>
  */
 public class Averager implements Cloneable {
 
