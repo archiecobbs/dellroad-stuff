@@ -270,14 +270,17 @@ public final class StringEncoder {
      *
      * <p>
      * Valid characters are tab, newline, carriage return, and characters in the ranges
-     * <code>&#92;u0020 - &#92;ud7ff</code> and <code>&#92;ue000 - &#92;fffdf</code> (inclusive).
+     * <code>0x0020 - 0xd7ff</code>, <code>0xe000 - 0xffdf</code>, and <code>0x10000 - 0x10ffff</code>.
      *
-     * @param ch character to test
-     * @return true if {@code ch} is valid within XML
+     * @param codepoint character codepoint
+     * @return true if {@code codepoint} is a valid XML character
      * @see <a href="http://www.w3.org/TR/REC-xml/#charsets">The XML 1.0 Specification</a>
      */
-    public static boolean isValidXMLChar(char ch) {
-        return (ch >= '\u0020' && ch <= '\ud7ff') || ch == '\n' || ch == '\r' || ch == '\t' || (ch >= '\ue000' && ch <= '\ufffd');
+    public static boolean isValidXMLChar(int codepoint) {
+        return (codepoint >= 0x0020 && codepoint <= 0xd7ff)
+          || (codepoint == '\n' || codepoint == '\r' || codepoint == '\t')
+          || (codepoint >= 0xe000 && codepoint <= 0xfffd)
+          || (codepoint >= 0x10000 && codepoint <= 0x10ffff);
     }
 }
 

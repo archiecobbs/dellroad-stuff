@@ -1,5 +1,6 @@
 Version Next
 
+    - Update StringEncoder.isValidXMLChar() to handle codepoints.
     - Tighten up parsing of boolean string values (require "true" or "false").
     - Declare AsyncTask.perform() to throw any exception.
     - Allow FieldBuilder.createBindingInfo() to return null.
