@@ -1,3 +1,7 @@
+Version Next
+
+    - Update StringEncoder.isValidXMLChar() to handle codepoints.
+
 Version 3.0.5 Released May 20, 2024
 
     - Fixed false assertion failure in AsyncTaskManager when task returns null.
