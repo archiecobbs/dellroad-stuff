@@ -90,7 +90,7 @@ public final class StringEncoder {
             }
 
             // If character is an otherwise valid XML character, pass it through unchanged
-            if (isValidXMLChar(ch)) {
+            if (StringEncoder.isValidXMLChar(ch)) {
                 buf.append(ch);
                 continue;
             }
