@@ -2,6 +2,7 @@ Version Next
 
     - Update StringEncoder.isValidXMLChar() to handle codepoints.
     - Added Vaadin 24 Audio widget.
+    - Update Vaadin 24 to release 24.4.3.
 
 Version 3.0.5 Released May 20, 2024
 

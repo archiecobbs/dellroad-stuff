@@ -411,12 +411,37 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean enabled() default true;
 
         /**
+         * Get the value desired for the {@code errorMessage} property.
+         *
+         * @return desired {@code errorMessage} property value
+         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         */
+        String errorMessage() default "";
+
+        /**
          * Get the value desired for the {@code height} property.
          *
          * @return desired {@code height} property value
          * @see com.vaadin.flow.component.HasSize#setHeight(String)
          */
         String height() default "";
+
+        /**
+         * Get the class to instantiate for the {@code helperComponent} property.
+         *
+         * @return desired {@code helperComponent} property value type
+         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code helperText} property.
+         *
+         * @return desired {@code helperText} property value
+         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
+         */
+        String helperText() default "";
 
         /**
          * Get the value desired for the {@code id} property.
@@ -450,6 +475,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.component.Component> labelComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code manualValidation} property.
+         *
+         * @return desired {@code manualValidation} property value
+         * @see com.vaadin.flow.component.checkbox.Checkbox#setManualValidation(boolean)
+         */
+        boolean manualValidation() default false;
 
         /**
          * Get the value desired for the {@code maxHeight} property.
@@ -662,6 +695,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.function.SerializablePredicate> itemEnabledProvider() default com.vaadin.flow.function.SerializablePredicate.class;
 
         /**
+         * Get the class to instantiate for the {@code itemHelperGenerator} property.
+         *
+         * @return desired {@code itemHelperGenerator} property value type
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setItemHelperGenerator(com.vaadin.flow.component.checkbox.CheckboxGroup.ItemHelperGenerator)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.checkbox.CheckboxGroup.ItemHelperGenerator> itemHelperGenerator() default com.vaadin.flow.component.checkbox.CheckboxGroup.ItemHelperGenerator.class;
+
+        /**
          * Get the class to instantiate for the {@code itemLabelGenerator} property.
          *
          * @return desired {@code itemLabelGenerator} property value type
@@ -731,7 +773,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code readOnly} property.
          *
          * @return desired {@code readOnly} property value
-         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setReadOnly(boolean)
+         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
          */
         boolean readOnly() default false;
 
@@ -759,6 +801,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code selectionPreservationMode} property.
+         *
+         * @return desired {@code selectionPreservationMode} property value
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setSelectionPreservationMode(com.vaadin.flow.component.shared.SelectionPreservationMode)
+         */
+        com.vaadin.flow.component.shared.SelectionPreservationMode selectionPreservationMode() default com.vaadin.flow.component.shared.SelectionPreservationMode.DISCARD;
 
         /**
          * Add the specified theme names.
@@ -1033,6 +1083,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.shared.HasOverlayClassName#setOverlayClassName(String)
          */
         String overlayClassName() default "";
+
+        /**
+         * Get the value desired for the {@code overlayWidth} property.
+         *
+         * @return desired {@code overlayWidth} property value
+         * @see com.vaadin.flow.component.combobox.ComboBox#setOverlayWidth(String)
+         */
+        String overlayWidth() default "";
 
         /**
          * Get the value desired for the {@code pageSize} property.
@@ -1336,6 +1394,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
 
         /**
+         * Get the value desired for the {@code keepFilter} property.
+         *
+         * @return desired {@code keepFilter} property value
+         * @see com.vaadin.flow.component.combobox.MultiSelectComboBox#setKeepFilter(boolean)
+         */
+        boolean keepFilter() default false;
+
+        /**
          * Get the value desired for the {@code label} property.
          *
          * @return desired {@code label} property value
@@ -1398,6 +1464,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.shared.HasOverlayClassName#setOverlayClassName(String)
          */
         String overlayClassName() default "";
+
+        /**
+         * Get the value desired for the {@code overlayWidth} property.
+         *
+         * @return desired {@code overlayWidth} property value
+         * @see com.vaadin.flow.component.combobox.MultiSelectComboBox#setOverlayWidth(String)
+         */
+        String overlayWidth() default "";
 
         /**
          * Get the value desired for the {@code pageSize} property.
@@ -3163,6 +3237,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean requiredIndicatorVisible() default false;
 
         /**
+         * Get the value desired for the {@code selectionPreservationMode} property.
+         *
+         * @return desired {@code selectionPreservationMode} property value
+         * @see com.vaadin.flow.component.listbox.MultiSelectListBox#setSelectionPreservationMode(com.vaadin.flow.component.shared.SelectionPreservationMode)
+         */
+        com.vaadin.flow.component.shared.SelectionPreservationMode selectionPreservationMode() default com.vaadin.flow.component.shared.SelectionPreservationMode.DISCARD;
+
+        /**
          * Get the value desired for the {@code tooltipText} property.
          *
          * @return desired {@code tooltipText} property value
@@ -3414,6 +3496,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code selectionPreservationMode} property.
+         *
+         * @return desired {@code selectionPreservationMode} property value
+         * @see com.vaadin.flow.component.radiobutton.RadioButtonGroup#setSelectionPreservationMode(com.vaadin.flow.component.shared.SelectionPreservationMode)
+         */
+        com.vaadin.flow.component.shared.SelectionPreservationMode selectionPreservationMode() default com.vaadin.flow.component.shared.SelectionPreservationMode.DISCARD;
 
         /**
          * Add the specified theme names.
