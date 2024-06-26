@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * a thread-safe way to poll them for information.
  *
  * <p>
- * The application is responsible for registering new sessions via {@link #registerSession registerSession()}.
+ * The application is responsible for registering new sessions via {@link #registerCurrentSession registerCurrentSession()}.
  * This should happen as soon as possible, e.g., on a login screen. If that method returns false, then the maximum
  * number of allowed sessions has already been reached, and so the application should take appropriate action, e.g.,
  * display an error message and invalidate the new session.
@@ -97,26 +97,24 @@ public class VaadinSessionTracker {
     }
 
     /**
-     * Register a newly created Vaadin session.
+     * Register the current Vaadin session.
      *
      * <p>
-     * The current thread must be running in the context of the given session and holding the session's lock.
+     * The current thread must have an associated {@link VaadinSession} and be holding its lock.
      *
      * <p>
-     * If the session is already registered, nothing happens.
+     * If the session is already registered, or in the {@link VaadinSessionState#CLOSING} state, nothing happens
+     * and this method returns true. Otherwise the session is added if there is room, otherwise false is returned.
      *
-     * @param session the new session
      * @return true if the new total number of sessions does not exceed the maximum number allowed, otherwise false
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
-     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not {@code session}
-     * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
-     * @throws IllegalArgumentException if {@code session} is in state {@link VaadinSessionState#CLOSED}
-     * @throws IllegalArgumentException if {@code session} is null
+     * @throws IllegalStateException if the current {@link VaadinSession} is not locked
+     * @throws IllegalArgumentException the {@link VaadinSession} is in state {@link VaadinSessionState#CLOSED}
      */
-    public synchronized boolean registerSession(VaadinSession session) {
+    public synchronized boolean registerCurrentSession() {
 
         // Sanity check
-        VaadinUtil.assertCurrentSession(session);
+        final VaadinSession session = VaadinUtil.getCurrentSession();
         switch (session.getState()) {
         case OPEN:
             break;
