@@ -102,12 +102,14 @@ public class VaadinSessionTracker {
      * <p>
      * The current thread must be running in the context of the given session and holding the session's lock.
      *
+     * <p>
+     * If the session is already registered, nothing happens.
+     *
      * @param session the new session
      * @return true if the new total number of sessions does not exceed the maximum number allowed, otherwise false
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not {@code session}
      * @throws IllegalStateException if the {@link VaadinSession} associated with the current thread is not locked
-     * @throws IllegalArgumentException if {@code session} has already been registered
      * @throws IllegalArgumentException if {@code session} is in state {@link VaadinSessionState#CLOSED}
      * @throws IllegalArgumentException if {@code session} is null
      */
@@ -132,11 +134,15 @@ public class VaadinSessionTracker {
               .addSessionDestroyListener(e -> this.unregisterSession(e.getSession()));
         }
 
+        // Already registered?
+        if (this.sessionMap.containsKey(session))
+            return true;
+
         // Add session if there's room
         final int numSessions = this.sessionMap.size();
         if (this.maxSessions != 0 && numSessions >= this.maxSessions) {
             if (this.log.isDebugEnabled()) {
-                this.log.debug("{}: can't register new session {} (already {} ≥ {})",
+                this.log.debug("{}: can't register new session {} (already have {} ≥ {})",
                   this.getClass().getSimpleName(), session, numSessions);
             }
             return false;
