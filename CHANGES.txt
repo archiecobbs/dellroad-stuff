@@ -1,6 +1,7 @@
 Version Next
 
     - Update StringEncoder.isValidXMLChar() to handle codepoints.
+    - Added VaadinSessionTracker.
     - Added Vaadin 24 Audio widget.
     - Update Vaadin 24 to release 24.4.4.
 
