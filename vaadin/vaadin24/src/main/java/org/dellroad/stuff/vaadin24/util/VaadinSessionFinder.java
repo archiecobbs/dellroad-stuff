@@ -18,6 +18,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 /**
  * Utility class for finding the {@link VaadinSession} associated with the current HTTP request
  * when {@link VaadinSession#getCurrent} isn't an option.
+ *
+ * <p>
+ * This class requires that Spring's {@link RequestContextHolder} is being used.
  */
 public final class VaadinSessionFinder {
 

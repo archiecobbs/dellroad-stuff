@@ -59,8 +59,8 @@ public final class VaadinUtil {
      * Get the {@link VaadinSession} associated with the current thread and require that it be found and locked.
      *
      * <p>
-     * This is just a wrapper around {@link VaadinSession#getCurrent} that throws an exception instead
-     * of returning null when there is no session associated with the current thread.
+     * This is a wrapper around {@link VaadinSession#getCurrent} that (a) throws an exception instead of returning null
+     * when there is no session associated with the current thread and (b) verifies the session is locked.
      *
      * @return current {@link VaadinSession}, never null
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
