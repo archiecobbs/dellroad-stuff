@@ -12,6 +12,7 @@ org.dellroad.stuff.string
 org.dellroad.stuff.test
 org.dellroad.stuff.text
 org.dellroad.stuff.util
+org.dellroad.stuff.vaadin24.audio
 org.dellroad.stuff.vaadin24.data
 org.dellroad.stuff.vaadin24.field
 org.dellroad.stuff.vaadin24.grid
