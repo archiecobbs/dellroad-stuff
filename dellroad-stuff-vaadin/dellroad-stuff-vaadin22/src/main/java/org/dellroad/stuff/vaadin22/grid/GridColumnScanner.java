@@ -408,12 +408,13 @@ public class GridColumnScanner<T> {
                 // Try constructor #1
                 Constructor<? extends Renderer<?>> constructor = null;
                 Object[] constructorParams = null;
+                Exception firstException = null;
                 if (valueProvider != null) {
                     try {
                         constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor(ValueProvider.class);
                         constructorParams = new Object[] { valueProvider };
                     } catch (Exception e) {
-                        // too bad
+                        firstException = e;
                     }
                 }
 
@@ -423,9 +424,12 @@ public class GridColumnScanner<T> {
                         constructor = (Constructor<? extends Renderer<?>>)annotation.renderer().getConstructor();
                         constructorParams = new Object[0];
                     } catch (Exception e) {
-                        throw new RuntimeException(String.format(
-                          "cannot instantiate %s because no default constructor or constructor taking ValueProvider is found",
-                          annotation.renderer()), e);
+                        final RuntimeException re = new RuntimeException(String.format(
+                          "cannot instantiate %s because no default constructor%s was found",
+                          annotation.renderer(), valueProvider != null ? " or a constructor taking ValueProvider" : ""), e);
+                        if (firstException != null)
+                            re.addSuppressed(firstException);
+                        throw re;
                     }
                 }
 
