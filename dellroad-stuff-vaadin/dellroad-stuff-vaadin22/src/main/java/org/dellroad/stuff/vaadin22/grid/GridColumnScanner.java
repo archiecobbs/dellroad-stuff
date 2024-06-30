@@ -338,7 +338,7 @@ public class GridColumnScanner<T> {
      * @param annotation {@link GridColumn &#64;GridColumn} annotation
      * @param description description of what we're configuring (for debug purposes)
      * @param valueProvider {@link ValueProvider} providing the return value from the annotated method,
-     *  or null if ther annotated method returns {@codee void} or {@link Void}
+     *  or null if the annotated method returns {@code void} or {@link Void}
      * @param selfRendering true if the annotated method (and therefore {@code valueProvider}) returns a {@link Component}
      * @param <T> underlying bean type
      * @return newly added column
@@ -368,7 +368,7 @@ public class GridColumnScanner<T> {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     private static <T> Grid.Column<T> addColumn(Grid<T> grid, String key, GridColumn annotation,
-      String description, ValueProvider<T, ?> valueProvider, boolean selfRendering, GridColumn defaults) {
+      String description, ValueProvider<T, ?> valueProvider0, boolean selfRendering, GridColumn defaults) {
 
         // Sanity check
         if (grid == null)
@@ -379,6 +379,9 @@ public class GridColumnScanner<T> {
             throw new IllegalArgumentException("null annotation");
         if (defaults == null)
             throw new IllegalArgumentException("null defaults");
+
+        // Don't let valueProvider be null
+        final ValueProvider<T, ?> valueProvider = valueProvider0 != null ? valueProvider0 : bean -> null;
 
         // Provide helpful exception messages
         class ErrorWrapper<T> implements Supplier<T> {
