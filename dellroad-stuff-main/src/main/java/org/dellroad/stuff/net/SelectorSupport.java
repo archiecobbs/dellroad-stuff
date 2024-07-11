@@ -393,10 +393,10 @@ public class SelectorSupport {
      */
     public static String dbg(SelectionKey key) {
         try {
-            return "Key[interest=" + SelectorSupport.dbgOps(key.interestOps()) + ",ready="
-              + SelectorSupport.dbgOps(key.readyOps()) + ",obj=" + key.attachment() + "]";
+            return String.format("Key[want=%s,have=%s,obj=%s]",
+              SelectorSupport.dbgOps(key.interestOps()), SelectorSupport.dbgOps(key.readyOps()), key.attachment());
         } catch (java.nio.channels.CancelledKeyException e) {
-            return "Key[canceled]";
+            return String.format("Key[canceled,obj=%s]", key.attachment());
         }
     }
 
@@ -450,12 +450,6 @@ public class SelectorSupport {
                 if (this.selector == null)
                     break;
 
-                // Handle any ready I/O
-                if (this.log.isTraceEnabled()) {
-                    this.log.trace("[SVC]: {}: selectedKeys={}",
-                      ready ? "ready" : "awoke", SelectorSupport.dbg(currentSelector.selectedKeys()));
-                }
-
                 // Identify keys we are tracking for closure that have disappeared (because their channel was closed)
                 final Set<SelectionKey> closureKeys = new HashSet<>(this.closureTrackables);
                 closureKeys.removeAll(currentSelector.keys());
@@ -467,12 +461,18 @@ public class SelectorSupport {
                 final Set<SelectionKey> notifyKeys = closureKeys;
                 notifyKeys.addAll(this.selector.selectedKeys());
 
+                // Debug
+                if (this.log.isTraceEnabled()) {
+                    this.log.trace("[SVC]: {}: {} notifyKey(s): {}",
+                      ready ? "ready" : "awoke", notifyKeys.size(), SelectorSupport.dbg(notifyKeys));
+                }
+
                 // Notify I/O handlers
                 for (SelectionKey key : notifyKeys) {
                     this.selector.selectedKeys().remove(key);
                     final IOHandler handler = (IOHandler)key.attachment();
                     if (this.log.isTraceEnabled())
-                        this.log.trace("[SVC]: ready key={} handler={}", SelectorSupport.dbg(key), handler);
+                        this.log.trace("[SVC]: notify key={} handler={}", SelectorSupport.dbg(key), handler);
                     try {
                         handler.serviceIO(key);
                     } catch (IOException e) {
