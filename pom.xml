@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>dellroad-dependencies</artifactId>
-        <version>3.2.3.0</version>
+        <version>3.2.5.0</version>
     </parent>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
@@ -94,6 +94,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>extra-enforcer-rules</artifactId>
+                        <version>${extra-enforcer-rules.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <id>enforce-java</id>
@@ -105,8 +112,13 @@
 
                                 <!-- Enforce Java version -->
                                 <requireJavaVersion>
-                                    <version>[17,)</version>
+                                    <version>[${java.version},)</version>
                                 </requireJavaVersion>
+
+                                <!-- Enforce maximum bytecode version among dependencies -->
+                                <enforceBytecodeVersion>
+                                    <maxJdkVersion>${java.version}</maxJdkVersion>
+                                </enforceBytecodeVersion>
 
                                 <!-- Check for dependency conflicts -->
                                 <!-- <dependencyConvergence/> -->
