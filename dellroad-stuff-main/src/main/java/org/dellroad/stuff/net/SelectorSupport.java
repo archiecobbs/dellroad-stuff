@@ -171,6 +171,7 @@ public class SelectorSupport {
             // ignore
         }
         this.selector = null;               // this signals the service thread to shut down
+        this.closureTrackables.clear();
         this.serviceThread.interrupt();
 
         // Wait for service thread to exit
