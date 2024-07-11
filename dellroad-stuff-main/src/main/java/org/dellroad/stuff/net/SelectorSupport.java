@@ -157,13 +157,13 @@ public abstract class SelectorSupport {
 
         // Stop service thread
         if (this.log.isDebugEnabled())
-            this.log.debug("stopping " + this);
+            this.log.debug("stopping {}", this);
         try {
             this.selector.close();
         } catch (Exception e) {
             // ignore
         }
-        this.selector = null;
+        this.selector = null;               // this signals the service thread to shut down
         this.serviceThread.interrupt();
 
         // Wait for service thread to exit
@@ -179,8 +179,8 @@ public abstract class SelectorSupport {
             Thread.currentThread().interrupt();
         }
         if (failure != null) {
-            this.log.warn(failure + " waiting for service thread " + currentServiceThread
-              + " while stopping " + this + ", giving up");
+            this.log.warn(String.format(
+              "%s waiting for service thread %s while stopping %s, giving up", failure, currentServiceThread, this));
         }
     }
 
@@ -284,7 +284,7 @@ public abstract class SelectorSupport {
      * This method does not acquire the lock on this instance, so it can be invoked at any time from any context.
      */
     protected void wakeup() {
-        final Selector currentSelector = this.selector;
+        final Selector currentSelector = this.selector;     // unsynchronized, volatile read
         if (currentSelector != null) {
             if (this.log.isTraceEnabled())
                 this.log.trace("wakeup service thread");
@@ -394,10 +394,11 @@ public abstract class SelectorSupport {
                 break;
 
             // Wait for I/O readiness, timeout, or shutdown
+            final boolean ready;
             try {
                 if (this.log.isTraceEnabled())
-                    this.log.trace("[SVC THREAD]: sleeping: keys=" + SelectorSupport.dbg(currentSelector.keys()));
-                currentSelector.select(this.housekeepingInterval);
+                    this.log.trace("[SVC]: sleeping: keys={}", SelectorSupport.dbg(currentSelector.keys()));
+                ready = currentSelector.select(this.housekeepingInterval) > 0;
             } catch (ClosedSelectorException e) {               // close() was invoked
                 break;
             }
@@ -412,22 +413,24 @@ public abstract class SelectorSupport {
                     break;
 
                 // Handle any ready I/O
-                if (this.log.isTraceEnabled())
-                    this.log.trace("[SVC THREAD]: awake: selectedKeys=" + SelectorSupport.dbg(currentSelector.selectedKeys()));
+                if (this.log.isTraceEnabled()) {
+                    this.log.trace("[SVC]: {}: selectedKeys={}",
+                      ready ? "ready" : "awoke", SelectorSupport.dbg(currentSelector.selectedKeys()));
+                }
                 for (Iterator<SelectionKey> i = this.selector.selectedKeys().iterator(); i.hasNext(); ) {
                     final SelectionKey key = i.next();
                     i.remove();
                     final IOHandler handler = (IOHandler)key.attachment();
                     if (this.log.isTraceEnabled())
-                        this.log.trace("[SVC THREAD]: I/O ready: key=" + SelectorSupport.dbg(key) + " handler=" + handler);
+                        this.log.trace("[SVC]: ready key={} handler={}", SelectorSupport.dbg(key), handler);
                     try {
                         handler.serviceIO(key);
                     } catch (IOException e) {
                         if (this.log.isDebugEnabled())
-                            this.log.debug("I/O error from " + handler, e);
+                            this.log.debug("I/O error from {}", handler, e);
                         handler.close(e);
                     } catch (Throwable t) {
-                        this.log.error("service error from " + handler, t);
+                        this.log.error("service error from {}", handler, t);
                         handler.close(t);
                     }
                     if (this.selector == null)                              // stop() must have been invoked from handler
@@ -451,7 +454,7 @@ public abstract class SelectorSupport {
                 this.log.error("exception during cleanup", t);
             }
             if (this.serviceThread == Thread.currentThread())
-                this.serviceThread = null;
+                this.serviceThread = null;              // this signals to stop() that we have shut down
             this.notifyAll();
         }
     }
@@ -474,7 +477,7 @@ public abstract class SelectorSupport {
                 SelectorSupport.this.log.error("unexpected error in service thread", t);
             }
             if (SelectorSupport.this.log.isDebugEnabled())
-                SelectorSupport.this.log.debug(this + " exiting");
+                SelectorSupport.this.log.debug("{} exiting", this);
         }
     }
 
@@ -510,11 +513,12 @@ public abstract class SelectorSupport {
          * handler to perform any required cleanup.
          *
          * <p>
-         * Typically this method will close the associated channel, which implicitly unregisters the associated
-         * {@link SelectionKey}s. This also causes the {@link #serviceIO serviceIO()} methods of other handlers
-         * waiting on the same channel to be invoked due to the ready I/O, where they will then likely throw
-         * {@link java.nio.channels.ClosedChannelException}, causing another invocation of this method.
-         * Therefore, this method should be idempotent.
+         * Typically this method will close the associated channel (if not already closed), which implicitly unregisters
+         * the associated {@link SelectionKey}s and causes the {@link #serviceIO serviceIO()} methods of other handlers
+         * waiting on the same channel to be invoked, where they will then likely throw
+         * {@link java.nio.channels.ClosedChannelException}, which in turn causes a subsequent invocation of this method.
+         * Therefore, if this instance is shared by multiple selection keys selecting on the same channel, it should be
+         * idempotent.
          *
          * @param cause the error that occurred
          */
