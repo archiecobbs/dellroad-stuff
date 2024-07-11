@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.net;
 
+import com.google.common.base.Preconditions;
+
 import java.io.IOException;
 import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.SelectableChannel;
@@ -12,14 +14,20 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.dellroad.stuff.java.TimedWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Support superclass for classes that perform activity based on {@link SelectableChannel} asynchronous I/O notifications.
+ * Support for managing activity based on {@link SelectableChannel} asynchronous I/O notifications.
+ *
+ * <p>
+ * This class helps simplify the management of asynchronous I/O: all operations involving configuring and notifying
+ * I/O listeners are performed while this instance is locked, and all callbacks are performed in a separate service thread
+ * with this instance locked. As a result, all I/O operations are effectively atomic.
  *
  * <p>
  * Instances must be {@link #start}ed before use. While running, an internal service thread continuously monitors for
@@ -63,7 +71,7 @@ import org.slf4j.LoggerFactory;
  * re-entrancy issues, and subclass methods can use instance synchronization on other methods to avoid any race conditions
  * from asynchronous I/O events.
  */
-public abstract class SelectorSupport {
+public class SelectorSupport {
 
     /**
      * Default housekeeping interval ({@value #DEFAULT_HOUSEKEEPING_INTERVAL}ms).
@@ -74,6 +82,7 @@ public abstract class SelectorSupport {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
     protected final SelectorProvider provider;
+    protected final HashSet<SelectionKey> closureTrackables = new HashSet<>();
 
     private volatile Selector selector;
     private ServiceThread serviceThread;
@@ -87,7 +96,7 @@ public abstract class SelectorSupport {
      * <p>
      * This instance will use the default {@link SelectorProvider}.
      */
-    protected SelectorSupport() {
+    public SelectorSupport() {
         this(SelectorProvider.provider());
     }
 
@@ -97,9 +106,8 @@ public abstract class SelectorSupport {
      * @param provider the {@link SelectorProvider} that this instance will use
      * @throws IllegalArgumentException if {@code provider} is null
      */
-    protected SelectorSupport(SelectorProvider provider) {
-        if (provider == null)
-            throw new IllegalArgumentException("null provider");
+    public SelectorSupport(SelectorProvider provider) {
+        Preconditions.checkArgument(provider != null, "null provider");
         this.provider = provider;
     }
 
@@ -112,8 +120,7 @@ public abstract class SelectorSupport {
      * @throws IllegalArgumentException if {@code housekeepingInterval} is negative
      */
     public void setHousekeepingInterval(int housekeepingInterval) {
-        if (housekeepingInterval < 0)
-            throw new IllegalArgumentException("housekeepingInterval < 0");
+        Preconditions.checkArgument(housekeepingInterval >= 0, "housekeepingInterval < 0");
         this.housekeepingInterval = housekeepingInterval;
     }
 
@@ -198,18 +205,8 @@ public abstract class SelectorSupport {
      * and associating the specified {@link IOHandler} to handle I/O ready conditions.
      *
      * <p>
-     * <b>Note:</b> the {@code channel} will be {@linkplain SelectableChannel#configureBlocking configured} for non-blocking mode.
-     *
-     * <p>
-     * Initially, no I/O operations will be selected. Use {@link #selectFor selectFor()} to add/remove them.
-     *
-     * <p>
-     * There is no way to explicitly unregister {@code handler} from {@code channel}, although it can be
-     * {@linkplain #selectFor selected} for zero I/O operations.
-     * Handlers are implicitly unregistered either when {@code channel} is closed or this instance is {@link #stop}ed.
-     *
-     * <p>
-     * Does nothing if this instance is not {@link #start}ed.
+     * This method is equivalent to:
+     *  {@link #createSelectionKey(SelectableChannel, IOHandler, boolean) createSelectionKey}{@code (channel, handler, false)}.
      *
      * @param channel I/O channel
      * @param handler I/O handler
@@ -217,17 +214,50 @@ public abstract class SelectorSupport {
      * @throws IllegalArgumentException if either parameter is null
      * @throws java.nio.channels.ClosedChannelException if {@code channel} is closed
      * @throws IOException if {@code channel} cannot be configured for non-blocking  mode
-     * @throws IllegalStateException if this instances is not {@link #start}ed or is shutting down
+     * @throws IllegalStateException if this instance is not {@link #start}ed or is shutting down
      */
-    protected synchronized SelectionKey createSelectionKey(SelectableChannel channel, IOHandler handler) throws IOException {
+    public SelectionKey createSelectionKey(SelectableChannel channel, IOHandler handler) throws IOException {
+        return this.createSelectionKey(channel, handler, false);
+    }
+
+    /**
+     * Create a new {@link SelectionKey} by registering the given channel on this instance's {@link Selector}
+     * and associating the specified {@link IOHandler} to handle I/O ready conditions and/or channel closure.
+     *
+     * <p>
+     * <b>Note:</b> the {@code channel} will be {@linkplain SelectableChannel#configureBlocking configured} for non-blocking mode.
+     *
+     * <p>
+     * Initially, no I/O operations will be selected. Use {@link #selectFor selectFor()} to add/remove them.
+     *
+     * <p>
+     * If {@code notifyOnClose} is true, the {@code handler} is also automatically invoked one last time after
+     * {@code channel} is closed (or the returned {@link SelectionKey} is {@link SelectionKey#cancel cancel()}'ed).
+     * However, this notification doesn't occur immediately; instead, it is only guaranteed to occur no later than
+     * the next housekeeping operation.
+     *
+     * <p>
+     * There is no way to explicitly unregister {@code handler} from {@code channel}, although it can be
+     * {@linkplain #selectFor selected} for zero I/O operations. Handlers are implicitly unregistered either when
+     * {@code channel} is closed, the returned {@link SelectionKey} is {@link SelectionKey#cancel cancel()}'ed,
+     * or this instance is {@link #stop}'ed.
+     *
+     * @param channel I/O channel
+     * @param handler I/O handler
+     * @param notifyOnClose whether to also detect closure of {@code channel} and invoke {@code handler} one last time
+     * @return new selection key
+     * @throws IllegalArgumentException if either parameter is null
+     * @throws java.nio.channels.ClosedChannelException if {@code channel} is closed
+     * @throws IOException if {@code channel} cannot be configured for non-blocking  mode
+     * @throws IllegalStateException if this instance is not {@link #start}ed or is shutting down
+     */
+    public synchronized SelectionKey createSelectionKey(SelectableChannel channel, IOHandler handler, boolean notifyOnClose)
+      throws IOException {
 
         // Sanity check
-        if (channel == null)
-            throw new IllegalArgumentException("null channel");
-        if (handler == null)
-            throw new IllegalArgumentException("null handler");
-        if (this.selector == null)
-            throw new IllegalArgumentException("not started");
+        Preconditions.checkArgument(channel != null, "null channel");
+        Preconditions.checkArgument(handler != null, "null handler");
+        Preconditions.checkState(this.selector != null, "not started");
 
         // Wakeup service thread: we need it to release the selector's lock (held by select()) so we don't block in register()
         this.wakeup();
@@ -236,7 +266,14 @@ public abstract class SelectorSupport {
         channel.configureBlocking(false);
 
         // Register channel with our selector
-        return channel.register(this.selector, 0, handler);
+        final SelectionKey selectionKey = channel.register(this.selector, 0, handler);
+
+        // Remember if we are also tracking this channel's closure
+        if (notifyOnClose)
+            this.closureTrackables.add(selectionKey);
+
+        // Done
+        return selectionKey;
     }
 
     /**
@@ -255,13 +292,11 @@ public abstract class SelectorSupport {
      * @throws IllegalArgumentException if {@code selectionKey} is null
      * @throws IllegalArgumentException if {@code ops} contains an invalid operation
      */
-    protected synchronized void selectFor(SelectionKey selectionKey, int ops, boolean enabled) {
+    public synchronized void selectFor(SelectionKey selectionKey, int ops, boolean enabled) {
 
         // Sanity check
-        if (selectionKey == null)
-            throw new IllegalArgumentException("null selectionKey");
-        if (!(selectionKey.attachment() instanceof IOHandler))
-            throw new IllegalArgumentException("unrecognized selectionKey");
+        Preconditions.checkArgument(selectionKey != null, "null selectionKey");
+        Preconditions.checkArgument(selectionKey.attachment() instanceof IOHandler, "unrecognized selectionKey");
 
         // Wakeup service thread: we will need it to restart its select() operation with updated slection keys
         this.wakeup();
@@ -282,14 +317,17 @@ public abstract class SelectorSupport {
      *
      * <p>
      * This method does not acquire the lock on this instance, so it can be invoked at any time from any context.
+     *
+     * @return true if service thread woken up, false if this instance is not started
      */
-    protected void wakeup() {
+    public boolean wakeup() {
         final Selector currentSelector = this.selector;     // unsynchronized, volatile read
-        if (currentSelector != null) {
-            if (this.log.isTraceEnabled())
-                this.log.trace("wakeup service thread");
-            currentSelector.wakeup();
-        }
+        if (currentSelector == null)
+            return false;
+        if (this.log.isTraceEnabled())
+            this.log.trace("wakeup service thread");
+        currentSelector.wakeup();
+        return true;
     }
 
     /**
@@ -340,7 +378,7 @@ public abstract class SelectorSupport {
      * @param keys selection keys
      * @return debug description
      */
-    protected static String dbg(Iterable<? extends SelectionKey> keys) {
+    public static String dbg(Iterable<? extends SelectionKey> keys) {
         final ArrayList<String> strings = new ArrayList<>();
         for (SelectionKey key : keys)
             strings.add(SelectorSupport.dbg(key));
@@ -353,7 +391,7 @@ public abstract class SelectorSupport {
      * @param key selection key
      * @return debug description
      */
-    protected static String dbg(SelectionKey key) {
+    public static String dbg(SelectionKey key) {
         try {
             return "Key[interest=" + SelectorSupport.dbgOps(key.interestOps()) + ",ready="
               + SelectorSupport.dbgOps(key.readyOps()) + ",obj=" + key.attachment() + "]";
@@ -368,7 +406,7 @@ public abstract class SelectorSupport {
      * @param ops I/O operation bits
      * @return debug description
      */
-    protected static String dbgOps(int ops) {
+    public static String dbgOps(int ops) {
         final StringBuilder buf = new StringBuilder(4);
         if ((ops & SelectionKey.OP_ACCEPT) != 0)
             buf.append("A");
@@ -417,9 +455,21 @@ public abstract class SelectorSupport {
                     this.log.trace("[SVC]: {}: selectedKeys={}",
                       ready ? "ready" : "awoke", SelectorSupport.dbg(currentSelector.selectedKeys()));
                 }
-                for (Iterator<SelectionKey> i = this.selector.selectedKeys().iterator(); i.hasNext(); ) {
-                    final SelectionKey key = i.next();
-                    i.remove();
+
+                // Identify keys we are tracking for closure that have disappeared (because their channel was closed)
+                final Set<SelectionKey> closureKeys = new HashSet<>(this.closureTrackables);
+                closureKeys.removeAll(currentSelector.keys());
+
+                // Remove those from our trackable set; this will be their last notification
+                this.closureTrackables.removeAll(closureKeys);
+
+                // Combine the closure keys with the keys reported as ready to get our notification set
+                final Set<SelectionKey> notifyKeys = closureKeys;
+                notifyKeys.addAll(this.selector.selectedKeys());
+
+                // Notify I/O handlers
+                for (SelectionKey key : notifyKeys) {
+                    this.selector.selectedKeys().remove(key);
                     final IOHandler handler = (IOHandler)key.attachment();
                     if (this.log.isTraceEnabled())
                         this.log.trace("[SVC]: ready key={} handler={}", SelectorSupport.dbg(key), handler);
@@ -486,7 +536,7 @@ public abstract class SelectorSupport {
      *
      * @return true if the current thread is this instance's service thread
      */
-    protected boolean isServiceThread() {
+    public boolean isServiceThread() {
         return Thread.currentThread().equals(this.serviceThread);
     }
 
