@@ -1,3 +1,7 @@
+Version Next
+
+    - Add support in SelectorSupport for detecting closed channels.
+
 Version 3.0.6 Released June 30, 2024
 
     - Update StringEncoder.isValidXMLChar() to handle codepoints.
