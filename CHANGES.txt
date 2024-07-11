@@ -1,4 +1,4 @@
-Version Next
+Version 3.0.7 Released July 11, 2024
 
     - Add support in SelectorSupport for detecting closed channels.
 
