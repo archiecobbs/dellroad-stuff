@@ -5,11 +5,7 @@
 
 package org.dellroad.stuff.java;
 
-import java.io.IOException;
-import java.io.OutputStream;
-
 import org.dellroad.stuff.test.TestSupport;
-import org.dellroad.stuff.io.WriteCallback;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

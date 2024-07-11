@@ -6,10 +6,7 @@
 package org.dellroad.stuff.util;
 
 import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;

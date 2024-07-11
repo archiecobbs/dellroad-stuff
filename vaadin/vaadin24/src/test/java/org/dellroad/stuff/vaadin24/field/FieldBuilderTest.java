@@ -12,33 +12,20 @@ import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.Autocapitalize;
 import com.vaadin.flow.component.textfield.Autocomplete;
 import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.component.textfield.TextAreaVariant;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.provider.DataProvider;
-import com.vaadin.flow.data.provider.Query;
 import com.vaadin.flow.data.renderer.TextRenderer;
 import com.vaadin.flow.data.selection.MultiSelect;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.function.ValueProvider;
 
-import java.lang.reflect.Method;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Set;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
-import javax.sql.DataSource;
+import java.util.Set;
 
 import org.dellroad.stuff.test.TestSupport;
-import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-import org.dellroad.stuff.vaadin24.grid.GridColumn;
 import org.dellroad.stuff.vaadin24.data.EnumDataProvider;
+import org.dellroad.stuff.vaadin24.grid.GridColumn;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class FieldBuilderTest extends TestSupport {
 

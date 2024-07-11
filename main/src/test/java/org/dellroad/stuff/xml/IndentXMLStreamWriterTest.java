@@ -17,7 +17,6 @@ import javax.xml.transform.stax.StAXResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.dellroad.stuff.test.TestSupport;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

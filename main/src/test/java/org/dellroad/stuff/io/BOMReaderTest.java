@@ -6,16 +6,10 @@
 package org.dellroad.stuff.io;
 
 import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.StringWriter;
 import java.nio.charset.CodingErrorAction;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.dellroad.stuff.string.ByteArrayEncoder;
 import org.dellroad.stuff.string.StringEncoder;

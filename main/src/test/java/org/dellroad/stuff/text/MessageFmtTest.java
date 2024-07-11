@@ -97,6 +97,8 @@ public class MessageFmtTest extends TestSupport {
         Assert.assertEquals(messageFmt2, messageFmt1);
     }
 
+    // CHECKSTYLE OFF: MethodLength
+    // CHECKSTYLE OFF: LineLength
     @DataProvider(name = "cases")
     public Object[][] genEncodeCases() {
         final ArrayList<Object[]> caseList = new ArrayList<>();
@@ -265,6 +267,8 @@ public class MessageFmtTest extends TestSupport {
         // Done
         return caseList.toArray(new Object[0][]);
     }
+    // CHECKSTYLE ON: MethodLength
+    // CHECKSTYLE ON: LineLength
 
     private MessageFmt choiceify(int argnum, double limit, boolean withParam, MessageFmt other) {
         return new MessageFmt(

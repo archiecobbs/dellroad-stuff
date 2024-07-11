@@ -230,6 +230,7 @@
                             <linkXRef>false</linkXRef>
                             <sourceDirectories>
                                 <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                                <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
                             </sourceDirectories>
                             <excludes>org/dellroad/stuff/jibx/JibxMarshaller.java</excludes>
                         </configuration>

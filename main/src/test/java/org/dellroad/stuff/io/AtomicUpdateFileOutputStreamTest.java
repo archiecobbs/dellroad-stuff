@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import org.dellroad.stuff.test.TestSupport;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class AtomicUpdateFileOutputStreamTest extends TestSupport {
