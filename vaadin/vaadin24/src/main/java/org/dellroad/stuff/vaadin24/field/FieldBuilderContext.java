@@ -25,7 +25,6 @@ import java.util.Collection;
  * <p>
  * @see FieldBuilder
  */
-@SuppressWarnings("serial")         // workaround for JDK-8191637
 public interface FieldBuilderContext extends Serializable {
 
     /**
