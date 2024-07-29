@@ -2189,7 +2189,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.html.Input}.
+     * Specifies how a Java bean property should be edited using an {@link com.vaadin.flow.component.html.Input}.
      *
      * @see FieldBuilder
      * @see com.vaadin.flow.component.html.Input
@@ -3924,7 +3924,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.textfield.IntegerField}.
+     * Specifies how a Java bean property should be edited using an {@link com.vaadin.flow.component.textfield.IntegerField}.
      *
      * @see FieldBuilder
      * @see com.vaadin.flow.component.textfield.IntegerField
