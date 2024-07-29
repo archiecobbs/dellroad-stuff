@@ -1,5 +1,6 @@
 Version Next
 
+    - Fix bug where PersistentObject synchronous write-back wasn't synchronous.
     - Add support in SelectorSupport for detecting closed channels.
     - Update StringEncoder.isValidXMLChar() to handle codepoints.
     - Tighten up parsing of boolean string values (require "true" or "false").
