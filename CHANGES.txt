@@ -1,5 +1,6 @@
 Version Next
 
+    - Remove obsolete dellroad-stuff-vaadin22 module.
     - Fix bug where PersistentObject synchronous write-back wasn't synchronous.
     - Add support in SelectorSupport for detecting closed channels.
     - Update StringEncoder.isValidXMLChar() to handle codepoints.
