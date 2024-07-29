@@ -106,8 +106,11 @@ public interface PersistentObjectDelegate<T> {
     Set<ConstraintViolation<T>> validate(T obj);
 
     /**
-     * Handle an exception thrown during a write-back attempt. {@link ThreadDeath} exceptions are not
+     * Handle an exception thrown during an asynchronous write-back attempt. {@link ThreadDeath} exceptions are not
      * passed to this method, but all others are.
+     *
+     * <p>
+     * When {@link PersistentObject} is configured for synchronous write-back, this method is not used.
      *
      * @param pobj the instance that encountered the exception
      * @param t the exception thrown
