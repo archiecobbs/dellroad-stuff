@@ -13,13 +13,13 @@
     <description>DellRoad Stuff is a dumping ground for various useful Java classes that have evolved over time from repeated use in multiple projects.</description>
     <url>https://github.com/archiecobbs/dellroad-stuff</url>
     <modules>
-        <module>dellroad-stuff-jibx</module>
-        <module>dellroad-stuff-main</module>
-        <module>dellroad-stuff-maven-plugin</module>
-        <module>dellroad-stuff-pobj</module>
-        <module>dellroad-stuff-spring</module>
-        <module>dellroad-stuff-test</module>
-        <module>dellroad-stuff-vaadin</module>
+        <module>jibx</module>
+        <module>main</module>
+        <module>maven-plugin</module>
+        <module>pobj</module>
+        <module>spring</module>
+        <module>test</module>
+        <module>vaadin</module>
     </modules>
     <licenses>
         <license>
@@ -399,12 +399,8 @@
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>
                     <offlineLinks>
                         <offlineLink>
-                            <url>https://vaadin.com/api/platform/${vaadin22.version}</url>
-                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin22/src/javadoc/vaadin</location>
-                        </offlineLink>
-                        <offlineLink>
                             <url>https://vaadin.com/api/platform/${vaadin23.version}</url>
-                            <location>${project.basedir}/dellroad-stuff-vaadin/dellroad-stuff-vaadin23/src/javadoc/vaadin</location>
+                            <location>${project.basedir}/vaadin/vaadin23/src/javadoc/vaadin</location>
                         </offlineLink>
                     </offlineLinks>
                 </configuration>
