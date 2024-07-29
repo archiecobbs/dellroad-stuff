@@ -1,4 +1,4 @@
-Version Next
+Version 2.6.0 Released July 29, 2024
 
     - Remove obsolete dellroad-stuff-vaadin22 module.
     - Fix bug where PersistentObject synchronous write-back wasn't synchronous.
