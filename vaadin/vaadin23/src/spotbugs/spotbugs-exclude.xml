@@ -7,6 +7,10 @@
         <Class name="org.dellroad.stuff.vaadin23.field.AbstractFieldBuilder$BindingInfo"/>
         <Bug pattern="SE_INNER_CLASS"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin23.field.AbstractFieldBuilder"/>
+        <Bug pattern="RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE"/>
+    </Match>
     <Match><!-- https://github.com/spotbugs/spotbugs/issues/682 -->
         <Class name="org.dellroad.stuff.vaadin23.field.AbstractFieldBuilder$1ControllingField"/>
         <Bug pattern="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"/>
