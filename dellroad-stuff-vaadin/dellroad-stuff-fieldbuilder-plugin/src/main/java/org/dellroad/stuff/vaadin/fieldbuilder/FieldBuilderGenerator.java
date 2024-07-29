@@ -550,7 +550,7 @@ public class FieldBuilderGenerator {
     // Get the unqualified name of the given class as it should appear in source code
     private String getShortSourceName(Class<?> cl) {
         String name = cl.getCanonicalName();
-        final String packageName = cl.getPackageName();
+        final String packageName = cl.getPackage().getName();
         if (!packageName.isEmpty())
             name = name.substring(packageName.length() + 1);
         return name;
