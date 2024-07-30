@@ -486,7 +486,7 @@ public class PersistentObject<T> {
             throw new PersistentObjectException("no delegate configured");
 
         // Create executor services
-        this.scheduledExecutor = this.checkInterval > 0 && this.writeDelay > 0 ?
+        this.scheduledExecutor = this.checkInterval > 0 || this.writeDelay > 0 ?
           Executors.newSingleThreadScheduledExecutor() : null;
         this.notifyExecutor = Executors.newSingleThreadExecutor();
 
