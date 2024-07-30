@@ -1,4 +1,4 @@
-Version Next
+Version 2.6.1 Released July 30, 2024
 
     - Fix NPE in PersistentObject when writeDelay is set to zero.
 
