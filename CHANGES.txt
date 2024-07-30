@@ -1,3 +1,7 @@
+Version Next
+
+    - Fix NPE in PersistentObject when writeDelay is set to zero.
+
 Version 2.6.0 Released July 29, 2024
 
     - Remove obsolete dellroad-stuff-vaadin22 module.
