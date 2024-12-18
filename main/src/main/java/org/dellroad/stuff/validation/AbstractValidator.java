@@ -32,14 +32,13 @@ public abstract class AbstractValidator<C extends Annotation, T> implements Cons
      * Convenience method to add a constraint violation described by {@code message} and disable the default violation.
      *
      * @param context validation context
-     * @param message violation message
+     * @param message violation message (<i>not</i> a message template)
      * @throws IllegalArgumentException if either parameter is null
      */
     protected void setViolation(ConstraintValidatorContext context, String message) {
         Preconditions.checkArgument(context != null, "null context");
-        Preconditions.checkArgument(message != null, "null message");
         context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
+        context.buildConstraintViolationWithTemplate(ValidationUtil.escapeForTemplate(message)).addConstraintViolation();
     }
 
     /**

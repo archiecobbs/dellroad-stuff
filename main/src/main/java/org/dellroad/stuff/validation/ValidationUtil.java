@@ -57,4 +57,16 @@ public final class ValidationUtil {
         }
         return buf.toString();
     }
+
+    /**
+     * Escape any special characters in the given literal string, returning an equivalent JSR 303 message template.
+     *
+     * @param message plain message string
+     * @return JSR 303 message template
+     * @throws IllegalArgumentException if {@code message} is null
+     */
+    public static String escapeForTemplate(String message) {
+        Preconditions.checkArgument(message != null, "null message");
+        return message.replaceAll("([\\\\{}$])", "\\\\$1");
+    }
 }
