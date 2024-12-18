@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.validation;
 
+import com.google.common.base.Preconditions;
+
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.groups.Default;
 
@@ -39,9 +41,10 @@ public final class ValidationUtil {
      *
      * @param violations validation violations
      * @return description of the validation errors
-     * @throws NullPointerException if {@code violations} is null
+     * @throws IllegalArgumentException if {@code violations} is null
      */
     public static String describe(Set<? extends ConstraintViolation<?>> violations) {
+        Preconditions.checkArgument(violations != null, "null violations");
         if (violations.isEmpty())
             return "  (no violations)";
         StringBuilder buf = new StringBuilder(violations.size() * 32);

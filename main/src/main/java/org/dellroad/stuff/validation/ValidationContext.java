@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.validation;
 
+import com.google.common.base.Preconditions;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -47,10 +49,8 @@ public class ValidationContext<T> {
      * @throws IllegalArgumentException if either paramter is null
      */
     public ValidationContext(T root, Class<?>... groups) {
-        if (root == null)
-            throw new IllegalArgumentException("null root");
-        if (groups == null)
-            throw new IllegalArgumentException("null groups");
+        Preconditions.checkArgument(root != null, "null root");
+        Preconditions.checkArgument(groups != null, "null groups");
         this.root = root;
         this.groups = groups;
     }

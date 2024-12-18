@@ -5,6 +5,8 @@
 
 package org.dellroad.stuff.validation;
 
+import com.google.common.base.Preconditions;
+
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -31,8 +33,11 @@ public abstract class AbstractValidator<C extends Annotation, T> implements Cons
      *
      * @param context validation context
      * @param message violation message
+     * @throws IllegalArgumentException if either parameter is null
      */
     protected void setViolation(ConstraintValidatorContext context, String message) {
+        Preconditions.checkArgument(context != null, "null context");
+        Preconditions.checkArgument(message != null, "null message");
         context.disableDefaultConstraintViolation();
         context.buildConstraintViolationWithTemplate(message).addConstraintViolation();
     }
