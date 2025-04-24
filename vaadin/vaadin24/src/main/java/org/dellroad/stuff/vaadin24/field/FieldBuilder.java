@@ -444,6 +444,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.checkbox.Checkbox#setI18n(com.vaadin.flow.component.checkbox.Checkbox.CheckboxI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.checkbox.Checkbox.CheckboxI18n> i18n() default com.vaadin.flow.component.checkbox.Checkbox.CheckboxI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -528,7 +537,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.checkbox.Checkbox#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -678,6 +687,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setI18n(com.vaadin.flow.component.checkbox.CheckboxGroup.CheckboxGroupI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.checkbox.CheckboxGroup.CheckboxGroupI18n> i18n() default com.vaadin.flow.component.checkbox.CheckboxGroup.CheckboxGroupI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -798,7 +816,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.checkbox.CheckboxGroup#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -938,6 +956,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean autofocus() default false;
 
         /**
+         * Get the class to instantiate for the {@code classNameGenerator} property.
+         *
+         * @return desired {@code classNameGenerator} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setClassNameGenerator(com.vaadin.flow.function.SerializableFunction)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.function.SerializableFunction> classNameGenerator() default com.vaadin.flow.function.SerializableFunction.class;
+
+        /**
          * Add the specified class names.
          *
          * @return zero or more class names to add
@@ -995,6 +1022,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBox#setI18n(com.vaadin.flow.component.combobox.ComboBox.ComboBoxI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.combobox.ComboBox.ComboBoxI18n> i18n() default com.vaadin.flow.component.combobox.ComboBox.ComboBoxI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -1019,6 +1055,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
+         * Get the class to instantiate for the {@code itemsPageable} property.
+         *
+         * @return desired {@code itemsPageable} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItemsPageable(com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback> itemsPageable() default com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback.class;
 
         /**
          * Get the value desired for the {@code label} property.
@@ -1154,7 +1199,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.combobox.ComboBox#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -1302,6 +1347,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean autofocus() default false;
 
         /**
+         * Get the class to instantiate for the {@code classNameGenerator} property.
+         *
+         * @return desired {@code classNameGenerator} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setClassNameGenerator(com.vaadin.flow.function.SerializableFunction)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.function.SerializableFunction> classNameGenerator() default com.vaadin.flow.function.SerializableFunction.class;
+
+        /**
          * Add the specified class names.
          *
          * @return zero or more class names to add
@@ -1392,6 +1446,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          */
         @SuppressWarnings("rawtypes")
         Class<? extends com.vaadin.flow.data.provider.DataProvider> items() default com.vaadin.flow.data.provider.DataProvider.class;
+
+        /**
+         * Get the class to instantiate for the {@code itemsPageable} property.
+         *
+         * @return desired {@code itemsPageable} property value type
+         * @see com.vaadin.flow.component.combobox.ComboBoxBase#setItemsPageable(com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback> itemsPageable() default com.vaadin.flow.component.combobox.ComboBoxBase.SpringData.FetchCallback.class;
 
         /**
          * Get the value desired for the {@code keepFilter} property.
@@ -1518,7 +1581,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.combobox.MultiSelectComboBox#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -1885,9 +1948,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.datepicker.DatePicker#setErrorMessage(String)
          */
         String errorMessage() default "";
+
+        /**
+         * Get the class to instantiate for the {@code fallbackParser} property.
+         *
+         * @return desired {@code fallbackParser} property value type
+         * @see com.vaadin.flow.component.datepicker.DatePicker#setFallbackParser(com.vaadin.flow.function.SerializableFunction)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.function.SerializableFunction> fallbackParser() default com.vaadin.flow.function.SerializableFunction.class;
 
         /**
          * Get the value desired for the {@code height} property.
@@ -2266,6 +2338,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.datetimepicker.DateTimePicker#setI18n(com.vaadin.flow.component.datetimepicker.DateTimePicker.DateTimePickerI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.datetimepicker.DateTimePicker.DateTimePickerI18n> i18n() default com.vaadin.flow.component.datetimepicker.DateTimePicker.DateTimePickerI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -2368,7 +2449,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.datetimepicker.DateTimePicker#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -3382,6 +3463,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.radiobutton.RadioButtonGroup#setI18n(com.vaadin.flow.component.radiobutton.RadioButtonGroup.RadioButtonGroupI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.radiobutton.RadioButtonGroup.RadioButtonGroupI18n> i18n() default com.vaadin.flow.component.radiobutton.RadioButtonGroup.RadioButtonGroupI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -3493,7 +3583,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.radiobutton.RadioButtonGroup#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -3683,6 +3773,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String helperText() default "";
 
         /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.select.Select#setI18n(com.vaadin.flow.component.select.Select.SelectI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.select.Select.SelectI18n> i18n() default com.vaadin.flow.component.select.Select.SelectI18n.class;
+
+        /**
          * Get the value desired for the {@code id} property.
          *
          * @return desired {@code id} property value
@@ -3766,12 +3865,28 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         String minWidth() default "";
 
         /**
+         * Get the value desired for the {@code noVerticalOverlap} property.
+         *
+         * @return desired {@code noVerticalOverlap} property value
+         * @see com.vaadin.flow.component.select.Select#setNoVerticalOverlap(boolean)
+         */
+        boolean noVerticalOverlap() default false;
+
+        /**
          * Get the value desired for the {@code overlayClassName} property.
          *
          * @return desired {@code overlayClassName} property value
          * @see com.vaadin.flow.component.shared.HasOverlayClassName#setOverlayClassName(String)
          */
         String overlayClassName() default "";
+
+        /**
+         * Get the value desired for the {@code overlayWidth} property.
+         *
+         * @return desired {@code overlayWidth} property value
+         * @see com.vaadin.flow.component.select.Select#setOverlayWidth(String)
+         */
+        String overlayWidth() default "";
 
         /**
          * Get the value desired for the {@code placeholder} property.
@@ -3995,7 +4110,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.BigDecimalField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -4023,6 +4138,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.BigDecimalField#setI18n(com.vaadin.flow.component.textfield.BigDecimalField.BigDecimalFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.BigDecimalField.BigDecimalFieldI18n> i18n() default com.vaadin.flow.component.textfield.BigDecimalField.BigDecimalFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -4126,7 +4250,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.textfield.BigDecimalField#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -4342,7 +4466,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.EmailField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -4370,6 +4494,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.EmailField#setI18n(com.vaadin.flow.component.textfield.EmailField.EmailFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.EmailField.EmailFieldI18n> i18n() default com.vaadin.flow.component.textfield.EmailField.EmailFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -4480,7 +4613,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code required} property.
          *
          * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.textfield.EmailField#setRequired(boolean)
+         * @see com.vaadin.flow.component.textfield.TextFieldBase#setRequired(boolean)
          */
         boolean required() default false;
 
@@ -4696,7 +4829,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.IntegerField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -4724,6 +4857,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.IntegerField#setI18n(com.vaadin.flow.component.textfield.IntegerField.IntegerFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.IntegerField.IntegerFieldI18n> i18n() default com.vaadin.flow.component.textfield.IntegerField.IntegerFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -4834,7 +4976,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.textfield.AbstractNumberField#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.textfield.IntegerField#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -5066,7 +5208,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.NumberField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -5094,6 +5236,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.NumberField#setI18n(com.vaadin.flow.component.textfield.NumberField.NumberFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.NumberField.NumberFieldI18n> i18n() default com.vaadin.flow.component.textfield.NumberField.NumberFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -5204,7 +5355,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code requiredIndicatorVisible} property.
          *
          * @return desired {@code requiredIndicatorVisible} property value
-         * @see com.vaadin.flow.component.textfield.AbstractNumberField#setRequiredIndicatorVisible(boolean)
+         * @see com.vaadin.flow.component.textfield.NumberField#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
 
@@ -5436,7 +5587,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.PasswordField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -5464,6 +5615,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.PasswordField#setI18n(com.vaadin.flow.component.textfield.PasswordField.PasswordFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.PasswordField.PasswordFieldI18n> i18n() default com.vaadin.flow.component.textfield.PasswordField.PasswordFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -5574,7 +5734,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code required} property.
          *
          * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.textfield.PasswordField#setRequired(boolean)
+         * @see com.vaadin.flow.component.textfield.TextFieldBase#setRequired(boolean)
          */
         boolean required() default false;
 
@@ -5806,7 +5966,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.TextArea#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -5834,6 +5994,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.TextArea#setI18n(com.vaadin.flow.component.textfield.TextArea.TextAreaI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.TextArea.TextAreaI18n> i18n() default com.vaadin.flow.component.textfield.TextArea.TextAreaI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -5876,6 +6045,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         int maxLength() default 0;
 
         /**
+         * Get the class to instantiate for the {@code maxRows} property.
+         *
+         * @return desired {@code maxRows} property value type
+         * @see com.vaadin.flow.component.textfield.TextArea#setMaxRows(Integer)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends Integer> maxRows() default Integer.class;
+
+        /**
          * Get the value desired for the {@code maxWidth} property.
          *
          * @return desired {@code maxWidth} property value
@@ -5898,6 +6076,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.textfield.TextArea#setMinLength(int)
          */
         int minLength() default 0;
+
+        /**
+         * Get the value desired for the {@code minRows} property.
+         *
+         * @return desired {@code minRows} property value
+         * @see com.vaadin.flow.component.textfield.TextArea#setMinRows(int)
+         */
+        int minRows() default 2;
 
         /**
          * Get the value desired for the {@code minWidth} property.
@@ -5944,7 +6130,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code required} property.
          *
          * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.textfield.TextArea#setRequired(boolean)
+         * @see com.vaadin.flow.component.textfield.TextFieldBase#setRequired(boolean)
          */
         boolean required() default false;
 
@@ -6168,7 +6354,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.textfield.TextField#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -6196,6 +6382,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.textfield.TextField#setI18n(com.vaadin.flow.component.textfield.TextField.TextFieldI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.textfield.TextField.TextFieldI18n> i18n() default com.vaadin.flow.component.textfield.TextField.TextFieldI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.
@@ -6306,7 +6501,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code required} property.
          *
          * @return desired {@code required} property value
-         * @see com.vaadin.flow.component.textfield.TextField#setRequired(boolean)
+         * @see com.vaadin.flow.component.textfield.TextFieldBase#setRequired(boolean)
          */
         boolean required() default false;
 
@@ -6498,7 +6693,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * Get the value desired for the {@code errorMessage} property.
          *
          * @return desired {@code errorMessage} property value
-         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         * @see com.vaadin.flow.component.timepicker.TimePicker#setErrorMessage(String)
          */
         String errorMessage() default "";
 
@@ -6526,6 +6721,15 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
          */
         String helperText() default "";
+
+        /**
+         * Get the class to instantiate for the {@code i18n} property.
+         *
+         * @return desired {@code i18n} property value type
+         * @see com.vaadin.flow.component.timepicker.TimePicker#setI18n(com.vaadin.flow.component.timepicker.TimePicker.TimePickerI18n)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.timepicker.TimePicker.TimePickerI18n> i18n() default com.vaadin.flow.component.timepicker.TimePicker.TimePickerI18n.class;
 
         /**
          * Get the value desired for the {@code id} property.

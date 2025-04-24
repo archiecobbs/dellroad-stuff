@@ -92,10 +92,7 @@ public abstract class VaadinExternalListener<S> {
         if (this.sessionDestroyRegistration != null)
             throw new IllegalStateException("already registered");
         this.registerExternal(this.eventSource);
-        this.sessionDestroyRegistration = this.session.getService().addSessionDestroyListener(e -> {
-            if (this.session.equals(e.getSession()))
-                this.unregister();
-        });
+        this.sessionDestroyRegistration = this.session.addSessionDestroyListener(e -> this.unregister());
     }
 
     /**

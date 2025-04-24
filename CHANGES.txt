@@ -1,6 +1,7 @@
 Version Next
 
     - Interpret validation errors as plain text, not templates.
+    - Update Vaadin 24 to release 24.7.0.
 
 Version 3.0.8 Released July 30, 2024
 

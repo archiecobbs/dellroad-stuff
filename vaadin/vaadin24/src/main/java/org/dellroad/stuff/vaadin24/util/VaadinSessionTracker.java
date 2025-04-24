@@ -44,9 +44,8 @@ public class VaadinSessionTracker {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private final Map<VaadinSession, Boolean> sessionMap = new MapMaker().weakKeys().makeMap();
+    private final Map<VaadinSession, Registration> sessionMap = new MapMaker().weakKeys().makeMap();
 
-    private Registration sessionDestroyRegistration;
     private int maxSessions;
 
 // Constructors
@@ -111,7 +110,7 @@ public class VaadinSessionTracker {
      * @throws IllegalStateException if the current {@link VaadinSession} is not locked
      * @throws IllegalArgumentException the {@link VaadinSession} is in state {@link VaadinSessionState#CLOSED}
      */
-    public synchronized boolean registerCurrentSession() {
+    public boolean registerCurrentSession() {
 
         // Sanity check
         final VaadinSession session = VaadinUtil.getCurrentSession();
@@ -126,32 +125,41 @@ public class VaadinSessionTracker {
             throw new RuntimeException("internal error");
         }
 
-        // Do we need to register our session shutdown listener? This is a one-time thing.
-        if (this.sessionDestroyRegistration == null) {
-            this.sessionDestroyRegistration = session.getService()
-              .addSessionDestroyListener(e -> this.unregisterSession(e.getSession()));
-        }
+        // Get notified when session is destroyed
+        final Registration destroyRegistration = session.addSessionDestroyListener(
+          e -> this.unregisterSession(e.getSession(), false));
+        assert destroyRegistration != null;
 
-        // Already registered?
-        if (this.sessionMap.containsKey(session))
-            return true;
+        // Add session
+        final int numSessions;
+        synchronized (this) {
 
-        // Add session if there's room
-        final int numSessions = this.sessionMap.size();
-        if (this.maxSessions != 0 && numSessions >= this.maxSessions) {
-            if (this.log.isDebugEnabled()) {
-                this.log.debug("{}: can't register new session {} (already have {} ≥ {})",
-                  this.getClass().getSimpleName(), session, numSessions);
+            // Already registered?
+            if (this.sessionMap.containsKey(session)) {
+                destroyRegistration.remove();
+                return true;
             }
-            return false;
+
+            // Check if there's room
+            numSessions = this.sessionMap.size();
+            if (this.maxSessions != 0 && numSessions >= this.maxSessions) {
+                if (this.log.isDebugEnabled()) {
+                    this.log.debug("{}: can't register new session {} (already have {} ≥ {})",
+                      this.getClass().getSimpleName(), session, numSessions, this.maxSessions);
+                }
+                destroyRegistration.remove();
+                return false;
+            }
+
+            // Add session
+            this.sessionMap.put(session, destroyRegistration);
         }
-        this.sessionMap.put(session, true);
 
         // Debug
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("{}: registered new session {} ({} total)",
-              this.getClass().getSimpleName(), session, this.sessionMap.size());
-        }
+        if (this.log.isDebugEnabled())
+            this.log.debug("{}: registered new session {} ({} total)", this.getClass().getSimpleName(), session, numSessions);
+
+        // Done
         return true;
     }
 
@@ -162,17 +170,28 @@ public class VaadinSessionTracker {
      * It is not necessary to explicitly call this method; sessions are unregistered automatically on close.
      *
      * @param session
-     * @return true if session was unregistered, false if session was already not registered
+     * @return true if session was unregistered, false if session was not registered
      * @throws IllegalArgumentException if {@code session} is null
      */
-    public synchronized boolean unregisterSession(VaadinSession session) {
+    public boolean unregisterSession(VaadinSession session) {
+        return this.unregisterSession(session, true);
+    }
+
+    private boolean unregisterSession(VaadinSession session, boolean cancelRegistration) {
         Preconditions.checkArgument(session != null, "null session");
-        final boolean removed = this.sessionMap.remove(session) != null;
-        if (this.log.isDebugEnabled()) {
-            this.log.debug("{}: unregistered session {} ({} remain)",
-              this.getClass().getSimpleName(), session, this.sessionMap.size());
+        final Registration destroyRegistration;
+        final int numSessions;
+        synchronized (this) {
+            destroyRegistration = this.sessionMap.remove(session);
+            numSessions = this.sessionMap.size();
         }
-        return removed;
+        if (destroyRegistration == null)
+            return false;
+        if (cancelRegistration)
+            destroyRegistration.remove();
+        if (this.log.isDebugEnabled())
+            this.log.debug("{}: unregistered session {} ({} remain)", this.getClass().getSimpleName(), session, numSessions);
+        return true;
     }
 
     /**
@@ -213,7 +232,7 @@ public class VaadinSessionTracker {
                     extractionMap.put(session, extractor.apply(session));
             });
             if (!extractionMap.containsKey(session))        // session got closed while we were surveying
-                this.unregisterSession(session);            // so might as well go ahead and get rid of it
+                this.unregisterSession(session, true);      // so might as well go ahead and get rid of it
         }
 
         // Done

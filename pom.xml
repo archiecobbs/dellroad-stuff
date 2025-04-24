@@ -57,7 +57,7 @@
         <java.version>17</java.version>
 
         <!-- For Javadoc links; keep synchronized with vaadin/vaadin24/pom.xml -->
-        <vaadin24.version>24.4.4</vaadin24.version>
+        <vaadin24.version>24.7.0</vaadin24.version>
 
         <!-- Dependency versions -->
         <testng.version>7.7.0</testng.version>

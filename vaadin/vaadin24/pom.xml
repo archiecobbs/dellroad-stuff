@@ -23,7 +23,7 @@
 
     <properties>
         <auto.module.name>org.dellroad.stuff.vaadin24</auto.module.name>
-        <vaadin.version>24.4.4</vaadin.version>
+        <vaadin.version>24.7.0</vaadin.version>
     </properties>
 
     <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
@@ -213,6 +213,10 @@
                                 <propertyCustomization>
                                     <methodPattern>public (default )?void com\.vaadin\.flow\.component\..*\.setManualValidation\(boolean\)</methodPattern>
                                     <defaultValue>false</defaultValue>
+                                </propertyCustomization>
+                                <propertyCustomization>
+                                    <method>public void com.vaadin.flow.component.select.Select.setOverlayWidth(java.lang.String)</method>
+                                    <defaultValue>""</defaultValue>
                                 </propertyCustomization>
 
                                 <!-- Customizations needed for CustomField because it's abstract -->
