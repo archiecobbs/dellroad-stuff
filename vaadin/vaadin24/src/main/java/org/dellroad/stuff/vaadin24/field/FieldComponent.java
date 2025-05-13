@@ -24,7 +24,7 @@ import java.io.Serializable;
  *
  * <p>
  * An example of when they are not the same is when a {@link Grid} is used as the visual component for a single select
- * single select field created via {@link Grid#asSingleSelect} or multi-select field created via {@link Grid#asMultiSelect}.
+ * created via {@link Grid#asSingleSelect} or multi-select field created via {@link Grid#asMultiSelect}.
  *
  * @param <V> field value type
  */
