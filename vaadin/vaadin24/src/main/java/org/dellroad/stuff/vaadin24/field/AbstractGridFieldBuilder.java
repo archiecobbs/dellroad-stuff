@@ -18,8 +18,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
+import java.util.Map;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import org.dellroad.stuff.java.AnnotationUtil;
 import org.dellroad.stuff.vaadin24.grid.GridColumn;
@@ -69,9 +69,11 @@ public class AbstractGridFieldBuilder<S extends AbstractGridFieldBuilder<S, T>, 
      * @return widget annotation types
      */
     @Override
-    @SuppressWarnings("unchecked")
-    protected Stream<Class<? extends Annotation>> getDeclarativeAnnotationTypes() {
-        return Stream.concat(super.getDeclarativeAnnotationTypes(), Stream.of(GridSingleSelect.class, GridMultiSelect.class));
+    protected Map<Class<? extends Annotation>, Annotation> buildDeclarativeAnnotationsMap() {
+        final Map<Class<? extends Annotation>, Annotation> map = super.buildDeclarativeAnnotationsMap();
+        map.put(GridSingleSelect.class, null);
+        map.put(GridMultiSelect.class, null);
+        return map;
     }
 
     /**

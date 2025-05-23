@@ -1,5 +1,6 @@
 Version 3.0.9
 
+    - Refactor FieldBuilder to facilitate custom widget annotations.
     - Interpret validation errors as plain text, not templates.
     - Update Vaadin 24 to release 24.7.5.
 

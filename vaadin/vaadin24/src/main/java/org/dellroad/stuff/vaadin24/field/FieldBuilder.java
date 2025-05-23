@@ -209,6 +209,12 @@ import org.dellroad.stuff.vaadin24.data.EnumDataProvider;
  * This allows for more modularity, especially when nested types having sub-fields are in use; for example,
  * {@link FieldBuilderCustomField} relies on this mechanism.
  *
+ * <p><b>Custom Declarative Widget Annotations</b>
+ *
+ * <p>
+ * Subclasses may add support for custom declarative widget annotations, e.g., {@code @MyFieldBuilder.MyField},
+ * by overriding {@link #buildDeclarativeAnnotationsMap buildDeclarativeAnnotationsMap()} to add them.
+ *
  * <p><b>Production Bundle Caveat</b>
  *
  * <p>

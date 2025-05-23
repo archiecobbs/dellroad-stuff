@@ -79,6 +79,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
 
     // Static info
     private final Class<T> type;
+    private transient Map<Class<? extends Annotation>, Annotation> widgetAnnos;     // maps @FieldBuilder.Foo -> defaults
     private transient LinkedHashMap<String, BindingInfo> bindingInfoMap;            // info from scanned annotations
     private transient HashMap<Class<?>, Map<String, DefaultInfo>> defaultInfoMap;   // info from scanned @FieldDefault's
 
@@ -117,6 +118,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         if (original == null)
             throw new IllegalArgumentException("null original");
         this.type = original.type;
+        this.widgetAnnos = new HashMap<>(original.widgetAnnos);
         this.bindingInfoMap = new LinkedHashMap<>(original.bindingInfoMap);
         this.defaultInfoMap = new HashMap<>(original.defaultInfoMap);
     }
@@ -149,7 +151,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Get the default values discovered by this instance (if any) from scanned
+     * Get the field property default values discovered by this instance (if any) from scanned
      * {@link AbstractFieldBuilder.FieldDefault &#64;FieldBuilder.FieldDefault} annotations.
      *
      * <p>
@@ -376,6 +378,9 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         this.bindingInfoMap = new LinkedHashMap<>();
         this.defaultInfoMap = new HashMap<>();
 
+        // Find the declarative widget annotations we support
+        this.widgetAnnos = this.buildDeclarativeAnnotationsMap();
+
         // Scan getter methods for @Binding annotations
         final HashMap<String, Binding> bindingAnnotationMap = new HashMap<>();
         this.findAnnotatedMethods(Binding.class).forEach(methodInfo -> {
@@ -393,7 +398,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         });
 
         // Scan getter methods for @FieldBuilder.Foo annotations for all "Foo"
-        this.getDeclarativeAnnotationTypes().forEach(annotationType -> {
+        this.widgetAnnos.keySet().forEach(annotationType -> {
             final Set<? extends MethodAnnotationScanner<T, ?>.MethodInfo> methodInfos = this.findAnnotatedMethods(annotationType);
             for (MethodAnnotationScanner<T, ?>.MethodInfo methodInfo : methodInfos) {
                 final Method method = methodInfo.getMethod();
@@ -588,9 +593,18 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         if (bindingInfo == null)
             throw new IllegalArgumentException("null bindingInfo");
 
-        // Create annotation value applier
+        // Get the annotation and the corresponding defaults
         final Annotation annotation = bindingInfo.getAnnotation();
-        final AnnotationApplier<?> applier = this.new AnnotationApplier<>(bindingInfo, this.getDefaultsFor(annotation));
+        if (!this.widgetAnnos.containsKey(annotation.annotationType())) {
+            throw new IllegalArgumentException(String.format(
+              "unknown declarative widget annotation type %s; the known types are %s",
+              annotation.annotationType().getName(),
+              this.widgetAnnos.keySet().stream().map(Class::getName).collect(Collectors.joining(", "))));
+        }
+
+        // Create annotation value applier
+        final Annotation defaults = this.widgetAnnos.get(annotation.annotationType());
+        final AnnotationApplier<?> applier = this.new AnnotationApplier<>(bindingInfo, defaults);
 
         // Instantiate field
         final HasValue<?, ?> field = applier.createField();
@@ -684,53 +698,40 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
     }
 
     /**
-     * Get an instance of the given widget annotation that has all default values.
-     *
-     * @param annotation the annotation to get defautls for
-     * @param <A> annotation type
-     * @return default annotation, or null if not a widget annotation
-     * @throws IllegalArgumentException if {@code annotation} is not a widget annotation
-     * @throws IllegalArgumentException if {@code annotation} is null
-     */
-    @SuppressWarnings("unchecked")
-    protected <A extends Annotation> A getDefaultsFor(A annotation) {
-        if (annotation == null)
-            throw new IllegalArgumentException("null annotation");
-        return (A)this.getDefaultsFor(annotation.annotationType());
-    }
-
-    /**
-     * Get an instance of the given widget annotation type with all default values.
-     *
-     * @param annotationType the annotation type to get defautls for
-     * @param <A> annotation type
-     * @return default annotation, or null if not a widget annotation
-     * @throws IllegalArgumentException if {@code annotationType} is not a widget annotation type
-     * @throws IllegalArgumentException if {@code annotationType} is null
-     */
-    protected <A extends Annotation> A getDefaultsFor(Class<A> annotationType) {
-
-        // Sanity check
-        if (annotationType == null)
-            throw new IllegalArgumentException("null annotationType");
-
-        // Find corresponding annotation on our defaultsMethod()
-        return Optional.ofNullable(this.getAnnotationDefaultsMethod().getAnnotation(annotationType))
-          .orElseThrow(() -> new IllegalArgumentException(annotationType + " is not a defined widget annotation type"));
-    }
-
-    /**
-     * Get all of the widget annotation types defined for this class.
+     * Get all of the declarative widget annotation types defined for this class and their default values.
      *
      * <p>
-     * The implementation in {@link AbstractFieldBuilder} returns the types of all annotations found
-     * on the {@linkplain #getAnnotationDefaultsMethodName annotation defaults method}.
+     * The implementation in {@link AbstractFieldBuilder} gleans this information using reflection by looking for a method
+     * named {@value #DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME} taking zero parameters declared by this class or some superclass
+     * and returning all annotations on that method. Subclasses may override this method to augment or modify this information.
      *
-     * @return widget annotation types
+     * <p>
+     * Entries in the map may have null values if defaults are handled differently in a subclass' overridden
+     * {@link #buildDeclarativeField buildDeclarativeField()}.
+     *
+     * @return mutable mapping from widget annotation types to default values
      */
-    @SuppressWarnings("unchecked")
-    protected Stream<Class<? extends Annotation>> getDeclarativeAnnotationTypes() {
-        return ((List<Class<? extends Annotation>>)ReflectUtil.invoke(this.getAnnotationDefaultsMethod(), null)).stream();
+    protected Map<Class<? extends Annotation>, Annotation> buildDeclarativeAnnotationsMap() {
+        final Method method = Stream.<Class<?>>iterate(this.getClass(), c -> c != Object.class, Class::getSuperclass)
+          .map(c -> {
+            try  {
+                return c.getDeclaredMethod(DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME);
+            } catch (NoSuchMethodException e) {
+                return null;
+            }
+          })
+          .filter(Objects::nonNull)
+          .findFirst()
+          .orElseThrow(() -> new RuntimeException(String.format(
+            "internal error: method %s() not found on %s or any superclass",
+            DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME, this.getClass().getName())));
+        return Stream.of(method.getAnnotations())
+          .collect(Collectors.toMap(
+            Annotation::annotationType, a -> a,
+            (x, y) -> {
+                throw new RuntimeException("internal error");
+            },
+            HashMap::new));
     }
 
     /**
@@ -751,45 +752,6 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
       Binding binding, FormLayout formLayout, NullifyCheckbox nullifyCheckbox, EnabledBy enabledBy,
       BiFunction<BindingInfo, ? super T, FieldComponent<?>> fieldBuilder) {
         return new BindingInfo(method, propertyName, annotation, binding, formLayout, nullifyCheckbox, enabledBy, fieldBuilder);
-    }
-
-    /**
-     * Get the method in this class that has all of the widget annotations (with default values) applied to it.
-     *
-     * @return defaults method name, never null
-     */
-    protected Method getAnnotationDefaultsMethod() {
-        Method method = null;
-        for (Class<?> stype = this.getClass(); stype != null; stype = stype.getSuperclass()) {
-            try  {
-                method = stype.getDeclaredMethod(this.getAnnotationDefaultsMethodName());
-            } catch (NoSuchMethodException e) {
-                continue;
-            }
-            break;
-        }
-        if (method == null) {
-            throw new RuntimeException(String.format(
-              "internal error: method %s() not found", this.getAnnotationDefaultsMethodName()));
-        }
-        try {
-            method.setAccessible(true);
-        } catch (RuntimeException e) {
-            // ignore
-        }
-        return method;
-    }
-
-    /**
-     * Get the name of the method in this class that has all of the widget annotations (with default values) applied to it.
-     *
-     * <p>
-     * The implementation in {@link AbstractFieldBuilder} returns {@value #DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME}.
-     *
-     * @return defaults method name, never null
-     */
-    protected String getAnnotationDefaultsMethodName() {
-        return DEFAULT_ANNOTATION_DEFAULTS_METHOD_NAME;
     }
 
     /**
@@ -1338,8 +1300,11 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
         AnnotationApplier(BindingInfo bindingInfo, A defaults) {
             if (bindingInfo == null)
                 throw new IllegalArgumentException("null bindingInfo");
-            if (defaults == null)
-                throw new IllegalArgumentException("null defaults");
+            if (defaults == null) {
+                throw new IllegalArgumentException(String.format(
+                  "missing defaults for declarative widget annotation %s",
+                  bindingInfo.getAnnotation().annotationType().getName()));
+            }
             this.bindingInfo = bindingInfo;
             this.defaults = defaults;
 
