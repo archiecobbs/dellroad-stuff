@@ -115,6 +115,19 @@ public class MemoryClassLoader extends URLClassLoader {
         return this.classDataMap.get(className).getClassbytes().clone();
     }
 
+    /**
+     * Links the specified class.
+     *
+     * <p>
+     * This method just invokes {@code this.}{@link #resolveClass resolveClass(c)}.
+     *
+     * @param c the class to link
+     * @see #resolveClass
+     */
+    public void linkClass(Class<?> c) {
+        this.resolveClass(c);
+    }
+
 // URLClassLoader
 
     // Make this public

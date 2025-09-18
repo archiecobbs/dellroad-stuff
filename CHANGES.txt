@@ -1,3 +1,7 @@
+Version Next
+
+    - Add method MemoryClassLoader.linkClass().
+
 Version 3.0.9
 
     - Refactor FieldBuilder to facilitate custom widget annotations.
