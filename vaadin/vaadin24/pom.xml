@@ -23,7 +23,7 @@
 
     <properties>
         <auto.module.name>org.dellroad.stuff.vaadin24</auto.module.name>
-        <vaadin.version>24.7.5</vaadin.version>
+        <vaadin.version>24.9.0</vaadin.version>
     </properties>
 
     <!-- Import vaadin-bom, which defaults the versions of all Vaadin dependencies for Vaadin ${vaadin.version} -->
