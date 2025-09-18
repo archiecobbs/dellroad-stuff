@@ -23,7 +23,6 @@
 
     <properties>
         <auto.module.name>org.dellroad.stuff.vaadin.fieldbuilder</auto.module.name>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
     </properties>
 
     <dependencies>
