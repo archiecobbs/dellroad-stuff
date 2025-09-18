@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
-
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 

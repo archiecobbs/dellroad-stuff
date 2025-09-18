@@ -1,7 +1,7 @@
 <FindBugsFilter>
     <Match>
         <Class name="~.*"/>
-        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CT_CONSTRUCTOR_THROW"/>
     </Match>
     <Match>
         <Class name="org.dellroad.stuff.main.MainClass"/>
@@ -68,5 +68,9 @@
     <Match>
         <Class name="org.dellroad.stuff.text.MessageFmt$ArgumentSegment$1Qchar"/>
         <Bug pattern="UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.java.SerializableMethod"/>
+        <Bug pattern="MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT"/>
     </Match>
 </FindBugsFilter>

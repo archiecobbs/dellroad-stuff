@@ -215,6 +215,12 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
         return hash;
     }
 
+    // Avoid checkstyle warning
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 // Cloneable
 
     @Override

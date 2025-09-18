@@ -24,7 +24,7 @@ public class BitwiseStreamTest extends TestSupport {
 
         // Write data: 0b00101011 0b00101011
         final ByteArrayOutputStream obuf = new ByteArrayOutputStream();
-        try (final BitwiseOutputStream output = new BitwiseOutputStream(obuf)) {
+        try (BitwiseOutputStream output = new BitwiseOutputStream(obuf)) {
             output.writeBit(true);
             output.writeBit(true);
             output.writeBit(false);
@@ -40,7 +40,7 @@ public class BitwiseStreamTest extends TestSupport {
 
         // Read data
         final ByteArrayInputStream ibuf = new ByteArrayInputStream(obuf.toByteArray());
-        try (final BitwiseInputStream input = new BitwiseInputStream(ibuf)) {
+        try (BitwiseInputStream input = new BitwiseInputStream(ibuf)) {
             Assert.assertEquals(input.readBit(), 1);
             Assert.assertEquals(input.read(), 0b10010101);
             Assert.assertEquals(input.readBit(), 1);
@@ -71,7 +71,7 @@ public class BitwiseStreamTest extends TestSupport {
 
             // Write into buffer
             final ByteArrayOutputStream obuf = new ByteArrayOutputStream();
-            try (final BitwiseOutputStream output = new BitwiseOutputStream(obuf)) {
+            try (BitwiseOutputStream output = new BitwiseOutputStream(obuf)) {
                 this.writeRandomly(expected, numBits, output);
             }
 
@@ -82,7 +82,7 @@ public class BitwiseStreamTest extends TestSupport {
             // Read from buffer
             final ByteArrayInputStream ibuf = new ByteArrayInputStream(data);
             final BitSet actual;
-            try (final BitwiseInputStream input = new BitwiseInputStream(ibuf)) {
+            try (BitwiseInputStream input = new BitwiseInputStream(ibuf)) {
                 actual = this.readRandomly(numBits, input);
             }
 

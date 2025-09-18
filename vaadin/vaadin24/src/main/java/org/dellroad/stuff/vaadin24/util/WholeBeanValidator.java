@@ -121,7 +121,7 @@ public class WholeBeanValidator implements Validator<Object> {
 
 // NeverTraversableResolver
 
-    private static class NeverTraversableResolver implements TraversableResolver {
+    private static final class NeverTraversableResolver implements TraversableResolver {
 
         @Override
         public boolean isReachable(Object traversableObject, Path.Node traversableProperty,
@@ -139,7 +139,7 @@ public class WholeBeanValidator implements Validator<Object> {
 // WorkaroundBeanValidator
 
     // Workaround for Vaadin methods being protected for no good reason
-    static class WorkaroundBeanValidator extends BeanValidator {
+    static final class WorkaroundBeanValidator extends BeanValidator {
 
         private final ValidatorFactory validatorFactory;
 

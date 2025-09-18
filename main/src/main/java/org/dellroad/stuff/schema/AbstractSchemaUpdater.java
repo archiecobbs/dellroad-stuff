@@ -537,7 +537,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
     }
 
     // Sorts updates by name
-    private class UpdateByNameComparator implements Comparator<SchemaUpdate<T>> {
+    private final class UpdateByNameComparator implements Comparator<SchemaUpdate<T>> {
 
         @Override
         public int compare(SchemaUpdate<T> update1, SchemaUpdate<T> update2) {

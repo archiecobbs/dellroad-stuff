@@ -80,7 +80,7 @@ public abstract class StreamWriterAction {
 
 // StreamWriterActions
 
-    private static class StartElementAction extends StreamWriterAction {
+    private static final class StartElementAction extends StreamWriterAction {
 
         final String prefix;
         final String localName;
@@ -152,7 +152,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class EndElementAction extends StreamWriterAction {
+    private static final class EndElementAction extends StreamWriterAction {
 
         @Override
         public void apply(XMLStreamWriter writer) throws XMLStreamException {
@@ -165,7 +165,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class PIAction extends StreamWriterAction {
+    private static final class PIAction extends StreamWriterAction {
 
         private final String target;
         private final String data;
@@ -205,7 +205,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class CommentAction extends CharactersAction {
+    private static final class CommentAction extends CharactersAction {
 
         CommentAction(XMLStreamReader reader) {
             super(reader);
@@ -217,7 +217,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class DTDAction extends CharactersAction {
+    private static final class DTDAction extends CharactersAction {
 
         DTDAction(XMLStreamReader reader) {
             super(reader);
@@ -229,7 +229,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class CDataAction extends CharactersAction {
+    private static final class CDataAction extends CharactersAction {
 
         CDataAction(XMLStreamReader reader) {
             super(reader);
@@ -241,7 +241,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class StartDocumentAction extends StreamWriterAction {
+    private static final class StartDocumentAction extends StreamWriterAction {
 
         protected final String encoding;
         protected final String version;
@@ -261,7 +261,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class EndDocumentAction extends StreamWriterAction {
+    private static final class EndDocumentAction extends StreamWriterAction {
 
         @Override
         public void apply(XMLStreamWriter writer) throws XMLStreamException {
@@ -275,7 +275,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class EntityRefAction extends StreamWriterAction {
+    private static final class EntityRefAction extends StreamWriterAction {
 
         private final String localName;
 
@@ -293,7 +293,7 @@ public abstract class StreamWriterAction {
         }
     }
 
-    private static class EmptyAction extends StreamWriterAction {
+    private static final class EmptyAction extends StreamWriterAction {
 
         @Override
         public void apply(XMLStreamWriter writer) throws XMLStreamException {

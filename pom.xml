@@ -8,12 +8,12 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>dellroad-dependencies</artifactId>
-        <version>3.2.5.0</version>
+        <version>3.4.5.3</version>
     </parent>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
     <name>DellRoad Stuff</name>
-    <version>3.0.9</version>
+    <version>3.1.0</version>
     <packaging>pom</packaging>
     <description>DellRoad Stuff is a dumping ground for various useful Java classes that have evolved over time from repeated use in multiple projects.</description>
     <url>https://github.com/archiecobbs/dellroad-stuff</url>
@@ -53,7 +53,7 @@
 
         <!-- Basic stuff -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <checkstyle.config.location>src/main/checkstyle/checkstyle.xml</checkstyle.config.location>
+        <checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
         <java.version>17</java.version>
 
         <!-- For Javadoc links; keep synchronized with vaadin/vaadin24/pom.xml -->
@@ -236,21 +236,31 @@
                         <id>default-verify</id>
                         <phase>verify</phase>
                         <configuration>
-                            <encoding>UTF-8</encoding>
-                            <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
-                            <linkXRef>false</linkXRef>
+                            <failOnViolation>true</failOnViolation>
+                            <includeResources>false</includeResources>
+                            <includeTestResources>false</includeTestResources>
+                            <includeTestSourceDirectory>true</includeTestSourceDirectory>
                             <sourceDirectories>
                                 <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                                 <sourceDirectory>${project.build.testSourceDirectory}</sourceDirectory>
                             </sourceDirectories>
                             <excludes>org/dellroad/stuff/jibx/JibxMarshaller.java</excludes>
+                            <configLocation>src/checkstyle/checkstyle.xml</configLocation>
                         </configuration>
                         <goals>
                             <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>
+
+                <!-- Override version to get bug fixes -->
+                <dependencies>
+                    <dependency>
+                        <groupId>com.puppycrawl.tools</groupId>
+                        <artifactId>checkstyle</artifactId>
+                        <version>11.0.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <!-- SpotBugs -->

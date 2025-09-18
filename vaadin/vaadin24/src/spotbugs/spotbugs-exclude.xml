@@ -1,7 +1,7 @@
 <FindBugsFilter>
     <Match>
         <Class name="~.*"/>
-        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CT_CONSTRUCTOR_THROW"/>
     </Match>
     <Match>
         <Class name="org.dellroad.stuff.vaadin24.field.AbstractFieldBuilder$BindingInfo"/>
@@ -24,6 +24,10 @@
         <Class name="org.dellroad.stuff.vaadin24.field.FieldBuilderContextImpl"/>
         <Field name="bindingInfo"/>
         <Bug pattern="SE_BAD_FIELD"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin24.field.AbstractFieldBuilder"/>
+        <Bug pattern="MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT"/>
     </Match>
 
     <!-- https://github.com/spotbugs/spotbugs/issues/651 -->

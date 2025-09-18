@@ -1,7 +1,7 @@
 <FindBugsFilter>
     <Match>
         <Class name="~.*"/>
-        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2"/>
+        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2,CT_CONSTRUCTOR_THROW"/>
     </Match>
     <Match>
         <Class name="org.dellroad.stuff.spring.AbstractBeanDefinitionParser"/>
@@ -26,5 +26,10 @@
         <Class name="org.dellroad.stuff.spring.Springleton"/>
         <Method name="getInstance"/>
         <Bug pattern="MS_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.spring.RetryTransactionAspect"/>
+        <Field name="ajc$perSingletonInstance"/>
+        <Bug pattern="PA_PUBLIC_PRIMITIVE_ATTRIBUTE"/>
     </Match>
 </FindBugsFilter>

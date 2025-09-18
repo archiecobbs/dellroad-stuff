@@ -6,7 +6,6 @@
 package org.dellroad.stuff.pobj;
 
 import org.dellroad.stuff.spring.AbstractBean;
-
 import org.springframework.beans.factory.BeanNameAware;
 
 /**

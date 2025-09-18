@@ -6,11 +6,9 @@
 package org.dellroad.stuff.jibx;
 
 import org.dellroad.stuff.test.TestSupport;
-
 import org.jibx.runtime.JiBXException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class ParseUtilTest extends TestSupport {

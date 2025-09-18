@@ -214,7 +214,9 @@ public class MessageFmtTest extends TestSupport {
 
             {
                 Locale.US,
+                // CHECKSTYLE OFF: LineLength
                 "{0,choice,0#1-zero: {1}|1#1-one: {1}|1<1-''''more than one'''': '{2,choice,0#3-zero: {3}|1#3-one: {3}|1<3-''''''''more than one'''''''': {3}}'}",
+                // CHECKSTYLE ON: LineLength
                 "1-'more than one': 3-'more than one': bbb",
                 2, "aaa", 4, "bbb"
             },

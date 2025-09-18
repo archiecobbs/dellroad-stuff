@@ -52,7 +52,7 @@ public class ResourceReaderFactoryBean extends AbstractFactoryBean<String> {
 
     @Override
     protected String createInstance() throws IOException {
-        try (final InputStreamReader reader = new InputStreamReader(this.resource.getInputStream(), this.charset)) {
+        try (InputStreamReader reader = new InputStreamReader(this.resource.getInputStream(), this.charset)) {
             StringWriter writer = new StringWriter();
             char[] buf = new char[4096];
             int r;

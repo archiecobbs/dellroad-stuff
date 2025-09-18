@@ -236,6 +236,12 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
         return this.entrySet().hashCode();              // this is more efficient than what superclass does
     }
 
+    // Avoid checkstyle warning
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
 // Cloneable
 
     @Override
@@ -536,6 +542,12 @@ loop:   while (true) {
                 }
             }
             return hash;
+        }
+
+        // Avoid checkstyle warning
+        @Override
+        public boolean equals(Object obj) {
+            return super.equals(obj);
         }
     }
 

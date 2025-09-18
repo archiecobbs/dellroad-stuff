@@ -22,12 +22,6 @@
         <property name="severity" value="warning"/>
     </module>
 
-    <module name="SuppressionCommentFilter">
-        <property name="offCommentFormat" value="CHECKSTYLE OFF\: ([\w\|]+)"/>
-        <property name="onCommentFormat" value="CHECKSTYLE ON\: ([\w\|]+)"/>
-        <property name="checkFormat" value="$1"/>
-    </module>
-
     <module name="NewlineAtEndOfFile">
         <property name="fileExtensions" value="java, xml, xsl, xsd, properties, html"/>
     </module>
@@ -40,9 +34,8 @@
     <!-- See http://checkstyle.sf.net/config_header.html   -->
     <!-- <module name="Header"> -->
     <module name="RegexpHeader">
-      <property
-        name="header"
-        value="^$\n^\/\*\n \* Copyright \(C\) .*\. All rights reserved\.\n^ \*/"/>
+      <property name="header" value="^$\n^\/\*\n \* Copyright \(C\) .*\. All rights reserved\.\n^ \*/"/>
+      <property name="fileExtensions" value=".java"/>
     </module>
 
     <!-- Checks for Size Violations.                    -->
@@ -68,9 +61,24 @@
         <property name="message" value="Consecutive blank lines are not allowed."/>
     </module>
 
+    <module name="LineLength">
+        <property name="max" value="132"/>
+        <property name="ignorePattern" value="(^import)|(^ *\*)"/>
+    </module>
+
+    <module name="SuppressWithPlainTextCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE OFF\: ([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE ON\: ([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+
     <module name="TreeWalker">
 
-        <module name="FileContentsHolder"/>
+        <module name="SuppressionCommentFilter">
+            <property name="offCommentFormat" value="CHECKSTYLE OFF\: ([\w\|]+)"/>
+            <property name="onCommentFormat" value="CHECKSTYLE ON\: ([\w\|]+)"/>
+            <property name="checkFormat" value="$1"/>
+        </module>
 
         <!-- Checks for Javadoc comments.                     -->
         <!-- See http://checkstyle.sf.net/config_javadoc.html -->
@@ -119,29 +127,28 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="ImportOrder">
-            <property name="groups" value="au,bsh,ca,com,info,jakarta,java,javax,junit,net,org"/>
+            <property name="groups" value="au,bsh,ca,com,info,io,jakarta,java,javax,jdk,jetbrains,joptsimple,junit,net,org"/>
             <property name="ordered" value="true"/>
             <property name="separated" value="true"/>
+            <property name="separatedStaticGroups" value="true"/>
         </module>
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="ExecutableStatementCount">
-            <property name="max" value="150"/>
+            <property name="max" value="500"/>
             <property name="severity" value="info"/>
         </module>
-        <module name="LineLength">
-            <property name="max" value="132"/>
-            <property name="ignorePattern" value="(^import)|(^ *\*)"/>
-        </module>
         <module name="MethodLength">
+            <property name="max" value="500"/>
             <property name="severity" value="info"/>
         </module>
         <module name="ParameterNumber">
+            <property name="max" value="16"/>
             <property name="severity" value="info"/>
         </module>
         <module name="AnonInnerLength">
-            <property name="max" value="150"/>
+            <property name="max" value="500"/>
             <property name="severity" value="info"/>
         </module>
 
@@ -188,10 +195,13 @@
         <!-- Checks for blocks. You know, those {}'s         -->
         <!-- See http://checkstyle.sf.net/config_blocks.html -->
         <module name="EmptyBlock">
-            <property name="option" value="stmt"/>
+            <property name="option" value="statement"/>
             <property name="tokens" value="LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_IF, LITERAL_FOR, LITERAL_TRY, LITERAL_WHILE, STATIC_INIT"/>
         </module>
-        <module name="LeftCurly"/>
+        <module name="LeftCurly">
+            <!-- Omit LITERAL_CASE -->
+            <property name="tokens" value="ANNOTATION_DEF, CLASS_DEF, CTOR_DEF, ENUM_CONSTANT_DEF, ENUM_DEF, INTERFACE_DEF, LAMBDA, LITERAL_CATCH, LITERAL_DEFAULT, LITERAL_DO, LITERAL_ELSE, LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_SWITCH, LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, METHOD_DEF, OBJBLOCK, STATIC_INIT, RECORD_DEF, COMPACT_CTOR_DEF"/>
+        </module>
 <!--    <module name="NeedBraces"/> -->
         <module name="RightCurly"/>
         <module name="AvoidNestedBlocks">

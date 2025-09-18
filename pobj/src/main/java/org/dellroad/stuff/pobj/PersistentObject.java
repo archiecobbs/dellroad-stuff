@@ -958,7 +958,7 @@ public class PersistentObject<T> {
         }
         if (streamRepositorySnapshot == null)
             throw new PersistentObjectException("no file configured");
-        try (final BufferedInputStream input = new BufferedInputStream(streamRepositorySnapshot.getInputStream())) {
+        try (BufferedInputStream input = new BufferedInputStream(streamRepositorySnapshot.getInputStream())) {
             final StreamSource source = new StreamSource(input);
             source.setSystemId(this.getFile());
             return PersistentObject.read(this.delegate, source, false);
@@ -1247,7 +1247,7 @@ public class PersistentObject<T> {
             throw new IllegalArgumentException("null file");
 
         // Read file and parse XML
-        try (final BufferedInputStream input = new BufferedInputStream(new FileInputStream(file))) {
+        try (BufferedInputStream input = new BufferedInputStream(new FileInputStream(file))) {
             final StreamSource source = new StreamSource(input);
             source.setSystemId(file);
             return PersistentObject.read(delegate, source, validate);
@@ -1339,7 +1339,7 @@ public class PersistentObject<T> {
             throw new IllegalArgumentException("null file");
 
         // Write to file
-        try (final BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file))) {
+        try (BufferedOutputStream output = new BufferedOutputStream(new FileOutputStream(file))) {
             final StreamResult result = new StreamResult(output);
             result.setSystemId(file);
             PersistentObject.write(root, delegate, result);

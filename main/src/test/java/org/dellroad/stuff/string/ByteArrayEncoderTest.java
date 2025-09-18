@@ -6,10 +6,8 @@
 package org.dellroad.stuff.string;
 
 import org.dellroad.stuff.test.TestSupport;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class ByteArrayEncoderTest extends TestSupport {

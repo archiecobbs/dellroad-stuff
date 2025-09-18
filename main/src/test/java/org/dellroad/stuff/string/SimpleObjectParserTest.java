@@ -10,10 +10,8 @@ import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import org.dellroad.stuff.test.TestSupport;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 
 public class SimpleObjectParserTest extends TestSupport {

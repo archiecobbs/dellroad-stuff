@@ -38,7 +38,7 @@ public class PipedStreamsTest extends TestSupport {
 
         // Reader
         final Thread writer = new Thread(() -> {
-            try (final OutputStream out = ps.getOutputStream()) {
+            try (OutputStream out = ps.getOutputStream()) {
                 for (int i = 0; i < 1000; i++) {
                     if (this.random.nextInt(10) == 7) {
                         final byte b = (byte)this.random.nextInt(256);
@@ -70,7 +70,7 @@ public class PipedStreamsTest extends TestSupport {
 
         // Writer
         final Thread reader = new Thread(() -> {
-            try (final InputStream in = ps.getInputStream()) {
+            try (InputStream in = ps.getInputStream()) {
                 while (true) {
                     if (this.random.nextInt(10) == 7) {
                         final int b = in.read();

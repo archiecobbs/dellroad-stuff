@@ -68,7 +68,7 @@ public interface Network {
     /**
      * Callback interface used by {@link Network} implementations.
      */
-    public interface Handler {
+    interface Handler {
 
         /**
          * Handle an incoming message from a remote peer.

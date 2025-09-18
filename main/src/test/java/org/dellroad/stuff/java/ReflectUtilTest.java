@@ -52,7 +52,7 @@ public class ReflectUtilTest extends TestSupport {
         }
     }
 
-    private static class Class2 extends Class1<Number> {
+    private static final class Class2 extends Class1<Number> {
 
         // This is not an override - no bridge method is generated
         public void setFoo(Integer foo) {
