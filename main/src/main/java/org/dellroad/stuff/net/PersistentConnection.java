@@ -277,8 +277,8 @@ public abstract class PersistentConnection<C> {
     }
 
     /**
-     * State machine transition: this instance was stopped via {@link #stop stop()} of because or
-     * an unchecked exception was thrown by one of the subclass methods.
+     * State machine transition: this instance was stopped via {@link #stop stop()}
+     * or an unchecked exception was thrown by one of the subclass methods.
      *
      * <p>
      * The implementation in {@link PersistentConnection} does nothing; subclasses may override.
