@@ -252,7 +252,8 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
                     translatedException = this.persistenceExceptionTranslator.translateExceptionIfPossible(e);
                 if (this.log.isDebugEnabled()) {
                     this.log.debug("exception from {} on attempt #{}: {}{}", setup.getDescription(), attempt, e.toString(),
-                      translatedException != null ? " (translates to " + translatedException.getClass().getSimpleName() + ")" : "");
+                      translatedException != null && translatedException != e ?
+                        String.format(" (translates to %s)", translatedException.getClass().getSimpleName()) : "");
                 }
 
                 // If it's not a transient exception, re-throw it
