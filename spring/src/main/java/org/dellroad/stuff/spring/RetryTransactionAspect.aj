@@ -157,6 +157,10 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
             }
             break;
         default:
+            if (this.log.isTraceEnabled()) {
+                this.log.trace("skipping retry logic; {} configured for {} in {}",
+                  transactionAttribute.getPropagationBehavior(), transactionManagerName, description);
+            }
             return proceed(txObject);
         }
 
