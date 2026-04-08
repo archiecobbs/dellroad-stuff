@@ -136,8 +136,8 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
         final TransactionAttribute transactionAttribute = this.transactionAttributeSource
           .getTransactionAttribute(method, txObject.getClass());
         if (transactionAttribute == null) {
-            throw new RuntimeException("no @Transactional annotation found for method "
-              + method + "; required for @RetryTransaction");
+            throw new RuntimeException(String.format(
+              "no @Transactional annotation found for method %s; required for @RetryTransaction", method));
         }
         final String transactionManagerName = transactionAttribute.getQualifier();
         final String description = "@Transactional method " + method;
@@ -191,8 +191,9 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
 
         // Sanity check we are configured
         if (this.persistenceExceptionTranslator == null) {
-            throw new RuntimeException("@RetryTransaction aspect must be configured with a "
-              + PersistenceExceptionTranslator.class.getSimpleName() + " before use");
+            throw new RuntimeException(String.format(
+              "@%s aspect must be configured with a %s before use",
+              RetryTransaction.class.getSimpleName(), PersistenceExceptionTranslator.class.getSimpleName()));
         }
 
         // Perform attempts
