@@ -56,8 +56,9 @@
         <checkstyle.config.location>src/checkstyle/checkstyle.xml</checkstyle.config.location>
         <java.version>17</java.version>
 
-        <!-- For Javadoc links; keep synchronized with vaadin/vaadin24/pom.xml -->
+        <!-- For Javadoc links; keep synchronized with vaadin/vaadin*/pom.xml -->
         <vaadin24.version>24.9.14</vaadin24.version>
+        <vaadin25.version>25.1.1</vaadin25.version>
 
         <!-- Dependency versions -->
         <testng.version>7.7.0</testng.version>
@@ -370,6 +371,10 @@
                         <offlineLink>
                             <url>https://vaadin.com/api/platform/${vaadin24.version}</url>
                             <location>${project.basedir}/vaadin/vaadin24/src/javadoc/vaadin</location>
+                        </offlineLink>
+                        <offlineLink>
+                            <url>https://vaadin.com/api/platform/${vaadin25.version}</url>
+                            <location>${project.basedir}/vaadin/vaadin25/src/javadoc/vaadin</location>
                         </offlineLink>
                     </offlineLinks>
                 </configuration>

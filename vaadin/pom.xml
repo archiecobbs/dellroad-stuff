@@ -17,6 +17,7 @@
     <modules>
         <module>fieldbuilder-plugin</module>
         <module>vaadin24</module>
+        <module>vaadin25</module>
     </modules>
     <distributionManagement>
         <site>

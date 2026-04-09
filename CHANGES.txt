@@ -1,6 +1,7 @@
 Version 3.2.0
 
     - Update to dellroad-dependencies 4.0.5.6
+    - Add new vaadin25 sub-module
 
 Version 3.1.0 Released September 18, 2025
 
