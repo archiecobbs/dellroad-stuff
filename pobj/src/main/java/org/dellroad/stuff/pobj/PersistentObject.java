@@ -230,6 +230,7 @@ public class PersistentObject<T> {
      * @throws IllegalArgumentException if {@code delegate} or {@code file} is null
      * @throws IllegalArgumentException if {@code writeDelay} or {@code checkInterval} is negative
      */
+    @SuppressWarnings("this-escape")
     public PersistentObject(PersistentObjectDelegate<T> delegate, File file, long writeDelay, long checkInterval) {
         this.setDelegate(delegate);
         this.setFile(file);

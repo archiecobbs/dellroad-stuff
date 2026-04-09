@@ -66,6 +66,7 @@ public class VaadinSessionTracker {
      * @param maxSessions maximum number of allowed sessions, or zero for infinity
      * @throws IllegalArgumentException if {@code maxSessions} is negative
      */
+    @SuppressWarnings("this-escape")
     public VaadinSessionTracker(int maxSessions) {
         this.setMaxSessions(maxSessions);
     }

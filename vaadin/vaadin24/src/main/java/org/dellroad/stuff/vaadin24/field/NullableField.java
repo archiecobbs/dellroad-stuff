@@ -104,7 +104,7 @@ public class NullableField<T> extends CustomField<T>
      * @param enabledField field that controls nullability
      * @throws IllegalArgumentException if any parameter is null
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "this-escape" })
     public NullableField(HasValue<?, T> innerField, Component component, HasValue<?, Boolean> enabledField) {
 
         // Sanity check

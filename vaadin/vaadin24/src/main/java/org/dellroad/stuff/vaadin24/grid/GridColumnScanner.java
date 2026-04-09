@@ -71,6 +71,7 @@ public class GridColumnScanner<T> {
      * @throws IllegalArgumentException if {@code type} has multiple {@link GridColumn &#64;GridColumn}-annotated
      *  methods specifying the same {@linkplain GridColumn#key column key}
      */
+    @SuppressWarnings("this-escape")
     public GridColumnScanner(Class<T> type) {
 
         // Sanity check

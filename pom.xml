@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.dellroad</groupId>
         <artifactId>dellroad-dependencies</artifactId>
-        <version>3.4.5.3</version>
+        <version>4.0.5.6</version>
     </parent>
     <groupId>org.dellroad</groupId>
     <artifactId>dellroad-stuff</artifactId>
@@ -64,10 +64,26 @@
 
     </properties>
     <dependencies>
+
+        <!-- Logging API -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+
+        <!-- Source code analysis -->
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.jcip</groupId>
+            <artifactId>jcip-annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-reload4j</artifactId>
@@ -194,7 +210,6 @@
                         <link>https://guava.dev/releases/${guava.version}/api/docs/</link>
                         <link>https://jibx.sourceforge.io/api</link>
                         <link>https://www.slf4j.org/apidocs/</link>
-                        <link>https://eclipse.dev/aspectj/doc/released/runtime-api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                 </configuration>
@@ -348,7 +363,6 @@
                         <link>https://guava.dev/releases/${guava.version}/api/docs/</link>
                         <link>https://jibx.sourceforge.io/api</link>
                         <link>https://www.slf4j.org/apidocs/</link>
-                        <link>https://eclipse.dev/aspectj/doc/released/runtime-api/</link>
                         <link>https://maven.apache.org/ref/${plugin-api.version}/apidocs/</link>
                     </links>
                     <excludePackageNames>org.dellroad.stuff.vaadin7;org.dellroad.stuff.pobj.vaadin7</excludePackageNames>

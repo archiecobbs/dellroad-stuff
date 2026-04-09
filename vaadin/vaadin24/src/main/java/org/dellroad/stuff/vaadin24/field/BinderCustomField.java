@@ -126,6 +126,7 @@ public abstract class BinderCustomField<T> extends CustomField<T>
      * @param modelType field value type
      * @throws IllegalArgumentException if {@code modelType} is null
      */
+    @SuppressWarnings("this-escape")
     public BinderCustomField(Class<T> modelType) {
 
         // Sanity check

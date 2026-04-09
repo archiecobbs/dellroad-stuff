@@ -17,6 +17,8 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.UnaryOperator;
 
+import net.jcip.annotations.NotThreadSafe;
+
 /**
  * A map with non-zero {@code long} keys.
  *
@@ -32,6 +34,7 @@ import java.util.function.UnaryOperator;
  *
  * @see <a href="https://en.wikipedia.org/wiki/Open_addressing">Open addressing</a>
  */
+@NotThreadSafe
 public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Serializable {
 
     // Algorithm described here: http://en.wikipedia.org/wiki/Open_addressing
@@ -45,6 +48,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
     private static final int MAX_LOG2_LENGTH = 30;          // maximum array length = 1 billion slots
 
     private long[] keys;                                    // has length always a power of 2
+    @SuppressWarnings("serial")
     private V[] values;                                     // will be null if we are being used to implement LongSet
     private int size;                                       // the number of entries in the map
     private int log2len;                                    // log2 of keys.length and values.length (if not null)
@@ -80,6 +84,7 @@ public class LongMap<V> extends AbstractMap<Long, V> implements Cloneable, Seria
      * @throws NullPointerException if {@code map} is null
      * @throws IllegalArgumentException if {@code map} contains a null key
      */
+    @SuppressWarnings("this-escape")
     public LongMap(Map<? extends Number, ? extends V> map) {
         this(map.size(), true);
         for (Map.Entry<? extends Number, ? extends V> entry : map.entrySet()) {

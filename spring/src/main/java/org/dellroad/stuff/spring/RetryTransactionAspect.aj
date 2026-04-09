@@ -42,9 +42,9 @@ public aspect RetryTransactionAspect extends AbstractBean implements RetryTransa
     private final Random random = new Random();
 
     // Default values for retry settings
-    private int maxRetriesDefault = RetryTransaction.DEFAULT_MAX_RETRIES;
-    private long initialDelayDefault = RetryTransaction.DEFAULT_INITIAL_DELAY;
-    private long maximumDelayDefault = RetryTransaction.DEFAULT_MAXIMUM_DELAY;
+    private volatile int maxRetriesDefault = RetryTransaction.DEFAULT_MAX_RETRIES;
+    private volatile long initialDelayDefault = RetryTransaction.DEFAULT_INITIAL_DELAY;
+    private volatile long maximumDelayDefault = RetryTransaction.DEFAULT_MAXIMUM_DELAY;
 
     // This knows how to read information from @Transactional annotation
     private final AnnotationTransactionAttributeSource transactionAttributeSource = new AnnotationTransactionAttributeSource(false);

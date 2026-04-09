@@ -94,6 +94,7 @@ public abstract class AbstractFieldBuilder<S extends AbstractFieldBuilder<S, T>,
      * @param type backing object type
      * @throws IllegalArgumentException if {@code type} is null
      */
+    @SuppressWarnings("this-escape")
     protected AbstractFieldBuilder(Class<T> type) {
         if (type == null)
             throw new IllegalArgumentException("null type");

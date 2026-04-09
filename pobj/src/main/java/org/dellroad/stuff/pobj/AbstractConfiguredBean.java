@@ -48,6 +48,7 @@ public abstract class AbstractConfiguredBean<ROOT, T> extends AbstractBean
      *
      * @param persistentObject keeper of the current configuration
      */
+    @SuppressWarnings("this-escape")
     protected AbstractConfiguredBean(PersistentObject<ROOT> persistentObject) {
         this.setPersistentObject(persistentObject);
     }

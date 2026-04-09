@@ -64,6 +64,7 @@ public class SQLCommandList implements DatabaseAction<Connection> {
     public SQLCommandList() {
     }
 
+    @SuppressWarnings("this-escape")
     public SQLCommandList(String sqlScript) {
         this.setSQLScript(sqlScript);
     }

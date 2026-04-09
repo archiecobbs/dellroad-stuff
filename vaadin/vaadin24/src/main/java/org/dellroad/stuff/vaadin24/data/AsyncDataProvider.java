@@ -77,6 +77,7 @@ public class AsyncDataProvider<T> extends ListDataProvider<T> {
      * @param taskManager loading task manager
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
+    @SuppressWarnings("this-escape")
     public AsyncDataProvider(AsyncTaskManager<Stream<? extends T>> taskManager) {
         super(new ArrayList<>());
         Preconditions.checkArgument(taskManager != null, "null taskManager");

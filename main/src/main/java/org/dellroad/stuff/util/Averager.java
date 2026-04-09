@@ -40,6 +40,7 @@ public class Averager implements Cloneable {
      *
      * @param firstValue first data point
      */
+    @SuppressWarnings("this-escape")
     public Averager(double firstValue) {
         this.addValue(firstValue);
     }

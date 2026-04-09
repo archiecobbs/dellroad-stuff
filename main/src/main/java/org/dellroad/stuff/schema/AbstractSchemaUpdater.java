@@ -51,7 +51,7 @@ public abstract class AbstractSchemaUpdater<D, T> {
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private Collection<? extends SchemaUpdate<T>> updates;
-    private boolean ignoreUnrecognizedUpdates;
+    private volatile boolean ignoreUnrecognizedUpdates;
 
     /**
      * Get the configured updates. This property is required.

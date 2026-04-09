@@ -71,6 +71,7 @@ public class NullModemInputStream extends FilterInputStream {
      * @param executor executes writing process in the background
      * @throws IllegalArgumentException if any parameter is null
      */
+    @SuppressWarnings("this-escape")
     public NullModemInputStream(WriteCallback writer, Executor executor) {
         super(new PipedStreams().getInputStream());
 

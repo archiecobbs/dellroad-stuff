@@ -52,6 +52,7 @@ public class Audio extends HtmlContainer {
     /**
      * Constructor.
      */
+    @SuppressWarnings("this-escape")
     public Audio() {
         this.setShowControls(true);
     }
@@ -204,6 +205,7 @@ public class Audio extends HtmlContainer {
     @SuppressWarnings("serial")
     public static class Source extends HtmlComponent {
 
+        @SuppressWarnings("this-escape")
         public Source(String uri, String mimeType) {
             Preconditions.checkArgument(uri != null, "null uri");
             Preconditions.checkArgument(mimeType != null, "null mimeType");

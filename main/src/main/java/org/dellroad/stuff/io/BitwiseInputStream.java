@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.util.BitSet;
 import java.util.concurrent.atomic.AtomicLong;
 
+import net.jcip.annotations.NotThreadSafe;
+
 /**
  * A bit-oriented {@link InputStream}.
  *
@@ -28,8 +30,12 @@ import java.util.concurrent.atomic.AtomicLong;
  * Because the underlying input is byte-oriented, the total number of bits read will always be a multiple of eight.
  * Attempting to read one or more whole bytes when less than eight bits remain will result in EOF being returnd.
  *
+ * <p>
+ * Instances are not thread safe.
+ *
  * @see BitwiseOutputStream
  */
+@NotThreadSafe
 public class BitwiseInputStream extends FilterInputStream {
 
     private byte bufBits;       // partial byte input buffer
@@ -227,7 +233,7 @@ public class BitwiseInputStream extends FilterInputStream {
             final long mask = (1L << numCopy) - 1;
             value |= (this.bufBits & mask) << count;
             this.bufBits = (byte)((this.bufBits & 0xff) >>> numCopy);
-            this.bufLen -= numCopy;
+            this.bufLen -= (byte)numCopy;
             count += numCopy;
             len -= numCopy;
         }

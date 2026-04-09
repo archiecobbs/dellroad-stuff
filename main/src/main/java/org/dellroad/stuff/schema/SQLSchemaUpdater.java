@@ -55,7 +55,7 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      */
     public static final String DEFAULT_UPDATE_TABLE_TIME_COLUMN = "updateTime";
 
-    private int transactionIsolation = Connection.TRANSACTION_SERIALIZABLE;
+    private volatile int transactionIsolation = Connection.TRANSACTION_SERIALIZABLE;
     private String updateTableName = DEFAULT_UPDATE_TABLE_NAME;
     private String updateTableNameColumn = DEFAULT_UPDATE_TABLE_NAME_COLUMN;
     private String updateTableTimeColumn = DEFAULT_UPDATE_TABLE_TIME_COLUMN;
@@ -267,7 +267,6 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
      * @throws IllegalStateException if the database needs initialization and either the
      *  {@linkplain #setDatabaseInitialization database initialization} or
      *  the {@linkplain #setUpdateTableInitialization update table initialization} has not been configured
-     * @throws IllegalStateException {@inheritDoc}
      * @throws IllegalArgumentException {@inheritDoc}
      */
     @Override
@@ -298,8 +297,9 @@ public class SQLSchemaUpdater extends AbstractSchemaUpdater<DataSource, Connecti
     @Override
     protected Connection openTransaction(DataSource dataSource) throws SQLException {
         Connection c = dataSource.getConnection();
-        if (this.transactionIsolation != -1)
-            c.setTransactionIsolation(this.transactionIsolation);
+        final int ti = this.transactionIsolation;
+        if (ti != -1)
+            c.setTransactionIsolation(ti);
         c.setAutoCommit(false);
         return c;
     }

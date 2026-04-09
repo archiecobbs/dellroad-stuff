@@ -14,6 +14,8 @@ import java.nio.channels.SelectableChannel;
 import java.nio.channels.SelectionKey;
 import java.util.ArrayDeque;
 
+import net.jcip.annotations.NotThreadSafe;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * All access to this class must be with the associated {@link ChannelNetwork} instance locked.
  */
+@NotThreadSafe
 public abstract class ChannelConnection implements SelectorSupport.IOHandler {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -59,6 +62,7 @@ public abstract class ChannelConnection implements SelectorSupport.IOHandler {
         this(network, peer, channel, channel);
     }
 
+    @SuppressWarnings("this-escape")
     protected ChannelConnection(ChannelNetwork network, String peer,
       SelectableChannel inputChannel, SelectableChannel outputChannel) throws IOException {
 

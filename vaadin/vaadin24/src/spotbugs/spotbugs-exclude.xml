@@ -29,6 +29,10 @@
         <Class name="org.dellroad.stuff.vaadin24.field.AbstractFieldBuilder"/>
         <Bug pattern="MC_OVERRIDABLE_METHOD_CALL_IN_READ_OBJECT"/>
     </Match>
+    <Match>
+        <Class name="org.dellroad.stuff.vaadin24.util.AsyncTaskManager"/>
+        <Bug pattern="AT_NONATOMIC_64BIT_PRIMITIVE"/>
+    </Match>
 
     <!-- https://github.com/spotbugs/spotbugs/issues/651 -->
     <Match>

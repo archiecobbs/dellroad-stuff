@@ -123,6 +123,7 @@ public class AsyncTaskManager<R> {
      * @param executor the executor used to execute async tasks, or null for none
      * @throws IllegalStateException if there is no {@link VaadinSession} associated with the current thread
      */
+    @SuppressWarnings("this-escape")
     public AsyncTaskManager(Function<? super Runnable, ? extends Future<?>> executor) {
         this.setAsyncExecutor(executor);
     }

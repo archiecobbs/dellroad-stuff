@@ -171,7 +171,7 @@ public class BitwiseOutputStream extends FilterOutputStream {
 
             // Copy bits
             this.bufBits = (byte)(this.bufBits | (bits << this.bufLen));
-            this.bufLen += numCopy;
+            this.bufLen += (byte)numCopy;
             bits >>>= numCopy;
             len -= numCopy;
 

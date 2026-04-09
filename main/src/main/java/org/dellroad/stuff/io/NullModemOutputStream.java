@@ -55,7 +55,7 @@ public class NullModemOutputStream extends FilterOutputStream {
 
     private final AtomicReference<Throwable> error = new AtomicReference<>();
 
-    private boolean synchronousClose;
+    private volatile boolean synchronousClose;
     private boolean readerFinished;
 
 // Constructors
@@ -86,6 +86,7 @@ public class NullModemOutputStream extends FilterOutputStream {
      * @param executor executes reading process in the background
      * @throws IllegalArgumentException if any parameter is null
      */
+    @SuppressWarnings("this-escape")
     public NullModemOutputStream(ReadCallback reader, Executor executor) {
         super(new PipedStreams().getOutputStream());
 

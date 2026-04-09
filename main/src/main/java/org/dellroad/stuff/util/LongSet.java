@@ -59,6 +59,7 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
      * @throws IllegalArgumentException if any value in {@code values} is null
      * @throws IllegalArgumentException if any value in {@code values} is zero
      */
+    @SuppressWarnings("this-escape")
     public LongSet(Iterable<? extends Number> values) {
         this(0);
         if (values == null)
@@ -77,6 +78,7 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
      * @throws IllegalArgumentException if {@code values} is null
      * @throws NullPointerException if any value in {@code values} is zero
      */
+    @SuppressWarnings("this-escape")
     public LongSet(long[] values) {
         this(0);
         if (values == null)
@@ -91,7 +93,7 @@ public class LongSet extends AbstractSet<Long> implements Cloneable, Serializabl
     }
 
     /**
-     * Remove a single, arbitrary {@link long} value from this instance and return it.
+     * Remove a single, arbitrary {@code long} value from this instance and return it.
      *
      * @return the removed value, or zero if this instance is empty
      */

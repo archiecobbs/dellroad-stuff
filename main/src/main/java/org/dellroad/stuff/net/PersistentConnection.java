@@ -52,8 +52,8 @@ public abstract class PersistentConnection<C> {
 
     protected final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private long minRestartDelay = DEFAULT_MIN_RESTART_DELAY;
-    private long maxRestartDelay = DEFAULT_MAX_RESTART_DELAY;
+    private volatile long minRestartDelay = DEFAULT_MIN_RESTART_DELAY;
+    private volatile long maxRestartDelay = DEFAULT_MAX_RESTART_DELAY;
 
     private volatile ClientThread thread;
 

@@ -56,6 +56,7 @@ public class FieldBuilderGenerator {
     private final HashSet<Method> warnedAboutDefault = new HashSet<>();
     private final HashSet<Method> warnedAboutWrongType = new HashSet<>();
 
+    @SuppressWarnings("this-escape")
     private Logger log = this.getDefaultLogger();
     private Function<? super Class<?>, String> annotationNameFunction;
     private BiFunction<? super Class<?>, ? super Method, String> methodPropertyNameFunction;

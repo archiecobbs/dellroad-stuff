@@ -53,6 +53,7 @@ public class IdleTimeoutInputStream extends InputStream implements AsyncInputStr
      * @param timeout maximum input idle time in milliseconds, or zero for infinity
      * @throws IllegalArgumentException if {@code timeout} is negative
      */
+    @SuppressWarnings("this-escape")
     public IdleTimeoutInputStream(InputStream in, String threadName, long timeout) {
         if (timeout < 0)
             throw new IllegalArgumentException("timeout < 0");
