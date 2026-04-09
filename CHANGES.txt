@@ -1,4 +1,8 @@
-Version 3.1.0
+Version 3.1.1
+
+    - Update Vaadin 24 to release 24.9.14.
+
+Version 3.1.0 Released September 18, 2025
 
     - Add method MemoryClassLoader.linkClass().
     - Update to dellroad-dependencies 3.4.5.3.
