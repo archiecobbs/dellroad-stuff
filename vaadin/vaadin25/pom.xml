@@ -24,7 +24,7 @@
     <properties>
         <java.version>21</java.version>
         <auto.module.name>org.dellroad.stuff.vaadin25</auto.module.name>
-        <vaadin.version>25.1.1</vaadin.version><!-- keep synchronized with ../../pom.xml -->
+        <vaadin.version>25.2.0-alpha8</vaadin.version><!-- keep synchronized with ../../pom.xml -->
 
         <!-- Specify newer versions of stuff -->
         <guava.version>33.5.0-jre</guava.version>
@@ -124,6 +124,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
+                    <doclint>-reference,-missing</doclint>
                     <offlineLinks>
                         <offlineLink><!-- https://github.com/vaadin/vaadin.com/issues/100 -->
                             <url>https://vaadin.com/api/platform/${vaadin.version}</url>
@@ -293,17 +294,17 @@
                     <dependency>
                         <groupId>dev.langchain4j</groupId>
                         <artifactId>langchain4j</artifactId>
-                        <version>1.12.2</version>
+                        <version>1.14.1</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework.data</groupId>
                         <artifactId>spring-data-commons</artifactId>
-                        <version>4.0.3</version>
+                        <version>4.0.5</version>
                     </dependency>
                     <dependency>
                         <groupId>org.springframework.ai</groupId>
                         <artifactId>spring-ai-model</artifactId>
-                        <version>2.0.0-M2</version>
+                        <version>2.0.0-M5</version>
                     </dependency>
                 </dependencies>
             </plugin>

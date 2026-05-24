@@ -25,4 +25,14 @@
             <url>file://${project.basedir}/../site/${project.artifactId}/</url>
         </site>
     </distributionManagement>
+
+    <!-- Additional repos -->
+    <repositories>
+
+        <!-- Vaadin pre-release -->
+        <repository>
+            <id>vaadin-prereleases</id>
+            <url>https://maven.vaadin.com/vaadin-prereleases/</url>
+        </repository>
+    </repositories>
 </project>

@@ -304,8 +304,10 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     @MultiSelectListBox
     @RadioButtonGroup
     @Select
-    @RangeSlider
-    @Slider
+    @DecimalRangeSlider
+    @DecimalSlider
+    @IntegerRangeSlider
+    @IntegerSlider
     @BigDecimalField
     @EmailField
     @IntegerField
@@ -329,8 +331,10 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
             MultiSelectListBox.class,
             RadioButtonGroup.class,
             Select.class,
-            RangeSlider.class,
-            Slider.class,
+            DecimalRangeSlider.class,
+            DecimalSlider.class,
+            IntegerRangeSlider.class,
+            IntegerSlider.class,
             BigDecimalField.class,
             EmailField.class,
             IntegerField.class,
@@ -1063,6 +1067,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         int filterTimeout() default 500;
 
         /**
+         * Get the value desired for the {@code focusSelectedItem} property.
+         *
+         * @return desired {@code focusSelectedItem} property value
+         * @see com.vaadin.flow.component.combobox.ComboBox#setFocusSelectedItem(boolean)
+         */
+        boolean focusSelectedItem() default false;
+
+        /**
          * Get the value desired for the {@code height} property.
          *
          * @return desired {@code height} property value
@@ -1444,6 +1456,14 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.shared.HasClearButton#setClearButtonVisible(boolean)
          */
         boolean clearButtonVisible() default false;
+
+        /**
+         * Get the value desired for the {@code collapseChips} property.
+         *
+         * @return desired {@code collapseChips} property value
+         * @see com.vaadin.flow.component.combobox.MultiSelectComboBox#setCollapseChips(boolean)
+         */
+        boolean collapseChips() default false;
 
         /**
          * Get the value desired for the {@code enabled} property.
@@ -4183,18 +4203,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.slider.RangeSlider}.
+     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.slider.DecimalRangeSlider}.
      *
      * @see FieldBuilder
-     * @see com.vaadin.flow.component.slider.RangeSlider
+     * @see com.vaadin.flow.component.slider.DecimalRangeSlider
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     @Documented
-    public @interface RangeSlider {
+    public @interface DecimalRangeSlider {
 
         /**
-         * Get the sub-type of {@link com.vaadin.flow.component.slider.RangeSlider} that will edit the property.
+         * Get the sub-type of {@link com.vaadin.flow.component.slider.DecimalRangeSlider} that will edit the property.
          *
          * <p>
          * This property allows custom widget subclasses to be used.
@@ -4206,7 +4226,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @return field type
          */
         @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.slider.RangeSlider> implementation() default com.vaadin.flow.component.slider.RangeSlider.class;
+        Class<? extends com.vaadin.flow.component.slider.DecimalRangeSlider> implementation() default com.vaadin.flow.component.slider.DecimalRangeSlider.class;
 
         /**
          * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
@@ -4219,22 +4239,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
-
-        /**
-         * Get the value desired for the {@code accessibleNameEnd} property.
-         *
-         * @return desired {@code accessibleNameEnd} property value
-         * @see com.vaadin.flow.component.slider.RangeSlider#setAccessibleNameEnd(String)
-         */
-        String accessibleNameEnd() default "";
-
-        /**
-         * Get the value desired for the {@code accessibleNameStart} property.
-         *
-         * @return desired {@code accessibleNameStart} property value
-         * @see com.vaadin.flow.component.slider.RangeSlider#setAccessibleNameStart(String)
-         */
-        String accessibleNameStart() default "";
 
         /**
          * Add the specified class names.
@@ -4310,14 +4314,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean manualValidation() default false;
 
         /**
-         * Get the value desired for the {@code max} property.
-         *
-         * @return desired {@code max} property value
-         * @see com.vaadin.flow.component.slider.RangeSlider#setMax(double)
-         */
-        double max() default 100.0;
-
-        /**
          * Get the value desired for the {@code maxHeight} property.
          *
          * @return desired {@code maxHeight} property value
@@ -4332,14 +4328,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
          */
         String maxWidth() default "";
-
-        /**
-         * Get the value desired for the {@code min} property.
-         *
-         * @return desired {@code min} property value
-         * @see com.vaadin.flow.component.slider.RangeSlider#setMin(double)
-         */
-        double min() default 0.0;
 
         /**
          * Get the value desired for the {@code minHeight} property.
@@ -4372,14 +4360,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
          */
         boolean requiredIndicatorVisible() default false;
-
-        /**
-         * Get the value desired for the {@code step} property.
-         *
-         * @return desired {@code step} property value
-         * @see com.vaadin.flow.component.slider.RangeSlider#setStep(double)
-         */
-        double step() default 1.0;
 
         /**
          * Get the value desired for the {@code tabIndex} property.
@@ -4431,18 +4411,18 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
     }
 
     /**
-     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.slider.Slider}.
+     * Specifies how a Java bean property should be edited using a {@link com.vaadin.flow.component.slider.DecimalSlider}.
      *
      * @see FieldBuilder
-     * @see com.vaadin.flow.component.slider.Slider
+     * @see com.vaadin.flow.component.slider.DecimalSlider
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)
     @Documented
-    public @interface Slider {
+    public @interface DecimalSlider {
 
         /**
-         * Get the sub-type of {@link com.vaadin.flow.component.slider.Slider} that will edit the property.
+         * Get the sub-type of {@link com.vaadin.flow.component.slider.DecimalSlider} that will edit the property.
          *
          * <p>
          * This property allows custom widget subclasses to be used.
@@ -4454,7 +4434,7 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @return field type
          */
         @SuppressWarnings("rawtypes")
-        Class<? extends com.vaadin.flow.component.slider.Slider> implementation() default com.vaadin.flow.component.slider.Slider.class;
+        Class<? extends com.vaadin.flow.component.slider.DecimalSlider> implementation() default com.vaadin.flow.component.slider.DecimalSlider.class;
 
         /**
          * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
@@ -4467,22 +4447,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasStyle
          */
         String[] styleProperties() default {};
-
-        /**
-         * Get the value desired for the {@code ariaLabel} property.
-         *
-         * @return desired {@code ariaLabel} property value
-         * @see com.vaadin.flow.component.slider.Slider#setAriaLabel(String)
-         */
-        String ariaLabel() default "";
-
-        /**
-         * Get the value desired for the {@code ariaLabelledBy} property.
-         *
-         * @return desired {@code ariaLabelledBy} property value
-         * @see com.vaadin.flow.component.slider.Slider#setAriaLabelledBy(String)
-         */
-        String ariaLabelledBy() default "";
 
         /**
          * Add the specified class names.
@@ -4558,14 +4522,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean manualValidation() default false;
 
         /**
-         * Get the value desired for the {@code max} property.
-         *
-         * @return desired {@code max} property value
-         * @see com.vaadin.flow.component.slider.Slider#setMax(double)
-         */
-        double max() default 100.0;
-
-        /**
          * Get the value desired for the {@code maxHeight} property.
          *
          * @return desired {@code maxHeight} property value
@@ -4580,14 +4536,6 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
          * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
          */
         String maxWidth() default "";
-
-        /**
-         * Get the value desired for the {@code min} property.
-         *
-         * @return desired {@code min} property value
-         * @see com.vaadin.flow.component.slider.Slider#setMin(double)
-         */
-        double min() default 0.0;
 
         /**
          * Get the value desired for the {@code minHeight} property.
@@ -4622,12 +4570,420 @@ public class FieldBuilder<T> extends AbstractGridFieldBuilder<FieldBuilder<T>, T
         boolean requiredIndicatorVisible() default false;
 
         /**
-         * Get the value desired for the {@code step} property.
+         * Get the value desired for the {@code tabIndex} property.
          *
-         * @return desired {@code step} property value
-         * @see com.vaadin.flow.component.slider.Slider#setStep(double)
+         * @return desired {@code tabIndex} property value
+         * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
          */
-        double step() default 1.0;
+        int tabIndex() default 0;
+
+        /**
+         * Get the value desired for the {@code testId} property.
+         *
+         * @return desired {@code testId} property value
+         * @see com.vaadin.flow.component.Component#setTestId(String)
+         */
+        String testId() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipMarkdown} property.
+         *
+         * @return desired {@code tooltipMarkdown} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipMarkdown(String)
+         */
+        String tooltipMarkdown() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
+         * Get the value desired for the {@code visible} property.
+         *
+         * @return desired {@code visible} property value
+         * @see com.vaadin.flow.component.Component#setVisible(boolean)
+         */
+        boolean visible() default true;
+
+        /**
+         * Get the value desired for the {@code width} property.
+         *
+         * @return desired {@code width} property value
+         * @see com.vaadin.flow.component.HasSize#setWidth(String)
+         */
+        String width() default "";
+    }
+
+    /**
+     * Specifies how a Java bean property should be edited using an {@link com.vaadin.flow.component.slider.IntegerRangeSlider}.
+     *
+     * @see FieldBuilder
+     * @see com.vaadin.flow.component.slider.IntegerRangeSlider
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface IntegerRangeSlider {
+
+        /**
+         * Get the sub-type of {@link com.vaadin.flow.component.slider.IntegerRangeSlider} that will edit the property.
+         *
+         * <p>
+         * This property allows custom widget subclasses to be used.
+         *
+         * <p>
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code FieldBuilderContext}.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.slider.IntegerRangeSlider> implementation() default com.vaadin.flow.component.slider.IntegerRangeSlider.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
+         * Add the specified class names.
+         *
+         * @return zero or more class names to add
+         * @see com.vaadin.flow.component.HasStyle#addClassNames(String[])
+         */
+        String[] addClassNames() default {};
+
+        /**
+         * Get the value desired for the {@code enabled} property.
+         *
+         * @return desired {@code enabled} property value
+         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
+         */
+        boolean enabled() default true;
+
+        /**
+         * Get the value desired for the {@code errorMessage} property.
+         *
+         * @return desired {@code errorMessage} property value
+         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         */
+        String errorMessage() default "";
+
+        /**
+         * Get the value desired for the {@code height} property.
+         *
+         * @return desired {@code height} property value
+         * @see com.vaadin.flow.component.HasSize#setHeight(String)
+         */
+        String height() default "";
+
+        /**
+         * Get the class to instantiate for the {@code helperComponent} property.
+         *
+         * @return desired {@code helperComponent} property value type
+         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code helperText} property.
+         *
+         * @return desired {@code helperText} property value
+         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
+         */
+        String helperText() default "";
+
+        /**
+         * Get the value desired for the {@code id} property.
+         *
+         * @return desired {@code id} property value
+         * @see com.vaadin.flow.component.Component#setId(String)
+         */
+        String id() default "";
+
+        /**
+         * Get the value desired for the {@code label} property.
+         *
+         * @return desired {@code label} property value
+         * @see com.vaadin.flow.component.HasLabel#setLabel(String)
+         */
+        String label() default "";
+
+        /**
+         * Get the value desired for the {@code manualValidation} property.
+         *
+         * @return desired {@code manualValidation} property value
+         * @see com.vaadin.flow.component.HasValidation#setManualValidation(boolean)
+         */
+        boolean manualValidation() default false;
+
+        /**
+         * Get the value desired for the {@code maxHeight} property.
+         *
+         * @return desired {@code maxHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
+         */
+        String maxHeight() default "";
+
+        /**
+         * Get the value desired for the {@code maxWidth} property.
+         *
+         * @return desired {@code maxWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
+         */
+        String maxWidth() default "";
+
+        /**
+         * Get the value desired for the {@code minHeight} property.
+         *
+         * @return desired {@code minHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
+         */
+        String minHeight() default "";
+
+        /**
+         * Get the value desired for the {@code minWidth} property.
+         *
+         * @return desired {@code minWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
+         */
+        String minWidth() default "";
+
+        /**
+         * Get the value desired for the {@code readOnly} property.
+         *
+         * @return desired {@code readOnly} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
+         */
+        boolean readOnly() default false;
+
+        /**
+         * Get the value desired for the {@code requiredIndicatorVisible} property.
+         *
+         * @return desired {@code requiredIndicatorVisible} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         */
+        boolean requiredIndicatorVisible() default false;
+
+        /**
+         * Get the value desired for the {@code tabIndex} property.
+         *
+         * @return desired {@code tabIndex} property value
+         * @see com.vaadin.flow.component.Focusable#setTabIndex(int)
+         */
+        int tabIndex() default 0;
+
+        /**
+         * Get the value desired for the {@code testId} property.
+         *
+         * @return desired {@code testId} property value
+         * @see com.vaadin.flow.component.Component#setTestId(String)
+         */
+        String testId() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipMarkdown} property.
+         *
+         * @return desired {@code tooltipMarkdown} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipMarkdown(String)
+         */
+        String tooltipMarkdown() default "";
+
+        /**
+         * Get the value desired for the {@code tooltipText} property.
+         *
+         * @return desired {@code tooltipText} property value
+         * @see com.vaadin.flow.component.shared.HasTooltip#setTooltipText(String)
+         */
+        String tooltipText() default "";
+
+        /**
+         * Get the value desired for the {@code visible} property.
+         *
+         * @return desired {@code visible} property value
+         * @see com.vaadin.flow.component.Component#setVisible(boolean)
+         */
+        boolean visible() default true;
+
+        /**
+         * Get the value desired for the {@code width} property.
+         *
+         * @return desired {@code width} property value
+         * @see com.vaadin.flow.component.HasSize#setWidth(String)
+         */
+        String width() default "";
+    }
+
+    /**
+     * Specifies how a Java bean property should be edited using an {@link com.vaadin.flow.component.slider.IntegerSlider}.
+     *
+     * @see FieldBuilder
+     * @see com.vaadin.flow.component.slider.IntegerSlider
+     */
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.METHOD)
+    @Documented
+    public @interface IntegerSlider {
+
+        /**
+         * Get the sub-type of {@link com.vaadin.flow.component.slider.IntegerSlider} that will edit the property.
+         *
+         * <p>
+         * This property allows custom widget subclasses to be used.
+         *
+         * <p>
+         * The specified type must have a public constructor that takes either no arguments,
+         * or one {@code FieldBuilderContext}.
+         *
+         * @return field type
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.slider.IntegerSlider> implementation() default com.vaadin.flow.component.slider.IntegerSlider.class;
+
+        /**
+         * Specify CSS properties to be set via {@link com.vaadin.flow.dom.Style#set Style.set()}.
+         *
+         * <p>
+         * The array value consists of name, value pairs. If the array has odd length, the last element is ignored.
+         *
+         * @return zero or more style property name, value pairs
+         * @see com.vaadin.flow.dom.Style
+         * @see com.vaadin.flow.component.HasStyle
+         */
+        String[] styleProperties() default {};
+
+        /**
+         * Add the specified class names.
+         *
+         * @return zero or more class names to add
+         * @see com.vaadin.flow.component.HasStyle#addClassNames(String[])
+         */
+        String[] addClassNames() default {};
+
+        /**
+         * Get the value desired for the {@code enabled} property.
+         *
+         * @return desired {@code enabled} property value
+         * @see com.vaadin.flow.component.HasEnabled#setEnabled(boolean)
+         */
+        boolean enabled() default true;
+
+        /**
+         * Get the value desired for the {@code errorMessage} property.
+         *
+         * @return desired {@code errorMessage} property value
+         * @see com.vaadin.flow.component.shared.HasValidationProperties#setErrorMessage(String)
+         */
+        String errorMessage() default "";
+
+        /**
+         * Get the value desired for the {@code height} property.
+         *
+         * @return desired {@code height} property value
+         * @see com.vaadin.flow.component.HasSize#setHeight(String)
+         */
+        String height() default "";
+
+        /**
+         * Get the class to instantiate for the {@code helperComponent} property.
+         *
+         * @return desired {@code helperComponent} property value type
+         * @see com.vaadin.flow.component.HasHelper#setHelperComponent(com.vaadin.flow.component.Component)
+         */
+        @SuppressWarnings("rawtypes")
+        Class<? extends com.vaadin.flow.component.Component> helperComponent() default com.vaadin.flow.component.Component.class;
+
+        /**
+         * Get the value desired for the {@code helperText} property.
+         *
+         * @return desired {@code helperText} property value
+         * @see com.vaadin.flow.component.HasHelper#setHelperText(String)
+         */
+        String helperText() default "";
+
+        /**
+         * Get the value desired for the {@code id} property.
+         *
+         * @return desired {@code id} property value
+         * @see com.vaadin.flow.component.Component#setId(String)
+         */
+        String id() default "";
+
+        /**
+         * Get the value desired for the {@code label} property.
+         *
+         * @return desired {@code label} property value
+         * @see com.vaadin.flow.component.HasLabel#setLabel(String)
+         */
+        String label() default "";
+
+        /**
+         * Get the value desired for the {@code manualValidation} property.
+         *
+         * @return desired {@code manualValidation} property value
+         * @see com.vaadin.flow.component.HasValidation#setManualValidation(boolean)
+         */
+        boolean manualValidation() default false;
+
+        /**
+         * Get the value desired for the {@code maxHeight} property.
+         *
+         * @return desired {@code maxHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxHeight(String)
+         */
+        String maxHeight() default "";
+
+        /**
+         * Get the value desired for the {@code maxWidth} property.
+         *
+         * @return desired {@code maxWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMaxWidth(String)
+         */
+        String maxWidth() default "";
+
+        /**
+         * Get the value desired for the {@code minHeight} property.
+         *
+         * @return desired {@code minHeight} property value
+         * @see com.vaadin.flow.component.HasSize#setMinHeight(String)
+         */
+        String minHeight() default "";
+
+        /**
+         * Get the value desired for the {@code minWidth} property.
+         *
+         * @return desired {@code minWidth} property value
+         * @see com.vaadin.flow.component.HasSize#setMinWidth(String)
+         */
+        String minWidth() default "";
+
+        /**
+         * Get the value desired for the {@code readOnly} property.
+         *
+         * @return desired {@code readOnly} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setReadOnly(boolean)
+         */
+        boolean readOnly() default false;
+
+        /**
+         * Get the value desired for the {@code requiredIndicatorVisible} property.
+         *
+         * @return desired {@code requiredIndicatorVisible} property value
+         * @see com.vaadin.flow.component.HasValueAndElement#setRequiredIndicatorVisible(boolean)
+         */
+        boolean requiredIndicatorVisible() default false;
 
         /**
          * Get the value desired for the {@code tabIndex} property.
