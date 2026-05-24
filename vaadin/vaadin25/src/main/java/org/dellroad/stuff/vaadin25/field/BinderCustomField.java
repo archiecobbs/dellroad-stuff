@@ -257,7 +257,7 @@ public abstract class BinderCustomField<T> extends CustomField<T>
 // HasEnabled
 
     /**
-     * {@inheritDoc}
+     * Set whether this component is enabled.
      *
      * <p>
      * The implementation in {@code BinderCustomField} delegates to the superclass and then removes
