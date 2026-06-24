@@ -24,7 +24,7 @@
     <properties>
         <java.version>21</java.version>
         <auto.module.name>org.dellroad.stuff.vaadin25</auto.module.name>
-        <vaadin.version>25.2.0-beta1</vaadin.version><!-- keep synchronized with ../../pom.xml -->
+        <vaadin.version>25.2.0</vaadin.version><!-- keep synchronized with ../../pom.xml -->
 
         <!-- Specify newer versions of stuff -->
         <guava.version>33.5.0-jre</guava.version>
@@ -269,6 +269,9 @@
                                 </excludeMethod>
                                 <excludeMethod>
                                     <method>public void com.vaadin.flow.component.datetimepicker.DateTimePicker.setThemeName(java.lang.String)</method>
+                                </excludeMethod>
+                                <excludeMethod>
+                                    <method>public default void com.vaadin.flow.component.HasAriaLabel.setAriaLabelledBy(com.vaadin.flow.component.Component)</method>
                                 </excludeMethod>
                                 <excludeMethod>
                                     <methodPattern>.*\.setInvalid\(boolean\)</methodPattern>
