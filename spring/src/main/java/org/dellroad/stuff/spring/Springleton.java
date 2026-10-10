@@ -36,7 +36,7 @@ public class Springleton extends ApplicationObjectSupport {
     public Springleton() {
         synchronized (Springleton.class) {
             if (Springleton.instance != null)
-                throw new IllegalStateException("singleton already instantiated");
+                throw new IllegalStateException("the Springleton instance has already been instantiated");
             Springleton.instance = this;
         }
     }
@@ -52,7 +52,7 @@ public class Springleton extends ApplicationObjectSupport {
     public static Springleton getInstance() {
         synchronized (Springleton.class) {
             if (Springleton.instance == null)
-                throw new IllegalStateException("no instance has been created yet");
+                throw new IllegalStateException("no Springleton instance has been created yet");
             return Springleton.instance;
         }
     }
