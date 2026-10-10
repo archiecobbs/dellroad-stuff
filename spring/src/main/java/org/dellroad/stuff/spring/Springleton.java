@@ -38,6 +38,8 @@ public class Springleton extends ApplicationObjectSupport {
             if (Springleton.instance != null)
                 throw new IllegalStateException("the Springleton instance has already been instantiated");
             Springleton.instance = this;
+            this.logger.debug(String.format("created %s singleton instance in class loader %s",
+              this.getClass().getName(), this.getClass().getClassLoader()));
         }
     }
 
