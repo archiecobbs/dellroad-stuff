@@ -1,8 +1,10 @@
+org.dellroad.dellroad_stuff_maven_plugin
 org.dellroad.stuff.graph
 org.dellroad.stuff.io
 org.dellroad.stuff.java
 org.dellroad.stuff.jibx
 org.dellroad.stuff.main
+org.dellroad.stuff.maven
 org.dellroad.stuff.net
 org.dellroad.stuff.pobj
 org.dellroad.stuff.schema
@@ -12,10 +14,16 @@ org.dellroad.stuff.string
 org.dellroad.stuff.test
 org.dellroad.stuff.text
 org.dellroad.stuff.util
+org.dellroad.stuff.vaadin.fieldbuilder
 org.dellroad.stuff.vaadin24.audio
 org.dellroad.stuff.vaadin24.data
 org.dellroad.stuff.vaadin24.field
 org.dellroad.stuff.vaadin24.grid
 org.dellroad.stuff.vaadin24.util
+org.dellroad.stuff.vaadin25.audio
+org.dellroad.stuff.vaadin25.data
+org.dellroad.stuff.vaadin25.field
+org.dellroad.stuff.vaadin25.grid
+org.dellroad.stuff.vaadin25.util
 org.dellroad.stuff.validation
 org.dellroad.stuff.xml
